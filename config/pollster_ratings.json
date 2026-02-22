@@ -1,0 +1,30 @@
+{
+  "_meta": {
+    "description": "Pollster quality ratings (0-3 scale). Sourced from Silver Bulletin public ratings and historical accuracy. Higher = more accurate.",
+    "last_updated": "2026-02-22",
+    "scale": "0.0 (banned/unreliable) to 3.0 (gold standard)"
+  },
+  "ratings": {
+    "Marist College": 2.9,
+    "Monmouth University": 2.8,
+    "ABC News/Ipsos": 2.7,
+    "Marquette Law School": 2.8,
+    "Siena College/NYT": 2.9,
+    "Fox News": 2.6,
+    "CNN/SSRS": 2.5,
+    "Quinnipiac University": 2.5,
+    "Emerson College": 2.3,
+    "Morning Consult": 2.2,
+    "YouGov": 2.3,
+    "Rasmussen Reports": 1.5,
+    "Trafalgar Group": 1.3,
+    "SurveyUSA": 2.4,
+    "PPP (Public Policy Polling)": 2.0,
+    "Gallup": 2.6,
+    "Pew Research Center": 2.8,
+    "Suffolk University": 2.4,
+    "NBC News/Hart Research": 2.6,
+    "CBS News/YouGov": 2.4,
+    "Reuters/Ipsos": 2.5
+  }
+}
