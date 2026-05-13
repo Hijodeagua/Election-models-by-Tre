@@ -21,6 +21,7 @@ class Settings(BaseSettings):
     votehub_base_url: str = "https://votehub.com/polls/api"
     fiftyplusone_api_key: str = ""
     congress_gov_api_key: str = ""
+    nyt_api_key: str = ""
 
     # ── Database ──────────────────────────────────────────────────────
     database_url: str = Field(

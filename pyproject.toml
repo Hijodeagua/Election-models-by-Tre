@@ -45,6 +45,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+ml = [
+    "transformers>=4.36",
+    "torch>=2.1",
+]
 bayesian = [
     "pymc>=5.10",
     "arviz>=0.17",
