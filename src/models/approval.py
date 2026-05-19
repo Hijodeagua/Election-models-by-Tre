@@ -10,7 +10,10 @@ from dataclasses import dataclass
 from datetime import date, timedelta
 
 from src.data.base import Poll, PollType
+from src.models import ModelMaturity
 from src.models.polling_average import AverageResult, PollingAverageEngine
+
+MIN_POLLS_FOR_ESTIMATE = 3  # publish "no estimate" below this threshold
 
 
 @dataclass
@@ -27,14 +30,23 @@ class ApprovalSnapshot:
 
 
 class PresidentialApprovalModel:
-    """Presidential approval tracker using weighted polling averages."""
+    """Presidential approval tracker using weighted polling averages.
+
+    Maturity: TRACKER — reports current polling average only.
+    Not yet a forward-looking forecast.
+    """
+
+    maturity = ModelMaturity.TRACKER
 
     def __init__(self, engine: PollingAverageEngine | None = None) -> None:
         self.engine = engine or PollingAverageEngine()
 
-    def current_approval(self, polls: list[Poll]) -> ApprovalSnapshot:
+    def current_approval(self, polls: list[Poll]) -> ApprovalSnapshot | None:
+        """Return current approval average, or None if too few polls."""
         """Compute the current approval average from recent polls."""
         approval_polls = [p for p in polls if p.poll_type == PollType.APPROVAL]
+        if len(approval_polls) < MIN_POLLS_FOR_ESTIMATE:
+            return None
         result = self.engine.compute_average(
             approval_polls,
             choices=["Approve", "Disapprove"],
