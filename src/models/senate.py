@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from datetime import date
 
 from src.data.base import Poll, PollType
+from src.models import ModelMaturity
 from src.models.polling_average import AverageResult, PollingAverageEngine
 
 
@@ -22,7 +23,12 @@ class SenateRaceSnapshot:
 
 
 class SenateModel:
-    """Track and aggregate Senate race polling."""
+    """Track and aggregate Senate race polling.
+
+    Maturity: TRACKER — per-race polling averages only; no win probabilities yet.
+    """
+
+    maturity = ModelMaturity.TRACKER
 
     def __init__(self, engine: PollingAverageEngine | None = None) -> None:
         self.engine = engine or PollingAverageEngine()
