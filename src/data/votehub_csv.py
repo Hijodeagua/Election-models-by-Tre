@@ -203,6 +203,7 @@ class VoteHubCsvLoader:
             seen_ids.add(poll_id)
 
             subject = _default_subject(self.poll_type)
+            grade = row.get("Grade", "").strip()
 
             polls.append(Poll(
                 poll_id=poll_id,
@@ -217,6 +218,7 @@ class VoteHubCsvLoader:
                 answers=answers,
                 sponsors=sponsors,
                 partisan=False,
+                raw={"grade": grade},
             ))
 
         return polls
