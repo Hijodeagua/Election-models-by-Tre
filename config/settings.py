@@ -23,6 +23,9 @@ class Settings(BaseSettings):
     congress_gov_api_key: str = ""
     nyt_api_key: str = ""
 
+    # ── Publishing ────────────────────────────────────────────────────
+    datawrapper_api_token: str = ""
+
     # ── Database ──────────────────────────────────────────────────────
     database_url: str = Field(
         default=f"sqlite:///{PROJECT_ROOT / 'data' / 'election_oracle.db'}"
