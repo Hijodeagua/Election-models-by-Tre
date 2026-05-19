@@ -25,6 +25,8 @@ class Settings(BaseSettings):
 
     # ── Publishing ────────────────────────────────────────────────────
     datawrapper_api_token: str = ""
+    substack_url: str = "https://policyypeaches.substack.com"
+    substack_name: str = "Policy & Peaches"
 
     # ── Database ──────────────────────────────────────────────────────
     database_url: str = Field(

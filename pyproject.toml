@@ -49,6 +49,10 @@ ml = [
     "transformers>=4.36",
     "torch>=2.1",
 ]
+train = [
+    "optuna>=3.5",
+    "mlflow>=2.10",
+]
 bayesian = [
     "pymc>=5.10",
     "arviz>=0.17",
@@ -63,10 +67,14 @@ dev = [
     "pre-commit>=3.6",
     "jupyter>=1.0",
     "ipykernel>=6.27",
+    "optuna>=3.5",
+    "mlflow>=2.10",
 ]
 
 [project.scripts]
 refresh-data = "scripts.refresh_data:main"
+download-training-data = "scripts.download_training_data:main"
+train-parameters = "scripts.train_parameters:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import json
 import math
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
 from typing import Any
@@ -23,6 +23,45 @@ import numpy as np
 
 from config.settings import Settings, settings
 from src.data.base import Poll, Population
+
+
+@dataclass
+class PollingAverageParams:
+    """Standalone parameter set for the polling average engine.
+
+    Used by the Optuna optimizer so it can pass arbitrary parameter
+    combinations without constructing a full Settings object.
+    Loaded from config/trained_params.json after optimization runs.
+    """
+
+    recency_half_life_days: float = 14.0
+    min_sample_size: int = 100
+    lv_weight_multiplier: float = 1.5
+    rv_weight_multiplier: float = 1.0
+    adults_weight_multiplier: float = 0.6
+    partisan_bias_penalty: float = 0.5
+    sample_size_exponent: float = 0.5       # sqrt by default
+    pollster_quality_exponent: float = 1.0  # linear by default
+
+    @classmethod
+    def from_settings(cls, s: Settings) -> PollingAverageParams:
+        return cls(
+            recency_half_life_days=s.recency_half_life_days,
+            min_sample_size=s.min_sample_size,
+            lv_weight_multiplier=s.lv_weight_multiplier,
+            rv_weight_multiplier=s.rv_weight_multiplier,
+            adults_weight_multiplier=s.adults_weight_multiplier,
+            partisan_bias_penalty=s.partisan_bias_penalty,
+        )
+
+    @classmethod
+    def load_trained(cls) -> PollingAverageParams:
+        """Load best params from config/trained_params.json if available."""
+        path = Path(__file__).resolve().parent.parent.parent / "config" / "trained_params.json"
+        if path.exists():
+            data = json.loads(path.read_text())
+            return cls(**data.get("params", {}))
+        return cls()
 
 
 @dataclass
@@ -53,9 +92,17 @@ class PollingAverageEngine:
     def __init__(
         self,
         config: Settings | None = None,
+        params: PollingAverageParams | None = None,
         pollster_ratings: dict[str, float] | None = None,
     ) -> None:
-        self.config = config or settings
+        # params takes priority over config — used by the Optuna optimizer
+        if params is not None:
+            self.params = params
+        elif config is not None:
+            self.params = PollingAverageParams.from_settings(config)
+        else:
+            # Try trained params first, fall back to defaults
+            self.params = PollingAverageParams.load_trained()
         self.pollster_ratings = pollster_ratings or self._load_pollster_ratings()
 
     @staticmethod
@@ -162,36 +209,35 @@ class PollingAverageEngine:
 
     def _compute_weight(self, poll: Poll, as_of: date) -> float:
         """Combine all weighting factors into a single poll weight."""
+        p = self.params
         w = 1.0
 
         # 1. Recency — exponential decay
-        age_days = (as_of - poll.midpoint_date).days
-        if age_days < 0:
-            age_days = 0  # future-dated poll (rare)
-        half_life = self.config.recency_half_life_days
-        w *= math.exp(-math.log(2) * age_days / half_life)
+        age_days = max(0, (as_of - poll.midpoint_date).days)
+        w *= math.exp(-math.log(2) * age_days / p.recency_half_life_days)
 
-        # 2. Pollster quality rating (0–3 scale, default 1.5 for unknown)
+        # 2. Pollster quality (0–3 scale, default 1.5 for unknown)
+        # Exponent is trainable: >1 amplifies quality differences, <1 flattens them
         rating = self.pollster_ratings.get(poll.pollster, 1.5)
-        w *= rating / 3.0  # normalize to 0–1 range
+        w *= (rating / 3.0) ** p.pollster_quality_exponent
 
-        # 3. Sample size (sqrt scaling, capped)
-        if poll.sample_size and poll.sample_size >= self.config.min_sample_size:
-            w *= math.sqrt(poll.sample_size / 1000)
-        elif poll.sample_size and poll.sample_size < self.config.min_sample_size:
-            w *= 0.5  # penalty for tiny samples
+        # 3. Sample size — trainable exponent (default 0.5 = sqrt)
+        if poll.sample_size and poll.sample_size >= p.min_sample_size:
+            w *= (poll.sample_size / 1000) ** p.sample_size_exponent
+        elif poll.sample_size and poll.sample_size < p.min_sample_size:
+            w *= 0.5
 
         # 4. Population screen
         if poll.population == Population.LIKELY_VOTERS:
-            w *= self.config.lv_weight_multiplier
+            w *= p.lv_weight_multiplier
         elif poll.population == Population.REGISTERED_VOTERS:
-            w *= self.config.rv_weight_multiplier
+            w *= p.rv_weight_multiplier
         elif poll.population == Population.ADULTS:
-            w *= self.config.adults_weight_multiplier
+            w *= p.adults_weight_multiplier
 
         # 5. Partisan penalty
         if poll.partisan:
-            w *= self.config.partisan_bias_penalty
+            w *= p.partisan_bias_penalty
 
         return w
 
