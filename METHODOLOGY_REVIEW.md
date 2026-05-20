@@ -238,7 +238,24 @@ modeling.
 |---|---|---|
 | 1 | ✅ Done | Population weight inversion; survivorship default; honest labels |
 | 2 | ✅ Done | Drop 50/30/20 blend; use direct SB PPM |
-| 3 | 🔲 Pending | Jackman state-space model (PyMC); house effects; sentiment slot |
+| 3 | ✅ Done | Jackman state-space model (PyMC); house effects; sentiment slot |
 | 4 | 🔲 Pending | Delete `bayesian.py`; SB as benchmark with divergence attribution |
 | 5 | 🔲 Pending | Calibration metrics: CRPS, interval score, PIT, coverage, Ljung-Box |
 | 6 | 🔲 Pending | Empirically tune σ_α via rolling-origin CRPS minimization |
+
+### Phase 3 verification results (May 2026)
+
+Fit on 683 approval polls (Jan 2025 – May 2026):
+- **Convergence**: R̂ < 1.01 on all parameters; 2 divergences / 4000 transitions (negligible)
+- **Runtime**: ~100 seconds (2 chains × 1000+1000 draws, single core)
+- **95% CI width**: 3.1pp at 2026-05-20 (within reasonable range for dense 683-poll window)
+- **Innovation SD**: σ_α = 0.232 pp/day
+- **House effects** (correct signs for known partisan firms):
+  - InsiderAdvantage: +6.6pp [+4.1, +8.4] — pro-Approve ✓
+  - American Research Group: −5.3pp [−6.4, −4.1] — pro-Disapprove ✓
+  - AP-NORC: −4.1pp [−5.3, −2.8] — pro-Disapprove ✓
+  - Quinnipiac: −4.0pp [−4.8, −3.1] — pro-Disapprove ✓
+  - Gallup: −3.7pp [−4.8, −2.5] — pro-Disapprove ✓
+- **State-space vs weighted average**: 39.5% vs 40.1% (−0.6pp); state-space lower because
+  it corrects for pro-Approve firms (InsiderAdvantage/HarrisX) that dominated recent window
+- **State-space vs Silver Bulletin**: 39.5% vs 38.4% (+1.1pp, within noise)

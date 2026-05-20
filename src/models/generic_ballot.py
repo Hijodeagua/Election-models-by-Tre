@@ -8,10 +8,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date
+from typing import TYPE_CHECKING
 
 from src.data.base import Poll, PollType
 from src.models import ModelMaturity
 from src.models.polling_average import AverageResult, PollingAverageEngine
+
+if TYPE_CHECKING:
+    from src.models.state_space import StateSpaceResult
 
 # Placeholder constants for the generic ballot → seat translation.
 # Derived from a rough OLS fit over midterm cycles 1998–2022.
@@ -70,6 +74,60 @@ class GenericBallotModel:
             choices=["Democrat", "Democratic", "Democrats", "Republican", "Republicans", "GOP"],
         )
         return self._result_to_snapshot(result)
+
+    def current_estimate_ss(
+        self,
+        polls: list[Poll],
+        as_of: date | None = None,
+        draws: int = 1000,
+        tune: int = 1000,
+    ) -> tuple[GenericBallotSnapshot, "StateSpaceResult"] | None:
+        """State-space estimate. Replaces current_ballot() once validated."""
+        from src.models import state_space
+
+        as_of = as_of or date.today()
+        gb_polls = [p for p in polls if p.poll_type == PollType.GENERIC_BALLOT]
+        if len(gb_polls) < MIN_POLLS_FOR_ESTIMATE:
+            return None
+
+        # Detect which Dem label dominates this dataset
+        from collections import Counter
+        choice_counter: Counter[str] = Counter()
+        for p in gb_polls:
+            for a in p.answers:
+                if a.choice.lower() in ("democrat", "democratic", "democrats"):
+                    choice_counter[a.choice] += 1
+        dem_choice = choice_counter.most_common(1)[0][0] if choice_counter else "Democrat"
+
+        result = state_space.fit(
+            gb_polls, choice=dem_choice, as_of=as_of,
+            draws=draws, tune=tune,
+        )
+        if result is None:
+            return None
+
+        dem_mean, dem_lo, dem_hi = result.estimate_at(as_of)
+
+        # Republican derived as complement; fitting separately would double runtime.
+        rep_mean = 100.0 - dem_mean
+        ci_rep = None
+
+        margin = round(dem_mean - rep_mean, 1)
+        est_dem = round(self.baseline_dem_seats + margin * self.seats_per_margin_point)
+        est_dem = max(150, min(285, est_dem))
+
+        snap = GenericBallotSnapshot(
+            as_of=as_of,
+            dem_pct=round(dem_mean, 1),
+            rep_pct=round(rep_mean, 1),
+            margin=margin,
+            num_polls=result.n_polls,
+            estimated_dem_seats=est_dem,
+            estimated_rep_seats=435 - est_dem,
+            ci_dem=(round(dem_lo, 1), round(dem_hi, 1)),
+            ci_rep=ci_rep,
+        )
+        return snap, result
 
     def _result_to_snapshot(self, result: AverageResult) -> GenericBallotSnapshot:
         # Normalize choice names — different pollsters use different labels

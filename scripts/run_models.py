@@ -1,22 +1,21 @@
 """Run all available models and print a formatted snapshot to stdout.
 
 Usage:
-    python scripts/run_models.py                 # live fetch from VoteHub
-    python scripts/run_models.py --offline       # disk cache only, no network
-    python scripts/run_models.py --source rcp    # use RCP scraper instead
-    python scripts/run_models.py --source csv    # force CSV fallback
+    python scripts/run_models.py                    # live fetch from VoteHub
+    python scripts/run_models.py --offline          # disk cache only, no network
+    python scripts/run_models.py --source rcp       # use RCP scraper instead
+    python scripts/run_models.py --source csv       # force CSV fallback
+    python scripts/run_models.py --state-space      # add Jackman state-space estimates
 
 Fallback chain (when not overridden by --source):
     1. VoteHub API (live or disk cache)
     2. VoteHub CSV export (disk)
-    3. Silver Bulletin daily model estimate (bypasses engine — used as Bayesian prior)
+    3. Silver Bulletin daily model estimate (polls + SB anchor — NOT a Bayesian update)
     4. Hand-curated CSVs in data/fallback/
 
-Pollster weighting: hybrid quality score combining RCP historical accuracy (50%),
-Silver Bulletin ratings (30%), and VoteHub grade from CSV (20%).
-
-Model: Bayesian shrinkage — at ~14 recent polls the prior (Silver Bulletin) contributes
-~30% and raw polls contribute ~70%. Prior fades naturally as poll count grows.
+Pollster weighting: direct Silver Bulletin PPM lookup (Phase 2), converted to 0–3 scale.
+State-space: Jackman hierarchical model with additive house effects (Phase 3, opt-in via
+    --state-space; adds ~5 min runtime).
 """
 
 from __future__ import annotations
@@ -128,6 +127,92 @@ def _print_generic_ballot(snap, label: str, alpha: float | None = None, beta: fl
     _provenance(label)
 
 
+def _print_ss_approval(
+    ss_snap,
+    ss_result,
+    weighted_snap,
+    sb_snap,
+    label: str,
+) -> None:
+    """Print state-space approval alongside weighted average and SB benchmark."""
+    from src.models.state_space import StateSpaceResult
+
+    _section(f"PRESIDENTIAL APPROVAL  ·  {ss_snap.as_of}  ·  N={ss_snap.num_polls}  [STATE-SPACE]")
+    print(f"  Approve     {ss_snap.approve:5.1f}%{_ci(ss_snap.ci_approve)}")
+    print(f"  Disapprove  {ss_snap.disapprove:5.1f}%{_ci(ss_snap.ci_disapprove)}")
+    sign = "+" if ss_snap.net_approval > 0 else ""
+    print(f"  Net         {sign}{ss_snap.net_approval:.1f}")
+    conv = "R̂ ok" if ss_result.convergence_ok else "CONVERGENCE WARNING"
+    print(f"  [Jackman state-space  ·  σ_α={ss_result.sigma_alpha_mean:.2f}pp  ·  {conv}]")
+
+    # Side-by-side comparison with weighted average
+    if weighted_snap:
+        w_approve = weighted_snap.approve
+        gap = round(ss_snap.approve - w_approve, 1)
+        sign_g = "+" if gap >= 0 else ""
+        print(f"\n  vs. weighted average:  {w_approve:.1f}%  (gap: {sign_g}{gap}pp)")
+
+    # Side-by-side vs SB
+    if sb_snap:
+        sb_approve = sb_snap.approve
+        gap_sb = round(ss_snap.approve - sb_approve, 1)
+        sign_sb = "+" if gap_sb >= 0 else ""
+        print(f"  vs. Silver Bulletin:   {sb_approve:.1f}%  (gap: {sign_sb}{gap_sb}pp)", end="")
+        if abs(gap_sb) > 1.0:
+            print("  ← methodology divergence")
+        else:
+            print("  (within noise)")
+
+    # House effects
+    fx = ss_result.house_effects_sorted(threshold=1.5)
+    if fx:
+        print(f"\n  HOUSE EFFECTS  ·  |δⱼ| > 1.5pp  ·  constraint: Σwⱼδⱼ = 0")
+        for name, mean, lo, hi in fx[:10]:
+            direction = "pro-Approve" if mean > 0 else "pro-Disapprove"
+            print(f"    {name:<32} {mean:+.1f}pp  [{lo:+.1f}, {hi:+.1f}]  {direction}")
+
+    _provenance(label)
+
+
+def _print_ss_generic_ballot(
+    ss_snap,
+    ss_result,
+    weighted_snap,
+    sb_snap,
+    label: str,
+) -> None:
+    """Print state-space generic ballot alongside weighted average and SB benchmark."""
+    _section(f"GENERIC BALLOT  ·  {ss_snap.as_of}  ·  N={ss_snap.num_polls}  [STATE-SPACE]")
+    print(f"  Democrat    {ss_snap.dem_pct:5.1f}%{_ci(ss_snap.ci_dem)}")
+    print(f"  Republican  {ss_snap.rep_pct:5.1f}%{_ci(ss_snap.ci_rep)}")
+    m = ss_snap.margin
+    leader = "D" if m >= 0 else "R"
+    print(f"  Margin      {leader}+{abs(m):.1f}")
+    if ss_snap.estimated_dem_seats is not None:
+        print(
+            f"  Est. seats  D {ss_snap.estimated_dem_seats} / R {ss_snap.estimated_rep_seats}"
+            "  [illustrative — not a probability]"
+        )
+    conv = "R̂ ok" if ss_result.convergence_ok else "CONVERGENCE WARNING"
+    print(f"  [Jackman state-space  ·  σ_α={ss_result.sigma_alpha_mean:.2f}pp  ·  {conv}]")
+
+    if weighted_snap:
+        gap = round(ss_snap.dem_pct - weighted_snap.dem_pct, 1)
+        sign_g = "+" if gap >= 0 else ""
+        print(f"\n  vs. weighted average:  D {weighted_snap.dem_pct:.1f}%  (gap: {sign_g}{gap}pp)")
+
+    if sb_snap:
+        gap_sb = round(ss_snap.dem_pct - sb_snap.dem_pct, 1)
+        sign_sb = "+" if gap_sb >= 0 else ""
+        print(f"  vs. Silver Bulletin:   D {sb_snap.dem_pct:.1f}%  (gap: {sign_sb}{gap_sb}pp)", end="")
+        if abs(gap_sb) > 1.0:
+            print("  ← methodology divergence")
+        else:
+            print("  (within noise)")
+
+    _provenance(label)
+
+
 def _print_senate(races: list, label: str) -> None:
     active = [r for r in races if r.num_polls > 0]
     if not active:
@@ -192,6 +277,10 @@ def main() -> None:
     parser.add_argument(
         "--source", choices=["votehub", "rcp", "csv"], default="votehub",
         help="Data source (default: votehub, with rcp→csv fallback chain).",
+    )
+    parser.add_argument(
+        "--state-space", action="store_true",
+        help="Run Jackman state-space model in addition to weighted average (~5 min).",
     )
     args = parser.parse_args()
 
@@ -347,6 +436,38 @@ def main() -> None:
         _section("GENERIC BALLOT")
         print(f"  No estimate — need ≥3 polls, got {len(gb_polls)}")
         _provenance(gb_label)
+
+    # State-space estimates (opt-in — adds ~5 min)
+    if args.state_space and approval_polls:
+        print("\n  [Running Jackman state-space model — this takes a few minutes...]")
+        try:
+            approval_model = PresidentialApprovalModel(engine=approval_engine)
+            ss_result_a = approval_model.current_estimate_ss(approval_polls)
+            if ss_result_a:
+                ss_snap_a, ss_trace_a = ss_result_a
+                _print_ss_approval(
+                    ss_snap_a, ss_trace_a,
+                    weighted_snap=poll_snap,
+                    sb_snap=sb_approval_snap,
+                    label=f"{approval_label}  [state-space]",
+                )
+        except Exception as exc:
+            logging.warning("State-space approval failed: %s", exc)
+
+    if args.state_space and gb_polls:
+        try:
+            gb_model = GenericBallotModel(engine=gb_engine)
+            ss_result_g = gb_model.current_estimate_ss(gb_polls)
+            if ss_result_g:
+                ss_snap_g, ss_trace_g = ss_result_g
+                _print_ss_generic_ballot(
+                    ss_snap_g, ss_trace_g,
+                    weighted_snap=poll_gb_snap,
+                    sb_snap=sb_gb_snap,
+                    label=f"{gb_label}  [state-space]",
+                )
+        except Exception as exc:
+            logging.warning("State-space generic ballot failed: %s", exc)
 
     states = _detect_senate_states(senate_polls)
     senate_engine = _build_engine_from_polls(senate_polls) if senate_polls else PollingAverageEngine()
