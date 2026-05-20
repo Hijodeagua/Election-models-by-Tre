@@ -159,3 +159,86 @@ Use these labels in all public outputs.
 | Generic ballot tracker | ≥ 3 polls, seat range labeled "illustrative" |
 | Senate tracker | Per-race average with ≥ 1 poll; "insufficient data" otherwise |
 | Any win-probability claim | ≥ 2-cycle rolling backtest with Brier < 0.25 |
+
+---
+
+## Architectural review — v2 pivot (May 2026)
+
+Three design errors were identified in the v1 stack. All are being addressed in a phased
+migration. This section records the diagnosis and the chosen remediation so that future
+maintainers understand why the architecture looks the way it does.
+
+### Error 1 — Silver Bulletin prior double-counts the polls
+
+Silver Bulletin's daily model estimate is a fitted function of the same VoteHub/public
+polls that the weighted-average engine ingests. The v1 "70/30 blend" (`bayesian.py`,
+`alpha = n / (n + k)`) combined two functionals of overlapping data, violating the
+conditional independence assumption required for a valid Bayesian update (Robert 2012,
+*Bayesian Core*). The blend result was not a posterior update — it was a shrinkage of one
+estimate toward a partially correlated second estimate.
+
+**Interim fix (Phase 1d):** Output label changed to
+`POLLS + SB anchor  —  not a Bayesian update; awaiting hierarchical fit`.
+
+**Full fix (Phase 4):** `bayesian.py` deleted; Silver Bulletin becomes a side-by-side
+benchmark with divergence attribution when |gap| > 1pp.
+
+### Error 2 — 50/30/20 hybrid grade reused one signal three times
+
+The three grading components (RCP historical accuracy, Silver Bulletin PPM, VoteHub letter
+grade) all descend from the same election-outcome ground truth. The cross-correlations
+between independently-built rating systems are ρ ≳ 0.6. Treating them as independent and
+summing their 50/30/20 contributions significantly overstated precision.
+
+**Fix (Phase 2):** Replaced with a single SB PPM lookup via
+`quality = clip(1.5 - PPM × 0.3, 0.0, 3.0)`. The compression is intentional: the 0.3
+multiplier keeps the rated pool in [0.96, 1.86] on the 0–3 scale. Quality differentiation
+is modest by design until Phase 3's τⱼ² estimates validate what the polling data actually
+support. Additionally, the function now requires ≥ 2 of 3 sources to produce a blended
+score; pollsters with fewer sources receive the 25th-percentile default (_UNKNOWN_DEFAULT)
+rather than a single-source rating treated as a full assessment.
+
+**Note on _UNKNOWN_DEFAULT:** Set to the 25th percentile of the rated pool (~1.41). This
+is the survivorship-adjusted prior: firms that appear in Silver Bulletin's table are
+disproportionately those that have polled enough to be rated, so the unrated entrant is
+more likely to be a new or lower-volume firm, not a randomly sampled member of the full
+distribution. A midpoint default (1.5) would overestimate the prior for this population.
+
+### Error 3 — Multiplicative downweighting cannot fix additive house effects
+
+Rasmussen Reports runs +4–6pp pro-Approve on presidential approval; multiplying its weight
+by a quality penalty of ~0.4 does not remove the bias — it slows the bias's entry into the
+weighted average while still allowing it to pull the estimate in the wrong direction
+(Shirani-Mehr, Rothschild, Goel & Gelman 2018, *JASA* 113(522)). The correct architecture
+is additive house-effect intercepts identified jointly with the latent state (Jackman 2005,
+*AJPS* 40(4); Linzer 2013, *JASA* 108(501)).
+
+**Fix (Phase 3):** `src/models/state_space.py` — Jackman-style hierarchical model with
+random-walk latent state α_t and pollster house effects δⱼ under a weighted sum-to-zero
+constraint. τⱼ² (per-pollster excess variance) subsumes the quality-multiplier mechanism.
+
+### Error 4 — Population weights inverted for approval
+
+LV × 1.5 / Adults × 0.6 is correct for horse-race polls but wrong for approval. Likely
+Voters are screened for electoral participation, not general public opinion, creating
+selection bias in both directions depending on the partisan composition of the active
+electorate. Pew/Kennedy & Deane (2017) documented a 14pp gap between LV and Adults on
+Trump approval in 2017. Silver Bulletin themselves invert this hierarchy for approval
+modeling.
+
+**Fix (Phase 1a):** Approval-specific weights added to `PollingAverageParams`:
+`approval_lv_weight_multiplier = 0.6`, `approval_rv_weight_multiplier = 1.0`,
+`approval_adults_weight_multiplier = 1.5`. The engine branches on `poll.poll_type`.
+
+---
+
+## Planned phases (as of May 2026)
+
+| Phase | Status | Description |
+|---|---|---|
+| 1 | ✅ Done | Population weight inversion; survivorship default; honest labels |
+| 2 | ✅ Done | Drop 50/30/20 blend; use direct SB PPM |
+| 3 | 🔲 Pending | Jackman state-space model (PyMC); house effects; sentiment slot |
+| 4 | 🔲 Pending | Delete `bayesian.py`; SB as benchmark with divergence attribution |
+| 5 | 🔲 Pending | Calibration metrics: CRPS, interval score, PIT, coverage, Ljung-Box |
+| 6 | 🔲 Pending | Empirically tune σ_α via rolling-origin CRPS minimization |

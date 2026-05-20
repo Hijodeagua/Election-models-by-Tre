@@ -22,7 +22,7 @@ from typing import Any
 import numpy as np
 
 from config.settings import Settings, settings
-from src.data.base import Poll, Population
+from src.data.base import Poll, PollType, Population
 
 
 @dataclass
@@ -42,6 +42,12 @@ class PollingAverageParams:
     partisan_bias_penalty: float = 0.5
     sample_size_exponent: float = 0.5       # sqrt by default
     pollster_quality_exponent: float = 1.0  # linear by default
+    # Approval-specific population weights (inverted from horse-race hierarchy).
+    # Adults polls capture the broadest public sentiment; LV screens create selection
+    # bias unrelated to approval dynamics (Pew/Kennedy & Deane 2017).
+    approval_lv_weight_multiplier: float = 0.6
+    approval_rv_weight_multiplier: float = 1.0
+    approval_adults_weight_multiplier: float = 1.5
 
     @classmethod
     def from_settings(cls, s: Settings) -> PollingAverageParams:
@@ -227,13 +233,21 @@ class PollingAverageEngine:
         elif poll.sample_size and poll.sample_size < p.min_sample_size:
             w *= 0.5
 
-        # 4. Population screen
-        if poll.population == Population.LIKELY_VOTERS:
-            w *= p.lv_weight_multiplier
-        elif poll.population == Population.REGISTERED_VOTERS:
-            w *= p.rv_weight_multiplier
-        elif poll.population == Population.ADULTS:
-            w *= p.adults_weight_multiplier
+        # 4. Population screen — inverted hierarchy for approval polls
+        if poll.poll_type == PollType.APPROVAL:
+            if poll.population == Population.LIKELY_VOTERS:
+                w *= p.approval_lv_weight_multiplier
+            elif poll.population == Population.REGISTERED_VOTERS:
+                w *= p.approval_rv_weight_multiplier
+            elif poll.population == Population.ADULTS:
+                w *= p.approval_adults_weight_multiplier
+        else:
+            if poll.population == Population.LIKELY_VOTERS:
+                w *= p.lv_weight_multiplier
+            elif poll.population == Population.REGISTERED_VOTERS:
+                w *= p.rv_weight_multiplier
+            elif poll.population == Population.ADULTS:
+                w *= p.adults_weight_multiplier
 
         # 5. Partisan penalty
         if poll.partisan:

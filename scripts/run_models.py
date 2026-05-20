@@ -97,8 +97,8 @@ def _blend_note(alpha: float | None, beta: float | None, n_polls: int) -> str:
     if alpha is None:
         return "TRACKER — polling average only"
     return (
-        f"HYBRID  ·  {alpha:.0%} polls (N={n_polls}, hybrid-weighted)"
-        f"  ·  {beta:.0%} Silver Bulletin prior"
+        f"POLLS + SB anchor  ·  {alpha:.0%} polls (N={n_polls})"
+        f"  ·  {beta:.0%} SB  —  not a Bayesian update; awaiting hierarchical fit"
     )
 
 
