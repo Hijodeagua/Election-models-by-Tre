@@ -23,10 +23,20 @@ class Settings(BaseSettings):
     congress_gov_api_key: str = ""
     nyt_api_key: str = ""
 
+    # Silver Bulletin model CSV download URLs (refresh_data.py --source silverb)
+    silverb_approval_csv_url: str = "https://static.natesilver.net/approval.csv"
+    silverb_gb_csv_url: str = "https://static.natesilver.net/generic-ballot.csv"
+
     # ── Publishing ────────────────────────────────────────────────────
     datawrapper_api_token: str = ""
     substack_url: str = "https://policyypeaches.substack.com"
     substack_name: str = "Policy & Peaches"
+
+    # Datawrapper chart IDs — set via .env after creating charts in the UI
+    dw_chart_approval_id: str = ""
+    dw_chart_gb_id: str = ""
+    dw_chart_senate_id: str = ""
+    dw_chart_house_effects_id: str = ""
 
     # ── Database ──────────────────────────────────────────────────────
     database_url: str = Field(
