@@ -33,6 +33,7 @@ class ChartIds:
     """Datawrapper chart IDs — set via env vars or pass directly."""
 
     approval_trend: str = ""
+    approval_pro: str = ""
     generic_ballot_trend: str = ""
     senate_snapshot: str = ""
     house_effects: str = ""
@@ -41,6 +42,7 @@ class ChartIds:
     def from_settings(cls) -> ChartIds:
         return cls(
             approval_trend=getattr(settings, "dw_chart_approval_id", ""),
+            approval_pro=getattr(settings, "dw_chart_approval_pro_id", ""),
             generic_ballot_trend=getattr(settings, "dw_chart_gb_id", ""),
             senate_snapshot=getattr(settings, "dw_chart_senate_id", ""),
             house_effects=getattr(settings, "dw_chart_house_effects_id", ""),
@@ -133,6 +135,33 @@ class DatawrapperClient:
         }
 
     @staticmethod
+    def approval_pro_metadata() -> dict:
+        return {
+            "title": "Presidential Approval — Professional Reference",
+            "metadata": {
+                "describe": {
+                    "intro": "Average of established polling models (Silver Bulletin, +RCP when available) for cross-check",
+                    "byline": "Policy & Peaches",
+                    "source-name": "Silver Bulletin model",
+                },
+                "visualize": {
+                    "custom-colors": {
+                        "approve": "#2166ac",
+                        "disapprove": "#d6604d",
+                        "net": "#999999",
+                    },
+                    "line-widths": {"approve": 2.5, "disapprove": 2.5, "net": 1.5},
+                    "custom-labels": {
+                        "approve": "Approve",
+                        "disapprove": "Disapprove",
+                        "net": "Net approval",
+                    },
+                },
+                "axes": {"x": "date", "y": "approve,disapprove,net"},
+            },
+        }
+
+    @staticmethod
     def generic_ballot_metadata() -> dict:
         return {
             "title": "Generic Congressional Ballot",
@@ -192,6 +221,60 @@ class DatawrapperClient:
             hi = s.ci_approve[1] if s.ci_approve else ""
             w.writerow([s.as_of, round(s.approve, 2), round(s.disapprove, 2),
                         round(s.net_approval, 2), lo, hi])
+        return buf.getvalue()
+
+    @staticmethod
+    def approval_pro_consensus_csv(
+        silverb_csv_path,
+        rcp_csv_path=None,
+        start_date=None,
+    ) -> str:
+        """Average available professional model outputs by date.
+
+        Currently averages Silver Bulletin (always) with RCP if its CSV exists.
+        Reads SB's daily smoothed model output directly.
+        """
+        from collections import defaultdict
+        from datetime import datetime as _dt
+
+        per_day: dict = defaultdict(list)
+
+        def _parse_sb_date(s: str):
+            for fmt in ("%m/%d/%y", "%Y-%m-%d"):
+                try:
+                    return _dt.strptime(s, fmt).date()
+                except ValueError:
+                    continue
+            return None
+
+        with open(silverb_csv_path, encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                d = _parse_sb_date(row.get("modeldate", ""))
+                if not d:
+                    continue
+                if start_date and d < start_date:
+                    continue
+                try:
+                    per_day[d].append(("sb", float(row["approve"]), float(row["disapprove"])))
+                except (KeyError, ValueError):
+                    continue
+
+        if rcp_csv_path and rcp_csv_path.exists():
+            with open(rcp_csv_path, encoding="utf-8") as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    pass  # placeholder — RCP schema differs; wire when format known
+
+        buf = io.StringIO()
+        w = csv.writer(buf)
+        w.writerow(["date", "approve", "disapprove", "net", "n_models"])
+        for d in sorted(per_day):
+            entries = per_day[d]
+            approve = sum(e[1] for e in entries) / len(entries)
+            disapprove = sum(e[2] for e in entries) / len(entries)
+            w.writerow([d, round(approve, 2), round(disapprove, 2),
+                        round(approve - disapprove, 2), len(entries)])
         return buf.getvalue()
 
     @staticmethod

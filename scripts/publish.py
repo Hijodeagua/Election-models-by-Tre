@@ -62,7 +62,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Publish model outputs to Datawrapper.")
     parser.add_argument(
         "--chart",
-        choices=["approval", "generic_ballot", "senate", "house_effects", "all"],
+        choices=["approval", "approval_pro", "generic_ballot", "senate", "house_effects", "all"],
         default="all",
     )
     parser.add_argument("--dry-run", action="store_true", help="Print CSV, skip API.")
@@ -114,6 +114,7 @@ def main() -> None:
     chart_data: dict[str, str] = {}
 
     run_approval = args.chart in ("all", "approval")
+    run_approval_pro = args.chart in ("all", "approval_pro")
     run_gb = args.chart in ("all", "generic_ballot")
     run_senate = args.chart in ("all", "senate")
     run_he = args.chart in ("all", "house_effects")
@@ -126,6 +127,20 @@ def main() -> None:
         if snapshots:
             chart_data["approval"] = DatawrapperClient.approval_trend_csv(snapshots)
             logger.info("  %d daily snapshots", len(snapshots))
+
+    if run_approval_pro:
+        sb_path = FALLBACK_DIR / "silverb_approval.csv"
+        rcp_path = FALLBACK_DIR / "rcp_approval.csv"
+        if sb_path.exists():
+            logger.info("Building professional reference (%d days)...", args.trend_days)
+            start = date.today() - timedelta(days=args.trend_days)
+            csv_text = DatawrapperClient.approval_pro_consensus_csv(
+                sb_path, rcp_csv_path=rcp_path, start_date=start
+            )
+            lines = csv_text.strip().splitlines()
+            if len(lines) > 1:
+                chart_data["approval_pro"] = csv_text
+                logger.info("  %d daily snapshots", len(lines) - 1)
 
     if run_gb and gb_polls:
         logger.info("Building generic ballot trend (%d days)...", args.trend_days)
@@ -184,11 +199,13 @@ def main() -> None:
 
     _metadata = {
         "approval": DatawrapperClient.approval_metadata(),
+        "approval_pro": DatawrapperClient.approval_pro_metadata(),
         "generic_ballot": DatawrapperClient.generic_ballot_metadata(),
         "senate": DatawrapperClient.senate_metadata(),
     }
     _id_map = {
         "approval": "approval_trend",
+        "approval_pro": "approval_pro",
         "generic_ballot": "generic_ballot_trend",
         "senate": "senate_snapshot",
         "house_effects": "house_effects",

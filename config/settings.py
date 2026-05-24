@@ -34,6 +34,7 @@ class Settings(BaseSettings):
 
     # Datawrapper chart IDs — set via .env after creating charts in the UI
     dw_chart_approval_id: str = ""
+    dw_chart_approval_pro_id: str = ""
     dw_chart_gb_id: str = ""
     dw_chart_senate_id: str = ""
     dw_chart_house_effects_id: str = ""
