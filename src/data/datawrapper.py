@@ -102,35 +102,47 @@ class DatawrapperClient:
 
     @staticmethod
     def approval_metadata() -> dict:
+        approve_color = "#2a8870"   # SB green
+        disapprove_color = "#e07b3a"  # SB orange
         return {
-            "title": "Presidential Approval Rating",
+            "title": "Do Americans <span style='color:#2a8870'>approve</span> or <span style='color:#e07b3a'>disapprove</span> of Donald Trump?",
             "metadata": {
                 "describe": {
-                    "intro": "90-day polling average · weighted by recency, sample size & pollster quality",
+                    "intro": "A polling average of Trump's approval rating, accounting for each poll's quality, recency, sample size, and partisan lean.",
                     "byline": "Policy & Peaches",
                     "source-name": "VoteHub / Silver Bulletin",
                 },
+                "annotate": {
+                    "notes": "Shaded regions show 95% confidence intervals around the polling average.",
+                },
                 "visualize": {
                     "custom-colors": {
-                        "approve": "#2166ac",
-                        "disapprove": "#d6604d",
-                        "net": "#999999",
-                        "approve_lo": "#2166ac",
-                        "approve_hi": "#2166ac",
+                        "approve": approve_color,
+                        "disapprove": disapprove_color,
+                        "approve_lo": approve_color,
+                        "approve_hi": approve_color,
+                        "disapprove_lo": disapprove_color,
+                        "disapprove_hi": disapprove_color,
                     },
-                    "range": {"approve_lo": "approve_hi"},
-                    "range-opacity": 0.15,
-                    "line-widths": {"approve": 2.5, "disapprove": 2.5, "net": 1.5,
-                                    "approve_lo": 0, "approve_hi": 0},
+                    "ranges": [
+                        {"from": "approve_lo", "to": "approve_hi", "color": approve_color, "opacity": 0.18},
+                        {"from": "disapprove_lo", "to": "disapprove_hi", "color": disapprove_color, "opacity": 0.18},
+                    ],
+                    "line-widths": {
+                        "approve": 2.5, "disapprove": 2.5,
+                        "approve_lo": 0, "approve_hi": 0,
+                        "disapprove_lo": 0, "disapprove_hi": 0,
+                    },
                     "custom-labels": {
                         "approve": "Approve",
                         "disapprove": "Disapprove",
-                        "net": "Net approval",
                         "approve_lo": "",
                         "approve_hi": "",
+                        "disapprove_lo": "",
+                        "disapprove_hi": "",
                     },
                 },
-                "axes": {"x": "date", "y": "approve,disapprove,net,approve_lo,approve_hi"},
+                "axes": {"x": "date", "y": "approve,disapprove,approve_lo,approve_hi,disapprove_lo,disapprove_hi"},
             },
         }
 
@@ -215,12 +227,15 @@ class DatawrapperClient:
         """Build CSV from a list of ApprovalSnapshot objects (approval_trend output)."""
         buf = io.StringIO()
         w = csv.writer(buf)
-        w.writerow(["date", "approve", "disapprove", "net", "approve_lo", "approve_hi"])
+        w.writerow(["date", "approve", "disapprove",
+                    "approve_lo", "approve_hi", "disapprove_lo", "disapprove_hi"])
         for s in snapshots:
-            lo = s.ci_approve[0] if s.ci_approve else ""
-            hi = s.ci_approve[1] if s.ci_approve else ""
+            a_lo = s.ci_approve[0] if s.ci_approve else ""
+            a_hi = s.ci_approve[1] if s.ci_approve else ""
+            d_lo = s.ci_disapprove[0] if s.ci_disapprove else ""
+            d_hi = s.ci_disapprove[1] if s.ci_disapprove else ""
             w.writerow([s.as_of, round(s.approve, 2), round(s.disapprove, 2),
-                        round(s.net_approval, 2), lo, hi])
+                        a_lo, a_hi, d_lo, d_hi])
         return buf.getvalue()
 
     @staticmethod
