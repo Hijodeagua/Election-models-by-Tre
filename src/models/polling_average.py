@@ -275,7 +275,7 @@ class PollingAverageEngine:
         weighted: list[WeightedPollRecord],
         choices: list[str],
         n_boot: int = 1000,
-        ci_level: float = 0.95,
+        ci_level: float = 0.80,
     ) -> dict[str, tuple[float, float]]:
         """Compute bootstrap confidence intervals for each choice."""
         rng = np.random.default_rng(seed=42)

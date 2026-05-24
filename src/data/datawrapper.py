@@ -102,20 +102,71 @@ class DatawrapperClient:
 
     @staticmethod
     def approval_metadata() -> dict:
+        # Policy & Peaches custom palette: elegant deep red and blue inspired by modern polling trackers
         approve_color = "#c0392b"
         disapprove_color = "#2166ac"
         return {
-            "title": "Trump's Approval Rating in Second Term",
+            "title": "Do Americans <span style='color: #c0392b; font-weight: bold;'>approve</span> or <span style='color: #2166ac; font-weight: bold;'>disapprove</span> of Donald Trump?",
             "metadata": {
                 "describe": {
-                    "intro": "Trump Rating in Our Model Hits Near 40s",
+                    "intro": "An updating polling average of Donald Trump's approval and disapproval ratings in his second term.",
                     "byline": "Policy & Peaches",
                     "source-name": "VoteHub / Silver Bulletin",
                 },
                 "annotate": {
-                    "notes": "Shaded regions show 95% confidence intervals around the polling average.",
+                    "notes": "Note: Shaded regions show 80% confidence intervals around the polling average.",
                 },
                 "visualize": {
+                    "dark-mode-invert": True,
+                    "lines": {
+                        "approve": {
+                            "title": "Approve",
+                            "width": "style3",
+                            "colorKey": True,
+                            "directLabel": False,
+                            "valueLabels": {
+                                "first": False,
+                                "enabled": True
+                            }
+                        },
+                        "approve_hi": {
+                            "width": "invisible",
+                            "valueLabels": {
+                                "enabled": True
+                            }
+                        },
+                        "approve_lo": {
+                            "width": "invisible",
+                            "valueLabels": {
+                                "enabled": True
+                            }
+                        },
+                        "disapprove": {
+                            "title": "Disapprove",
+                            "width": "style3",
+                            "colorKey": True,
+                            "directLabel": False,
+                            "valueLabels": {
+                                "first": False,
+                                "enabled": True
+                            }
+                        },
+                        "disapprove_hi": {
+                            "width": "invisible",
+                            "valueLabels": {
+                                "enabled": True
+                            }
+                        },
+                        "disapprove_lo": {
+                            "width": "invisible",
+                            "valueLabels": {
+                                "enabled": True
+                            }
+                        }
+                    },
+                    "x-grid": "off",
+                    "y-grid": "on",
+                    "scale-y": "linear",
                     "custom-colors": {
                         "approve": approve_color,
                         "disapprove": disapprove_color,
@@ -124,27 +175,42 @@ class DatawrapperClient:
                         "disapprove_lo": disapprove_color,
                         "disapprove_hi": disapprove_color,
                     },
-                    "ranges": [
-                        {"from": "approve_lo", "to": "approve_hi", "color": approve_color, "opacity": 0.18},
-                        {"from": "disapprove_lo", "to": "disapprove_hi", "color": disapprove_color, "opacity": 0.18},
+                    "custom-area-fills": [
+                        {
+                            "id": "rvk5ddbf9j",
+                            "to": "approve_hi",
+                            "from": "approve_lo",
+                            "color": approve_color,
+                            "opacity": 0.15,
+                            "colorNegative": "#E31A1C",
+                            "useMixedColors": False
+                        },
+                        {
+                            "id": "wrtbgdeiha",
+                            "to": "disapprove_hi",
+                            "from": "disapprove_lo",
+                            "color": disapprove_color,
+                            "opacity": 0.15,
+                            "colorNegative": "#E31A1C",
+                            "useMixedColors": False
+                        }
                     ],
-                    "line-widths": {
-                        "approve": 2.5, "disapprove": 2.5,
-                        "approve_lo": 0, "approve_hi": 0,
-                        "disapprove_lo": 0, "disapprove_hi": 0,
-                    },
-                    "line-dashes": {
-                        "approve_lo": 0, "approve_hi": 0,
-                        "disapprove_lo": 0, "disapprove_hi": 0,
-                    },
                     "custom-labels": {
+                        "net": "Net approval",
                         "approve": "Approve",
+                        "approve_hi": " ",
+                        "approve_lo": " ",
                         "disapprove": "Disapprove",
-                        "approve_lo": "",
-                        "approve_hi": "",
-                        "disapprove_lo": "",
-                        "disapprove_hi": "",
+                        "disapprove_hi": " ",
+                        "disapprove_lo": " "
                     },
+                    "interpolation": "linear",
+                    "show-tooltips": True,
+                    "y-grid-subdivide": True,
+                    "value-label-colors": True,
+                    "y-grid-label-align": "left",
+                    "plotHeightFixed": 221,
+                    "plotHeightMode": "fixed"
                 },
                 "axes": {"x": "date", "y": "approve,disapprove,approve_lo,approve_hi,disapprove_lo,disapprove_hi"},
             },
@@ -166,7 +232,7 @@ class DatawrapperClient:
                         "disapprove": "#2166ac",
                         "net": "#999999",
                     },
-                    "line-widths": {"approve": 2.5, "disapprove": 2.5, "net": 1.5},
+                    "line-widths": {"approve": 3.0, "disapprove": 3.0, "net": 1.5},
                     "custom-labels": {
                         "approve": "Approve",
                         "disapprove": "Disapprove",
@@ -179,6 +245,8 @@ class DatawrapperClient:
 
     @staticmethod
     def generic_ballot_metadata() -> dict:
+        dem_color = "#2166ac"
+        rep_color = "#d6604d"
         return {
             "title": "Generic Congressional Ballot",
             "metadata": {
@@ -189,22 +257,29 @@ class DatawrapperClient:
                 },
                 "visualize": {
                     "custom-colors": {
-                        "dem": "#2166ac",
-                        "rep": "#d6604d",
+                        "dem": dem_color,
+                        "rep": rep_color,
                         "margin": "#999999",
-                        "dem_lo": "#2166ac",
-                        "dem_hi": "#2166ac",
+                        "dem_lo": dem_color,
+                        "dem_hi": dem_color,
                     },
-                    "range": {"dem_lo": "dem_hi"},
-                    "range-opacity": 0.15,
-                    "line-widths": {"dem": 2.5, "rep": 2.5, "margin": 1.5,
-                                    "dem_lo": 0, "dem_hi": 0},
+                    "custom-area-fills": [
+                        {"from": "dem_lo", "to": "dem_hi", "color": dem_color, "opacity": 0.12}
+                    ],
+                    "line-widths": {
+                        "dem": 3.0, "rep": 3.0, "margin": 1.5,
+                        "dem_lo": 0.75, "dem_hi": 0.75
+                    },
+                    "line-dashes": {
+                        "dem": "solid", "rep": "solid", "margin": "solid",
+                        "dem_lo": "dotted", "dem_hi": "dotted"
+                    },
                     "custom-labels": {
                         "dem": "Democrat",
                         "rep": "Republican",
                         "margin": "Dem margin",
-                        "dem_lo": "",
-                        "dem_hi": "",
+                        "dem_lo": " ",
+                        "dem_hi": " ",
                     },
                 },
                 "axes": {"x": "date", "y": "dem,rep,margin,dem_lo,dem_hi"},
