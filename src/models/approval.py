@@ -45,12 +45,14 @@ class PresidentialApprovalModel:
     def __init__(self, engine: PollingAverageEngine | None = None) -> None:
         self.engine = engine or PollingAverageEngine()
 
-    def current_approval(self, polls: list[Poll]) -> ApprovalSnapshot | None:
-        """Return current approval average, or None if too few polls."""
-        """Compute the current approval average from recent polls."""
+    def current_approval(self, polls: list[Poll]) -> ApprovalSnapshot:
+        """Compute the current approval average from recent polls.
+
+        Always returns an ApprovalSnapshot; num_polls will be 0 when no valid
+        polls are available.  Use MIN_POLLS_FOR_ESTIMATE to decide whether the
+        result is publishable-quality.
+        """
         approval_polls = [p for p in polls if p.poll_type == PollType.APPROVAL]
-        if len(approval_polls) < MIN_POLLS_FOR_ESTIMATE:
-            return None
         result = self.engine.compute_average(
             approval_polls,
             choices=["Approve", "Disapprove"],
@@ -141,13 +143,13 @@ class PresidentialApprovalModel:
     def _result_to_snapshot(result: AverageResult) -> ApprovalSnapshot:
         approve = result.averages.get("Approve", 0.0)
         disapprove = result.averages.get("Disapprove", 0.0)
-        ci = result.confidence_interval
+        ci = result.confidence_interval or {}
         return ApprovalSnapshot(
             as_of=result.as_of,
             approve=approve,
             disapprove=disapprove,
             net_approval=round(approve - disapprove, 1),
             num_polls=result.num_polls,
-            ci_approve=ci.get("Approve") if ci else None,
-            ci_disapprove=ci.get("Disapprove") if ci else None,
+            ci_approve=ci.get("Approve"),
+            ci_disapprove=ci.get("Disapprove"),
         )

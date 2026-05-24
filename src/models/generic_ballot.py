@@ -63,12 +63,14 @@ class GenericBallotModel:
         self.seats_per_margin_point = seats_per_margin_point
         self.baseline_dem_seats = baseline_dem_seats
 
-    def current_ballot(self, polls: list[Poll]) -> GenericBallotSnapshot | None:
-        """Return current generic ballot average, or None if too few polls."""
-        """Compute the current generic ballot average."""
+    def current_ballot(self, polls: list[Poll]) -> GenericBallotSnapshot:
+        """Compute the current generic ballot average.
+
+        Always returns a GenericBallotSnapshot; num_polls will be 0 when no valid
+        polls are available.  Use MIN_POLLS_FOR_ESTIMATE to decide whether the
+        result is publishable-quality.
+        """
         gb_polls = [p for p in polls if p.poll_type == PollType.GENERIC_BALLOT]
-        if len(gb_polls) < MIN_POLLS_FOR_ESTIMATE:
-            return None
         result = self.engine.compute_average(
             gb_polls,
             choices=["Democrat", "Democratic", "Democrats", "Republican", "Republicans", "GOP"],

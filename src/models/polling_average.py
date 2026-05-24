@@ -83,13 +83,13 @@ class WeightedPollRecord:
 class AverageResult:
     """Output of the weighted polling average computation."""
 
-    subject: str
     as_of: date
     num_polls: int
     averages: dict[str, float]  # choice -> weighted average pct
     margin: float | None  # top choice minus second choice
     confidence_interval: dict[str, tuple[float, float]] | None  # choice -> (low, high)
-    weighted_polls: list[WeightedPollRecord]
+    subject: str = ""
+    weighted_polls: list[WeightedPollRecord] = field(default_factory=list)
 
 
 class PollingAverageEngine:
@@ -141,13 +141,11 @@ class PollingAverageEngine:
 
         if not polls:
             return AverageResult(
-                subject="",
                 as_of=as_of,
                 num_polls=0,
                 averages={},
                 margin=None,
                 confidence_interval=None,
-                weighted_polls=[],
             )
 
         # Auto-detect choices from polls if not specified
@@ -177,13 +175,12 @@ class PollingAverageEngine:
 
         if not weighted:
             return AverageResult(
-                subject=polls[0].subject if polls else "",
                 as_of=as_of,
                 num_polls=0,
                 averages={},
                 margin=None,
                 confidence_interval=None,
-                weighted_polls=[],
+                subject=polls[0].subject if polls else "",
             )
 
         # Weighted average per choice
@@ -208,12 +205,12 @@ class PollingAverageEngine:
         ci = self._bootstrap_ci(weighted, choices) if len(weighted) >= 5 else None
 
         return AverageResult(
-            subject=polls[0].subject,
             as_of=as_of,
             num_polls=len(weighted),
             averages=averages,
             margin=margin,
             confidence_interval=ci,
+            subject=polls[0].subject,
             weighted_polls=weighted,
         )
 
