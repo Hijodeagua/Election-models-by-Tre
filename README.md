@@ -4,31 +4,94 @@ A Python-based election modeling and forecasting system that ingests polling dat
 
 ## Features
 
-- **Multi-source polling ingestion** — VoteHub API, RealClearPolitics scraping, with adapters for FiftyPlusOne and Silver Bulletin
-- **Weighted polling averages** — recency decay, pollster quality ratings, sample size scaling, likely voter adjustments, and partisan bias correction
-- **Presidential approval tracking** — daily averages with confidence intervals and trend analysis
+- **Multi-source polling ingestion** — VoteHub API, RealClearPolitics scraping, with CSV fallback (no API key required)
+- **Weighted polling averages** — recency decay, Silver Bulletin PPM quality ratings, sample size scaling, population-type adjustments, and partisan bias correction
+- **Jackman state-space model** — hierarchical random-walk latent state with additive house-effect correction (PyMC)
+- **Presidential approval tracking** — daily averages with confidence intervals
 - **Generic ballot model** — congressional preference tracking with historical seat projection
-- **Senate/House/Governor race models** — individual race polling and race ratings integration
-- **2028 presidential primary tracker** — early primary and favorability polling
+- **Senate race models** — individual race polling averages
 - **Interactive dashboard** — Streamlit-based visualization
 
-## Quick Start
+## Local Setup
+
+### 1. Clone the working branch
 
 ```bash
-# Clone and install
 git clone https://github.com/Hijodeagua/Election-models-by-Tre.git
 cd Election-models-by-Tre
+git checkout claude/silver-bulletin-csv-fallback
+```
+
+### 2. Install dependencies
+
+```bash
+# Core + dev tools
 pip install -e ".[dev]"
 
-# Configure
+# Add PyMC for the state-space model (optional, ~500MB)
+pip install -e ".[bayesian]"
+```
+
+Python 3.11+ required.
+
+### 3. Configure (optional)
+
+```bash
 cp .env.example .env
-# Edit .env with your API keys (VoteHub is free, no key needed)
+# No API keys required for offline/CSV mode
+# Add VOTEHUB_BASE_URL etc. only if you want live data fetching
+```
 
-# Run data refresh
-python -m scripts.refresh_data
+### 4. Run the model
 
-# Launch dashboard
-streamlit run src/dashboard/app.py
+```bash
+# Standard weighted-average output (fast, uses bundled CSV data — no internet needed)
+python scripts/run_models.py --offline
+
+# Add Jackman state-space estimates with house-effect breakdown (~2 min, requires PyMC)
+python scripts/run_models.py --offline --state-space
+
+# Force the small hand-curated CSV fallback (5 polls per model — useful for smoke testing)
+python scripts/run_models.py --source csv
+```
+
+### 5. Run the test suite
+
+```bash
+pytest                  # 131 tests, ~8 seconds
+pytest tests/test_models.py -v   # just the polling engine tests
+```
+
+### Data sources (offline mode)
+
+All fallback data lives in `data/fallback/` and is committed to the repo — no downloads needed:
+
+| File | Contents | Polls |
+|---|---|---|
+| `votehub_approval.csv` | VoteHub approval polls, Jan 2025 – May 2026 | 683 |
+| `votehub_generic_ballot.csv` | VoteHub generic ballot polls | 344 |
+| `silverb_approval.csv` | Silver Bulletin daily model estimates | daily |
+| `silverb_generic_ballot.csv` | Silver Bulletin generic ballot estimates | daily |
+| `approval.csv` / `generic_ballot.csv` / `senate.csv` | Hand-curated samples | 5 each |
+
+### Expected output (weighted average, offline)
+
+```
+Election Oracle — 2026-05-24
+Presidential Approval  N=683:   Approve 40.3% [38.8–41.4]  Net -15.9
+Generic Ballot         N=344:   D 46.4% / R 41.1%  D+5.3  →  D 247 / R 188 seats
+Senate (5 races):  AZ Gallego +4.4 · GA Collins +1.0 · MI Peters +3.0 ...
+```
+
+### Expected output (with --state-space)
+
+```
+State-space Approve: 39.5% [37.8, 40.9]  σ_α=0.23pp/day
+House effects (40 pollsters with |δ|>1.5pp):
+  InsiderAdvantage     +6.6pp  pro-Approve
+  AP-NORC              -4.1pp  pro-Disapprove
+  Quinnipiac           -4.0pp  pro-Disapprove
+  ...
 ```
 
 ## Project Structure

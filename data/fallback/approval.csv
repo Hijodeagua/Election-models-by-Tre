@@ -1,0 +1,11 @@
+poll_id,pollster,subject,start_date,end_date,sample_size,population,partisan,choice,pct,source
+approval-reuters-2026-05-12,Reuters/Ipsos,Donald Trump,2026-05-12,2026-05-13,1024,rv,false,Approve,42.0,https://votehub.com
+approval-reuters-2026-05-12,Reuters/Ipsos,Donald Trump,2026-05-12,2026-05-13,1024,rv,false,Disapprove,54.0,https://votehub.com
+approval-quinnipiac-2026-05-07,Quinnipiac,Donald Trump,2026-05-07,2026-05-10,1487,rv,false,Approve,40.0,https://votehub.com
+approval-quinnipiac-2026-05-07,Quinnipiac,Donald Trump,2026-05-07,2026-05-10,1487,rv,false,Disapprove,56.0,https://votehub.com
+approval-npr-marist-2026-04-28,NPR/Marist,Donald Trump,2026-04-28,2026-05-01,1148,a,false,Approve,44.0,https://votehub.com
+approval-npr-marist-2026-04-28,NPR/Marist,Donald Trump,2026-04-28,2026-05-01,1148,a,false,Disapprove,53.0,https://votehub.com
+approval-fox-2026-04-21,Fox News,Donald Trump,2026-04-21,2026-04-24,1002,rv,false,Approve,44.0,https://votehub.com
+approval-fox-2026-04-21,Fox News,Donald Trump,2026-04-21,2026-04-24,1002,rv,false,Disapprove,53.0,https://votehub.com
+approval-pew-2026-04-14,Pew Research,Donald Trump,2026-04-14,2026-04-20,3589,a,false,Approve,40.0,https://votehub.com
+approval-pew-2026-04-14,Pew Research,Donald Trump,2026-04-14,2026-04-20,3589,a,false,Disapprove,57.0,https://votehub.com

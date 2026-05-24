@@ -1,0 +1,11 @@
+poll_id,pollster,subject,start_date,end_date,sample_size,population,partisan,choice,pct,source
+gb-reuters-2026-05-12,Reuters/Ipsos,Generic Ballot,2026-05-12,2026-05-13,1024,rv,false,Democrat,44.0,https://votehub.com
+gb-reuters-2026-05-12,Reuters/Ipsos,Generic Ballot,2026-05-12,2026-05-13,1024,rv,false,Republican,43.0,https://votehub.com
+gb-quinnipiac-2026-05-07,Quinnipiac,Generic Ballot,2026-05-07,2026-05-10,1487,rv,false,Democrat,45.0,https://votehub.com
+gb-quinnipiac-2026-05-07,Quinnipiac,Generic Ballot,2026-05-07,2026-05-10,1487,rv,false,Republican,42.0,https://votehub.com
+gb-emerson-2026-04-30,Emerson College,Generic Ballot,2026-04-30,2026-05-01,1320,rv,false,Democrat,44.0,https://votehub.com
+gb-emerson-2026-04-30,Emerson College,Generic Ballot,2026-04-30,2026-05-01,1320,rv,false,Republican,44.0,https://votehub.com
+gb-fox-2026-04-21,Fox News,Generic Ballot,2026-04-21,2026-04-24,1002,rv,false,Democrat,46.0,https://votehub.com
+gb-fox-2026-04-21,Fox News,Generic Ballot,2026-04-21,2026-04-24,1002,rv,false,Republican,43.0,https://votehub.com
+gb-nbc-2026-04-14,NBC News,Generic Ballot,2026-04-14,2026-04-17,1000,a,false,Democrat,47.0,https://votehub.com
+gb-nbc-2026-04-14,NBC News,Generic Ballot,2026-04-14,2026-04-17,1000,a,false,Republican,41.0,https://votehub.com
