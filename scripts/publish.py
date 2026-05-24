@@ -83,14 +83,18 @@ def main() -> None:
 
     vh_approval = FALLBACK_DIR / "votehub_approval.csv"
     vh_gb = FALLBACK_DIR / "votehub_generic_ballot.csv"
+    vh_senate = FALLBACK_DIR / "votehub_senate.csv"
 
     if vh_approval.exists():
         approval_polls = VoteHubCsvLoader(PollType.APPROVAL).load(vh_approval)
     if vh_gb.exists():
         gb_polls = VoteHubCsvLoader(PollType.GENERIC_BALLOT).load(vh_gb)
+    if vh_senate.exists():
+        senate_polls = VoteHubCsvLoader(PollType.HEAD_TO_HEAD).load(vh_senate)
 
-    csv_source = CsvFallbackSource(FALLBACK_DIR)
+    # Fall back to hand-curated senate.csv if VoteHub senate file missing
     if not senate_polls:
+        csv_source = CsvFallbackSource(FALLBACK_DIR)
         senate_polls, _ = csv_source.load(PollType.HEAD_TO_HEAD)
 
     if not approval_polls and not gb_polls:
