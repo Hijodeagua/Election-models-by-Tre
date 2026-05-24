@@ -102,10 +102,10 @@ class DatawrapperClient:
 
     @staticmethod
     def approval_metadata() -> dict:
-        approve_color = "#2a8870"   # SB green
-        disapprove_color = "#e07b3a"  # SB orange
+        approve_color = "#c0392b"     # red
+        disapprove_color = "#2166ac"  # blue
         return {
-            "title": "Do Americans <span style='color:#2a8870'>approve</span> or <span style='color:#e07b3a'>disapprove</span> of Donald Trump?",
+            "title": "Do Americans <span style='color:#c0392b'>approve</span> or <span style='color:#2166ac'>disapprove</span> of Donald Trump?",
             "metadata": {
                 "describe": {
                     "intro": "A polling average of Trump's approval rating, accounting for each poll's quality, recency, sample size, and partisan lean.",
@@ -158,8 +158,8 @@ class DatawrapperClient:
                 },
                 "visualize": {
                     "custom-colors": {
-                        "approve": "#2166ac",
-                        "disapprove": "#d6604d",
+                        "approve": "#c0392b",
+                        "disapprove": "#2166ac",
                         "net": "#999999",
                     },
                     "line-widths": {"approve": 2.5, "disapprove": 2.5, "net": 1.5},
