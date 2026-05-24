@@ -44,10 +44,14 @@ FALLBACK_DIR = Path(__file__).resolve().parent.parent / "data" / "fallback"
 # ── CSV serialisation ────────────────────────────────────────────────────────
 
 _VH_COLUMNS = [
-    "Date Range", "Grade", "Pollster", "Sponsor", "Sample Size",
+    "Date Range", "Grade", "Pollster", "Subject", "Sponsor", "Sample Size",
     "Sample Type", "Population", "Weight",
     "Leading Result", "Leading %", "Trailing Result", "Trailing %", "Spread",
 ]
+# Note: "Subject" was added (Fix 4). VoteHubCsvLoader falls back to a default
+# subject when the column is absent, so existing committed CSVs without it
+# continue to load. Senate CSVs require this column to be regenerated for
+# state-detection (publish.py --chart senate) to find any races.
 
 
 def _polls_to_votehub_csv(polls: list[Poll]) -> str:
@@ -79,6 +83,7 @@ def _polls_to_votehub_csv(polls: list[Poll]) -> str:
 
         w.writerow([
             date_range, grade, poll.pollster,
+            poll.subject or "",
             "/".join(poll.sponsors) if poll.sponsors else "",
             poll.sample_size or "", "", pop, "",
             leading.choice if leading else "",

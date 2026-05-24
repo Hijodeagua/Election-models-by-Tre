@@ -93,7 +93,9 @@ class TestPollingAverageEngine:
             poll_id="new",
             approve=48.0,
             disapprove=49.0,
-            start_date=date.today() - timedelta(days=2),
+            # 5 days back so end_date (start+3) is in the past — Fix 2 strict
+            # end_date > as_of filter would otherwise drop a still-in-field poll.
+            start_date=date.today() - timedelta(days=5),
         )
         result = self.engine.compute_average(
             [old_poll, new_poll], choices=["Approve", "Disapprove"]

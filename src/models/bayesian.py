@@ -25,7 +25,10 @@ def bayesian_blend_approval(
 
     CIs: if both snapshots have CIs, blend them:
         ci = (alpha*ci_poll_lo + beta*ci_prior_lo, alpha*ci_poll_hi + beta*ci_prior_hi)
-    If only one has CI, use it as-is scaled by its alpha/beta.
+    If only one side has a CI, preserve it unchanged as a display fallback
+    (Fix 3 — scaling by alpha/beta shrank the interval toward zero, far from the
+    blended estimate). This is a stopgap; bayesian.py is slated for removal in
+    methodology Phase 4 in favor of state-space credible intervals.
     """
     if poll_snap is None and prior_snap is None:
         return None, 0.0, 1.0
@@ -50,10 +53,12 @@ def bayesian_blend_approval(
                 alpha * poll_ci[0] + beta * prior_ci[0],
                 alpha * poll_ci[1] + beta * prior_ci[1],
             )
+        # Fix 3: preserve available interval as a display fallback rather than
+        # scaling toward zero by alpha/beta.
         if poll_ci is not None:
-            return (alpha * poll_ci[0], alpha * poll_ci[1])
+            return (poll_ci[0], poll_ci[1])
         if prior_ci is not None:
-            return (beta * prior_ci[0], beta * prior_ci[1])
+            return (prior_ci[0], prior_ci[1])
         return None
 
     blended = ApprovalSnapshot(
@@ -110,10 +115,12 @@ def bayesian_blend_generic_ballot(
                 alpha * poll_ci[0] + beta * prior_ci[0],
                 alpha * poll_ci[1] + beta * prior_ci[1],
             )
+        # Fix 3: preserve available interval as a display fallback rather than
+        # scaling toward zero by alpha/beta.
         if poll_ci is not None:
-            return (alpha * poll_ci[0], alpha * poll_ci[1])
+            return (poll_ci[0], poll_ci[1])
         if prior_ci is not None:
-            return (beta * prior_ci[0], beta * prior_ci[1])
+            return (prior_ci[0], prior_ci[1])
         return None
 
     blended = GenericBallotSnapshot(

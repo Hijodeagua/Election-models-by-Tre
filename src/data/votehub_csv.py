@@ -73,8 +73,9 @@ def _parse_date_range(raw: str, year: int) -> tuple[date, date, int, int]:
         em = _parse_month(cross.group(3))
         ed = int(cross.group(4))
         ey = year
-        # if end month < start month we crossed a real Dec→Jan within one entry
-        sy = year if sm >= em else year - 1
+        # Cross-year only when start month is AFTER end month (e.g. Dec→Jan).
+        # Same-year cross-month (e.g. Apr→May) keeps sy = year.
+        sy = year - 1 if sm > em else year
         return date(sy, sm, sd), date(ey, em, ed), sm, em
 
     # same-month range or single day: "May. 11-15" or "May. 11"
@@ -102,8 +103,18 @@ def _clean_pct(raw: str) -> float | None:
         return None
 
 
-def _make_poll_id(pollster: str, start: date, end: date) -> str:
-    key = f"{pollster}|{start}|{end}"
+def _make_poll_id(
+    pollster: str,
+    start: date,
+    end: date,
+    subject: str = "",
+    sponsor: str = "",
+    population: str = "",
+) -> str:
+    """Deterministic poll ID. Broader key avoids collisions for same pollster/dates
+    across different states (subject), sponsors, or populations.
+    """
+    key = f"{pollster}|{start}|{end}|{subject}|{sponsor}|{population}"
     return "vh-csv-" + hashlib.md5(key.encode()).hexdigest()[:10]
 
 
@@ -196,13 +207,22 @@ class VoteHubCsvLoader:
             sponsor_raw = row.get("Sponsor", "").strip()
             sponsors = [s.strip() for s in sponsor_raw.split("/")] if sponsor_raw else []
 
-            poll_id = _make_poll_id(pollster, start, end)
+            # Fix 4: read Subject from CSV when present (Senate round-trip);
+            # fall back to default for legacy files lacking the column.
+            subject_raw = (row.get("Subject") or "").strip()
+            subject = subject_raw or _default_subject(self.poll_type)
+            pop_label = pop_raw or ""
+
+            # Fix 5: include subject/sponsor/population in ID key to avoid
+            # collisions for same-pollster/same-dates polls across races.
+            poll_id = _make_poll_id(
+                pollster, start, end, subject, sponsor_raw, pop_label,
+            )
             if poll_id in seen_ids:
-                # Deduplicate same pollster/dates
+                # Deduplicate exact duplicate rows
                 continue
             seen_ids.add(poll_id)
 
-            subject = _default_subject(self.poll_type)
             grade = row.get("Grade", "").strip()
 
             polls.append(Poll(

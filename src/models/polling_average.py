@@ -157,6 +157,12 @@ class PollingAverageEngine:
         # Compute weights and build records
         weighted: list[WeightedPollRecord] = []
         for poll in polls:
+            # Fix 2: exclude polls whose fieldwork ended after `as_of`. Without
+            # this filter, the `max(0, age_days)` clamp in `_compute_weight`
+            # gives future polls full recency weight at historical snapshots,
+            # leaking future data into past trend points.
+            if poll.end_date > as_of:
+                continue
             w = self._compute_weight(poll, as_of)
             if w <= 0:
                 continue

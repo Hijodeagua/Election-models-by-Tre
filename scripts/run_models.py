@@ -318,9 +318,52 @@ def main() -> None:
             logging.warning("Silver Bulletin generic ballot CSV load failed: %s", exc)
 
     if args.source == "csv":
-        approval_polls, approval_meta = csv_source.load(PollType.APPROVAL)
-        gb_polls, gb_meta = csv_source.load(PollType.GENERIC_BALLOT)
-        senate_polls, senate_meta = csv_source.load(PollType.HEAD_TO_HEAD)
+        # Fix 6: explicit precedence for offline/CSV mode.
+        #   1. Hand-curated approval.csv / generic_ballot.csv / senate.csv (small).
+        #   2. Authoritative raw votehub_*.csv via VoteHubCsvLoader (large).
+        #   3. silverb_*.csv is loaded above as a side-by-side benchmark only —
+        #      never counted as raw polls (SB files are model output, not polls).
+        def _csv_with_votehub_fallback(
+            poll_type: PollType, vh_filename: str,
+        ) -> tuple[list[Poll], FallbackMeta | None, str]:
+            polls, meta = csv_source.load(poll_type)
+            if polls:
+                return polls, meta, "curated CSV"
+            vh_path = fallback_dir / vh_filename
+            if vh_path.exists():
+                try:
+                    polls = VoteHubCsvLoader(poll_type).load(vh_path)
+                    return polls, None, _VH_CSV_LABEL
+                except Exception as exc:
+                    logging.warning("%s load failed: %s", vh_filename, exc)
+            return [], meta, "no raw polls"
+
+        approval_polls, approval_meta, approval_src = _csv_with_votehub_fallback(
+            PollType.APPROVAL, "votehub_approval.csv",
+        )
+        gb_polls, gb_meta, gb_src = _csv_with_votehub_fallback(
+            PollType.GENERIC_BALLOT, "votehub_generic_ballot.csv",
+        )
+        senate_polls, senate_meta, senate_src = _csv_with_votehub_fallback(
+            PollType.HEAD_TO_HEAD, "votehub_senate.csv",
+        )
+
+        # Provenance: distinguish raw poll counts from SB snapshot availability.
+        # SB snapshots are model outputs, not raw polls — never count them as
+        # "polls loaded".
+        print(f"  approval: {len(approval_polls)} raw polls loaded ({approval_src})")
+        if sb_approval_snap:
+            print("  approval: SB snapshot available (silverb_approval.csv) — benchmark only, not counted as polls")
+        print(f"  generic_ballot: {len(gb_polls)} raw polls loaded ({gb_src})")
+        if sb_gb_snap:
+            print("  generic_ballot: SB snapshot available (silverb_generic_ballot.csv) — benchmark only, not counted as polls")
+        print(f"  senate: {len(senate_polls)} raw polls loaded ({senate_src})")
+        if approval_meta is None and approval_polls:
+            approval_label = _VH_CSV_LABEL
+        if gb_meta is None and gb_polls:
+            gb_label = _VH_CSV_LABEL
+        if senate_meta is None and senate_polls:
+            senate_label = _VH_CSV_LABEL
     else:
         if args.source == "rcp":
             live = _fetch_rcp(cache_dir)
