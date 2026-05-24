@@ -78,12 +78,14 @@ class DatawrapperClient:
 
     # ── Public API ───────────────────────────────────────────────────
 
-    def update_and_publish(self, chart_id: str, csv_data: str) -> bool:
-        """Upload CSV data to a chart and trigger publish. Returns True on success."""
+    def update_and_publish(self, chart_id: str, csv_data: str, metadata: dict | None = None) -> bool:
+        """Upload CSV data, optionally apply metadata, then publish. Returns True on success."""
         if not chart_id:
             logger.warning("No chart ID provided — skipping")
             return False
         ok = self._put_data(chart_id, csv_data)
+        if ok and metadata:
+            self._patch_metadata(chart_id, metadata)
         if ok:
             ok = self._publish(chart_id)
         return ok
@@ -93,6 +95,89 @@ class DatawrapperClient:
         resp = self._client.get(f"/charts/{chart_id}")
         resp.raise_for_status()
         return resp.json()
+
+    # ── Chart metadata presets ───────────────────────────────────────
+
+    @staticmethod
+    def approval_metadata() -> dict:
+        return {
+            "title": "Presidential Approval Rating",
+            "metadata": {
+                "describe": {
+                    "intro": "90-day polling average · weighted by recency, sample size & pollster quality",
+                    "byline": "Policy & Peaches",
+                    "source-name": "VoteHub / Silver Bulletin",
+                },
+                "visualize": {
+                    "custom-colors": {
+                        "approve": "#2166ac",
+                        "disapprove": "#d6604d",
+                        "net": "#999999",
+                        "approve_lo": "#2166ac",
+                        "approve_hi": "#2166ac",
+                    },
+                    "range": {"approve_lo": "approve_hi"},
+                    "range-opacity": 0.15,
+                    "line-widths": {"approve": 2.5, "disapprove": 2.5, "net": 1.5,
+                                    "approve_lo": 0, "approve_hi": 0},
+                    "custom-labels": {
+                        "approve": "Approve",
+                        "disapprove": "Disapprove",
+                        "net": "Net approval",
+                        "approve_lo": "",
+                        "approve_hi": "",
+                    },
+                },
+                "axes": {"x": "date", "y": "approve,disapprove,net,approve_lo,approve_hi"},
+            },
+        }
+
+    @staticmethod
+    def generic_ballot_metadata() -> dict:
+        return {
+            "title": "Generic Congressional Ballot",
+            "metadata": {
+                "describe": {
+                    "intro": "90-day polling average · which party's candidate would you vote for in Congress?",
+                    "byline": "Policy & Peaches",
+                    "source-name": "VoteHub / Silver Bulletin",
+                },
+                "visualize": {
+                    "custom-colors": {
+                        "dem": "#2166ac",
+                        "rep": "#d6604d",
+                        "margin": "#999999",
+                        "dem_lo": "#2166ac",
+                        "dem_hi": "#2166ac",
+                    },
+                    "range": {"dem_lo": "dem_hi"},
+                    "range-opacity": 0.15,
+                    "line-widths": {"dem": 2.5, "rep": 2.5, "margin": 1.5,
+                                    "dem_lo": 0, "dem_hi": 0},
+                    "custom-labels": {
+                        "dem": "Democrat",
+                        "rep": "Republican",
+                        "margin": "Dem margin",
+                        "dem_lo": "",
+                        "dem_hi": "",
+                    },
+                },
+                "axes": {"x": "date", "y": "dem,rep,margin,dem_lo,dem_hi"},
+            },
+        }
+
+    @staticmethod
+    def senate_metadata() -> dict:
+        return {
+            "title": "Senate Race Polling Averages",
+            "metadata": {
+                "describe": {
+                    "intro": "Current polling averages for competitive 2026 Senate races",
+                    "byline": "Policy & Peaches",
+                    "source-name": "VoteHub",
+                },
+            },
+        }
 
     # ── Chart-specific CSV builders ──────────────────────────────────
 
@@ -152,6 +237,19 @@ class DatawrapperClient:
         return buf.getvalue()
 
     # ── Private ──────────────────────────────────────────────────────
+
+    def _patch_metadata(self, chart_id: str, metadata: dict) -> bool:
+        try:
+            resp = self._client.patch(
+                f"/charts/{chart_id}",
+                json=metadata,
+                headers={"Content-Type": "application/json"},
+            )
+            resp.raise_for_status()
+            return True
+        except Exception as exc:
+            logger.warning("Failed to patch metadata for chart %s: %s", chart_id, exc)
+            return False
 
     def _put_data(self, chart_id: str, csv_data: str) -> bool:
         try:

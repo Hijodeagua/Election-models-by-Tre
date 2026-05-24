@@ -182,14 +182,26 @@ def main() -> None:
         logger.warning("No chart data built — nothing to publish.")
         return
 
+    _metadata = {
+        "approval": DatawrapperClient.approval_metadata(),
+        "generic_ballot": DatawrapperClient.generic_ballot_metadata(),
+        "senate": DatawrapperClient.senate_metadata(),
+    }
+    _id_map = {
+        "approval": "approval_trend",
+        "generic_ballot": "generic_ballot_trend",
+        "senate": "senate_snapshot",
+        "house_effects": "house_effects",
+    }
+
     try:
         with DatawrapperClient() as dw:
             for name, csv_text in chart_data.items():
-                chart_id = getattr(chart_ids, {"approval": "approval_trend", "generic_ballot": "generic_ballot_trend", "senate": "senate_snapshot", "house_effects": "house_effects"}.get(name, name), "")
+                chart_id = getattr(chart_ids, _id_map.get(name, name), "")
                 if not chart_id:
                     logger.warning("No chart ID for '%s' — skipping. Set DW_CHART_%s_ID in .env", name, name.upper())
                     continue
-                ok = dw.update_and_publish(chart_id, csv_text)
+                ok = dw.update_and_publish(chart_id, csv_text, metadata=_metadata.get(name))
                 logger.info("  %s: %s", name, "✓ published" if ok else "✗ failed")
     except ValueError as exc:
         logger.error(str(exc))
