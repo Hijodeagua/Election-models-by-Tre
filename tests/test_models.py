@@ -119,7 +119,10 @@ class TestPollingAverageEngine:
         # Partisan poll is downweighted, so average should be closer to neutral
         assert result.averages["Approve"] < 50.0
 
-    def test_lv_weighted_higher_than_adults(self):
+    def test_adults_weighted_higher_than_lv_for_approval(self):
+        # Phase 1a: approval polls invert the LV > Adults hierarchy.
+        # Adults capture broader public opinion; LV screens create selection
+        # bias unrelated to approval dynamics (Pew/Kennedy & Deane 2017).
         lv_poll = make_poll(
             poll_id="lv", approve=45.0, disapprove=52.0, population=Population.LIKELY_VOTERS
         )
@@ -129,8 +132,8 @@ class TestPollingAverageEngine:
         result = self.engine.compute_average(
             [lv_poll, adults_poll], choices=["Approve", "Disapprove"]
         )
-        # LV poll should have more influence
-        assert result.averages["Approve"] < 47.5
+        # Adults poll should have more influence → average pushed toward 50.0
+        assert result.averages["Approve"] > 47.5
 
     def test_margin_calculation(self):
         poll = make_poll(approve=47.0, disapprove=50.0)
