@@ -38,7 +38,7 @@ logger = logging.getLogger(__name__)
 
 _NYT_ARTICLE_SEARCH_URL = "https://api.nytimes.com/svc/search/v2/articlesearch.json"
 _DEFAULT_CACHE_DIR = Path("data/cache/nyt")
-_RATE_LIMIT_SLEEP_SEC = 6.5  # NYT allows 10 req/min → one per 6 s + buffer
+_RATE_LIMIT_SLEEP_SEC = 12.0  # NYT allows 10 req/min → one per 6 s; 12 s gives 2× headroom
 
 
 class NYTArticleSource:
@@ -150,7 +150,7 @@ class NYTArticleSource:
             time.sleep(_RATE_LIMIT_SLEEP_SEC)
         return docs
 
-    @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=10, max=60))
+    @retry(stop=stop_after_attempt(4), wait=wait_exponential(min=15, max=120))
     def _fetch_page(
         self,
         query: str,
