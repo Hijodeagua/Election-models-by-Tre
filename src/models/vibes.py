@@ -120,6 +120,8 @@ class ArticleSignal:
     state: str          # e.g. "Georgia"
     year: int
     source: str = "nyt"
+    lead_paragraph: str = ""   # First paragraph of article body (richer than snippet)
+    byline: str = ""           # Author name(s), e.g. "By NICHOLAS FANDOS"
     # Pre-scored raw sentiment from an external model (optional).
     # If None the keyword scorer is used instead.
     raw_sentiment: float | None = None

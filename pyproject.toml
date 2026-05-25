@@ -36,6 +36,8 @@ dependencies = [
     "alembic>=1.13",
     # Dashboard
     "streamlit>=1.29",
+    # LLM
+    "anthropic>=0.25",
     # Config
     "pydantic>=2.5",
     "pydantic-settings>=2.1",

@@ -104,6 +104,8 @@ def main() -> None:
             article_id=r["article_id"],
             headline=r["headline"],
             snippet=r["snippet"],
+            lead_paragraph=r.get("lead_paragraph", ""),
+            byline=r.get("byline", ""),
             publication_date=date.fromisoformat(r["publication_date"]),
             race=r["race"],
             state=r["state"],

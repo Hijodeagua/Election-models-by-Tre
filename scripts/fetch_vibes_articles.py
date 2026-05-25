@@ -88,7 +88,7 @@ def main() -> None:
     for i, (state, year) in enumerate(RACES, 1):
         print(f"[{i:2d}/{len(RACES)}] {state} {year} ... ", end="", flush=True)
         try:
-            signals = client.fetch_race_articles(state, year, max_pages=5)
+            signals = client.fetch_race_articles(state, year, max_pages=8)
             all_signals.extend(signals)
             print(f"{len(signals)} articles")
         except Exception as exc:
@@ -101,6 +101,8 @@ def main() -> None:
             "article_id": s.article_id,
             "headline": s.headline,
             "snippet": s.snippet,
+            "lead_paragraph": s.lead_paragraph,
+            "byline": s.byline,
             "publication_date": s.publication_date.isoformat(),
             "race": s.race,
             "state": s.state,

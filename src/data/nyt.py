@@ -134,7 +134,7 @@ class NYTArticleSource:
     ) -> list[dict]:
         docs: list[dict] = []
         for page in range(max_pages):
-            cache_key = f"{query}_{start_date}_{end_date}_p{page}"
+            cache_key = f"{query}_{start_date}_{end_date}_p{page}_v2"
             cached = self._read_cache(cache_key)
             if cached is not None:
                 docs.extend(cached)
@@ -165,6 +165,7 @@ class NYTArticleSource:
             "sort": "relevance",
             "page": page,
             "fq": 'section_name:("U.S." "Politics") OR desk:("National Desk" "Politics")',
+            "fl": "headline,snippet,abstract,lead_paragraph,byline,pub_date,web_url,_id,word_count",
             "api-key": self.api_key,
         }
         resp = self._client.get(_NYT_ARTICLE_SEARCH_URL, params=params)
@@ -180,6 +181,8 @@ class NYTArticleSource:
         try:
             headline = doc.get("headline", {}).get("main", "")
             snippet = doc.get("snippet", "") or doc.get("abstract", "")
+            lead_paragraph = doc.get("lead_paragraph", "") or ""
+            byline = doc.get("byline", {}).get("original", "") or ""
             pub_date_str = doc.get("pub_date", "")[:10]  # "2026-05-01T..."
             pub_date = date.fromisoformat(pub_date_str)
             article_id = doc.get("_id", doc.get("web_url", ""))
@@ -193,6 +196,8 @@ class NYTArticleSource:
             article_id=article_id,
             headline=headline,
             snippet=snippet,
+            lead_paragraph=lead_paragraph,
+            byline=byline,
             publication_date=pub_date,
             race=race,
             state=state,
