@@ -1,0 +1,70 @@
+name: Nightly Tables
+
+on:
+  schedule:
+    - cron: "17 8 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Verify without refreshing files or publishing to Datawrapper"
+        type: boolean
+        default: false
+      chart:
+        description: "Chart/table output to run"
+        type: choice
+        options:
+          - all
+          - approval
+          - approval_pro
+          - generic_ballot
+          - senate
+          - house_effects
+        default: all
+  pull_request:
+    branches: [main, claude/init-election-oracle-Pe1bx]
+    paths:
+      - ".github/workflows/nightly-tables.yml"
+      - "scripts/nightly_tables.py"
+      - "scripts/refresh_data.py"
+      - "scripts/publish.py"
+      - "src/data/**"
+      - "src/models/**"
+      - "tests/test_nightly_tables.py"
+
+jobs:
+  nightly-tables:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    env:
+      DATAWRAPPER_API_TOKEN: ${{ secrets.DATAWRAPPER_API_TOKEN }}
+      DW_CHART_APPROVAL_ID: ${{ secrets.DW_CHART_APPROVAL_ID }}
+      DW_CHART_APPROVAL_PRO_ID: ${{ secrets.DW_CHART_APPROVAL_PRO_ID }}
+      DW_CHART_GB_ID: ${{ secrets.DW_CHART_GB_ID }}
+      DW_CHART_SENATE_ID: ${{ secrets.DW_CHART_SENATE_ID }}
+      DW_CHART_HOUSE_EFFECTS_ID: ${{ secrets.DW_CHART_HOUSE_EFFECTS_ID }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run nightly table pipeline
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            python scripts/nightly_tables.py --dry-run --skip-refresh
+          elif [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.dry_run }}" == "true" ]]; then
+            python scripts/nightly_tables.py --dry-run --chart "${{ inputs.chart }}"
+          elif [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            python scripts/nightly_tables.py --chart "${{ inputs.chart }}"
+          else
+            python scripts/nightly_tables.py
+          fi

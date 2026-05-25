@@ -73,6 +73,7 @@ dev = [
 
 [project.scripts]
 refresh-data = "scripts.refresh_data:main"
+nightly-tables = "scripts.nightly_tables:main"
 download-training-data = "scripts.download_training_data:main"
 train-parameters = "scripts.train_parameters:main"
 
