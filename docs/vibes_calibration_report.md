@@ -8,7 +8,7 @@
 
 We tested whether NYT article sentiment in the 90–120 days before an election improves Senate margin predictions beyond a structural prior (expert rating). The honest answer: **marginally yes, but far less than hoped.**
 
-The best scorer (7-modal bucketing) reduces RMSE from **4.174 pp to 4.100 pp** — a 0.074 pp improvement over the baseline rating-only model. This is statistically real but operationally small. The keyword scorer has a systematic positive-sentiment bias that flattens most observations into a narrow neutral-to-lean-positive band, stripping out the signal we need. The `lean_negative` bucket is the model's most informative output: when a race scores negative, it reliably predicts underperformance.
+The best scorer (7-modal bucketing) reduces RMSE from **4.174 pp to 4.100 pp** — a 0.074 pp improvement over the baseline rating-only model. This is directionally favorable in-sample but operationally small. The keyword scorer has a systematic positive-sentiment bias that flattens most observations into a narrow neutral-to-lean-positive band, stripping out the signal we need. The `lean_negative` bucket is the model's most informative output: when a race scores negative, it reliably predicts underperformance.
 
 The fundamentals prior is hard to beat. Across 43 races, the rating alone had a 4.17 pp RMSE — a strong baseline. Media vibes are not a substitute for structural models; they are a small refinement of them.
 

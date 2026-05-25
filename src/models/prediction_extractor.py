@@ -17,7 +17,6 @@ import logging
 import os
 import time
 from dataclasses import asdict, dataclass
-from datetime import date
 from pathlib import Path
 
 import anthropic
@@ -30,6 +29,20 @@ _DEFAULT_CACHE_PATH = Path("data/vibes/predictions.json")
 _MODEL = "claude-haiku-4-5-20251001"
 _RATE_LIMIT_SLEEP_SEC = 0.5   # Haiku is fast; small sleep avoids burst limits
 _MAX_TEXT_CHARS = 800          # headline + snippet/lead, truncated to keep tokens low
+
+# Valid enum values — normalize unexpected model output to defaults
+_VALID_ARTICLE_TYPES = {
+    "horse_race", "poll_coverage", "candidate_profile", "endorsement",
+    "scandal", "debate", "fundraising", "policy", "other",
+}
+_VALID_SUBJECTS = {"Democrat", "Republican", "both", "race_general"}
+_VALID_HOOKS = {
+    "new_poll", "endorsement", "gaffe", "debate",
+    "ad_buy", "campaign_event", "early_voting", "other",
+}
+_VALID_SENTIMENTS = {"positive", "negative", "neutral"}
+_VALID_WINNERS = {"D", "R", "tossup", "none"}
+_VALID_CONFIDENCE = {"clear", "moderate", "slight", "none"}
 
 
 @dataclass
@@ -110,7 +123,8 @@ Example output:
   "news_hook": "new_poll",
   "dem_sentiment": "positive",
   "rep_sentiment": "neutral",
-  "summary": "A new Marquette poll shows the Democratic candidate leading by 4 points. Analysts say the margin reflects strength with suburban voters."
+  "summary": "A new Marquette poll shows the Democratic candidate leading by 4 points.
+Analysts say the margin reflects strength with suburban voters."
 }
 """
 
@@ -208,6 +222,10 @@ class PredictionExtractor:
             clean = re.sub(r"```[a-z]*\n?", "", raw).strip()
             parsed = json.loads(clean)
 
+        def _norm(val: object, valid: set[str], default: str) -> str:
+            s = str(val).strip() if val else ""
+            return s if s in valid else default
+
         has_pred = bool(parsed.get("has_prediction", False))
         return PredictionRecord(
             article_id=signal.article_id,
@@ -217,14 +235,14 @@ class PredictionExtractor:
             byline=signal.byline,
             publication_date=signal.publication_date.isoformat(),
             has_prediction=has_pred,
-            predicted_winner=parsed.get("predicted_winner") or "none",
-            confidence=parsed.get("confidence") or "none",
+            predicted_winner=_norm(parsed.get("predicted_winner"), _VALID_WINNERS, "none"),
+            confidence=_norm(parsed.get("confidence"), _VALID_CONFIDENCE, "none"),
             key_phrase=parsed.get("key_phrase") or "",
-            article_type=parsed.get("article_type") or "other",
-            primary_subject=parsed.get("primary_subject") or "race_general",
-            news_hook=parsed.get("news_hook") or "other",
-            dem_sentiment=parsed.get("dem_sentiment") or "neutral",
-            rep_sentiment=parsed.get("rep_sentiment") or "neutral",
+            article_type=_norm(parsed.get("article_type"), _VALID_ARTICLE_TYPES, "other"),
+            primary_subject=_norm(parsed.get("primary_subject"), _VALID_SUBJECTS, "race_general"),
+            news_hook=_norm(parsed.get("news_hook"), _VALID_HOOKS, "other"),
+            dem_sentiment=_norm(parsed.get("dem_sentiment"), _VALID_SENTIMENTS, "neutral"),
+            rep_sentiment=_norm(parsed.get("rep_sentiment"), _VALID_SENTIMENTS, "neutral"),
             summary=parsed.get("summary") or "",
             model=_MODEL,
         )
