@@ -1,0 +1,66 @@
+name: Refresh tracker data
+
+# Heavy Python runs here in CI; it emits static JSON that the Vercel
+# Next.js spoke reads. No live Python server runs on Vercel.
+
+on:
+  schedule:
+    # Daily at 10:00 UTC — within Vercel hobby cron limits.
+    - cron: "0 10 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas scipy statsmodels numpy pydantic pydantic-settings \
+            python-dotenv httpx beautifulsoup4 tenacity lxml
+
+      - name: Refresh source data
+        # refresh_data.py pulls fresh polls into data/fallback/ for offline use.
+        # Best-effort: a network/source hiccup must not block the JSON export,
+        # which falls back to the committed CSVs.
+        continue-on-error: true
+        run: |
+          if [ -f scripts/refresh_data.py ]; then
+            python scripts/refresh_data.py
+          else
+            echo "scripts/refresh_data.py not found — skipping refresh step."
+          fi
+
+      - name: Export static JSON
+        run: python scripts/export_json.py
+
+      - name: Commit and push updated JSON
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add web/public/data/*.json data/fallback/*.csv || true
+          if [ -n "$(git status --porcelain)" ]; then
+            timestamp=$(date -u +'%Y-%m-%d %H:%M UTC')
+            git commit -m "Refresh tracker data: $timestamp"
+            # Pushing to main triggers a Vercel redeploy of the spoke.
+            git push
+          else
+            echo "No changes to commit."
+          fi
