@@ -1,0 +1,60 @@
+{
+  "races": [
+    {
+      "state": "Arizona",
+      "as_of": "2026-05-28",
+      "candidates": {
+        "Gallego": 47.7,
+        "Lake": 43.3
+      },
+      "margin": 4.4,
+      "num_polls": 2,
+      "rating": null
+    },
+    {
+      "state": "Georgia",
+      "as_of": "2026-05-28",
+      "candidates": {
+        "Ossoff": 45.0,
+        "Collins": 46.0
+      },
+      "margin": 1.0,
+      "num_polls": 1,
+      "rating": null
+    },
+    {
+      "state": "Michigan",
+      "as_of": "2026-05-28",
+      "candidates": {
+        "Peters": 47.0,
+        "Rogers": 44.0
+      },
+      "margin": 3.0,
+      "num_polls": 1,
+      "rating": null
+    },
+    {
+      "state": "Nevada",
+      "as_of": "2026-05-28",
+      "candidates": {
+        "Cortez Masto": 46.0,
+        "Laxalt": 47.0
+      },
+      "margin": 1.0,
+      "num_polls": 1,
+      "rating": null
+    },
+    {
+      "state": "Pennsylvania",
+      "as_of": "2026-05-28",
+      "candidates": {
+        "Fetterman": 44.0,
+        "McCormick": 45.0
+      },
+      "margin": 1.0,
+      "num_polls": 1,
+      "rating": null
+    }
+  ],
+  "num_races": 5
+}
