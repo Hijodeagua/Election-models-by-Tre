@@ -1,6 +1,6 @@
 {
   "current": {
-    "as_of": "2026-05-31",
+    "as_of": "2026-06-01",
     "approve": 41.7,
     "disapprove": 54.8,
     "net_approval": -13.1,
@@ -494,6 +494,21 @@
     },
     {
       "as_of": "2026-05-31",
+      "approve": 41.7,
+      "disapprove": 54.8,
+      "net_approval": -13.1,
+      "num_polls": 5,
+      "ci_approve": [
+        40.9,
+        42.8
+      ],
+      "ci_disapprove": [
+        53.9,
+        55.6
+      ]
+    },
+    {
+      "as_of": "2026-06-01",
       "approve": 41.7,
       "disapprove": 54.8,
       "net_approval": -13.1,
