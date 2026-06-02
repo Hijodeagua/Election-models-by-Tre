@@ -1,6 +1,6 @@
 {
   "current": {
-    "as_of": "2026-06-01",
+    "as_of": "2026-06-02",
     "dem_pct": 44.7,
     "rep_pct": 42.8,
     "margin": 1.9,
@@ -628,6 +628,23 @@
     },
     {
       "as_of": "2026-06-01",
+      "dem_pct": 44.7,
+      "rep_pct": 42.8,
+      "margin": 1.9,
+      "num_polls": 5,
+      "estimated_dem_seats": 228,
+      "estimated_rep_seats": 207,
+      "ci_dem": [
+        44.3,
+        45.2
+      ],
+      "ci_rep": [
+        42.3,
+        43.3
+      ]
+    },
+    {
+      "as_of": "2026-06-02",
       "dem_pct": 44.7,
       "rep_pct": 42.8,
       "margin": 1.9,
