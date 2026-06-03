@@ -4,11 +4,8 @@ from __future__ import annotations
 
 from datetime import date, timedelta
 
-import pytest
-
 from src.data.base import Poll, PollAnswer, PollType, Population
 from src.models.polling_average import PollingAverageEngine
-
 
 # ── Test helpers ──────────────────────────────────────────────────────
 

@@ -7,10 +7,9 @@ the actual election result. These are the inputs/outputs for optimizer.
 from __future__ import annotations
 
 import logging
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import date, timedelta
 from pathlib import Path
-from typing import Any
 
 from src.data.base import Poll, PollAnswer, PollType, Population
 from src.data.fte_archive import FTEArchiveClient, FTEPoll

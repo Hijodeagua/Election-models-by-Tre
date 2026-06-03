@@ -34,7 +34,6 @@ _POPULATION_MAP = {
     "v": Population.REGISTERED_VOTERS,
     "rv": Population.REGISTERED_VOTERS,
     "lv": Population.LIKELY_VOTERS,
-    "a": Population.ADULTS,
     "r": Population.REGISTERED_VOTERS,  # VoteHub "R" = registered
     "a": Population.ADULTS,             # VoteHub "A" = adults
 }

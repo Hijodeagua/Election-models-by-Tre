@@ -32,9 +32,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from config.settings import settings
 from src.data.base import Poll, PollType
+from src.data.rcp import RCPClient
 from src.data.silverb_download import SilverBulletinDownloader
 from src.data.votehub import VoteHubClient
-from src.data.rcp import RCPClient
 
 logger = logging.getLogger(__name__)
 

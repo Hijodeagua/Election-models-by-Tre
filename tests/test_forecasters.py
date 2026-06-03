@@ -7,7 +7,6 @@ from datetime import date
 import pytest
 
 from src.data.forecasters import (
-    ConsensusRating,
     ForecastRating,
     RatingScale,
     _prob_to_rating,
@@ -18,7 +17,6 @@ from src.models.candidate_quality import (
     CandidateQualityModel,
     RaceFundamentals,
 )
-
 
 # ── Rating scale ──────────────────────────────────────────────────────
 

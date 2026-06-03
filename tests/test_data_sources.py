@@ -2,16 +2,11 @@
 
 from __future__ import annotations
 
-import json
 from datetime import date
 from pathlib import Path
-from unittest.mock import MagicMock, patch
 
-import pytest
-
-from src.data.base import DataSource, Poll, PollAnswer, PollType, Population
+from src.data.base import Poll, PollAnswer, PollType, Population
 from src.data.votehub import VoteHubClient, _parse_date, _parse_poll_type, _parse_population
-
 
 # ── Poll dataclass tests ──────────────────────────────────────────────
 

@@ -14,7 +14,6 @@ from __future__ import annotations
 import re
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any
 
 from src.media.mentions import CandidateMention
 
@@ -80,13 +79,13 @@ class TransformerScorer(SentimentScorer):
 
     def __init__(self, model_name: str = "cardiffnlp/twitter-roberta-base-sentiment-latest") -> None:
         try:
-            from transformers import AutoModelForSequenceClassification, AutoTokenizer
             import torch
-        except ImportError:
+            from transformers import AutoModelForSequenceClassification, AutoTokenizer
+        except ImportError as exc:
             raise ImportError(
                 "TransformerScorer requires `transformers` and `torch`. "
                 "Install with: pip install election-oracle[ml]"
-            )
+            ) from exc
 
         self._tokenizer = AutoTokenizer.from_pretrained(model_name)
         self._model = AutoModelForSequenceClassification.from_pretrained(model_name)

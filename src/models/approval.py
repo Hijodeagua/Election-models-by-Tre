@@ -101,7 +101,7 @@ class PresidentialApprovalModel:
         as_of: date | None = None,
         draws: int = 1000,
         tune: int = 1000,
-    ) -> tuple[ApprovalSnapshot, "StateSpaceResult"] | None:
+    ) -> tuple[ApprovalSnapshot, StateSpaceResult] | None:
         """State-space estimate. Replaces current_approval() once validated.
 
         Returns (ApprovalSnapshot, StateSpaceResult) or None on failure.

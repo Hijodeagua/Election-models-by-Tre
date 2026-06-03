@@ -10,8 +10,6 @@ Covers:
 
 from __future__ import annotations
 
-import csv
-import io
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -19,14 +17,13 @@ import pytest
 
 from src.data.base import Poll, PollAnswer, PollType, Population
 from src.data.votehub_csv import VoteHubCsvLoader, _make_poll_id, _parse_date_range
+from src.models.approval import ApprovalSnapshot
 from src.models.bayesian import (
     bayesian_blend_approval,
     bayesian_blend_generic_ballot,
 )
-from src.models.approval import ApprovalSnapshot
 from src.models.generic_ballot import GenericBallotSnapshot
 from src.models.polling_average import PollingAverageEngine
-
 
 # ─── Fix 1 ──────────────────────────────────────────────────────────────────────
 

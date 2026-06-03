@@ -10,7 +10,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-
 DEFAULT_RATING = 1.5  # Unknown pollsters get a middling rating
 
 

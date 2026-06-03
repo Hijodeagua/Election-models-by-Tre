@@ -9,8 +9,7 @@ import pytest
 
 from src.analysis.historical import MIDTERM_BENCHMARKS, compare_to_cycle
 from src.analysis.pollster_weights import PollsterWeightManager
-from src.analysis.trend import TrendPoint, moving_average
-
+from src.analysis.trend import moving_average
 
 # ── Pollster weights ──────────────────────────────────────────────────
 
