@@ -47,14 +47,14 @@ def main() -> None:
 
     # Check dependencies
     try:
-        import optuna
         import mlflow
-    except ImportError:
+        import optuna
+    except ImportError as exc:
         logger.error(
             "Missing dependencies. Install with:\n"
             "  pip install optuna mlflow"
         )
-        raise SystemExit(1)
+        raise SystemExit(1) from exc
 
     from src.training.data_loader import TrainingDataLoader
     from src.training.optimizer import run_optimization

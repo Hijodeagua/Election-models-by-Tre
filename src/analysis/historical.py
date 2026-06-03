@@ -6,7 +6,6 @@ at equivalent points in time.
 
 from __future__ import annotations
 
-
 # Placeholder — will be populated as historical data is backfilled.
 # Structure: { year: { "approval_at_500_days": float, "generic_ballot_margin": float, ... } }
 MIDTERM_BENCHMARKS: dict[int, dict[str, float]] = {

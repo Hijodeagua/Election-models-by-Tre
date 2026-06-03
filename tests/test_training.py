@@ -3,18 +3,19 @@
 from __future__ import annotations
 
 from datetime import date
-from pathlib import Path
-from unittest.mock import MagicMock, patch
 
 import pytest
 
-from src.data.fte_archive import FTEArchiveClient, FTEPoll, _parse_fte_date
-from src.data.mit_results import ElectionResult, MITResultsClient, RaceResult
-from src.models.polling_average import PollingAverageEngine, PollingAverageParams
-from src.training.data_loader import TrainingDataLoader, TrainingRace, _election_day, _state_to_abbrev
-from src.training.evaluator import PollingAverageEvaluator
 from src.data.base import Poll, PollAnswer, PollType, Population
-
+from src.data.fte_archive import FTEArchiveClient, _parse_fte_date
+from src.data.mit_results import ElectionResult, MITResultsClient
+from src.models.polling_average import PollingAverageEngine, PollingAverageParams
+from src.training.data_loader import (
+    TrainingRace,
+    _election_day,
+    _state_to_abbrev,
+)
+from src.training.evaluator import PollingAverageEvaluator
 
 # ── PollingAverageParams ──────────────────────────────────────────────
 
@@ -38,7 +39,6 @@ class TestPollingAverageParams:
         trained.write_text(json.dumps({
             "params": {"recency_half_life_days": 30.0}
         }))
-        p = PollingAverageParams.load_trained.__func__  # not testing file loading here
         # Just confirm default loads without error
         assert PollingAverageParams() is not None
 

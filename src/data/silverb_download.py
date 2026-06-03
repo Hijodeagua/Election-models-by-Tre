@@ -90,7 +90,7 @@ class SilverBulletinDownloader:
 
             # Basic sanity check: must look like a CSV with at least 2 lines
             text = resp.text.strip()
-            lines = [l for l in text.splitlines() if l.strip()]
+            lines = [ln for ln in text.splitlines() if ln.strip()]
             if len(lines) < 2 or "," not in lines[0]:
                 logger.warning(
                     "Downloaded content from %s doesn't look like a valid CSV "

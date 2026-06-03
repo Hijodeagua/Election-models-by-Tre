@@ -14,14 +14,13 @@ from __future__ import annotations
 
 import json
 import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
-from typing import Any
 
 import numpy as np
 
-from config.settings import Settings, settings
+from config.settings import Settings
 from src.data.base import Poll, PollType, Population
 
 
@@ -285,7 +284,6 @@ class PollingAverageEngine:
     ) -> dict[str, tuple[float, float]]:
         """Compute bootstrap confidence intervals for each choice."""
         rng = np.random.default_rng(seed=42)
-        n = len(weighted)
         alpha = (1 - ci_level) / 2
 
         results: dict[str, tuple[float, float]] = {}

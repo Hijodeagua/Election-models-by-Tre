@@ -135,7 +135,6 @@ def _print_ss_approval(
     label: str,
 ) -> None:
     """Print state-space approval alongside weighted average and SB benchmark."""
-    from src.models.state_space import StateSpaceResult
 
     _section(f"PRESIDENTIAL APPROVAL  ·  {ss_snap.as_of}  ·  N={ss_snap.num_polls}  [STATE-SPACE]")
     print(f"  Approve     {ss_snap.approve:5.1f}%{_ci(ss_snap.ci_approve)}")
@@ -166,7 +165,7 @@ def _print_ss_approval(
     # House effects
     fx = ss_result.house_effects_sorted(threshold=1.5)
     if fx:
-        print(f"\n  HOUSE EFFECTS  ·  |δⱼ| > 1.5pp  ·  constraint: Σwⱼδⱼ = 0")
+        print("\n  HOUSE EFFECTS  ·  |δⱼ| > 1.5pp  ·  constraint: Σwⱼδⱼ = 0")
         for name, mean, lo, hi in fx[:10]:
             direction = "pro-Approve" if mean > 0 else "pro-Disapprove"
             print(f"    {name:<32} {mean:+.1f}pp  [{lo:+.1f}, {hi:+.1f}]  {direction}")
@@ -227,7 +226,7 @@ def _print_senate(races: list, label: str) -> None:
         cands = "  ".join(f"{name}: {pct:.1f}%" for name, pct in top[:2])
         margin_str = f"  margin {race.margin:+.1f}" if race.margin is not None else ""
         print(f"  {race.state:<22} {cands}  N={race.num_polls}{margin_str}")
-    print(f"  [TRACKER — polling average only]")
+    print("  [TRACKER — polling average only]")
     _provenance(label)
 
 

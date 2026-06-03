@@ -10,16 +10,16 @@ A Python-based election modeling and forecasting system that ingests polling dat
 - **Presidential approval tracking** — daily averages with confidence intervals
 - **Generic ballot model** — congressional preference tracking with historical seat projection
 - **Senate race models** — individual race polling averages
-- **Interactive dashboard** — Streamlit-based visualization
+- **Web tracker** — deployable Next.js front end (`web/`) that reads static JSON exported from the Python pipeline
+- **Streamlit dashboard** — local exploration UI (skeleton)
 
 ## Local Setup
 
-### 1. Clone the working branch
+### 1. Clone the repo
 
 ```bash
 git clone https://github.com/Hijodeagua/Election-models-by-Tre.git
 cd Election-models-by-Tre
-git checkout claude/silver-bulletin-csv-fallback
 ```
 
 ### 2. Install dependencies
@@ -58,7 +58,7 @@ python scripts/run_models.py --source csv
 ### 5. Run the test suite
 
 ```bash
-pytest                  # 131 tests, ~8 seconds
+pytest                  # 147 tests, ~8 seconds
 pytest tests/test_models.py -v   # just the polling engine tests
 ```
 
@@ -93,6 +93,35 @@ House effects (40 pollsters with |δ|>1.5pp):
   Quinnipiac           -4.0pp  pro-Disapprove
   ...
 ```
+
+## Web Tracker (`web/`)
+
+A deployable Next.js 14 (App Router) static site that presents the trackers —
+presidential approval, generic ballot, and Senate — plus a methodology page. It
+reads the static JSON files in `web/public/data/`, which are produced by the
+Python pipeline; it runs no Python server itself.
+
+```bash
+# 1. Regenerate the static JSON from the offline pipeline
+python scripts/export_json.py
+
+# 2. Build / run the front end
+cd web
+npm install
+npm run dev        # http://localhost:3000/election
+npm run build      # production build (static, prerendered)
+```
+
+The site is framed explicitly as a **tracker, not a forecast** — it shows
+weighted polling averages and confidence bands only, with no win probabilities.
+It is served under the `/election` base path (see `web/next.config.mjs`).
+
+### Automated refresh
+
+`.github/workflows/refresh_data.yml` runs daily: it best-effort refreshes the
+source CSVs, runs `scripts/export_json.py`, and commits the updated JSON. The
+data refresh is offline-resilient — if a source is unreachable, the export falls
+back to the committed CSVs in `data/fallback/`.
 
 ## Project Structure
 
@@ -150,7 +179,7 @@ The core engine (`src/models/polling_average.py`) computes weighted averages usi
 | VoteHub | API | Free (CC BY 4.0) | Implemented |
 | RealClearPolitics | Scraper | Free | Implemented |
 | FiftyPlusOne | API | $8/mo+ | Stub (adapter ready) |
-| Silver Bulletin | Scraper | Free (ratings) | Stub |
+| Silver Bulletin | CSV download | Free | Implemented (model-estimate CSV loader + downloader) |
 | Congress.gov | API | Free | Stub |
 
 ## Development

@@ -21,13 +21,11 @@ from src.media.nyt import NYTArticle, NYTClient
 from src.media.sentiment import KeywordScorer, ScoredMention, SentimentScore, get_scorer
 from src.media.vibes import (
     CandidateVibes,
-    ScandalFlag,
     VibeBucket,
     _classify_bucket,
     _detect_scandals,
     compute_vibes,
 )
-
 
 # ── NYT Article normalization ─────────────────────────────────────────
 

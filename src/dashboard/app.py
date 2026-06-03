@@ -6,13 +6,13 @@ Run with: streamlit run src/dashboard/app.py
 from __future__ import annotations
 
 try:
-    import streamlit as st
     import plotly.graph_objects as go
-except ImportError:
+    import streamlit as st
+except ImportError as exc:
     raise SystemExit(
         "Dashboard requires streamlit and plotly. "
         "Install with: pip install election-oracle[dev]"
-    )
+    ) from exc
 
 
 def main() -> None:

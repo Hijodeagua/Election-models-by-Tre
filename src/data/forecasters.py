@@ -15,10 +15,9 @@ win probabilities for regression analysis.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import date
 from enum import Enum
-from typing import Any
 
 
 class RatingScale(str, Enum):

@@ -81,7 +81,7 @@ class GenericBallotModel:
         as_of: date | None = None,
         draws: int = 1000,
         tune: int = 1000,
-    ) -> tuple[GenericBallotSnapshot, "StateSpaceResult"] | None:
+    ) -> tuple[GenericBallotSnapshot, StateSpaceResult] | None:
         """State-space estimate. Replaces current_ballot() once validated."""
         from src.models import state_space
 

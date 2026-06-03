@@ -3,10 +3,8 @@
 from __future__ import annotations
 
 from datetime import date, datetime
-from typing import Optional
 
 from sqlmodel import Field, Relationship, SQLModel
-
 
 # ── Core polling tables ───────────────────────────────────────────────
 

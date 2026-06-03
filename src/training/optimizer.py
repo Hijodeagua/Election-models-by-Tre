@@ -17,7 +17,6 @@ import logging
 from pathlib import Path
 from typing import Any
 
-from config.settings import settings
 from src.training.data_loader import TrainingRace
 from src.training.evaluator import EvaluationResult, PollingAverageEvaluator
 
@@ -58,11 +57,11 @@ def run_optimization(
         import mlflow
         import optuna
         optuna.logging.set_verbosity(optuna.logging.WARNING)
-    except ImportError:
+    except ImportError as exc:
         raise ImportError(
             "Optimization requires optuna and mlflow. "
             "Install with: pip install optuna mlflow"
-        )
+        ) from exc
 
     evaluator = PollingAverageEvaluator(training_races)
 

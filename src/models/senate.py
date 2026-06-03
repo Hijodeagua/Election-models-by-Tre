@@ -5,9 +5,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date
 
-from src.data.base import Poll, PollType
+from src.data.base import Poll
 from src.models import ModelMaturity
-from src.models.polling_average import AverageResult, PollingAverageEngine
+from src.models.polling_average import PollingAverageEngine
 
 
 @dataclass

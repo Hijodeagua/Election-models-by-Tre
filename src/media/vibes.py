@@ -15,8 +15,7 @@ from datetime import date
 from enum import Enum
 from typing import Any
 
-from src.media.sentiment import ScoredMention, SentimentScore
-
+from src.media.sentiment import ScoredMention
 
 # ── Metric 2: Five-bucket classification ──────────────────────────────
 

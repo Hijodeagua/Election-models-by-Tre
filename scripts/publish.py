@@ -28,17 +28,15 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from config.settings import settings
 from src.data.base import PollType
 from src.data.csv_source import CsvFallbackSource
 from src.data.datawrapper import ChartIds, DatawrapperClient
-from src.data.silverb_csv import SilverBulletinApprovalLoader, SilverBulletinGenericBallotLoader
+from src.data.pollster_ratings import hybrid_quality
 from src.data.votehub_csv import VoteHubCsvLoader
 from src.models.approval import PresidentialApprovalModel
 from src.models.generic_ballot import GenericBallotModel
 from src.models.polling_average import PollingAverageEngine
 from src.models.senate import SenateModel
-from src.data.pollster_ratings import hybrid_quality
 
 logger = logging.getLogger(__name__)
 
