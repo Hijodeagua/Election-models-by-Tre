@@ -1,0 +1,44 @@
+{
+  "_comment": "2026 Senate cycle configuration for the control simulation. dem_safe_seats / rep_safe_seats count seats NOT at risk (holdovers + safe races). Update as the cycle develops \u2014 these drive the seat baseline in src/models/senate_simulation.py. dem_majority_threshold is 51 because the sitting VP (Republican) breaks 50-50 ties.",
+  "cycle": 2026,
+  "dem_safe_seats": 47,
+  "rep_safe_seats": 48,
+  "dem_majority_threshold": 51,
+  "competitive_races": [
+    {
+      "state": "Arizona",
+      "race": "Arizona Senate 2026",
+      "dem_candidate": "Gallego",
+      "rep_candidate": "Lake",
+      "abbr": "AZ"
+    },
+    {
+      "state": "Nevada",
+      "race": "Nevada Senate 2026",
+      "dem_candidate": "Cortez Masto",
+      "rep_candidate": "Laxalt",
+      "abbr": "NV"
+    },
+    {
+      "state": "Georgia",
+      "race": "Georgia Senate 2026",
+      "dem_candidate": "Ossoff",
+      "rep_candidate": "Collins",
+      "abbr": "GA"
+    },
+    {
+      "state": "Michigan",
+      "race": "Michigan Senate 2026",
+      "dem_candidate": "Peters",
+      "rep_candidate": "Rogers",
+      "abbr": "MI"
+    },
+    {
+      "state": "Pennsylvania",
+      "race": "Pennsylvania Senate 2026",
+      "dem_candidate": "Fetterman",
+      "rep_candidate": "McCormick",
+      "abbr": "PA"
+    }
+  ]
+}

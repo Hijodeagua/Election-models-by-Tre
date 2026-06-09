@@ -133,7 +133,7 @@ class RCPClient(DataSource):
                 continue
 
             cell_text = [c.get_text(strip=True) for c in cells]
-            row_data = dict(zip(headers, cell_text))
+            row_data = dict(zip(headers, cell_text, strict=False))
 
             try:
                 poll = self._row_to_poll(row_data, index=i, source_url=source_url)
@@ -234,7 +234,11 @@ class RCPClient(DataSource):
             if part.isdigit():
                 sample_size = int(part)
             elif part.upper() in ("LV", "RV", "A"):
-                pop_map = {"LV": Population.LIKELY_VOTERS, "RV": Population.REGISTERED_VOTERS, "A": Population.ADULTS}
+                pop_map = {
+                    "LV": Population.LIKELY_VOTERS,
+                    "RV": Population.REGISTERED_VOTERS,
+                    "A": Population.ADULTS,
+                }
                 population = pop_map.get(part.upper())
 
         return sample_size, population

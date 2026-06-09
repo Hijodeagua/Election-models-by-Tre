@@ -1,0 +1,87 @@
+{
+  "as_of": "2026-06-09",
+  "num_simulations": 1000,
+  "dem_control_prob": 0.366,
+  "mean_dem_seats": 49.89,
+  "median_dem_seats": 50.0,
+  "seat_distribution": {
+    "47": 30,
+    "48": 131,
+    "49": 236,
+    "50": 237,
+    "51": 252,
+    "52": 114
+  },
+  "races": [
+    {
+      "state": "Arizona",
+      "race": "Arizona Senate 2026",
+      "dem_candidate": "Gallego",
+      "rep_candidate": "Lake",
+      "margin": 4.4,
+      "num_polls": 2,
+      "dem_win_prob_polls": 0.7921,
+      "dem_win_prob_blended": 0.7921,
+      "market_dem_prob": {}
+    },
+    {
+      "state": "Nevada",
+      "race": "Nevada Senate 2026",
+      "dem_candidate": "Cortez Masto",
+      "rep_candidate": "Laxalt",
+      "margin": -1.0,
+      "num_polls": 1,
+      "dem_win_prob_polls": 0.4267,
+      "dem_win_prob_blended": 0.4267,
+      "market_dem_prob": {}
+    },
+    {
+      "state": "Georgia",
+      "race": "Georgia Senate 2026",
+      "dem_candidate": "Ossoff",
+      "rep_candidate": "Collins",
+      "margin": -1.0,
+      "num_polls": 1,
+      "dem_win_prob_polls": 0.4267,
+      "dem_win_prob_blended": 0.5325,
+      "market_dem_prob": {
+        "polymarket": 0.85
+      }
+    },
+    {
+      "state": "Michigan",
+      "race": "Michigan Senate 2026",
+      "dem_candidate": "Peters",
+      "rep_candidate": "Rogers",
+      "margin": 3.0,
+      "num_polls": 1,
+      "dem_win_prob_polls": 0.7105,
+      "dem_win_prob_blended": 0.7053,
+      "market_dem_prob": {
+        "polymarket": 0.69
+      }
+    },
+    {
+      "state": "Pennsylvania",
+      "race": "Pennsylvania Senate 2026",
+      "dem_candidate": "Fetterman",
+      "rep_candidate": "McCormick",
+      "margin": -1.0,
+      "num_polls": 1,
+      "dem_win_prob_polls": 0.4267,
+      "dem_win_prob_blended": 0.4267,
+      "market_dem_prob": {}
+    }
+  ],
+  "dem_safe_seats": 47,
+  "rep_safe_seats": 48,
+  "dem_majority_threshold": 51,
+  "market_weight": 0.25,
+  "national_sigma": 3.0,
+  "race_sigma": 4.5,
+  "market_control_dem_prob": {
+    "polymarket": 0.455
+  },
+  "maturity": "nowcast",
+  "label": "NOWCAST \u2014 if the election were held today, based on current polling averages blended with prediction-market odds. Not a calibrated election-day forecast."
+}

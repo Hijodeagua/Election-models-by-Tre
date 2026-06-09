@@ -101,7 +101,9 @@ def _blend_note(alpha: float | None, beta: float | None, n_polls: int) -> str:
     )
 
 
-def _print_approval(snap, label: str, alpha: float | None = None, beta: float | None = None) -> None:
+def _print_approval(
+    snap, label: str, alpha: float | None = None, beta: float | None = None
+) -> None:
     _section(f"PRESIDENTIAL APPROVAL  ·  {snap.as_of}  ·  N={snap.num_polls}")
     print(f"  Approve     {snap.approve:5.1f}%{_ci(snap.ci_approve)}")
     print(f"  Disapprove  {snap.disapprove:5.1f}%{_ci(snap.ci_disapprove)}")
@@ -111,7 +113,9 @@ def _print_approval(snap, label: str, alpha: float | None = None, beta: float | 
     _provenance(label)
 
 
-def _print_generic_ballot(snap, label: str, alpha: float | None = None, beta: float | None = None) -> None:
+def _print_generic_ballot(
+    snap, label: str, alpha: float | None = None, beta: float | None = None
+) -> None:
     _section(f"GENERIC BALLOT  ·  {snap.as_of}  ·  N={snap.num_polls}")
     print(f"  Democrat    {snap.dem_pct:5.1f}%{_ci(snap.ci_dem)}")
     print(f"  Republican  {snap.rep_pct:5.1f}%{_ci(snap.ci_rep)}")
@@ -203,7 +207,10 @@ def _print_ss_generic_ballot(
     if sb_snap:
         gap_sb = round(ss_snap.dem_pct - sb_snap.dem_pct, 1)
         sign_sb = "+" if gap_sb >= 0 else ""
-        print(f"  vs. Silver Bulletin:   D {sb_snap.dem_pct:.1f}%  (gap: {sign_sb}{gap_sb}pp)", end="")
+        print(
+            f"  vs. Silver Bulletin:   D {sb_snap.dem_pct:.1f}%  (gap: {sign_sb}{gap_sb}pp)",
+            end="",
+        )
         if abs(gap_sb) > 1.0:
             print("  ← methodology divergence")
         else:
@@ -352,10 +359,16 @@ def main() -> None:
         # "polls loaded".
         print(f"  approval: {len(approval_polls)} raw polls loaded ({approval_src})")
         if sb_approval_snap:
-            print("  approval: SB snapshot available (silverb_approval.csv) — benchmark only, not counted as polls")
+            print(
+                "  approval: SB snapshot available (silverb_approval.csv) — "
+                "benchmark only, not counted as polls"
+            )
         print(f"  generic_ballot: {len(gb_polls)} raw polls loaded ({gb_src})")
         if sb_gb_snap:
-            print("  generic_ballot: SB snapshot available (silverb_generic_ballot.csv) — benchmark only, not counted as polls")
+            print(
+                "  generic_ballot: SB snapshot available (silverb_generic_ballot.csv) — "
+                "benchmark only, not counted as polls"
+            )
         print(f"  senate: {len(senate_polls)} raw polls loaded ({senate_src})")
         if approval_meta is None and approval_polls:
             approval_label = _VH_CSV_LABEL
@@ -376,14 +389,13 @@ def main() -> None:
         senate_polls = live.get("senate", [])
 
         # RCP fallback for approval + generic ballot
-        if args.source == "votehub" and not args.offline:
-            if not approval_polls or not gb_polls:
-                rcp = _fetch_rcp(cache_dir)
-                if not approval_polls:
-                    approval_polls = rcp.get("approval", [])
-                    live_label = _RCP_LABEL
-                if not gb_polls:
-                    gb_polls = rcp.get("generic_ballot", [])
+        if args.source == "votehub" and not args.offline and (not approval_polls or not gb_polls):
+            rcp = _fetch_rcp(cache_dir)
+            if not approval_polls:
+                approval_polls = rcp.get("approval", [])
+                live_label = _RCP_LABEL
+            if not gb_polls:
+                gb_polls = rcp.get("generic_ballot", [])
 
         # VoteHub CSV fallback (raw polls → through engine)
         if not approval_polls:
@@ -442,18 +454,25 @@ def main() -> None:
     total = len(approval_polls) + len(gb_polls) + len(senate_polls)
     print(
         f"  Polls loaded: {total} total"
-        f"  (approval={len(approval_polls)}, generic ballot={len(gb_polls)}, senate={len(senate_polls)})"
+        f"  (approval={len(approval_polls)}, generic ballot={len(gb_polls)},"
+        f" senate={len(senate_polls)})"
     )
 
     # Build hybrid-weighted engines from each poll set's embedded grades
-    approval_engine = _build_engine_from_polls(approval_polls) if approval_polls else PollingAverageEngine()
+    approval_engine = (
+        _build_engine_from_polls(approval_polls) if approval_polls else PollingAverageEngine()
+    )
     gb_engine = _build_engine_from_polls(gb_polls) if gb_polls else PollingAverageEngine()
 
     # Presidential approval — hybrid engine + Bayesian shrinkage onto SB prior
     poll_snap = PresidentialApprovalModel(engine=approval_engine).current_approval(approval_polls)
     blended_approval, alpha_a, beta_a = bayesian_blend_approval(poll_snap, sb_approval_snap)
     if blended_approval:
-        a_label = f"{approval_label}  +  {_SB_LABEL}" if (poll_snap and sb_approval_snap) else approval_label
+        a_label = (
+            f"{approval_label}  +  {_SB_LABEL}"
+            if (poll_snap and sb_approval_snap)
+            else approval_label
+        )
         _print_approval(
             blended_approval, a_label,
             alpha=alpha_a if (poll_snap and sb_approval_snap) else None,
@@ -512,8 +531,12 @@ def main() -> None:
             logging.warning("State-space generic ballot failed: %s", exc)
 
     states = _detect_senate_states(senate_polls)
-    senate_engine = _build_engine_from_polls(senate_polls) if senate_polls else PollingAverageEngine()
-    races = [SenateModel(engine=senate_engine).race_average(senate_polls, state) for state in states]
+    senate_engine = (
+        _build_engine_from_polls(senate_polls) if senate_polls else PollingAverageEngine()
+    )
+    races = [
+        SenateModel(engine=senate_engine).race_average(senate_polls, state) for state in states
+    ]
     _print_senate(races, senate_label)
 
     print()

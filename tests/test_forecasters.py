@@ -33,7 +33,9 @@ class TestRatingScale:
         assert RatingScale.SOLID_R.numeric == -3
 
     def test_symmetry(self):
-        assert RatingScale.LEAN_D.dem_win_probability + RatingScale.LEAN_R.dem_win_probability == 1.0
+        assert (
+            RatingScale.LEAN_D.dem_win_probability + RatingScale.LEAN_R.dem_win_probability == 1.0
+        )
         assert RatingScale.LIKELY_D.numeric == -RatingScale.LIKELY_R.numeric
 
 
@@ -77,9 +79,18 @@ class TestProbToRating:
 class TestConsensus:
     def test_build_consensus_basic(self):
         ratings = [
-            ForecastRating(race="PA-Senate-2022", forecaster="cook", rating=RatingScale.LEAN_D, as_of=date(2022, 10, 1)),
-            ForecastRating(race="PA-Senate-2022", forecaster="sabato", rating=RatingScale.TOSSUP, as_of=date(2022, 10, 5)),
-            ForecastRating(race="PA-Senate-2022", forecaster="538", rating=RatingScale.LEAN_D, as_of=date(2022, 10, 3)),
+            ForecastRating(
+                race="PA-Senate-2022", forecaster="cook",
+                rating=RatingScale.LEAN_D, as_of=date(2022, 10, 1),
+            ),
+            ForecastRating(
+                race="PA-Senate-2022", forecaster="sabato",
+                rating=RatingScale.TOSSUP, as_of=date(2022, 10, 5),
+            ),
+            ForecastRating(
+                race="PA-Senate-2022", forecaster="538",
+                rating=RatingScale.LEAN_D, as_of=date(2022, 10, 3),
+            ),
         ]
         consensus = build_consensus(ratings, "PA-Senate-2022")
         assert consensus.race == "PA-Senate-2022"
@@ -94,8 +105,14 @@ class TestConsensus:
 
     def test_filters_to_correct_race(self):
         ratings = [
-            ForecastRating(race="PA-Senate-2022", forecaster="cook", rating=RatingScale.LEAN_D, as_of=date(2022, 10, 1)),
-            ForecastRating(race="GA-Senate-2022", forecaster="cook", rating=RatingScale.TOSSUP, as_of=date(2022, 10, 1)),
+            ForecastRating(
+                race="PA-Senate-2022", forecaster="cook",
+                rating=RatingScale.LEAN_D, as_of=date(2022, 10, 1),
+            ),
+            ForecastRating(
+                race="GA-Senate-2022", forecaster="cook",
+                rating=RatingScale.TOSSUP, as_of=date(2022, 10, 1),
+            ),
         ]
         consensus = build_consensus(ratings, "PA-Senate-2022")
         assert len(consensus.ratings) == 1

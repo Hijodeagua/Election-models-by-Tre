@@ -11,12 +11,14 @@ Sources:
     votehub     — VoteHub API (free, no key required)
     rcp         — RealClearPolling scraper
     silverb     — Silver Bulletin model CSV download
+    markets     — Polymarket + Kalshi prediction-market odds
 
 Outputs written to data/fallback/:
     votehub_approval.csv
     votehub_generic_ballot.csv
     silverb_approval.csv          (if download succeeds)
     silverb_generic_ballot.csv    (if download succeeds)
+    market_odds.csv               (if at least one market fetch succeeds)
 """
 
 from __future__ import annotations
@@ -136,6 +138,60 @@ def _refresh_rcp(dry_run: bool = False) -> None:
                 logger.warning("  %s failed: %s", label, exc)
 
 
+def _refresh_markets(dry_run: bool = False) -> None:
+    """Fetch Polymarket + Kalshi odds for the configured Senate races.
+
+    Best-effort: only overwrites market_odds.csv when at least one source
+    returns data, so the committed snapshot survives network failures.
+    """
+    logger.info("=== Prediction markets (Polymarket / Kalshi) ===")
+    from src.data.markets import (
+        SENATE_CONTROL_RACE,
+        KalshiClient,
+        MarketOdds,
+        PolymarketClient,
+        write_market_odds_csv,
+    )
+    from src.models.senate_simulation import load_cycle_config
+
+    cycle = load_cycle_config()
+    polymarket = PolymarketClient()
+    kalshi = KalshiClient()
+    collected: list[MarketOdds] = []
+
+    for entry in cycle["competitive_races"]:
+        state, race, abbr = entry["state"], entry["race"], entry.get("abbr", "")
+        if dry_run:
+            logger.info("  (dry run — would fetch %s)", race)
+            continue
+        pm = polymarket.fetch_markets(
+            f"{state} Senate 2026", race=race,
+            required_tokens=(state.lower(), "senate"),
+        )
+        ks = kalshi.fetch_race_odds(abbr, race=race) if abbr else []
+        logger.info("  %s: polymarket=%d kalshi=%d", race, len(pm), len(ks))
+        collected.extend(pm)
+        collected.extend(ks)
+
+    if not dry_run:
+        pm = polymarket.fetch_markets(
+            "Senate control 2026", race=SENATE_CONTROL_RACE,
+            required_tokens=("senate",),
+        )
+        ks = kalshi.fetch_control_odds(race=SENATE_CONTROL_RACE)
+        logger.info("  %s: polymarket=%d kalshi=%d", SENATE_CONTROL_RACE, len(pm), len(ks))
+        collected.extend(pm)
+        collected.extend(ks)
+
+    if not dry_run:
+        if collected:
+            dest = FALLBACK_DIR / "market_odds.csv"
+            write_market_odds_csv(collected, dest)
+            logger.info("  → %s (%d rows)", dest.name, len(collected))
+        else:
+            logger.warning("  no market data fetched — keeping existing market_odds.csv")
+
+
 def _refresh_silverb(dry_run: bool = False) -> None:
     logger.info("=== Silver Bulletin ===")
     if dry_run:
@@ -151,7 +207,7 @@ def _refresh_silverb(dry_run: bool = False) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Refresh all polling data sources.")
     parser.add_argument(
-        "--source", choices=["votehub", "rcp", "silverb", "all"], default="all",
+        "--source", choices=["votehub", "rcp", "silverb", "markets", "all"], default="all",
         help="Which source to refresh (default: all).",
     )
     parser.add_argument(
@@ -172,6 +228,8 @@ def main() -> None:
         _refresh_rcp(dry_run=args.dry_run)
     if args.source in ("all", "silverb"):
         _refresh_silverb(dry_run=args.dry_run)
+    if args.source in ("all", "markets"):
+        _refresh_markets(dry_run=args.dry_run)
 
     if not args.dry_run:
         logger.info("\nDone. Run: python scripts/run_models.py --offline")

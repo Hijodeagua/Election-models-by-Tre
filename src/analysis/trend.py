@@ -39,7 +39,7 @@ def moving_average(
     arr_vals = np.array(values)
     results: list[TrendPoint] = []
 
-    for i, d in enumerate(dates):
+    for d in dates:
         mask = np.array([
             abs((d - other).days) <= window_days // 2
             for other in dates

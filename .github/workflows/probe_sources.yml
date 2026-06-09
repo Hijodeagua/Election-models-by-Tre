@@ -1,0 +1,25 @@
+name: Probe data sources
+
+# Temporary diagnostic: the dev container has no outbound network, so this
+# prints what the live source APIs return. Read the logs, fix the clients,
+# delete this workflow when the sources are stable.
+
+on:
+  push:
+    branches: ["claude/keen-mendel-precsp"]
+    paths: ["scripts/probe_sources.py", ".github/workflows/probe_sources.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install httpx
+      - run: python scripts/probe_sources.py

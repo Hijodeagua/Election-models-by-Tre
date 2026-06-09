@@ -1,9 +1,9 @@
 """Election models — polling averages, approval, generic ballot, race forecasts."""
 
-from enum import Enum
+from enum import StrEnum
 
 
-class ModelMaturity(str, Enum):
+class ModelMaturity(StrEnum):
     """Publication tier for a model output.
 
     Used to label dashboard and Substack outputs so readers understand

@@ -17,10 +17,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date
-from enum import Enum
+from enum import StrEnum
 
 
-class RatingScale(str, Enum):
+class RatingScale(StrEnum):
     """Normalized 7-point rating scale used across all forecasters."""
 
     SOLID_D = "solid_d"

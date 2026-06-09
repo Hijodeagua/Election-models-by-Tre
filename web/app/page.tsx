@@ -1,9 +1,11 @@
 import ApprovalChart from '@/app/components/ApprovalChart';
+import ApprovalComparisonChart from '@/app/components/ApprovalComparisonChart';
 import LastUpdated from '@/app/components/LastUpdated';
-import { getApproval } from '@/app/lib/data';
+import { getApproval, getApprovalComparison } from '@/app/lib/data';
 
 export default function ApprovalPage() {
   const { current, trend, num_polls } = getApproval();
+  const comparison = getApprovalComparison();
 
   return (
     <div>
@@ -39,6 +41,19 @@ export default function ApprovalPage() {
         </>
       ) : (
         <EmptyState />
+      )}
+
+      {Object.keys(comparison.sources).length > 0 && (
+        <div className="mt-6 rounded-lg border border-slate-200 bg-white p-4">
+          <h3 className="mb-1 text-sm font-semibold text-slate-700">
+            Model comparison — toggle the sources you want
+          </h3>
+          <p className="mb-3 text-xs text-slate-400">
+            Our weighted average alongside Silver Bulletin&apos;s model, a raw
+            unweighted VoteHub poll average, and 50+1 (when available).
+          </p>
+          <ApprovalComparisonChart data={comparison} />
+        </div>
       )}
 
       <LastUpdated />

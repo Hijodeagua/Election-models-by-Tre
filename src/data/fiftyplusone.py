@@ -44,3 +44,39 @@ class FiftyPlusOneClient(DataSource):
 
     def fetch_pollsters(self) -> list[str]:
         raise NotImplementedError
+
+
+class FiftyPlusOneApprovalCsvLoader:
+    """Load a cached 50+1 approval-average series from CSV.
+
+    The paid API isn't wired up yet, so the comparison chart reads a cached
+    export at ``data/fallback/fiftyplusone_approval.csv`` when present:
+
+        modeldate,approve,disapprove
+        2026-01-01,41.2,55.3
+
+    Returns an empty list when the file is absent — the website then shows
+    the 50+1 series as "not available yet".
+    """
+
+    def load_series(self, path: Path) -> list[dict[str, Any]]:
+        if not path.exists():
+            return []
+        import csv
+        import io
+        from datetime import date as _date
+
+        rows = list(csv.DictReader(io.StringIO(path.read_text(encoding="utf-8"))))
+        series: list[dict[str, Any]] = []
+        for row in rows:
+            try:
+                series.append(
+                    {
+                        "as_of": _date.fromisoformat(row["modeldate"]),
+                        "approve": float(row["approve"]),
+                        "disapprove": float(row["disapprove"]),
+                    }
+                )
+            except (KeyError, ValueError):
+                continue
+        return series

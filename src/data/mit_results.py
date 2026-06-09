@@ -173,7 +173,8 @@ class MITResultsClient:
         raise RuntimeError(
             f"Could not download {office} results from any known URL. "
             f"Last error: {last_err}. "
-            "Download manually from https://electionlab.mit.edu/data and place in data/raw/mit_results/"
+            "Download manually from https://electionlab.mit.edu/data "
+            "and place in data/raw/mit_results/"
         ) from last_err
 
     @staticmethod
@@ -210,7 +211,11 @@ class MITResultsClient:
         if not candidate or candidate.lower() in ("na", "nan", ""):
             return None
 
-        party_raw = (row.get("party_simplified") or row.get("party_detailed") or row.get("party") or "").strip().upper()
+        party_raw = (
+            (row.get("party_simplified") or row.get("party_detailed") or row.get("party") or "")
+            .strip()
+            .upper()
+        )
         # Normalize party to D/R/OTHER
         if party_raw in ("DEMOCRAT", "DEMOCRATIC"):
             party = "D"
@@ -268,8 +273,16 @@ class MITResultsClient:
             total = max(e.totalvotes for e in entries)
 
             # Find top D and R candidates
-            dems = sorted([e for e in entries if e.party == "D"], key=lambda x: x.candidatevotes, reverse=True)
-            reps = sorted([e for e in entries if e.party == "R"], key=lambda x: x.candidatevotes, reverse=True)
+            dems = sorted(
+                [e for e in entries if e.party == "D"],
+                key=lambda x: x.candidatevotes,
+                reverse=True,
+            )
+            reps = sorted(
+                [e for e in entries if e.party == "R"],
+                key=lambda x: x.candidatevotes,
+                reverse=True,
+            )
 
             if not dems or not reps:
                 continue  # skip uncontested

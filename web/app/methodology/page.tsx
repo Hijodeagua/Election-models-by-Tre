@@ -47,6 +47,30 @@ export default function MethodologyPage() {
         </li>
       </ul>
 
+      <h3 className="mt-6 text-lg font-semibold">Comparison &amp; nowcast layers</h3>
+      <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600">
+        <li>
+          <strong>Model comparison (homepage)</strong> — our approval average
+          shown alongside Silver Bulletin&rsquo;s published model, an unweighted
+          VoteHub poll average, and 50+1 when available. Each line is that
+          source&rsquo;s own output; we don&rsquo;t blend them.
+        </li>
+        <li>
+          <strong>NYT vibes adjustment (Senate)</strong> — an experimental,
+          bounded (±3 pt) overlay on the base race average derived from
+          sentiment-scored New York Times coverage. Full explainer on the
+          Senate page. Off by default.
+        </li>
+        <li>
+          <strong>Senate control simulation</strong> — a <em>nowcast</em>, not a
+          forecast: 1,000 Monte Carlo simulations of the key races with
+          correlated national polling error, optionally blending
+          Polymarket/Kalshi implied odds at a tunable weight. It answers
+          &ldquo;if the election were held today&rdquo; and is labelled as such
+          until backtesting across past cycles is complete.
+        </li>
+      </ul>
+
       <h3 className="mt-6 text-lg font-semibold">Data &amp; refresh</h3>
       <p className="mt-2 text-sm text-slate-600">
         Polling data is refreshed daily by a scheduled job that runs the model

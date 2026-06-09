@@ -206,7 +206,7 @@ class CandidateQualityModel:
         errors: list[float] = []
         results: list[dict] = []
 
-        for race, actual in zip(races, actual_dem_shares):
+        for race, actual in zip(races, actual_dem_shares, strict=True):
             proj = self.project_fundamentals(race)
             error = actual - proj.expected_dem_share
             errors.append(error)

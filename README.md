@@ -9,7 +9,10 @@ A Python-based election modeling and forecasting system that ingests polling dat
 - **Jackman state-space model** — hierarchical random-walk latent state with additive house-effect correction (PyMC)
 - **Presidential approval tracking** — daily averages with confidence intervals
 - **Generic ballot model** — congressional preference tracking with historical seat projection
-- **Senate race models** — individual race polling averages
+- **Senate race models** — individual race polling averages, with an experimental NYT "vibes" media-sentiment overlay
+- **Senate control simulation** — 1,000-run Monte Carlo nowcast with correlated national error, blended with prediction-market odds
+- **Prediction-market integration** — Polymarket and Kalshi implied odds per race and for chamber control (offline CSV fallback)
+- **Model comparison** — our approval average side-by-side with Silver Bulletin, raw VoteHub averages, and 50+1 (when available)
 - **Web tracker** — deployable Next.js front end (`web/`) that reads static JSON exported from the Python pipeline
 - **Streamlit dashboard** — local exploration UI (skeleton)
 
@@ -97,9 +100,11 @@ House effects (40 pollsters with |δ|>1.5pp):
 ## Web Tracker (`web/`)
 
 A deployable Next.js 14 (App Router) static site that presents the trackers —
-presidential approval, generic ballot, and Senate — plus a methodology page. It
-reads the static JSON files in `web/public/data/`, which are produced by the
-Python pipeline; it runs no Python server itself.
+presidential approval (with a toggleable multi-model comparison chart), generic
+ballot, Senate race cards (vibes toggle + market-odds chips), a Senate-control
+simulation page, and a methodology page. It reads the static JSON files in
+`web/public/data/`, which are produced by the Python pipeline; it runs no
+Python server itself.
 
 ```bash
 # 1. Regenerate the static JSON from the offline pipeline

@@ -47,8 +47,8 @@ def main() -> None:
 
     # Check dependencies
     try:
-        import mlflow
-        import optuna
+        import mlflow  # noqa: F401  # availability check before optimization
+        import optuna  # noqa: F401  # availability check before optimization
     except ImportError as exc:
         logger.error(
             "Missing dependencies. Install with:\n"
