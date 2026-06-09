@@ -12,7 +12,7 @@ export default function ApprovalPage() {
       <h2 className="text-2xl font-bold">Presidential Approval Tracker</h2>
       <p className="mt-1 text-sm text-slate-500">
         Weighted polling average of job-approval polls. This is a tracker of
-        where polling stands today — not a prediction of any future outcome.
+        where polling stands today
       </p>
 
       {current ? (
