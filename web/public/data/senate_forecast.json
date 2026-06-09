@@ -1,16 +1,16 @@
 {
   "as_of": "2026-06-09",
   "num_simulations": 1000,
-  "dem_control_prob": 0.326,
-  "mean_dem_seats": 49.76,
+  "dem_control_prob": 0.366,
+  "mean_dem_seats": 49.89,
   "median_dem_seats": 50.0,
   "seat_distribution": {
-    "47": 38,
-    "48": 159,
-    "49": 234,
-    "50": 243,
-    "51": 230,
-    "52": 96
+    "47": 30,
+    "48": 131,
+    "49": 236,
+    "50": 237,
+    "51": 252,
+    "52": 114
   },
   "races": [
     {
@@ -21,11 +21,8 @@
       "margin": 4.4,
       "num_polls": 2,
       "dem_win_prob_polls": 0.7921,
-      "dem_win_prob_blended": 0.7665,
-      "market_dem_prob": {
-        "polymarket": 0.7,
-        "kalshi": 0.68
-      }
+      "dem_win_prob_blended": 0.7921,
+      "market_dem_prob": {}
     },
     {
       "state": "Nevada",
@@ -35,11 +32,8 @@
       "margin": -1.0,
       "num_polls": 1,
       "dem_win_prob_polls": 0.4267,
-      "dem_win_prob_blended": 0.435,
-      "market_dem_prob": {
-        "polymarket": 0.45,
-        "kalshi": 0.47
-      }
+      "dem_win_prob_blended": 0.4267,
+      "market_dem_prob": {}
     },
     {
       "state": "Georgia",
@@ -49,10 +43,9 @@
       "margin": -1.0,
       "num_polls": 1,
       "dem_win_prob_polls": 0.4267,
-      "dem_win_prob_blended": 0.4362,
+      "dem_win_prob_blended": 0.5325,
       "market_dem_prob": {
-        "polymarket": 0.47,
-        "kalshi": 0.46
+        "polymarket": 0.85
       }
     },
     {
@@ -63,10 +56,9 @@
       "margin": 3.0,
       "num_polls": 1,
       "dem_win_prob_polls": 0.7105,
-      "dem_win_prob_blended": 0.6853,
+      "dem_win_prob_blended": 0.7053,
       "market_dem_prob": {
-        "polymarket": 0.62,
-        "kalshi": 0.6
+        "polymarket": 0.69
       }
     },
     {
@@ -77,11 +69,8 @@
       "margin": -1.0,
       "num_polls": 1,
       "dem_win_prob_polls": 0.4267,
-      "dem_win_prob_blended": 0.4325,
-      "market_dem_prob": {
-        "polymarket": 0.46,
-        "kalshi": 0.44
-      }
+      "dem_win_prob_blended": 0.4267,
+      "market_dem_prob": {}
     }
   ],
   "dem_safe_seats": 47,
@@ -91,8 +80,7 @@
   "national_sigma": 3.0,
   "race_sigma": 4.5,
   "market_control_dem_prob": {
-    "polymarket": 0.29,
-    "kalshi": 0.31
+    "polymarket": 0.455
   },
   "maturity": "nowcast",
   "label": "NOWCAST \u2014 if the election were held today, based on current polling averages blended with prediction-market odds. Not a calibrated election-day forecast."
