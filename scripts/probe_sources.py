@@ -62,44 +62,51 @@ def probe_votehub() -> None:
 
 
 def probe_kalshi() -> None:
-    print("=== Kalshi: open events mentioning 'senate' ===")
-    base = "https://api.elections.kalshi.com/trade-api/v2"
-    cursor = None
-    found = 0
-    try:
-        for _page in range(8):
-            params: dict[str, str | int] = {"status": "open", "limit": 200}
-            if cursor:
-                params["cursor"] = cursor
-            resp = httpx.get(f"{base}/events", params=params, timeout=30)
-            resp.raise_for_status()
-            payload = resp.json()
-            for event in payload.get("events", []):
-                title = str(event.get("title", ""))
-                if "senate" in title.lower():
-                    found += 1
-                    print(
-                        f"  event_ticker={event.get('event_ticker')} "
-                        f"series_ticker={event.get('series_ticker')} "
-                        f"title={title!r}"
-                    )
-            cursor = payload.get("cursor")
-            if not cursor:
-                break
-        print(f"  total senate events found: {found}")
-    except Exception as exc:
-        print(f"  [ERR] events scan: {exc}")
+    """Round 2: hit specific 2026 event tickers gently (1 req/s to dodge 429s)."""
+    import time
 
-    print("=== Kalshi: sample markets for first senate series ===")
-    try:
-        resp = httpx.get(
-            f"{base}/markets",
-            params={"series_ticker": "KXSENATERACEGA", "limit": 10},
-            timeout=30,
-        )
-        print(f"  KXSENATERACEGA [{resp.status_code}] {resp.text[:300]}")
-    except Exception as exc:
-        print(f"  [ERR]: {exc}")
+    base = "https://api.elections.kalshi.com/trade-api/v2"
+
+    print("=== Kalshi: markets by event_ticker (2026 races) ===")
+    event_tickers = [
+        "SENATEGA-26", "SENATEAZ-26", "SENATENV-26", "SENATEMI-26",
+        "SENATEPA-26", "CONTROLS-2026", "SENATEGA-28",
+    ]
+    for ticker in event_tickers:
+        try:
+            resp = httpx.get(
+                f"{base}/markets", params={"event_ticker": ticker, "limit": 20}, timeout=30
+            )
+            markets = resp.json().get("markets", []) if resp.status_code == 200 else []
+            summary = [
+                {
+                    "ticker": m.get("ticker"),
+                    "title": m.get("title"),
+                    "yes_sub_title": m.get("yes_sub_title"),
+                    "status": m.get("status"),
+                    "last_price": m.get("last_price"),
+                }
+                for m in markets[:6]
+            ]
+            print(f"  {ticker} [{resp.status_code}] {json.dumps(summary)[:600]}")
+        except Exception as exc:
+            print(f"  [ERR] {ticker}: {exc}")
+        time.sleep(1.2)
+
+    print("=== Kalshi: events by series_ticker ===")
+    for series in ("SENATEGA", "CONTROLS"):
+        try:
+            resp = httpx.get(
+                f"{base}/events", params={"series_ticker": series, "limit": 20}, timeout=30
+            )
+            events = resp.json().get("events", []) if resp.status_code == 200 else []
+            print(
+                f"  {series} [{resp.status_code}] "
+                f"{[(e.get('event_ticker'), e.get('status')) for e in events]}"
+            )
+        except Exception as exc:
+            print(f"  [ERR] {series}: {exc}")
+        time.sleep(1.2)
 
 
 def probe_silver_bulletin() -> None:

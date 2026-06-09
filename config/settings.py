@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     )
 
     # ── Data source URLs ──────────────────────────────────────────────
-    votehub_base_url: str = "https://votehub.com/polls/api"
+    votehub_base_url: str = "https://api.votehub.com"
     fiftyplusone_api_key: str = ""
     congress_gov_api_key: str = ""
     nyt_api_key: str = ""
