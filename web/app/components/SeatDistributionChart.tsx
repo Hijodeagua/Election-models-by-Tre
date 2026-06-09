@@ -31,10 +31,23 @@ export default function SeatDistributionChart({ forecast }: { forecast: SenateFo
       <BarChart data={data} margin={{ top: 16, right: 16, left: 0, bottom: 4 }}>
         <XAxis
           dataKey="seats"
-          tick={{ fontSize: 11 }}
-          label={{ value: 'Democratic seats', position: 'insideBottom', offset: -2, fontSize: 11 }}
+          tick={{ fontSize: 11, fill: '#a0736a' }}
+          axisLine={{ stroke: '#e8ddd5' }}
+          tickLine={{ stroke: '#e8ddd5' }}
+          label={{
+            value: 'Democratic seats',
+            position: 'insideBottom',
+            offset: -2,
+            fontSize: 11,
+            fill: '#7c5a52',
+          }}
         />
-        <YAxis tick={{ fontSize: 11 }} allowDecimals={false} />
+        <YAxis
+          tick={{ fontSize: 11, fill: '#a0736a' }}
+          axisLine={{ stroke: '#e8ddd5' }}
+          tickLine={{ stroke: '#e8ddd5' }}
+          allowDecimals={false}
+        />
         <Tooltip
           formatter={(value: number) => [
             `${value} of ${forecast.num_simulations} simulations`,
@@ -44,12 +57,12 @@ export default function SeatDistributionChart({ forecast }: { forecast: SenateFo
         />
         <ReferenceLine
           x={forecast.dem_majority_threshold}
-          stroke="#475569"
+          stroke="#2c1810"
           strokeDasharray="4 4"
           label={{
             value: `D majority (${forecast.dem_majority_threshold})`,
             fontSize: 10,
-            fill: '#475569',
+            fill: '#5c3d2a',
             position: 'top',
           }}
         />

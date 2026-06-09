@@ -11,9 +11,9 @@ export default function LastUpdated() {
     : 'unknown';
 
   return (
-    <div className="mt-10 border-t border-slate-200 pt-4 text-xs text-slate-500">
+    <div className="mt-10 border-t border-cream-300 pt-4 text-xs text-cocoa-500">
       <p>Last updated: {stamp}</p>
-      <p className="mt-1 font-medium uppercase tracking-wide text-slate-400">
+      <p className="mt-1 font-medium uppercase tracking-wide text-cocoa-400">
         {meta.label}
       </p>
     </div>

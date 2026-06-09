@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import LastUpdated from '@/app/components/LastUpdated';
 import SenateRaceCard from '@/app/components/SenateRaceCard';
+import { EmptyState, PageHead } from '@/app/components/ui';
 import { getSenate } from '@/app/lib/data';
 
 export default function SenatePage() {
@@ -10,35 +11,38 @@ export default function SenatePage() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold">Senate Race Trackers</h2>
-      <p className="mt-1 text-sm text-slate-500">
-        Per-race weighted polling averages for the key 2026 races. Toggle the
-        experimental NYT vibes adjustment on each card, and compare against
-        Polymarket and Kalshi implied odds. For win probabilities and the
-        chamber-control simulation, see the{' '}
-        <Link href="/senate-forecast" className="text-blue-600 underline">
-          Senate Forecast
-        </Link>
-        .
-      </p>
+      <PageHead
+        kicker="Senate Battlegrounds"
+        title="The races that decide the chamber"
+        sub={
+          <>
+            Per-race weighted polling averages for the key 2026 races. Toggle
+            the experimental NYT vibes adjustment on each card, and compare
+            against Polymarket and Kalshi implied odds. For win probabilities
+            and the chamber-control simulation, see the{' '}
+            <Link href="/senate-forecast" className="text-peach underline">
+              Senate Forecast
+            </Link>
+            .
+          </>
+        }
+      />
 
       {keyRaces.length > 0 ? (
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2">
           {keyRaces.map((race) => (
             <SenateRaceCard key={race.state} race={race} />
           ))}
         </div>
       ) : (
-        <div className="mt-6 rounded-lg border border-dashed border-slate-300 bg-white p-8 text-center text-sm text-slate-500">
-          No Senate races with polling data yet.
-        </div>
+        <EmptyState>No Senate races with polling data yet.</EmptyState>
       )}
 
       {otherRaces.length > 0 && (
-        <div className="mt-6 overflow-x-auto rounded-lg border border-slate-200 bg-white">
+        <div className="mt-6 overflow-x-auto rounded-xl border border-cream-300 bg-white">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-slate-200 text-left text-xs uppercase tracking-wide text-slate-400">
+              <tr className="border-b border-cream-300 text-left text-xs uppercase tracking-wide text-cocoa-400">
                 <th className="px-4 py-3">State</th>
                 <th className="px-4 py-3">Candidate averages</th>
                 <th className="px-4 py-3 text-right">Margin</th>
@@ -49,21 +53,21 @@ export default function SenatePage() {
               {otherRaces.map((race) => {
                 const ranked = Object.entries(race.candidates).sort((a, b) => b[1] - a[1]);
                 return (
-                  <tr key={race.state} className="border-b border-slate-100 last:border-0">
-                    <td className="px-4 py-3 font-medium">{race.state}</td>
-                    <td className="px-4 py-3">
+                  <tr key={race.state} className="border-b border-cream-100 last:border-0">
+                    <td className="px-4 py-3 font-medium text-cocoa-700">{race.state}</td>
+                    <td className="px-4 py-3 text-cocoa-500">
                       {ranked.slice(0, 3).map(([name, pct]) => (
                         <span key={name} className="mr-3 whitespace-nowrap">
-                          {name}: <strong>{pct.toFixed(1)}%</strong>
+                          {name}: <strong className="text-cocoa-700">{pct.toFixed(1)}%</strong>
                         </span>
                       ))}
                     </td>
-                    <td className="px-4 py-3 text-right">
+                    <td className="px-4 py-3 text-right text-cocoa-700">
                       {race.margin != null
                         ? `${race.margin > 0 ? '+' : ''}${race.margin.toFixed(1)}`
                         : '—'}
                     </td>
-                    <td className="px-4 py-3 text-right text-slate-500">{race.num_polls}</td>
+                    <td className="px-4 py-3 text-right text-cocoa-400">{race.num_polls}</td>
                   </tr>
                 );
               })}
@@ -80,8 +84,8 @@ export default function SenatePage() {
 
 function VibesExplainer() {
   return (
-    <div className="mt-8 rounded-lg border border-indigo-100 bg-indigo-50/50 p-5 text-sm text-slate-700">
-      <h3 className="font-semibold text-slate-900">
+    <div className="mt-8 rounded-xl border border-peach-border bg-peach-wash p-5 text-sm text-cocoa-700">
+      <h3 className="font-display text-lg text-ink">
         How the NYT &ldquo;vibes&rdquo; component works
       </h3>
       <p className="mt-2">
@@ -108,7 +112,7 @@ function VibesExplainer() {
           overturn — what the polls say.
         </li>
       </ol>
-      <p className="mt-2 text-xs text-slate-500">
+      <p className="mt-2 text-xs text-cocoa-500">
         The coefficients are conservative priors, not fitted values; they will be
         backtested as labelled cycles accumulate. When coverage data hasn&rsquo;t been
         fetched yet, the toggle is disabled and the base average is shown.

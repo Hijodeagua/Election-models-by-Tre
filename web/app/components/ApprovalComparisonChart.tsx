@@ -15,10 +15,10 @@ import type { ApprovalComparisonData } from '@/app/lib/data';
 type Metric = 'approve' | 'disapprove' | 'net';
 
 const SOURCE_COLORS: Record<string, string> = {
-  ours: '#2563eb',
+  ours: '#c1533d', // our model wears the brand peach
   silver_bulletin: '#9333ea',
   votehub: '#0d9488',
-  fiftyplusone: '#ea580c',
+  fiftyplusone: '#2563eb',
 };
 
 const METRICS: { key: Metric; label: string }[] = [
@@ -84,15 +84,15 @@ export default function ApprovalComparisonChart({ data }: { data: ApprovalCompar
             </label>
           );
         })}
-        <span className="ml-auto inline-flex overflow-hidden rounded border border-slate-200 text-xs">
+        <span className="ml-auto inline-flex overflow-hidden rounded-lg border border-cream-300 text-xs">
           {METRICS.map((m) => (
             <button
               key={m.key}
               onClick={() => setMetric(m.key)}
-              className={`px-2 py-1 ${
+              className={`px-2 py-1 transition-colors ${
                 metric === m.key
-                  ? 'bg-slate-800 text-white'
-                  : 'bg-white text-slate-600 hover:bg-slate-100'
+                  ? 'bg-peach text-white'
+                  : 'bg-white text-cocoa-500 hover:bg-cream-100'
               }`}
             >
               {m.label}
@@ -103,13 +103,21 @@ export default function ApprovalComparisonChart({ data }: { data: ApprovalCompar
 
       <ResponsiveContainer width="100%" height={340}>
         <LineChart data={merged} margin={{ top: 16, right: 16, left: 0, bottom: 0 }}>
-          <XAxis dataKey="date" tick={{ fontSize: 11 }} minTickGap={40} />
+          <XAxis
+            dataKey="date"
+            tick={{ fontSize: 11, fill: '#a0736a' }}
+            axisLine={{ stroke: '#e8ddd5' }}
+            tickLine={{ stroke: '#e8ddd5' }}
+            minTickGap={40}
+          />
           <YAxis
             domain={metric === 'net' ? ['auto', 'auto'] : [25, 70]}
-            tick={{ fontSize: 11 }}
+            tick={{ fontSize: 11, fill: '#a0736a' }}
+            axisLine={{ stroke: '#e8ddd5' }}
+            tickLine={{ stroke: '#e8ddd5' }}
             unit={metric === 'net' ? '' : '%'}
           />
-          {metric === 'net' && <ReferenceLine y={0} stroke="#94a3b8" strokeDasharray="4 4" />}
+          {metric === 'net' && <ReferenceLine y={0} stroke="#c9b3a8" strokeDasharray="4 4" />}
           <Tooltip
             formatter={(value: number, name: string) => [
               `${value.toFixed(1)}${metric === 'net' ? '' : '%'}`,
@@ -132,7 +140,7 @@ export default function ApprovalComparisonChart({ data }: { data: ApprovalCompar
             ))}
         </LineChart>
       </ResponsiveContainer>
-      <p className="mt-1 text-xs text-slate-400">
+      <p className="mt-1 text-xs text-cocoa-400">
         Hover a checkbox label for each model&apos;s methodology. Sources publish on
         different cadences; lines connect across gaps.
       </p>

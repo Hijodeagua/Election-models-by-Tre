@@ -30,8 +30,20 @@ export default function ApprovalChart({ trend }: { trend: ApprovalSnapshot[] }) 
   return (
     <ResponsiveContainer width="100%" height={320}>
       <ComposedChart data={data} margin={{ top: 10, right: 16, left: 0, bottom: 0 }}>
-        <XAxis dataKey="date" tick={{ fontSize: 11 }} minTickGap={40} />
-        <YAxis domain={[30, 70]} tick={{ fontSize: 11 }} unit="%" />
+        <XAxis
+          dataKey="date"
+          tick={{ fontSize: 11, fill: '#a0736a' }}
+          axisLine={{ stroke: '#e8ddd5' }}
+          tickLine={{ stroke: '#e8ddd5' }}
+          minTickGap={40}
+        />
+        <YAxis
+          domain={[30, 70]}
+          tick={{ fontSize: 11, fill: '#a0736a' }}
+          axisLine={{ stroke: '#e8ddd5' }}
+          tickLine={{ stroke: '#e8ddd5' }}
+          unit="%"
+        />
         <Tooltip
           formatter={(value: number, name: string) =>
             name === 'ciBase' || name === 'ciSpan'
