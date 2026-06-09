@@ -1,0 +1,1098 @@
+{
+  "cycle": 2026,
+  "races": [
+    {
+      "state": "Alabama",
+      "abbr": "AL",
+      "incumbent_party": "R",
+      "rating": "solid_r",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.03,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.03,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.03,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Alaska",
+      "abbr": "AK",
+      "incumbent_party": "R",
+      "rating": "likely_r",
+      "battleground": true,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.15,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.15,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.15,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Arkansas",
+      "abbr": "AR",
+      "incumbent_party": "R",
+      "rating": "solid_r",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.03,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.03,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.03,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Colorado",
+      "abbr": "CO",
+      "incumbent_party": "D",
+      "rating": "solid_d",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.97,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.97,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.97,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Delaware",
+      "abbr": "DE",
+      "incumbent_party": "D",
+      "rating": "solid_d",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.97,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.97,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.97,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Florida",
+      "abbr": "FL",
+      "incumbent_party": "R",
+      "rating": "likely_r",
+      "battleground": true,
+      "open_seat": false,
+      "special": true,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.15,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.15,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.15,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Georgia",
+      "abbr": "GA",
+      "incumbent_party": "D",
+      "rating": "tossup",
+      "battleground": true,
+      "open_seat": false,
+      "special": false,
+      "candidates": {
+        "Ossoff": 45.0,
+        "Collins": 46.0
+      },
+      "num_polls": 1,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.5,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.5,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.5,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Idaho",
+      "abbr": "ID",
+      "incumbent_party": "R",
+      "rating": "solid_r",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.03,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.03,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.03,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Illinois",
+      "abbr": "IL",
+      "incumbent_party": "D",
+      "rating": "solid_d",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.97,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.97,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.97,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Iowa",
+      "abbr": "IA",
+      "incumbent_party": "R",
+      "rating": "likely_r",
+      "battleground": true,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.15,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.15,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.15,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Kansas",
+      "abbr": "KS",
+      "incumbent_party": "R",
+      "rating": "solid_r",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.03,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.03,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.03,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Kentucky",
+      "abbr": "KY",
+      "incumbent_party": "R",
+      "rating": "solid_r",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.03,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.03,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.03,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Louisiana",
+      "abbr": "LA",
+      "incumbent_party": "R",
+      "rating": "solid_r",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.03,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.03,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.03,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Maine",
+      "abbr": "ME",
+      "incumbent_party": "R",
+      "rating": "tossup",
+      "battleground": true,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.5,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.5,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.5,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Massachusetts",
+      "abbr": "MA",
+      "incumbent_party": "D",
+      "rating": "solid_d",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.97,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.97,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.97,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Michigan",
+      "abbr": "MI",
+      "incumbent_party": "D",
+      "rating": "lean_d",
+      "battleground": true,
+      "open_seat": true,
+      "special": false,
+      "candidates": {
+        "Peters": 47.0,
+        "Rogers": 44.0
+      },
+      "num_polls": 1,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.65,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.65,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.65,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Minnesota",
+      "abbr": "MN",
+      "incumbent_party": "D",
+      "rating": "likely_d",
+      "battleground": false,
+      "open_seat": true,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.85,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.85,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.85,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Mississippi",
+      "abbr": "MS",
+      "incumbent_party": "R",
+      "rating": "solid_r",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.03,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.03,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.03,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Montana",
+      "abbr": "MT",
+      "incumbent_party": "R",
+      "rating": "solid_r",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.03,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.03,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.03,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Nebraska",
+      "abbr": "NE",
+      "incumbent_party": "R",
+      "rating": "likely_r",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.15,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.15,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.15,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "New Hampshire",
+      "abbr": "NH",
+      "incumbent_party": "D",
+      "rating": "lean_d",
+      "battleground": true,
+      "open_seat": true,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.65,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.65,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.65,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "New Jersey",
+      "abbr": "NJ",
+      "incumbent_party": "D",
+      "rating": "solid_d",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.97,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.97,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.97,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "New Mexico",
+      "abbr": "NM",
+      "incumbent_party": "D",
+      "rating": "solid_d",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.97,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.97,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.97,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "North Carolina",
+      "abbr": "NC",
+      "incumbent_party": "R",
+      "rating": "tossup",
+      "battleground": true,
+      "open_seat": true,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.5,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.5,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.5,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Ohio",
+      "abbr": "OH",
+      "incumbent_party": "R",
+      "rating": "likely_r",
+      "battleground": true,
+      "open_seat": false,
+      "special": true,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.15,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.15,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.15,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Oklahoma",
+      "abbr": "OK",
+      "incumbent_party": "R",
+      "rating": "solid_r",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.03,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.03,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.03,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Oregon",
+      "abbr": "OR",
+      "incumbent_party": "D",
+      "rating": "solid_d",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.97,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.97,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.97,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Rhode Island",
+      "abbr": "RI",
+      "incumbent_party": "D",
+      "rating": "solid_d",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.97,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.97,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.97,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "South Carolina",
+      "abbr": "SC",
+      "incumbent_party": "R",
+      "rating": "solid_r",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.03,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.03,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.03,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "South Dakota",
+      "abbr": "SD",
+      "incumbent_party": "R",
+      "rating": "solid_r",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.03,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.03,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.03,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Tennessee",
+      "abbr": "TN",
+      "incumbent_party": "R",
+      "rating": "solid_r",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.03,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.03,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.03,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Texas",
+      "abbr": "TX",
+      "incumbent_party": "R",
+      "rating": "likely_r",
+      "battleground": true,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.15,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.15,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.15,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Virginia",
+      "abbr": "VA",
+      "incumbent_party": "D",
+      "rating": "solid_d",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.97,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.97,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.97,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "West Virginia",
+      "abbr": "WV",
+      "incumbent_party": "R",
+      "rating": "solid_r",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.03,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.03,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.03,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    },
+    {
+      "state": "Wyoming",
+      "abbr": "WY",
+      "incumbent_party": "R",
+      "rating": "solid_r",
+      "battleground": false,
+      "open_seat": false,
+      "special": false,
+      "candidates": {},
+      "num_polls": 0,
+      "dem_margin": null,
+      "models": {
+        "base": {
+          "dem_win_prob": 0.03,
+          "sources": [
+            "rating_prior"
+          ]
+        },
+        "with_vibes": {
+          "dem_win_prob": 0.03,
+          "vibes_adjustment": 0.0,
+          "detail": null
+        },
+        "market_blend": {
+          "dem_win_prob": 0.03,
+          "market_prob": null,
+          "market_weight": 0.25
+        }
+      },
+      "markets": []
+    }
+  ],
+  "num_races": 35,
+  "market_blend_weight": 0.25
+}

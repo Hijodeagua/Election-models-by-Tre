@@ -9,7 +9,8 @@ export const metadata: Metadata = {
 };
 
 const NAV = [
-  { href: '/', label: 'Approval' },
+  { href: '/', label: 'Dashboard' },
+  { href: '/approval', label: 'Approval' },
   { href: '/generic-ballot', label: 'Generic Ballot' },
   { href: '/senate', label: 'Senate' },
   { href: '/methodology', label: 'Methodology' },
@@ -28,7 +29,7 @@ export default function RootLayout({
             <div>
               <h1 className="text-lg font-bold">Election Tracker</h1>
               <p className="text-xs uppercase tracking-wide text-slate-400">
-                Polling averages · not a forecast
+                Polling averages · models · market comparisons
               </p>
             </div>
             <nav className="flex flex-wrap gap-3 text-sm">

@@ -27,6 +27,13 @@ class Settings(BaseSettings):
     silverb_approval_csv_url: str = "https://static.natesilver.net/approval.csv"
     silverb_gb_csv_url: str = "https://static.natesilver.net/generic-ballot.csv"
 
+    # ── Prediction markets (keyless public APIs) ──────────────────────
+    polymarket_base_url: str = "https://gamma-api.polymarket.com"
+    kalshi_base_url: str = "https://api.elections.kalshi.com/trade-api/v2"
+    # Weight of the Polymarket/Kalshi consensus when blending into the
+    # per-race model probability (0 = pure model, 1 = pure markets).
+    market_blend_weight: float = 0.25
+
     # ── Publishing ────────────────────────────────────────────────────
     datawrapper_api_token: str = ""
     substack_url: str = "https://policyypeaches.substack.com"

@@ -11,12 +11,14 @@ Sources:
     votehub     — VoteHub API (free, no key required)
     rcp         — RealClearPolling scraper
     silverb     — Silver Bulletin model CSV download
+    markets     — Polymarket + Kalshi Senate odds (free, no key required)
 
 Outputs written to data/fallback/:
     votehub_approval.csv
     votehub_generic_ballot.csv
     silverb_approval.csv          (if download succeeds)
     silverb_generic_ballot.csv    (if download succeeds)
+    market_odds.csv               (if either market API succeeds)
 """
 
 from __future__ import annotations
@@ -32,6 +34,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from config.settings import settings
 from src.data.base import Poll, PollType
+from src.data.kalshi import KalshiClient
+from src.data.market_odds import MarketOdds, odds_to_csv
+from src.data.polymarket import PolymarketClient
 from src.data.rcp import RCPClient
 from src.data.silverb_download import SilverBulletinDownloader
 from src.data.votehub import VoteHubClient
@@ -146,12 +151,40 @@ def _refresh_silverb(dry_run: bool = False) -> None:
             logger.info("  %s: %s", name, "✓ updated" if ok else "✗ kept existing file")
 
 
+def _refresh_markets(dry_run: bool = False) -> None:
+    """Fetch Senate odds from Polymarket + Kalshi into market_odds.csv.
+
+    Best-effort per source: one API failing must not lose the other's data,
+    and a total failure keeps the existing committed CSV untouched.
+    """
+    logger.info("=== Prediction markets (Polymarket + Kalshi) ===")
+    quotes: list[MarketOdds] = []
+    for client_cls in (PolymarketClient, KalshiClient):
+        try:
+            with client_cls() as client:
+                fetched = client.fetch_senate_odds(year=2026)
+                logger.info("  %s: %d Senate quotes", client.name, len(fetched))
+                quotes.extend(fetched)
+        except Exception as exc:
+            logger.warning("  %s failed: %s", client_cls.name, exc)
+
+    if dry_run:
+        logger.info("  (dry run — %d quotes not written)", len(quotes))
+        return
+    if quotes:
+        dest = FALLBACK_DIR / "market_odds.csv"
+        dest.write_text(odds_to_csv(quotes), encoding="utf-8")
+        logger.info("  → %s", dest.name)
+    else:
+        logger.warning("  no market quotes fetched — keeping existing market_odds.csv")
+
+
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Refresh all polling data sources.")
     parser.add_argument(
-        "--source", choices=["votehub", "rcp", "silverb", "all"], default="all",
+        "--source", choices=["votehub", "rcp", "silverb", "markets", "all"], default="all",
         help="Which source to refresh (default: all).",
     )
     parser.add_argument(
@@ -172,6 +205,8 @@ def main() -> None:
         _refresh_rcp(dry_run=args.dry_run)
     if args.source in ("all", "silverb"):
         _refresh_silverb(dry_run=args.dry_run)
+    if args.source in ("all", "markets"):
+        _refresh_markets(dry_run=args.dry_run)
 
     if not args.dry_run:
         logger.info("\nDone. Run: python scripts/run_models.py --offline")

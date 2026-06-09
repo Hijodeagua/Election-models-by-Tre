@@ -2,6 +2,12 @@
 
 Requires API key (email data@fiftyplusone.news for access).
 Gated behind config: set FIFTYPLUSONE_API_KEY in .env to enable.
+
+Offline path: until API access is obtained, the dashboard reads the 50+1
+approval series from data/fallback/fiftyplusone_approval.csv (same format as
+the Silver Bulletin approval CSV — see src/data/silverb_csv.load_approval_series).
+Drop an exported CSV there and the comparison chart picks it up; the series
+stays empty otherwise — no data is fabricated.
 """
 
 from __future__ import annotations

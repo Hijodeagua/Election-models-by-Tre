@@ -1,11 +1,14 @@
 {
-  "last_updated": "2026-06-09T12:36:56.514650+00:00",
+  "last_updated": "2026-06-09T17:50:30.389542+00:00",
   "data_tier": "tracker",
-  "label": "TRACKER \u2014 weighted polling averages only, not a forecast",
+  "label": "Trackers + experimental Senate forecast (markets-blended, not yet backtested)",
   "model_versions": {
     "approval": "PresidentialApprovalModel (weighted polling average, Phase 2)",
     "generic_ballot": "GenericBallotModel (weighted polling average, Phase 2)",
     "senate": "SenateModel (per-race polling average)",
+    "senate_probability": "margin\u2192win-prob (normal CDF) + rating prior + market blend",
+    "senate_control": "Monte Carlo, 1000 sims, correlated national swing",
+    "vibes": "NYT coverage adjustment (bounded \u00b12.5 pts of margin)",
     "state_space": "skipped (opt-in only \u2014 too heavy for CI)"
   },
   "poll_counts": {

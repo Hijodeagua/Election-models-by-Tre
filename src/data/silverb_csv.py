@@ -38,6 +38,40 @@ def _parse_mdyy(raw: str) -> date:
     return date(year, month, day)
 
 
+def load_approval_series(path: Path) -> list[ApprovalSnapshot]:
+    """Load the *full* daily approval series from a model-estimate CSV.
+
+    Works for any CSV in the Silver Bulletin approval format
+    (modeldate,approve,disapprove[,approve_lo,approve_hi,...]) — also used
+    for the 50+1 fallback file. Missing file or malformed rows → skipped.
+    """
+    if not path.exists():
+        return []
+    rows = list(csv.DictReader(io.StringIO(path.read_text(encoding="utf-8"))))
+    series: list[ApprovalSnapshot] = []
+    for row in rows:
+        try:
+            approve = float(row["approve"])
+            disapprove = float(row["disapprove"])
+            ci_approve = None
+            if row.get("approve_lo") and row.get("approve_hi"):
+                ci_approve = (float(row["approve_lo"]), float(row["approve_hi"]))
+            series.append(
+                ApprovalSnapshot(
+                    as_of=_parse_mdyy(row["modeldate"]),
+                    approve=approve,
+                    disapprove=disapprove,
+                    net_approval=round(approve - disapprove, 1),
+                    num_polls=0,
+                    ci_approve=ci_approve,
+                )
+            )
+        except (KeyError, ValueError, IndexError):
+            continue
+    series.sort(key=lambda s: s.as_of)
+    return series
+
+
 class SilverBulletinApprovalLoader:
     """Load the most recent approval estimate from a Silver Bulletin CSV."""
 
