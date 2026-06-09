@@ -8,6 +8,13 @@ on:
     # Daily at 10:00 UTC — within Vercel hobby cron limits.
     - cron: "0 10 * * *"
   workflow_dispatch:
+  # Temporary: also refresh on pushes to the feature branch so live data
+  # lands there during development. The workflow's own data commit uses
+  # GITHUB_TOKEN, which never re-triggers workflows, so this cannot loop.
+  # Remove this trigger when the branch merges.
+  push:
+    branches: ["claude/keen-mendel-precsp"]
+    paths: ["scripts/**", "src/data/**", ".github/workflows/refresh_data.yml"]
 
 permissions:
   contents: write
