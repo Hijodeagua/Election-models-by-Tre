@@ -3,9 +3,9 @@ import Link from 'next/link';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Election Tracker — whosyurgoat',
+  title: 'Election Tracker — Policy y Peaches',
   description:
-    'A polling-average tracker for presidential approval, the generic ballot, and Senate races. Not a forecast.',
+    'A polling-average tracker for presidential approval, the generic ballot, and Senate races. More to come, but to learn more read here: https://policyypeaches.substack.com/',
 };
 
 const NAV = [
