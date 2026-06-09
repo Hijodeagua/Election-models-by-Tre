@@ -1,0 +1,49 @@
+/* Election Oracle Typography Tokens */
+
+:root {
+  /* Font families */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Monaco', 'Courier New', monospace;
+  --font-serif-display: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+  --font-serif-body: 'Source Serif 4', Georgia, serif;
+
+  /* Font sizes */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+  --font-size-4xl: 2.25rem;   /* 36px */
+  --font-size-5xl: 3rem;      /* 48px */
+
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Line heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  --line-height-loose: 2;
+
+  /* Letter spacing */
+  --letter-spacing-tight: -0.01em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.05em;
+  --letter-spacing-wider: 0.1em;
+
+  /* Typography scales */
+  --text-display-5xl: var(--font-size-5xl) / var(--line-height-tight);
+  --text-display-4xl: var(--font-size-4xl) / var(--line-height-tight);
+  --text-display-3xl: var(--font-size-3xl) / var(--line-height-tight);
+  --text-heading-2xl: var(--font-size-2xl) / var(--line-height-tight);
+  --text-heading-xl: var(--font-size-xl) / var(--line-height-tight);
+  --text-heading-lg: var(--font-size-lg) / var(--line-height-tight);
+  --text-body-base: var(--font-size-base) / var(--line-height-normal);
+  --text-body-sm: var(--font-size-sm) / var(--line-height-normal);
+  --text-caption: var(--font-size-xs) / var(--line-height-normal);
+}

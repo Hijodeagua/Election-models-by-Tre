@@ -1,0 +1,34 @@
+/* Election Oracle Animation & Transition Tokens */
+
+:root {
+  /* Durations */
+  --duration-fast: 100ms; /* @kind other */ /* transition duration */
+  --duration-base: 150ms; /* @kind other */ /* transition duration */
+  --duration-slow: 200ms; /* @kind other */ /* transition duration */
+  --duration-slower: 300ms; /* @kind other */ /* transition duration */
+
+  /* Easing curves */
+  --easing-linear: linear; /* @kind other */
+  --easing-ease-in: ease-in; /* @kind other */
+  --easing-ease-out: ease-out; /* @kind other */
+  --easing-ease-in-out: ease-in-out; /* @kind other */
+  --easing-ease-out-cubic: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* @kind other */
+  --easing-ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1); /* @kind other */
+
+  /* Standard transitions */
+  --transition-color: color var(--duration-base) var(--easing-ease-in-out);
+  --transition-bg: background-color var(--duration-base) var(--easing-ease-in-out);
+  --transition-border: border-color var(--duration-base) var(--easing-ease-in-out);
+  --transition-shadow: box-shadow var(--duration-base) var(--easing-ease-in-out);
+  --transition-opacity: opacity var(--duration-base) var(--easing-ease-in-out);
+  --transition-all: all var(--duration-base) var(--easing-ease-in-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms; /* @kind other */
+    --duration-base: 0ms; /* @kind other */
+    --duration-slow: 0ms; /* @kind other */
+    --duration-slower: 0ms; /* @kind other */
+  }
+}

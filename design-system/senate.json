@@ -1,0 +1,92 @@
+<!-- @dsCard group="Type" viewport="700x380" name="Typography Scale" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Election Oracle Typography</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body {
+      font-family: var(--font-sans);
+      padding: var(--space-6);
+      background: white;
+      margin: 0;
+    }
+    .typography-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+    .type-sample {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-4);
+    }
+    .type-label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: var(--letter-spacing-wide);
+      min-width: 120px;
+      flex-shrink: 0;
+    }
+    .type-display-5xl {
+      font-size: var(--font-size-5xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+    }
+    .type-display-4xl {
+      font-size: var(--font-size-4xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+    }
+    .type-heading-2xl {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+    }
+    .type-heading-lg {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-tight);
+    }
+    .type-body {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-normal);
+    }
+    .type-caption {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-normal);
+      color: var(--color-text-tertiary);
+    }
+  </style>
+</head>
+<body>
+  <div class="typography-grid">
+    <div class="type-sample">
+      <div class="type-label">Display 4xl</div>
+      <div class="type-display-4xl">48px Bold</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-label">Heading 2xl</div>
+      <div class="type-heading-2xl">24px Bold</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-label">Heading lg</div>
+      <div class="type-heading-lg">18px Semibold</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-label">Body base</div>
+      <div class="type-body">16px Regular — the standard reading size</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-label">Caption</div>
+      <div class="type-caption">12px Regular for metadata and helper text</div>
+    </div>
+  </div>
+</body>
+</html>

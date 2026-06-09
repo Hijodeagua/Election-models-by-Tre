@@ -1,0 +1,17 @@
+{
+  "last_updated": "2026-06-09T20:08:37.268702+00:00",
+  "data_tier": "tracker",
+  "label": "TRACKER \u2014 weighted polling averages only, not a forecast",
+  "model_versions": {
+    "approval": "PresidentialApprovalModel (weighted polling average, Phase 2)",
+    "generic_ballot": "GenericBallotModel (weighted polling average, Phase 2)",
+    "senate": "SenateModel (per-race polling average) + vibes/market overlays",
+    "senate_control": "SenateControlSimulator (1000-sim Monte Carlo NOWCAST)",
+    "state_space": "skipped (opt-in only \u2014 too heavy for CI)"
+  },
+  "poll_counts": {
+    "approval": 2855,
+    "generic_ballot": 488,
+    "senate": 6
+  }
+}

@@ -1,0 +1,102 @@
+import React from 'react';
+
+export function Button({ 
+  children, 
+  variant = 'primary', 
+  size = 'md', 
+  disabled = false,
+  className = '',
+  ...props 
+}) {
+  const variantClasses = {
+    primary: 'bg-dem text-white hover:bg-dem-dark',
+    secondary: 'bg-slate-200 text-slate-900 hover:bg-slate-300',
+    ghost: 'text-slate-600 hover:bg-slate-100',
+    danger: 'bg-rep text-white hover:bg-rep-dark',
+  };
+
+  const sizeClasses = {
+    sm: 'px-3 py-1 text-sm',
+    md: 'px-4 py-2 text-base',
+    lg: 'px-6 py-3 text-lg',
+  };
+
+  const baseClass = `
+    inline-flex items-center justify-center
+    rounded-md font-medium
+    transition-colors duration-150
+    disabled:opacity-50 disabled:cursor-not-allowed
+    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dem
+  `;
+
+  return (
+    <button
+      className={`${baseClass} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`.trim()}
+      disabled={disabled}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+}
+
+export function Card({ children, className = '', ...props }) {
+  return (
+    <div
+      className={`rounded-lg border border-slate-200 bg-white p-4 shadow-sm ${className}`.trim()}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
+
+export function StatBox({ label, value, accent = '', unit = '' }) {
+  return (
+    <Card className="text-center">
+      <div className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+        {label}
+      </div>
+      <div className={`mt-2 text-2xl font-bold ${accent}`.trim()}>
+        {value}
+        {unit && <span className="ml-1 text-lg">{unit}</span>}
+      </div>
+    </Card>
+  );
+}
+
+export function Badge({ children, variant = 'default', className = '' }) {
+  const variantClasses = {
+    default: 'bg-slate-100 text-slate-700',
+    dem: 'bg-blue-100 text-dem font-semibold',
+    rep: 'bg-red-100 text-rep font-semibold',
+    neutral: 'bg-slate-200 text-slate-600',
+  };
+
+  return (
+    <span className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${variantClasses[variant]} ${className}`.trim()}>
+      {children}
+    </span>
+  );
+}
+
+export function Chip({ children, selected = false, onClick, disabled = false }) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={`
+        rounded-full border px-2.5 py-1 text-xs font-medium
+        transition-colors duration-150
+        ${selected 
+          ? 'border-dem bg-blue-50 text-dem' 
+          : disabled
+            ? 'border-slate-200 bg-white text-slate-300 cursor-not-allowed'
+            : 'border-slate-300 bg-white text-slate-600 hover:bg-slate-50'
+        }
+      `.trim()}
+    >
+      {children}
+    </button>
+  );
+}

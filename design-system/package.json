@@ -1,0 +1,137 @@
+// Election Oracle UI Kit — layout shell: header, footer, shared primitives
+const { EO_T: TT, EO_LOGO: LOGO_SRC } = window;
+
+const NAV = [
+  { id: 'approval', label: 'Approval' },
+  { id: 'ballot', label: 'Generic Ballot' },
+  { id: 'senate', label: 'Senate' },
+  { id: 'forecast', label: 'Senate Forecast' },
+  { id: 'methodology', label: 'Methodology' },
+];
+
+// Sticky full-width banner header that condenses on scroll
+function Header({ active, onNav, scrolled }) {
+  return (
+    <header style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(250,248,245,0.88)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', borderBottom: `1px solid ${TT.border}`, boxShadow: scrolled ? '0 6px 20px -16px rgba(44,24,16,0.5)' : 'none', transition: 'box-shadow 200ms ease' }}>
+      <div style={{ height: 3, background: TT.peach }}></div>
+      <div style={{ maxWidth: 1040, margin: '0 auto', padding: '0 24px' }}>
+        {/* Brand row */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: scrolled ? 56 : 78, transition: 'height 200ms ease' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 13 }}>
+            <img src={LOGO_SRC} alt="Policy & Peaches" style={{ height: scrolled ? 38 : 52, width: scrolled ? 38 : 52, objectFit: 'contain', transition: 'all 200ms ease', mixBlendMode: 'multiply' }} />
+            <div>
+              <div style={{ fontFamily: TT.serif, fontSize: scrolled ? 19 : 23, color: TT.ink, lineHeight: 1, transition: 'font-size 200ms ease' }}>Election&nbsp;Oracle</div>
+              {!scrolled && <div style={{ fontSize: 10.5, color: TT.cocoa400, marginTop: 3, letterSpacing: '0.02em' }}>by Policy &amp; Peaches · <em>a tracker, not a crystal ball</em></div>}
+            </div>
+          </div>
+          <a href="#" onClick={e => e.preventDefault()} style={{ fontSize: 12.5, fontWeight: 600, color: '#fff', background: TT.peach, padding: '8px 15px', borderRadius: 7, textDecoration: 'none', fontFamily: TT.sans, whiteSpace: 'nowrap' }}>Subscribe</a>
+        </div>
+        {/* Nav row */}
+        <nav style={{ display: 'flex', gap: 2, borderTop: `1px solid ${TT.border}`, paddingTop: 0 }}>
+          {NAV.map(n => {
+            const on = active === n.id;
+            return (
+              <button key={n.id} onClick={() => onNav(n.id)}
+                style={{ background: 'transparent', border: 'none', borderBottom: on ? `2px solid ${TT.peach}` : '2px solid transparent', color: on ? TT.ink : TT.cocoa500, padding: '11px 13px', marginBottom: -1, fontSize: 13, fontWeight: on ? 600 : 500, cursor: 'pointer', fontFamily: TT.sans, transition: 'color 120ms ease' }}
+                onMouseEnter={e => { if (!on) e.currentTarget.style.color = TT.ink; }}
+                onMouseLeave={e => { if (!on) e.currentTarget.style.color = TT.cocoa500; }}>
+                {n.label}
+              </button>
+            );
+          })}
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+function Footer() {
+  return (
+    <footer style={{ borderTop: `1px solid ${TT.border}`, marginTop: 40, background: TT.panel }}>
+      <div style={{ maxWidth: 1040, margin: '0 auto', padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <img src={LOGO_SRC} alt="" style={{ height: 30, width: 30, objectFit: 'contain', mixBlendMode: 'multiply' }} />
+          <span style={{ fontSize: 11.5, color: TT.cocoa500, fontFamily: TT.sans }}>© 2026 Policy &amp; Peaches · Updated daily from public polling</span>
+        </div>
+        <div style={{ display: 'flex', gap: 16, fontSize: 11.5, fontFamily: TT.sans }}>
+          {['Methodology', 'Data sources', 'Newsletter', 'About'].map(l => (
+            <a key={l} href="#" onClick={e => e.preventDefault()} style={{ color: TT.peach, textDecoration: 'none' }}>{l}</a>
+          ))}
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+// ── shared primitives ────────────────────────────────────────────────────────
+function PageHead({ kicker, title, sub }) {
+  return (
+    <div style={{ marginBottom: 18 }}>
+      {kicker && <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.12em', color: TT.peach, fontWeight: 700, fontFamily: TT.sans, marginBottom: 7 }}>{kicker}</div>}
+      <h1 style={{ fontFamily: TT.serif, fontSize: 34, color: TT.ink, lineHeight: 1.08, margin: 0, letterSpacing: '-0.01em' }}>{title}</h1>
+      {sub && <p style={{ fontSize: 14, color: TT.cocoa500, marginTop: 8, fontFamily: TT.sans, maxWidth: 640, lineHeight: 1.5 }}>{sub}</p>}
+    </div>
+  );
+}
+
+function Panel({ title, legend, children, style }) {
+  return (
+    <div style={{ background: TT.surface, border: `1px solid ${TT.border}`, borderRadius: 12, padding: 18, ...style }}>
+      {(title || legend) && (
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12, flexWrap: 'wrap', gap: 8 }}>
+          {title && <div style={{ fontSize: 11, fontWeight: 700, color: TT.cocoa400, textTransform: 'uppercase', letterSpacing: '0.1em', fontFamily: TT.sans }}>{title}</div>}
+          {legend && <div style={{ display: 'flex', gap: 14 }}>{legend.map(l => (
+            <span key={l.label} style={{ fontSize: 11, color: l.color, display: 'flex', alignItems: 'center', gap: 5, fontFamily: TT.sans }}>
+              <span style={{ display: 'inline-block', width: 16, height: 3, background: l.color, borderRadius: 2 }}></span>{l.label}
+            </span>
+          ))}</div>}
+        </div>
+      )}
+      {children}
+    </div>
+  );
+}
+
+function StatCard({ label, value, tone = 'ink', sub }) {
+  const map = {
+    dem: { c: TT.dem, bg: TT.demWash, b: TT.demBorder },
+    rep: { c: TT.rep, bg: TT.repWash, b: TT.repBorder },
+    ink: { c: TT.cocoa700, bg: TT.surface, b: TT.border },
+    peach: { c: TT.peach, bg: TT.peachWash, b: TT.peachBorder },
+  }[tone];
+  return (
+    <div style={{ background: map.bg, border: `1px solid ${map.b}`, borderRadius: 12, padding: '16px 18px' }}>
+      <div style={{ fontSize: 11.5, color: TT.cocoa400, fontFamily: TT.sans, marginBottom: 6, letterSpacing: '0.02em' }}>{label}</div>
+      <div style={{ fontFamily: TT.serif, fontSize: 36, color: map.c, lineHeight: 1 }}>{value}</div>
+      {sub && <div style={{ fontSize: 11, color: TT.cocoa400, fontFamily: TT.sans, marginTop: 6 }}>{sub}</div>}
+    </div>
+  );
+}
+
+function MetaStrip({ items }) {
+  return (
+    <div style={{ background: TT.sunken, borderRadius: 8, padding: '8px 14px', display: 'flex', gap: 18, alignItems: 'center', flexWrap: 'wrap', marginBottom: 16 }}>
+      {items.map((it, i) => (
+        <span key={i} style={{ fontSize: 11.5, color: TT.cocoa500, fontFamily: TT.sans }}>{it.k} <strong style={{ color: TT.cocoa700 }}>{it.v}</strong></span>
+      ))}
+    </div>
+  );
+}
+
+function Pill({ children, tone = 'neutral', onClick, active }) {
+  const tones = {
+    neutral: { bg: '#f9f7f5', c: TT.cocoa500, b: TT.border },
+    peach: { bg: TT.peachWash, c: TT.peach, b: TT.peachBorder },
+    dem: { bg: TT.demWash, c: TT.dem, b: TT.demBorder },
+    green: { bg: TT.greenWash, c: TT.green, b: '#cfe2c6' },
+  };
+  const s = active ? tones.peach : tones[tone];
+  return (
+    <button onClick={onClick} disabled={!onClick}
+      style={{ background: s.bg, color: s.c, border: `1px solid ${s.b}`, borderRadius: 9999, padding: '3px 11px', fontSize: 11, fontWeight: 600, fontFamily: TT.sans, cursor: onClick ? 'pointer' : 'default' }}>
+      {children}
+    </button>
+  );
+}
+
+Object.assign(window, { EO_NAV: NAV, Header, Footer, PageHead, Panel, StatCard, MetaStrip, Pill });

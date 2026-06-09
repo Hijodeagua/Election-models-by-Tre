@@ -1,0 +1,104 @@
+<!-- @dsCard group="Components" viewport="700x600" name="Core Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Election Oracle Core Components</title>
+  <link rel="stylesheet" href="../../styles.css">
+  <script src="../../_ds_bundle.js"></script>
+  <style>
+    body {
+      font-family: var(--font-sans);
+      padding: var(--space-6);
+      background: var(--color-slate-50);
+      margin: 0;
+    }
+    .component-grid {
+      display: grid;
+      gap: var(--space-6);
+    }
+    .component-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .section-title {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: var(--letter-spacing-wide);
+      color: var(--color-text-tertiary);
+    }
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-3);
+    }
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+  </style>
+</head>
+<body>
+  <div class="component-grid">
+    <div class="component-section">
+      <div class="section-title">Buttons</div>
+      <div class="button-row">
+        <button onclick="alert('Clicked!')" style="display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; font-weight: 500; padding: 8px 16px; font-size: 16px; background: #2563eb; color: white; border: none; cursor: pointer; transition: all 150ms ease-in-out;">Primary</button>
+        <button style="display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; font-weight: 500; padding: 8px 16px; font-size: 16px; background: #e2e8f0; color: #0f172a; border: none; cursor: pointer; transition: all 150ms ease-in-out;">Secondary</button>
+        <button style="display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; font-weight: 500; padding: 8px 16px; font-size: 16px; background: transparent; color: #475569; border: none; cursor: pointer; transition: all 150ms ease-in-out;">Ghost</button>
+        <button style="display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; font-weight: 500; padding: 8px 16px; font-size: 16px; background: #dc2626; color: white; border: none; cursor: pointer; transition: all 150ms ease-in-out;">Danger</button>
+      </div>
+    </div>
+
+    <div class="component-section">
+      <div class="section-title">Stat Boxes</div>
+      <div class="stat-grid">
+        <div style="border-radius: 8px; border: 1px solid #e2e8f0; background: white; padding: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); text-align: center;">
+          <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8;">Approve</div>
+          <div style="margin-top: 8px; font-size: 24px; font-weight: 700; color: #2563eb;">45.2%</div>
+        </div>
+        <div style="border-radius: 8px; border: 1px solid #e2e8f0; background: white; padding: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); text-align: center;">
+          <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8;">Disapprove</div>
+          <div style="margin-top: 8px; font-size: 24px; font-weight: 700; color: #dc2626;">48.1%</div>
+        </div>
+        <div style="border-radius: 8px; border: 1px solid #e2e8f0; background: white; padding: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); text-align: center;">
+          <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8;">Net</div>
+          <div style="margin-top: 8px; font-size: 24px; font-weight: 700; color: #0f172a;">-2.9</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="component-section">
+      <div class="section-title">Badges</div>
+      <div class="badge-row">
+        <span style="display: inline-block; border-radius: 9999px; padding: 4px 12px; font-size: 12px; font-weight: 500; background: #dbeafe; color: #2563eb;">Strong D</span>
+        <span style="display: inline-block; border-radius: 9999px; padding: 4px 12px; font-size: 12px; font-weight: 500; background: #fee2e2; color: #dc2626;">Strong R</span>
+        <span style="display: inline-block; border-radius: 9999px; padding: 4px 12px; font-size: 12px; font-weight: 500; background: #f1f5f9; color: #475569;">Neutral</span>
+      </div>
+    </div>
+
+    <div class="component-section">
+      <div class="section-title">Chips (Toggle)</div>
+      <div class="chip-row">
+        <button style="border-radius: 9999px; border: 1px solid #2563eb; padding: 4px 10px; font-size: 12px; font-weight: 500; background: #eff6ff; color: #2563eb; cursor: pointer;">NYT Vibes On</button>
+        <button style="border-radius: 9999px; border: 1px solid #cbd5e1; padding: 4px 10px; font-size: 12px; font-weight: 500; background: white; color: #475569; cursor: pointer;">Polymarket</button>
+        <button style="border-radius: 9999px; border: 1px solid #cbd5e1; padding: 4px 10px; font-size: 12px; font-weight: 500; background: white; color: #475569; cursor: pointer; opacity: 0.5;">Kalshi (Loading)</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
