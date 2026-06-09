@@ -1,0 +1,90 @@
+export interface ButtonProps {
+  /**
+   * Button content or label
+   */
+  children: React.ReactNode;
+  /**
+   * Visual variant: primary (blue), secondary (gray), ghost (text-only), danger (red)
+   */
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger';
+  /**
+   * Size: sm (small), md (medium), lg (large)
+   */
+  size?: 'sm' | 'md' | 'lg';
+  /**
+   * Whether the button is disabled
+   */
+  disabled?: boolean;
+  /**
+   * Additional CSS classes
+   */
+  className?: string;
+  /**
+   * onClick handler
+   */
+  onClick?: () => void;
+}
+
+export interface CardProps {
+  /**
+   * Card content
+   */
+  children: React.ReactNode;
+  /**
+   * Additional CSS classes
+   */
+  className?: string;
+}
+
+export interface StatBoxProps {
+  /**
+   * Label text (e.g., "Approve")
+   */
+  label: string;
+  /**
+   * Main value to display
+   */
+  value: string | number;
+  /**
+   * Optional accent color class (e.g., "text-dem")
+   */
+  accent?: string;
+  /**
+   * Optional unit suffix (e.g., "%")
+   */
+  unit?: string;
+}
+
+export interface BadgeProps {
+  /**
+   * Badge content
+   */
+  children: React.ReactNode;
+  /**
+   * Variant: default, dem (blue), rep (red), neutral
+   */
+  variant?: 'default' | 'dem' | 'rep' | 'neutral';
+  /**
+   * Additional CSS classes
+   */
+  className?: string;
+}
+
+export interface ChipProps {
+  /**
+   * Chip content
+   */
+  children: React.ReactNode;
+  /**
+   * Whether the chip is in selected state
+   */
+  selected?: boolean;
+  /**
+   * Click handler
+   */
+  onClick?: () => void;
+  /**
+   * Whether the chip is disabled
+   */
+  disabled?: boolean;
+}

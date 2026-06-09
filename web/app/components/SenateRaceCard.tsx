@@ -28,11 +28,11 @@ export default function SenateRaceCard({ race }: { race: SenateRaceSnapshot }) {
   );
 
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-4">
+    <div className="rounded-xl border border-cream-300 bg-white p-4">
       <div className="flex items-start justify-between gap-2">
         <div>
-          <h3 className="font-semibold">{race.state}</h3>
-          <p className="mt-1 text-sm text-slate-600">
+          <h3 className="font-display text-lg text-ink">{race.state}</h3>
+          <p className="mt-1 text-sm text-cocoa-700">
             {ranked.slice(0, 3).map(([name, pct]) => (
               <span key={name} className="mr-3 whitespace-nowrap">
                 {name}: <strong>{pct.toFixed(1)}%</strong>
@@ -42,36 +42,36 @@ export default function SenateRaceCard({ race }: { race: SenateRaceSnapshot }) {
         </div>
         <div className="text-right">
           <div
-            className={`text-xl font-bold ${
+            className={`font-display text-2xl leading-none ${
               displayedMargin == null
-                ? 'text-slate-400'
+                ? 'text-cocoa-300'
                 : displayedMargin > 0
                   ? 'text-dem'
                   : displayedMargin < 0
                     ? 'text-rep'
-                    : 'text-slate-700'
+                    : 'text-cocoa-700'
             }`}
           >
             {fmtMargin(displayedMargin)}
           </div>
-          <div className="text-xs text-slate-400">
+          <div className="mt-1 text-xs text-cocoa-400">
             {showVibes && vibes?.available ? 'with NYT vibes' : 'base model'} ·{' '}
             {race.num_polls} polls
           </div>
         </div>
       </div>
 
-      <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-slate-100 pt-3 text-xs">
+      <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-cream-100 pt-3 text-xs">
         {vibes && (
           <button
             onClick={() => setShowVibes((v) => !v)}
             disabled={!vibes.available}
-            className={`rounded-full border px-2.5 py-1 ${
+            className={`rounded-full border px-2.5 py-1 font-semibold transition-colors ${
               !vibes.available
-                ? 'cursor-not-allowed border-slate-200 text-slate-300'
+                ? 'cursor-not-allowed border-cream-300 text-cocoa-300'
                 : showVibes
-                  ? 'border-indigo-500 bg-indigo-50 text-indigo-700'
-                  : 'border-slate-300 text-slate-600 hover:bg-slate-50'
+                  ? 'border-peach-border bg-peach-wash text-peach'
+                  : 'border-cream-300 text-cocoa-500 hover:bg-cream-100'
             }`}
             title={
               vibes.available
@@ -93,7 +93,7 @@ export default function SenateRaceCard({ race }: { race: SenateRaceSnapshot }) {
         {marketSources.map((source) => (
           <span
             key={source}
-            className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-slate-600"
+            className="rounded-full border border-cream-300 bg-cream-50 px-2.5 py-1 font-semibold text-cocoa-500"
             title={`${MARKET_LABELS[source] ?? source}: implied probability the Democrat wins`}
           >
             {MARKET_LABELS[source] ?? source}: D{' '}

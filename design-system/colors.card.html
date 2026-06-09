@@ -1,0 +1,56 @@
+# Core Components
+
+Foundational UI elements used throughout Election Oracle.
+
+## Button
+
+Clickable action element with multiple variants and sizes.
+
+```jsx
+import { Button } from '../_ds_bundle.js';
+const { Button } = window.ElectionOracle;
+
+<Button variant="primary" size="md">Click me</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="danger" disabled>Disabled</Button>
+```
+
+**Variants:** primary (blue), secondary (gray), ghost (text), danger (red)
+**Sizes:** sm, md, lg
+
+## Card
+
+Container element with border and padding.
+
+```jsx
+<Card>Card content here</Card>
+```
+
+## StatBox
+
+Statistic display with label and large value.
+
+```jsx
+<StatBox label="Approve" value="45.2" accent="text-dem" unit="%" />
+```
+
+## Badge
+
+Labeled pill/badge element.
+
+```jsx
+<Badge variant="dem">Strong D</Badge>
+<Badge variant="rep">Strong R</Badge>
+</Badge>
+```
+
+## Chip
+
+Toggle-able small button, often used in groups.
+
+```jsx
+<Chip selected={true} onClick={onToggle}>
+  NYT Vibes
+</Chip>
+```

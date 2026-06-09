@@ -7,5 +7,9 @@
 }
 
 body {
-  @apply bg-slate-50 text-slate-900 antialiased;
+  @apply bg-cream-50 text-ink antialiased;
+}
+
+::selection {
+  background: #fbe0d9;
 }

@@ -1,0 +1,89 @@
+<!-- @dsCard group="Spacing" viewport="700x300" name="Spacing & Sizing Scale" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Election Oracle Spacing</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body {
+      font-family: var(--font-sans);
+      padding: var(--space-6);
+      background: white;
+      margin: 0;
+    }
+    .spacing-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+    .spacing-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+    .spacing-label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-tertiary);
+      min-width: 80px;
+      text-transform: uppercase;
+      letter-spacing: var(--letter-spacing-wide);
+    }
+    .spacing-visual {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .spacing-box {
+      background: var(--color-dem);
+      border-radius: var(--radius-md);
+    }
+    .spacing-value {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+      font-family: var(--font-mono);
+    }
+  </style>
+</head>
+<body>
+  <div class="spacing-grid">
+    <div class="spacing-row">
+      <div class="spacing-label">4px</div>
+      <div class="spacing-visual">
+        <div class="spacing-box" style="width: 20px; height: 20px;"></div>
+        <div class="spacing-value">var(--space-1)</div>
+      </div>
+    </div>
+    <div class="spacing-row">
+      <div class="spacing-label">8px</div>
+      <div class="spacing-visual">
+        <div class="spacing-box" style="width: 40px; height: 20px;"></div>
+        <div class="spacing-value">var(--space-2)</div>
+      </div>
+    </div>
+    <div class="spacing-row">
+      <div class="spacing-label">16px</div>
+      <div class="spacing-visual">
+        <div class="spacing-box" style="width: 80px; height: 20px;"></div>
+        <div class="spacing-value">var(--space-4)</div>
+      </div>
+    </div>
+    <div class="spacing-row">
+      <div class="spacing-label">24px</div>
+      <div class="spacing-visual">
+        <div class="spacing-box" style="width: 120px; height: 20px;"></div>
+        <div class="spacing-value">var(--space-6)</div>
+      </div>
+    </div>
+    <div class="spacing-row">
+      <div class="spacing-label">32px</div>
+      <div class="spacing-visual">
+        <div class="spacing-box" style="width: 160px; height: 20px;"></div>
+        <div class="spacing-value">var(--space-8)</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

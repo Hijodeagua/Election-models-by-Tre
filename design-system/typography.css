@@ -1,0 +1,125 @@
+{
+  "races": [
+    {
+      "state": "Arizona",
+      "as_of": "2026-06-09",
+      "candidates": {
+        "Gallego": 47.7,
+        "Lake": 43.3
+      },
+      "margin": 4.4,
+      "num_polls": 2,
+      "rating": null,
+      "dem_candidate": "Gallego",
+      "rep_candidate": "Lake",
+      "dem_margin": 4.4,
+      "vibes": {
+        "available": true,
+        "adjustment": 0.0,
+        "dem_effect": 0.0,
+        "rep_effect": 0.0,
+        "adjusted_dem_margin": 4.4
+      },
+      "market_odds": {}
+    },
+    {
+      "state": "Georgia",
+      "as_of": "2026-06-09",
+      "candidates": {
+        "Ossoff": 45.0,
+        "Collins": 46.0
+      },
+      "margin": 1.0,
+      "num_polls": 1,
+      "rating": null,
+      "dem_candidate": "Ossoff",
+      "rep_candidate": "Collins",
+      "dem_margin": -1.0,
+      "vibes": {
+        "available": true,
+        "adjustment": 0.0,
+        "dem_effect": 0.0,
+        "rep_effect": 0.0,
+        "adjusted_dem_margin": -1.0
+      },
+      "market_odds": {
+        "polymarket": {
+          "Republican": 0.1445,
+          "Democrat": 0.85
+        }
+      }
+    },
+    {
+      "state": "Michigan",
+      "as_of": "2026-06-09",
+      "candidates": {
+        "Peters": 47.0,
+        "Rogers": 44.0
+      },
+      "margin": 3.0,
+      "num_polls": 1,
+      "rating": null,
+      "dem_candidate": "Peters",
+      "rep_candidate": "Rogers",
+      "dem_margin": 3.0,
+      "vibes": {
+        "available": true,
+        "adjustment": 0.0,
+        "dem_effect": 0.0,
+        "rep_effect": 0.0,
+        "adjusted_dem_margin": 3.0
+      },
+      "market_odds": {
+        "polymarket": {
+          "Republican": 0.295,
+          "Democrat": 0.69
+        }
+      }
+    },
+    {
+      "state": "Nevada",
+      "as_of": "2026-06-09",
+      "candidates": {
+        "Cortez Masto": 46.0,
+        "Laxalt": 47.0
+      },
+      "margin": 1.0,
+      "num_polls": 1,
+      "rating": null,
+      "dem_candidate": "Cortez Masto",
+      "rep_candidate": "Laxalt",
+      "dem_margin": -1.0,
+      "vibes": {
+        "available": true,
+        "adjustment": 0.0,
+        "dem_effect": 0.0,
+        "rep_effect": 0.0,
+        "adjusted_dem_margin": -1.0
+      },
+      "market_odds": {}
+    },
+    {
+      "state": "Pennsylvania",
+      "as_of": "2026-06-09",
+      "candidates": {
+        "Fetterman": 44.0,
+        "McCormick": 45.0
+      },
+      "margin": 1.0,
+      "num_polls": 1,
+      "rating": null,
+      "dem_candidate": "Fetterman",
+      "rep_candidate": "McCormick",
+      "dem_margin": -1.0,
+      "vibes": {
+        "available": true,
+        "adjustment": 0.0,
+        "dem_effect": 0.0,
+        "rep_effect": 0.0,
+        "adjusted_dem_margin": -1.0
+      },
+      "market_odds": {}
+    }
+  ],
+  "num_races": 5
+}

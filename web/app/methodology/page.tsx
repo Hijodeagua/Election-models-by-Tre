@@ -1,12 +1,35 @@
 import LastUpdated from '@/app/components/LastUpdated';
+import { PageHead } from '@/app/components/ui';
+
+function H({ children }: { children: React.ReactNode }) {
+  return <h3 className="mb-2 mt-7 font-display text-xl text-ink">{children}</h3>;
+}
+
+function P({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="mb-4 font-serifbody text-base leading-relaxed text-cocoa-700">{children}</p>
+  );
+}
 
 export default function MethodologyPage() {
   return (
-    <div className="prose prose-slate max-w-none">
-      <h2 className="text-2xl font-bold">Methodology</h2>
+    <div className="max-w-2xl">
+      <PageHead
+        kicker="Methodology"
+        title="How the Oracle actually works"
+        sub="No black boxes. Here is every step between a raw poll and the numbers on this site."
+      />
 
-      <h3 className="mt-6 text-lg font-semibold">What this is</h3>
-      <p className="mt-2 text-sm text-slate-600">
+      <div className="mb-6 rounded-xl border border-peach-border bg-peach-wash px-4 py-3.5">
+        <p className="font-display text-lg leading-snug text-peach">
+          A forecast in active development — calibration and backtesting are
+          still in progress, so treat every probability as an early-stage model
+          output.
+        </p>
+      </div>
+
+      <H>What this is</H>
+      <P>
         This site is an election <strong>forecast in active development</strong>.
         Its foundation is a set of weighted polling averages — polls are
         weighted by a hybrid pollster-quality score and recency, as of the date
@@ -14,25 +37,25 @@ export default function MethodologyPage() {
         page runs a probabilistic simulation of chamber control and compares
         the result against prediction-market prices. The shaded bands on the
         tracker charts are confidence intervals around the polling average.
-      </p>
+      </P>
 
-      <h3 className="mt-6 text-lg font-semibold">Where it stands</h3>
-      <p className="mt-2 text-sm text-slate-600">
+      <H>Where it stands</H>
+      <P>
         The probabilities published here come from a Monte Carlo simulation
         that has <strong>not yet been backtested</strong> across past election
         cycles, so treat them as an early-stage model output rather than a
         settled prediction. As calibration work completes, the uncertainty
         parameters and market-blend weights will be tuned against historical
         results and this page will be updated to reflect that.
-      </p>
-      <p className="mt-2 text-sm text-slate-600">
+      </P>
+      <P>
         The generic-ballot &ldquo;estimated seats&rdquo; figure is an{' '}
         <strong>illustrative</strong> translation from a static historical
         slope. It is a directional indicator only, not a seat projection.
-      </p>
+      </P>
 
-      <h3 className="mt-6 text-lg font-semibold">The three trackers</h3>
-      <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600">
+      <H>The three trackers</H>
+      <ul className="mb-4 list-disc space-y-1.5 pl-5 font-serifbody text-base leading-relaxed text-cocoa-700">
         <li>
           <strong>Presidential approval</strong> — weighted average of
           job-approval polls, with a daily trend and CI band.
@@ -48,8 +71,8 @@ export default function MethodologyPage() {
         </li>
       </ul>
 
-      <h3 className="mt-6 text-lg font-semibold">Comparison &amp; nowcast layers</h3>
-      <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600">
+      <H>Comparison &amp; nowcast layers</H>
+      <ul className="mb-4 list-disc space-y-1.5 pl-5 font-serifbody text-base leading-relaxed text-cocoa-700">
         <li>
           <strong>Model comparison (homepage)</strong> — our approval average
           shown alongside Silver Bulletin&rsquo;s published model, an unweighted
@@ -72,13 +95,27 @@ export default function MethodologyPage() {
         </li>
       </ul>
 
-      <h3 className="mt-6 text-lg font-semibold">Data &amp; refresh</h3>
-      <p className="mt-2 text-sm text-slate-600">
+      <H>Data &amp; refresh</H>
+      <P>
         Polling data is refreshed daily by a scheduled job that runs the model
         pipeline and publishes static JSON. The heavier hierarchical
         state-space estimates are intentionally excluded from the published
         data for performance reasons.
-      </p>
+      </P>
+
+      <div className="mt-7 border-t border-cream-300 pt-4 text-xs leading-relaxed text-cocoa-400">
+        Data sources: VoteHub, Silver Bulletin, Polymarket, Kalshi, state
+        pollster releases. Code &amp; full poll log on{' '}
+        <a
+          href="https://github.com/Hijodeagua/Election-models-by-Tre"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-peach underline"
+        >
+          GitHub
+        </a>
+        .
+      </div>
 
       <LastUpdated />
     </div>
