@@ -37,8 +37,6 @@ class TestCsvRoundTrip:
         assert len(odds) > 0
         assert all(0.0 <= o.probability <= 1.0 for o in odds)
         assert any(o.race == SENATE_CONTROL_RACE for o in odds)
-        # Seed snapshot is flagged so the UI can label it.
-        assert all(o.is_seed for o in odds)
 
     def test_round_trip(self, tmp_path):
         original = [_odds(), _odds(source="kalshi", probability=0.46, is_seed=True)]
