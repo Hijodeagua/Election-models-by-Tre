@@ -45,7 +45,11 @@ from src.data.markets import SENATE_CONTROL_RACE, MarketOddsCsvSource, odds_for_
 from src.data.silverb_csv import SilverBulletinApprovalLoader
 from src.data.votehub_csv import VoteHubCsvLoader
 from src.models.approval import PresidentialApprovalModel
-from src.models.generic_ballot import GenericBallotModel, GenericBallotSnapshot
+from src.models.generic_ballot import (
+    GENERIC_BALLOT_CHOICES,
+    GenericBallotModel,
+    GenericBallotSnapshot,
+)
 from src.models.senate import SenateModel
 from src.models.senate_simulation import (
     RaceInput,
@@ -137,12 +141,7 @@ def _generic_ballot_trend(
     current = start
     while current <= end:
         result = model.engine.compute_average(
-            gb_polls,
-            as_of=current,
-            choices=[
-                "Democrat", "Democratic", "Democrats",
-                "Republican", "Republicans", "GOP",
-            ],
+            gb_polls, as_of=current, choices=GENERIC_BALLOT_CHOICES
         )
         if result.num_polls > 0:
             snapshots.append(model._result_to_snapshot(result))

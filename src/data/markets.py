@@ -248,42 +248,66 @@ class KalshiClient:
         resp.raise_for_status()
         return resp.json()
 
-    def _markets_for_series(self, series_ticker: str) -> list[dict[str, Any]]:
-        payload = self._get(
-            "/markets", {"series_ticker": series_ticker, "status": "open", "limit": 100}
-        )
+    def _markets_for_event(self, event_ticker: str) -> list[dict[str, Any]]:
+        payload = self._get("/markets", {"event_ticker": event_ticker, "limit": 100})
         return payload.get("markets", []) if isinstance(payload, dict) else []
+
+    @staticmethod
+    def _market_price_cents(market: dict[str, Any]) -> float | None:
+        """Best available YES price in cents.
+
+        Thinly traded markets often have ``last_price: null`` — fall back to
+        the bid/ask midpoint when both sides are quoted.
+        """
+        last_price = market.get("last_price")
+        if last_price:
+            return float(last_price)
+        bid, ask = market.get("yes_bid"), market.get("yes_ask")
+        if bid and ask:
+            return (float(bid) + float(ask)) / 2.0
+        return None
 
     def fetch_race_odds(
         self,
         state_abbr: str,
         race: str,
         as_of: date | None = None,
-        title_filter: str | None = None,
+        year_suffix: str = "26",
     ) -> list[MarketOdds]:
-        """Fetch the party-winner odds for one state's Senate race."""
-        candidates = [f"SENATE{state_abbr.upper()}", f"KXSENATE{state_abbr.upper()}"]
-        return self._fetch(candidates, race, as_of=as_of, title_filter=title_filter)
+        """Fetch the party-winner odds for one state's Senate race.
 
-    def fetch_control_odds(self, race: str, as_of: date | None = None) -> list[MarketOdds]:
-        """Fetch chamber-control odds (CONTROLS series, Senate markets only)."""
+        2026 races live at event tickers like ``SENATEGA-26`` with one market
+        per party (``...-D`` / ``...-R``); the KX-prefixed spelling is tried
+        as a fallback for newer listings.
+        """
+        abbr = state_abbr.upper()
+        candidates = [f"SENATE{abbr}-{year_suffix}", f"KXSENATE{abbr}-{year_suffix}"]
+        return self._fetch(candidates, race, as_of=as_of)
+
+    def fetch_control_odds(
+        self, race: str, as_of: date | None = None, year: str = "2026"
+    ) -> list[MarketOdds]:
+        """Fetch Senate chamber-control odds (CONTROLS-{year} event)."""
         return self._fetch(
-            ["CONTROLS", "KXCONTROLS"], race, as_of=as_of, title_filter="senate"
+            [f"CONTROLS-{year}", f"KXCONTROLS-{year}"],
+            race,
+            as_of=as_of,
+            title_filter="senate",
         )
 
     def _fetch(
         self,
-        series_tickers: list[str],
+        event_tickers: list[str],
         race: str,
         as_of: date | None = None,
         title_filter: str | None = None,
     ) -> list[MarketOdds]:
         as_of = as_of or date.today()
-        for series in series_tickers:
+        for event_ticker in event_tickers:
             try:
-                markets = self._markets_for_series(series)
+                markets = self._markets_for_event(event_ticker)
             except Exception as exc:
-                logger.warning("kalshi fetch failed for %r: %s", series, exc)
+                logger.warning("kalshi fetch failed for %r: %s", event_ticker, exc)
                 continue
             odds: list[MarketOdds] = []
             for market in markets:
@@ -291,9 +315,9 @@ class KalshiClient:
                 subtitle = str(market.get("yes_sub_title", ""))
                 if title_filter and title_filter not in (title + " " + subtitle).lower():
                     continue
-                last_price = market.get("last_price")
+                price = self._market_price_cents(market)
                 party = _party_from_text(subtitle, title)
-                if last_price is None or party is None:
+                if price is None or party is None:
                     continue
                 ticker = market.get("ticker", "")
                 odds.append(
@@ -302,7 +326,7 @@ class KalshiClient:
                         source=self.name,
                         race=race,
                         outcome=party,
-                        probability=round(float(last_price) / 100.0, 4),
+                        probability=round(price / 100.0, 4),
                         url=f"https://kalshi.com/markets/{ticker}" if ticker else None,
                     )
                 )

@@ -169,19 +169,23 @@ class TestPolymarketParsing:
 
 class TestKalshiParsing:
     def test_parses_cents_and_party(self, monkeypatch):
+        # Real shape (June 2026): one market per party, party named in the
+        # title, candidate in yes_sub_title, last_price often null.
         payload = {
             "markets": [
                 {
                     "ticker": "SENATEGA-26-D",
-                    "title": "Georgia Senate winner?",
-                    "yes_sub_title": "Democrat",
+                    "title": "Will Democratics win the Senate race in Georgia?",
+                    "yes_sub_title": "Jon Ossoff",
                     "last_price": 46,
                 },
                 {
                     "ticker": "SENATEGA-26-R",
-                    "title": "Georgia Senate winner?",
-                    "yes_sub_title": "Republican",
-                    "last_price": 54,
+                    "title": "Will Republicans win the Senate race in Georgia?",
+                    "yes_sub_title": "Republican party",
+                    "last_price": None,
+                    "yes_bid": 52,
+                    "yes_ask": 56,
                 },
             ]
         }

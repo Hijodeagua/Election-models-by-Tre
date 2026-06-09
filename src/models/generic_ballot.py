@@ -27,6 +27,13 @@ _DEFAULT_BASELINE_DEM_SEATS = 218  # simple majority (neutral point)
 
 MIN_POLLS_FOR_ESTIMATE = 3
 
+# Pollster/source label variants for the two parties. The live VoteHub API
+# abbreviates to "Dem"/"Rep"; older exports spell the names out.
+GENERIC_BALLOT_CHOICES = [
+    "Democrat", "Democratic", "Democrats", "Dem",
+    "Republican", "Republicans", "GOP", "Rep",
+]
+
 
 @dataclass
 class GenericBallotSnapshot:
@@ -65,14 +72,10 @@ class GenericBallotModel:
 
     def current_ballot(self, polls: list[Poll]) -> GenericBallotSnapshot | None:
         """Return current generic ballot average, or None if too few polls."""
-        """Compute the current generic ballot average."""
         gb_polls = [p for p in polls if p.poll_type == PollType.GENERIC_BALLOT]
         if len(gb_polls) < MIN_POLLS_FOR_ESTIMATE:
             return None
-        result = self.engine.compute_average(
-            gb_polls,
-            choices=["Democrat", "Democratic", "Democrats", "Republican", "Republicans", "GOP"],
-        )
+        result = self.engine.compute_average(gb_polls, choices=GENERIC_BALLOT_CHOICES)
         return self._result_to_snapshot(result)
 
     def current_estimate_ss(
