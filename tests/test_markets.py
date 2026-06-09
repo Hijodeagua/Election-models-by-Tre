@@ -88,49 +88,163 @@ class TestOddsForRace:
         assert grouped["polymarket"]["Democrat"] == 0.47
 
 
-class TestClientParsing:
-    def test_polymarket_network_failure_returns_empty(self, monkeypatch):
+class TestPolymarketParsing:
+    def test_network_failure_returns_empty(self, monkeypatch):
         client = PolymarketClient()
         monkeypatch.setattr(
             client, "_get", lambda *a, **k: (_ for _ in ()).throw(RuntimeError("down"))
         )
         assert client.fetch_markets("Georgia Senate", race="Georgia Senate 2026") == []
 
-    def test_polymarket_parses_gamma_payload(self, monkeypatch):
-        payload = [
-            {
-                "slug": "ga-senate",
-                "outcomes": '["Democrat", "Republican"]',
-                "outcomePrices": '["0.47", "0.53"]',
-            }
-        ]
+    def test_parses_party_outcomes_from_search_events(self, monkeypatch):
+        payload = {
+            "events": [
+                {"title": "Something unrelated", "slug": "x", "markets": []},
+                {
+                    "title": "Georgia Senate Election 2026",
+                    "slug": "ga-senate-2026",
+                    "markets": [
+                        {
+                            "question": "Which party wins?",
+                            "outcomes": '["Democrat", "Republican"]',
+                            "outcomePrices": '["0.47", "0.53"]',
+                        }
+                    ],
+                },
+            ]
+        }
         client = PolymarketClient()
         monkeypatch.setattr(client, "_get", lambda *a, **k: payload)
-        odds = client.fetch_markets("Georgia Senate", race="Georgia Senate 2026")
-        assert len(odds) == 2
-        assert odds[0].outcome == "Democrat"
-        assert odds[0].probability == 0.47
-        assert odds[0].url and "ga-senate" in odds[0].url
+        odds = client.fetch_markets(
+            "Georgia Senate 2026",
+            race="Georgia Senate 2026",
+            required_tokens=("georgia", "senate"),
+        )
+        assert [(o.outcome, o.probability) for o in odds] == [
+            ("Democrat", 0.47),
+            ("Republican", 0.53),
+        ]
+        assert odds[0].url and "ga-senate-2026" in odds[0].url
 
-    def test_kalshi_parses_cents(self, monkeypatch):
+    def test_yes_no_market_uses_question_party(self, monkeypatch):
+        payload = {
+            "events": [
+                {
+                    "title": "Georgia Senate Election 2026",
+                    "slug": "ga",
+                    "markets": [
+                        {
+                            "question": "Will a Republican win the Georgia Senate race?",
+                            "outcomes": '["Yes", "No"]',
+                            "outcomePrices": '["0.53", "0.47"]',
+                        }
+                    ],
+                }
+            ]
+        }
+        client = PolymarketClient()
+        monkeypatch.setattr(client, "_get", lambda *a, **k: payload)
+        odds = client.fetch_markets("q", race="r", required_tokens=("georgia",))
+        # Only the Yes leg maps to a party; the No leg is ambiguous and skipped.
+        assert [(o.outcome, o.probability) for o in odds] == [("Republican", 0.53)]
+
+    def test_candidate_name_outcomes_skipped(self, monkeypatch):
+        payload = {
+            "events": [
+                {
+                    "title": "Georgia Senate Election 2026",
+                    "slug": "ga",
+                    "markets": [
+                        {
+                            "question": "Who wins?",
+                            "outcomes": '["Ossoff", "Collins"]',
+                            "outcomePrices": '["0.47", "0.53"]',
+                        }
+                    ],
+                }
+            ]
+        }
+        client = PolymarketClient()
+        monkeypatch.setattr(client, "_get", lambda *a, **k: payload)
+        assert client.fetch_markets("q", race="r", required_tokens=("georgia",)) == []
+
+
+class TestKalshiParsing:
+    def test_parses_cents_and_party(self, monkeypatch):
         payload = {
             "markets": [
-                {"ticker": "KXSENATEGA-26", "last_price": 46, "yes_sub_title": "Democrat"}
+                {
+                    "ticker": "SENATEGA-26-D",
+                    "title": "Georgia Senate winner?",
+                    "yes_sub_title": "Democrat",
+                    "last_price": 46,
+                },
+                {
+                    "ticker": "SENATEGA-26-R",
+                    "title": "Georgia Senate winner?",
+                    "yes_sub_title": "Republican",
+                    "last_price": 54,
+                },
             ]
         }
         client = KalshiClient()
         monkeypatch.setattr(client, "_get", lambda *a, **k: payload)
-        odds = client.fetch_markets("KXSENATEGA", race="Georgia Senate 2026", outcome="Democrat")
-        assert len(odds) == 1
-        assert odds[0].probability == 0.46
-        assert odds[0].source == "kalshi"
+        odds = client.fetch_race_odds("GA", race="Georgia Senate 2026")
+        assert [(o.outcome, o.probability) for o in odds] == [
+            ("Democrat", 0.46),
+            ("Republican", 0.54),
+        ]
 
-    def test_kalshi_network_failure_returns_empty(self, monkeypatch):
+    def test_single_party_market_gets_complement(self, monkeypatch):
+        payload = {
+            "markets": [
+                {
+                    "ticker": "SENATEME-26",
+                    "title": "Maine Senate winner?",
+                    "yes_sub_title": "Democrat",
+                    "last_price": 70,
+                }
+            ]
+        }
+        client = KalshiClient()
+        monkeypatch.setattr(client, "_get", lambda *a, **k: payload)
+        odds = client.fetch_race_odds("ME", race="Maine Senate 2026")
+        assert [(o.outcome, o.probability) for o in odds] == [
+            ("Democrat", 0.70),
+            ("Republican", 0.30),
+        ]
+
+    def test_control_filter_keeps_senate_only(self, monkeypatch):
+        payload = {
+            "markets": [
+                {
+                    "ticker": "CONTROLS-2026-HR",
+                    "title": "Which party will win the U.S. House?",
+                    "yes_sub_title": "Republican",
+                    "last_price": 40,
+                },
+                {
+                    "ticker": "CONTROLS-2026-SR",
+                    "title": "Which party will win the U.S. Senate?",
+                    "yes_sub_title": "Republican",
+                    "last_price": 69,
+                },
+            ]
+        }
+        client = KalshiClient()
+        monkeypatch.setattr(client, "_get", lambda *a, **k: payload)
+        odds = client.fetch_control_odds(race="senate-control-2026")
+        assert [(o.outcome, o.probability) for o in odds] == [
+            ("Republican", 0.69),
+            ("Democrat", 0.31),
+        ]
+
+    def test_network_failure_returns_empty(self, monkeypatch):
         client = KalshiClient()
         monkeypatch.setattr(
             client, "_get", lambda *a, **k: (_ for _ in ()).throw(RuntimeError("down"))
         )
-        assert client.fetch_markets("X", race="Y", outcome="Democrat") == []
+        assert client.fetch_race_odds("GA", race="Georgia Senate 2026") == []
 
 
 class TestJsonList:

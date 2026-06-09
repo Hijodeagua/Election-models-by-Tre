@@ -155,23 +155,31 @@ def _refresh_markets(dry_run: bool = False) -> None:
     from src.models.senate_simulation import load_cycle_config
 
     cycle = load_cycle_config()
-    queries: list[tuple[str, str]] = [
-        (f"{entry['state']} Senate", entry["race"]) for entry in cycle["competitive_races"]
-    ]
-    queries.append(("Senate control", SENATE_CONTROL_RACE))
-
     polymarket = PolymarketClient()
     kalshi = KalshiClient()
     collected: list[MarketOdds] = []
-    for query, race in queries:
+
+    for entry in cycle["competitive_races"]:
+        state, race, abbr = entry["state"], entry["race"], entry.get("abbr", "")
         if dry_run:
-            logger.info("  (dry run — would fetch %r)", query)
+            logger.info("  (dry run — would fetch %s)", race)
             continue
-        pm = polymarket.fetch_markets(query, race=race)
-        ks = kalshi.fetch_markets(
-            series_ticker=f"KXSENATE{race[:2].upper()}", race=race, outcome="Democrat"
+        pm = polymarket.fetch_markets(
+            f"{state} Senate 2026", race=race,
+            required_tokens=(state.lower(), "senate"),
         )
+        ks = kalshi.fetch_race_odds(abbr, race=race) if abbr else []
         logger.info("  %s: polymarket=%d kalshi=%d", race, len(pm), len(ks))
+        collected.extend(pm)
+        collected.extend(ks)
+
+    if not dry_run:
+        pm = polymarket.fetch_markets(
+            "Senate control 2026", race=SENATE_CONTROL_RACE,
+            required_tokens=("senate",),
+        )
+        ks = kalshi.fetch_control_odds(race=SENATE_CONTROL_RACE)
+        logger.info("  %s: polymarket=%d kalshi=%d", SENATE_CONTROL_RACE, len(pm), len(ks))
         collected.extend(pm)
         collected.extend(ks)
 

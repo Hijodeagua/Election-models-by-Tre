@@ -117,8 +117,42 @@ def write_market_odds_csv(odds: list[MarketOdds], path: Path) -> None:
 # ── Live clients (best-effort) ────────────────────────────────────────────────
 
 
+def _party_from_text(*texts: str) -> str | None:
+    """Detect which party a market/outcome refers to from its labels."""
+    joined = " ".join(t for t in texts if t).lower()
+    if "democrat" in joined:
+        return "Democrat"
+    if "republican" in joined or "gop" in joined:
+        return "Republican"
+    return None
+
+
+def _with_complement(odds: MarketOdds) -> list[MarketOdds]:
+    """Add the implied other-party probability for a single-party market.
+
+    Two-party approximation: P(other) = 1 − P(this). Slightly off in races
+    with viable independents, which is fine for the comparison display.
+    """
+    other = "Republican" if odds.outcome == "Democrat" else "Democrat"
+    complement = MarketOdds(
+        as_of=odds.as_of,
+        source=odds.source,
+        race=odds.race,
+        outcome=other,
+        probability=round(1.0 - odds.probability, 4),
+        url=odds.url,
+    )
+    return [odds, complement]
+
+
 class PolymarketClient:
-    """Read-only Gamma API client. No key required."""
+    """Read-only Gamma API client. No key required.
+
+    Markets are discovered through ``/public-search`` (the ``/markets``
+    endpoint has no free-text search parameter), then outcome prices are read
+    from the markets nested in each matching event. Gamma encodes
+    ``outcomes`` / ``outcomePrices`` as JSON-string arrays paired by position.
+    """
 
     name = "polymarket"
 
@@ -132,46 +166,75 @@ class PolymarketClient:
         resp.raise_for_status()
         return resp.json()
 
-    def fetch_markets(self, query: str, race: str, as_of: date | None = None) -> list[MarketOdds]:
-        """Search active markets matching ``query`` and map outcomes to odds.
+    def fetch_markets(
+        self,
+        query: str,
+        race: str,
+        required_tokens: tuple[str, ...] = (),
+        as_of: date | None = None,
+    ) -> list[MarketOdds]:
+        """Search active events for ``query`` and extract party probabilities.
 
-        Gamma returns ``outcomes`` / ``outcomePrices`` as JSON-encoded string
-        arrays; we pair them positionally.
+        ``required_tokens`` (lower-cased) must all appear in the event title —
+        e.g. ``("arizona", "senate")`` — to avoid picking up unrelated markets.
         """
         as_of = as_of or date.today()
         try:
-            markets = self._get(
-                "/markets", {"closed": "false", "limit": 20, "search": query}
+            payload = self._get(
+                "/public-search",
+                {"q": query, "limit_per_type": 10, "events_status": "active"},
             )
         except Exception as exc:  # network failures fall back to CSV snapshot
-            logger.warning("polymarket fetch failed for %r: %s", query, exc)
+            logger.warning("polymarket search failed for %r: %s", query, exc)
             return []
 
-        odds: list[MarketOdds] = []
-        for market in markets if isinstance(markets, list) else []:
-            outcomes = _json_list(market.get("outcomes"))
-            prices = _json_list(market.get("outcomePrices"))
-            slug = market.get("slug", "")
-            for outcome, price in zip(outcomes, prices, strict=False):
-                try:
-                    prob = float(price)
-                except (TypeError, ValueError):
-                    continue
-                odds.append(
-                    MarketOdds(
-                        as_of=as_of,
-                        source=self.name,
-                        race=race,
-                        outcome=str(outcome),
-                        probability=round(prob, 4),
-                        url=f"https://polymarket.com/market/{slug}" if slug else None,
+        events = payload.get("events") or [] if isinstance(payload, dict) else []
+        for event in events:
+            title = str(event.get("title", ""))
+            if not all(tok in title.lower() for tok in required_tokens):
+                continue
+            slug = event.get("slug", "")
+            url = f"https://polymarket.com/event/{slug}" if slug else None
+            odds: list[MarketOdds] = []
+            for market in event.get("markets") or []:
+                outcomes = _json_list(market.get("outcomes"))
+                prices = _json_list(market.get("outcomePrices"))
+                question = str(market.get("question", ""))
+                for outcome, price in zip(outcomes, prices, strict=False):
+                    try:
+                        prob = float(price)
+                    except (TypeError, ValueError):
+                        continue
+                    # "Democrat"/"Republican" outcome labels, or Yes/No
+                    # markets whose question names the party.
+                    party = _party_from_text(str(outcome)) or (
+                        _party_from_text(question) if str(outcome) == "Yes" else None
                     )
-                )
-        return odds
+                    if party is None:
+                        continue
+                    odds.append(
+                        MarketOdds(
+                            as_of=as_of,
+                            source=self.name,
+                            race=race,
+                            outcome=party,
+                            probability=round(prob, 4),
+                            url=url,
+                        )
+                    )
+            if odds:
+                return odds  # first matching event wins
+        return []
 
 
 class KalshiClient:
-    """Read-only Kalshi public-market client. No key required for market data."""
+    """Read-only Kalshi public-market client. No key required for market data.
+
+    2026 Senate race series follow the ``SENATE{state}`` pattern (event
+    ``SENATE{state}-26``); chamber control lives in the ``CONTROLS`` series.
+    Newer series carry a ``KX`` prefix, so both spellings are tried.
+    Prices are in cents (0–100).
+    """
 
     name = "kalshi"
 
@@ -185,36 +248,71 @@ class KalshiClient:
         resp.raise_for_status()
         return resp.json()
 
-    def fetch_markets(
-        self, series_ticker: str, race: str, outcome: str, as_of: date | None = None
-    ) -> list[MarketOdds]:
-        """Fetch open markets for a series and convert last price (¢) to 0–1."""
-        as_of = as_of or date.today()
-        try:
-            payload = self._get(
-                "/markets", {"series_ticker": series_ticker, "status": "open", "limit": 20}
-            )
-        except Exception as exc:
-            logger.warning("kalshi fetch failed for %r: %s", series_ticker, exc)
-            return []
+    def _markets_for_series(self, series_ticker: str) -> list[dict[str, Any]]:
+        payload = self._get(
+            "/markets", {"series_ticker": series_ticker, "status": "open", "limit": 100}
+        )
+        return payload.get("markets", []) if isinstance(payload, dict) else []
 
-        odds: list[MarketOdds] = []
-        for market in payload.get("markets", []) if isinstance(payload, dict) else []:
-            last_price = market.get("last_price")
-            if last_price is None:
+    def fetch_race_odds(
+        self,
+        state_abbr: str,
+        race: str,
+        as_of: date | None = None,
+        title_filter: str | None = None,
+    ) -> list[MarketOdds]:
+        """Fetch the party-winner odds for one state's Senate race."""
+        candidates = [f"SENATE{state_abbr.upper()}", f"KXSENATE{state_abbr.upper()}"]
+        return self._fetch(candidates, race, as_of=as_of, title_filter=title_filter)
+
+    def fetch_control_odds(self, race: str, as_of: date | None = None) -> list[MarketOdds]:
+        """Fetch chamber-control odds (CONTROLS series, Senate markets only)."""
+        return self._fetch(
+            ["CONTROLS", "KXCONTROLS"], race, as_of=as_of, title_filter="senate"
+        )
+
+    def _fetch(
+        self,
+        series_tickers: list[str],
+        race: str,
+        as_of: date | None = None,
+        title_filter: str | None = None,
+    ) -> list[MarketOdds]:
+        as_of = as_of or date.today()
+        for series in series_tickers:
+            try:
+                markets = self._markets_for_series(series)
+            except Exception as exc:
+                logger.warning("kalshi fetch failed for %r: %s", series, exc)
                 continue
-            ticker = market.get("ticker", "")
-            odds.append(
-                MarketOdds(
-                    as_of=as_of,
-                    source=self.name,
-                    race=race,
-                    outcome=market.get("yes_sub_title") or outcome,
-                    probability=round(float(last_price) / 100.0, 4),
-                    url=f"https://kalshi.com/markets/{ticker}" if ticker else None,
+            odds: list[MarketOdds] = []
+            for market in markets:
+                title = str(market.get("title", ""))
+                subtitle = str(market.get("yes_sub_title", ""))
+                if title_filter and title_filter not in (title + " " + subtitle).lower():
+                    continue
+                last_price = market.get("last_price")
+                party = _party_from_text(subtitle, title)
+                if last_price is None or party is None:
+                    continue
+                ticker = market.get("ticker", "")
+                odds.append(
+                    MarketOdds(
+                        as_of=as_of,
+                        source=self.name,
+                        race=race,
+                        outcome=party,
+                        probability=round(float(last_price) / 100.0, 4),
+                        url=f"https://kalshi.com/markets/{ticker}" if ticker else None,
+                    )
                 )
-            )
-        return odds
+            if odds:
+                # Single-party markets imply the complement for the other side.
+                parties = {o.outcome for o in odds}
+                if len(parties) == 1:
+                    odds = _with_complement(odds[0])
+                return odds
+        return []
 
 
 def _json_list(raw: Any) -> list[Any]:
