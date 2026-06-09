@@ -7,28 +7,28 @@ export default function MethodologyPage() {
 
       <h3 className="mt-6 text-lg font-semibold">What this is</h3>
       <p className="mt-2 text-sm text-slate-600">
-        This site is a <strong>tracker</strong>. Every number shown is a
-        weighted average of recent public polls, as of the date stamped on each
-        page. We weight polls by a hybrid pollster-quality score and recency.
-        The shaded bands are confidence intervals around the polling average —
-        they describe uncertainty in the <em>average</em>, not in any election
-        outcome.
+        This site is an election <strong>forecast in active development</strong>.
+        Its foundation is a set of weighted polling averages — polls are
+        weighted by a hybrid pollster-quality score and recency, as of the date
+        stamped on each page. On top of that foundation, the Senate Forecast
+        page runs a probabilistic simulation of chamber control and compares
+        the result against prediction-market prices. The shaded bands on the
+        tracker charts are confidence intervals around the polling average.
       </p>
 
-      <h3 className="mt-6 text-lg font-semibold">What this is not</h3>
+      <h3 className="mt-6 text-lg font-semibold">Where it stands</h3>
       <p className="mt-2 text-sm text-slate-600">
-        This is <strong>not a forecast</strong>. It does not output a
-        probability that any candidate or party will win. A forecast requires a
-        probabilistic outcome model with simulation and calibration that has
-        been backtested across multiple election cycles — work that is not yet
-        complete here. Until that exists, we deliberately avoid all
-        win-probability language.
+        The probabilities published here come from a Monte Carlo simulation
+        that has <strong>not yet been backtested</strong> across past election
+        cycles, so treat them as an early-stage model output rather than a
+        settled prediction. As calibration work completes, the uncertainty
+        parameters and market-blend weights will be tuned against historical
+        results and this page will be updated to reflect that.
       </p>
       <p className="mt-2 text-sm text-slate-600">
         The generic-ballot &ldquo;estimated seats&rdquo; figure is an{' '}
         <strong>illustrative</strong> translation from a static historical
-        slope. It is a directional indicator only and must not be read as a
-        probability or a seat projection.
+        slope. It is a directional indicator only, not a seat projection.
       </p>
 
       <h3 className="mt-6 text-lg font-semibold">The three trackers</h3>
@@ -42,8 +42,9 @@ export default function MethodologyPage() {
           D-vs-R congressional preference, reported as a margin.
         </li>
         <li>
-          <strong>Senate</strong> — per-race weighted polling averages. No win
-          probabilities.
+          <strong>Senate</strong> — per-race weighted polling averages, with
+          win probabilities and the control simulation on the Senate Forecast
+          page.
         </li>
       </ul>
 
@@ -62,12 +63,12 @@ export default function MethodologyPage() {
           Senate page. Off by default.
         </li>
         <li>
-          <strong>Senate control simulation</strong> — a <em>nowcast</em>, not a
-          forecast: 1,000 Monte Carlo simulations of the key races with
-          correlated national polling error, optionally blending
-          Polymarket/Kalshi implied odds at a tunable weight. It answers
-          &ldquo;if the election were held today&rdquo; and is labelled as such
-          until backtesting across past cycles is complete.
+          <strong>Senate control simulation</strong> — 1,000 Monte Carlo
+          simulations of the key races with correlated national polling error,
+          optionally blending Polymarket/Kalshi implied odds at a tunable
+          weight. Today it answers &ldquo;if the election were held now&rdquo;;
+          as backtesting across past cycles completes, it will mature into a
+          full election-day forecast.
         </li>
       </ul>
 

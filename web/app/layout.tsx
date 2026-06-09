@@ -26,11 +26,18 @@ export default function RootLayout({
       <body>
         <header className="border-b border-slate-200 bg-white">
           <div className="mx-auto flex max-w-4xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h1 className="text-lg font-bold">Election Tracker</h1>
-              <p className="text-xs uppercase tracking-wide text-slate-400">
-                Polling averages · not a forecast
-              </p>
+            <div className="flex items-center gap-3">
+              <img
+                src="/election/policy-y-peaches-logo.svg"
+                alt="Policy & Peaches"
+                className="h-12 w-12"
+              />
+              <div>
+                <h1 className="text-lg font-bold">Election Tracker</h1>
+                <p className="text-xs uppercase tracking-wide text-slate-400">
+                  A Policy y Peaches forecast · work in progress
+                </p>
+              </div>
             </div>
             <nav className="flex flex-wrap gap-3 text-sm">
               {NAV.map((item) => (
