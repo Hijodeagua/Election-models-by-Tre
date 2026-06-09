@@ -7,12 +7,12 @@ import json
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from datetime import date
-from enum import Enum
+from enum import StrEnum
 from pathlib import Path
 from typing import Any
 
 
-class PollType(str, Enum):
+class PollType(StrEnum):
     APPROVAL = "approval"
     FAVORABILITY = "favorability"
     GENERIC_BALLOT = "generic-ballot"
@@ -20,7 +20,7 @@ class PollType(str, Enum):
     PRIMARY = "primary"
 
 
-class Population(str, Enum):
+class Population(StrEnum):
     LIKELY_VOTERS = "lv"
     REGISTERED_VOTERS = "rv"
     ADULTS = "a"

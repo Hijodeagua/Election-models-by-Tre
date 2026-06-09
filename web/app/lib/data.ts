@@ -44,6 +44,17 @@ export interface GenericBallotData {
   num_polls: number;
 }
 
+export interface RaceVibes {
+  available: boolean;
+  adjustment: number;
+  dem_effect: number;
+  rep_effect: number;
+  adjusted_dem_margin: number | null;
+}
+
+// source ("polymarket" | "kalshi") -> outcome ("Democrat" | ...) -> probability 0-1
+export type MarketOddsBySource = Record<string, Record<string, number>>;
+
 export interface SenateRaceSnapshot {
   state: string;
   as_of: string;
@@ -51,11 +62,67 @@ export interface SenateRaceSnapshot {
   margin: number | null;
   num_polls: number;
   rating: string | null;
+  dem_candidate?: string;
+  rep_candidate?: string;
+  dem_margin?: number | null;
+  vibes?: RaceVibes;
+  market_odds?: MarketOddsBySource;
 }
 
 export interface SenateData {
   races: SenateRaceSnapshot[];
   num_races: number;
+}
+
+export interface ComparisonPoint {
+  as_of: string;
+  approve: number;
+  disapprove: number;
+  net: number;
+  lo?: number | null;
+  hi?: number | null;
+}
+
+export interface ComparisonSource {
+  label: string;
+  description: string;
+  available: boolean;
+  series: ComparisonPoint[];
+}
+
+export interface ApprovalComparisonData {
+  sources: Record<string, ComparisonSource>;
+}
+
+export interface RaceForecast {
+  state: string;
+  race: string;
+  dem_candidate: string;
+  rep_candidate: string;
+  margin: number | null;
+  num_polls: number;
+  dem_win_prob_polls: number | null;
+  dem_win_prob_blended: number | null;
+  market_dem_prob: Record<string, number>;
+}
+
+export interface SenateForecastData {
+  as_of: string;
+  num_simulations: number;
+  dem_control_prob: number;
+  mean_dem_seats: number;
+  median_dem_seats: number;
+  seat_distribution: Record<string, number>;
+  races: RaceForecast[];
+  dem_safe_seats: number;
+  rep_safe_seats: number;
+  dem_majority_threshold: number;
+  market_weight: number;
+  national_sigma: number;
+  race_sigma: number;
+  market_control_dem_prob: Record<string, number>;
+  maturity: string;
+  label: string;
 }
 
 export interface Meta {
@@ -85,6 +152,14 @@ export function getGenericBallot(): GenericBallotData {
 
 export function getSenate(): SenateData {
   return read<SenateData>('senate.json', { races: [], num_races: 0 });
+}
+
+export function getApprovalComparison(): ApprovalComparisonData {
+  return read<ApprovalComparisonData>('approval_comparison.json', { sources: {} });
+}
+
+export function getSenateForecast(): SenateForecastData | null {
+  return read<SenateForecastData | null>('senate_forecast.json', null);
 }
 
 export function getMeta(): Meta {

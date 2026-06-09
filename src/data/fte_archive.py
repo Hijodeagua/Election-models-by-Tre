@@ -65,7 +65,9 @@ class FTEArchiveClient:
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self._client = httpx.Client(
             timeout=timeout,
-            headers={"User-Agent": "election-oracle/0.1 (github.com/Hijodeagua/Election-models-by-Tre)"},
+            headers={
+                "User-Agent": "election-oracle/0.1 (github.com/Hijodeagua/Election-models-by-Tre)"
+            },
             follow_redirects=True,
         )
 

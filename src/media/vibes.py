@@ -12,7 +12,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 from datetime import date
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 from src.media.sentiment import ScoredMention
@@ -20,7 +20,7 @@ from src.media.sentiment import ScoredMention
 # ── Metric 2: Five-bucket classification ──────────────────────────────
 
 
-class VibeBucket(str, Enum):
+class VibeBucket(StrEnum):
     OVERWHELMINGLY_POSITIVE = "overwhelmingly_positive"
     MORE_POSITIVE = "more_positive"
     NEUTRAL_MIXED = "neutral_mixed"

@@ -53,7 +53,11 @@ def _build_engine(polls):
 
 def _detect_states(polls):
     seen = set()
-    return [p.subject for p in polls if p.subject and p.subject not in seen and not seen.add(p.subject)]
+    return [
+        p.subject
+        for p in polls
+        if p.subject and p.subject not in seen and not seen.add(p.subject)
+    ]
 
 
 def main() -> None:
@@ -214,7 +218,10 @@ def main() -> None:
             for name, csv_text in chart_data.items():
                 chart_id = getattr(chart_ids, _id_map.get(name, name), "")
                 if not chart_id:
-                    logger.warning("No chart ID for '%s' — skipping. Set DW_CHART_%s_ID in .env", name, name.upper())
+                    logger.warning(
+                        "No chart ID for '%s' — skipping. Set DW_CHART_%s_ID in .env",
+                        name, name.upper(),
+                    )
                     continue
                 ok = dw.update_and_publish(chart_id, csv_text, metadata=_metadata.get(name))
                 logger.info("  %s: %s", name, "✓ published" if ok else "✗ failed")

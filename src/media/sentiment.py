@@ -1,7 +1,8 @@
 """Sentiment scoring for candidate mentions.
 
 Two backends:
-    1. TransformerScorer — uses a HuggingFace model (cardiffnlp/twitter-roberta-base-sentiment-latest)
+    1. TransformerScorer — uses a HuggingFace model
+       (cardiffnlp/twitter-roberta-base-sentiment-latest)
        for production-quality scoring. Requires `transformers` and `torch`.
     2. KeywordScorer — lightweight fallback using curated political-news word lists.
        No ML dependencies. Useful for testing and as a baseline.
@@ -77,7 +78,9 @@ class TransformerScorer(SentimentScorer):
     Labels: negative (0), neutral (1), positive (2)
     """
 
-    def __init__(self, model_name: str = "cardiffnlp/twitter-roberta-base-sentiment-latest") -> None:
+    def __init__(
+        self, model_name: str = "cardiffnlp/twitter-roberta-base-sentiment-latest"
+    ) -> None:
         try:
             import torch
             from transformers import AutoModelForSequenceClassification, AutoTokenizer

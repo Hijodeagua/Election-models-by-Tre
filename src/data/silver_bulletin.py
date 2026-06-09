@@ -116,7 +116,9 @@ class SilverBulletinClient:
 
             for row in rows[1:]:
                 cells = row.find_all("td")
-                if len(cells) <= max(filter(lambda x: x is not None, [pollster_col, grade_col or 0])):
+                if len(cells) <= max(
+                    filter(lambda x: x is not None, [pollster_col, grade_col or 0])
+                ):
                     continue
 
                 pollster = cells[pollster_col].get_text(strip=True)

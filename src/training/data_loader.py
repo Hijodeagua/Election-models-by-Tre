@@ -95,7 +95,9 @@ class TrainingDataLoader:
                     fte_polls.extend(fte.fetch_governor_polls())
                     results.extend(mit.fetch_governor_results(min_year=min_year))
                 elif office == "house":
-                    fte_polls.extend(fte.fetch_house_results() if hasattr(fte, "fetch_house_results") else [])
+                    fte_polls.extend(
+                        fte.fetch_house_results() if hasattr(fte, "fetch_house_results") else []
+                    )
                     results.extend(mit.fetch_house_results(min_year=min_year))
             except Exception as e:
                 logger.warning(f"Error loading {office} data: {e}")
@@ -194,7 +196,11 @@ def _fte_polls_to_polls(fte_polls: list[FTEPoll], result: RaceResult) -> list[Po
             choice = e.candidate if e.candidate else e.party
             answers.append(PollAnswer(choice=choice, pct=e.pct))
 
-        pop_map = {"lv": Population.LIKELY_VOTERS, "rv": Population.REGISTERED_VOTERS, "a": Population.ADULTS}
+        pop_map = {
+            "lv": Population.LIKELY_VOTERS,
+            "rv": Population.REGISTERED_VOTERS,
+            "a": Population.ADULTS,
+        }
         population = pop_map.get((first.population or "").lower())
 
         polls.append(Poll(

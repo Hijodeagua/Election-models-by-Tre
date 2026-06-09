@@ -269,7 +269,8 @@ class TestKeywordScorer:
                 candidate="A", sentence="A won.", context_window="A won the race.", position=0
             ),
             CandidateMention(
-                candidate="B", sentence="B lost.", context_window="B lost badly, trailing.", position=0
+                candidate="B", sentence="B lost.",
+                context_window="B lost badly, trailing.", position=0
             ),
         ]
         scored = self.scorer.score_mentions(mentions)

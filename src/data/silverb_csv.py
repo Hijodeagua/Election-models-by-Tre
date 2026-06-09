@@ -31,23 +31,34 @@ def _parse_mdyy(raw: str) -> date:
     """Parse 'M/D/YY' or 'M/D/YYYY' into a date."""
     parts = raw.strip().split("/")
     month, day, year_raw = int(parts[0]), int(parts[1]), parts[2]
-    if len(year_raw) == 2:
-        year = 2000 + int(year_raw)
-    else:
-        year = int(year_raw)
+    year = 2000 + int(year_raw) if len(year_raw) == 2 else int(year_raw)
     return date(year, month, day)
 
 
 class SilverBulletinApprovalLoader:
-    """Load the most recent approval estimate from a Silver Bulletin CSV."""
+    """Load approval estimates from a Silver Bulletin CSV."""
+
+    def load_series(self, path: Path) -> list[ApprovalSnapshot]:
+        """Load the full daily series (one snapshot per model day)."""
+        text = path.read_text(encoding="utf-8")
+        rows = list(csv.DictReader(io.StringIO(text)))
+        series: list[ApprovalSnapshot] = []
+        for row in rows:
+            snapshot = self._row_to_snapshot(row, num_polls=len(rows))
+            if snapshot is not None:
+                series.append(snapshot)
+        return series
 
     def load(self, path: Path) -> ApprovalSnapshot | None:
+        """Load only the most recent estimate (last row)."""
         text = path.read_text(encoding="utf-8")
         rows = list(csv.DictReader(io.StringIO(text)))
         if not rows:
             return None
+        return self._row_to_snapshot(rows[-1], num_polls=len(rows))
 
-        row = rows[-1]  # last row = most recent
+    @staticmethod
+    def _row_to_snapshot(row: dict[str, str], num_polls: int) -> ApprovalSnapshot | None:
         try:
             as_of = _parse_mdyy(row["modeldate"])
             approve = float(row["approve"])
@@ -66,7 +77,7 @@ class SilverBulletinApprovalLoader:
             approve=approve,
             disapprove=disapprove,
             net_approval=round(approve - disapprove, 1),
-            num_polls=len(rows),
+            num_polls=num_polls,
             ci_approve=ci_approve,
             ci_disapprove=ci_disapprove,
         )

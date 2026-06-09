@@ -9,7 +9,27 @@
       },
       "margin": 4.4,
       "num_polls": 2,
-      "rating": null
+      "rating": null,
+      "dem_candidate": "Gallego",
+      "rep_candidate": "Lake",
+      "dem_margin": 4.4,
+      "vibes": {
+        "available": true,
+        "adjustment": 0.0,
+        "dem_effect": 0.0,
+        "rep_effect": 0.0,
+        "adjusted_dem_margin": 4.4
+      },
+      "market_odds": {
+        "polymarket": {
+          "Democrat": 0.7,
+          "Republican": 0.3
+        },
+        "kalshi": {
+          "Democrat": 0.68,
+          "Republican": 0.32
+        }
+      }
     },
     {
       "state": "Georgia",
@@ -20,7 +40,27 @@
       },
       "margin": 1.0,
       "num_polls": 1,
-      "rating": null
+      "rating": null,
+      "dem_candidate": "Ossoff",
+      "rep_candidate": "Collins",
+      "dem_margin": -1.0,
+      "vibes": {
+        "available": true,
+        "adjustment": 0.0,
+        "dem_effect": 0.0,
+        "rep_effect": 0.0,
+        "adjusted_dem_margin": -1.0
+      },
+      "market_odds": {
+        "polymarket": {
+          "Democrat": 0.47,
+          "Republican": 0.53
+        },
+        "kalshi": {
+          "Democrat": 0.46,
+          "Republican": 0.54
+        }
+      }
     },
     {
       "state": "Michigan",
@@ -31,7 +71,27 @@
       },
       "margin": 3.0,
       "num_polls": 1,
-      "rating": null
+      "rating": null,
+      "dem_candidate": "Peters",
+      "rep_candidate": "Rogers",
+      "dem_margin": 3.0,
+      "vibes": {
+        "available": true,
+        "adjustment": 0.0,
+        "dem_effect": 0.0,
+        "rep_effect": 0.0,
+        "adjusted_dem_margin": 3.0
+      },
+      "market_odds": {
+        "polymarket": {
+          "Democrat": 0.62,
+          "Republican": 0.38
+        },
+        "kalshi": {
+          "Democrat": 0.6,
+          "Republican": 0.4
+        }
+      }
     },
     {
       "state": "Nevada",
@@ -42,7 +102,27 @@
       },
       "margin": 1.0,
       "num_polls": 1,
-      "rating": null
+      "rating": null,
+      "dem_candidate": "Cortez Masto",
+      "rep_candidate": "Laxalt",
+      "dem_margin": -1.0,
+      "vibes": {
+        "available": true,
+        "adjustment": 0.0,
+        "dem_effect": 0.0,
+        "rep_effect": 0.0,
+        "adjusted_dem_margin": -1.0
+      },
+      "market_odds": {
+        "polymarket": {
+          "Democrat": 0.45,
+          "Republican": 0.55
+        },
+        "kalshi": {
+          "Democrat": 0.47,
+          "Republican": 0.53
+        }
+      }
     },
     {
       "state": "Pennsylvania",
@@ -53,7 +133,27 @@
       },
       "margin": 1.0,
       "num_polls": 1,
-      "rating": null
+      "rating": null,
+      "dem_candidate": "Fetterman",
+      "rep_candidate": "McCormick",
+      "dem_margin": -1.0,
+      "vibes": {
+        "available": true,
+        "adjustment": 0.0,
+        "dem_effect": 0.0,
+        "rep_effect": 0.0,
+        "adjusted_dem_margin": -1.0
+      },
+      "market_odds": {
+        "polymarket": {
+          "Democrat": 0.46,
+          "Republican": 0.54
+        },
+        "kalshi": {
+          "Democrat": 0.44,
+          "Republican": 0.56
+        }
+      }
     }
   ],
   "num_races": 5

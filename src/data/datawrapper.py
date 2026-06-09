@@ -79,7 +79,9 @@ class DatawrapperClient:
 
     # ── Public API ───────────────────────────────────────────────────
 
-    def update_and_publish(self, chart_id: str, csv_data: str, metadata: dict | None = None) -> bool:
+    def update_and_publish(
+        self, chart_id: str, csv_data: str, metadata: dict | None = None
+    ) -> bool:
         """Upload CSV data, optionally apply metadata, then publish. Returns True on success."""
         if not chart_id:
             logger.warning("No chart ID provided — skipping")
@@ -101,19 +103,30 @@ class DatawrapperClient:
 
     @staticmethod
     def approval_metadata() -> dict:
-        # Policy & Peaches custom palette: elegant deep red and blue inspired by modern polling trackers
+        # Policy & Peaches custom palette: elegant deep red and blue inspired by
+        # modern polling trackers
         approve_color = "#c0392b"
         disapprove_color = "#2166ac"
         return {
-            "title": "Do Americans <span style='color: #c0392b; font-weight: bold;'>approve</span> or <span style='color: #2166ac; font-weight: bold;'>disapprove</span> of Donald Trump?",
+            "title": (
+                "Do Americans <span style='color: #c0392b; font-weight: bold;'>approve</span>"
+                " or <span style='color: #2166ac; font-weight: bold;'>disapprove</span>"
+                " of Donald Trump?"
+            ),
             "metadata": {
                 "describe": {
-                    "intro": "An updating polling average of Donald Trump's approval and disapproval ratings in his second term.",
+                    "intro": (
+                        "An updating polling average of Donald Trump's approval and"
+                        " disapproval ratings in his second term."
+                    ),
                     "byline": "Policy & Peaches",
                     "source-name": "VoteHub / Silver Bulletin",
                 },
                 "annotate": {
-                    "notes": "Note: Shaded regions show 80% confidence intervals around the polling average.",
+                    "notes": (
+                        "Note: Shaded regions show 80% confidence intervals around"
+                        " the polling average."
+                    ),
                 },
                 "visualize": {
                     "dark-mode-invert": True,
@@ -211,7 +224,10 @@ class DatawrapperClient:
                     "plotHeightFixed": 221,
                     "plotHeightMode": "fixed"
                 },
-                "axes": {"x": "date", "y": "approve,disapprove,approve_lo,approve_hi,disapprove_lo,disapprove_hi"},
+                "axes": {
+                    "x": "date",
+                    "y": "approve,disapprove,approve_lo,approve_hi,disapprove_lo,disapprove_hi",
+                },
             },
         }
 
@@ -221,7 +237,10 @@ class DatawrapperClient:
             "title": "Presidential Approval — Professional Reference",
             "metadata": {
                 "describe": {
-                    "intro": "Average of established polling models (Silver Bulletin, +RCP when available) for cross-check",
+                    "intro": (
+                        "Average of established polling models (Silver Bulletin,"
+                        " +RCP when available) for cross-check"
+                    ),
                     "byline": "Policy & Peaches",
                     "source-name": "Silver Bulletin model",
                 },
@@ -250,7 +269,10 @@ class DatawrapperClient:
             "title": "Generic Congressional Ballot",
             "metadata": {
                 "describe": {
-                    "intro": "90-day polling average · which party's candidate would you vote for in Congress?",
+                    "intro": (
+                        "90-day polling average · which party's candidate would you"
+                        " vote for in Congress?"
+                    ),
                     "byline": "Policy & Peaches",
                     "source-name": "VoteHub / Silver Bulletin",
                 },
@@ -356,7 +378,7 @@ class DatawrapperClient:
         if rcp_csv_path and rcp_csv_path.exists():
             with open(rcp_csv_path, encoding="utf-8") as f:
                 reader = csv.DictReader(f)
-                for row in reader:
+                for _row in reader:
                     pass  # placeholder — RCP schema differs; wire when format known
 
         buf = io.StringIO()

@@ -25,7 +25,11 @@ from src.data.base import DataSource, Poll, PollAnswer, PollType, Population
 def _parse_population(raw: str | None) -> Population | None:
     if raw is None:
         return None
-    mapping = {"lv": Population.LIKELY_VOTERS, "rv": Population.REGISTERED_VOTERS, "a": Population.ADULTS}
+    mapping = {
+        "lv": Population.LIKELY_VOTERS,
+        "rv": Population.REGISTERED_VOTERS,
+        "a": Population.ADULTS,
+    }
     return mapping.get(raw.lower())
 
 

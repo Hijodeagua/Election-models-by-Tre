@@ -143,12 +143,12 @@ def fit(
     max_date = max(p.midpoint_date for p in poll_objs)
     dates = [min_date + timedelta(days=d) for d in range((max_date - min_date).days + 1)]
     date_to_idx = {d: i for i, d in enumerate(dates)}
-    T = len(dates)
+    n_days = len(dates)
 
     # Pollster index
     pollster_names = sorted({p.pollster for p in poll_objs})
     pollster_to_idx = {name: i for i, name in enumerate(pollster_names)}
-    J = len(pollster_names)
+    n_pollsters = len(pollster_names)
 
     time_idx = np.array([date_to_idx[p.midpoint_date] for p in poll_objs], dtype=int)
     pollster_idx = np.array([pollster_to_idx[p.pollster] for p in poll_objs], dtype=int)
@@ -160,12 +160,12 @@ def fit(
     sampling_var = obs_y * (100.0 - obs_y) / obs_n
 
     # Poll-count weights for sum-to-zero constraint (favouring high-volume pollsters)
-    poll_counts = np.bincount(pollster_idx, minlength=J).astype(float)
+    poll_counts = np.bincount(pollster_idx, minlength=n_pollsters).astype(float)
     sz_weights = poll_counts / poll_counts.sum()
 
     logger.info(
         "State-space fit: T=%d days, J=%d pollsters, N=%d polls",
-        T, J, len(valid),
+        n_days, n_pollsters, len(valid),
     )
 
     # ── PyMC model ──────────────────────────────────────────────────────────
@@ -174,7 +174,7 @@ def fit(
     prior_alpha = float(np.mean(obs_y))
     coords = {"time": dates, "pollster": pollster_names}
 
-    with pm.Model(coords=coords) as model:
+    with pm.Model(coords=coords):
         # Innovation SD for the latent random walk
         sigma_alpha = pm.HalfNormal("sigma_alpha", sigma=1.0)
 
@@ -184,19 +184,19 @@ def fit(
         # Latent state: non-centered random walk (better NUTS efficiency than
         # centered GaussianRandomWalk for long time series with sparse observations)
         alpha_0 = pm.Normal("alpha_0", mu=prior_alpha, sigma=5.0)
-        raw_innovations = pm.Normal("raw_innovations", mu=0.0, sigma=1.0, shape=T - 1)
+        raw_innovations = pm.Normal("raw_innovations", mu=0.0, sigma=1.0, shape=n_days - 1)
         alpha = pm.Deterministic(
             "alpha",
             pt.concatenate([[alpha_0], alpha_0 + pt.cumsum(sigma_alpha * raw_innovations)]),
         )
 
         # House effects with weighted sum-to-zero constraint
-        delta_raw = pm.Normal("delta_raw", mu=0.0, sigma=sigma_delta, shape=J)
+        delta_raw = pm.Normal("delta_raw", mu=0.0, sigma=sigma_delta, shape=n_pollsters)
         sz_w = pt.as_tensor_variable(sz_weights)
         delta = pm.Deterministic("delta", delta_raw - pt.dot(sz_w, delta_raw))
 
         # Per-pollster excess variance (tighter prior — see METHODOLOGY_REVIEW.md)
-        tau = pm.HalfNormal("tau", sigma=2.5, shape=J)
+        tau = pm.HalfNormal("tau", sigma=2.5, shape=n_pollsters)
 
         # Sentiment covariate slot: β × s_t frozen at 0 (unfreeze in Phase 7)
         beta_sentiment = 0.0  # noqa: F841 — placeholder
@@ -224,19 +224,19 @@ def fit(
     # ── Posterior summaries ─────────────────────────────────────────────────
 
     # alpha: shape (chains, draws, T) → flatten to (chains*draws, T)
-    alpha_post = trace.posterior["alpha"].values.reshape(-1, T)
+    alpha_post = trace.posterior["alpha"].values.reshape(-1, n_days)
     alpha_mean = alpha_post.mean(axis=0)
     alpha_lo = np.percentile(alpha_post, 2.5, axis=0)
     alpha_hi = np.percentile(alpha_post, 97.5, axis=0)
 
     # delta: shape (chains*draws, J)
-    delta_post = trace.posterior["delta"].values.reshape(-1, J)
+    delta_post = trace.posterior["delta"].values.reshape(-1, n_pollsters)
     delta_mean = delta_post.mean(axis=0)
     delta_lo = np.percentile(delta_post, 2.5, axis=0)
     delta_hi = np.percentile(delta_post, 97.5, axis=0)
 
     # tau
-    tau_post = trace.posterior["tau"].values.reshape(-1, J)
+    tau_post = trace.posterior["tau"].values.reshape(-1, n_pollsters)
     tau_mean = tau_post.mean(axis=0)
 
     sigma_alpha_mean = float(trace.posterior["sigma_alpha"].values.mean())

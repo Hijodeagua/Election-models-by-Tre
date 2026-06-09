@@ -6,7 +6,7 @@ Run with: streamlit run src/dashboard/app.py
 from __future__ import annotations
 
 try:
-    import plotly.graph_objects as go
+    import plotly.graph_objects  # noqa: F401  # availability check for dashboard charts
     import streamlit as st
 except ImportError as exc:
     raise SystemExit(
