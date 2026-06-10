@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-06-09",
+  "as_of": "2026-06-10",
   "num_simulations": 1000,
   "dem_control_prob": 0.366,
   "mean_dem_seats": 49.89,
@@ -80,7 +80,7 @@
   "national_sigma": 3.0,
   "race_sigma": 4.5,
   "market_control_dem_prob": {
-    "polymarket": 0.455
+    "polymarket": 0.445
   },
   "maturity": "nowcast",
   "label": "NOWCAST \u2014 if the election were held today, based on current polling averages blended with prediction-market odds. Not a calibrated election-day forecast."
