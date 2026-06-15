@@ -2,7 +2,7 @@
   "races": [
     {
       "state": "Arizona",
-      "as_of": "2026-06-14",
+      "as_of": "2026-06-15",
       "candidates": {
         "Gallego": 47.7,
         "Lake": 43.3
@@ -24,7 +24,7 @@
     },
     {
       "state": "Georgia",
-      "as_of": "2026-06-14",
+      "as_of": "2026-06-15",
       "candidates": {
         "Ossoff": 45.0,
         "Collins": 46.0
@@ -44,14 +44,14 @@
       },
       "market_odds": {
         "polymarket": {
-          "Republican": 0.1345,
-          "Democrat": 0.86
+          "Republican": 0.1555,
+          "Democrat": 0.845
         }
       }
     },
     {
       "state": "Michigan",
-      "as_of": "2026-06-14",
+      "as_of": "2026-06-15",
       "candidates": {
         "Peters": 47.0,
         "Rogers": 44.0
@@ -71,14 +71,14 @@
       },
       "market_odds": {
         "polymarket": {
-          "Republican": 0.275,
-          "Democrat": 0.715
+          "Republican": 0.28,
+          "Democrat": 0.7
         }
       }
     },
     {
       "state": "Nevada",
-      "as_of": "2026-06-14",
+      "as_of": "2026-06-15",
       "candidates": {
         "Cortez Masto": 46.0,
         "Laxalt": 47.0
@@ -100,7 +100,7 @@
     },
     {
       "state": "Pennsylvania",
-      "as_of": "2026-06-14",
+      "as_of": "2026-06-15",
       "candidates": {
         "Fetterman": 44.0,
         "McCormick": 45.0
