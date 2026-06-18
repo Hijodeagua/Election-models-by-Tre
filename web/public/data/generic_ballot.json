@@ -1,6 +1,6 @@
 {
   "current": {
-    "as_of": "2026-06-17",
+    "as_of": "2026-06-18",
     "dem_pct": 45.8,
     "rep_pct": 40.7,
     "margin": 5.1,
@@ -11,17 +11,6 @@
     "ci_rep": null
   },
   "trend": [
-    {
-      "as_of": "2025-10-20",
-      "dem_pct": 44.7,
-      "rep_pct": 41.8,
-      "margin": 2.9,
-      "num_polls": 150,
-      "estimated_dem_seats": 234,
-      "estimated_rep_seats": 201,
-      "ci_dem": null,
-      "ci_rep": null
-    },
     {
       "as_of": "2025-10-21",
       "dem_pct": 44.7,
@@ -2653,6 +2642,17 @@
     },
     {
       "as_of": "2026-06-17",
+      "dem_pct": 45.8,
+      "rep_pct": 40.7,
+      "margin": 5.1,
+      "num_polls": 508,
+      "estimated_dem_seats": 246,
+      "estimated_rep_seats": 189,
+      "ci_dem": null,
+      "ci_rep": null
+    },
+    {
+      "as_of": "2026-06-18",
       "dem_pct": 45.8,
       "rep_pct": 40.7,
       "margin": 5.1,
