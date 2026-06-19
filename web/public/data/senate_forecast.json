@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-06-18",
+  "as_of": "2026-06-19",
   "num_simulations": 1000,
   "dem_control_prob": 0.367,
   "mean_dem_seats": 49.9,
@@ -7,8 +7,8 @@
   "seat_distribution": {
     "47": 30,
     "48": 130,
-    "49": 236,
-    "50": 237,
+    "49": 235,
+    "50": 238,
     "51": 253,
     "52": 114
   },
@@ -43,9 +43,9 @@
       "margin": -1.0,
       "num_polls": 1,
       "dem_win_prob_polls": 0.4267,
-      "dem_win_prob_blended": 0.5325,
+      "dem_win_prob_blended": 0.5337,
       "market_dem_prob": {
-        "polymarket": 0.85
+        "polymarket": 0.855
       }
     },
     {
