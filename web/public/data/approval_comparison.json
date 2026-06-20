@@ -6,14 +6,6 @@
       "available": true,
       "series": [
         {
-          "as_of": "2025-10-22",
-          "approve": 41.5,
-          "disapprove": 53.6,
-          "net": -12.1,
-          "lo": 40.7,
-          "hi": 42.3
-        },
-        {
           "as_of": "2025-10-23",
           "approve": 41.5,
           "disapprove": 53.5,
@@ -1912,26 +1904,34 @@
         {
           "as_of": "2026-06-17",
           "approve": 38.2,
-          "disapprove": 57.8,
-          "net": -19.6,
+          "disapprove": 57.9,
+          "net": -19.7,
           "lo": 37.6,
-          "hi": 38.8
+          "hi": 38.7
         },
         {
           "as_of": "2026-06-18",
-          "approve": 38.2,
-          "disapprove": 57.8,
+          "approve": 38.3,
+          "disapprove": 57.9,
           "net": -19.6,
-          "lo": 37.6,
-          "hi": 38.8
+          "lo": 37.8,
+          "hi": 38.9
         },
         {
           "as_of": "2026-06-19",
-          "approve": 38.2,
-          "disapprove": 57.8,
+          "approve": 38.3,
+          "disapprove": 57.9,
           "net": -19.6,
-          "lo": 37.6,
-          "hi": 38.8
+          "lo": 37.8,
+          "hi": 38.9
+        },
+        {
+          "as_of": "2026-06-20",
+          "approve": 38.3,
+          "disapprove": 57.9,
+          "net": -19.6,
+          "lo": 37.8,
+          "hi": 38.9
         }
       ]
     },
@@ -1940,12 +1940,6 @@
       "description": "Silver Bulletin's published daily approval model.",
       "available": true,
       "series": [
-        {
-          "as_of": "2025-10-22",
-          "approve": 43.53,
-          "disapprove": 53.07,
-          "net": -9.5
-        },
         {
           "as_of": "2025-10-23",
           "approve": 43.55,
@@ -3333,13 +3327,6 @@
       "description": "Unweighted 14-day trailing mean of VoteHub approval polls.",
       "available": true,
       "series": [
-        {
-          "as_of": "2025-10-22",
-          "approve": 42.31,
-          "disapprove": 52.97,
-          "net": -10.67,
-          "num_polls": 36
-        },
         {
           "as_of": "2025-10-23",
           "approve": 42.31,
@@ -4980,45 +4967,52 @@
         },
         {
           "as_of": "2026-06-14",
-          "approve": 39.04,
-          "disapprove": 57.92,
-          "net": -18.88,
-          "num_polls": 25
+          "approve": 39.11,
+          "disapprove": 57.96,
+          "net": -18.85,
+          "num_polls": 27
         },
         {
           "as_of": "2026-06-15",
-          "approve": 39.23,
-          "disapprove": 57.91,
-          "net": -18.68,
-          "num_polls": 22
+          "approve": 39.29,
+          "disapprove": 57.96,
+          "net": -18.67,
+          "num_polls": 24
         },
         {
           "as_of": "2026-06-16",
-          "approve": 39.05,
-          "disapprove": 57.95,
-          "net": -18.89,
-          "num_polls": 19
+          "approve": 39.32,
+          "disapprove": 57.91,
+          "net": -18.59,
+          "num_polls": 22
         },
         {
           "as_of": "2026-06-17",
-          "approve": 38.83,
-          "disapprove": 58.22,
-          "net": -19.39,
-          "num_polls": 18
+          "approve": 39.14,
+          "disapprove": 58.14,
+          "net": -19.0,
+          "num_polls": 21
         },
         {
           "as_of": "2026-06-18",
-          "approve": 38.83,
-          "disapprove": 58.22,
-          "net": -19.39,
-          "num_polls": 18
+          "approve": 39.14,
+          "disapprove": 58.14,
+          "net": -19.0,
+          "num_polls": 21
         },
         {
           "as_of": "2026-06-19",
-          "approve": 39.2,
-          "disapprove": 57.8,
-          "net": -18.6,
-          "num_polls": 15
+          "approve": 39.5,
+          "disapprove": 57.78,
+          "net": -18.28,
+          "num_polls": 18
+        },
+        {
+          "as_of": "2026-06-20",
+          "approve": 39.79,
+          "disapprove": 57.79,
+          "net": -18.0,
+          "num_polls": 14
         }
       ]
     },

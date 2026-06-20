@@ -1,35 +1,20 @@
 {
   "current": {
-    "as_of": "2026-06-19",
-    "approve": 38.2,
-    "disapprove": 57.8,
+    "as_of": "2026-06-20",
+    "approve": 38.3,
+    "disapprove": 57.9,
     "net_approval": -19.6,
-    "num_polls": 2880,
+    "num_polls": 2883,
     "ci_approve": [
-      37.6,
-      38.8
+      37.8,
+      38.9
     ],
     "ci_disapprove": [
-      57.3,
-      58.3
+      57.4,
+      58.4
     ]
   },
   "trend": [
-    {
-      "as_of": "2025-10-22",
-      "approve": 41.5,
-      "disapprove": 53.6,
-      "net_approval": -12.1,
-      "num_polls": 2322,
-      "ci_approve": [
-        40.7,
-        42.3
-      ],
-      "ci_disapprove": [
-        52.8,
-        54.3
-      ]
-    },
     {
       "as_of": "2025-10-23",
       "approve": 41.5,
@@ -3588,48 +3573,63 @@
     {
       "as_of": "2026-06-17",
       "approve": 38.2,
-      "disapprove": 57.8,
-      "net_approval": -19.6,
-      "num_polls": 2880,
+      "disapprove": 57.9,
+      "net_approval": -19.7,
+      "num_polls": 2882,
       "ci_approve": [
         37.6,
-        38.8
+        38.7
       ],
       "ci_disapprove": [
-        57.3,
-        58.3
+        57.5,
+        58.4
       ]
     },
     {
       "as_of": "2026-06-18",
-      "approve": 38.2,
-      "disapprove": 57.8,
+      "approve": 38.3,
+      "disapprove": 57.9,
       "net_approval": -19.6,
-      "num_polls": 2880,
+      "num_polls": 2883,
       "ci_approve": [
-        37.6,
-        38.8
+        37.8,
+        38.9
       ],
       "ci_disapprove": [
-        57.3,
-        58.3
+        57.4,
+        58.4
       ]
     },
     {
       "as_of": "2026-06-19",
-      "approve": 38.2,
-      "disapprove": 57.8,
+      "approve": 38.3,
+      "disapprove": 57.9,
       "net_approval": -19.6,
-      "num_polls": 2880,
+      "num_polls": 2883,
       "ci_approve": [
-        37.6,
-        38.8
+        37.8,
+        38.9
       ],
       "ci_disapprove": [
-        57.3,
-        58.3
+        57.4,
+        58.4
+      ]
+    },
+    {
+      "as_of": "2026-06-20",
+      "approve": 38.3,
+      "disapprove": 57.9,
+      "net_approval": -19.6,
+      "num_polls": 2883,
+      "ci_approve": [
+        37.8,
+        38.9
+      ],
+      "ci_disapprove": [
+        57.4,
+        58.4
       ]
     }
   ],
-  "num_polls": 2881
+  "num_polls": 2884
 }
