@@ -1,6 +1,6 @@
 {
   "current": {
-    "as_of": "2026-06-20",
+    "as_of": "2026-06-21",
     "approve": 38.3,
     "disapprove": 57.9,
     "net_approval": -19.6,
@@ -15,21 +15,6 @@
     ]
   },
   "trend": [
-    {
-      "as_of": "2025-10-23",
-      "approve": 41.5,
-      "disapprove": 53.5,
-      "net_approval": -12.0,
-      "num_polls": 2324,
-      "ci_approve": [
-        40.7,
-        42.2
-      ],
-      "ci_disapprove": [
-        52.8,
-        54.3
-      ]
-    },
     {
       "as_of": "2025-10-24",
       "approve": 41.5,
@@ -3617,6 +3602,21 @@
     },
     {
       "as_of": "2026-06-20",
+      "approve": 38.3,
+      "disapprove": 57.9,
+      "net_approval": -19.6,
+      "num_polls": 2883,
+      "ci_approve": [
+        37.8,
+        38.9
+      ],
+      "ci_disapprove": [
+        57.4,
+        58.4
+      ]
+    },
+    {
+      "as_of": "2026-06-21",
       "approve": 38.3,
       "disapprove": 57.9,
       "net_approval": -19.6,
