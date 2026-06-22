@@ -1,13 +1,13 @@
 {
   "current": {
-    "as_of": "2026-06-21",
+    "as_of": "2026-06-22",
     "approve": 38.3,
     "disapprove": 57.9,
     "net_approval": -19.6,
-    "num_polls": 2883,
+    "num_polls": 2888,
     "ci_approve": [
       37.8,
-      38.9
+      38.8
     ],
     "ci_disapprove": [
       57.4,
@@ -15,21 +15,6 @@
     ]
   },
   "trend": [
-    {
-      "as_of": "2025-10-24",
-      "approve": 41.5,
-      "disapprove": 53.5,
-      "net_approval": -12.0,
-      "num_polls": 2324,
-      "ci_approve": [
-        40.7,
-        42.2
-      ],
-      "ci_disapprove": [
-        52.8,
-        54.3
-      ]
-    },
     {
       "as_of": "2025-10-25",
       "approve": 41.5,
@@ -3543,46 +3528,46 @@
     {
       "as_of": "2026-06-16",
       "approve": 38.2,
-      "disapprove": 57.8,
-      "net_approval": -19.6,
-      "num_polls": 2880,
-      "ci_approve": [
-        37.6,
-        38.8
-      ],
-      "ci_disapprove": [
-        57.3,
-        58.3
-      ]
-    },
-    {
-      "as_of": "2026-06-17",
-      "approve": 38.2,
-      "disapprove": 57.9,
-      "net_approval": -19.7,
-      "num_polls": 2882,
+      "disapprove": 57.6,
+      "net_approval": -19.4,
+      "num_polls": 2884,
       "ci_approve": [
         37.6,
         38.7
       ],
       "ci_disapprove": [
-        57.5,
-        58.4
+        57.2,
+        58.1
+      ]
+    },
+    {
+      "as_of": "2026-06-17",
+      "approve": 38.2,
+      "disapprove": 57.8,
+      "net_approval": -19.6,
+      "num_polls": 2886,
+      "ci_approve": [
+        37.7,
+        38.7
+      ],
+      "ci_disapprove": [
+        57.3,
+        58.2
       ]
     },
     {
       "as_of": "2026-06-18",
       "approve": 38.3,
-      "disapprove": 57.9,
-      "net_approval": -19.6,
-      "num_polls": 2883,
+      "disapprove": 57.7,
+      "net_approval": -19.4,
+      "num_polls": 2887,
       "ci_approve": [
         37.8,
-        38.9
+        38.8
       ],
       "ci_disapprove": [
-        57.4,
-        58.4
+        57.2,
+        58.2
       ]
     },
     {
@@ -3590,10 +3575,10 @@
       "approve": 38.3,
       "disapprove": 57.9,
       "net_approval": -19.6,
-      "num_polls": 2883,
+      "num_polls": 2888,
       "ci_approve": [
         37.8,
-        38.9
+        38.8
       ],
       "ci_disapprove": [
         57.4,
@@ -3605,10 +3590,10 @@
       "approve": 38.3,
       "disapprove": 57.9,
       "net_approval": -19.6,
-      "num_polls": 2883,
+      "num_polls": 2888,
       "ci_approve": [
         37.8,
-        38.9
+        38.8
       ],
       "ci_disapprove": [
         57.4,
@@ -3620,10 +3605,25 @@
       "approve": 38.3,
       "disapprove": 57.9,
       "net_approval": -19.6,
-      "num_polls": 2883,
+      "num_polls": 2888,
       "ci_approve": [
         37.8,
-        38.9
+        38.8
+      ],
+      "ci_disapprove": [
+        57.4,
+        58.4
+      ]
+    },
+    {
+      "as_of": "2026-06-22",
+      "approve": 38.3,
+      "disapprove": 57.9,
+      "net_approval": -19.6,
+      "num_polls": 2888,
+      "ci_approve": [
+        37.8,
+        38.8
       ],
       "ci_disapprove": [
         57.4,
@@ -3631,5 +3631,5 @@
       ]
     }
   ],
-  "num_polls": 2884
+  "num_polls": 2889
 }
