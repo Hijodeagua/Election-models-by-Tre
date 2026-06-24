@@ -1,16 +1,16 @@
 {
-  "as_of": "2026-06-23",
+  "as_of": "2026-06-24",
   "num_simulations": 1000,
-  "dem_control_prob": 0.367,
+  "dem_control_prob": 0.368,
   "mean_dem_seats": 49.9,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "47": 30,
-    "48": 130,
-    "49": 234,
-    "50": 239,
+    "48": 129,
+    "49": 235,
+    "50": 238,
     "51": 253,
-    "52": 114
+    "52": 115
   },
   "races": [
     {
@@ -56,9 +56,9 @@
       "margin": 3.0,
       "num_polls": 1,
       "dem_win_prob_polls": 0.7105,
-      "dem_win_prob_blended": 0.7078,
+      "dem_win_prob_blended": 0.7091,
       "market_dem_prob": {
-        "polymarket": 0.7
+        "polymarket": 0.705
       }
     },
     {
@@ -80,7 +80,7 @@
   "national_sigma": 3.0,
   "race_sigma": 4.5,
   "market_control_dem_prob": {
-    "polymarket": 0.435
+    "polymarket": 0.425
   },
   "maturity": "nowcast",
   "label": "NOWCAST \u2014 if the election were held today, based on current polling averages blended with prediction-market odds. Not a calibrated election-day forecast."
