@@ -6,14 +6,6 @@
       "available": true,
       "series": [
         {
-          "as_of": "2025-10-27",
-          "approve": 39.8,
-          "disapprove": 54.1,
-          "net": -14.3,
-          "lo": 38.4,
-          "hi": 41.1
-        },
-        {
           "as_of": "2025-10-28",
           "approve": 40.0,
           "disapprove": 54.2,
@@ -1856,81 +1848,89 @@
         {
           "as_of": "2026-06-15",
           "approve": 38.2,
-          "disapprove": 57.8,
-          "net": -19.6,
-          "lo": 37.6,
-          "hi": 38.8
+          "disapprove": 57.9,
+          "net": -19.7,
+          "lo": 37.7,
+          "hi": 38.7
         },
         {
           "as_of": "2026-06-16",
           "approve": 38.2,
-          "disapprove": 57.6,
-          "net": -19.4,
-          "lo": 37.6,
+          "disapprove": 57.7,
+          "net": -19.5,
+          "lo": 37.7,
           "hi": 38.7
         },
         {
           "as_of": "2026-06-17",
           "approve": 38.2,
-          "disapprove": 57.8,
-          "net": -19.6,
+          "disapprove": 57.9,
+          "net": -19.7,
           "lo": 37.7,
           "hi": 38.7
         },
         {
           "as_of": "2026-06-18",
           "approve": 38.3,
-          "disapprove": 57.7,
-          "net": -19.4,
+          "disapprove": 57.8,
+          "net": -19.5,
           "lo": 37.8,
           "hi": 38.8
         },
         {
           "as_of": "2026-06-19",
           "approve": 38.3,
-          "disapprove": 57.9,
-          "net": -19.6,
-          "lo": 37.8,
+          "disapprove": 58.0,
+          "net": -19.7,
+          "lo": 37.7,
           "hi": 38.8
         },
         {
           "as_of": "2026-06-20",
           "approve": 38.0,
-          "disapprove": 58.2,
-          "net": -20.2,
+          "disapprove": 58.3,
+          "net": -20.3,
           "lo": 37.4,
           "hi": 38.5
         },
         {
           "as_of": "2026-06-21",
-          "approve": 38.0,
+          "approve": 38.1,
           "disapprove": 58.2,
-          "net": -20.2,
-          "lo": 37.4,
-          "hi": 38.5
+          "net": -20.1,
+          "lo": 37.5,
+          "hi": 38.7
         },
         {
           "as_of": "2026-06-22",
-          "approve": 37.9,
-          "disapprove": 58.2,
+          "approve": 38.0,
+          "disapprove": 58.3,
           "net": -20.3,
-          "lo": 37.4,
+          "lo": 37.5,
           "hi": 38.5
         },
         {
           "as_of": "2026-06-23",
-          "approve": 37.9,
-          "disapprove": 58.2,
+          "approve": 38.0,
+          "disapprove": 58.3,
           "net": -20.3,
-          "lo": 37.4,
+          "lo": 37.5,
           "hi": 38.5
         },
         {
           "as_of": "2026-06-24",
-          "approve": 37.9,
-          "disapprove": 58.2,
+          "approve": 38.0,
+          "disapprove": 58.3,
           "net": -20.3,
-          "lo": 37.4,
+          "lo": 37.5,
+          "hi": 38.5
+        },
+        {
+          "as_of": "2026-06-25",
+          "approve": 38.0,
+          "disapprove": 58.3,
+          "net": -20.3,
+          "lo": 37.5,
           "hi": 38.5
         }
       ]
@@ -1940,12 +1940,6 @@
       "description": "Silver Bulletin's published daily approval model.",
       "available": true,
       "series": [
-        {
-          "as_of": "2025-10-27",
-          "approve": 43.83,
-          "disapprove": 53.07,
-          "net": -9.2
-        },
         {
           "as_of": "2025-10-28",
           "approve": 43.33,
@@ -3303,13 +3297,6 @@
       "description": "Unweighted 14-day trailing mean of VoteHub approval polls.",
       "available": true,
       "series": [
-        {
-          "as_of": "2025-10-27",
-          "approve": 40.41,
-          "disapprove": 54.03,
-          "net": -13.62,
-          "num_polls": 39
-        },
         {
           "as_of": "2025-10-28",
           "approve": 40.26,
@@ -4901,94 +4888,101 @@
         },
         {
           "as_of": "2026-06-12",
-          "approve": 39.12,
-          "disapprove": 56.91,
-          "net": -17.79,
-          "num_polls": 33
+          "approve": 39.09,
+          "disapprove": 57.06,
+          "net": -17.97,
+          "num_polls": 34
         },
         {
           "as_of": "2026-06-13",
-          "approve": 39.14,
-          "disapprove": 57.36,
-          "net": -18.21,
-          "num_polls": 28
+          "approve": 39.1,
+          "disapprove": 57.52,
+          "net": -18.41,
+          "num_polls": 29
         },
         {
           "as_of": "2026-06-14",
-          "approve": 39.0,
-          "disapprove": 57.65,
-          "net": -18.65,
-          "num_polls": 31
+          "approve": 38.97,
+          "disapprove": 57.78,
+          "net": -18.81,
+          "num_polls": 32
         },
         {
           "as_of": "2026-06-15",
-          "approve": 39.14,
-          "disapprove": 57.61,
-          "net": -18.46,
-          "num_polls": 28
+          "approve": 39.1,
+          "disapprove": 57.76,
+          "net": -18.66,
+          "num_polls": 29
         },
         {
           "as_of": "2026-06-16",
-          "approve": 39.15,
-          "disapprove": 57.54,
-          "net": -18.38,
-          "num_polls": 26
+          "approve": 39.11,
+          "disapprove": 57.7,
+          "net": -18.59,
+          "num_polls": 27
         },
         {
           "as_of": "2026-06-17",
-          "approve": 39.0,
-          "disapprove": 57.72,
-          "net": -18.72,
-          "num_polls": 25
+          "approve": 38.96,
+          "disapprove": 57.88,
+          "net": -18.92,
+          "num_polls": 26
         },
         {
           "as_of": "2026-06-18",
-          "approve": 38.32,
-          "disapprove": 58.5,
-          "net": -20.18,
-          "num_polls": 28
+          "approve": 38.31,
+          "disapprove": 58.62,
+          "net": -20.31,
+          "num_polls": 29
         },
         {
           "as_of": "2026-06-19",
-          "approve": 38.48,
-          "disapprove": 58.28,
-          "net": -19.8,
-          "num_polls": 25
+          "approve": 38.41,
+          "disapprove": 58.48,
+          "net": -20.07,
+          "num_polls": 27
         },
         {
           "as_of": "2026-06-20",
-          "approve": 38.39,
-          "disapprove": 58.35,
+          "approve": 38.57,
+          "disapprove": 58.54,
           "net": -19.96,
-          "num_polls": 23
+          "num_polls": 28
         },
         {
           "as_of": "2026-06-21",
-          "approve": 37.9,
-          "disapprove": 58.85,
-          "net": -20.95,
-          "num_polls": 20
+          "approve": 38.2,
+          "disapprove": 58.96,
+          "net": -20.76,
+          "num_polls": 25
         },
         {
           "as_of": "2026-06-22",
-          "approve": 37.9,
-          "disapprove": 58.85,
-          "net": -20.95,
-          "num_polls": 20
+          "approve": 38.2,
+          "disapprove": 58.96,
+          "net": -20.76,
+          "num_polls": 25
         },
         {
           "as_of": "2026-06-23",
-          "approve": 38.0,
-          "disapprove": 58.83,
-          "net": -20.83,
-          "num_polls": 18
+          "approve": 38.3,
+          "disapprove": 58.96,
+          "net": -20.65,
+          "num_polls": 23
         },
         {
           "as_of": "2026-06-24",
-          "approve": 38.0,
-          "disapprove": 58.83,
-          "net": -20.83,
-          "num_polls": 18
+          "approve": 38.3,
+          "disapprove": 58.96,
+          "net": -20.65,
+          "num_polls": 23
+        },
+        {
+          "as_of": "2026-06-25",
+          "approve": 38.3,
+          "disapprove": 58.96,
+          "net": -20.65,
+          "num_polls": 23
         }
       ]
     },

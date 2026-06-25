@@ -1,27 +1,22 @@
 {
   "current": {
-    "as_of": "2026-06-24",
+    "as_of": "2026-06-25",
     "dem_pct": 45.8,
     "rep_pct": 40.6,
     "margin": 5.2,
-    "num_polls": 516,
+    "num_polls": 519,
     "estimated_dem_seats": 247,
     "estimated_rep_seats": 188,
-    "ci_dem": null,
-    "ci_rep": null
+    "ci_dem": [
+      42.7,
+      48.5
+    ],
+    "ci_rep": [
+      39.0,
+      43.0
+    ]
   },
   "trend": [
-    {
-      "as_of": "2025-10-27",
-      "dem_pct": 44.3,
-      "rep_pct": 41.7,
-      "margin": 2.6,
-      "num_polls": 158,
-      "estimated_dem_seats": 232,
-      "estimated_rep_seats": 203,
-      "ci_dem": null,
-      "ci_rep": null
-    },
     {
       "as_of": "2025-10-28",
       "dem_pct": 44.4,
@@ -2634,34 +2629,69 @@
       "dem_pct": 45.8,
       "rep_pct": 40.6,
       "margin": 5.2,
-      "num_polls": 516,
+      "num_polls": 519,
       "estimated_dem_seats": 247,
       "estimated_rep_seats": 188,
-      "ci_dem": null,
-      "ci_rep": null
+      "ci_dem": [
+        42.7,
+        48.5
+      ],
+      "ci_rep": [
+        39.0,
+        43.0
+      ]
     },
     {
       "as_of": "2026-06-23",
       "dem_pct": 45.8,
       "rep_pct": 40.6,
       "margin": 5.2,
-      "num_polls": 516,
+      "num_polls": 519,
       "estimated_dem_seats": 247,
       "estimated_rep_seats": 188,
-      "ci_dem": null,
-      "ci_rep": null
+      "ci_dem": [
+        42.7,
+        48.5
+      ],
+      "ci_rep": [
+        39.0,
+        43.0
+      ]
     },
     {
       "as_of": "2026-06-24",
       "dem_pct": 45.8,
       "rep_pct": 40.6,
       "margin": 5.2,
-      "num_polls": 516,
+      "num_polls": 519,
       "estimated_dem_seats": 247,
       "estimated_rep_seats": 188,
-      "ci_dem": null,
-      "ci_rep": null
+      "ci_dem": [
+        42.7,
+        48.5
+      ],
+      "ci_rep": [
+        39.0,
+        43.0
+      ]
+    },
+    {
+      "as_of": "2026-06-25",
+      "dem_pct": 45.8,
+      "rep_pct": 40.6,
+      "margin": 5.2,
+      "num_polls": 519,
+      "estimated_dem_seats": 247,
+      "estimated_rep_seats": 188,
+      "ci_dem": [
+        42.7,
+        48.5
+      ],
+      "ci_rep": [
+        39.0,
+        43.0
+      ]
     }
   ],
-  "num_polls": 516
+  "num_polls": 519
 }
