@@ -17,7 +17,7 @@ Method
    back to an effective margin so the simulation keeps the correlated error
    structure. ``market_weight`` is a model input — the training pipeline can
    tune it like any other hyperparameter.
-4. Simulate ``num_simulations`` elections (default 1000): one national error
+4. Simulate ``num_simulations`` elections (default 50000): one national error
    draw per simulation, one idiosyncratic draw per race, count Dem seats
    against the safe-seat baseline from ``config/senate_2026.json``.
 """
@@ -44,7 +44,7 @@ DEFAULT_RACE_SIGMA = 4.5
 # probability. 0 = ignore markets entirely.
 DEFAULT_MARKET_WEIGHT = 0.25
 
-DEFAULT_NUM_SIMULATIONS = 1000
+DEFAULT_NUM_SIMULATIONS = 50000
 
 CONFIG_PATH = Path(__file__).resolve().parent.parent.parent / "config" / "senate_2026.json"
 

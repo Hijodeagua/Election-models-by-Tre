@@ -154,9 +154,17 @@ export default function SenateForecastPage() {
             way) more likely than independent coin flips would suggest.
           </li>
           <li>
-            Today this answers &ldquo;if the election were held now&rdquo;; as
-            backtesting across past cycles completes, it will mature into a full
-            election-day forecast.
+            This shows where the race stands today, given current polling and market
+            prices. A work in progress from the team at Policy y Peaches —{' '}
+            <a
+              href="https://policyypeaches.substack.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-peach underline"
+            >
+              learn more here
+            </a>
+            .
           </li>
         </ul>
       </div>

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import type { SenateRaceSnapshot } from '@/app/lib/data';
+import SenateRaceChart from '@/app/components/SenateRaceChart';
 
 const MARKET_LABELS: Record<string, string> = {
   polymarket: 'Polymarket',
@@ -18,6 +19,7 @@ function fmtMargin(margin: number | null | undefined): string {
 // margin toggle, and prediction-market odds chips for comparison.
 export default function SenateRaceCard({ race }: { race: SenateRaceSnapshot }) {
   const [showVibes, setShowVibes] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const ranked = Object.entries(race.candidates).sort((a, b) => b[1] - a[1]);
   const vibes = race.vibes;
   const displayedMargin =
@@ -29,9 +31,26 @@ export default function SenateRaceCard({ race }: { race: SenateRaceSnapshot }) {
 
   return (
     <div className="rounded-xl border border-cream-300 bg-white p-4">
-      <div className="flex items-start justify-between gap-2">
+      <button
+        type="button"
+        onClick={() => setExpanded((v) => !v)}
+        aria-expanded={expanded}
+        className="flex w-full items-start justify-between gap-2 rounded-lg text-left transition-colors hover:bg-cream-50"
+      >
         <div>
-          <h3 className="font-display text-lg text-ink">{race.state}</h3>
+          <h3 className="flex items-center gap-1.5 font-display text-lg text-ink">
+            {race.state}
+            <svg
+              className={`h-4 w-4 text-cocoa-400 transition-transform ${expanded ? 'rotate-180' : ''}`}
+              viewBox="0 0 20 20"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              aria-hidden="true"
+            >
+              <path d="M6 8l4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </h3>
           <p className="mt-1 text-sm text-cocoa-700">
             {ranked.slice(0, 3).map(([name, pct]) => (
               <span key={name} className="mr-3 whitespace-nowrap">
@@ -39,6 +58,9 @@ export default function SenateRaceCard({ race }: { race: SenateRaceSnapshot }) {
               </span>
             ))}
           </p>
+          <span className="mt-1 inline-block text-[11px] text-peach">
+            {expanded ? 'Hide chart' : 'Click to chart this race'}
+          </span>
         </div>
         <div className="text-right">
           <div
@@ -59,7 +81,13 @@ export default function SenateRaceCard({ race }: { race: SenateRaceSnapshot }) {
             {race.num_polls} polls
           </div>
         </div>
-      </div>
+      </button>
+
+      {expanded && (
+        <div className="mt-3 border-t border-cream-100 pt-3">
+          <SenateRaceChart race={race} />
+        </div>
+      )}
 
       <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-cream-100 pt-3 text-xs">
         {vibes && (

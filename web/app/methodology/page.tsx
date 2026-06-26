@@ -1,5 +1,6 @@
 import LastUpdated from '@/app/components/LastUpdated';
 import { PageHead } from '@/app/components/ui';
+import { getMeta } from '@/app/lib/data';
 
 function H({ children }: { children: React.ReactNode }) {
   return <h3 className="mb-2 mt-7 font-display text-xl text-ink">{children}</h3>;
@@ -11,7 +12,33 @@ function P({ children }: { children: React.ReactNode }) {
   );
 }
 
+const POLL_LABELS: Record<string, string> = {
+  approval: 'Presidential approval',
+  generic_ballot: 'Generic ballot',
+  senate: 'Senate races',
+};
+
+function fmtDate(iso: string | null | undefined): string {
+  if (!iso) return 'no polls yet';
+  return new Date(`${iso}T00:00:00`).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
+}
+
 export default function MethodologyPage() {
+  const meta = getMeta();
+  const lastUpdated = meta.last_updated
+    ? new Date(meta.last_updated).toLocaleString('en-US', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+      })
+    : 'unknown';
+  const pollDates = meta.last_poll_dates ?? {};
+  const pollCounts = meta.poll_counts ?? {};
+  const feeds = Object.keys(POLL_LABELS);
+
   return (
     <div className="max-w-2xl">
       <PageHead
@@ -20,38 +47,15 @@ export default function MethodologyPage() {
         sub="No black boxes. Here is every step between a raw poll and the numbers on this site."
       />
 
-      <div className="mb-6 rounded-xl border border-peach-border bg-peach-wash px-4 py-3.5">
-        <p className="font-display text-lg leading-snug text-peach">
-          A forecast in active development — calibration and backtesting are
-          still in progress, so treat every probability as an early-stage model
-          output.
-        </p>
-      </div>
-
       <H>What this is</H>
       <P>
-        This site is an election <strong>forecast in active development</strong>.
-        Its foundation is a set of weighted polling averages — polls are
-        weighted by a hybrid pollster-quality score and recency, as of the date
-        stamped on each page. On top of that foundation, the Senate Forecast
-        page runs a probabilistic simulation of chamber control and compares
-        the result against prediction-market prices. The shaded bands on the
-        tracker charts are confidence intervals around the polling average.
-      </P>
-
-      <H>Where it stands</H>
-      <P>
-        The probabilities published here come from a Monte Carlo simulation
-        that has <strong>not yet been backtested</strong> across past election
-        cycles, so treat them as an early-stage model output rather than a
-        settled prediction. As calibration work completes, the uncertainty
-        parameters and market-blend weights will be tuned against historical
-        results and this page will be updated to reflect that.
-      </P>
-      <P>
-        The generic-ballot &ldquo;estimated seats&rdquo; figure is an{' '}
-        <strong>illustrative</strong> translation from a static historical
-        slope. It is a directional indicator only, not a seat projection.
+        A work in progress from the team at Policy y Peaches. Its foundation is a
+        set of weighted polling averages — polls are weighted by a hybrid
+        pollster-quality score and recency, as of the date stamped on each page.
+        On top of that foundation, the Senate Forecast page runs a probabilistic
+        simulation of chamber control and compares the result against
+        prediction-market prices. The shaded bands on the charts are confidence
+        intervals around the polling average.
       </P>
 
       <H>The three trackers</H>
@@ -62,12 +66,14 @@ export default function MethodologyPage() {
         </li>
         <li>
           <strong>Generic ballot</strong> — weighted average of the national
-          D-vs-R congressional preference, reported as a margin.
+          D-vs-R congressional preference, reported as a margin. The
+          &ldquo;estimated seats&rdquo; figure is a directional translation from a
+          historical slope.
         </li>
         <li>
-          <strong>Senate</strong> — per-race weighted polling averages, with
-          win probabilities and the control simulation on the Senate Forecast
-          page.
+          <strong>Senate</strong> — per-race weighted polling averages. Click any
+          race card to chart how our win probability for that race has moved over
+          time. Chamber-wide win probabilities live on the Senate Forecast page.
         </li>
       </ul>
 
@@ -86,25 +92,63 @@ export default function MethodologyPage() {
           Senate page. Off by default.
         </li>
         <li>
-          <strong>Senate control simulation</strong> — 1,000 Monte Carlo
+          <strong>Senate control simulation</strong> — 50,000 Monte Carlo
           simulations of the key races with correlated national polling error,
-          optionally blending Polymarket/Kalshi implied odds at a tunable
-          weight. Today it answers &ldquo;if the election were held now&rdquo;;
-          as backtesting across past cycles completes, it will mature into a
-          full election-day forecast.
+          optionally blending Polymarket/Kalshi implied odds at a tunable weight.
+          It shows where the chamber stands today given current polling and market
+          prices.
         </li>
       </ul>
 
       <H>Data &amp; refresh</H>
       <P>
-        Polling data is refreshed daily by a scheduled job that runs the model
-        pipeline and publishes static JSON. The heavier hierarchical
-        state-space estimates are intentionally excluded from the published
-        data for performance reasons.
+        Polling data is refreshed by a scheduled job that runs the model pipeline
+        and publishes static JSON. The heavier hierarchical state-space estimates
+        are intentionally excluded from the published data for performance reasons.
       </P>
 
+      <div className="mb-4 overflow-hidden rounded-xl border border-cream-300 bg-white">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-cream-300 text-left text-xs uppercase tracking-wide text-cocoa-400">
+              <th className="px-4 py-3">Feed</th>
+              <th className="px-4 py-3 text-right">Polls in average</th>
+              <th className="px-4 py-3 text-right">Most recent poll</th>
+            </tr>
+          </thead>
+          <tbody>
+            {feeds.map((key) => (
+              <tr key={key} className="border-b border-cream-100 last:border-0">
+                <td className="px-4 py-3 font-medium text-cocoa-700">{POLL_LABELS[key]}</td>
+                <td className="px-4 py-3 text-right text-cocoa-500">
+                  {pollCounts[key] != null ? pollCounts[key].toLocaleString() : '—'}
+                </td>
+                <td className="px-4 py-3 text-right text-cocoa-700">
+                  {fmtDate(pollDates[key])}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="mb-4 text-xs leading-relaxed text-cocoa-500">
+        Pipeline last run <strong className="text-cocoa-700">{lastUpdated}</strong>.
+        &ldquo;Most recent poll&rdquo; is the newest survey in each feed — if those
+        dates start drifting behind today, the upstream polling sources need a
+        refresh. <em>Reminder to the team: keep the source CSVs current.</em>
+      </p>
+
       <div className="mt-7 border-t border-cream-300 pt-4 text-xs leading-relaxed text-cocoa-400">
-        Data sources: VoteHub, Silver Bulletin, Polymarket, Kalshi, state
+        A work in progress from the team at Policy y Peaches —{' '}
+        <a
+          href="https://policyypeaches.substack.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-peach underline"
+        >
+          learn more here
+        </a>
+        . Data sources: VoteHub, Silver Bulletin, Polymarket, Kalshi, state
         pollster releases. Code &amp; full poll log on{' '}
         <a
           href="https://github.com/Hijodeagua/Election-models-by-Tre"

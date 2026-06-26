@@ -46,10 +46,8 @@ export default function GenericBallotPage() {
 
           {current.estimated_dem_seats != null && (
             <p className="mb-4 rounded-lg border border-peach-border bg-peach-wash px-3.5 py-2.5 text-xs leading-relaxed text-cocoa-700">
-              Illustrative seat translation: D {current.estimated_dem_seats} / R{' '}
-              {current.estimated_rep_seats}. A national-swing estimate from a
-              static historical slope, <em>not</em> a district-by-district
-              forecast — real seats hinge on incumbency and maps.
+              Rough seat translation from the national margin: D{' '}
+              {current.estimated_dem_seats} / R {current.estimated_rep_seats}.
             </p>
           )}
 

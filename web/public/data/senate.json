@@ -13,6 +13,7 @@
       "dem_candidate": "Gallego",
       "rep_candidate": "Lake",
       "dem_margin": 4.4,
+      "dem_win_prob": 0.7921,
       "vibes": {
         "available": true,
         "adjustment": 0.0,
@@ -20,7 +21,69 @@
         "rep_effect": 0.0,
         "adjusted_dem_margin": 4.4
       },
-      "market_odds": {}
+      "market_odds": {},
+      "trend": [
+        {
+          "as_of": "2026-04-22",
+          "dem_margin": 3.0,
+          "dem_win_prob": 0.7105,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-04-29",
+          "dem_margin": 3.0,
+          "dem_win_prob": 0.7105,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-05-06",
+          "dem_margin": 4.4,
+          "dem_win_prob": 0.7921,
+          "num_polls": 2
+        },
+        {
+          "as_of": "2026-05-13",
+          "dem_margin": 4.4,
+          "dem_win_prob": 0.7921,
+          "num_polls": 2
+        },
+        {
+          "as_of": "2026-05-20",
+          "dem_margin": 4.4,
+          "dem_win_prob": 0.7921,
+          "num_polls": 2
+        },
+        {
+          "as_of": "2026-05-27",
+          "dem_margin": 4.4,
+          "dem_win_prob": 0.7921,
+          "num_polls": 2
+        },
+        {
+          "as_of": "2026-06-03",
+          "dem_margin": 4.4,
+          "dem_win_prob": 0.7921,
+          "num_polls": 2
+        },
+        {
+          "as_of": "2026-06-10",
+          "dem_margin": 4.4,
+          "dem_win_prob": 0.7921,
+          "num_polls": 2
+        },
+        {
+          "as_of": "2026-06-17",
+          "dem_margin": 4.4,
+          "dem_win_prob": 0.7921,
+          "num_polls": 2
+        },
+        {
+          "as_of": "2026-06-24",
+          "dem_margin": 4.4,
+          "dem_win_prob": 0.7921,
+          "num_polls": 2
+        }
+      ]
     },
     {
       "state": "Georgia",
@@ -35,6 +98,7 @@
       "dem_candidate": "Ossoff",
       "rep_candidate": "Collins",
       "dem_margin": -1.0,
+      "dem_win_prob": 0.4267,
       "vibes": {
         "available": true,
         "adjustment": 0.0,
@@ -47,7 +111,57 @@
           "Republican": 0.1455,
           "Democrat": 0.855
         }
-      }
+      },
+      "trend": [
+        {
+          "as_of": "2026-05-06",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-05-13",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-05-20",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-05-27",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-06-03",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-06-10",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-06-17",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-06-24",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        }
+      ]
     },
     {
       "state": "Michigan",
@@ -62,6 +176,7 @@
       "dem_candidate": "Peters",
       "rep_candidate": "Rogers",
       "dem_margin": 3.0,
+      "dem_win_prob": 0.7105,
       "vibes": {
         "available": true,
         "adjustment": 0.0,
@@ -74,7 +189,63 @@
           "Republican": 0.28,
           "Democrat": 0.71
         }
-      }
+      },
+      "trend": [
+        {
+          "as_of": "2026-04-29",
+          "dem_margin": 3.0,
+          "dem_win_prob": 0.7105,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-05-06",
+          "dem_margin": 3.0,
+          "dem_win_prob": 0.7105,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-05-13",
+          "dem_margin": 3.0,
+          "dem_win_prob": 0.7105,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-05-20",
+          "dem_margin": 3.0,
+          "dem_win_prob": 0.7105,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-05-27",
+          "dem_margin": 3.0,
+          "dem_win_prob": 0.7105,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-06-03",
+          "dem_margin": 3.0,
+          "dem_win_prob": 0.7105,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-06-10",
+          "dem_margin": 3.0,
+          "dem_win_prob": 0.7105,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-06-17",
+          "dem_margin": 3.0,
+          "dem_win_prob": 0.7105,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-06-24",
+          "dem_margin": 3.0,
+          "dem_win_prob": 0.7105,
+          "num_polls": 1
+        }
+      ]
     },
     {
       "state": "Nevada",
@@ -89,6 +260,7 @@
       "dem_candidate": "Cortez Masto",
       "rep_candidate": "Laxalt",
       "dem_margin": -1.0,
+      "dem_win_prob": 0.4267,
       "vibes": {
         "available": true,
         "adjustment": 0.0,
@@ -96,7 +268,57 @@
         "rep_effect": 0.0,
         "adjusted_dem_margin": -1.0
       },
-      "market_odds": {}
+      "market_odds": {},
+      "trend": [
+        {
+          "as_of": "2026-05-06",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-05-13",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-05-20",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-05-27",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-06-03",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-06-10",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-06-17",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-06-24",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        }
+      ]
     },
     {
       "state": "Pennsylvania",
@@ -111,6 +333,7 @@
       "dem_candidate": "Fetterman",
       "rep_candidate": "McCormick",
       "dem_margin": -1.0,
+      "dem_win_prob": 0.4267,
       "vibes": {
         "available": true,
         "adjustment": 0.0,
@@ -118,7 +341,57 @@
         "rep_effect": 0.0,
         "adjusted_dem_margin": -1.0
       },
-      "market_odds": {}
+      "market_odds": {},
+      "trend": [
+        {
+          "as_of": "2026-05-06",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-05-13",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-05-20",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-05-27",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-06-03",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-06-10",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-06-17",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        },
+        {
+          "as_of": "2026-06-24",
+          "dem_margin": -1.0,
+          "dem_win_prob": 0.4267,
+          "num_polls": 1
+        }
+      ]
     }
   ],
   "num_races": 5

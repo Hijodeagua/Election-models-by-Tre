@@ -68,14 +68,19 @@ MODEL_VERSIONS = {
     "approval": "PresidentialApprovalModel (weighted polling average, Phase 2)",
     "generic_ballot": "GenericBallotModel (weighted polling average, Phase 2)",
     "senate": "SenateModel (per-race polling average) + vibes/market overlays",
-    "senate_control": "SenateControlSimulator (1000-sim Monte Carlo NOWCAST)",
+    "senate_control": "SenateControlSimulator (50,000-sim Monte Carlo NOWCAST)",
     "state_space": "skipped (opt-in only — too heavy for CI)",
 }
 
 # Fixed seed so the daily cron produces a stable simulation for a given
 # polling snapshot (diffs in git stay meaningful).
 SIMULATION_SEED = 20260101
-NUM_SIMULATIONS = 1000
+NUM_SIMULATIONS = 50000
+
+# How far back the per-page and per-race trend series reach, and the step
+# between sampled points for the (sparser) Senate race trends.
+SENATE_TREND_DAYS = 180
+SENATE_TREND_STEP_DAYS = 7
 
 
 class _JSONEncoder(json.JSONEncoder):
@@ -306,7 +311,47 @@ def _dem_rep_margin(
     return round(dem - rep, 2)
 
 
-def _senate_payload(polls: list[Poll]) -> dict:
+def _senate_race_trend(
+    model: SenateModel,
+    polls: list[Poll],
+    state: str,
+    dem_candidate: str,
+    rep_candidate: str,
+    simulator: SenateControlSimulator,
+    start: date,
+    end: date,
+    step_days: int = SENATE_TREND_STEP_DAYS,
+) -> list[dict]:
+    """Per-race history of our Dem−Rep margin and the win probability it implies.
+
+    For each sampled date we recompute the weighted polling average *as of* that
+    date and run the margin through the simulator's normal error model, so the
+    series shows how confident the model is in each side over time. Dates with no
+    polls yet are skipped, so the line begins when the first poll lands.
+    """
+    state_polls = [p for p in polls if state.lower() in p.subject.lower()]
+    if not state_polls:
+        return []
+    points: list[dict] = []
+    current = start
+    while current <= end:
+        result = model.engine.compute_average(state_polls, as_of=current)
+        if result.num_polls > 0:
+            dem_margin = _dem_rep_margin(result.averages, dem_candidate, rep_candidate)
+            if dem_margin is not None:
+                points.append(
+                    {
+                        "as_of": current,
+                        "dem_margin": dem_margin,
+                        "dem_win_prob": round(simulator.win_prob_from_margin(dem_margin), 4),
+                        "num_polls": result.num_polls,
+                    }
+                )
+        current += timedelta(days=step_days)
+    return points
+
+
+def _senate_payload(polls: list[Poll], trend_days: int = SENATE_TREND_DAYS) -> dict:
     engine = _build_engine_from_polls(polls) if polls else None
     states = _detect_senate_states(polls) or _US_STATES
     model = SenateModel(engine=engine) if engine else SenateModel()
@@ -318,6 +363,16 @@ def _senate_payload(polls: list[Poll]) -> dict:
     config_by_state = {entry["state"]: entry for entry in cycle["competitive_races"]}
     market_odds = MarketOddsCsvSource(FALLBACK_DIR).load()
     vibes_model = VibesAdjustedSenateModel(VibesCsvSource(FALLBACK_DIR).load())
+
+    # Shared error model used to turn a margin into a Dem win probability for the
+    # per-race trend lines (same parameters the control simulation uses).
+    trend_simulator = SenateControlSimulator(
+        dem_safe_seats=cycle["dem_safe_seats"],
+        rep_safe_seats=cycle["rep_safe_seats"],
+        dem_majority_threshold=cycle["dem_majority_threshold"],
+    )
+    trend_end = date.today()
+    trend_start = trend_end - timedelta(days=trend_days)
 
     enriched = []
     for race in races:
@@ -331,6 +386,11 @@ def _senate_payload(polls: list[Poll]) -> dict:
                 race.candidates, entry["dem_candidate"], entry["rep_candidate"]
             )
             record["dem_margin"] = dem_margin
+            record["dem_win_prob"] = (
+                round(trend_simulator.win_prob_from_margin(dem_margin), 4)
+                if dem_margin is not None
+                else None
+            )
 
             vibes = vibes_model.adjustment_for_race(
                 race_key, entry["dem_candidate"], entry["rep_candidate"]
@@ -345,13 +405,23 @@ def _senate_payload(polls: list[Poll]) -> dict:
                 ),
             }
             record["market_odds"] = odds_for_race(market_odds, race_key)
+            record["trend"] = _senate_race_trend(
+                model,
+                polls,
+                race.state,
+                entry["dem_candidate"],
+                entry["rep_candidate"],
+                trend_simulator,
+                trend_start,
+                trend_end,
+            )
         enriched.append(record)
 
     return {"races": enriched, "num_races": len(enriched)}
 
 
 def _senate_forecast_payload(senate_payload: dict) -> dict:
-    """1000-simulation Senate-control Monte Carlo + market comparison."""
+    """50,000-simulation Senate-control Monte Carlo + market comparison."""
     cycle = load_cycle_config()
     market_odds = MarketOddsCsvSource(FALLBACK_DIR).load()
     races_by_state = {r["state"]: r for r in senate_payload["races"]}
@@ -400,9 +470,8 @@ def _senate_forecast_payload(senate_payload: dict) -> dict:
     }
     payload["maturity"] = "nowcast"
     payload["label"] = (
-        "NOWCAST — if the election were held today, based on current polling "
-        "averages blended with prediction-market odds. Not a calibrated "
-        "election-day forecast."
+        "Where the race stands today — current polling averages blended with "
+        "prediction-market odds. A work in progress from Policy y Peaches."
     )
     return payload
 
@@ -444,19 +513,30 @@ def main() -> None:
         _approval_comparison_payload(approval_payload, approval_polls, args.trend_days),
     )
     _write("generic_ballot.json", _generic_ballot_payload(gb_polls, args.trend_days))
-    senate_payload = _senate_payload(senate_polls)
+    senate_payload = _senate_payload(senate_polls, args.trend_days)
     _write("senate.json", senate_payload)
     _write("senate_forecast.json", _senate_forecast_payload(senate_payload))
+
+    def _latest_poll(polls: list[Poll]) -> str | None:
+        dates = [p.midpoint_date for p in polls if p.midpoint_date]
+        return max(dates).isoformat() if dates else None
 
     meta = {
         "last_updated": datetime.now().astimezone().isoformat(),
         "data_tier": DATA_TIER,
-        "label": "TRACKER — weighted polling averages only, not a forecast",
+        "label": "A work in progress from the team at Policy y Peaches",
         "model_versions": MODEL_VERSIONS,
         "poll_counts": {
             "approval": len(approval_polls),
             "generic_ballot": len(gb_polls),
             "senate": len(senate_polls),
+        },
+        # Date of the most recent poll in each feed — i.e. when the underlying
+        # polling actually last refreshed, distinct from the pipeline run time.
+        "last_poll_dates": {
+            "approval": _latest_poll(approval_polls),
+            "generic_ballot": _latest_poll(gb_polls),
+            "senate": _latest_poll(senate_polls),
         },
     }
     _write("meta.json", meta)

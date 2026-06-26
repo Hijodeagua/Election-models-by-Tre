@@ -1,6 +1,8 @@
 import { getMeta } from '@/app/lib/data';
 
-// "Last updated" stamp shown on every page, driven by meta.json.
+// Per-page footer: a plain "work in progress" note with a link to the
+// newsletter, plus the last-updated stamp. Replaces the old stack of
+// "this is not a forecast" disclaimers.
 export default function LastUpdated() {
   const meta = getMeta();
   const stamp = meta.last_updated
@@ -12,10 +14,19 @@ export default function LastUpdated() {
 
   return (
     <div className="mt-10 border-t border-cream-300 pt-4 text-xs text-cocoa-500">
-      <p>Last updated: {stamp}</p>
-      <p className="mt-1 font-medium uppercase tracking-wide text-cocoa-400">
-        {meta.label}
+      <p>
+        A work in progress from the team at Policy y Peaches.{' '}
+        <a
+          href="https://policyypeaches.substack.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-peach underline"
+        >
+          Learn more here
+        </a>
+        .
       </p>
+      <p className="mt-1.5 text-cocoa-400">Last updated: {stamp}</p>
     </div>
   );
 }
