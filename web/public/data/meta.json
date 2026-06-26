@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-25T12:21:25.614261+00:00",
+  "last_updated": "2026-06-26T12:11:20.962865+00:00",
   "data_tier": "tracker",
   "label": "TRACKER \u2014 weighted polling averages only, not a forecast",
   "model_versions": {
@@ -10,8 +10,8 @@
     "state_space": "skipped (opt-in only \u2014 too heavy for CI)"
   },
   "poll_counts": {
-    "approval": 2898,
-    "generic_ballot": 519,
+    "approval": 2901,
+    "generic_ballot": 522,
     "senate": 6
   }
 }

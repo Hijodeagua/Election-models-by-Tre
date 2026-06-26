@@ -1,33 +1,16 @@
 {
   "current": {
-    "as_of": "2026-06-25",
-    "dem_pct": 45.8,
-    "rep_pct": 40.6,
-    "margin": 5.2,
-    "num_polls": 519,
-    "estimated_dem_seats": 247,
-    "estimated_rep_seats": 188,
-    "ci_dem": [
-      42.7,
-      48.5
-    ],
-    "ci_rep": [
-      39.0,
-      43.0
-    ]
+    "as_of": "2026-06-26",
+    "dem_pct": 46.0,
+    "rep_pct": 40.9,
+    "margin": 5.1,
+    "num_polls": 522,
+    "estimated_dem_seats": 246,
+    "estimated_rep_seats": 189,
+    "ci_dem": null,
+    "ci_rep": null
   },
   "trend": [
-    {
-      "as_of": "2025-10-28",
-      "dem_pct": 44.4,
-      "rep_pct": 41.8,
-      "margin": 2.6,
-      "num_polls": 161,
-      "estimated_dem_seats": 232,
-      "estimated_rep_seats": 203,
-      "ci_dem": null,
-      "ci_rep": null
-    },
     {
       "as_of": "2025-10-29",
       "dem_pct": 44.7,
@@ -2538,21 +2521,21 @@
     },
     {
       "as_of": "2026-06-14",
-      "dem_pct": 46.3,
-      "rep_pct": 40.9,
-      "margin": 5.4,
-      "num_polls": 507,
-      "estimated_dem_seats": 248,
-      "estimated_rep_seats": 187,
+      "dem_pct": 46.2,
+      "rep_pct": 41.0,
+      "margin": 5.2,
+      "num_polls": 508,
+      "estimated_dem_seats": 247,
+      "estimated_rep_seats": 188,
       "ci_dem": null,
       "ci_rep": null
     },
     {
       "as_of": "2026-06-15",
-      "dem_pct": 45.8,
-      "rep_pct": 40.7,
+      "dem_pct": 46.0,
+      "rep_pct": 40.9,
       "margin": 5.1,
-      "num_polls": 511,
+      "num_polls": 513,
       "estimated_dem_seats": 246,
       "estimated_rep_seats": 189,
       "ci_dem": null,
@@ -2560,10 +2543,10 @@
     },
     {
       "as_of": "2026-06-16",
-      "dem_pct": 45.8,
-      "rep_pct": 40.5,
-      "margin": 5.3,
-      "num_polls": 513,
+      "dem_pct": 45.9,
+      "rep_pct": 40.7,
+      "margin": 5.2,
+      "num_polls": 515,
       "estimated_dem_seats": 247,
       "estimated_rep_seats": 188,
       "ci_dem": null,
@@ -2571,10 +2554,10 @@
     },
     {
       "as_of": "2026-06-17",
-      "dem_pct": 45.8,
-      "rep_pct": 40.6,
+      "dem_pct": 46.0,
+      "rep_pct": 40.8,
       "margin": 5.2,
-      "num_polls": 514,
+      "num_polls": 516,
       "estimated_dem_seats": 247,
       "estimated_rep_seats": 188,
       "ci_dem": null,
@@ -2582,10 +2565,10 @@
     },
     {
       "as_of": "2026-06-18",
-      "dem_pct": 45.8,
-      "rep_pct": 40.6,
+      "dem_pct": 46.0,
+      "rep_pct": 40.8,
       "margin": 5.2,
-      "num_polls": 514,
+      "num_polls": 516,
       "estimated_dem_seats": 247,
       "estimated_rep_seats": 188,
       "ci_dem": null,
@@ -2593,10 +2576,10 @@
     },
     {
       "as_of": "2026-06-19",
-      "dem_pct": 45.8,
-      "rep_pct": 40.6,
+      "dem_pct": 46.0,
+      "rep_pct": 40.8,
       "margin": 5.2,
-      "num_polls": 514,
+      "num_polls": 516,
       "estimated_dem_seats": 247,
       "estimated_rep_seats": 188,
       "ci_dem": null,
@@ -2604,10 +2587,10 @@
     },
     {
       "as_of": "2026-06-20",
-      "dem_pct": 45.8,
-      "rep_pct": 40.6,
+      "dem_pct": 46.0,
+      "rep_pct": 40.8,
       "margin": 5.2,
-      "num_polls": 514,
+      "num_polls": 516,
       "estimated_dem_seats": 247,
       "estimated_rep_seats": 188,
       "ci_dem": null,
@@ -2615,10 +2598,10 @@
     },
     {
       "as_of": "2026-06-21",
-      "dem_pct": 45.8,
-      "rep_pct": 40.6,
+      "dem_pct": 46.0,
+      "rep_pct": 40.8,
       "margin": 5.2,
-      "num_polls": 514,
+      "num_polls": 516,
       "estimated_dem_seats": 247,
       "estimated_rep_seats": 188,
       "ci_dem": null,
@@ -2626,72 +2609,59 @@
     },
     {
       "as_of": "2026-06-22",
-      "dem_pct": 45.8,
-      "rep_pct": 40.6,
-      "margin": 5.2,
-      "num_polls": 519,
-      "estimated_dem_seats": 247,
-      "estimated_rep_seats": 188,
-      "ci_dem": [
-        42.7,
-        48.5
-      ],
-      "ci_rep": [
-        39.0,
-        43.0
-      ]
+      "dem_pct": 46.0,
+      "rep_pct": 40.9,
+      "margin": 5.1,
+      "num_polls": 522,
+      "estimated_dem_seats": 246,
+      "estimated_rep_seats": 189,
+      "ci_dem": null,
+      "ci_rep": null
     },
     {
       "as_of": "2026-06-23",
-      "dem_pct": 45.8,
-      "rep_pct": 40.6,
-      "margin": 5.2,
-      "num_polls": 519,
-      "estimated_dem_seats": 247,
-      "estimated_rep_seats": 188,
-      "ci_dem": [
-        42.7,
-        48.5
-      ],
-      "ci_rep": [
-        39.0,
-        43.0
-      ]
+      "dem_pct": 46.0,
+      "rep_pct": 40.9,
+      "margin": 5.1,
+      "num_polls": 522,
+      "estimated_dem_seats": 246,
+      "estimated_rep_seats": 189,
+      "ci_dem": null,
+      "ci_rep": null
     },
     {
       "as_of": "2026-06-24",
-      "dem_pct": 45.8,
-      "rep_pct": 40.6,
-      "margin": 5.2,
-      "num_polls": 519,
-      "estimated_dem_seats": 247,
-      "estimated_rep_seats": 188,
-      "ci_dem": [
-        42.7,
-        48.5
-      ],
-      "ci_rep": [
-        39.0,
-        43.0
-      ]
+      "dem_pct": 46.0,
+      "rep_pct": 40.9,
+      "margin": 5.1,
+      "num_polls": 522,
+      "estimated_dem_seats": 246,
+      "estimated_rep_seats": 189,
+      "ci_dem": null,
+      "ci_rep": null
     },
     {
       "as_of": "2026-06-25",
-      "dem_pct": 45.8,
-      "rep_pct": 40.6,
-      "margin": 5.2,
-      "num_polls": 519,
-      "estimated_dem_seats": 247,
-      "estimated_rep_seats": 188,
-      "ci_dem": [
-        42.7,
-        48.5
-      ],
-      "ci_rep": [
-        39.0,
-        43.0
-      ]
+      "dem_pct": 46.0,
+      "rep_pct": 40.9,
+      "margin": 5.1,
+      "num_polls": 522,
+      "estimated_dem_seats": 246,
+      "estimated_rep_seats": 189,
+      "ci_dem": null,
+      "ci_rep": null
+    },
+    {
+      "as_of": "2026-06-26",
+      "dem_pct": 46.0,
+      "rep_pct": 40.9,
+      "margin": 5.1,
+      "num_polls": 522,
+      "estimated_dem_seats": 246,
+      "estimated_rep_seats": 189,
+      "ci_dem": null,
+      "ci_rep": null
     }
   ],
-  "num_polls": 519
+  "num_polls": 522
 }
