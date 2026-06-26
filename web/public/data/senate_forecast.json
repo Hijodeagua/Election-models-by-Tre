@@ -1,19 +1,20 @@
 {
   "as_of": "2026-06-26",
   "num_simulations": 50000,
-  "dem_control_prob": 0.0017,
-  "mean_dem_seats": 47.26,
-  "median_dem_seats": 47.0,
+  "dem_control_prob": 0.5535,
+  "mean_dem_seats": 50.51,
+  "median_dem_seats": 51.0,
   "seat_distribution": {
-    "44": 641,
-    "45": 3287,
-    "46": 8962,
-    "47": 15052,
-    "48": 14396,
-    "49": 6829,
-    "50": 748,
-    "51": 81,
-    "52": 4
+    "44": 71,
+    "45": 336,
+    "46": 1028,
+    "47": 2154,
+    "48": 3902,
+    "49": 6246,
+    "50": 8588,
+    "51": 10265,
+    "52": 10152,
+    "53": 7258
   },
   "races": [
     {
@@ -24,9 +25,9 @@
       "margin": 6.6,
       "num_polls": 7,
       "dem_win_prob_polls": 0.8888,
-      "dem_win_prob_blended": 0.8804,
+      "dem_win_prob_blended": 0.8816,
       "market_dem_prob": {
-        "polymarket": 0.855
+        "polymarket": 0.86
       }
     },
     {
@@ -34,10 +35,10 @@
       "race": "Michigan Senate 2026",
       "dem_candidate": "Haley Stevens",
       "rep_candidate": "Mike Rogers",
-      "margin": -1.4,
-      "num_polls": 0,
-      "dem_win_prob_polls": 0.3979,
-      "dem_win_prob_blended": 0.4759,
+      "margin": 1.0,
+      "num_polls": 2,
+      "dem_win_prob_polls": 0.5733,
+      "dem_win_prob_blended": 0.6075,
       "market_dem_prob": {
         "polymarket": 0.71
       }
@@ -47,76 +48,88 @@
       "race": "North Carolina Senate 2026",
       "dem_candidate": "Roy Cooper",
       "rep_candidate": "Michael Whatley",
-      "margin": -3.3,
-      "num_polls": 0,
-      "dem_win_prob_polls": 0.2709,
-      "dem_win_prob_blended": 0.2709,
-      "market_dem_prob": {}
+      "margin": 8.6,
+      "num_polls": 2,
+      "dem_win_prob_polls": 0.9441,
+      "dem_win_prob_blended": 0.9231,
+      "market_dem_prob": {
+        "polymarket": 0.86
+      }
     },
     {
       "state": "Maine",
       "race": "Maine Senate 2026",
       "dem_candidate": "Graham Platner",
       "rep_candidate": "Susan Collins",
-      "margin": 6.9,
-      "num_polls": 0,
-      "dem_win_prob_polls": 0.899,
-      "dem_win_prob_blended": 0.899,
-      "market_dem_prob": {}
+      "margin": 4.2,
+      "num_polls": 3,
+      "dem_win_prob_polls": 0.7813,
+      "dem_win_prob_blended": 0.5863,
+      "market_dem_prob": {
+        "polymarket": 0.0015
+      }
     },
     {
       "state": "New Hampshire",
       "race": "New Hampshire Senate 2026",
       "dem_candidate": "Chris Pappas",
       "rep_candidate": "Scott Brown",
-      "margin": 2.8,
-      "num_polls": 0,
-      "dem_win_prob_polls": 0.6977,
-      "dem_win_prob_blended": 0.6977,
-      "market_dem_prob": {}
+      "margin": 11.6,
+      "num_polls": 2,
+      "dem_win_prob_polls": 0.984,
+      "dem_win_prob_blended": 0.9468,
+      "market_dem_prob": {
+        "polymarket": 0.835
+      }
     },
     {
       "state": "Ohio",
       "race": "Ohio Senate 2026",
       "dem_candidate": "Sherrod Brown",
       "rep_candidate": "Jon Husted",
-      "margin": -11.2,
-      "num_polls": 0,
-      "dem_win_prob_polls": 0.0192,
-      "dem_win_prob_blended": 0.0192,
-      "market_dem_prob": {}
+      "margin": 4.7,
+      "num_polls": 2,
+      "dem_win_prob_polls": 0.8076,
+      "dem_win_prob_blended": 0.7482,
+      "market_dem_prob": {
+        "polymarket": 0.57
+      }
     },
     {
       "state": "Texas",
       "race": "Texas Senate 2026",
       "dem_candidate": "James Talarico",
       "rep_candidate": "Ken Paxton",
-      "margin": -13.6,
-      "num_polls": 0,
-      "dem_win_prob_polls": 0.006,
-      "dem_win_prob_blended": 0.006,
-      "market_dem_prob": {}
+      "margin": 0.8,
+      "num_polls": 2,
+      "dem_win_prob_polls": 0.5588,
+      "dem_win_prob_blended": 0.5278,
+      "market_dem_prob": {
+        "polymarket": 0.435
+      }
     },
     {
       "state": "Iowa",
       "race": "Iowa Senate 2026",
       "dem_candidate": "Josh Turek",
       "rep_candidate": "Ashley Hinson",
-      "margin": -13.2,
-      "num_polls": 0,
-      "dem_win_prob_polls": 0.0073,
-      "dem_win_prob_blended": 0.0073,
-      "market_dem_prob": {}
+      "margin": -0.1,
+      "num_polls": 6,
+      "dem_win_prob_polls": 0.4926,
+      "dem_win_prob_blended": 0.4695,
+      "market_dem_prob": {
+        "polymarket": 0.4
+      }
     },
     {
       "state": "Alaska",
       "race": "Alaska Senate 2026",
       "dem_candidate": "Mary Peltola",
       "rep_candidate": "Dan Sullivan",
-      "margin": -13.1,
-      "num_polls": 0,
-      "dem_win_prob_polls": 0.0077,
-      "dem_win_prob_blended": 0.0077,
+      "margin": 5.0,
+      "num_polls": 1,
+      "dem_win_prob_polls": 0.8224,
+      "dem_win_prob_blended": 0.8224,
       "market_dem_prob": {}
     }
   ],
