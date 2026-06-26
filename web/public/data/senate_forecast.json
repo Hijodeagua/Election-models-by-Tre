@@ -1,16 +1,13 @@
 {
   "as_of": "2026-06-26",
   "num_simulations": 50000,
-  "dem_control_prob": 0.3629,
-  "mean_dem_seats": 49.9,
-  "median_dem_seats": 50.0,
+  "dem_control_prob": 0.0,
+  "mean_dem_seats": 48.59,
+  "median_dem_seats": 49.0,
   "seat_distribution": {
-    "47": 2360,
-    "48": 6410,
-    "49": 10386,
-    "50": 12700,
-    "51": 11189,
-    "52": 6955
+    "47": 2943,
+    "48": 14580,
+    "49": 32477
   },
   "races": [
     {
@@ -18,10 +15,10 @@
       "race": "Arizona Senate 2026",
       "dem_candidate": "Gallego",
       "rep_candidate": "Lake",
-      "margin": 4.4,
-      "num_polls": 2,
-      "dem_win_prob_polls": 0.7921,
-      "dem_win_prob_blended": 0.7921,
+      "margin": null,
+      "num_polls": 0,
+      "dem_win_prob_polls": null,
+      "dem_win_prob_blended": null,
       "market_dem_prob": {}
     },
     {
@@ -29,10 +26,10 @@
       "race": "Nevada Senate 2026",
       "dem_candidate": "Cortez Masto",
       "rep_candidate": "Laxalt",
-      "margin": -1.0,
-      "num_polls": 1,
-      "dem_win_prob_polls": 0.4267,
-      "dem_win_prob_blended": 0.4267,
+      "margin": null,
+      "num_polls": 0,
+      "dem_win_prob_polls": null,
+      "dem_win_prob_blended": null,
       "market_dem_prob": {}
     },
     {
@@ -40,10 +37,10 @@
       "race": "Georgia Senate 2026",
       "dem_candidate": "Ossoff",
       "rep_candidate": "Collins",
-      "margin": -1.0,
-      "num_polls": 1,
-      "dem_win_prob_polls": 0.4267,
-      "dem_win_prob_blended": 0.5337,
+      "margin": 6.6,
+      "num_polls": 7,
+      "dem_win_prob_polls": 0.8888,
+      "dem_win_prob_blended": 0.8804,
       "market_dem_prob": {
         "polymarket": 0.855
       }
@@ -53,10 +50,10 @@
       "race": "Michigan Senate 2026",
       "dem_candidate": "Peters",
       "rep_candidate": "Rogers",
-      "margin": 3.0,
-      "num_polls": 1,
-      "dem_win_prob_polls": 0.7105,
-      "dem_win_prob_blended": 0.7103,
+      "margin": null,
+      "num_polls": 0,
+      "dem_win_prob_polls": null,
+      "dem_win_prob_blended": 0.71,
       "market_dem_prob": {
         "polymarket": 0.71
       }
@@ -66,10 +63,10 @@
       "race": "Pennsylvania Senate 2026",
       "dem_candidate": "Fetterman",
       "rep_candidate": "McCormick",
-      "margin": -1.0,
-      "num_polls": 1,
-      "dem_win_prob_polls": 0.4267,
-      "dem_win_prob_blended": 0.4267,
+      "margin": null,
+      "num_polls": 0,
+      "dem_win_prob_polls": null,
+      "dem_win_prob_blended": null,
       "market_dem_prob": {}
     }
   ],
