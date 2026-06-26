@@ -127,6 +127,31 @@ def _party_from_text(*texts: str) -> str | None:
     return None
 
 
+def _candidate_party_map(
+    dem_candidate: str | None, rep_candidate: str | None
+) -> dict[str, str]:
+    """Map each candidate's surname (lower-cased) to their party label."""
+    mapping: dict[str, str] = {}
+    if dem_candidate:
+        mapping[dem_candidate.split()[-1].lower()] = "Democrat"
+    if rep_candidate:
+        mapping[rep_candidate.split()[-1].lower()] = "Republican"
+    return mapping
+
+
+def _party_from_candidate(
+    candidate_party: dict[str, str] | None, *texts: str
+) -> str | None:
+    """Resolve a party from a candidate name appearing in any of ``texts``."""
+    if not candidate_party:
+        return None
+    joined = " ".join(t for t in texts if t).lower()
+    for surname, party in candidate_party.items():
+        if surname and surname in joined:
+            return party
+    return None
+
+
 def _with_complement(odds: MarketOdds) -> list[MarketOdds]:
     """Add the implied other-party probability for a single-party market.
 
@@ -250,7 +275,19 @@ class KalshiClient:
 
     def _markets_for_event(self, event_ticker: str) -> list[dict[str, Any]]:
         payload = self._get("/markets", {"event_ticker": event_ticker, "limit": 100})
-        return payload.get("markets", []) if isinstance(payload, dict) else []
+        markets = payload.get("markets", []) if isinstance(payload, dict) else []
+        # Diagnostic: surface what Kalshi actually returned so a 0-result run is
+        # debuggable from the CI logs rather than silent.
+        if markets:
+            sample = [
+                f"{m.get('ticker')}|{m.get('yes_sub_title') or m.get('title')}|"
+                f"last={m.get('last_price')} bid={m.get('yes_bid')} ask={m.get('yes_ask')}"
+                for m in markets[:4]
+            ]
+            logger.info("    kalshi %s → %d markets: %s", event_ticker, len(markets), sample)
+        else:
+            logger.info("    kalshi %s → 0 markets", event_ticker)
+        return markets
 
     @staticmethod
     def _market_price_cents(market: dict[str, Any]) -> float | None:
@@ -273,16 +310,25 @@ class KalshiClient:
         race: str,
         as_of: date | None = None,
         year_suffix: str = "26",
+        dem_candidate: str | None = None,
+        rep_candidate: str | None = None,
     ) -> list[MarketOdds]:
         """Fetch the party-winner odds for one state's Senate race.
 
         2026 races live at event tickers like ``SENATEGA-26`` with one market
         per party (``...-D`` / ``...-R``); the KX-prefixed spelling is tried
-        as a fallback for newer listings.
+        as a fallback for newer listings. Kalshi often labels the YES side by
+        *candidate name* rather than party, so the configured candidate names
+        are passed through to resolve the party.
         """
         abbr = state_abbr.upper()
         candidates = [f"SENATE{abbr}-{year_suffix}", f"KXSENATE{abbr}-{year_suffix}"]
-        return self._fetch(candidates, race, as_of=as_of)
+        return self._fetch(
+            candidates,
+            race,
+            as_of=as_of,
+            candidate_party=_candidate_party_map(dem_candidate, rep_candidate),
+        )
 
     def fetch_control_odds(
         self, race: str, as_of: date | None = None, year: str = "2026"
@@ -301,6 +347,7 @@ class KalshiClient:
         race: str,
         as_of: date | None = None,
         title_filter: str | None = None,
+        candidate_party: dict[str, str] | None = None,
     ) -> list[MarketOdds]:
         as_of = as_of or date.today()
         for event_ticker in event_tickers:
@@ -313,13 +360,17 @@ class KalshiClient:
             for market in markets:
                 title = str(market.get("title", ""))
                 subtitle = str(market.get("yes_sub_title", ""))
+                ticker = str(market.get("ticker", ""))
                 if title_filter and title_filter not in (title + " " + subtitle).lower():
                     continue
                 price = self._market_price_cents(market)
-                party = _party_from_text(subtitle, title)
+                # Party may be stated outright, or implied by the candidate name
+                # in the subtitle/ticker (Kalshi labels per-candidate markets).
+                party = _party_from_text(subtitle, title) or _party_from_candidate(
+                    candidate_party, subtitle, title, ticker
+                )
                 if price is None or party is None:
                     continue
-                ticker = market.get("ticker", "")
                 odds.append(
                     MarketOdds(
                         as_of=as_of,

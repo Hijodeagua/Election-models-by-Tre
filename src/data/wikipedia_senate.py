@@ -1,0 +1,292 @@
+"""Wikipedia Senate poll scraper — fills the gap VoteHub leaves.
+
+VoteHub's public API returns zero head-to-head polls, so the Senate tracker
+otherwise falls back to a hand-curated CSV. Wikipedia keeps a well-maintained
+"General election polling" wikitable on each race's article
+(e.g. ``2026 United States Senate election in Georgia``); this client fetches
+those tables and normalises them into :class:`Poll` objects.
+
+Design notes
+------------
+* Parsing is split from fetching so the table parser can be unit-tested against
+  a saved HTML fixture (no network).
+* It is **best-effort**: any failure (network, layout change, unparseable row)
+  yields fewer/zero polls rather than raising, so the export pipeline keeps
+  running on the committed fallback CSV.
+* Candidate columns are matched to the configured Dem/Rep names, so only the
+  head-to-head matchup we track is extracted (hypothetical/primary subsections
+  that don't name both tracked candidates are skipped).
+"""
+
+from __future__ import annotations
+
+import logging
+import re
+from datetime import date, datetime
+from io import StringIO
+from pathlib import Path
+from typing import Any
+
+import httpx
+import pandas as pd
+
+from src.data.base import DataSource, Poll, PollAnswer, PollType, Population
+
+logger = logging.getLogger(__name__)
+
+WIKIPEDIA_BASE = "https://en.wikipedia.org/wiki/"
+
+# A real browser UA — Wikipedia serves bots that identify politely but blocks
+# the default urllib/httpx agents behind some edges.
+_UA = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/124.0 Safari/537.36 ElectionOracle/0.1"
+)
+
+_MONTHS = {
+    m: i
+    for i, m in enumerate(
+        [
+            "january", "february", "march", "april", "may", "june",
+            "july", "august", "september", "october", "november", "december",
+        ],
+        start=1,
+    )
+}
+# Accept 3-letter abbreviations too.
+_MONTHS.update({k[:3]: v for k, v in _MONTHS.items()})
+
+_POP_MAP = {
+    "lv": Population.LIKELY_VOTERS,
+    "rv": Population.REGISTERED_VOTERS,
+    "v": Population.REGISTERED_VOTERS,
+    "a": Population.ADULTS,
+}
+
+
+def article_title_for_state(state: str) -> str:
+    """Default Wikipedia article title for a state's 2026 Senate race."""
+    return f"2026 United States Senate election in {state}".replace(" ", "_")
+
+
+def _clean(text: Any) -> str:
+    """Strip footnote markers, citations and whitespace from a cell."""
+    s = str(text)
+    s = re.sub(r"\[[^\]]*\]", "", s)  # [a], [1], [note 1]
+    s = s.replace("\xa0", " ").replace("–", "-").replace("—", "-")
+    return s.strip()
+
+
+def _parse_pct(text: str) -> float | None:
+    """Extract a percentage like '45%' or '45.3' → 45.0 / 45.3."""
+    cleaned = _clean(text).replace("%", "").strip()
+    m = re.search(r"-?\d+(?:\.\d+)?", cleaned)
+    if not m:
+        return None
+    try:
+        return float(m.group())
+    except ValueError:
+        return None
+
+
+def _parse_sample(text: str) -> tuple[int | None, Population | None]:
+    """Parse '812 (LV)' / '1,003 LV' → (812, LV)."""
+    cleaned = _clean(text)
+    pop: Population | None = None
+    pm = re.search(r"\b(LV|RV|V|A)\b", cleaned, re.IGNORECASE)
+    if pm:
+        pop = _POP_MAP.get(pm.group(1).lower())
+    nm = re.search(r"[\d,]{2,}", cleaned)
+    size = int(nm.group().replace(",", "")) if nm else None
+    return size, pop
+
+
+def parse_dates(text: str, default_year: int) -> tuple[date, date] | None:
+    """Parse Wikipedia date ranges into (start, end).
+
+    Handles: 'October 1-5, 2026', 'September 28 - October 2, 2026',
+    'October 5, 2026' (single day), 'Oct 1-5, 2026'.
+    """
+    raw = _clean(text)
+    # Year, if present at the end.
+    ym = re.search(r"(\d{4})\s*$", raw)
+    year = int(ym.group(1)) if ym else default_year
+    body = raw[: ym.start()].strip(" ,") if ym else raw
+
+    # Cross-month: "September 28 - October 2"
+    m = re.match(
+        r"([A-Za-z]+)\s+(\d{1,2})\s*-\s*([A-Za-z]+)\s+(\d{1,2})$", body
+    )
+    if m:
+        sm = _MONTHS.get(m.group(1).lower())
+        em = _MONTHS.get(m.group(3).lower())
+        if sm and em:
+            sy = year - 1 if sm > em else year
+            try:
+                return date(sy, sm, int(m.group(2))), date(year, em, int(m.group(4)))
+            except ValueError:
+                return None
+
+    # Same-month range: "October 1-5" or single day "October 5"
+    m = re.match(r"([A-Za-z]+)\s+(\d{1,2})(?:\s*-\s*(\d{1,2}))?$", body)
+    if m:
+        mo = _MONTHS.get(m.group(1).lower())
+        if mo:
+            sd = int(m.group(2))
+            ed = int(m.group(3)) if m.group(3) else sd
+            try:
+                return date(year, mo, sd), date(year, mo, ed)
+            except ValueError:
+                return None
+    return None
+
+
+def _match_column(columns: list[str], candidate: str) -> str | None:
+    """Find the table column whose header contains the candidate's surname."""
+    surname = candidate.split()[-1].lower()
+    for col in columns:
+        if surname in col.lower():
+            return col
+    return None
+
+
+def parse_polling_tables(
+    html: str,
+    state: str,
+    race: str,
+    dem_candidate: str,
+    rep_candidate: str,
+    default_year: int = 2026,
+) -> list[Poll]:
+    """Extract head-to-head polls for one race from article HTML.
+
+    Pure function (no network) so it can be unit-tested against a fixture.
+    """
+    try:
+        tables = pd.read_html(
+            StringIO(html), match=re.compile("administered|conducted", re.I)
+        )
+    except ValueError:
+        logger.info("  %s: no polling table found in article", race)
+        return []
+
+    polls: list[Poll] = []
+    for table in tables:
+        # Flatten any multi-index headers to single strings.
+        if isinstance(table.columns, pd.MultiIndex):
+            table.columns = [
+                " ".join(_clean(c) for c in tup if _clean(c)).strip()
+                for tup in table.columns
+            ]
+        columns = [str(c) for c in table.columns]
+        date_col = next(
+            (c for c in columns if "administered" in c.lower() or "conducted" in c.lower()),
+            None,
+        )
+        poll_col = next(
+            (c for c in columns if "poll" in c.lower() and "source" in c.lower()),
+            columns[0] if columns else None,
+        )
+        dem_col = _match_column(columns, dem_candidate)
+        rep_col = _match_column(columns, rep_candidate)
+        if not (date_col and dem_col and rep_col):
+            logger.info(
+                "  %s: skipping a table (cols=%s; dem=%s rep=%s)",
+                race, columns, dem_col, rep_col,
+            )
+            continue
+
+        sample_col = next((c for c in columns if "sample" in c.lower()), None)
+
+        for idx, row in table.iterrows():
+            pollster = _clean(row.get(poll_col, ""))
+            # Skip aggregate / non-poll rows.
+            if not pollster or re.search(r"average|aggregate|projection", pollster, re.I):
+                continue
+            dates = parse_dates(str(row.get(date_col, "")), default_year)
+            dem_pct = _parse_pct(str(row.get(dem_col, "")))
+            rep_pct = _parse_pct(str(row.get(rep_col, "")))
+            if dates is None or dem_pct is None or rep_pct is None:
+                continue
+            sample_size, population = (
+                _parse_sample(str(row.get(sample_col, ""))) if sample_col else (None, None)
+            )
+            start, end = dates
+            polls.append(
+                Poll(
+                    poll_id=f"wikipedia-{state.lower().replace(' ', '-')}-{end.isoformat()}-{idx}",
+                    source="wikipedia",
+                    poll_type=PollType.HEAD_TO_HEAD,
+                    pollster=pollster,
+                    subject=race,  # e.g. "Georgia Senate 2026" — state-detectable
+                    start_date=start,
+                    end_date=end,
+                    sample_size=sample_size,
+                    population=population,
+                    answers=[
+                        PollAnswer(choice=dem_candidate, pct=dem_pct),
+                        PollAnswer(choice=rep_candidate, pct=rep_pct),
+                    ],
+                )
+            )
+        if polls:
+            # First table that yields the matchup is the general-election table.
+            break
+    logger.info("  %s: parsed %d polls from Wikipedia", race, len(polls))
+    return polls
+
+
+class WikipediaSenateSource(DataSource):
+    """Fetch per-race Senate polls from Wikipedia race articles."""
+
+    name = "wikipedia"
+
+    def __init__(self, cache_dir: Path | None = None, timeout: float = 30.0) -> None:
+        super().__init__(cache_dir=cache_dir)
+        self.timeout = timeout
+        self._client = httpx.Client(
+            timeout=timeout, headers={"User-Agent": _UA}, follow_redirects=True
+        )
+
+    def close(self) -> None:
+        self._client.close()
+
+    def __enter__(self) -> WikipediaSenateSource:
+        return self
+
+    def __exit__(self, *exc: Any) -> None:
+        self.close()
+
+    def fetch_pollsters(self) -> list[str]:  # noqa: D102 - not supported
+        return []
+
+    def fetch_race(
+        self,
+        state: str,
+        race: str,
+        dem_candidate: str,
+        rep_candidate: str,
+        article: str | None = None,
+        default_year: int = 2026,
+    ) -> list[Poll]:
+        """Fetch and parse one race's article. Best-effort (never raises)."""
+        title = article or article_title_for_state(state)
+        url = f"{WIKIPEDIA_BASE}{title}"
+        try:
+            resp = self._client.get(url)
+            resp.raise_for_status()
+        except Exception as exc:  # network / HTTP errors fall back silently
+            logger.warning("  %s: Wikipedia fetch failed (%s)", race, exc)
+            return []
+        return parse_polling_tables(
+            resp.text, state, race, dem_candidate, rep_candidate, default_year
+        )
+
+    def fetch_polls(
+        self,
+        poll_type: PollType | None = None,
+        subject: str | None = None,
+        **kwargs: Any,
+    ) -> list[Poll]:
+        """DataSource interface shim — use :meth:`fetch_race` for real work."""
+        return []

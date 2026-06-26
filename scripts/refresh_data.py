@@ -37,6 +37,7 @@ from src.data.base import Poll, PollType
 from src.data.rcp import RCPClient
 from src.data.silverb_download import SilverBulletinDownloader
 from src.data.votehub import VoteHubClient
+from src.data.wikipedia_senate import WikipediaSenateSource
 
 logger = logging.getLogger(__name__)
 
@@ -168,7 +169,16 @@ def _refresh_markets(dry_run: bool = False) -> None:
             f"{state} Senate 2026", race=race,
             required_tokens=(state.lower(), "senate"),
         )
-        ks = kalshi.fetch_race_odds(abbr, race=race) if abbr else []
+        ks = (
+            kalshi.fetch_race_odds(
+                abbr,
+                race=race,
+                dem_candidate=entry.get("dem_candidate"),
+                rep_candidate=entry.get("rep_candidate"),
+            )
+            if abbr
+            else []
+        )
         logger.info("  %s: polymarket=%d kalshi=%d", race, len(pm), len(ks))
         collected.extend(pm)
         collected.extend(ks)
@@ -194,6 +204,17 @@ def _refresh_markets(dry_run: bool = False) -> None:
 
 def _refresh_silverb(dry_run: bool = False) -> None:
     logger.info("=== Silver Bulletin ===")
+    # Silver Bulletin's model CSVs are paywalled — there is no free public URL.
+    # Skip entirely unless the operator supplies real URLs via env vars, instead
+    # of hammering a dead default and logging a DNS error every run.
+    approval_url = getattr(settings, "silverb_approval_csv_url", "") or ""
+    gb_url = getattr(settings, "silverb_gb_csv_url", "") or ""
+    if not approval_url and not gb_url:
+        logger.info(
+            "  skipped — set SILVERB_APPROVAL_CSV_URL / SILVERB_GB_CSV_URL to enable "
+            "(data is subscriber-only; the comparison line uses the committed snapshot)."
+        )
+        return
     if dry_run:
         logger.info("  (dry run — would download approval + generic ballot CSVs)")
         return
@@ -202,12 +223,55 @@ def _refresh_silverb(dry_run: bool = False) -> None:
             logger.info("  %s: %s", name, "✓ updated" if ok else "✗ kept existing file")
 
 
+def _refresh_wikipedia_senate(dry_run: bool = False) -> None:
+    """Scrape per-race Senate polls from Wikipedia → votehub_senate.csv.
+
+    VoteHub exposes no head-to-head Senate polls, so without this the Senate
+    tracker runs on the hand-curated fallback. Best-effort: only overwrites the
+    CSV when we parse at least one real poll, so a Wikipedia layout change or
+    network failure leaves the committed snapshot in place.
+    """
+    from src.models.senate_simulation import load_cycle_config
+
+    logger.info("=== Wikipedia (Senate head-to-head) ===")
+    cycle = load_cycle_config()
+    all_polls: list[Poll] = []
+    with WikipediaSenateSource(cache_dir=settings.raw_data_dir) as src:
+        for entry in cycle["competitive_races"]:
+            if dry_run:
+                logger.info("  (dry run — would fetch %s)", entry["race"])
+                continue
+            polls = src.fetch_race(
+                state=entry["state"],
+                race=entry["race"],
+                dem_candidate=entry["dem_candidate"],
+                rep_candidate=entry["rep_candidate"],
+                article=entry.get("wikipedia"),
+            )
+            all_polls.extend(polls)
+
+    if dry_run:
+        return
+    if all_polls:
+        dest = FALLBACK_DIR / "votehub_senate.csv"
+        dest.write_text(_polls_to_votehub_csv(all_polls), encoding="utf-8")
+        logger.info("  → %s (%d polls across %d races)", dest.name, len(all_polls),
+                    len({p.subject for p in all_polls}))
+    else:
+        logger.warning(
+            "  no Senate polls parsed — keeping existing senate fallback CSV. "
+            "(If this persists, a Wikipedia table layout likely changed.)"
+        )
+
+
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Refresh all polling data sources.")
     parser.add_argument(
-        "--source", choices=["votehub", "rcp", "silverb", "markets", "all"], default="all",
+        "--source",
+        choices=["votehub", "rcp", "silverb", "markets", "wikipedia", "all"],
+        default="all",
         help="Which source to refresh (default: all).",
     )
     parser.add_argument(
@@ -224,6 +288,8 @@ def main() -> None:
 
     if args.source in ("all", "votehub"):
         _refresh_votehub(dry_run=args.dry_run)
+    if args.source in ("all", "wikipedia"):
+        _refresh_wikipedia_senate(dry_run=args.dry_run)
     if args.source in ("all", "rcp"):
         _refresh_rcp(dry_run=args.dry_run)
     if args.source in ("all", "silverb"):
