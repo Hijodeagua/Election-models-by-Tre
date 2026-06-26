@@ -34,13 +34,17 @@ from src.data.base import DataSource, Poll, PollAnswer, PollType, Population
 
 logger = logging.getLogger(__name__)
 
-WIKIPEDIA_BASE = "https://en.wikipedia.org/wiki/"
+# Use the sanctioned MediaWiki action API rather than scraping the human-facing
+# /wiki/ page — Wikimedia 403s datacenter IPs (e.g. CI runners) that fetch
+# rendered pages with a browser UA, but serves the API to clients that identify
+# themselves per its User-Agent policy.
+WIKIPEDIA_API = "https://en.wikipedia.org/w/api.php"
 
-# A real browser UA — Wikipedia serves bots that identify politely but blocks
-# the default urllib/httpx agents behind some edges.
+# Wikimedia's UA policy wants a descriptive agent with a contact URL — a
+# spoofed browser UA is what gets blocked.
 _UA = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-    "(KHTML, like Gecko) Chrome/124.0 Safari/537.36 ElectionOracle/0.1"
+    "PolicyPeachesElectionOracle/0.1 "
+    "(https://github.com/Hijodeagua/Election-models-by-Tre)"
 )
 
 _MONTHS = {
@@ -271,15 +275,34 @@ class WikipediaSenateSource(DataSource):
     ) -> list[Poll]:
         """Fetch and parse one race's article. Best-effort (never raises)."""
         title = article or article_title_for_state(state)
-        url = f"{WIKIPEDIA_BASE}{title}"
         try:
-            resp = self._client.get(url)
+            resp = self._client.get(
+                WIKIPEDIA_API,
+                params={
+                    "action": "parse",
+                    "page": title,
+                    "prop": "text",
+                    "formatversion": "2",
+                    "format": "json",
+                    "redirects": "1",
+                },
+            )
             resp.raise_for_status()
+            payload = resp.json()
         except Exception as exc:  # network / HTTP errors fall back silently
             logger.warning("  %s: Wikipedia fetch failed (%s)", race, exc)
             return []
+        if "error" in payload:
+            logger.warning(
+                "  %s: Wikipedia API error (%s)", race, payload["error"].get("info")
+            )
+            return []
+        html = payload.get("parse", {}).get("text", "")
+        if not html:
+            logger.info("  %s: empty article body", race)
+            return []
         return parse_polling_tables(
-            resp.text, state, race, dem_candidate, rep_candidate, default_year
+            html, state, race, dem_candidate, rep_candidate, default_year
         )
 
     def fetch_polls(
