@@ -435,13 +435,19 @@ def _senate_forecast_payload(senate_payload: dict) -> dict:
             for source, outcomes in per_source.items()
             if "Democrat" in outcomes
         }
+        # Prefer the polling margin; fall back to the fundamentals prior
+        # (lean_margin from the state's 2024 presidential margin) so reach seats
+        # that have no polls yet still contribute a seat to the simulation
+        # instead of silently vanishing from the seat count.
+        poll_margin = race_record.get("dem_margin")
+        margin = poll_margin if poll_margin is not None else entry.get("lean_margin")
         inputs.append(
             RaceInput(
                 state=entry["state"],
                 race=entry["race"],
                 dem_candidate=entry["dem_candidate"],
                 rep_candidate=entry["rep_candidate"],
-                margin=race_record.get("dem_margin"),
+                margin=margin,
                 num_polls=race_record.get("num_polls", 0),
                 market_dem_prob=market_dem_prob,
             )
