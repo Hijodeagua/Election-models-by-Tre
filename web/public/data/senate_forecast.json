@@ -1,20 +1,20 @@
 {
   "as_of": "2026-06-27",
   "num_simulations": 50000,
-  "dem_control_prob": 0.5533,
+  "dem_control_prob": 0.5535,
   "mean_dem_seats": 50.51,
   "median_dem_seats": 51.0,
   "seat_distribution": {
     "44": 72,
-    "45": 335,
-    "46": 1033,
-    "47": 2161,
-    "48": 3902,
-    "49": 6244,
-    "50": 8590,
-    "51": 10257,
-    "52": 10150,
-    "53": 7256
+    "45": 333,
+    "46": 1031,
+    "47": 2156,
+    "48": 3901,
+    "49": 6239,
+    "50": 8594,
+    "51": 10248,
+    "52": 10163,
+    "53": 7263
   },
   "races": [
     {
@@ -38,9 +38,9 @@
       "margin": 1.0,
       "num_polls": 2,
       "dem_win_prob_polls": 0.5733,
-      "dem_win_prob_blended": 0.6075,
+      "dem_win_prob_blended": 0.6088,
       "market_dem_prob": {
-        "polymarket": 0.71
+        "polymarket": 0.715
       }
     },
     {
@@ -64,9 +64,9 @@
       "margin": 4.2,
       "num_polls": 3,
       "dem_win_prob_polls": 0.7813,
-      "dem_win_prob_blended": 0.5863,
+      "dem_win_prob_blended": 0.5888,
       "market_dem_prob": {
-        "polymarket": 0.0015
+        "polymarket": 0.0115
       }
     },
     {
@@ -103,9 +103,9 @@
       "margin": 0.8,
       "num_polls": 2,
       "dem_win_prob_polls": 0.5588,
-      "dem_win_prob_blended": 0.5278,
+      "dem_win_prob_blended": 0.5253,
       "market_dem_prob": {
-        "polymarket": 0.435
+        "polymarket": 0.425
       }
     },
     {
