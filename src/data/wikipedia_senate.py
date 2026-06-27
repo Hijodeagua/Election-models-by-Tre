@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import logging
 import re
-from datetime import date, datetime
+from datetime import date
 from io import StringIO
 from pathlib import Path
 from typing import Any
