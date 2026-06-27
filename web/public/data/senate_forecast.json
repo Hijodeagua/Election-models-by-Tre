@@ -1,20 +1,20 @@
 {
   "as_of": "2026-06-27",
   "num_simulations": 50000,
-  "dem_control_prob": 0.5533,
-  "mean_dem_seats": 50.51,
+  "dem_control_prob": 0.554,
+  "mean_dem_seats": 50.52,
   "median_dem_seats": 51.0,
   "seat_distribution": {
-    "44": 72,
-    "45": 335,
-    "46": 1033,
-    "47": 2161,
-    "48": 3902,
-    "49": 6244,
-    "50": 8590,
-    "51": 10257,
-    "52": 10150,
-    "53": 7256
+    "44": 71,
+    "45": 331,
+    "46": 1015,
+    "47": 2150,
+    "48": 3891,
+    "49": 6234,
+    "50": 8607,
+    "51": 10271,
+    "52": 10161,
+    "53": 7269
   },
   "races": [
     {
@@ -38,9 +38,9 @@
       "margin": 1.0,
       "num_polls": 2,
       "dem_win_prob_polls": 0.5733,
-      "dem_win_prob_blended": 0.6075,
+      "dem_win_prob_blended": 0.61,
       "market_dem_prob": {
-        "polymarket": 0.71
+        "polymarket": 0.72
       }
     },
     {
@@ -51,9 +51,9 @@
       "margin": 8.6,
       "num_polls": 2,
       "dem_win_prob_polls": 0.9441,
-      "dem_win_prob_blended": 0.9231,
+      "dem_win_prob_blended": 0.9243,
       "market_dem_prob": {
-        "polymarket": 0.86
+        "polymarket": 0.865
       }
     },
     {
@@ -64,9 +64,9 @@
       "margin": 4.2,
       "num_polls": 3,
       "dem_win_prob_polls": 0.7813,
-      "dem_win_prob_blended": 0.5863,
+      "dem_win_prob_blended": 0.5888,
       "market_dem_prob": {
-        "polymarket": 0.0015
+        "polymarket": 0.0115
       }
     },
     {
@@ -77,9 +77,9 @@
       "margin": 11.6,
       "num_polls": 2,
       "dem_win_prob_polls": 0.984,
-      "dem_win_prob_blended": 0.9468,
+      "dem_win_prob_blended": 0.9493,
       "market_dem_prob": {
-        "polymarket": 0.835
+        "polymarket": 0.845
       }
     },
     {
@@ -103,9 +103,9 @@
       "margin": 0.8,
       "num_polls": 2,
       "dem_win_prob_polls": 0.5588,
-      "dem_win_prob_blended": 0.5278,
+      "dem_win_prob_blended": 0.5253,
       "market_dem_prob": {
-        "polymarket": 0.435
+        "polymarket": 0.425
       }
     },
     {
@@ -116,9 +116,9 @@
       "margin": -0.1,
       "num_polls": 6,
       "dem_win_prob_polls": 0.4926,
-      "dem_win_prob_blended": 0.4695,
+      "dem_win_prob_blended": 0.4682,
       "market_dem_prob": {
-        "polymarket": 0.4
+        "polymarket": 0.395
       }
     },
     {
