@@ -1,20 +1,20 @@
 {
   "as_of": "2026-06-27",
   "num_simulations": 50000,
-  "dem_control_prob": 0.554,
-  "mean_dem_seats": 50.52,
+  "dem_control_prob": 0.552,
+  "mean_dem_seats": 50.51,
   "median_dem_seats": 51.0,
   "seat_distribution": {
-    "44": 71,
-    "45": 331,
-    "46": 1015,
-    "47": 2150,
-    "48": 3891,
-    "49": 6234,
-    "50": 8607,
-    "51": 10271,
-    "52": 10161,
-    "53": 7269
+    "44": 70,
+    "45": 340,
+    "46": 1010,
+    "47": 2182,
+    "48": 3910,
+    "49": 6257,
+    "50": 8630,
+    "51": 10256,
+    "52": 10100,
+    "53": 7245
   },
   "races": [
     {
@@ -64,9 +64,9 @@
       "margin": 4.2,
       "num_polls": 3,
       "dem_win_prob_polls": 0.7813,
-      "dem_win_prob_blended": 0.5888,
+      "dem_win_prob_blended": 0.5891,
       "market_dem_prob": {
-        "polymarket": 0.0115
+        "polymarket": 0.0125
       }
     },
     {
@@ -90,9 +90,9 @@
       "margin": 4.7,
       "num_polls": 2,
       "dem_win_prob_polls": 0.8076,
-      "dem_win_prob_blended": 0.7482,
+      "dem_win_prob_blended": 0.7444,
       "market_dem_prob": {
-        "polymarket": 0.57
+        "polymarket": 0.555
       }
     },
     {
@@ -100,10 +100,10 @@
       "race": "Texas Senate 2026",
       "dem_candidate": "James Talarico",
       "rep_candidate": "Ken Paxton",
-      "margin": 0.8,
+      "margin": 0.4,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.5588,
-      "dem_win_prob_blended": 0.5253,
+      "dem_win_prob_polls": 0.5295,
+      "dem_win_prob_blended": 0.5034,
       "market_dem_prob": {
         "polymarket": 0.425
       }
@@ -116,9 +116,9 @@
       "margin": -0.1,
       "num_polls": 6,
       "dem_win_prob_polls": 0.4926,
-      "dem_win_prob_blended": 0.4682,
+      "dem_win_prob_blended": 0.4832,
       "market_dem_prob": {
-        "polymarket": 0.395
+        "polymarket": 0.455
       }
     },
     {
