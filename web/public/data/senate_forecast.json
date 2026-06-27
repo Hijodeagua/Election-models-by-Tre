@@ -139,6 +139,7 @@
   "market_weight": 0.25,
   "national_sigma": 3.0,
   "race_sigma": 4.5,
+  "bias": 0.0,
   "market_control_dem_prob": {
     "polymarket": 0.425
   },

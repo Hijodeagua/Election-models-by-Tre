@@ -39,6 +39,21 @@ class TestWinProbability:
         assert probs == sorted(probs)
         assert probs[0] < 0.05 and probs[-1] > 0.95
 
+    def test_bias_shifts_the_tossup_point(self):
+        # A +2 bias means a tied polling margin already favours the Democrat,
+        # and the 50/50 point sits at a 2-point Republican polling lead.
+        sim = _simulator(bias=2.0)
+        assert sim.win_prob_from_margin(0.0) > 0.5
+        assert sim.win_prob_from_margin(-2.0) == pytest.approx(0.5)
+
+    def test_effective_margin_round_trips_through_bias(self):
+        # _effective_margin must invert win_prob_from_margin exactly, so the
+        # correlated-error simulation reproduces the intended probability.
+        sim = _simulator(bias=1.5)
+        for prob in (0.2, 0.5, 0.75, 0.9):
+            m = sim._effective_margin(prob)
+            assert sim.win_prob_from_margin(m) == pytest.approx(prob, abs=1e-6)
+
     def test_market_blend_pulls_toward_market(self):
         sim = _simulator(market_weight=0.5)
         polls_only = _simulator(market_weight=0.0)

@@ -96,6 +96,7 @@ class SenateControlForecast:
     market_weight: float
     national_sigma: float
     race_sigma: float
+    bias: float = 0.0
     # Chamber-control odds straight from the markets, for comparison.
     market_control_dem_prob: dict[str, float] = field(default_factory=dict)
 
@@ -123,6 +124,7 @@ class SenateControlSimulator:
         national_sigma: float = DEFAULT_NATIONAL_SIGMA,
         race_sigma: float = DEFAULT_RACE_SIGMA,
         market_weight: float = DEFAULT_MARKET_WEIGHT,
+        bias: float = 0.0,
     ) -> None:
         if not 0.0 <= market_weight <= 1.0:
             raise ValueError(f"market_weight must be in [0, 1], got {market_weight}")
@@ -132,6 +134,10 @@ class SenateControlSimulator:
         self.national_sigma = national_sigma
         self.race_sigma = race_sigma
         self.market_weight = market_weight
+        # Systematic polling bias in Dem−Rep margin points (mean of
+        # actual − poll over historical races). Positive = polls have
+        # understated Democrats; the expected margin is shifted by +bias.
+        self.bias = bias
 
     # ── Probability helpers ───────────────────────────────────────────────
 
@@ -141,7 +147,7 @@ class SenateControlSimulator:
 
     def win_prob_from_margin(self, margin: float) -> float:
         """Marginal P(Dem win) implied by a Dem−Rep polling margin."""
-        return float(norm.cdf(margin / self._total_sigma))
+        return float(norm.cdf((margin + self.bias) / self._total_sigma))
 
     def _blended_prob(self, race: RaceInput) -> float | None:
         """Combine the polls-only probability with averaged market odds."""
@@ -164,7 +170,8 @@ class SenateControlSimulator:
         Probabilities are clipped away from 0/1 so the inverse CDF stays finite.
         """
         clipped = float(np.clip(prob, 1e-4, 1.0 - 1e-4))
-        return float(norm.ppf(clipped) * self._total_sigma)
+        # Inverse of win_prob_from_margin: prob = Φ((m + bias)/σ) ⇒ m = ppf·σ − bias.
+        return float(norm.ppf(clipped) * self._total_sigma - self.bias)
 
     # ── Simulation ────────────────────────────────────────────────────────
 
@@ -236,5 +243,6 @@ class SenateControlSimulator:
             market_weight=self.market_weight,
             national_sigma=self.national_sigma,
             race_sigma=self.race_sigma,
+            bias=self.bias,
             market_control_dem_prob=market_control_dem_prob or {},
         )

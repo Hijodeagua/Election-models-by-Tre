@@ -420,6 +420,23 @@ def _senate_payload(polls: list[Poll], trend_days: int = SENATE_TREND_DAYS) -> d
     return {"races": enriched, "num_races": len(enriched)}
 
 
+def _load_forecast_calibration() -> dict:
+    """Load the fitted error model from scripts/calibrate_forecast.py, if present.
+
+    Returns an empty dict when the file is missing or unreadable so the
+    simulation falls back to its built-in default sigmas.
+    """
+    path = PROJECT_ROOT / "config" / "forecast_calibration.json"
+    if not path.exists():
+        return {}
+    try:
+        with path.open(encoding="utf-8") as fh:
+            return json.load(fh)
+    except Exception as exc:  # pragma: no cover - defensive
+        logging.warning("could not read forecast_calibration.json: %s", exc)
+        return {}
+
+
 def _senate_forecast_payload(senate_payload: dict) -> dict:
     """50,000-simulation Senate-control Monte Carlo + market comparison."""
     cycle = load_cycle_config()
@@ -453,10 +470,24 @@ def _senate_forecast_payload(senate_payload: dict) -> dict:
             )
         )
 
+    calib = _load_forecast_calibration()
+    sim_kwargs: dict = {}
+    if calib.get("usable"):
+        sim_kwargs = {
+            "national_sigma": calib["national_sigma"],
+            "race_sigma": calib["race_sigma"],
+            "bias": calib.get("bias", 0.0),
+        }
+        print(
+            f"  using calibrated error model (σ_nat={calib['national_sigma']}, "
+            f"σ_race={calib['race_sigma']}, bias={calib.get('bias', 0.0)}, "
+            f"from {calib['n_races']} historical races)"
+        )
     simulator = SenateControlSimulator(
         dem_safe_seats=cycle["dem_safe_seats"],
         rep_safe_seats=cycle["rep_safe_seats"],
         dem_majority_threshold=cycle["dem_majority_threshold"],
+        **sim_kwargs,
     )
     control_odds = odds_for_race(market_odds, SENATE_CONTROL_RACE)
     forecast = simulator.simulate(
