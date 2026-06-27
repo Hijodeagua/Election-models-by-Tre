@@ -2,6 +2,7 @@
 
 import {
   Area,
+  CartesianGrid,
   ComposedChart,
   Line,
   ResponsiveContainer,
@@ -11,6 +12,13 @@ import {
 } from 'recharts';
 import type { ApprovalSnapshot } from '@/app/lib/data';
 
+function fmtDate(iso: string): string {
+  return new Date(`${iso}T00:00:00`).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+  });
+}
+
 // Approve line with a shaded confidence band. The band is drawn as a stacked
 // area: a transparent base up to the lower bound, then a visible area covering
 // (upper - lower).
@@ -19,7 +27,7 @@ export default function ApprovalChart({ trend }: { trend: ApprovalSnapshot[] }) 
     const lo = s.ci_approve ? s.ci_approve[0] : s.approve;
     const hi = s.ci_approve ? s.ci_approve[1] : s.approve;
     return {
-      date: s.as_of,
+      date: fmtDate(s.as_of),
       approve: s.approve,
       disapprove: s.disapprove,
       ciBase: lo,
@@ -30,6 +38,7 @@ export default function ApprovalChart({ trend }: { trend: ApprovalSnapshot[] }) 
   return (
     <ResponsiveContainer width="100%" height={320}>
       <ComposedChart data={data} margin={{ top: 10, right: 16, left: 0, bottom: 0 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#efe6df" vertical={false} />
         <XAxis
           dataKey="date"
           tick={{ fontSize: 11, fill: '#a0736a' }}

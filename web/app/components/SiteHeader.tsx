@@ -31,7 +31,7 @@ export default function SiteHeader() {
                 Election Oracle
               </div>
               <div className="mt-1 text-[10.5px] tracking-wide text-cocoa-400">
-                by Policy &amp; Peaches · <em>a forecast in progress</em>
+                by Policy &amp; Peaches · <em>a work in progress</em>
               </div>
             </div>
           </Link>

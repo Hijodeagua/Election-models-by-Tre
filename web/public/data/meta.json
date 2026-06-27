@@ -1,17 +1,22 @@
 {
-  "last_updated": "2026-06-26T12:11:20.962865+00:00",
+  "last_updated": "2026-06-27T00:12:14.536139+00:00",
   "data_tier": "tracker",
-  "label": "TRACKER \u2014 weighted polling averages only, not a forecast",
+  "label": "A work in progress from the team at Policy y Peaches",
   "model_versions": {
     "approval": "PresidentialApprovalModel (weighted polling average, Phase 2)",
     "generic_ballot": "GenericBallotModel (weighted polling average, Phase 2)",
     "senate": "SenateModel (per-race polling average) + vibes/market overlays",
-    "senate_control": "SenateControlSimulator (1000-sim Monte Carlo NOWCAST)",
+    "senate_control": "SenateControlSimulator (50,000-sim Monte Carlo NOWCAST)",
     "state_space": "skipped (opt-in only \u2014 too heavy for CI)"
   },
   "poll_counts": {
-    "approval": 2901,
+    "approval": 2903,
     "generic_ballot": 522,
-    "senate": 6
+    "senate": 27
+  },
+  "last_poll_dates": {
+    "approval": "2026-06-20",
+    "generic_ballot": "2026-06-20",
+    "senate": "2026-06-17"
   }
 }

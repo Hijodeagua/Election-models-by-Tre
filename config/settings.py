@@ -23,9 +23,12 @@ class Settings(BaseSettings):
     congress_gov_api_key: str = ""
     nyt_api_key: str = ""
 
-    # Silver Bulletin model CSV download URLs (refresh_data.py --source silverb)
-    silverb_approval_csv_url: str = "https://static.natesilver.net/approval.csv"
-    silverb_gb_csv_url: str = "https://static.natesilver.net/generic-ballot.csv"
+    # Silver Bulletin model CSV download URLs (refresh_data.py --source silverb).
+    # Empty by default: Silver Bulletin's model data is subscriber-only, with no
+    # free public CSV, so the refresh is skipped unless real URLs are supplied
+    # here (the homepage comparison line then uses the committed snapshot).
+    silverb_approval_csv_url: str = ""
+    silverb_gb_csv_url: str = ""
 
     # ── Publishing ────────────────────────────────────────────────────
     datawrapper_api_token: str = ""

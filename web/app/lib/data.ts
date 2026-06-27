@@ -55,6 +55,15 @@ export interface RaceVibes {
 // source ("polymarket" | "kalshi") -> outcome ("Democrat" | ...) -> probability 0-1
 export type MarketOddsBySource = Record<string, Record<string, number>>;
 
+// One point in a race's history: our Dem−Rep margin and the model's implied
+// probability the Democrat wins, as of that date.
+export interface SenateRaceTrendPoint {
+  as_of: string;
+  dem_margin: number;
+  dem_win_prob: number;
+  num_polls: number;
+}
+
 export interface SenateRaceSnapshot {
   state: string;
   as_of: string;
@@ -65,8 +74,10 @@ export interface SenateRaceSnapshot {
   dem_candidate?: string;
   rep_candidate?: string;
   dem_margin?: number | null;
+  dem_win_prob?: number | null;
   vibes?: RaceVibes;
   market_odds?: MarketOddsBySource;
+  trend?: SenateRaceTrendPoint[];
 }
 
 export interface SenateData {
@@ -131,6 +142,7 @@ export interface Meta {
   label: string;
   model_versions: Record<string, string>;
   poll_counts: Record<string, number>;
+  last_poll_dates?: Record<string, string | null>;
 }
 
 function read<T>(file: string, fallback: T): T {
@@ -166,8 +178,9 @@ export function getMeta(): Meta {
   return read<Meta>('meta.json', {
     last_updated: '',
     data_tier: 'tracker',
-    label: 'TRACKER — weighted polling averages only, not a forecast',
+    label: 'A work in progress from the team at Policy y Peaches',
     model_versions: {},
     poll_counts: {},
+    last_poll_dates: {},
   });
 }

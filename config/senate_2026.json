@@ -1,44 +1,82 @@
 {
-  "_comment": "2026 Senate cycle configuration for the control simulation. dem_safe_seats / rep_safe_seats count seats NOT at risk (holdovers + safe races). Update as the cycle develops \u2014 these drive the seat baseline in src/models/senate_simulation.py. dem_majority_threshold is 51 because the sitting VP (Republican) breaks 50-50 ties.",
+  "_comment": "2026 Senate cycle configuration for the control simulation. dem_safe_seats / rep_safe_seats count seats NOT in the competitive list below (holdovers + safe 2026 races such as FL, NE, MT). They are derived from the current 53R/47D Senate minus the competitive seats by current holder: of the 9 competitive races, Democrats hold GA, MI, NH (3) and Republicans hold NC, ME, OH, TX, IA, AK (6), so dem_safe = 47-3 = 44 and rep_safe = 53-6 = 47. dem_majority_threshold is 51 because the sitting VP (R) breaks 50-50 ties. lean_margin is a Dem-minus-Rep fundamentals prior (the 2024 presidential margin in the state) used only when a race has no polling yet; polls override it. Candidate names drive both the Wikipedia poll scrape (matched by surname) and the per-race cards. MI is primary-pending (Aug 4) - Stevens is a placeholder for the leading Dem matchup and is easily swapped. wikipedia overrides the default article title when it differs (Ohio is a special election).",
   "cycle": 2026,
-  "dem_safe_seats": 47,
-  "rep_safe_seats": 48,
+  "dem_safe_seats": 44,
+  "rep_safe_seats": 47,
   "dem_majority_threshold": 51,
   "competitive_races": [
     {
-      "state": "Arizona",
-      "race": "Arizona Senate 2026",
-      "dem_candidate": "Gallego",
-      "rep_candidate": "Lake",
-      "abbr": "AZ"
-    },
-    {
-      "state": "Nevada",
-      "race": "Nevada Senate 2026",
-      "dem_candidate": "Cortez Masto",
-      "rep_candidate": "Laxalt",
-      "abbr": "NV"
-    },
-    {
       "state": "Georgia",
       "race": "Georgia Senate 2026",
-      "dem_candidate": "Ossoff",
-      "rep_candidate": "Collins",
-      "abbr": "GA"
+      "dem_candidate": "Jon Ossoff",
+      "rep_candidate": "Mike Collins",
+      "abbr": "GA",
+      "lean_margin": -2.2
     },
     {
       "state": "Michigan",
       "race": "Michigan Senate 2026",
-      "dem_candidate": "Peters",
-      "rep_candidate": "Rogers",
-      "abbr": "MI"
+      "dem_candidate": "Haley Stevens",
+      "rep_candidate": "Mike Rogers",
+      "abbr": "MI",
+      "lean_margin": -1.4
     },
     {
-      "state": "Pennsylvania",
-      "race": "Pennsylvania Senate 2026",
-      "dem_candidate": "Fetterman",
-      "rep_candidate": "McCormick",
-      "abbr": "PA"
+      "state": "North Carolina",
+      "race": "North Carolina Senate 2026",
+      "dem_candidate": "Roy Cooper",
+      "rep_candidate": "Michael Whatley",
+      "abbr": "NC",
+      "lean_margin": -3.3
+    },
+    {
+      "state": "Maine",
+      "race": "Maine Senate 2026",
+      "dem_candidate": "Graham Platner",
+      "rep_candidate": "Susan Collins",
+      "abbr": "ME",
+      "lean_margin": 6.9
+    },
+    {
+      "state": "New Hampshire",
+      "race": "New Hampshire Senate 2026",
+      "dem_candidate": "Chris Pappas",
+      "rep_candidate": "Scott Brown",
+      "abbr": "NH",
+      "lean_margin": 2.8
+    },
+    {
+      "state": "Ohio",
+      "race": "Ohio Senate 2026",
+      "dem_candidate": "Sherrod Brown",
+      "rep_candidate": "Jon Husted",
+      "abbr": "OH",
+      "lean_margin": -11.2,
+      "wikipedia": "2026 United States Senate special election in Ohio"
+    },
+    {
+      "state": "Texas",
+      "race": "Texas Senate 2026",
+      "dem_candidate": "James Talarico",
+      "rep_candidate": "Ken Paxton",
+      "abbr": "TX",
+      "lean_margin": -13.6
+    },
+    {
+      "state": "Iowa",
+      "race": "Iowa Senate 2026",
+      "dem_candidate": "Josh Turek",
+      "rep_candidate": "Ashley Hinson",
+      "abbr": "IA",
+      "lean_margin": -13.2
+    },
+    {
+      "state": "Alaska",
+      "race": "Alaska Senate 2026",
+      "dem_candidate": "Mary Peltola",
+      "rep_candidate": "Dan Sullivan",
+      "abbr": "AK",
+      "lean_margin": -13.1
     }
   ]
 }
