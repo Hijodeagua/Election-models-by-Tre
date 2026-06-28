@@ -7,9 +7,11 @@
   "n_races": 21,
   "lookback_days": 21,
   "bias": 0.348,
-  "national_sigma": 0.0,
-  "race_sigma": 6.725,
+  "national_sigma": 3.026,
+  "race_sigma": 6.006,
   "total_sigma": 6.725,
+  "overall_sigma": 6.725,
+  "single_cycle_split": true,
   "cycle_mean_error": {
     "2018": 0.35
   },
