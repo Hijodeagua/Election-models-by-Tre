@@ -293,6 +293,495 @@
       "std_error": 8.33
     }
   ],
+  "control": {
+    "governor": {
+      "n_races": 80,
+      "cycles": [
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2024
+      ],
+      "bias": -1.923,
+      "sigma": 5.271,
+      "by_state": {
+        "NC": {
+          "bias": -2.84,
+          "n": 2
+        },
+        "WA": {
+          "bias": -3.56,
+          "n": 2
+        },
+        "UT": {
+          "bias": -4.09,
+          "n": 2
+        },
+        "MO": {
+          "bias": -8.57,
+          "n": 2
+        },
+        "MT": {
+          "bias": -5.25,
+          "n": 2
+        },
+        "VT": {
+          "bias": -6.93,
+          "n": 3
+        },
+        "NH": {
+          "bias": -5.97,
+          "n": 4
+        },
+        "IN": {
+          "bias": -0.22,
+          "n": 2
+        },
+        "WI": {
+          "bias": 1.7,
+          "n": 2
+        },
+        "TX": {
+          "bias": 0.2,
+          "n": 2
+        },
+        "NY": {
+          "bias": 3.52,
+          "n": 2
+        },
+        "KS": {
+          "bias": 1.29,
+          "n": 2
+        },
+        "MA": {
+          "bias": 4.78,
+          "n": 2
+        },
+        "MI": {
+          "bias": 3.19,
+          "n": 2
+        },
+        "AZ": {
+          "bias": 2.96,
+          "n": 2
+        },
+        "CO": {
+          "bias": 4.99,
+          "n": 2
+        },
+        "FL": {
+          "bias": -6.5,
+          "n": 2
+        },
+        "NV": {
+          "bias": 2.19,
+          "n": 2
+        },
+        "IL": {
+          "bias": -0.08,
+          "n": 2
+        },
+        "WY": {
+          "bias": -4.96,
+          "n": 2
+        },
+        "OK": {
+          "bias": -9.18,
+          "n": 2
+        },
+        "MN": {
+          "bias": 0.23,
+          "n": 2
+        },
+        "NM": {
+          "bias": 3.59,
+          "n": 2
+        },
+        "SD": {
+          "bias": -6.24,
+          "n": 2
+        },
+        "MD": {
+          "bias": 1.41,
+          "n": 1
+        },
+        "OH": {
+          "bias": -5.62,
+          "n": 2
+        },
+        "OR": {
+          "bias": 1.71,
+          "n": 2
+        },
+        "IA": {
+          "bias": -2.75,
+          "n": 2
+        },
+        "CA": {
+          "bias": 3.28,
+          "n": 2
+        },
+        "PA": {
+          "bias": 2.83,
+          "n": 2
+        },
+        "CT": {
+          "bias": -2.27,
+          "n": 2
+        },
+        "TN": {
+          "bias": -7.65,
+          "n": 2
+        },
+        "AL": {
+          "bias": -3.53,
+          "n": 1
+        },
+        "AR": {
+          "bias": -8.26,
+          "n": 2
+        },
+        "GA": {
+          "bias": 0.34,
+          "n": 2
+        },
+        "NJ": {
+          "bias": -4.18,
+          "n": 1
+        },
+        "VA": {
+          "bias": -2.03,
+          "n": 1
+        },
+        "WV": {
+          "bias": -15.74,
+          "n": 1
+        },
+        "MS": {
+          "bias": -2.38,
+          "n": 1
+        },
+        "KY": {
+          "bias": -2.45,
+          "n": 1
+        },
+        "AK": {
+          "bias": -5.03,
+          "n": 1
+        },
+        "ID": {
+          "bias": -5.58,
+          "n": 1
+        },
+        "RI": {
+          "bias": 4.66,
+          "n": 1
+        },
+        "SC": {
+          "bias": 8.16,
+          "n": 1
+        }
+      }
+    }
+  },
+  "cross_office_state_bias": [
+    {
+      "state": "VA",
+      "senate_bias": -2.85,
+      "senate_n": 2,
+      "governor_bias": -2.03,
+      "governor_n": 1
+    },
+    {
+      "state": "WY",
+      "senate_bias": -8.23,
+      "senate_n": 3,
+      "governor_bias": -4.96,
+      "governor_n": 2
+    },
+    {
+      "state": "MI",
+      "senate_bias": -3.66,
+      "senate_n": 3,
+      "governor_bias": 3.19,
+      "governor_n": 2
+    },
+    {
+      "state": "TX",
+      "senate_bias": -2.23,
+      "senate_n": 3,
+      "governor_bias": 0.2,
+      "governor_n": 2
+    },
+    {
+      "state": "OH",
+      "senate_bias": -2.43,
+      "senate_n": 3,
+      "governor_bias": -5.62,
+      "governor_n": 2
+    },
+    {
+      "state": "NM",
+      "senate_bias": 8.8,
+      "senate_n": 3,
+      "governor_bias": 3.59,
+      "governor_n": 2
+    },
+    {
+      "state": "MA",
+      "senate_bias": -1.27,
+      "senate_n": 3,
+      "governor_bias": 4.78,
+      "governor_n": 2
+    },
+    {
+      "state": "MN",
+      "senate_bias": 0.98,
+      "senate_n": 3,
+      "governor_bias": 0.23,
+      "governor_n": 2
+    },
+    {
+      "state": "MT",
+      "senate_bias": -3.37,
+      "senate_n": 3,
+      "governor_bias": -5.25,
+      "governor_n": 2
+    },
+    {
+      "state": "NV",
+      "senate_bias": 0.92,
+      "senate_n": 3,
+      "governor_bias": 2.19,
+      "governor_n": 2
+    },
+    {
+      "state": "MO",
+      "senate_bias": -3.73,
+      "senate_n": 3,
+      "governor_bias": -8.57,
+      "governor_n": 2
+    },
+    {
+      "state": "RI",
+      "senate_bias": 5.08,
+      "senate_n": 2,
+      "governor_bias": 4.66,
+      "governor_n": 1
+    },
+    {
+      "state": "TN",
+      "senate_bias": -6.52,
+      "senate_n": 3,
+      "governor_bias": -7.65,
+      "governor_n": 2
+    },
+    {
+      "state": "UT",
+      "senate_bias": 1.53,
+      "senate_n": 1,
+      "governor_bias": -4.09,
+      "governor_n": 2
+    },
+    {
+      "state": "WA",
+      "senate_bias": 4.63,
+      "senate_n": 2,
+      "governor_bias": -3.56,
+      "governor_n": 2
+    },
+    {
+      "state": "WI",
+      "senate_bias": 0.63,
+      "senate_n": 3,
+      "governor_bias": 1.7,
+      "governor_n": 2
+    },
+    {
+      "state": "AZ",
+      "senate_bias": 0.3,
+      "senate_n": 4,
+      "governor_bias": 2.96,
+      "governor_n": 2
+    },
+    {
+      "state": "CA",
+      "senate_bias": -1.37,
+      "senate_n": 2,
+      "governor_bias": 3.28,
+      "governor_n": 2
+    },
+    {
+      "state": "IN",
+      "senate_bias": -6.8,
+      "senate_n": 3,
+      "governor_bias": -0.22,
+      "governor_n": 2
+    },
+    {
+      "state": "MD",
+      "senate_bias": -0.8,
+      "senate_n": 1,
+      "governor_bias": 1.41,
+      "governor_n": 1
+    },
+    {
+      "state": "NJ",
+      "senate_bias": -5.43,
+      "senate_n": 3,
+      "governor_bias": -4.18,
+      "governor_n": 1
+    },
+    {
+      "state": "NY",
+      "senate_bias": -0.92,
+      "senate_n": 3,
+      "governor_bias": 3.52,
+      "governor_n": 2
+    },
+    {
+      "state": "FL",
+      "senate_bias": -5.8,
+      "senate_n": 3,
+      "governor_bias": -6.5,
+      "governor_n": 2
+    },
+    {
+      "state": "KS",
+      "senate_bias": -3.95,
+      "senate_n": 2,
+      "governor_bias": 1.29,
+      "governor_n": 2
+    },
+    {
+      "state": "CO",
+      "senate_bias": 2.47,
+      "senate_n": 2,
+      "governor_bias": 4.99,
+      "governor_n": 2
+    },
+    {
+      "state": "NC",
+      "senate_bias": -1.94,
+      "senate_n": 2,
+      "governor_bias": -2.84,
+      "governor_n": 2
+    },
+    {
+      "state": "IL",
+      "senate_bias": -3.66,
+      "senate_n": 2,
+      "governor_bias": -0.08,
+      "governor_n": 2
+    },
+    {
+      "state": "OK",
+      "senate_bias": -11.43,
+      "senate_n": 2,
+      "governor_bias": -9.18,
+      "governor_n": 2
+    },
+    {
+      "state": "NH",
+      "senate_bias": 3.66,
+      "senate_n": 2,
+      "governor_bias": -5.97,
+      "governor_n": 4
+    },
+    {
+      "state": "SD",
+      "senate_bias": -13.48,
+      "senate_n": 2,
+      "governor_bias": -6.24,
+      "governor_n": 2
+    },
+    {
+      "state": "VT",
+      "senate_bias": 8.77,
+      "senate_n": 1,
+      "governor_bias": -6.93,
+      "governor_n": 3
+    },
+    {
+      "state": "OR",
+      "senate_bias": 0.11,
+      "senate_n": 1,
+      "governor_bias": 1.71,
+      "governor_n": 2
+    },
+    {
+      "state": "IA",
+      "senate_bias": -4.76,
+      "senate_n": 2,
+      "governor_bias": -2.75,
+      "governor_n": 2
+    },
+    {
+      "state": "PA",
+      "senate_bias": 4.42,
+      "senate_n": 1,
+      "governor_bias": 2.83,
+      "governor_n": 2
+    },
+    {
+      "state": "CT",
+      "senate_bias": -2.32,
+      "senate_n": 2,
+      "governor_bias": -2.27,
+      "governor_n": 2
+    },
+    {
+      "state": "GA",
+      "senate_bias": -1.11,
+      "senate_n": 2,
+      "governor_bias": 0.34,
+      "governor_n": 2
+    },
+    {
+      "state": "AR",
+      "senate_bias": -10.24,
+      "senate_n": 1,
+      "governor_bias": -8.26,
+      "governor_n": 2
+    },
+    {
+      "state": "AL",
+      "senate_bias": -7.45,
+      "senate_n": 2,
+      "governor_bias": -3.53,
+      "governor_n": 1
+    },
+    {
+      "state": "AK",
+      "senate_bias": -9.31,
+      "senate_n": 1,
+      "governor_bias": -5.03,
+      "governor_n": 1
+    },
+    {
+      "state": "SC",
+      "senate_bias": -7.27,
+      "senate_n": 1,
+      "governor_bias": 8.16,
+      "governor_n": 1
+    },
+    {
+      "state": "KY",
+      "senate_bias": -10.53,
+      "senate_n": 1,
+      "governor_bias": -2.45,
+      "governor_n": 1
+    },
+    {
+      "state": "MS",
+      "senate_bias": -6.6,
+      "senate_n": 2,
+      "governor_bias": -2.38,
+      "governor_n": 1
+    }
+  ],
   "win_accuracy": 0.898,
   "brier_score": 0.0602,
   "reliability": [
@@ -332,6 +821,7 @@
   "rows": [
     {
       "race_id": "VA-SENATE-2024",
+      "state": "VA",
       "year": 2024,
       "poll_margin": 9.3,
       "actual_margin": 8.93,
@@ -340,6 +830,7 @@
     },
     {
       "race_id": "WY-SENATE-2024",
+      "state": "WY",
       "year": 2024,
       "poll_margin": -47.5,
       "actual_margin": -49.68,
@@ -348,6 +839,7 @@
     },
     {
       "race_id": "MI-SENATE-2024",
+      "state": "MI",
       "year": 2024,
       "poll_margin": 3.3,
       "actual_margin": 0.34,
@@ -356,6 +848,7 @@
     },
     {
       "race_id": "TX-SENATE-2024",
+      "state": "TX",
       "year": 2024,
       "poll_margin": -3.8,
       "actual_margin": -8.49,
@@ -364,6 +857,7 @@
     },
     {
       "race_id": "OH-SENATE-2024",
+      "state": "OH",
       "year": 2024,
       "poll_margin": -1.7,
       "actual_margin": -3.62,
@@ -372,6 +866,7 @@
     },
     {
       "race_id": "NM-SENATE-2024",
+      "state": "NM",
       "year": 2024,
       "poll_margin": 4.9,
       "actual_margin": 10.12,
@@ -380,6 +875,7 @@
     },
     {
       "race_id": "MA-SENATE-2024",
+      "state": "MA",
       "year": 2024,
       "poll_margin": 22.4,
       "actual_margin": 19.25,
@@ -388,6 +884,7 @@
     },
     {
       "race_id": "MN-SENATE-2024",
+      "state": "MN",
       "year": 2024,
       "poll_margin": 13.5,
       "actual_margin": 15.7,
@@ -396,6 +893,7 @@
     },
     {
       "race_id": "MT-SENATE-2024",
+      "state": "MT",
       "year": 2024,
       "poll_margin": -6.7,
       "actual_margin": -7.14,
@@ -404,6 +902,7 @@
     },
     {
       "race_id": "NE-SENATE-2024",
+      "state": "NE",
       "year": 2024,
       "poll_margin": -4.4,
       "actual_margin": -6.67,
@@ -412,6 +911,7 @@
     },
     {
       "race_id": "NV-SENATE-2024",
+      "state": "NV",
       "year": 2024,
       "poll_margin": 5.1,
       "actual_margin": 1.65,
@@ -420,6 +920,7 @@
     },
     {
       "race_id": "MO-SENATE-2024",
+      "state": "MO",
       "year": 2024,
       "poll_margin": -9.8,
       "actual_margin": -13.73,
@@ -428,6 +929,7 @@
     },
     {
       "race_id": "RI-SENATE-2024",
+      "state": "RI",
       "year": 2024,
       "poll_margin": 14.0,
       "actual_margin": 20.05,
@@ -436,6 +938,7 @@
     },
     {
       "race_id": "TN-SENATE-2024",
+      "state": "TN",
       "year": 2024,
       "poll_margin": -22.0,
       "actual_margin": -29.64,
@@ -444,6 +947,7 @@
     },
     {
       "race_id": "UT-SENATE-2024",
+      "state": "UT",
       "year": 2024,
       "poll_margin": -32.1,
       "actual_margin": -30.57,
@@ -452,6 +956,7 @@
     },
     {
       "race_id": "WA-SENATE-2024",
+      "state": "WA",
       "year": 2024,
       "poll_margin": 19.0,
       "actual_margin": 18.45,
@@ -460,6 +965,7 @@
     },
     {
       "race_id": "WI-SENATE-2024",
+      "state": "WI",
       "year": 2024,
       "poll_margin": 1.9,
       "actual_margin": 0.85,
@@ -468,6 +974,7 @@
     },
     {
       "race_id": "AZ-SENATE-2024",
+      "state": "AZ",
       "year": 2024,
       "poll_margin": 4.0,
       "actual_margin": 2.41,
@@ -476,6 +983,7 @@
     },
     {
       "race_id": "ME-SENATE-2024",
+      "state": "ME",
       "year": 2024,
       "poll_margin": -23.9,
       "actual_margin": -23.2,
@@ -484,6 +992,7 @@
     },
     {
       "race_id": "CA-SENATE-2024",
+      "state": "CA",
       "year": 2024,
       "poll_margin": 22.3,
       "actual_margin": 17.74,
@@ -492,6 +1001,7 @@
     },
     {
       "race_id": "IN-SENATE-2024",
+      "state": "IN",
       "year": 2024,
       "poll_margin": -14.8,
       "actual_margin": -19.87,
@@ -500,6 +1010,7 @@
     },
     {
       "race_id": "MD-SENATE-2024",
+      "state": "MD",
       "year": 2024,
       "poll_margin": 12.6,
       "actual_margin": 11.8,
@@ -508,6 +1019,7 @@
     },
     {
       "race_id": "NJ-SENATE-2024",
+      "state": "NJ",
       "year": 2024,
       "poll_margin": 19.3,
       "actual_margin": 9.62,
@@ -516,6 +1028,7 @@
     },
     {
       "race_id": "NY-SENATE-2024",
+      "state": "NY",
       "year": 2024,
       "poll_margin": 24.0,
       "actual_margin": 16.73,
@@ -524,6 +1037,7 @@
     },
     {
       "race_id": "FL-SENATE-2024",
+      "state": "FL",
       "year": 2024,
       "poll_margin": -4.8,
       "actual_margin": -12.78,
@@ -532,6 +1046,7 @@
     },
     {
       "race_id": "KS-SENATE-2022",
+      "state": "KS",
       "year": 2022,
       "poll_margin": -21.6,
       "actual_margin": -22.96,
@@ -540,6 +1055,7 @@
     },
     {
       "race_id": "AZ-SENATE-2022",
+      "state": "AZ",
       "year": 2022,
       "poll_margin": 1.6,
       "actual_margin": 4.88,
@@ -548,6 +1064,7 @@
     },
     {
       "race_id": "CO-SENATE-2022",
+      "state": "CO",
       "year": 2022,
       "poll_margin": 9.0,
       "actual_margin": 14.61,
@@ -556,6 +1073,7 @@
     },
     {
       "race_id": "FL-SENATE-2022",
+      "state": "FL",
       "year": 2022,
       "poll_margin": -8.2,
       "actual_margin": -16.41,
@@ -564,6 +1082,7 @@
     },
     {
       "race_id": "NC-SENATE-2022",
+      "state": "NC",
       "year": 2022,
       "poll_margin": -4.5,
       "actual_margin": -3.23,
@@ -572,6 +1091,7 @@
     },
     {
       "race_id": "NV-SENATE-2022",
+      "state": "NV",
       "year": 2022,
       "poll_margin": -1.6,
       "actual_margin": 0.77,
@@ -580,6 +1100,7 @@
     },
     {
       "race_id": "IL-SENATE-2022",
+      "state": "IL",
       "year": 2022,
       "poll_margin": 14.9,
       "actual_margin": 15.32,
@@ -588,6 +1109,7 @@
     },
     {
       "race_id": "OK-SENATE-2022",
+      "state": "OK",
       "year": 2022,
       "poll_margin": -20.0,
       "actual_margin": -32.2,
@@ -596,6 +1118,7 @@
     },
     {
       "race_id": "WI-SENATE-2022",
+      "state": "WI",
       "year": 2022,
       "poll_margin": -3.6,
       "actual_margin": -1.0,
@@ -604,6 +1127,7 @@
     },
     {
       "race_id": "NH-SENATE-2022",
+      "state": "NH",
       "year": 2022,
       "poll_margin": 2.3,
       "actual_margin": 9.07,
@@ -612,6 +1136,7 @@
     },
     {
       "race_id": "SD-SENATE-2022",
+      "state": "SD",
       "year": 2022,
       "poll_margin": -31.0,
       "actual_margin": -43.48,
@@ -620,6 +1145,7 @@
     },
     {
       "race_id": "WA-SENATE-2022",
+      "state": "WA",
       "year": 2022,
       "poll_margin": 4.7,
       "actual_margin": 14.52,
@@ -628,6 +1154,7 @@
     },
     {
       "race_id": "VT-SENATE-2022",
+      "state": "VT",
       "year": 2022,
       "poll_margin": 31.0,
       "actual_margin": 39.77,
@@ -636,6 +1163,7 @@
     },
     {
       "race_id": "OH-SENATE-2022",
+      "state": "OH",
       "year": 2022,
       "poll_margin": -5.2,
       "actual_margin": -6.11,
@@ -644,6 +1172,7 @@
     },
     {
       "race_id": "OR-SENATE-2022",
+      "state": "OR",
       "year": 2022,
       "poll_margin": 14.8,
       "actual_margin": 14.91,
@@ -652,6 +1181,7 @@
     },
     {
       "race_id": "NY-SENATE-2022",
+      "state": "NY",
       "year": 2022,
       "poll_margin": 16.6,
       "actual_margin": 13.72,
@@ -660,6 +1190,7 @@
     },
     {
       "race_id": "IA-SENATE-2022",
+      "state": "IA",
       "year": 2022,
       "poll_margin": -9.8,
       "actual_margin": -12.04,
@@ -668,6 +1199,7 @@
     },
     {
       "race_id": "CA-SENATE-2022",
+      "state": "CA",
       "year": 2022,
       "poll_margin": 20.3,
       "actual_margin": 22.12,
@@ -676,6 +1208,7 @@
     },
     {
       "race_id": "PA-SENATE-2022",
+      "state": "PA",
       "year": 2022,
       "poll_margin": 0.5,
       "actual_margin": 4.92,
@@ -684,6 +1217,7 @@
     },
     {
       "race_id": "CT-SENATE-2022",
+      "state": "CT",
       "year": 2022,
       "poll_margin": 15.9,
       "actual_margin": 13.11,
@@ -692,6 +1226,7 @@
     },
     {
       "race_id": "IN-SENATE-2022",
+      "state": "IN",
       "year": 2022,
       "poll_margin": -11.0,
       "actual_margin": -20.75,
@@ -700,6 +1235,7 @@
     },
     {
       "race_id": "MO-SENATE-2022",
+      "state": "MO",
       "year": 2022,
       "poll_margin": -11.5,
       "actual_margin": -13.25,
@@ -708,6 +1244,7 @@
     },
     {
       "race_id": "GA-SENATE-2022",
+      "state": "GA",
       "year": 2022,
       "poll_margin": 0.7,
       "actual_margin": 0.95,
@@ -716,6 +1253,7 @@
     },
     {
       "race_id": "AR-SENATE-2022",
+      "state": "AR",
       "year": 2022,
       "poll_margin": -24.4,
       "actual_margin": -34.64,
@@ -724,6 +1262,7 @@
     },
     {
       "race_id": "AL-SENATE-2022",
+      "state": "AL",
       "year": 2022,
       "poll_margin": -29.6,
       "actual_margin": -35.74,
@@ -732,6 +1271,7 @@
     },
     {
       "race_id": "AZ-SENATE-2020",
+      "state": "AZ",
       "year": 2020,
       "poll_margin": 6.1,
       "actual_margin": 2.35,
@@ -740,6 +1280,7 @@
     },
     {
       "race_id": "IA-SENATE-2020",
+      "state": "IA",
       "year": 2020,
       "poll_margin": 0.8,
       "actual_margin": -6.48,
@@ -748,6 +1289,7 @@
     },
     {
       "race_id": "WY-SENATE-2020",
+      "state": "WY",
       "year": 2020,
       "poll_margin": -30.0,
       "actual_margin": -45.0,
@@ -756,6 +1298,7 @@
     },
     {
       "race_id": "NE-SENATE-2020",
+      "state": "NE",
       "year": 2020,
       "poll_margin": -29.9,
       "actual_margin": -38.31,
@@ -764,6 +1307,7 @@
     },
     {
       "race_id": "MN-SENATE-2020",
+      "state": "MN",
       "year": 2020,
       "poll_margin": 8.1,
       "actual_margin": 5.24,
@@ -772,6 +1316,7 @@
     },
     {
       "race_id": "MA-SENATE-2020",
+      "state": "MA",
       "year": 2020,
       "poll_margin": 33.9,
       "actual_margin": 32.26,
@@ -780,6 +1325,7 @@
     },
     {
       "race_id": "NJ-SENATE-2020",
+      "state": "NJ",
       "year": 2020,
       "poll_margin": 24.6,
       "actual_margin": 16.31,
@@ -788,6 +1334,7 @@
     },
     {
       "race_id": "VA-SENATE-2020",
+      "state": "VA",
       "year": 2020,
       "poll_margin": 17.4,
       "actual_margin": 12.08,
@@ -796,6 +1343,7 @@
     },
     {
       "race_id": "AK-SENATE-2020",
+      "state": "AK",
       "year": 2020,
       "poll_margin": -3.4,
       "actual_margin": -12.71,
@@ -804,6 +1352,7 @@
     },
     {
       "race_id": "AL-SENATE-2020",
+      "state": "AL",
       "year": 2020,
       "poll_margin": -11.6,
       "actual_margin": -20.36,
@@ -812,6 +1361,7 @@
     },
     {
       "race_id": "SC-SENATE-2020",
+      "state": "SC",
       "year": 2020,
       "poll_margin": -3.0,
       "actual_margin": -10.27,
@@ -820,6 +1370,7 @@
     },
     {
       "race_id": "NH-SENATE-2020",
+      "state": "NH",
       "year": 2020,
       "poll_margin": 15.1,
       "actual_margin": 15.65,
@@ -828,6 +1379,7 @@
     },
     {
       "race_id": "CO-SENATE-2020",
+      "state": "CO",
       "year": 2020,
       "poll_margin": 10.0,
       "actual_margin": 9.32,
@@ -836,6 +1388,7 @@
     },
     {
       "race_id": "GA-SENATE-2020",
+      "state": "GA",
       "year": 2020,
       "poll_margin": 0.7,
       "actual_margin": -1.78,
@@ -844,6 +1397,7 @@
     },
     {
       "race_id": "IL-SENATE-2020",
+      "state": "IL",
       "year": 2020,
       "poll_margin": 23.8,
       "actual_margin": 16.06,
@@ -852,6 +1406,7 @@
     },
     {
       "race_id": "KS-SENATE-2020",
+      "state": "KS",
       "year": 2020,
       "poll_margin": -4.9,
       "actual_margin": -11.43,
@@ -860,6 +1415,7 @@
     },
     {
       "race_id": "KY-SENATE-2020",
+      "state": "KY",
       "year": 2020,
       "poll_margin": -9.0,
       "actual_margin": -19.53,
@@ -868,6 +1424,7 @@
     },
     {
       "race_id": "MI-SENATE-2020",
+      "state": "MI",
       "year": 2020,
       "poll_margin": 7.7,
       "actual_margin": 1.68,
@@ -876,6 +1433,7 @@
     },
     {
       "race_id": "MS-SENATE-2020",
+      "state": "MS",
       "year": 2020,
       "poll_margin": -4.3,
       "actual_margin": -9.98,
@@ -884,6 +1442,7 @@
     },
     {
       "race_id": "MT-SENATE-2020",
+      "state": "MT",
       "year": 2020,
       "poll_margin": -2.0,
       "actual_margin": -10.02,
@@ -892,6 +1451,7 @@
     },
     {
       "race_id": "NM-SENATE-2020",
+      "state": "NM",
       "year": 2020,
       "poll_margin": 8.5,
       "actual_margin": 6.11,
@@ -900,6 +1460,7 @@
     },
     {
       "race_id": "NC-SENATE-2020",
+      "state": "NC",
       "year": 2020,
       "poll_margin": 3.4,
       "actual_margin": -1.75,
@@ -908,6 +1469,7 @@
     },
     {
       "race_id": "OK-SENATE-2020",
+      "state": "OK",
       "year": 2020,
       "poll_margin": -19.5,
       "actual_margin": -30.16,
@@ -916,6 +1478,7 @@
     },
     {
       "race_id": "SD-SENATE-2020",
+      "state": "SD",
       "year": 2020,
       "poll_margin": -17.0,
       "actual_margin": -31.48,
@@ -924,6 +1487,7 @@
     },
     {
       "race_id": "TN-SENATE-2020",
+      "state": "TN",
       "year": 2020,
       "poll_margin": -21.2,
       "actual_margin": -27.04,
@@ -932,6 +1496,7 @@
     },
     {
       "race_id": "TX-SENATE-2020",
+      "state": "TX",
       "year": 2020,
       "poll_margin": -5.6,
       "actual_margin": -9.64,
@@ -940,6 +1505,7 @@
     },
     {
       "race_id": "NV-SENATE-2018",
+      "state": "NV",
       "year": 2018,
       "poll_margin": 1.2,
       "actual_margin": 5.03,
@@ -948,6 +1514,7 @@
     },
     {
       "race_id": "MN-SENATE-2018",
+      "state": "MN",
       "year": 2018,
       "poll_margin": 20.5,
       "actual_margin": 24.1,
@@ -956,6 +1523,7 @@
     },
     {
       "race_id": "ND-SENATE-2018",
+      "state": "ND",
       "year": 2018,
       "poll_margin": -9.7,
       "actual_margin": -10.84,
@@ -964,6 +1532,7 @@
     },
     {
       "race_id": "RI-SENATE-2018",
+      "state": "RI",
       "year": 2018,
       "poll_margin": 19.0,
       "actual_margin": 23.11,
@@ -972,6 +1541,7 @@
     },
     {
       "race_id": "WY-SENATE-2018",
+      "state": "WY",
       "year": 2018,
       "poll_margin": -29.0,
       "actual_margin": -36.52,
@@ -980,6 +1550,7 @@
     },
     {
       "race_id": "WI-SENATE-2018",
+      "state": "WI",
       "year": 2018,
       "poll_margin": 10.5,
       "actual_margin": 10.83,
@@ -988,6 +1559,7 @@
     },
     {
       "race_id": "NM-SENATE-2018",
+      "state": "NM",
       "year": 2018,
       "poll_margin": 0.0,
       "actual_margin": 23.56,
@@ -996,6 +1568,7 @@
     },
     {
       "race_id": "NJ-SENATE-2018",
+      "state": "NJ",
       "year": 2018,
       "poll_margin": 9.5,
       "actual_margin": 11.18,
@@ -1004,6 +1577,7 @@
     },
     {
       "race_id": "MA-SENATE-2018",
+      "state": "MA",
       "year": 2018,
       "poll_margin": 22.8,
       "actual_margin": 23.77,
@@ -1012,6 +1586,7 @@
     },
     {
       "race_id": "NY-SENATE-2018",
+      "state": "NY",
       "year": 2018,
       "poll_margin": 25.0,
       "actual_margin": 32.4,
@@ -1020,6 +1595,7 @@
     },
     {
       "race_id": "NE-SENATE-2018",
+      "state": "NE",
       "year": 2018,
       "poll_margin": -15.0,
       "actual_margin": -19.07,
@@ -1028,6 +1604,7 @@
     },
     {
       "race_id": "MS-SENATE-2018",
+      "state": "MS",
       "year": 2018,
       "poll_margin": -11.5,
       "actual_margin": -19.02,
@@ -1036,6 +1613,7 @@
     },
     {
       "race_id": "MO-SENATE-2018",
+      "state": "MO",
       "year": 2018,
       "poll_margin": -0.3,
       "actual_margin": -5.81,
@@ -1044,6 +1622,7 @@
     },
     {
       "race_id": "MT-SENATE-2018",
+      "state": "MT",
       "year": 2018,
       "poll_margin": 5.2,
       "actual_margin": 3.55,
@@ -1052,6 +1631,7 @@
     },
     {
       "race_id": "OH-SENATE-2018",
+      "state": "OH",
       "year": 2018,
       "poll_margin": 11.3,
       "actual_margin": 6.84,
@@ -1060,6 +1640,7 @@
     },
     {
       "race_id": "TN-SENATE-2018",
+      "state": "TN",
       "year": 2018,
       "poll_margin": -4.7,
       "actual_margin": -10.79,
@@ -1068,6 +1649,7 @@
     },
     {
       "race_id": "TX-SENATE-2018",
+      "state": "TX",
       "year": 2018,
       "poll_margin": -4.6,
       "actual_margin": -2.56,
@@ -1076,6 +1658,7 @@
     },
     {
       "race_id": "AZ-SENATE-2018",
+      "state": "AZ",
       "year": 2018,
       "poll_margin": -0.9,
       "actual_margin": 2.35,
@@ -1084,6 +1667,7 @@
     },
     {
       "race_id": "CT-SENATE-2018",
+      "state": "CT",
       "year": 2018,
       "poll_margin": 19.3,
       "actual_margin": 17.45,
@@ -1092,6 +1676,7 @@
     },
     {
       "race_id": "FL-SENATE-2018",
+      "state": "FL",
       "year": 2018,
       "poll_margin": 1.1,
       "actual_margin": -0.12,
@@ -1100,6 +1685,7 @@
     },
     {
       "race_id": "IN-SENATE-2018",
+      "state": "IN",
       "year": 2018,
       "poll_margin": -0.3,
       "actual_margin": -5.89,
@@ -1108,6 +1694,7 @@
     },
     {
       "race_id": "MI-SENATE-2018",
+      "state": "MI",
       "year": 2018,
       "poll_margin": 8.5,
       "actual_margin": 6.5,
