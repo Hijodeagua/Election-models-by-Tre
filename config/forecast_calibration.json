@@ -1,0 +1,1118 @@
+{
+  "usable": true,
+  "source": "538 archive polls (FiveThirtyEight) + MEDSL official results",
+  "cycles": [
+    2018,
+    2020,
+    2022,
+    2024
+  ],
+  "n_races": 98,
+  "lookback_days": 21,
+  "bias": -2.497,
+  "national_sigma": 2.873,
+  "race_sigma": 5.139,
+  "total_sigma": 5.887,
+  "overall_sigma": 5.723,
+  "single_cycle_split": false,
+  "cycle_mean_error": {
+    "2018": 0.1,
+    "2020": -6.45,
+    "2022": -0.94,
+    "2024": -2.23
+  },
+  "pollster_bias": [
+    {
+      "pollster": "Swayable",
+      "n_polls": 20,
+      "mean_error": -6.74,
+      "std_error": 5.32
+    },
+    {
+      "pollster": "Redfield & Wilton Strategies",
+      "n_polls": 5,
+      "mean_error": -5.31,
+      "std_error": 3.5
+    },
+    {
+      "pollster": "PPP",
+      "n_polls": 13,
+      "mean_error": -4.94,
+      "std_error": 5.42
+    },
+    {
+      "pollster": "RMG Research",
+      "n_polls": 12,
+      "mean_error": -4.89,
+      "std_error": 2.94
+    },
+    {
+      "pollster": "Morning Consult",
+      "n_polls": 30,
+      "mean_error": -4.85,
+      "std_error": 4.11
+    },
+    {
+      "pollster": "CNN/SSRS",
+      "n_polls": 13,
+      "mean_error": -4.24,
+      "std_error": 3.33
+    },
+    {
+      "pollster": "Gravis Marketing (2020 and earlier)",
+      "n_polls": 16,
+      "mean_error": -4.19,
+      "std_error": 4.14
+    },
+    {
+      "pollster": "Marist",
+      "n_polls": 16,
+      "mean_error": -4.1,
+      "std_error": 4.14
+    },
+    {
+      "pollster": "ActiVote",
+      "n_polls": 23,
+      "mean_error": -4.08,
+      "std_error": 3.22
+    },
+    {
+      "pollster": "Ipsos",
+      "n_polls": 17,
+      "mean_error": -3.9,
+      "std_error": 2.78
+    },
+    {
+      "pollster": "Siena/NYT",
+      "n_polls": 23,
+      "mean_error": -3.75,
+      "std_error": 3.37
+    },
+    {
+      "pollster": "U. Massachusetts - Lowell",
+      "n_polls": 5,
+      "mean_error": -3.74,
+      "std_error": 1.8
+    },
+    {
+      "pollster": "Change Research",
+      "n_polls": 22,
+      "mean_error": -3.72,
+      "std_error": 5.45
+    },
+    {
+      "pollster": "YouGov",
+      "n_polls": 22,
+      "mean_error": -3.32,
+      "std_error": 4.13
+    },
+    {
+      "pollster": "Cygnal",
+      "n_polls": 30,
+      "mean_error": -3.31,
+      "std_error": 2.96
+    },
+    {
+      "pollster": "Civiqs",
+      "n_polls": 20,
+      "mean_error": -2.81,
+      "std_error": 4.24
+    },
+    {
+      "pollster": "Siena",
+      "n_polls": 5,
+      "mean_error": -2.68,
+      "std_error": 7.87
+    },
+    {
+      "pollster": "East Carolina University",
+      "n_polls": 6,
+      "mean_error": -2.25,
+      "std_error": 3.65
+    },
+    {
+      "pollster": "SurveyUSA",
+      "n_polls": 14,
+      "mean_error": -2.22,
+      "std_error": 4.4
+    },
+    {
+      "pollster": "St. Pete Polls",
+      "n_polls": 6,
+      "mean_error": -2.08,
+      "std_error": 4.2
+    },
+    {
+      "pollster": "Beacon/Shaw",
+      "n_polls": 11,
+      "mean_error": -2.02,
+      "std_error": 3.96
+    },
+    {
+      "pollster": "Data for Progress",
+      "n_polls": 38,
+      "mean_error": -1.92,
+      "std_error": 5.42
+    },
+    {
+      "pollster": "Targoz Market Research",
+      "n_polls": 9,
+      "mean_error": -1.9,
+      "std_error": 6.64
+    },
+    {
+      "pollster": "Research Co.",
+      "n_polls": 32,
+      "mean_error": -1.76,
+      "std_error": 6.75
+    },
+    {
+      "pollster": "Mitchell",
+      "n_polls": 10,
+      "mean_error": -1.64,
+      "std_error": 3.43
+    },
+    {
+      "pollster": "Quinnipiac",
+      "n_polls": 12,
+      "mean_error": -1.53,
+      "std_error": 4.81
+    },
+    {
+      "pollster": "Emerson",
+      "n_polls": 56,
+      "mean_error": -0.6,
+      "std_error": 5.18
+    },
+    {
+      "pollster": "Data Orbital",
+      "n_polls": 5,
+      "mean_error": -0.42,
+      "std_error": 4.15
+    },
+    {
+      "pollster": "HarrisX",
+      "n_polls": 55,
+      "mean_error": -0.28,
+      "std_error": 5.55
+    },
+    {
+      "pollster": "AtlasIntel",
+      "n_polls": 27,
+      "mean_error": -0.26,
+      "std_error": 2.87
+    },
+    {
+      "pollster": "Landmark Communications",
+      "n_polls": 5,
+      "mean_error": -0.19,
+      "std_error": 3.19
+    },
+    {
+      "pollster": "Rasmussen",
+      "n_polls": 6,
+      "mean_error": 0.01,
+      "std_error": 3.92
+    },
+    {
+      "pollster": "Suffolk",
+      "n_polls": 6,
+      "mean_error": 0.26,
+      "std_error": 2.1
+    },
+    {
+      "pollster": "Remington",
+      "n_polls": 10,
+      "mean_error": 0.5,
+      "std_error": 4.7
+    },
+    {
+      "pollster": "OnMessage Inc.",
+      "n_polls": 8,
+      "mean_error": 1.19,
+      "std_error": 2.03
+    },
+    {
+      "pollster": "Patriot Polling",
+      "n_polls": 9,
+      "mean_error": 1.44,
+      "std_error": 4.08
+    },
+    {
+      "pollster": "InsiderAdvantage",
+      "n_polls": 27,
+      "mean_error": 1.56,
+      "std_error": 5.25
+    },
+    {
+      "pollster": "Trafalgar Group",
+      "n_polls": 43,
+      "mean_error": 1.91,
+      "std_error": 4.33
+    },
+    {
+      "pollster": "Echelon Insights",
+      "n_polls": 5,
+      "mean_error": 2.17,
+      "std_error": 3.67
+    },
+    {
+      "pollster": "OH Predictive Insights / MBQF",
+      "n_polls": 5,
+      "mean_error": 2.34,
+      "std_error": 4.69
+    },
+    {
+      "pollster": "Susquehanna",
+      "n_polls": 6,
+      "mean_error": 3.58,
+      "std_error": 2.68
+    },
+    {
+      "pollster": "U. New Hampshire",
+      "n_polls": 5,
+      "mean_error": 3.76,
+      "std_error": 4.31
+    },
+    {
+      "pollster": "Wick",
+      "n_polls": 5,
+      "mean_error": 4.76,
+      "std_error": 3.02
+    },
+    {
+      "pollster": "co/efficient",
+      "n_polls": 8,
+      "mean_error": 5.28,
+      "std_error": 4.28
+    },
+    {
+      "pollster": "Moore Information",
+      "n_polls": 5,
+      "mean_error": 7.0,
+      "std_error": 8.33
+    }
+  ],
+  "win_accuracy": 0.898,
+  "brier_score": 0.0602,
+  "reliability": [
+    {
+      "bin": "0-20%",
+      "n": 40,
+      "predicted": 0.046,
+      "actual": 0.0
+    },
+    {
+      "bin": "20-40%",
+      "n": 11,
+      "predicted": 0.315,
+      "actual": 0.455
+    },
+    {
+      "bin": "40-60%",
+      "n": 7,
+      "predicted": 0.474,
+      "actual": 0.714
+    },
+    {
+      "bin": "60-80%",
+      "n": 6,
+      "predicted": 0.664,
+      "actual": 1.0
+    },
+    {
+      "bin": "80-101%",
+      "n": 34,
+      "predicted": 0.956,
+      "actual": 1.0
+    }
+  ],
+  "default_national_sigma": 3.0,
+  "default_race_sigma": 4.5,
+  "rows": [
+    {
+      "race_id": "VA-SENATE-2024",
+      "year": 2024,
+      "poll_margin": 9.3,
+      "actual_margin": 8.93,
+      "error": -0.37,
+      "dem_won": true
+    },
+    {
+      "race_id": "WY-SENATE-2024",
+      "year": 2024,
+      "poll_margin": -47.5,
+      "actual_margin": -49.68,
+      "error": -2.18,
+      "dem_won": false
+    },
+    {
+      "race_id": "MI-SENATE-2024",
+      "year": 2024,
+      "poll_margin": 3.3,
+      "actual_margin": 0.34,
+      "error": -2.96,
+      "dem_won": true
+    },
+    {
+      "race_id": "TX-SENATE-2024",
+      "year": 2024,
+      "poll_margin": -3.8,
+      "actual_margin": -8.49,
+      "error": -4.69,
+      "dem_won": false
+    },
+    {
+      "race_id": "OH-SENATE-2024",
+      "year": 2024,
+      "poll_margin": -1.7,
+      "actual_margin": -3.62,
+      "error": -1.92,
+      "dem_won": false
+    },
+    {
+      "race_id": "NM-SENATE-2024",
+      "year": 2024,
+      "poll_margin": 4.9,
+      "actual_margin": 10.12,
+      "error": 5.22,
+      "dem_won": true
+    },
+    {
+      "race_id": "MA-SENATE-2024",
+      "year": 2024,
+      "poll_margin": 22.4,
+      "actual_margin": 19.25,
+      "error": -3.15,
+      "dem_won": true
+    },
+    {
+      "race_id": "MN-SENATE-2024",
+      "year": 2024,
+      "poll_margin": 13.5,
+      "actual_margin": 15.7,
+      "error": 2.2,
+      "dem_won": true
+    },
+    {
+      "race_id": "MT-SENATE-2024",
+      "year": 2024,
+      "poll_margin": -6.7,
+      "actual_margin": -7.14,
+      "error": -0.44,
+      "dem_won": false
+    },
+    {
+      "race_id": "NE-SENATE-2024",
+      "year": 2024,
+      "poll_margin": -4.4,
+      "actual_margin": -6.67,
+      "error": -2.27,
+      "dem_won": false
+    },
+    {
+      "race_id": "NV-SENATE-2024",
+      "year": 2024,
+      "poll_margin": 5.1,
+      "actual_margin": 1.65,
+      "error": -3.45,
+      "dem_won": true
+    },
+    {
+      "race_id": "MO-SENATE-2024",
+      "year": 2024,
+      "poll_margin": -9.8,
+      "actual_margin": -13.73,
+      "error": -3.93,
+      "dem_won": false
+    },
+    {
+      "race_id": "RI-SENATE-2024",
+      "year": 2024,
+      "poll_margin": 14.0,
+      "actual_margin": 20.05,
+      "error": 6.05,
+      "dem_won": true
+    },
+    {
+      "race_id": "TN-SENATE-2024",
+      "year": 2024,
+      "poll_margin": -22.0,
+      "actual_margin": -29.64,
+      "error": -7.64,
+      "dem_won": false
+    },
+    {
+      "race_id": "UT-SENATE-2024",
+      "year": 2024,
+      "poll_margin": -32.1,
+      "actual_margin": -30.57,
+      "error": 1.53,
+      "dem_won": false
+    },
+    {
+      "race_id": "WA-SENATE-2024",
+      "year": 2024,
+      "poll_margin": 19.0,
+      "actual_margin": 18.45,
+      "error": -0.55,
+      "dem_won": true
+    },
+    {
+      "race_id": "WI-SENATE-2024",
+      "year": 2024,
+      "poll_margin": 1.9,
+      "actual_margin": 0.85,
+      "error": -1.05,
+      "dem_won": true
+    },
+    {
+      "race_id": "AZ-SENATE-2024",
+      "year": 2024,
+      "poll_margin": 4.0,
+      "actual_margin": 2.41,
+      "error": -1.59,
+      "dem_won": true
+    },
+    {
+      "race_id": "ME-SENATE-2024",
+      "year": 2024,
+      "poll_margin": -23.9,
+      "actual_margin": -23.2,
+      "error": 0.7,
+      "dem_won": false
+    },
+    {
+      "race_id": "CA-SENATE-2024",
+      "year": 2024,
+      "poll_margin": 22.3,
+      "actual_margin": 17.74,
+      "error": -4.56,
+      "dem_won": true
+    },
+    {
+      "race_id": "IN-SENATE-2024",
+      "year": 2024,
+      "poll_margin": -14.8,
+      "actual_margin": -19.87,
+      "error": -5.07,
+      "dem_won": false
+    },
+    {
+      "race_id": "MD-SENATE-2024",
+      "year": 2024,
+      "poll_margin": 12.6,
+      "actual_margin": 11.8,
+      "error": -0.8,
+      "dem_won": true
+    },
+    {
+      "race_id": "NJ-SENATE-2024",
+      "year": 2024,
+      "poll_margin": 19.3,
+      "actual_margin": 9.62,
+      "error": -9.68,
+      "dem_won": true
+    },
+    {
+      "race_id": "NY-SENATE-2024",
+      "year": 2024,
+      "poll_margin": 24.0,
+      "actual_margin": 16.73,
+      "error": -7.27,
+      "dem_won": true
+    },
+    {
+      "race_id": "FL-SENATE-2024",
+      "year": 2024,
+      "poll_margin": -4.8,
+      "actual_margin": -12.78,
+      "error": -7.98,
+      "dem_won": false
+    },
+    {
+      "race_id": "KS-SENATE-2022",
+      "year": 2022,
+      "poll_margin": -21.6,
+      "actual_margin": -22.96,
+      "error": -1.36,
+      "dem_won": false
+    },
+    {
+      "race_id": "AZ-SENATE-2022",
+      "year": 2022,
+      "poll_margin": 1.6,
+      "actual_margin": 4.88,
+      "error": 3.28,
+      "dem_won": true
+    },
+    {
+      "race_id": "CO-SENATE-2022",
+      "year": 2022,
+      "poll_margin": 9.0,
+      "actual_margin": 14.61,
+      "error": 5.61,
+      "dem_won": true
+    },
+    {
+      "race_id": "FL-SENATE-2022",
+      "year": 2022,
+      "poll_margin": -8.2,
+      "actual_margin": -16.41,
+      "error": -8.21,
+      "dem_won": false
+    },
+    {
+      "race_id": "NC-SENATE-2022",
+      "year": 2022,
+      "poll_margin": -4.5,
+      "actual_margin": -3.23,
+      "error": 1.27,
+      "dem_won": false
+    },
+    {
+      "race_id": "NV-SENATE-2022",
+      "year": 2022,
+      "poll_margin": -1.6,
+      "actual_margin": 0.77,
+      "error": 2.37,
+      "dem_won": true
+    },
+    {
+      "race_id": "IL-SENATE-2022",
+      "year": 2022,
+      "poll_margin": 14.9,
+      "actual_margin": 15.32,
+      "error": 0.42,
+      "dem_won": true
+    },
+    {
+      "race_id": "OK-SENATE-2022",
+      "year": 2022,
+      "poll_margin": -20.0,
+      "actual_margin": -32.2,
+      "error": -12.2,
+      "dem_won": false
+    },
+    {
+      "race_id": "WI-SENATE-2022",
+      "year": 2022,
+      "poll_margin": -3.6,
+      "actual_margin": -1.0,
+      "error": 2.6,
+      "dem_won": false
+    },
+    {
+      "race_id": "NH-SENATE-2022",
+      "year": 2022,
+      "poll_margin": 2.3,
+      "actual_margin": 9.07,
+      "error": 6.77,
+      "dem_won": true
+    },
+    {
+      "race_id": "SD-SENATE-2022",
+      "year": 2022,
+      "poll_margin": -31.0,
+      "actual_margin": -43.48,
+      "error": -12.48,
+      "dem_won": false
+    },
+    {
+      "race_id": "WA-SENATE-2022",
+      "year": 2022,
+      "poll_margin": 4.7,
+      "actual_margin": 14.52,
+      "error": 9.82,
+      "dem_won": true
+    },
+    {
+      "race_id": "VT-SENATE-2022",
+      "year": 2022,
+      "poll_margin": 31.0,
+      "actual_margin": 39.77,
+      "error": 8.77,
+      "dem_won": true
+    },
+    {
+      "race_id": "OH-SENATE-2022",
+      "year": 2022,
+      "poll_margin": -5.2,
+      "actual_margin": -6.11,
+      "error": -0.91,
+      "dem_won": false
+    },
+    {
+      "race_id": "OR-SENATE-2022",
+      "year": 2022,
+      "poll_margin": 14.8,
+      "actual_margin": 14.91,
+      "error": 0.11,
+      "dem_won": true
+    },
+    {
+      "race_id": "NY-SENATE-2022",
+      "year": 2022,
+      "poll_margin": 16.6,
+      "actual_margin": 13.72,
+      "error": -2.88,
+      "dem_won": true
+    },
+    {
+      "race_id": "IA-SENATE-2022",
+      "year": 2022,
+      "poll_margin": -9.8,
+      "actual_margin": -12.04,
+      "error": -2.24,
+      "dem_won": false
+    },
+    {
+      "race_id": "CA-SENATE-2022",
+      "year": 2022,
+      "poll_margin": 20.3,
+      "actual_margin": 22.12,
+      "error": 1.82,
+      "dem_won": true
+    },
+    {
+      "race_id": "PA-SENATE-2022",
+      "year": 2022,
+      "poll_margin": 0.5,
+      "actual_margin": 4.92,
+      "error": 4.42,
+      "dem_won": true
+    },
+    {
+      "race_id": "CT-SENATE-2022",
+      "year": 2022,
+      "poll_margin": 15.9,
+      "actual_margin": 13.11,
+      "error": -2.79,
+      "dem_won": true
+    },
+    {
+      "race_id": "IN-SENATE-2022",
+      "year": 2022,
+      "poll_margin": -11.0,
+      "actual_margin": -20.75,
+      "error": -9.75,
+      "dem_won": false
+    },
+    {
+      "race_id": "MO-SENATE-2022",
+      "year": 2022,
+      "poll_margin": -11.5,
+      "actual_margin": -13.25,
+      "error": -1.75,
+      "dem_won": false
+    },
+    {
+      "race_id": "GA-SENATE-2022",
+      "year": 2022,
+      "poll_margin": 0.7,
+      "actual_margin": 0.95,
+      "error": 0.25,
+      "dem_won": true
+    },
+    {
+      "race_id": "AR-SENATE-2022",
+      "year": 2022,
+      "poll_margin": -24.4,
+      "actual_margin": -34.64,
+      "error": -10.24,
+      "dem_won": false
+    },
+    {
+      "race_id": "AL-SENATE-2022",
+      "year": 2022,
+      "poll_margin": -29.6,
+      "actual_margin": -35.74,
+      "error": -6.14,
+      "dem_won": false
+    },
+    {
+      "race_id": "AZ-SENATE-2020",
+      "year": 2020,
+      "poll_margin": 6.1,
+      "actual_margin": 2.35,
+      "error": -3.75,
+      "dem_won": true
+    },
+    {
+      "race_id": "IA-SENATE-2020",
+      "year": 2020,
+      "poll_margin": 0.8,
+      "actual_margin": -6.48,
+      "error": -7.28,
+      "dem_won": false
+    },
+    {
+      "race_id": "WY-SENATE-2020",
+      "year": 2020,
+      "poll_margin": -30.0,
+      "actual_margin": -45.0,
+      "error": -15.0,
+      "dem_won": false
+    },
+    {
+      "race_id": "NE-SENATE-2020",
+      "year": 2020,
+      "poll_margin": -29.9,
+      "actual_margin": -38.31,
+      "error": -8.41,
+      "dem_won": false
+    },
+    {
+      "race_id": "MN-SENATE-2020",
+      "year": 2020,
+      "poll_margin": 8.1,
+      "actual_margin": 5.24,
+      "error": -2.86,
+      "dem_won": true
+    },
+    {
+      "race_id": "MA-SENATE-2020",
+      "year": 2020,
+      "poll_margin": 33.9,
+      "actual_margin": 32.26,
+      "error": -1.64,
+      "dem_won": true
+    },
+    {
+      "race_id": "NJ-SENATE-2020",
+      "year": 2020,
+      "poll_margin": 24.6,
+      "actual_margin": 16.31,
+      "error": -8.29,
+      "dem_won": true
+    },
+    {
+      "race_id": "VA-SENATE-2020",
+      "year": 2020,
+      "poll_margin": 17.4,
+      "actual_margin": 12.08,
+      "error": -5.32,
+      "dem_won": true
+    },
+    {
+      "race_id": "AK-SENATE-2020",
+      "year": 2020,
+      "poll_margin": -3.4,
+      "actual_margin": -12.71,
+      "error": -9.31,
+      "dem_won": false
+    },
+    {
+      "race_id": "AL-SENATE-2020",
+      "year": 2020,
+      "poll_margin": -11.6,
+      "actual_margin": -20.36,
+      "error": -8.76,
+      "dem_won": false
+    },
+    {
+      "race_id": "SC-SENATE-2020",
+      "year": 2020,
+      "poll_margin": -3.0,
+      "actual_margin": -10.27,
+      "error": -7.27,
+      "dem_won": false
+    },
+    {
+      "race_id": "NH-SENATE-2020",
+      "year": 2020,
+      "poll_margin": 15.1,
+      "actual_margin": 15.65,
+      "error": 0.55,
+      "dem_won": true
+    },
+    {
+      "race_id": "CO-SENATE-2020",
+      "year": 2020,
+      "poll_margin": 10.0,
+      "actual_margin": 9.32,
+      "error": -0.68,
+      "dem_won": true
+    },
+    {
+      "race_id": "GA-SENATE-2020",
+      "year": 2020,
+      "poll_margin": 0.7,
+      "actual_margin": -1.78,
+      "error": -2.48,
+      "dem_won": false
+    },
+    {
+      "race_id": "IL-SENATE-2020",
+      "year": 2020,
+      "poll_margin": 23.8,
+      "actual_margin": 16.06,
+      "error": -7.74,
+      "dem_won": true
+    },
+    {
+      "race_id": "KS-SENATE-2020",
+      "year": 2020,
+      "poll_margin": -4.9,
+      "actual_margin": -11.43,
+      "error": -6.53,
+      "dem_won": false
+    },
+    {
+      "race_id": "KY-SENATE-2020",
+      "year": 2020,
+      "poll_margin": -9.0,
+      "actual_margin": -19.53,
+      "error": -10.53,
+      "dem_won": false
+    },
+    {
+      "race_id": "MI-SENATE-2020",
+      "year": 2020,
+      "poll_margin": 7.7,
+      "actual_margin": 1.68,
+      "error": -6.02,
+      "dem_won": true
+    },
+    {
+      "race_id": "MS-SENATE-2020",
+      "year": 2020,
+      "poll_margin": -4.3,
+      "actual_margin": -9.98,
+      "error": -5.68,
+      "dem_won": false
+    },
+    {
+      "race_id": "MT-SENATE-2020",
+      "year": 2020,
+      "poll_margin": -2.0,
+      "actual_margin": -10.02,
+      "error": -8.02,
+      "dem_won": false
+    },
+    {
+      "race_id": "NM-SENATE-2020",
+      "year": 2020,
+      "poll_margin": 8.5,
+      "actual_margin": 6.11,
+      "error": -2.39,
+      "dem_won": true
+    },
+    {
+      "race_id": "NC-SENATE-2020",
+      "year": 2020,
+      "poll_margin": 3.4,
+      "actual_margin": -1.75,
+      "error": -5.15,
+      "dem_won": false
+    },
+    {
+      "race_id": "OK-SENATE-2020",
+      "year": 2020,
+      "poll_margin": -19.5,
+      "actual_margin": -30.16,
+      "error": -10.66,
+      "dem_won": false
+    },
+    {
+      "race_id": "SD-SENATE-2020",
+      "year": 2020,
+      "poll_margin": -17.0,
+      "actual_margin": -31.48,
+      "error": -14.48,
+      "dem_won": false
+    },
+    {
+      "race_id": "TN-SENATE-2020",
+      "year": 2020,
+      "poll_margin": -21.2,
+      "actual_margin": -27.04,
+      "error": -5.84,
+      "dem_won": false
+    },
+    {
+      "race_id": "TX-SENATE-2020",
+      "year": 2020,
+      "poll_margin": -5.6,
+      "actual_margin": -9.64,
+      "error": -4.04,
+      "dem_won": false
+    },
+    {
+      "race_id": "NV-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 1.2,
+      "actual_margin": 5.03,
+      "error": 3.83,
+      "dem_won": true
+    },
+    {
+      "race_id": "MN-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 20.5,
+      "actual_margin": 24.1,
+      "error": 3.6,
+      "dem_won": true
+    },
+    {
+      "race_id": "ND-SENATE-2018",
+      "year": 2018,
+      "poll_margin": -9.7,
+      "actual_margin": -10.84,
+      "error": -1.14,
+      "dem_won": false
+    },
+    {
+      "race_id": "RI-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 19.0,
+      "actual_margin": 23.11,
+      "error": 4.11,
+      "dem_won": true
+    },
+    {
+      "race_id": "WY-SENATE-2018",
+      "year": 2018,
+      "poll_margin": -29.0,
+      "actual_margin": -36.52,
+      "error": -7.52,
+      "dem_won": false
+    },
+    {
+      "race_id": "WI-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 10.5,
+      "actual_margin": 10.83,
+      "error": 0.33,
+      "dem_won": true
+    },
+    {
+      "race_id": "NM-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 0.0,
+      "actual_margin": 23.56,
+      "error": 23.56,
+      "dem_won": true
+    },
+    {
+      "race_id": "NJ-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 9.5,
+      "actual_margin": 11.18,
+      "error": 1.68,
+      "dem_won": true
+    },
+    {
+      "race_id": "MA-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 22.8,
+      "actual_margin": 23.77,
+      "error": 0.97,
+      "dem_won": true
+    },
+    {
+      "race_id": "NY-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 25.0,
+      "actual_margin": 32.4,
+      "error": 7.4,
+      "dem_won": true
+    },
+    {
+      "race_id": "NE-SENATE-2018",
+      "year": 2018,
+      "poll_margin": -15.0,
+      "actual_margin": -19.07,
+      "error": -4.07,
+      "dem_won": false
+    },
+    {
+      "race_id": "MS-SENATE-2018",
+      "year": 2018,
+      "poll_margin": -11.5,
+      "actual_margin": -19.02,
+      "error": -7.52,
+      "dem_won": false
+    },
+    {
+      "race_id": "MO-SENATE-2018",
+      "year": 2018,
+      "poll_margin": -0.3,
+      "actual_margin": -5.81,
+      "error": -5.51,
+      "dem_won": false
+    },
+    {
+      "race_id": "MT-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 5.2,
+      "actual_margin": 3.55,
+      "error": -1.65,
+      "dem_won": true
+    },
+    {
+      "race_id": "OH-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 11.3,
+      "actual_margin": 6.84,
+      "error": -4.46,
+      "dem_won": true
+    },
+    {
+      "race_id": "TN-SENATE-2018",
+      "year": 2018,
+      "poll_margin": -4.7,
+      "actual_margin": -10.79,
+      "error": -6.09,
+      "dem_won": false
+    },
+    {
+      "race_id": "TX-SENATE-2018",
+      "year": 2018,
+      "poll_margin": -4.6,
+      "actual_margin": -2.56,
+      "error": 2.04,
+      "dem_won": false
+    },
+    {
+      "race_id": "AZ-SENATE-2018",
+      "year": 2018,
+      "poll_margin": -0.9,
+      "actual_margin": 2.35,
+      "error": 3.25,
+      "dem_won": true
+    },
+    {
+      "race_id": "CT-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 19.3,
+      "actual_margin": 17.45,
+      "error": -1.85,
+      "dem_won": true
+    },
+    {
+      "race_id": "FL-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 1.1,
+      "actual_margin": -0.12,
+      "error": -1.22,
+      "dem_won": false
+    },
+    {
+      "race_id": "IN-SENATE-2018",
+      "year": 2018,
+      "poll_margin": -0.3,
+      "actual_margin": -5.89,
+      "error": -5.59,
+      "dem_won": false
+    },
+    {
+      "race_id": "MI-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 8.5,
+      "actual_margin": 6.5,
+      "error": -2.0,
+      "dem_won": true
+    }
+  ]
+}

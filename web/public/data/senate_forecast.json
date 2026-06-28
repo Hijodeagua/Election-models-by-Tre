@@ -1,20 +1,20 @@
 {
   "as_of": "2026-06-28",
   "num_simulations": 50000,
-  "dem_control_prob": 0.5508,
+  "dem_control_prob": 0.551,
   "mean_dem_seats": 50.5,
   "median_dem_seats": 51.0,
   "seat_distribution": {
     "44": 70,
     "45": 340,
     "46": 1016,
-    "47": 2187,
-    "48": 3926,
-    "49": 6277,
-    "50": 8646,
-    "51": 10264,
-    "52": 10084,
-    "53": 7190
+    "47": 2183,
+    "48": 3923,
+    "49": 6269,
+    "50": 8647,
+    "51": 10270,
+    "52": 10076,
+    "53": 7206
   },
   "races": [
     {
@@ -64,9 +64,9 @@
       "margin": 4.2,
       "num_polls": 3,
       "dem_win_prob_polls": 0.7813,
-      "dem_win_prob_blended": 0.5891,
+      "dem_win_prob_blended": 0.5888,
       "market_dem_prob": {
-        "polymarket": 0.0125
+        "polymarket": 0.0115
       }
     },
     {
@@ -116,9 +116,9 @@
       "margin": -0.1,
       "num_polls": 6,
       "dem_win_prob_polls": 0.4926,
-      "dem_win_prob_blended": 0.4795,
+      "dem_win_prob_blended": 0.4807,
       "market_dem_prob": {
-        "polymarket": 0.44
+        "polymarket": 0.445
       }
     },
     {
@@ -139,6 +139,7 @@
   "market_weight": 0.25,
   "national_sigma": 3.0,
   "race_sigma": 4.5,
+  "bias": 0.0,
   "market_control_dem_prob": {
     "polymarket": 0.425
   },

@@ -1,0 +1,66 @@
+name: Calibrate forecast error model
+
+# Backtests the Senate win-probability model against historical results
+# (538 archive polls + MEDSL official results) and commits the fitted
+# error parameters to config/forecast_calibration.json, which the daily
+# refresh then bakes into the published forecast.
+#
+# Runs on demand and monthly — historical calibration changes slowly, so it
+# does not need to run every day like the data refresh.
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 06:13 UTC on the 1st of each month.
+    - cron: "13 6 1 * *"
+  # Re-run when the calibration code itself changes, so the committed result
+  # always matches the current method.
+  push:
+    branches: ["claude/senate-forecast-updates-lfyz56"]
+    paths:
+      - "scripts/calibrate_forecast.py"
+      - "src/training/**"
+      - "src/data/fte_archive.py"
+      - "src/data/mit_results.py"
+      - ".github/workflows/calibrate.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: calibrate-forecast
+  cancel-in-progress: false
+
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy scipy pandas python-dotenv httpx pydantic pydantic-settings
+
+      - name: Run calibration backtest
+        run: python scripts/calibrate_forecast.py --min-year 2016 --lookback-days 21
+
+      - name: Commit calibration result
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add config/forecast_calibration.json || true
+          if [ -n "$(git status --porcelain)" ]; then
+            timestamp=$(date -u +'%Y-%m-%d %H:%M UTC')
+            git commit -m "Recalibrate forecast error model: $timestamp"
+            git push
+          else
+            echo "No calibration change to commit."
+          fi

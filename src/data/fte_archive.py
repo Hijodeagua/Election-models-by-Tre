@@ -23,18 +23,74 @@ from config.settings import settings
 
 logger = logging.getLogger(__name__)
 
-# Known stable raw GitHub URLs for 538 poll archives
-FTE_RAW_BASE = "https://raw.githubusercontent.com/fivethirtyeight/data/master"
-
-FTE_POLL_URLS: dict[str, str] = {
-    "senate":    f"{FTE_RAW_BASE}/polls/senate_polls.csv",
-    "president": f"{FTE_RAW_BASE}/polls/president_polls.csv",
-    "house":     f"{FTE_RAW_BASE}/polls/house_polls.csv",
-    "governor":  f"{FTE_RAW_BASE}/polls/governor_polls.csv",
+# 538 splits each office into a "current" file (since the most recent election)
+# and a "_historical" file (everything before it). For training/backtesting we
+# want the historical archive, which reaches back through 2016.
+FTE_POLL_FILES: dict[str, str] = {
+    "senate":    "senate_polls_historical.csv",
+    "president": "president_polls_historical.csv",
+    "house":     "house_polls.csv",
+    "governor":  "governor_polls.csv",
 }
 
-# GitHub API to discover what's actually in the polls directory
+# Canonical home is the projects.fivethirtyeight.com "polls-page" data files
+# (documented in fivethirtyeight/data/polls/README.md). GitHub branches are kept
+# as long-shot fallbacks. NOTE the path is ``polls-page/data`` — the older
+# ``polls/data`` path now 302-redirects to abcnews.com (an HTML page).
+FTE_URL_BASES: list[str] = [
+    "https://projects.fivethirtyeight.com/polls-page/data",
+    "https://raw.githubusercontent.com/fivethirtyeight/data/master/polls",
+    "https://raw.githubusercontent.com/fivethirtyeight/data/main/polls",
+]
+
+# Back-compat: primary URL per office (first base).
+FTE_POLL_URLS: dict[str, str] = {
+    office: f"{FTE_URL_BASES[0]}/{fname}" for office, fname in FTE_POLL_FILES.items()
+}
+
+# GitHub API to discover what's actually in the polls directory (last resort).
 FTE_GITHUB_API = "https://api.github.com/repos/fivethirtyeight/data/contents/polls"
+
+
+# 538/ABC fully decommissioned the projects.fivethirtyeight.com data hosting in
+# 2026 (every /polls/* path 302-redirects to abcnews.com) and never kept the
+# CSVs in the GitHub repo, so the only reliable source for the archived files is
+# the Internet Archive. The ``id_`` modifier returns the original CSV bytes with
+# no Wayback banner; a partial timestamp resolves to the nearest snapshot.
+# Try a post-2024-election snapshot first (so the historical file includes the
+# 2024 cycle), then a mid-2024 one as a fallback. ``id_`` returns raw CSV bytes;
+# a partial timestamp resolves to the nearest snapshot.
+WAYBACK_STAMPS = ["20250115id_", "20240601id_"]
+
+
+def _candidate_urls(office: str) -> list[str]:
+    """Ordered list of mirror URLs to try for an office's poll CSV."""
+    fname = FTE_POLL_FILES.get(office)
+    if not fname:
+        return []
+    direct = [f"{base}/{fname}" for base in FTE_URL_BASES]
+    # Internet Archive snapshots of the now-dead projects.fivethirtyeight.com file.
+    src = f"https://projects.fivethirtyeight.com/polls-page/data/{fname}"
+    wayback = [f"https://web.archive.org/web/{stamp}/{src}" for stamp in WAYBACK_STAMPS]
+    return direct + wayback
+
+
+def _looks_like_csv(text: str) -> bool:
+    """True if the response body is a poll CSV, not an HTML redirect page.
+
+    A decommissioned host (e.g. the old polls/data path) 302-redirects to an
+    HTML page that still contains commas, so a naive comma check is not enough.
+    """
+    stripped = text.lstrip()
+    if not stripped or stripped[0] == "<":
+        return False
+    head = stripped[:300].lower()
+    if "<!doctype" in head or "<html" in head:
+        return False
+    first_line = stripped.splitlines()[0].lower()
+    if first_line.count(",") < 3:
+        return False
+    return any(tok in first_line for tok in ("poll", "cycle", "candidate", "pct"))
 
 
 @dataclass
@@ -115,28 +171,42 @@ class FTEArchiveClient:
         cache_path = self.cache_dir / f"{office}_polls.csv"
 
         if cache_path.exists():
-            logger.info(f"Loading cached 538 {office} polls")
-            return self._parse_csv(cache_path.read_text(), office)
+            cached = cache_path.read_text()
+            if _looks_like_csv(cached):
+                logger.info(f"Loading cached 538 {office} polls")
+                return self._parse_csv(cached, office)
+            # A prior run may have cached an HTML redirect page — discard it.
+            logger.warning(f"Cached {cache_path.name} is not valid CSV — refetching")
 
-        url = FTE_POLL_URLS.get(office)
-        if not url:
+        candidates = _candidate_urls(office)
+        if not candidates:
             raise ValueError(f"Unknown office: {office}")
 
-        logger.info(f"Downloading 538 {office} polls from GitHub...")
-        resp = self._client.get(url)
+        # Append the GitHub-API-discovered URL as a final fallback.
+        discovered = self._discover_url(office)
+        if discovered and discovered not in candidates:
+            candidates.append(discovered)
 
-        if resp.status_code == 404:
-            # Try discovering alternate filenames via API
-            url = self._discover_url(office)
-            if url:
-                resp = self._client.get(url)
-            else:
-                raise FileNotFoundError(
-                    f"538 {office} polls not found at {url}. "
-                    "Check https://github.com/fivethirtyeight/data/tree/master/polls"
-                )
+        resp = None
+        for url in candidates:
+            logger.info(f"Downloading 538 {office} polls: {url}")
+            try:
+                r = self._client.get(url)
+            except Exception as exc:
+                logger.warning(f"  fetch failed ({exc})")
+                continue
+            if r.status_code == 200 and _looks_like_csv(r.text):
+                resp = r
+                break
+            reason = "not CSV (HTML?)" if r.status_code == 200 else f"HTTP {r.status_code}"
+            logger.warning(f"  {reason} — trying next mirror")
 
-        resp.raise_for_status()
+        if resp is None:
+            raise FileNotFoundError(
+                f"538 {office} polls not reachable at any known mirror "
+                f"({', '.join(candidates)}). The 538 data repo may have moved."
+            )
+
         cache_path.write_text(resp.text)
         logger.info(f"Cached {len(resp.text.splitlines())} rows for {office}")
         return self._parse_csv(resp.text, office)

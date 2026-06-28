@@ -24,21 +24,27 @@ from config.settings import settings
 
 logger = logging.getLogger(__name__)
 
-# MEDSL data via Harvard Dataverse and GitHub mirrors
-# Format: tab-separated files (.tab) or CSV
+# Historical results. The parser auto-detects the source format from the CSV
+# header (538 election-results vs. MEDSL constituency-returns).
+#
+# Primary senate source is 538's election-results repo: one clean state-level
+# file covering 1998-present, so it spans every cycle we calibrate (2016-2022).
+# MEDSL constituency-returns (1976-2018) is a fallback. The Internet Archive is
+# the last resort in case the GitHub repo is removed.
 MEDSL_URLS: dict[str, list[str]] = {
     "senate": [
-        # GitHub mirror (most reliable)
-        "https://raw.githubusercontent.com/MEDSL/2022-elections-official/main/dataverse_files/1976-2022-senate.tab",
-        # Harvard Dataverse direct download fallback
-        "https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/IG0UN2/SDOUVT",
+        "https://raw.githubusercontent.com/fivethirtyeight/election-results/main/election_results_senate.csv",
+        "https://raw.githubusercontent.com/fivethirtyeight/election-results/master/election_results_senate.csv",
+        "https://web.archive.org/web/20240601id_/https://raw.githubusercontent.com/fivethirtyeight/election-results/main/election_results_senate.csv",
+        "https://raw.githubusercontent.com/MEDSL/constituency-returns/master/1976-2018-senate.csv",
     ],
     "house": [
-        "https://raw.githubusercontent.com/MEDSL/2022-elections-official/main/dataverse_files/1976-2022-house.tab",
-        "https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/IG0UN2/ZSFUI2",
+        "https://raw.githubusercontent.com/fivethirtyeight/election-results/main/election_results_house.csv",
+        "https://raw.githubusercontent.com/MEDSL/constituency-returns/master/1976-2018-house.csv",
     ],
     "governor": [
-        "https://raw.githubusercontent.com/MEDSL/2022-elections-official/main/dataverse_files/1976-2022-governor.tab",
+        "https://raw.githubusercontent.com/fivethirtyeight/election-results/main/election_results_gubernatorial.csv",
+        "https://raw.githubusercontent.com/MEDSL/constituency-returns/master/1976-2018-governor.csv",
     ],
 }
 
@@ -142,18 +148,26 @@ class MITResultsClient:
     # ── Internals ─────────────────────────────────────────────────────
 
     def _fetch_results(self, office: str, min_year: int) -> list[RaceResult]:
-        cache_path = self.cache_dir / f"{office}_results.tab"
+        # ".csv" (not the old ".tab") so a stale cache from a previous source
+        # is ignored rather than silently reused.
+        cache_path = self.cache_dir / f"{office}_results.csv"
 
-        if cache_path.exists():
-            logger.info(f"Loading cached MEDSL {office} results")
+        if cache_path.exists() and cache_path.read_text(encoding="utf-8").strip():
+            logger.info(f"Loading cached {office} results")
             text = cache_path.read_text(encoding="utf-8")
         else:
             text = self._download(office)
             cache_path.write_text(text, encoding="utf-8")
 
-        candidates = self._parse_tab(text, office)
-        candidates = [c for c in candidates if c.year >= min_year]
-        return self._aggregate_to_races(candidates)
+        header = text.splitlines()[0].lower() if text.strip() else ""
+        if "ballot_party" in header:
+            # 538 election-results format (one row per candidate, no totalvotes).
+            races = self._parse_fte_results(text, office)
+        else:
+            # MEDSL constituency-returns / official tab format.
+            candidates = self._parse_tab(text, office)
+            races = self._aggregate_to_races(candidates)
+        return [r for r in races if r.year >= min_year]
 
     def _download(self, office: str) -> str:
         urls = MEDSL_URLS.get(office, [])
@@ -254,6 +268,86 @@ class MITResultsClient:
             totalvotes=totalvotes,
             winner=False,  # computed in aggregate step
         )
+
+    @staticmethod
+    def _parse_fte_results(text: str, office: str) -> list[RaceResult]:
+        """Parse 538's election-results CSV (one row per candidate) into races.
+
+        Groups candidate rows by 538's ``race_id`` (so a state's regular and
+        special Senate races stay separate), keeps general-election rows, picks
+        the top Democrat and Republican, and derives shares from the race's vote
+        sum. Where two races share our ``STATE-OFFICE-YEAR`` key, the higher-
+        turnout one is kept.
+        """
+        by_race: dict[str, list[dict[str, Any]]] = {}
+        reader = csv.DictReader(io.StringIO(text))
+        for row in reader:
+            if (row.get("stage") or "").strip().lower() != "general":
+                continue
+            rcv_round = (row.get("ranked_choice_round") or "").strip()
+            if rcv_round not in ("", "NA"):
+                continue  # skip intermediate ranked-choice rounds
+            try:
+                year = int((row.get("cycle") or "").strip())
+                votes = int(float((row.get("votes") or 0) or 0))
+            except ValueError:
+                continue
+            if votes <= 0:
+                continue
+            bp = (row.get("ballot_party") or "").strip().upper()
+            if bp in ("DEM", "DEMOCRAT", "DEMOCRATIC", "D"):
+                party = "D"
+            elif bp in ("REP", "REPUBLICAN", "R"):
+                party = "R"
+            else:
+                party = "OTHER"
+            key = (row.get("race_id") or "").strip() or f"{row.get('state_abbrev')}-{year}"
+            by_race.setdefault(key, []).append(
+                {
+                    "year": year,
+                    "state": (row.get("state") or "").strip(),
+                    "state_po": (row.get("state_abbrev") or "").strip().upper(),
+                    "special": (row.get("special") or "").strip().lower() == "true",
+                    "candidate": (row.get("candidate_name") or "").strip(),
+                    "party": party,
+                    "votes": votes,
+                }
+            )
+
+        deduped: dict[str, RaceResult] = {}
+        for cands in by_race.values():
+            total = sum(c["votes"] for c in cands)
+            dems = sorted([c for c in cands if c["party"] == "D"], key=lambda x: -x["votes"])
+            reps = sorted([c for c in cands if c["party"] == "R"], key=lambda x: -x["votes"])
+            if not dems or not reps or total <= 0:
+                continue
+            d, r = dems[0], reps[0]
+            first = cands[0]
+            race_id = f"{first['state_po']}-{office.upper()}-{first['year']}"
+            two_party = d["votes"] + r["votes"]
+            race = RaceResult(
+                race_id=race_id,
+                year=first["year"],
+                state=first["state"],
+                state_po=first["state_po"],
+                office=office,
+                special=first["special"],
+                dem_candidate=d["candidate"],
+                dem_votes=d["votes"],
+                rep_candidate=r["candidate"],
+                rep_votes=r["votes"],
+                total_votes=total,
+                dem_share=round(d["votes"] / total * 100, 2),
+                rep_share=round(r["votes"] / total * 100, 2),
+                dem_two_party_share=round(d["votes"] / two_party * 100, 2) if two_party else 0.0,
+                winner_party="D" if d["votes"] > r["votes"] else "R",
+            )
+            existing = deduped.get(race_id)
+            if existing is None or race.total_votes > existing.total_votes:
+                deduped[race_id] = race
+
+        logger.info(f"Parsed {len(deduped)} {office} races from 538 election-results")
+        return list(deduped.values())
 
     @staticmethod
     def _aggregate_to_races(candidates: list[ElectionResult]) -> list[RaceResult]:
