@@ -57,7 +57,10 @@ FTE_GITHUB_API = "https://api.github.com/repos/fivethirtyeight/data/contents/pol
 # CSVs in the GitHub repo, so the only reliable source for the archived files is
 # the Internet Archive. The ``id_`` modifier returns the original CSV bytes with
 # no Wayback banner; a partial timestamp resolves to the nearest snapshot.
-WAYBACK_PREFIX = "https://web.archive.org/web/20240601id_/"
+# Try a post-2024-election snapshot first (so the historical file includes the
+# 2024 cycle), then a mid-2024 one as a fallback. ``id_`` returns raw CSV bytes;
+# a partial timestamp resolves to the nearest snapshot.
+WAYBACK_STAMPS = ["20250115id_", "20240601id_"]
 
 
 def _candidate_urls(office: str) -> list[str]:
@@ -66,9 +69,10 @@ def _candidate_urls(office: str) -> list[str]:
     if not fname:
         return []
     direct = [f"{base}/{fname}" for base in FTE_URL_BASES]
-    # Internet Archive snapshot of the now-dead projects.fivethirtyeight.com file.
-    wayback = f"{WAYBACK_PREFIX}https://projects.fivethirtyeight.com/polls-page/data/{fname}"
-    return direct + [wayback]
+    # Internet Archive snapshots of the now-dead projects.fivethirtyeight.com file.
+    src = f"https://projects.fivethirtyeight.com/polls-page/data/{fname}"
+    wayback = [f"https://web.archive.org/web/{stamp}/{src}" for stamp in WAYBACK_STAMPS]
+    return direct + wayback
 
 
 def _looks_like_csv(text: str) -> bool:

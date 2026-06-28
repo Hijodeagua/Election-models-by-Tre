@@ -87,6 +87,44 @@ def _dem_rep_poll_margin(race, engine: PollingAverageEngine) -> float | None:
     return dem - rep
 
 
+def _poll_dem_rep_margin(poll, dem_candidate: str, rep_candidate: str) -> float | None:
+    """A single poll's own Dem−Rep margin, matching answers by candidate surname."""
+    answers = {a.choice.lower(): a.pct for a in poll.answers}
+
+    def _match(target: str) -> float | None:
+        if not target:
+            return None
+        surname = target.split()[-1].lower()
+        for choice, pct in answers.items():
+            if surname and surname in choice:
+                return pct
+        return None
+
+    dem = _match(dem_candidate)
+    rep = _match(rep_candidate)
+    if dem is None or rep is None:
+        return None
+    return dem - rep
+
+
+def _pollster_bias(pollster_errs: dict[str, list[float]], min_polls: int = 5) -> list[dict]:
+    """Mean error (actual − poll) per pollster with enough polls — the house effect."""
+    out = []
+    for name, errs in pollster_errs.items():
+        if len(errs) >= min_polls:
+            arr = np.array(errs, dtype=float)
+            out.append(
+                {
+                    "pollster": name,
+                    "n_polls": len(errs),
+                    "mean_error": round(float(arr.mean()), 2),
+                    "std_error": round(float(arr.std(ddof=1)) if len(errs) > 1 else 0.0, 2),
+                }
+            )
+    # Most Dem-leaning (negative) first.
+    return sorted(out, key=lambda x: x["mean_error"])
+
+
 def calibrate(min_year: int, max_year: int, lookback_days: int) -> dict:
     loader = TrainingDataLoader(
         cache_dir=RAW_CACHE, lookback_days=lookback_days, min_polls=2
@@ -96,6 +134,7 @@ def calibrate(min_year: int, max_year: int, lookback_days: int) -> dict:
 
     engine = PollingAverageEngine()
     rows: list[dict] = []
+    pollster_errs: dict[str, list[float]] = {}
     for race in races:
         poll_margin = _dem_rep_poll_margin(race, engine)
         if poll_margin is None:
@@ -111,6 +150,12 @@ def calibrate(min_year: int, max_year: int, lookback_days: int) -> dict:
                 "dem_won": bool(race.dem_won),
             }
         )
+        # Per-poll error by pollster (each poll's own D−R margin vs the result),
+        # for the pollster house-effect / bias table.
+        for poll in race.polls:
+            pm = _poll_dem_rep_margin(poll, race.dem_candidate, race.rep_candidate)
+            if pm is not None:
+                pollster_errs.setdefault(poll.pollster or "Unknown", []).append(actual_margin - pm)
 
     logger.info("Usable races with a clean D−R matchup: %d", len(rows))
     for r in rows:
@@ -198,6 +243,7 @@ def calibrate(min_year: int, max_year: int, lookback_days: int) -> dict:
         "overall_sigma": round(overall_sigma, 3),
         "single_cycle_split": single_cycle_split,
         "cycle_mean_error": {str(y): round(v, 2) for y, v in cycle_means.items()},
+        "pollster_bias": _pollster_bias(pollster_errs),
         "win_accuracy": round(win_acc, 4),
         "brier_score": round(brier, 4),
         "reliability": reliability,
@@ -210,7 +256,7 @@ def calibrate(min_year: int, max_year: int, lookback_days: int) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Calibrate the Senate forecast error model.")
     parser.add_argument("--min-year", type=int, default=2016)
-    parser.add_argument("--max-year", type=int, default=2022)
+    parser.add_argument("--max-year", type=int, default=2024)
     parser.add_argument("--lookback-days", type=int, default=21)
     args = parser.parse_args()
 
