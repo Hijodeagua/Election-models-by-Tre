@@ -46,13 +46,24 @@ class TestWinProbability:
         assert sim.win_prob_from_margin(0.0) > 0.5
         assert sim.win_prob_from_margin(-2.0) == pytest.approx(0.5)
 
-    def test_effective_margin_round_trips_through_bias(self):
-        # _effective_margin must invert win_prob_from_margin exactly, so the
-        # correlated-error simulation reproduces the intended probability.
+    def test_effective_margin_reproduces_prob_in_simulation(self):
+        # The mean-zero noise sim turns an effective margin m into Φ(m/σ); that
+        # must equal the input prob (which already carries the bias), so bias is
+        # not re-applied in _effective_margin.
+        from scipy.stats import norm
+
         sim = _simulator(bias=1.5)
         for prob in (0.2, 0.5, 0.75, 0.9):
             m = sim._effective_margin(prob)
-            assert sim.win_prob_from_margin(m) == pytest.approx(prob, abs=1e-6)
+            assert float(norm.cdf(m / sim._total_sigma)) == pytest.approx(prob, abs=1e-6)
+
+    def test_bias_lowers_dem_control_in_simulation(self):
+        # End-to-end: a Republican-leaning bias must actually reduce simulated
+        # Dem control (regression test for the cancel-out bug).
+        races = [_race(s, margin=1.0) for s in ("A", "B", "C", "D", "E")]
+        no_bias = _simulator(bias=0.0).simulate(races, num_simulations=20000, seed=1)
+        r_bias = _simulator(bias=-3.0).simulate(races, num_simulations=20000, seed=1)
+        assert r_bias.dem_control_prob < no_bias.dem_control_prob
 
     def test_market_blend_pulls_toward_market(self):
         sim = _simulator(market_weight=0.5)

@@ -8,6 +8,10 @@
     "pres_weight_recent": 0.75,
     "blend_k": 3.0
   },
+  "forecast": {
+    "_comment": "calibration_bias_weight scales the historically-fitted poll bias (~-2.5) before it is applied: 0 = ignore it (fundamentals already capture the red-state lean), 1 = apply in full, 0.5 = split the difference. Kept at 0.5 to avoid double-counting the same Dem-overstatement that the fundamentals blend also corrects.",
+    "calibration_bias_weight": 0.5
+  },
   "competitive_races": [
     {
       "state": "Georgia", "race": "Georgia Senate 2026",

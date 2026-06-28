@@ -170,8 +170,11 @@ class SenateControlSimulator:
         Probabilities are clipped away from 0/1 so the inverse CDF stays finite.
         """
         clipped = float(np.clip(prob, 1e-4, 1.0 - 1e-4))
-        # Inverse of win_prob_from_margin: prob = Φ((m + bias)/σ) ⇒ m = ppf·σ − bias.
-        return float(norm.ppf(clipped) * self._total_sigma - self.bias)
+        # The simulation draws mean-zero noise, so its marginal for an effective
+        # margin m is Φ(m/σ). We want that to equal `prob` — and `prob` already
+        # carries the bias (it came from win_prob_from_margin / the market blend),
+        # so the bias must NOT be re-applied here, or it cancels out.
+        return float(norm.ppf(clipped) * self._total_sigma)
 
     # ── Simulation ────────────────────────────────────────────────────────
 

@@ -1,20 +1,20 @@
 {
   "as_of": "2026-06-28",
   "num_simulations": 50000,
-  "dem_control_prob": 0.1827,
-  "mean_dem_seats": 48.81,
-  "median_dem_seats": 49.0,
+  "dem_control_prob": 0.0879,
+  "mean_dem_seats": 48.02,
+  "median_dem_seats": 48.0,
   "seat_distribution": {
-    "44": 291,
-    "45": 1463,
-    "46": 3673,
-    "47": 6531,
-    "48": 9224,
-    "49": 10412,
-    "50": 9269,
-    "51": 5957,
-    "52": 2658,
-    "53": 522
+    "44": 861,
+    "45": 3227,
+    "46": 6389,
+    "47": 9306,
+    "48": 10222,
+    "49": 9374,
+    "50": 6224,
+    "51": 3134,
+    "52": 1084,
+    "53": 179
   },
   "races": [
     {
@@ -24,8 +24,8 @@
       "rep_candidate": "Mike Collins",
       "margin": 4.14,
       "num_polls": 7,
-      "dem_win_prob_polls": 0.6099,
-      "dem_win_prob_blended": 0.6712,
+      "dem_win_prob_polls": 0.6884,
+      "dem_win_prob_blended": 0.73,
       "market_dem_prob": {
         "polymarket": 0.855
       }
@@ -37,8 +37,8 @@
       "rep_candidate": "Mike Rogers",
       "margin": 0.19,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.3476,
-      "dem_win_prob_blended": 0.4407,
+      "dem_win_prob_polls": 0.4287,
+      "dem_win_prob_blended": 0.5015,
       "market_dem_prob": {
         "polymarket": 0.72
       }
@@ -50,8 +50,8 @@
       "rep_candidate": "Michael Whatley",
       "margin": 1.76,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.4502,
-      "dem_win_prob_blended": 0.5539,
+      "dem_win_prob_polls": 0.5346,
+      "dem_win_prob_blended": 0.6172,
       "market_dem_prob": {
         "polymarket": 0.865
       }
@@ -63,8 +63,8 @@
       "rep_candidate": "Susan Collins",
       "margin": 5.825,
       "num_polls": 3,
-      "dem_win_prob_polls": 0.7141,
-      "dem_win_prob_blended": 0.5387,
+      "dem_win_prob_polls": 0.7815,
+      "dem_win_prob_blended": 0.5893,
       "market_dem_prob": {
         "polymarket": 0.0125
       }
@@ -76,8 +76,8 @@
       "rep_candidate": "Scott Brown",
       "margin": 7.01,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.7783,
-      "dem_win_prob_blended": 0.7937,
+      "dem_win_prob_polls": 0.8361,
+      "dem_win_prob_blended": 0.8371,
       "market_dem_prob": {
         "polymarket": 0.84
       }
@@ -89,8 +89,8 @@
       "rep_candidate": "Jon Husted",
       "margin": -4.36,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.1221,
-      "dem_win_prob_blended": 0.2303,
+      "dem_win_prob_polls": 0.1704,
+      "dem_win_prob_blended": 0.2666,
       "market_dem_prob": {
         "polymarket": 0.555
       }
@@ -102,8 +102,8 @@
       "rep_candidate": "Ken Paxton",
       "margin": -6.8,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.0572,
-      "dem_win_prob_blended": 0.1479,
+      "dem_win_prob_polls": 0.0858,
+      "dem_win_prob_blended": 0.1694,
       "market_dem_prob": {
         "polymarket": 0.42
       }
@@ -115,8 +115,8 @@
       "rep_candidate": "Ashley Hinson",
       "margin": -4.05,
       "num_polls": 6,
-      "dem_win_prob_polls": 0.1331,
-      "dem_win_prob_blended": 0.2111,
+      "dem_win_prob_polls": 0.1841,
+      "dem_win_prob_blended": 0.2493,
       "market_dem_prob": {
         "polymarket": 0.445
       }
@@ -128,8 +128,8 @@
       "rep_candidate": "Dan Sullivan",
       "margin": -8.012,
       "num_polls": 1,
-      "dem_win_prob_polls": 0.0371,
-      "dem_win_prob_blended": 0.0371,
+      "dem_win_prob_polls": 0.0579,
+      "dem_win_prob_blended": 0.0579,
       "market_dem_prob": {}
     }
   ],
@@ -139,7 +139,7 @@
   "market_weight": 0.25,
   "national_sigma": 2.873,
   "race_sigma": 5.139,
-  "bias": -2.497,
+  "bias": -1.248,
   "market_control_dem_prob": {
     "polymarket": 0.425
   },
@@ -147,6 +147,6 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.1827,
-  "mean_dem_seats_with_vibes": 48.81
+  "dem_control_prob_with_vibes": 0.0879,
+  "mean_dem_seats_with_vibes": 48.02
 }

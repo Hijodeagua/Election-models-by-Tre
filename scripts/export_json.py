@@ -501,17 +501,19 @@ def _senate_forecast_payload(senate_payload: dict) -> dict:
     inputs = _build_inputs(apply_vibes=False)
 
     calib = _load_forecast_calibration()
+    bias_weight = cycle.get("forecast", {}).get("calibration_bias_weight", 0.5)
     sim_kwargs: dict = {}
     if calib.get("usable"):
+        applied_bias = round(calib.get("bias", 0.0) * bias_weight, 3)
         sim_kwargs = {
             "national_sigma": calib["national_sigma"],
             "race_sigma": calib["race_sigma"],
-            "bias": calib.get("bias", 0.0),
+            "bias": applied_bias,
         }
         print(
             f"  using calibrated error model (σ_nat={calib['national_sigma']}, "
-            f"σ_race={calib['race_sigma']}, bias={calib.get('bias', 0.0)}, "
-            f"from {calib['n_races']} historical races)"
+            f"σ_race={calib['race_sigma']}, bias={calib.get('bias', 0.0)}×{bias_weight}"
+            f"={applied_bias}, from {calib['n_races']} historical races)"
         )
     simulator = SenateControlSimulator(
         dem_safe_seats=cycle["dem_safe_seats"],
