@@ -293,6 +293,1190 @@
       "std_error": 8.33
     }
   ],
+  "state_pollster_bias": {
+    "VA": [
+      {
+        "pollster": "Swayable",
+        "n_polls": 2,
+        "mean_error": -8.32,
+        "std_error": 1.41
+      },
+      {
+        "pollster": "Washington Post/George Mason University",
+        "n_polls": 2,
+        "mean_error": -5.49,
+        "std_error": 0.6
+      },
+      {
+        "pollster": "Roanoke College",
+        "n_polls": 2,
+        "mean_error": -2.99,
+        "std_error": 1.31
+      }
+    ],
+    "MI": [
+      {
+        "pollster": "Swayable",
+        "n_polls": 2,
+        "mean_error": -10.32,
+        "std_error": 6.79
+      },
+      {
+        "pollster": "Research Co.",
+        "n_polls": 3,
+        "mean_error": -9.49,
+        "std_error": 3.83
+      },
+      {
+        "pollster": "CNN/SSRS",
+        "n_polls": 2,
+        "mean_error": -8.49,
+        "std_error": 4.0
+      },
+      {
+        "pollster": "Gravis Marketing (2020 and earlier)",
+        "n_polls": 2,
+        "mean_error": -7.91,
+        "std_error": 1.99
+      },
+      {
+        "pollster": "PPP",
+        "n_polls": 2,
+        "mean_error": -7.82,
+        "std_error": 0.71
+      },
+      {
+        "pollster": "Glengariff Group Inc.",
+        "n_polls": 3,
+        "mean_error": -7.16,
+        "std_error": 3.48
+      },
+      {
+        "pollster": "Morning Consult",
+        "n_polls": 4,
+        "mean_error": -5.66,
+        "std_error": 1.78
+      },
+      {
+        "pollster": "RMG Research",
+        "n_polls": 2,
+        "mean_error": -5.49,
+        "std_error": 2.59
+      },
+      {
+        "pollster": "Ipsos",
+        "n_polls": 4,
+        "mean_error": -4.82,
+        "std_error": 1.29
+      },
+      {
+        "pollster": "Beacon/Shaw",
+        "n_polls": 2,
+        "mean_error": -4.49,
+        "std_error": 0.24
+      },
+      {
+        "pollster": "Siena/NYT",
+        "n_polls": 2,
+        "mean_error": -3.99,
+        "std_error": 3.3
+      },
+      {
+        "pollster": "EPIC/MRA",
+        "n_polls": 4,
+        "mean_error": -3.2,
+        "std_error": 1.89
+      },
+      {
+        "pollster": "Emerson",
+        "n_polls": 4,
+        "mean_error": -3.11,
+        "std_error": 0.86
+      },
+      {
+        "pollster": "Patriot Polling",
+        "n_polls": 2,
+        "mean_error": -1.91,
+        "std_error": 1.06
+      },
+      {
+        "pollster": "Mitchell",
+        "n_polls": 8,
+        "mean_error": -1.47,
+        "std_error": 3.76
+      },
+      {
+        "pollster": "AtlasIntel",
+        "n_polls": 5,
+        "mean_error": -1.02,
+        "std_error": 1.37
+      },
+      {
+        "pollster": "Change Research",
+        "n_polls": 3,
+        "mean_error": -0.71,
+        "std_error": 4.51
+      },
+      {
+        "pollster": "InsiderAdvantage",
+        "n_polls": 2,
+        "mean_error": -0.26,
+        "std_error": 0.0
+      },
+      {
+        "pollster": "Tarrance",
+        "n_polls": 3,
+        "mean_error": 0.74,
+        "std_error": 1.45
+      },
+      {
+        "pollster": "Trafalgar Group",
+        "n_polls": 5,
+        "mean_error": 0.77,
+        "std_error": 2.7
+      }
+    ],
+    "TX": [
+      {
+        "pollster": "Data for Progress",
+        "n_polls": 3,
+        "mean_error": -6.97,
+        "std_error": 0.58
+      },
+      {
+        "pollster": "Morning Consult",
+        "n_polls": 4,
+        "mean_error": -5.76,
+        "std_error": 1.21
+      },
+      {
+        "pollster": "Emerson",
+        "n_polls": 3,
+        "mean_error": -4.03,
+        "std_error": 4.01
+      },
+      {
+        "pollster": "GBAO",
+        "n_polls": 2,
+        "mean_error": -3.52,
+        "std_error": 7.02
+      },
+      {
+        "pollster": "ActiVote",
+        "n_polls": 2,
+        "mean_error": -3.29,
+        "std_error": 0.57
+      },
+      {
+        "pollster": "Cygnal",
+        "n_polls": 2,
+        "mean_error": -3.01,
+        "std_error": 2.09
+      },
+      {
+        "pollster": "University of Texas at Tyler",
+        "n_polls": 3,
+        "mean_error": -2.36,
+        "std_error": 3.82
+      },
+      {
+        "pollster": "Siena/NYT",
+        "n_polls": 2,
+        "mean_error": -2.06,
+        "std_error": 3.43
+      },
+      {
+        "pollster": "Swayable",
+        "n_polls": 2,
+        "mean_error": -0.74,
+        "std_error": 5.8
+      },
+      {
+        "pollster": "Quinnipiac",
+        "n_polls": 2,
+        "mean_error": -0.6,
+        "std_error": 4.3
+      },
+      {
+        "pollster": "YouGov",
+        "n_polls": 2,
+        "mean_error": -0.52,
+        "std_error": 5.61
+      }
+    ],
+    "OH": [
+      {
+        "pollster": "Baldwin Wallace University",
+        "n_polls": 2,
+        "mean_error": -11.49,
+        "std_error": 1.66
+      },
+      {
+        "pollster": "Research Co.",
+        "n_polls": 2,
+        "mean_error": -2.64,
+        "std_error": 6.4
+      },
+      {
+        "pollster": "Morning Consult",
+        "n_polls": 2,
+        "mean_error": -2.62,
+        "std_error": 0.0
+      },
+      {
+        "pollster": "Cygnal",
+        "n_polls": 10,
+        "mean_error": -1.89,
+        "std_error": 1.03
+      },
+      {
+        "pollster": "Trafalgar Group",
+        "n_polls": 3,
+        "mean_error": -0.98,
+        "std_error": 4.64
+      },
+      {
+        "pollster": "ActiVote",
+        "n_polls": 2,
+        "mean_error": -0.72,
+        "std_error": 1.27
+      },
+      {
+        "pollster": "Emerson",
+        "n_polls": 3,
+        "mean_error": 1.4,
+        "std_error": 1.25
+      }
+    ],
+    "NM": [
+      {
+        "pollster": "Research & Polling",
+        "n_polls": 3,
+        "mean_error": 6.93,
+        "std_error": 14.41
+      }
+    ],
+    "MA": [
+      {
+        "pollster": "MassINC Polling Group",
+        "n_polls": 3,
+        "mean_error": 0.09,
+        "std_error": 2.48
+      }
+    ],
+    "MN": [
+      {
+        "pollster": "St. Cloud State",
+        "n_polls": 2,
+        "mean_error": -6.83,
+        "std_error": 6.97
+      },
+      {
+        "pollster": "Research Co.",
+        "n_polls": 3,
+        "mean_error": -0.99,
+        "std_error": 4.94
+      },
+      {
+        "pollster": "SurveyUSA",
+        "n_polls": 3,
+        "mean_error": 2.53,
+        "std_error": 1.59
+      },
+      {
+        "pollster": "Change Research",
+        "n_polls": 2,
+        "mean_error": 5.17,
+        "std_error": 5.56
+      }
+    ],
+    "MT": [
+      {
+        "pollster": "MSU - Billings",
+        "n_polls": 2,
+        "mean_error": -9.08,
+        "std_error": 2.74
+      },
+      {
+        "pollster": "HarrisX",
+        "n_polls": 9,
+        "mean_error": -3.35,
+        "std_error": 0.75
+      },
+      {
+        "pollster": "Change Research",
+        "n_polls": 2,
+        "mean_error": 0.27,
+        "std_error": 8.89
+      }
+    ],
+    "NE": [
+      {
+        "pollster": "Change Research",
+        "n_polls": 2,
+        "mean_error": -7.67,
+        "std_error": 1.41
+      },
+      {
+        "pollster": "Torchlight Strategies",
+        "n_polls": 2,
+        "mean_error": 0.68,
+        "std_error": 0.49
+      }
+    ],
+    "NV": [
+      {
+        "pollster": "Siena/NYT",
+        "n_polls": 2,
+        "mean_error": -3.29,
+        "std_error": 5.74
+      },
+      {
+        "pollster": "CNN/SSRS",
+        "n_polls": 2,
+        "mean_error": -2.66,
+        "std_error": 6.63
+      },
+      {
+        "pollster": "AtlasIntel",
+        "n_polls": 4,
+        "mean_error": -2.4,
+        "std_error": 1.54
+      },
+      {
+        "pollster": "YouGov",
+        "n_polls": 2,
+        "mean_error": -1.79,
+        "std_error": 5.03
+      },
+      {
+        "pollster": "Data for Progress",
+        "n_polls": 3,
+        "mean_error": -0.27,
+        "std_error": 4.43
+      },
+      {
+        "pollster": "Emerson",
+        "n_polls": 4,
+        "mean_error": 0.07,
+        "std_error": 4.37
+      },
+      {
+        "pollster": "InsiderAdvantage",
+        "n_polls": 3,
+        "mean_error": 2.26,
+        "std_error": 4.72
+      },
+      {
+        "pollster": "Susquehanna",
+        "n_polls": 2,
+        "mean_error": 4.41,
+        "std_error": 2.77
+      },
+      {
+        "pollster": "HarrisX",
+        "n_polls": 9,
+        "mean_error": 4.44,
+        "std_error": 2.26
+      },
+      {
+        "pollster": "Trafalgar Group",
+        "n_polls": 4,
+        "mean_error": 4.68,
+        "std_error": 3.59
+      }
+    ],
+    "MO": [
+      {
+        "pollster": "HarrisX",
+        "n_polls": 9,
+        "mean_error": -6.49,
+        "std_error": 1.72
+      },
+      {
+        "pollster": "Remington",
+        "n_polls": 4,
+        "mean_error": -4.17,
+        "std_error": 1.7
+      },
+      {
+        "pollster": "Trafalgar Group",
+        "n_polls": 2,
+        "mean_error": -2.08,
+        "std_error": 0.24
+      },
+      {
+        "pollster": "Emerson",
+        "n_polls": 3,
+        "mean_error": -1.93,
+        "std_error": 1.98
+      }
+    ],
+    "TN": [
+      {
+        "pollster": "ActiVote",
+        "n_polls": 2,
+        "mean_error": -7.54,
+        "std_error": 0.71
+      },
+      {
+        "pollster": "Cygnal",
+        "n_polls": 2,
+        "mean_error": -5.67,
+        "std_error": 0.95
+      }
+    ],
+    "WA": [
+      {
+        "pollster": "PPP",
+        "n_polls": 2,
+        "mean_error": 3.98,
+        "std_error": 0.76
+      },
+      {
+        "pollster": "Moore Information",
+        "n_polls": 2,
+        "mean_error": 14.72,
+        "std_error": 0.28
+      }
+    ],
+    "WI": [
+      {
+        "pollster": "Morning Consult",
+        "n_polls": 2,
+        "mean_error": -2.65,
+        "std_error": 2.12
+      },
+      {
+        "pollster": "Marquette Law School",
+        "n_polls": 3,
+        "mean_error": -0.44,
+        "std_error": 2.35
+      },
+      {
+        "pollster": "AtlasIntel",
+        "n_polls": 5,
+        "mean_error": -0.23,
+        "std_error": 1.11
+      },
+      {
+        "pollster": "Emerson",
+        "n_polls": 4,
+        "mean_error": 0.41,
+        "std_error": 3.41
+      },
+      {
+        "pollster": "OnMessage Inc.",
+        "n_polls": 2,
+        "mean_error": 0.85,
+        "std_error": 1.41
+      },
+      {
+        "pollster": "Trafalgar Group",
+        "n_polls": 3,
+        "mean_error": 1.43,
+        "std_error": 0.24
+      },
+      {
+        "pollster": "Research Co.",
+        "n_polls": 3,
+        "mean_error": 1.56,
+        "std_error": 2.98
+      },
+      {
+        "pollster": "InsiderAdvantage",
+        "n_polls": 2,
+        "mean_error": 1.6,
+        "std_error": 0.35
+      },
+      {
+        "pollster": "Patriot Polling",
+        "n_polls": 2,
+        "mean_error": 3.18,
+        "std_error": 5.98
+      },
+      {
+        "pollster": "Data for Progress",
+        "n_polls": 2,
+        "mean_error": 4.5,
+        "std_error": 0.71
+      }
+    ],
+    "AZ": [
+      {
+        "pollster": "Swayable",
+        "n_polls": 2,
+        "mean_error": -8.45,
+        "std_error": 1.13
+      },
+      {
+        "pollster": "Ipsos",
+        "n_polls": 5,
+        "mean_error": -5.45,
+        "std_error": 2.59
+      },
+      {
+        "pollster": "Change Research",
+        "n_polls": 2,
+        "mean_error": -5.15,
+        "std_error": 4.95
+      },
+      {
+        "pollster": "Morning Consult",
+        "n_polls": 4,
+        "mean_error": -4.5,
+        "std_error": 3.93
+      },
+      {
+        "pollster": "YouGov",
+        "n_polls": 4,
+        "mean_error": -4.37,
+        "std_error": 3.86
+      },
+      {
+        "pollster": "CNN/SSRS",
+        "n_polls": 3,
+        "mean_error": -3.63,
+        "std_error": 1.97
+      },
+      {
+        "pollster": "Marist",
+        "n_polls": 4,
+        "mean_error": -2.25,
+        "std_error": 3.34
+      },
+      {
+        "pollster": "Rasmussen",
+        "n_polls": 2,
+        "mean_error": -1.15,
+        "std_error": 2.12
+      },
+      {
+        "pollster": "Siena/NYT",
+        "n_polls": 4,
+        "mean_error": -1.13,
+        "std_error": 3.62
+      },
+      {
+        "pollster": "Data for Progress",
+        "n_polls": 3,
+        "mean_error": -0.79,
+        "std_error": 5.97
+      },
+      {
+        "pollster": "Data Orbital",
+        "n_polls": 5,
+        "mean_error": -0.42,
+        "std_error": 4.15
+      },
+      {
+        "pollster": "HighGround",
+        "n_polls": 3,
+        "mean_error": 0.01,
+        "std_error": 6.07
+      },
+      {
+        "pollster": "Gravis Marketing (2020 and earlier)",
+        "n_polls": 2,
+        "mean_error": 0.35,
+        "std_error": 4.24
+      },
+      {
+        "pollster": "Emerson",
+        "n_polls": 4,
+        "mean_error": 1.02,
+        "std_error": 3.3
+      },
+      {
+        "pollster": "Research Co.",
+        "n_polls": 2,
+        "mean_error": 1.12,
+        "std_error": 0.33
+      },
+      {
+        "pollster": "InsiderAdvantage",
+        "n_polls": 4,
+        "mean_error": 1.57,
+        "std_error": 2.92
+      },
+      {
+        "pollster": "Beacon/Shaw",
+        "n_polls": 2,
+        "mean_error": 2.12,
+        "std_error": 1.08
+      },
+      {
+        "pollster": "Patriot Polling",
+        "n_polls": 2,
+        "mean_error": 2.2,
+        "std_error": 2.81
+      },
+      {
+        "pollster": "Trafalgar Group",
+        "n_polls": 5,
+        "mean_error": 2.2,
+        "std_error": 3.24
+      },
+      {
+        "pollster": "AtlasIntel",
+        "n_polls": 5,
+        "mean_error": 2.21,
+        "std_error": 2.0
+      },
+      {
+        "pollster": "OH Predictive Insights / MBQF",
+        "n_polls": 4,
+        "mean_error": 3.23,
+        "std_error": 4.9
+      },
+      {
+        "pollster": "Susquehanna",
+        "n_polls": 2,
+        "mean_error": 3.51,
+        "std_error": 2.6
+      },
+      {
+        "pollster": "HarrisX",
+        "n_polls": 9,
+        "mean_error": 5.98,
+        "std_error": 4.03
+      }
+    ],
+    "CA": [
+      {
+        "pollster": "ActiVote",
+        "n_polls": 3,
+        "mean_error": -7.2,
+        "std_error": 2.28
+      },
+      {
+        "pollster": "Research Co.",
+        "n_polls": 2,
+        "mean_error": 0.43,
+        "std_error": 8.05
+      }
+    ],
+    "IN": [
+      {
+        "pollster": "HarrisX",
+        "n_polls": 9,
+        "mean_error": -5.65,
+        "std_error": 1.99
+      }
+    ],
+    "MD": [
+      {
+        "pollster": "Morning Consult",
+        "n_polls": 2,
+        "mean_error": 1.5,
+        "std_error": 3.82
+      }
+    ],
+    "NJ": [
+      {
+        "pollster": "Rutgers-Eagleton",
+        "n_polls": 3,
+        "mean_error": -9.3,
+        "std_error": 15.75
+      },
+      {
+        "pollster": "Research Co.",
+        "n_polls": 2,
+        "mean_error": -7.54,
+        "std_error": 1.2
+      },
+      {
+        "pollster": "Stockton University",
+        "n_polls": 2,
+        "mean_error": -4.76,
+        "std_error": 5.56
+      },
+      {
+        "pollster": "Quinnipiac",
+        "n_polls": 2,
+        "mean_error": 0.18,
+        "std_error": 5.66
+      }
+    ],
+    "NY": [
+      {
+        "pollster": "Research Co.",
+        "n_polls": 3,
+        "mean_error": -4.38,
+        "std_error": 8.01
+      },
+      {
+        "pollster": "ActiVote",
+        "n_polls": 2,
+        "mean_error": -4.38,
+        "std_error": 2.69
+      },
+      {
+        "pollster": "Emerson",
+        "n_polls": 2,
+        "mean_error": -2.13,
+        "std_error": 3.75
+      },
+      {
+        "pollster": "Siena",
+        "n_polls": 2,
+        "mean_error": 0.06,
+        "std_error": 13.2
+      }
+    ],
+    "FL": [
+      {
+        "pollster": "Victory Insights",
+        "n_polls": 2,
+        "mean_error": -10.34,
+        "std_error": 2.92
+      },
+      {
+        "pollster": "Stetson University Center for Public Opinion Research",
+        "n_polls": 2,
+        "mean_error": -7.09,
+        "std_error": 3.27
+      },
+      {
+        "pollster": "Data for Progress",
+        "n_polls": 2,
+        "mean_error": -6.91,
+        "std_error": 3.54
+      },
+      {
+        "pollster": "Quinnipiac",
+        "n_polls": 2,
+        "mean_error": -6.62,
+        "std_error": 0.71
+      },
+      {
+        "pollster": "Emerson",
+        "n_polls": 2,
+        "mean_error": -6.15,
+        "std_error": 1.46
+      },
+      {
+        "pollster": "YouGov",
+        "n_polls": 3,
+        "mean_error": -6.1,
+        "std_error": 5.19
+      },
+      {
+        "pollster": "ActiVote",
+        "n_polls": 2,
+        "mean_error": -5.68,
+        "std_error": 4.67
+      },
+      {
+        "pollster": "U. North Florida",
+        "n_polls": 3,
+        "mean_error": -5.44,
+        "std_error": 4.33
+      },
+      {
+        "pollster": "Cygnal",
+        "n_polls": 2,
+        "mean_error": -5.4,
+        "std_error": 4.92
+      },
+      {
+        "pollster": "Research Co.",
+        "n_polls": 3,
+        "mean_error": -4.44,
+        "std_error": 2.89
+      },
+      {
+        "pollster": "Gravis Marketing (2020 and earlier)",
+        "n_polls": 2,
+        "mean_error": -3.62,
+        "std_error": 0.71
+      },
+      {
+        "pollster": "CNN/SSRS",
+        "n_polls": 2,
+        "mean_error": -3.62,
+        "std_error": 2.12
+      },
+      {
+        "pollster": "St. Pete Polls",
+        "n_polls": 6,
+        "mean_error": -2.08,
+        "std_error": 4.2
+      },
+      {
+        "pollster": "Trafalgar Group",
+        "n_polls": 2,
+        "mean_error": -0.37,
+        "std_error": 2.76
+      },
+      {
+        "pollster": "HarrisX",
+        "n_polls": 9,
+        "mean_error": 2.2,
+        "std_error": 1.49
+      }
+    ],
+    "CO": [
+      {
+        "pollster": "Keating Research/OnSight Public Affairs/Melanson",
+        "n_polls": 2,
+        "mean_error": -1.18,
+        "std_error": 0.71
+      },
+      {
+        "pollster": "Civiqs",
+        "n_polls": 2,
+        "mean_error": -0.04,
+        "std_error": 2.33
+      },
+      {
+        "pollster": "Morning Consult",
+        "n_polls": 2,
+        "mean_error": 1.37,
+        "std_error": 0.07
+      },
+      {
+        "pollster": "co/efficient",
+        "n_polls": 2,
+        "mean_error": 2.86,
+        "std_error": 5.3
+      },
+      {
+        "pollster": "Data for Progress",
+        "n_polls": 2,
+        "mean_error": 3.96,
+        "std_error": 5.15
+      }
+    ],
+    "NC": [
+      {
+        "pollster": "Marist",
+        "n_polls": 2,
+        "mean_error": -7.49,
+        "std_error": 6.02
+      },
+      {
+        "pollster": "Morning Consult",
+        "n_polls": 2,
+        "mean_error": -7.2,
+        "std_error": 0.78
+      },
+      {
+        "pollster": "Change Research",
+        "n_polls": 2,
+        "mean_error": -6.75,
+        "std_error": 1.41
+      },
+      {
+        "pollster": "Civiqs",
+        "n_polls": 2,
+        "mean_error": -5.49,
+        "std_error": 3.2
+      },
+      {
+        "pollster": "Siena/NYT",
+        "n_polls": 2,
+        "mean_error": -5.25,
+        "std_error": 0.71
+      },
+      {
+        "pollster": "Swayable",
+        "n_polls": 2,
+        "mean_error": -4.65,
+        "std_error": 4.95
+      },
+      {
+        "pollster": "Meredith College",
+        "n_polls": 2,
+        "mean_error": -4.44,
+        "std_error": 3.41
+      },
+      {
+        "pollster": "Ipsos",
+        "n_polls": 4,
+        "mean_error": -3.5,
+        "std_error": 1.71
+      },
+      {
+        "pollster": "Rasmussen",
+        "n_polls": 2,
+        "mean_error": -3.25,
+        "std_error": 2.12
+      },
+      {
+        "pollster": "Data for Progress",
+        "n_polls": 3,
+        "mean_error": -3.24,
+        "std_error": 5.23
+      },
+      {
+        "pollster": "Emerson",
+        "n_polls": 3,
+        "mean_error": -1.78,
+        "std_error": 3.82
+      },
+      {
+        "pollster": "East Carolina University",
+        "n_polls": 3,
+        "mean_error": -1.59,
+        "std_error": 2.82
+      },
+      {
+        "pollster": "Trafalgar Group",
+        "n_polls": 3,
+        "mean_error": 1.4,
+        "std_error": 1.6
+      }
+    ],
+    "IL": [
+      {
+        "pollster": "Research Co.",
+        "n_polls": 2,
+        "mean_error": -4.31,
+        "std_error": 2.31
+      }
+    ],
+    "OK": [
+      {
+        "pollster": "Ascend Action",
+        "n_polls": 2,
+        "mean_error": -13.7,
+        "std_error": 2.12
+      }
+    ],
+    "NH": [
+      {
+        "pollster": "U. Massachusetts - Lowell",
+        "n_polls": 2,
+        "mean_error": -2.14,
+        "std_error": 1.71
+      },
+      {
+        "pollster": "Data for Progress",
+        "n_polls": 2,
+        "mean_error": 4.57,
+        "std_error": 2.12
+      },
+      {
+        "pollster": "Emerson",
+        "n_polls": 2,
+        "mean_error": 4.77,
+        "std_error": 0.28
+      },
+      {
+        "pollster": "St. Anselm",
+        "n_polls": 2,
+        "mean_error": 5.36,
+        "std_error": 6.66
+      },
+      {
+        "pollster": "U. New Hampshire",
+        "n_polls": 2,
+        "mean_error": 5.86,
+        "std_error": 1.71
+      },
+      {
+        "pollster": "InsiderAdvantage",
+        "n_polls": 2,
+        "mean_error": 7.92,
+        "std_error": 0.92
+      }
+    ],
+    "OR": [
+      {
+        "pollster": "Data for Progress",
+        "n_polls": 2,
+        "mean_error": 2.41,
+        "std_error": 2.12
+      }
+    ],
+    "IA": [
+      {
+        "pollster": "Change Research",
+        "n_polls": 2,
+        "mean_error": -8.26,
+        "std_error": 1.1
+      },
+      {
+        "pollster": "Civiqs",
+        "n_polls": 2,
+        "mean_error": -6.76,
+        "std_error": 3.85
+      },
+      {
+        "pollster": "InsiderAdvantage",
+        "n_polls": 2,
+        "mean_error": -6.03,
+        "std_error": 7.28
+      },
+      {
+        "pollster": "Emerson",
+        "n_polls": 2,
+        "mean_error": -5.99,
+        "std_error": 5.08
+      },
+      {
+        "pollster": "Selzer",
+        "n_polls": 2,
+        "mean_error": -1.26,
+        "std_error": 1.73
+      }
+    ],
+    "PA": [
+      {
+        "pollster": "YouGov",
+        "n_polls": 2,
+        "mean_error": 1.07,
+        "std_error": 2.62
+      },
+      {
+        "pollster": "InsiderAdvantage",
+        "n_polls": 3,
+        "mean_error": 6.32,
+        "std_error": 1.92
+      }
+    ],
+    "CT": [
+      {
+        "pollster": "Emerson",
+        "n_polls": 2,
+        "mean_error": -0.87,
+        "std_error": 2.38
+      },
+      {
+        "pollster": "Quinnipiac",
+        "n_polls": 2,
+        "mean_error": 0.28,
+        "std_error": 3.07
+      }
+    ],
+    "GA": [
+      {
+        "pollster": "Targoz Market Research",
+        "n_polls": 2,
+        "mean_error": -4.91,
+        "std_error": 1.22
+      },
+      {
+        "pollster": "SurveyUSA",
+        "n_polls": 4,
+        "mean_error": -4.41,
+        "std_error": 2.0
+      },
+      {
+        "pollster": "RMG Research",
+        "n_polls": 2,
+        "mean_error": -3.28,
+        "std_error": 0.71
+      },
+      {
+        "pollster": "AtlasIntel",
+        "n_polls": 3,
+        "mean_error": -2.74,
+        "std_error": 5.96
+      },
+      {
+        "pollster": "Siena/NYT",
+        "n_polls": 2,
+        "mean_error": -1.91,
+        "std_error": 0.19
+      },
+      {
+        "pollster": "Data for Progress",
+        "n_polls": 4,
+        "mean_error": -1.41,
+        "std_error": 3.78
+      },
+      {
+        "pollster": "Morning Consult",
+        "n_polls": 2,
+        "mean_error": -1.28,
+        "std_error": 2.12
+      },
+      {
+        "pollster": "Emerson",
+        "n_polls": 5,
+        "mean_error": -0.93,
+        "std_error": 1.28
+      },
+      {
+        "pollster": "U. Georgia SPIA",
+        "n_polls": 2,
+        "mean_error": -0.81,
+        "std_error": 2.92
+      },
+      {
+        "pollster": "Trafalgar Group",
+        "n_polls": 8,
+        "mean_error": -0.76,
+        "std_error": 3.16
+      },
+      {
+        "pollster": "Swayable",
+        "n_polls": 2,
+        "mean_error": -0.33,
+        "std_error": 0.21
+      },
+      {
+        "pollster": "Landmark Communications",
+        "n_polls": 5,
+        "mean_error": -0.19,
+        "std_error": 3.19
+      },
+      {
+        "pollster": "East Carolina University",
+        "n_polls": 2,
+        "mean_error": -0.15,
+        "std_error": 1.56
+      },
+      {
+        "pollster": "InsiderAdvantage",
+        "n_polls": 7,
+        "mean_error": 0.15,
+        "std_error": 2.09
+      },
+      {
+        "pollster": "Remington",
+        "n_polls": 2,
+        "mean_error": 3.59,
+        "std_error": 1.93
+      },
+      {
+        "pollster": "Moore Information",
+        "n_polls": 2,
+        "mean_error": 5.45,
+        "std_error": 0.71
+      }
+    ],
+    "AL": [
+      {
+        "pollster": "Swayable",
+        "n_polls": 2,
+        "mean_error": -8.31,
+        "std_error": 4.6
+      },
+      {
+        "pollster": "Cygnal",
+        "n_polls": 2,
+        "mean_error": -6.45,
+        "std_error": 0.44
+      }
+    ],
+    "SC": [
+      {
+        "pollster": "Morning Consult",
+        "n_polls": 2,
+        "mean_error": -10.17,
+        "std_error": 2.97
+      },
+      {
+        "pollster": "Data for Progress",
+        "n_polls": 2,
+        "mean_error": -8.77,
+        "std_error": 2.12
+      }
+    ]
+  },
   "control": {
     "governor": {
       "n_races": 80,
