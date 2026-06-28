@@ -125,19 +125,28 @@ def _pollster_bias(pollster_errs: dict[str, list[float]], min_polls: int = 5) ->
     return sorted(out, key=lambda x: x["mean_error"])
 
 
-def _build_rows(races: list, engine: PollingAverageEngine) -> tuple[list[dict], dict]:
-    """Per-race poll-vs-actual error rows (+ per-pollster errors) for one office."""
+def _build_rows(
+    races: list, engine: PollingAverageEngine
+) -> tuple[list[dict], dict, dict]:
+    """Per-race poll-vs-actual error rows for one office.
+
+    Also returns per-pollster errors (the national house effect) and per-state
+    per-pollster errors (the in-state track record), both as
+    ``{name: [error, ...]}`` / ``{state: {name: [error, ...]}}``.
+    """
     rows: list[dict] = []
     pollster_errs: dict[str, list[float]] = {}
+    state_pollster_errs: dict[str, dict[str, list[float]]] = {}
     for race in races:
         poll_margin = _dem_rep_poll_margin(race, engine)
         if poll_margin is None:
             continue
         actual_margin = race.actual_dem_share - race.actual_rep_share
+        state = race.race_id.split("-")[0]
         rows.append(
             {
                 "race_id": race.race_id,
-                "state": race.race_id.split("-")[0],
+                "state": state,
                 "year": race.year,
                 "poll_margin": round(poll_margin, 2),
                 "actual_margin": round(actual_margin, 2),
@@ -148,8 +157,38 @@ def _build_rows(races: list, engine: PollingAverageEngine) -> tuple[list[dict], 
         for poll in race.polls:
             pm = _poll_dem_rep_margin(poll, race.dem_candidate, race.rep_candidate)
             if pm is not None:
-                pollster_errs.setdefault(poll.pollster or "Unknown", []).append(actual_margin - pm)
-    return rows, pollster_errs
+                err = actual_margin - pm
+                name = poll.pollster or "Unknown"
+                pollster_errs.setdefault(name, []).append(err)
+                state_pollster_errs.setdefault(state, {}).setdefault(name, []).append(err)
+    return rows, pollster_errs, state_pollster_errs
+
+
+def _state_pollster_bias(
+    state_pollster_errs: dict[str, dict[str, list[float]]], min_polls: int = 2
+) -> dict[str, list[dict]]:
+    """Per-state, per-pollster mean error (actual − poll) — the in-state track
+    record. Samples are thin, so this is gated at ``min_polls`` and meant as a
+    directional signal, not a precise grade."""
+    out: dict[str, list[dict]] = {}
+    for state, pmap in state_pollster_errs.items():
+        entries = []
+        for name, errs in pmap.items():
+            if len(errs) >= min_polls:
+                arr = np.array(errs, dtype=float)
+                entries.append(
+                    {
+                        "pollster": name,
+                        "n_polls": len(errs),
+                        "mean_error": round(float(arr.mean()), 2),
+                        "std_error": round(
+                            float(arr.std(ddof=1)) if len(errs) > 1 else 0.0, 2
+                        ),
+                    }
+                )
+        if entries:
+            out[state] = sorted(entries, key=lambda x: x["mean_error"])
+    return out
 
 
 def _state_bias(rows: list[dict]) -> dict[str, dict]:
@@ -179,7 +218,9 @@ def calibrate(
     logger.info("Loaded races by office: %s", {o: len(rs) for o, rs in by_office.items()})
 
     engine = PollingAverageEngine()
-    rows, pollster_errs = _build_rows(by_office.get("senate", []), engine)
+    rows, pollster_errs, state_pollster_errs = _build_rows(
+        by_office.get("senate", []), engine
+    )
 
     logger.info("Usable senate races with a clean D−R matchup: %d", len(rows))
     for r in rows:
@@ -194,7 +235,7 @@ def calibrate(
     cross_office: list[dict] = []
     senate_state = _state_bias(rows)
     for office in control_offices:
-        o_rows, _ = _build_rows(by_office.get(office, []), engine)
+        o_rows, _, _ = _build_rows(by_office.get(office, []), engine)
         if not o_rows:
             continue
         o_err = np.array([r["error"] for r in o_rows], dtype=float)
@@ -303,6 +344,7 @@ def calibrate(
         "single_cycle_split": single_cycle_split,
         "cycle_mean_error": {str(y): round(v, 2) for y, v in cycle_means.items()},
         "pollster_bias": _pollster_bias(pollster_errs),
+        "state_pollster_bias": _state_pollster_bias(state_pollster_errs),
         "control": control,
         "cross_office_state_bias": cross_office,
         "win_accuracy": round(win_acc, 4),

@@ -1,0 +1,740 @@
+{
+  "national": [
+    {
+      "pollster": "UMass Lowell",
+      "quality": 1.858,
+      "grade": "A",
+      "sb_error": 2.5,
+      "empirical": null
+    },
+    {
+      "pollster": "Marist College",
+      "quality": 1.768,
+      "grade": "A-",
+      "sb_error": 2.8,
+      "empirical": null
+    },
+    {
+      "pollster": "Pew Research Center",
+      "quality": 1.768,
+      "grade": "A-",
+      "sb_error": 2.8,
+      "empirical": null
+    },
+    {
+      "pollster": "Marquette Law School",
+      "quality": 1.738,
+      "grade": "A-",
+      "sb_error": 2.9,
+      "empirical": null
+    },
+    {
+      "pollster": "New York Times/Siena College",
+      "quality": 1.708,
+      "grade": "A-",
+      "sb_error": 3.0,
+      "empirical": null
+    },
+    {
+      "pollster": "Reuters/Ipsos",
+      "quality": 1.708,
+      "grade": "A-",
+      "sb_error": 3.0,
+      "empirical": null
+    },
+    {
+      "pollster": "Siena College",
+      "quality": 1.708,
+      "grade": "A-",
+      "sb_error": 3.0,
+      "empirical": null
+    },
+    {
+      "pollster": "Suffolk University",
+      "quality": 1.708,
+      "grade": "A-",
+      "sb_error": 3.0,
+      "empirical": null
+    },
+    {
+      "pollster": "Gallup",
+      "quality": 1.708,
+      "grade": "A-",
+      "sb_error": 3.0,
+      "empirical": null
+    },
+    {
+      "pollster": "ABC News/Washington Post",
+      "quality": 1.618,
+      "grade": "B+",
+      "sb_error": 3.3,
+      "empirical": null
+    },
+    {
+      "pollster": "YouGov",
+      "quality": 1.618,
+      "grade": "B+",
+      "sb_error": 3.3,
+      "empirical": {
+        "mean_error": -3.32,
+        "std_error": 4.13,
+        "n_polls": 22
+      }
+    },
+    {
+      "pollster": "CNN",
+      "quality": 1.558,
+      "grade": "B+",
+      "sb_error": 3.5,
+      "empirical": null
+    },
+    {
+      "pollster": "Fox News",
+      "quality": 1.558,
+      "grade": "B+",
+      "sb_error": 3.5,
+      "empirical": null
+    },
+    {
+      "pollster": "Quinnipiac University",
+      "quality": 1.558,
+      "grade": "B+",
+      "sb_error": 3.5,
+      "empirical": null
+    },
+    {
+      "pollster": "CBS News/YouGov",
+      "quality": 1.558,
+      "grade": "B+",
+      "sb_error": 3.5,
+      "empirical": null
+    },
+    {
+      "pollster": "Monmouth University",
+      "quality": 1.558,
+      "grade": "B+",
+      "sb_error": 3.5,
+      "empirical": null
+    },
+    {
+      "pollster": "NBC News/Marist",
+      "quality": 1.558,
+      "grade": "B+",
+      "sb_error": 3.5,
+      "empirical": null
+    },
+    {
+      "pollster": "Emerson College",
+      "quality": 1.468,
+      "grade": "B+",
+      "sb_error": 3.8,
+      "empirical": null
+    },
+    {
+      "pollster": "SurveyUSA",
+      "quality": 1.408,
+      "grade": "B",
+      "sb_error": 4.0,
+      "empirical": {
+        "mean_error": -2.22,
+        "std_error": 4.4,
+        "n_polls": 14
+      }
+    },
+    {
+      "pollster": "HarrisX",
+      "quality": 1.408,
+      "grade": "B",
+      "sb_error": 4.0,
+      "empirical": {
+        "mean_error": -0.28,
+        "std_error": 5.55,
+        "n_polls": 55
+      }
+    },
+    {
+      "pollster": "TIPP Insights",
+      "quality": 1.408,
+      "grade": "B",
+      "sb_error": 4.0,
+      "empirical": null
+    },
+    {
+      "pollster": "Morning Consult",
+      "quality": 1.258,
+      "grade": "B",
+      "sb_error": 4.5,
+      "empirical": {
+        "mean_error": -4.85,
+        "std_error": 4.11,
+        "n_polls": 30
+      }
+    },
+    {
+      "pollster": "PPP",
+      "quality": 1.258,
+      "grade": "B",
+      "sb_error": 4.5,
+      "empirical": {
+        "mean_error": -4.94,
+        "std_error": 5.42,
+        "n_polls": 13
+      }
+    },
+    {
+      "pollster": "Data for Progress",
+      "quality": 1.258,
+      "grade": "B",
+      "sb_error": 4.5,
+      "empirical": {
+        "mean_error": -1.92,
+        "std_error": 5.42,
+        "n_polls": 38
+      }
+    },
+    {
+      "pollster": "Rasmussen Reports",
+      "quality": 1.168,
+      "grade": "B-",
+      "sb_error": 4.8,
+      "empirical": null
+    },
+    {
+      "pollster": "InsiderAdvantage",
+      "quality": 1.108,
+      "grade": "B-",
+      "sb_error": 5.0,
+      "empirical": {
+        "mean_error": 1.56,
+        "std_error": 5.25,
+        "n_polls": 27
+      }
+    },
+    {
+      "pollster": "Trafalgar Group",
+      "quality": 1.048,
+      "grade": "C+",
+      "sb_error": 5.2,
+      "empirical": {
+        "mean_error": 1.91,
+        "std_error": 4.33,
+        "n_polls": 43
+      }
+    },
+    {
+      "pollster": "Remington Research",
+      "quality": 0.958,
+      "grade": "C+",
+      "sb_error": 5.5,
+      "empirical": null
+    }
+  ],
+  "states": [
+    {
+      "state": "Georgia",
+      "abbr": "GA",
+      "num_polls": 7,
+      "polls": [
+        {
+          "pollster": "Echelon Insights (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-04-03",
+          "end_date": "2026-04-09",
+          "sample_size": 407,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 51.0,
+          "rep_pct": 44.0,
+          "margin": 7.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Emerson College",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.468,
+          "start_date": "2026-02-28",
+          "end_date": "2026-03-02",
+          "sample_size": 1000,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 48.0,
+          "rep_pct": 43.0,
+          "margin": 5.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Quantus Insights (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2025-09-09",
+          "end_date": "2025-09-12",
+          "sample_size": 624,
+          "population": "rv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 38.0,
+          "rep_pct": 38.0,
+          "margin": 0.0,
+          "partisan": false
+        },
+        {
+          "pollster": "TIPP Insights",
+          "rated": true,
+          "grade": "B",
+          "quality": 1.408,
+          "start_date": "2025-07-28",
+          "end_date": "2025-08-01",
+          "sample_size": 2956,
+          "population": "rv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 45.0,
+          "rep_pct": 44.0,
+          "margin": 1.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Cygnal (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2025-05-15",
+          "end_date": "2025-05-17",
+          "sample_size": 800,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 46.0,
+          "rep_pct": 43.0,
+          "margin": 3.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Trafalgar Group (R)",
+          "rated": true,
+          "grade": "C+",
+          "quality": 1.048,
+          "start_date": "2025-04-24",
+          "end_date": "2025-04-27",
+          "sample_size": 1426,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 48.0,
+          "rep_pct": 43.0,
+          "margin": 5.0,
+          "partisan": false
+        },
+        {
+          "pollster": "WPA Intelligence (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2025-01-14",
+          "end_date": "2025-01-15",
+          "sample_size": 500,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 44.0,
+          "rep_pct": 34.0,
+          "margin": 10.0,
+          "partisan": false
+        }
+      ],
+      "pollster_history": []
+    },
+    {
+      "state": "Michigan",
+      "abbr": "MI",
+      "num_polls": 2,
+      "polls": [
+        {
+          "pollster": "270toWin",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-05-20",
+          "end_date": "2026-06-14",
+          "sample_size": null,
+          "population": null,
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": 44.0,
+          "rep_pct": 43.0,
+          "margin": 1.0,
+          "partisan": false
+        },
+        {
+          "pollster": "RealClearPolitics",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-04-28",
+          "end_date": "2026-06-13",
+          "sample_size": null,
+          "population": null,
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": 44.0,
+          "rep_pct": 43.0,
+          "margin": 1.0,
+          "partisan": false
+        }
+      ],
+      "pollster_history": []
+    },
+    {
+      "state": "North Carolina",
+      "abbr": "NC",
+      "num_polls": 2,
+      "polls": [
+        {
+          "pollster": "270toWin",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-04-29",
+          "end_date": "2026-05-18",
+          "sample_size": null,
+          "population": null,
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 50.0,
+          "rep_pct": 41.0,
+          "margin": 9.0,
+          "partisan": false
+        },
+        {
+          "pollster": "RealClearPolitics",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-03-13",
+          "end_date": "2026-05-11",
+          "sample_size": null,
+          "population": null,
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 49.0,
+          "rep_pct": 42.0,
+          "margin": 7.0,
+          "partisan": false
+        }
+      ],
+      "pollster_history": []
+    },
+    {
+      "state": "Maine",
+      "abbr": "ME",
+      "num_polls": 3,
+      "polls": [
+        {
+          "pollster": "RealClearPolitics",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-05-13",
+          "end_date": "2026-06-16",
+          "sample_size": null,
+          "population": null,
+          "dem_candidate": "Graham Platner",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 48.0,
+          "rep_pct": 44.0,
+          "margin": 4.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Race to the WH",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-02-04",
+          "end_date": "2026-06-14",
+          "sample_size": null,
+          "population": null,
+          "dem_candidate": "Graham Platner",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 48.0,
+          "rep_pct": 44.0,
+          "margin": 4.0,
+          "partisan": false
+        },
+        {
+          "pollster": "270toWin",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-04-03",
+          "end_date": "2026-06-12",
+          "sample_size": null,
+          "population": null,
+          "dem_candidate": "Graham Platner",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 49.0,
+          "rep_pct": 44.0,
+          "margin": 5.0,
+          "partisan": false
+        }
+      ],
+      "pollster_history": []
+    },
+    {
+      "state": "New Hampshire",
+      "abbr": "NH",
+      "num_polls": 2,
+      "polls": [
+        {
+          "pollster": "270toWin",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-03-26",
+          "end_date": "2026-04-23",
+          "sample_size": null,
+          "population": null,
+          "dem_candidate": "Chris Pappas",
+          "rep_candidate": "Scott Brown",
+          "dem_pct": 50.0,
+          "rep_pct": 38.0,
+          "margin": 12.0,
+          "partisan": false
+        },
+        {
+          "pollster": "RealClearPolitics",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-03-16",
+          "end_date": "2026-04-20",
+          "sample_size": null,
+          "population": null,
+          "dem_candidate": "Chris Pappas",
+          "rep_candidate": "Scott Brown",
+          "dem_pct": 49.0,
+          "rep_pct": 38.0,
+          "margin": 11.0,
+          "partisan": false
+        }
+      ],
+      "pollster_history": []
+    },
+    {
+      "state": "Ohio",
+      "abbr": "OH",
+      "num_polls": 2,
+      "polls": [
+        {
+          "pollster": "270toWin",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-06-03",
+          "end_date": "2026-06-25",
+          "sample_size": null,
+          "population": null,
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 50.0,
+          "rep_pct": 45.0,
+          "margin": 5.0,
+          "partisan": false
+        },
+        {
+          "pollster": "RealClearPolitics",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-03-13",
+          "end_date": "2026-06-16",
+          "sample_size": null,
+          "population": null,
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 48.0,
+          "rep_pct": 46.0,
+          "margin": 2.0,
+          "partisan": false
+        }
+      ],
+      "pollster_history": []
+    },
+    {
+      "state": "Texas",
+      "abbr": "TX",
+      "num_polls": 2,
+      "polls": [
+        {
+          "pollster": "270toWin",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-05-27",
+          "end_date": "2026-06-12",
+          "sample_size": null,
+          "population": null,
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 45.0,
+          "rep_pct": 44.0,
+          "margin": 1.0,
+          "partisan": false
+        },
+        {
+          "pollster": "RealClearPolitics",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-04-22",
+          "end_date": "2026-06-12",
+          "sample_size": null,
+          "population": null,
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 44.0,
+          "rep_pct": 45.0,
+          "margin": -1.0,
+          "partisan": false
+        }
+      ],
+      "pollster_history": []
+    },
+    {
+      "state": "Iowa",
+      "abbr": "IA",
+      "num_polls": 6,
+      "polls": [
+        {
+          "pollster": "Cygnal (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-06-16",
+          "end_date": "2026-06-19",
+          "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 44.0,
+          "rep_pct": 46.0,
+          "margin": -2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Global Strategy Group (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-06-08",
+          "end_date": "2026-06-11",
+          "sample_size": 1000,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 47.0,
+          "rep_pct": 45.0,
+          "margin": 2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Public Policy Polling (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-06-03",
+          "end_date": "2026-06-04",
+          "sample_size": 557,
+          "population": "rv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 46.0,
+          "rep_pct": 46.0,
+          "margin": 0.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Echelon Insights (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-04-03",
+          "end_date": "2026-04-09",
+          "sample_size": 377,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 46.0,
+          "rep_pct": 45.0,
+          "margin": 1.0,
+          "partisan": false
+        },
+        {
+          "pollster": "GQR (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-03-10",
+          "end_date": "2026-03-16",
+          "sample_size": 1200,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 43.0,
+          "rep_pct": 47.0,
+          "margin": -4.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Change Research (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-01-08",
+          "end_date": "2026-01-11",
+          "sample_size": 1108,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 41.0,
+          "rep_pct": 44.0,
+          "margin": -3.0,
+          "partisan": false
+        }
+      ],
+      "pollster_history": []
+    },
+    {
+      "state": "Alaska",
+      "abbr": "AK",
+      "num_polls": 1,
+      "polls": [
+        {
+          "pollster": "Alaska Survey Research",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-03-19",
+          "end_date": "2026-03-22",
+          "sample_size": 1283,
+          "population": "lv",
+          "dem_candidate": "Mary Peltola",
+          "rep_candidate": "Dan Sullivan",
+          "dem_pct": 46.0,
+          "rep_pct": 41.0,
+          "margin": 5.0,
+          "partisan": false
+        }
+      ],
+      "pollster_history": []
+    }
+  ],
+  "unknown_default_quality": 1.408,
+  "unknown_default_grade": "B"
+}

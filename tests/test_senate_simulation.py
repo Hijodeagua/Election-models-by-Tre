@@ -134,6 +134,29 @@ class TestSimulation:
         assert forecast.dem_win_prob_blended is not None
         assert forecast.market_dem_prob == {"polymarket": 0.47}
 
+    def test_per_race_simulation_summary(self):
+        # The simulated median margin and win share are populated and internally
+        # consistent: a positive median margin implies the Dem wins >50% of sims.
+        races = [_race("A", 6.0), _race("B", -6.0)]
+        result = _simulator().simulate(races, num_simulations=20000, seed=7)
+        dem_fav, rep_fav = result.races
+        assert dem_fav.median_margin > 0 and dem_fav.dem_win_prob_sim > 0.5
+        assert rep_fav.median_margin < 0 and rep_fav.dem_win_prob_sim < 0.5
+        # 80% band is ordered and brackets the median.
+        for fc in result.races:
+            assert fc.margin_p10 < fc.median_margin < fc.margin_p90
+        # Simulated win share tracks the analytic marginal within sampling noise.
+        assert dem_fav.dem_win_prob_sim == pytest.approx(
+            dem_fav.dem_win_prob_blended, abs=0.02
+        )
+
+    def test_median_margin_carries_bias(self):
+        # A Republican bias must pull the simulated median margin downward.
+        races = [_race("A", margin=0.0)]
+        no_bias = _simulator(bias=0.0).simulate(races, num_simulations=20000, seed=3)
+        r_bias = _simulator(bias=-4.0).simulate(races, num_simulations=20000, seed=3)
+        assert r_bias.races[0].median_margin < no_bias.races[0].median_margin
+
     def test_zero_simulations_rejected(self):
         with pytest.raises(ValueError):
             _simulator().simulate([], num_simulations=0)

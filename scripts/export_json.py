@@ -635,6 +635,157 @@ def _senate_forecast_payload(
     return payload
 
 
+def _attach_race_forecasts(senate_payload: dict, forecast_payload: dict) -> None:
+    """Fold each race's simulation summary onto its battleground-card record."""
+    fc_by_state = {r["state"]: r for r in forecast_payload.get("races", [])}
+    n_sims = forecast_payload.get("num_simulations")
+    for rec in senate_payload.get("races", []):
+        fc = fc_by_state.get(rec["state"])
+        if not fc:
+            continue
+        # Prefer the simulated win share; fall back to the marginal probability.
+        win_prob = fc.get("dem_win_prob_sim")
+        if win_prob is None:
+            win_prob = fc.get("dem_win_prob_blended") or fc.get("dem_win_prob_polls")
+        rec["forecast"] = {
+            "dem_win_prob": win_prob,
+            "median_margin": fc.get("median_margin"),
+            "margin_p10": fc.get("margin_p10"),
+            "margin_p90": fc.get("margin_p90"),
+            "num_simulations": n_sims,
+        }
+
+
+# ── Pollster grades + polls-by-state tab ─────────────────────────────────────────
+
+def _quality_to_grade(quality: float | None) -> str | None:
+    """Map a 0–3 pollster-quality score to a letter grade (rated pool ≈ [1.0, 2.0])."""
+    if quality is None:
+        return None
+    cutoffs = [
+        (1.85, "A"), (1.65, "A-"), (1.45, "B+"), (1.25, "B"),
+        (1.05, "B-"), (0.85, "C+"), (0.65, "C"), (0.0, "C-"),
+    ]
+    for lo, grade in cutoffs:
+        if quality >= lo:
+            return grade
+    return "C-"
+
+
+def _poll_candidate_pct(poll: Poll, target: str) -> float | None:
+    """A poll's pct for a candidate, matched by surname (name-tolerant)."""
+    surname = target.split()[-1].lower() if target else ""
+    for ans in poll.answers:
+        if surname and surname in ans.choice.lower():
+            return ans.pct
+    return None
+
+
+def _state_from_subject(subject: str, states: list[str]) -> str | None:
+    """Map a poll subject ("Ohio Senate 2026") to a configured state name."""
+    subj = subject.lower()
+    for state in states:
+        if state.lower() in subj:
+            return state
+    return None
+
+
+def _pollsters_payload(senate_polls: list[Poll]) -> dict:
+    """Pollster grades (national + per-state track record) and the live polls
+    behind each state's Senate race, for the Pollsters tab."""
+    from src.data.pollster_ratings import (
+        _SB_RAW_ERRORS,
+        _UNKNOWN_DEFAULT,
+        _canonical,
+        hybrid_quality,
+    )
+
+    calib = _load_forecast_calibration()
+    emp = {row["pollster"]: row for row in calib.get("pollster_bias", [])}
+    state_hist = calib.get("state_pollster_bias", {})  # {abbr: [{pollster, ...}]}
+
+    # National grades: the rated Silver-Bulletin pool, enriched with our own
+    # historical actual-minus-poll track record where the calibration has it.
+    national: list[dict] = []
+    for name in _SB_RAW_ERRORS:
+        q = hybrid_quality(name)
+        e = emp.get(name) or emp.get(_canonical(name))
+        national.append({
+            "pollster": name,
+            "quality": q,
+            "grade": _quality_to_grade(q),
+            "sb_error": _SB_RAW_ERRORS[name],
+            "empirical": (
+                {
+                    "mean_error": e["mean_error"],
+                    "std_error": e["std_error"],
+                    "n_polls": e["n_polls"],
+                }
+                if e else None
+            ),
+        })
+    national.sort(key=lambda r: -r["quality"])
+
+    cycle = load_cycle_config()
+    config_by_state = {e["state"]: e for e in cycle["competitive_races"]}
+    states = list(config_by_state)
+
+    by_state: dict[str, list[dict]] = {}
+    for poll in senate_polls:
+        st = _state_from_subject(poll.subject, states)
+        if not st:
+            continue
+        entry = config_by_state[st]
+        dem_pct = _poll_candidate_pct(poll, entry["dem_candidate"])
+        rep_pct = _poll_candidate_pct(poll, entry["rep_candidate"])
+        margin = (
+            round(dem_pct - rep_pct, 1)
+            if dem_pct is not None and rep_pct is not None
+            else None
+        )
+        canonical = _canonical(poll.pollster)
+        rated = canonical in _SB_RAW_ERRORS
+        q = hybrid_quality(poll.pollster) if rated else None
+        by_state.setdefault(st, []).append({
+            "pollster": poll.pollster,
+            "rated": rated,
+            "grade": _quality_to_grade(q) if rated else None,
+            "quality": q,
+            "start_date": poll.start_date.isoformat(),
+            "end_date": poll.end_date.isoformat(),
+            "sample_size": poll.sample_size,
+            "population": poll.population.value if poll.population else None,
+            "dem_candidate": entry["dem_candidate"],
+            "rep_candidate": entry["rep_candidate"],
+            "dem_pct": dem_pct,
+            "rep_pct": rep_pct,
+            "margin": margin,
+            "partisan": poll.partisan,
+        })
+
+    states_out: list[dict] = []
+    for st in states:
+        polls = by_state.get(st, [])
+        polls.sort(key=lambda p: p["end_date"], reverse=True)
+        abbr = config_by_state[st].get("abbr")
+        states_out.append({
+            "state": st,
+            "abbr": abbr,
+            "num_polls": len(polls),
+            "polls": polls,
+            # Per-pollster historical accuracy IN this state (actual − poll),
+            # from the calibration backtest. Populates once CI recalibrates.
+            "pollster_history": state_hist.get(abbr, []) if abbr else [],
+        })
+
+    return {
+        "national": national,
+        "states": states_out,
+        "unknown_default_quality": _UNKNOWN_DEFAULT,
+        "unknown_default_grade": _quality_to_grade(_UNKNOWN_DEFAULT),
+    }
+
+
 def _write(name: str, payload: dict) -> None:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     path = OUTPUT_DIR / name
@@ -674,7 +825,6 @@ def main() -> None:
     gb_payload = _generic_ballot_payload(gb_polls, args.trend_days)
     _write("generic_ballot.json", gb_payload)
     senate_payload = _senate_payload(senate_polls, args.trend_days)
-    _write("senate.json", senate_payload)
 
     # Current national environment feeding the forecast's fundamentals prior.
     approval_current = approval_payload.get("current")
@@ -683,10 +833,16 @@ def main() -> None:
     )
     gb_current = gb_payload.get("current")
     generic_margin = gb_current.margin if gb_current is not None else None
-    _write(
-        "senate_forecast.json",
-        _senate_forecast_payload(senate_payload, approval_net, generic_margin),
+    forecast_payload = _senate_forecast_payload(
+        senate_payload, approval_net, generic_margin
     )
+
+    # Fold each race's simulation summary (win share + median margin) back onto
+    # the battleground cards so /senate reads the forecast, not just the polls.
+    _attach_race_forecasts(senate_payload, forecast_payload)
+    _write("senate.json", senate_payload)
+    _write("senate_forecast.json", forecast_payload)
+    _write("pollsters.json", _pollsters_payload(senate_polls))
 
     def _latest_poll(polls: list[Poll]) -> str | None:
         dates = [p.midpoint_date for p in polls if p.midpoint_date]

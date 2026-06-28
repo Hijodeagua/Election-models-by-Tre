@@ -107,7 +107,14 @@
           "dem_win_prob": 0.8224,
           "num_polls": 1
         }
-      ]
+      ],
+      "forecast": {
+        "dem_win_prob": 0.3043,
+        "median_margin": -3.03,
+        "margin_p10": -10.63,
+        "margin_p90": 4.52,
+        "num_simulations": 50000
+      }
     },
     {
       "state": "Georgia",
@@ -347,7 +354,14 @@
           "dem_win_prob": 0.8888,
           "num_polls": 7
         }
-      ]
+      ],
+      "forecast": {
+        "dem_win_prob": 0.8299,
+        "median_margin": 5.62,
+        "margin_p10": -1.89,
+        "margin_p90": 13.14,
+        "num_simulations": 50000
+      }
     },
     {
       "state": "Iowa",
@@ -521,7 +535,14 @@
           "dem_win_prob": 0.4926,
           "num_polls": 6
         }
-      ]
+      ],
+      "forecast": {
+        "dem_win_prob": 0.357,
+        "median_margin": -2.16,
+        "margin_p10": -9.68,
+        "margin_p90": 5.44,
+        "num_simulations": 50000
+      }
     },
     {
       "state": "Maine",
@@ -568,7 +589,14 @@
           "dem_win_prob": 0.7813,
           "num_polls": 3
         }
-      ]
+      ],
+      "forecast": {
+        "dem_win_prob": 0.7003,
+        "median_margin": 3.11,
+        "margin_p10": -4.51,
+        "margin_p90": 10.66,
+        "num_simulations": 50000
+      }
     },
     {
       "state": "Michigan",
@@ -610,7 +638,14 @@
           "dem_win_prob": 0.5733,
           "num_polls": 2
         }
-      ]
+      ],
+      "forecast": {
+        "dem_win_prob": 0.7401,
+        "median_margin": 3.76,
+        "margin_p10": -3.76,
+        "margin_p90": 11.35,
+        "num_simulations": 50000
+      }
     },
     {
       "state": "New Hampshire",
@@ -700,7 +735,14 @@
           "dem_win_prob": 0.984,
           "num_polls": 2
         }
-      ]
+      ],
+      "forecast": {
+        "dem_win_prob": 0.9336,
+        "median_margin": 8.89,
+        "margin_p10": 1.33,
+        "margin_p90": 16.45,
+        "num_simulations": 50000
+      }
     },
     {
       "state": "North Carolina",
@@ -772,7 +814,14 @@
           "dem_win_prob": 0.9441,
           "num_polls": 2
         }
-      ]
+      ],
+      "forecast": {
+        "dem_win_prob": 0.8319,
+        "median_margin": 5.7,
+        "margin_p10": -1.91,
+        "margin_p90": 13.24,
+        "num_simulations": 50000
+      }
     },
     {
       "state": "Ohio",
@@ -814,7 +863,14 @@
           "dem_win_prob": 0.8076,
           "num_polls": 2
         }
-      ]
+      ],
+      "forecast": {
+        "dem_win_prob": 0.4821,
+        "median_margin": -0.27,
+        "margin_p10": -7.82,
+        "margin_p90": 7.28,
+        "num_simulations": 50000
+      }
     },
     {
       "state": "Texas",
@@ -862,7 +918,14 @@
           "dem_win_prob": 0.5295,
           "num_polls": 2
         }
-      ]
+      ],
+      "forecast": {
+        "dem_win_prob": 0.3306,
+        "median_margin": -2.63,
+        "margin_p10": -10.14,
+        "margin_p90": 5.03,
+        "num_simulations": 50000
+      }
     }
   ],
   "num_races": 9

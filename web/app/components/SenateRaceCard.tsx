@@ -15,6 +15,36 @@ function fmtMargin(margin: number | null | undefined): string {
   return margin === 0 ? 'Even' : `${side} +${Math.abs(margin).toFixed(1)}`;
 }
 
+// "Our forecast has X winning over Y in N% of simulations, median margin Z."
+function ForecastSummary({ race }: { race: SenateRaceSnapshot }) {
+  const fc = race.forecast;
+  if (!fc || fc.dem_win_prob == null) return null;
+  const demProb = fc.dem_win_prob;
+  const demWins = demProb >= 0.5;
+  const winner = demWins ? race.dem_candidate : race.rep_candidate;
+  const loser = demWins ? race.rep_candidate : race.dem_candidate;
+  const winnerSide = demWins ? 'D' : 'R';
+  const winPct = Math.round((demWins ? demProb : 1 - demProb) * 100);
+  const med = fc.median_margin;
+  const medSide = med == null ? '' : med > 0 ? 'D' : 'R';
+  const medTxt = med == null ? '—' : `${medSide}+${Math.abs(med).toFixed(1)}`;
+  return (
+    <p className="mt-2 text-sm text-cocoa-700">
+      Our forecast has{' '}
+      <strong className={winnerSide === 'D' ? 'text-dem' : 'text-rep'}>{winner}</strong>{' '}
+      winning over <strong>{loser}</strong> in{' '}
+      <strong>{winPct}%</strong> of simulations, with a median margin of{' '}
+      <strong className={medSide === 'D' ? 'text-dem' : 'text-rep'}>{medTxt}</strong>
+      {fc.margin_p10 != null && fc.margin_p90 != null && (
+        <span className="text-cocoa-400">
+          {' '}(80% range {fmtMargin(fc.margin_p10)} to {fmtMargin(fc.margin_p90)})
+        </span>
+      )}
+      .
+    </p>
+  );
+}
+
 // One competitive race: candidate averages, a base-model vs vibes-adjusted
 // margin toggle, and prediction-market odds chips for comparison.
 export default function SenateRaceCard({ race }: { race: SenateRaceSnapshot }) {
@@ -24,6 +54,7 @@ export default function SenateRaceCard({ race }: { race: SenateRaceSnapshot }) {
   const vibes = race.vibes;
   const displayedMargin =
     showVibes && vibes?.available ? vibes.adjusted_dem_margin : race.dem_margin;
+  const winProb = race.forecast?.dem_win_prob ?? null;
   const marketOdds = race.market_odds ?? {};
   const marketSources = Object.keys(marketOdds).filter(
     (s) => marketOdds[s].Democrat != null,
@@ -63,25 +94,40 @@ export default function SenateRaceCard({ race }: { race: SenateRaceSnapshot }) {
           </span>
         </div>
         <div className="text-right">
-          <div
-            className={`font-display text-2xl leading-none ${
-              displayedMargin == null
-                ? 'text-cocoa-300'
-                : displayedMargin > 0
-                  ? 'text-dem'
-                  : displayedMargin < 0
-                    ? 'text-rep'
-                    : 'text-cocoa-700'
-            }`}
-          >
-            {fmtMargin(displayedMargin)}
-          </div>
+          {winProb != null ? (
+            <>
+              <div
+                className={`font-display text-2xl leading-none ${
+                  winProb >= 0.5 ? 'text-dem' : 'text-rep'
+                }`}
+              >
+                {winProb >= 0.5 ? 'D' : 'R'} {Math.round((winProb >= 0.5 ? winProb : 1 - winProb) * 100)}%
+              </div>
+              <div className="mt-1 text-xs text-cocoa-400">win probability</div>
+            </>
+          ) : (
+            <div
+              className={`font-display text-2xl leading-none ${
+                displayedMargin == null
+                  ? 'text-cocoa-300'
+                  : displayedMargin > 0
+                    ? 'text-dem'
+                    : displayedMargin < 0
+                      ? 'text-rep'
+                      : 'text-cocoa-700'
+              }`}
+            >
+              {fmtMargin(displayedMargin)}
+            </div>
+          )}
           <div className="mt-1 text-xs text-cocoa-400">
-            {showVibes && vibes?.available ? 'with NYT vibes' : 'base model'} ·{' '}
-            {race.num_polls} polls
+            polling avg {fmtMargin(displayedMargin)}
+            {showVibes && vibes?.available ? ' · NYT vibes' : ''} · {race.num_polls} polls
           </div>
         </div>
       </button>
+
+      <ForecastSummary race={race} />
 
       {expanded && (
         <div className="mt-3 border-t border-cream-100 pt-3">

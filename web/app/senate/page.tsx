@@ -16,10 +16,15 @@ export default function SenatePage() {
         title="The races that decide the chamber"
         sub={
           <>
-            Per-race weighted polling averages for the key 2026 races. Toggle
-            the experimental NYT vibes adjustment on each card, and compare
-            against Polymarket and Kalshi implied odds. For win probabilities
-            and the chamber-control simulation, see the{' '}
+            Each card shows our forecast for the key 2026 races — who wins, in
+            what share of {' '}
+            <Link href="/senate-forecast" className="text-peach underline">
+              50,000 simulations
+            </Link>
+            , and the median margin — built from the weighted polling average,
+            fundamentals and the national environment. Click a card to chart the
+            race; toggle the experimental NYT vibes adjustment or compare against
+            Polymarket and Kalshi. For the chamber-control total, see the{' '}
             <Link href="/senate-forecast" className="text-peach underline">
               Senate Forecast
             </Link>
