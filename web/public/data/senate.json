@@ -920,10 +920,10 @@
         }
       ],
       "forecast": {
-        "dem_win_prob": 0.3306,
-        "median_margin": -2.63,
-        "margin_p10": -10.14,
-        "margin_p90": 5.03,
+        "dem_win_prob": 0.3331,
+        "median_margin": -2.58,
+        "margin_p10": -10.09,
+        "margin_p90": 5.07,
         "num_simulations": 50000
       }
     }
