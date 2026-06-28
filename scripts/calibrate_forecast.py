@@ -133,21 +133,28 @@ def calibrate(min_year: int, max_year: int, lookback_days: int) -> dict:
     errors = np.array([r["error"] for r in rows], dtype=float)
     years = sorted({r["year"] for r in rows})
 
-    # Decompose error variance into a shared national component (cycle means)
-    # and an idiosyncratic per-race component (within-cycle residuals).
-    cycle_means = {y: float(errors[[r["year"] == y for r in rows]].mean()) for y in years}
-    residuals = np.array([r["error"] - cycle_means[r["year"]] for r in rows], dtype=float)
-
     bias = float(errors.mean())
-    national_sigma = (
-        float(np.std(list(cycle_means.values()), ddof=1)) if len(years) >= 2 else 0.0
-    )
-    race_sigma = float(np.std(residuals, ddof=1))
+    overall_sigma = float(np.std(errors, ddof=1))
+    cycle_means = {y: float(errors[[r["year"] == y for r in rows]].mean()) for y in years}
+
+    # Decompose total error into a shared national component (variance of the
+    # per-cycle mean error) and an idiosyncratic per-race component (within-cycle
+    # residuals). This needs at least two cycles.
+    single_cycle_split = len(years) < 2
+    if not single_cycle_split:
+        residuals = np.array([r["error"] - cycle_means[r["year"]] for r in rows], dtype=float)
+        national_sigma = float(np.std(list(cycle_means.values()), ddof=1))
+        race_sigma = float(np.std(residuals, ddof=1))
+    else:
+        # One cycle only: we can't separate correlated vs idiosyncratic error
+        # empirically. Keep the empirically-calibrated *total*, but split it with
+        # a literature ratio (correlated ≈ 0.5× idiosyncratic; Shirani-Mehr et al.
+        # 2018) so the chamber simulation still carries a national-error term
+        # rather than treating every race as independent (which would be
+        # overconfident about sweeps).
+        national_sigma = round(0.45 * overall_sigma, 3)
+        race_sigma = round(float(np.sqrt(max(overall_sigma**2 - national_sigma**2, 0.0))), 3)
     total_sigma = float(np.hypot(national_sigma, race_sigma))
-    # Guard against a degenerate fit (e.g. one cycle) producing σ≈0.
-    if total_sigma < 1.0:
-        race_sigma = max(race_sigma, float(np.std(errors, ddof=1)))
-        total_sigma = float(np.hypot(national_sigma, race_sigma))
 
     # ── Validation: how well do the fitted params predict past winners? ──────
     from scipy.stats import norm
@@ -188,6 +195,8 @@ def calibrate(min_year: int, max_year: int, lookback_days: int) -> dict:
         "national_sigma": round(national_sigma, 3),
         "race_sigma": round(race_sigma, 3),
         "total_sigma": round(total_sigma, 3),
+        "overall_sigma": round(overall_sigma, 3),
+        "single_cycle_split": single_cycle_split,
         "cycle_mean_error": {str(y): round(v, 2) for y, v in cycle_means.items()},
         "win_accuracy": round(win_acc, 4),
         "brier_score": round(brier, 4),
