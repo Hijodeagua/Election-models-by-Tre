@@ -132,6 +132,10 @@ export interface SenateForecastData {
   national_sigma: number;
   race_sigma: number;
   bias?: number;
+  dem_control_prob_with_vibes?: number;
+  mean_dem_seats_with_vibes?: number;
+  fundamentals_weight_recent?: number;
+  fundamentals_blend_k?: number;
   market_control_dem_prob: Record<string, number>;
   maturity: string;
   label: string;

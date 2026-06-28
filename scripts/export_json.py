@@ -443,32 +443,62 @@ def _senate_forecast_payload(senate_payload: dict) -> dict:
     market_odds = MarketOddsCsvSource(FALLBACK_DIR).load()
     races_by_state = {r["state"]: r for r in senate_payload["races"]}
 
-    inputs: list[RaceInput] = []
-    for entry in cycle["competitive_races"]:
-        race_record = races_by_state.get(entry["state"], {})
-        per_source = odds_for_race(market_odds, entry["race"])
-        market_dem_prob = {
-            source: outcomes["Democrat"]
-            for source, outcomes in per_source.items()
-            if "Democrat" in outcomes
-        }
-        # Prefer the polling margin; fall back to the fundamentals prior
-        # (lean_margin from the state's 2024 presidential margin) so reach seats
-        # that have no polls yet still contribute a seat to the simulation
-        # instead of silently vanishing from the seat count.
-        poll_margin = race_record.get("dem_margin")
-        margin = poll_margin if poll_margin is not None else entry.get("lean_margin")
-        inputs.append(
-            RaceInput(
-                state=entry["state"],
-                race=entry["race"],
-                dem_candidate=entry["dem_candidate"],
-                rep_candidate=entry["rep_candidate"],
-                margin=margin,
-                num_polls=race_record.get("num_polls", 0),
-                market_dem_prob=market_dem_prob,
+    fund_cfg = cycle.get("fundamentals", {})
+    w_recent = fund_cfg.get("pres_weight_recent", 0.75)
+    blend_k = fund_cfg.get("blend_k", 3.0)
+
+    def _fundamentals_margin(entry: dict) -> float | None:
+        """Dem−Rep fundamentals prior: blend of the state's 2024 & 2020
+        presidential margins (2024 weighted ``pres_weight_recent``)."""
+        p24, p20 = entry.get("pres_2024"), entry.get("pres_2020")
+        if p24 is None and p20 is None:
+            return entry.get("lean_margin")
+        if p20 is None:
+            return p24
+        if p24 is None:
+            return p20
+        return w_recent * p24 + (1.0 - w_recent) * p20
+
+    def _build_inputs(apply_vibes: bool) -> list[RaceInput]:
+        out: list[RaceInput] = []
+        for entry in cycle["competitive_races"]:
+            rr = races_by_state.get(entry["state"], {})
+            per_source = odds_for_race(market_odds, entry["race"])
+            market_dem_prob = {
+                source: outcomes["Democrat"]
+                for source, outcomes in per_source.items()
+                if "Democrat" in outcomes
+            }
+            poll_margin = rr.get("dem_margin")
+            fund = _fundamentals_margin(entry)
+            n = rr.get("num_polls", 0)
+            # Blend polls with fundamentals; fundamentals weight = k/(k+n) so it
+            # anchors thin-poll races and fades as polls accumulate.
+            if poll_margin is None:
+                margin = fund
+            elif fund is None:
+                margin = poll_margin
+            else:
+                w = blend_k / (blend_k + n)
+                margin = (1.0 - w) * poll_margin + w * fund
+            if apply_vibes and margin is not None:
+                vibes = rr.get("vibes") or {}
+                if vibes.get("available"):
+                    margin = margin + vibes.get("adjustment", 0.0)
+            out.append(
+                RaceInput(
+                    state=entry["state"],
+                    race=entry["race"],
+                    dem_candidate=entry["dem_candidate"],
+                    rep_candidate=entry["rep_candidate"],
+                    margin=round(margin, 3) if margin is not None else None,
+                    num_polls=n,
+                    market_dem_prob=market_dem_prob,
+                )
             )
-        )
+        return out
+
+    inputs = _build_inputs(apply_vibes=False)
 
     calib = _load_forecast_calibration()
     sim_kwargs: dict = {}
@@ -490,15 +520,24 @@ def _senate_forecast_payload(senate_payload: dict) -> dict:
         **sim_kwargs,
     )
     control_odds = odds_for_race(market_odds, SENATE_CONTROL_RACE)
+    market_control_dem_prob = {
+        source: outcomes["Democrat"]
+        for source, outcomes in control_odds.items()
+        if "Democrat" in outcomes
+    }
     forecast = simulator.simulate(
         inputs,
         num_simulations=NUM_SIMULATIONS,
         seed=SIMULATION_SEED,
-        market_control_dem_prob={
-            source: outcomes["Democrat"]
-            for source, outcomes in control_odds.items()
-            if "Democrat" in outcomes
-        },
+        market_control_dem_prob=market_control_dem_prob,
+    )
+    # Same simulation with the experimental NYT-vibes overlay applied, for
+    # side-by-side comparison. (Vibes data is a neutral placeholder until the
+    # NYT pipeline runs with a key, so today this matches the base forecast.)
+    vibes_forecast = simulator.simulate(
+        _build_inputs(apply_vibes=True),
+        num_simulations=NUM_SIMULATIONS,
+        seed=SIMULATION_SEED,
     )
     payload = dataclasses.asdict(forecast)
     # JSON object keys must be strings.
@@ -510,6 +549,12 @@ def _senate_forecast_payload(senate_payload: dict) -> dict:
         "Where the race stands today — current polling averages blended with "
         "prediction-market odds. A work in progress from Policy y Peaches."
     )
+    # Fundamentals blend (2024 + 2020 presidential lean) and the NYT-vibes
+    # variant of the chamber forecast, for comparison.
+    payload["fundamentals_weight_recent"] = w_recent
+    payload["fundamentals_blend_k"] = blend_k
+    payload["dem_control_prob_with_vibes"] = vibes_forecast.dem_control_prob
+    payload["mean_dem_seats_with_vibes"] = vibes_forecast.mean_dem_seats
     return payload
 
 
