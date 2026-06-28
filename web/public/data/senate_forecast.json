@@ -1,20 +1,20 @@
 {
   "as_of": "2026-06-28",
   "num_simulations": 50000,
-  "dem_control_prob": 0.551,
-  "mean_dem_seats": 50.5,
+  "dem_control_prob": 0.5912,
+  "mean_dem_seats": 50.69,
   "median_dem_seats": 51.0,
   "seat_distribution": {
-    "44": 70,
-    "45": 340,
-    "46": 1016,
-    "47": 2183,
-    "48": 3923,
-    "49": 6269,
-    "50": 8647,
-    "51": 10270,
-    "52": 10076,
-    "53": 7206
+    "44": 21,
+    "45": 139,
+    "46": 569,
+    "47": 1624,
+    "48": 3274,
+    "49": 5947,
+    "50": 8866,
+    "51": 11171,
+    "52": 11127,
+    "53": 7262
   },
   "races": [
     {
@@ -24,8 +24,8 @@
       "rep_candidate": "Mike Collins",
       "margin": 6.6,
       "num_polls": 7,
-      "dem_win_prob_polls": 0.8888,
-      "dem_win_prob_blended": 0.8804,
+      "dem_win_prob_polls": 0.7571,
+      "dem_win_prob_blended": 0.7815,
       "market_dem_prob": {
         "polymarket": 0.855
       }
@@ -37,8 +37,8 @@
       "rep_candidate": "Mike Rogers",
       "margin": 1.0,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.5733,
-      "dem_win_prob_blended": 0.61,
+      "dem_win_prob_polls": 0.3996,
+      "dem_win_prob_blended": 0.4797,
       "market_dem_prob": {
         "polymarket": 0.72
       }
@@ -50,8 +50,8 @@
       "rep_candidate": "Michael Whatley",
       "margin": 8.6,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.9441,
-      "dem_win_prob_blended": 0.9243,
+      "dem_win_prob_polls": 0.85,
+      "dem_win_prob_blended": 0.8538,
       "market_dem_prob": {
         "polymarket": 0.865
       }
@@ -63,10 +63,10 @@
       "rep_candidate": "Susan Collins",
       "margin": 4.2,
       "num_polls": 3,
-      "dem_win_prob_polls": 0.7813,
-      "dem_win_prob_blended": 0.5888,
+      "dem_win_prob_polls": 0.6138,
+      "dem_win_prob_blended": 0.4639,
       "market_dem_prob": {
-        "polymarket": 0.0115
+        "polymarket": 0.014
       }
     },
     {
@@ -76,10 +76,10 @@
       "rep_candidate": "Scott Brown",
       "margin": 11.6,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.984,
-      "dem_win_prob_blended": 0.9493,
+      "dem_win_prob_polls": 0.939,
+      "dem_win_prob_blended": 0.9142,
       "market_dem_prob": {
-        "polymarket": 0.845
+        "polymarket": 0.84
       }
     },
     {
@@ -89,8 +89,8 @@
       "rep_candidate": "Jon Husted",
       "margin": 4.7,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.8076,
-      "dem_win_prob_blended": 0.7444,
+      "dem_win_prob_polls": 0.6459,
+      "dem_win_prob_blended": 0.6231,
       "market_dem_prob": {
         "polymarket": 0.555
       }
@@ -102,10 +102,10 @@
       "rep_candidate": "Ken Paxton",
       "margin": 0.4,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.5295,
-      "dem_win_prob_blended": 0.5021,
+      "dem_win_prob_polls": 0.3609,
+      "dem_win_prob_blended": 0.3769,
       "market_dem_prob": {
-        "polymarket": 0.42
+        "polymarket": 0.425
       }
     },
     {
@@ -115,8 +115,8 @@
       "rep_candidate": "Ashley Hinson",
       "margin": -0.1,
       "num_polls": 6,
-      "dem_win_prob_polls": 0.4926,
-      "dem_win_prob_blended": 0.4807,
+      "dem_win_prob_polls": 0.3296,
+      "dem_win_prob_blended": 0.3584,
       "market_dem_prob": {
         "polymarket": 0.445
       }
@@ -128,8 +128,8 @@
       "rep_candidate": "Dan Sullivan",
       "margin": 5.0,
       "num_polls": 1,
-      "dem_win_prob_polls": 0.8224,
-      "dem_win_prob_blended": 0.8224,
+      "dem_win_prob_polls": 0.6646,
+      "dem_win_prob_blended": 0.6646,
       "market_dem_prob": {}
     }
   ],
@@ -137,9 +137,9 @@
   "rep_safe_seats": 47,
   "dem_majority_threshold": 51,
   "market_weight": 0.25,
-  "national_sigma": 3.0,
-  "race_sigma": 4.5,
-  "bias": 0.0,
+  "national_sigma": 2.873,
+  "race_sigma": 5.139,
+  "bias": -2.497,
   "market_control_dem_prob": {
     "polymarket": 0.425
   },
