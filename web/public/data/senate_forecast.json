@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-06-27",
+  "as_of": "2026-06-28",
   "num_simulations": 50000,
-  "dem_control_prob": 0.5535,
-  "mean_dem_seats": 50.51,
+  "dem_control_prob": 0.551,
+  "mean_dem_seats": 50.5,
   "median_dem_seats": 51.0,
   "seat_distribution": {
-    "44": 72,
-    "45": 333,
-    "46": 1031,
-    "47": 2156,
-    "48": 3901,
-    "49": 6239,
-    "50": 8594,
-    "51": 10248,
-    "52": 10163,
-    "53": 7263
+    "44": 70,
+    "45": 340,
+    "46": 1016,
+    "47": 2183,
+    "48": 3923,
+    "49": 6269,
+    "50": 8647,
+    "51": 10270,
+    "52": 10076,
+    "53": 7206
   },
   "races": [
     {
@@ -38,9 +38,9 @@
       "margin": 1.0,
       "num_polls": 2,
       "dem_win_prob_polls": 0.5733,
-      "dem_win_prob_blended": 0.6088,
+      "dem_win_prob_blended": 0.61,
       "market_dem_prob": {
-        "polymarket": 0.715
+        "polymarket": 0.72
       }
     },
     {
@@ -51,9 +51,9 @@
       "margin": 8.6,
       "num_polls": 2,
       "dem_win_prob_polls": 0.9441,
-      "dem_win_prob_blended": 0.9231,
+      "dem_win_prob_blended": 0.9243,
       "market_dem_prob": {
-        "polymarket": 0.86
+        "polymarket": 0.865
       }
     },
     {
@@ -77,9 +77,9 @@
       "margin": 11.6,
       "num_polls": 2,
       "dem_win_prob_polls": 0.984,
-      "dem_win_prob_blended": 0.9468,
+      "dem_win_prob_blended": 0.9493,
       "market_dem_prob": {
-        "polymarket": 0.835
+        "polymarket": 0.845
       }
     },
     {
@@ -90,9 +90,9 @@
       "margin": 4.7,
       "num_polls": 2,
       "dem_win_prob_polls": 0.8076,
-      "dem_win_prob_blended": 0.7482,
+      "dem_win_prob_blended": 0.7444,
       "market_dem_prob": {
-        "polymarket": 0.57
+        "polymarket": 0.555
       }
     },
     {
@@ -100,12 +100,12 @@
       "race": "Texas Senate 2026",
       "dem_candidate": "James Talarico",
       "rep_candidate": "Ken Paxton",
-      "margin": 0.8,
+      "margin": 0.4,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.5588,
-      "dem_win_prob_blended": 0.5253,
+      "dem_win_prob_polls": 0.5295,
+      "dem_win_prob_blended": 0.5021,
       "market_dem_prob": {
-        "polymarket": 0.425
+        "polymarket": 0.42
       }
     },
     {
@@ -116,9 +116,9 @@
       "margin": -0.1,
       "num_polls": 6,
       "dem_win_prob_polls": 0.4926,
-      "dem_win_prob_blended": 0.4695,
+      "dem_win_prob_blended": 0.4807,
       "market_dem_prob": {
-        "polymarket": 0.4
+        "polymarket": 0.445
       }
     },
     {
