@@ -30,7 +30,7 @@ FTE_POLL_FILES: dict[str, str] = {
     "senate":    "senate_polls_historical.csv",
     "president": "president_polls_historical.csv",
     "house":     "house_polls.csv",
-    "governor":  "governor_polls.csv",
+    "governor":  "governor_polls_historical.csv",
 }
 
 # Canonical home is the projects.fivethirtyeight.com "polls-page" data files
