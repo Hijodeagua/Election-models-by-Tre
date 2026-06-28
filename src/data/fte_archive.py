@@ -23,21 +23,24 @@ from config.settings import settings
 
 logger = logging.getLogger(__name__)
 
+# 538 splits each office into a "current" file (since the most recent election)
+# and a "_historical" file (everything before it). For training/backtesting we
+# want the historical archive, which reaches back through 2016.
 FTE_POLL_FILES: dict[str, str] = {
-    "senate":    "senate_polls.csv",
-    "president": "president_polls.csv",
+    "senate":    "senate_polls_historical.csv",
+    "president": "president_polls_historical.csv",
     "house":     "house_polls.csv",
     "governor":  "governor_polls.csv",
 }
 
-# 538's poll database is published as one CSV per office. After ABC wound 538
-# down (2025) the canonical home moved off the old `master` branch, so we try
-# several mirrors in order: the still-served projects.fivethirtyeight.com data
-# files, then both branch names on the GitHub archive.
+# Canonical home is the projects.fivethirtyeight.com "polls-page" data files
+# (documented in fivethirtyeight/data/polls/README.md). GitHub branches are kept
+# as long-shot fallbacks. NOTE the path is ``polls-page/data`` — the older
+# ``polls/data`` path now 302-redirects to abcnews.com (an HTML page).
 FTE_URL_BASES: list[str] = [
-    "https://projects.fivethirtyeight.com/polls/data",
-    "https://raw.githubusercontent.com/fivethirtyeight/data/main/polls",
+    "https://projects.fivethirtyeight.com/polls-page/data",
     "https://raw.githubusercontent.com/fivethirtyeight/data/master/polls",
+    "https://raw.githubusercontent.com/fivethirtyeight/data/main/polls",
 ]
 
 # Back-compat: primary URL per office (first base).
@@ -55,6 +58,24 @@ def _candidate_urls(office: str) -> list[str]:
     if not fname:
         return []
     return [f"{base}/{fname}" for base in FTE_URL_BASES]
+
+
+def _looks_like_csv(text: str) -> bool:
+    """True if the response body is a poll CSV, not an HTML redirect page.
+
+    A decommissioned host (e.g. the old polls/data path) 302-redirects to an
+    HTML page that still contains commas, so a naive comma check is not enough.
+    """
+    stripped = text.lstrip()
+    if not stripped or stripped[0] == "<":
+        return False
+    head = stripped[:300].lower()
+    if "<!doctype" in head or "<html" in head:
+        return False
+    first_line = stripped.splitlines()[0].lower()
+    if first_line.count(",") < 3:
+        return False
+    return any(tok in first_line for tok in ("poll", "cycle", "candidate", "pct"))
 
 
 @dataclass
@@ -155,10 +176,11 @@ class FTEArchiveClient:
             except Exception as exc:
                 logger.warning(f"  fetch failed ({exc})")
                 continue
-            if r.status_code == 200 and "," in r.text[:2000]:
+            if r.status_code == 200 and _looks_like_csv(r.text):
                 resp = r
                 break
-            logger.warning(f"  HTTP {r.status_code} — trying next mirror")
+            reason = "not CSV (HTML?)" if r.status_code == 200 else f"HTTP {r.status_code}"
+            logger.warning(f"  {reason} — trying next mirror")
 
         if resp is None:
             raise FileNotFoundError(

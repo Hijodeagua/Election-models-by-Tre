@@ -28,17 +28,17 @@ logger = logging.getLogger(__name__)
 # Format: tab-separated files (.tab) or CSV
 MEDSL_URLS: dict[str, list[str]] = {
     "senate": [
-        # GitHub mirror (most reliable)
+        # MEDSL constituency-returns repo: state-level Senate returns 1976-2018
+        # (covers the 2016 & 2018 cycles used for calibration). Most reliable.
+        "https://raw.githubusercontent.com/MEDSL/constituency-returns/master/1976-2018-senate.csv",
+        # Older paths kept as fallbacks.
         "https://raw.githubusercontent.com/MEDSL/2022-elections-official/main/dataverse_files/1976-2022-senate.tab",
-        # Harvard Dataverse direct download fallback
-        "https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/IG0UN2/SDOUVT",
     ],
     "house": [
-        "https://raw.githubusercontent.com/MEDSL/2022-elections-official/main/dataverse_files/1976-2022-house.tab",
-        "https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/IG0UN2/ZSFUI2",
+        "https://raw.githubusercontent.com/MEDSL/constituency-returns/master/1976-2018-house.csv",
     ],
     "governor": [
-        "https://raw.githubusercontent.com/MEDSL/2022-elections-official/main/dataverse_files/1976-2022-governor.tab",
+        "https://raw.githubusercontent.com/MEDSL/constituency-returns/master/1976-2018-governor.csv",
     ],
 }
 
