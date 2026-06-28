@@ -1,8 +1,222 @@
 {
-  "usable": false,
-  "n_races": 0,
-  "national_sigma": 3.0,
-  "race_sigma": 4.5,
-  "bias": 0.0,
-  "rows": []
+  "usable": true,
+  "source": "538 archive polls (FiveThirtyEight) + MEDSL official results",
+  "cycles": [
+    2018
+  ],
+  "n_races": 21,
+  "lookback_days": 21,
+  "bias": 0.348,
+  "national_sigma": 0.0,
+  "race_sigma": 6.725,
+  "total_sigma": 6.725,
+  "cycle_mean_error": {
+    "2018": 0.35
+  },
+  "win_accuracy": 0.8095,
+  "brier_score": 0.0838,
+  "reliability": [
+    {
+      "bin": "0-20%",
+      "n": 4,
+      "predicted": 0.031,
+      "actual": 0.0
+    },
+    {
+      "bin": "20-40%",
+      "n": 2,
+      "predicted": 0.261,
+      "actual": 0.0
+    },
+    {
+      "bin": "40-60%",
+      "n": 6,
+      "predicted": 0.528,
+      "actual": 0.5
+    },
+    {
+      "bin": "60-80%",
+      "n": 1,
+      "predicted": 0.795,
+      "actual": 1.0
+    },
+    {
+      "bin": "80-101%",
+      "n": 8,
+      "predicted": 0.949,
+      "actual": 1.0
+    }
+  ],
+  "default_national_sigma": 3.0,
+  "default_race_sigma": 4.5,
+  "rows": [
+    {
+      "race_id": "AZ-SENATE-2018",
+      "year": 2018,
+      "poll_margin": -0.9,
+      "actual_margin": 2.35,
+      "error": 3.25,
+      "dem_won": true
+    },
+    {
+      "race_id": "CT-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 19.3,
+      "actual_margin": 17.45,
+      "error": -1.85,
+      "dem_won": true
+    },
+    {
+      "race_id": "FL-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 1.1,
+      "actual_margin": -0.12,
+      "error": -1.22,
+      "dem_won": false
+    },
+    {
+      "race_id": "IN-SENATE-2018",
+      "year": 2018,
+      "poll_margin": -0.3,
+      "actual_margin": -5.89,
+      "error": -5.59,
+      "dem_won": false
+    },
+    {
+      "race_id": "ME-SENATE-2018",
+      "year": 2018,
+      "poll_margin": -29.6,
+      "actual_margin": -24.78,
+      "error": 4.82,
+      "dem_won": false
+    },
+    {
+      "race_id": "MA-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 22.8,
+      "actual_margin": 24.17,
+      "error": 1.37,
+      "dem_won": true
+    },
+    {
+      "race_id": "MI-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 8.5,
+      "actual_margin": 6.5,
+      "error": -2.0,
+      "dem_won": true
+    },
+    {
+      "race_id": "MS-SENATE-2018",
+      "year": 2018,
+      "poll_margin": -8.6,
+      "actual_margin": -6.88,
+      "error": 1.72,
+      "dem_won": false
+    },
+    {
+      "race_id": "MO-SENATE-2018",
+      "year": 2018,
+      "poll_margin": -0.3,
+      "actual_margin": -5.81,
+      "error": -5.51,
+      "dem_won": false
+    },
+    {
+      "race_id": "MT-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 5.2,
+      "actual_margin": 3.55,
+      "error": -1.65,
+      "dem_won": true
+    },
+    {
+      "race_id": "NE-SENATE-2018",
+      "year": 2018,
+      "poll_margin": -15.0,
+      "actual_margin": -19.07,
+      "error": -4.07,
+      "dem_won": false
+    },
+    {
+      "race_id": "NV-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 1.2,
+      "actual_margin": 5.03,
+      "error": 3.83,
+      "dem_won": true
+    },
+    {
+      "race_id": "NJ-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 9.5,
+      "actual_margin": 11.18,
+      "error": 1.68,
+      "dem_won": true
+    },
+    {
+      "race_id": "NM-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 0.0,
+      "actual_margin": 23.56,
+      "error": 23.56,
+      "dem_won": true
+    },
+    {
+      "race_id": "NY-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 25.0,
+      "actual_margin": 33.44,
+      "error": 8.44,
+      "dem_won": true
+    },
+    {
+      "race_id": "OH-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 11.3,
+      "actual_margin": 6.84,
+      "error": -4.46,
+      "dem_won": true
+    },
+    {
+      "race_id": "TN-SENATE-2018",
+      "year": 2018,
+      "poll_margin": -4.7,
+      "actual_margin": -10.79,
+      "error": -6.09,
+      "dem_won": false
+    },
+    {
+      "race_id": "TX-SENATE-2018",
+      "year": 2018,
+      "poll_margin": -4.6,
+      "actual_margin": -2.56,
+      "error": 2.04,
+      "dem_won": false
+    },
+    {
+      "race_id": "WV-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 6.7,
+      "actual_margin": 3.25,
+      "error": -3.45,
+      "dem_won": true
+    },
+    {
+      "race_id": "WI-SENATE-2018",
+      "year": 2018,
+      "poll_margin": 10.5,
+      "actual_margin": 10.84,
+      "error": 0.34,
+      "dem_won": true
+    },
+    {
+      "race_id": "WY-SENATE-2018",
+      "year": 2018,
+      "poll_margin": -29.0,
+      "actual_margin": -36.86,
+      "error": -7.86,
+      "dem_won": false
+    }
+  ]
 }
