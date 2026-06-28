@@ -52,12 +52,23 @@ FTE_POLL_URLS: dict[str, str] = {
 FTE_GITHUB_API = "https://api.github.com/repos/fivethirtyeight/data/contents/polls"
 
 
+# 538/ABC fully decommissioned the projects.fivethirtyeight.com data hosting in
+# 2026 (every /polls/* path 302-redirects to abcnews.com) and never kept the
+# CSVs in the GitHub repo, so the only reliable source for the archived files is
+# the Internet Archive. The ``id_`` modifier returns the original CSV bytes with
+# no Wayback banner; a partial timestamp resolves to the nearest snapshot.
+WAYBACK_PREFIX = "https://web.archive.org/web/20240601id_/"
+
+
 def _candidate_urls(office: str) -> list[str]:
     """Ordered list of mirror URLs to try for an office's poll CSV."""
     fname = FTE_POLL_FILES.get(office)
     if not fname:
         return []
-    return [f"{base}/{fname}" for base in FTE_URL_BASES]
+    direct = [f"{base}/{fname}" for base in FTE_URL_BASES]
+    # Internet Archive snapshot of the now-dead projects.fivethirtyeight.com file.
+    wayback = f"{WAYBACK_PREFIX}https://projects.fivethirtyeight.com/polls-page/data/{fname}"
+    return direct + [wayback]
 
 
 def _looks_like_csv(text: str) -> bool:
