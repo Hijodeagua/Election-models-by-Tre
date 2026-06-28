@@ -12,6 +12,15 @@
     "_comment": "calibration_bias_weight scales the historically-fitted poll bias (~-2.5) before it is applied: 0 = ignore it (fundamentals already capture the red-state lean), 1 = apply in full, 0.5 = split the difference. Kept at 0.5 to avoid double-counting the same Dem-overstatement that the fundamentals blend also corrects.",
     "calibration_bias_weight": 0.5
   },
+  "national_environment": {
+    "_comment": "The midterm climate, applied as a uniform swing on top of each state's presidential lean (so the fundamentals prior reflects today, not 2024). Expected national Dem-minus-Rep margin = generic_weight*generic_ballot + approval_weight*(approval-implied margin for the out-party); the swing is that minus the 2024 House baseline. president_party is the in-party that pays the midterm penalty. approval_to_margin_coef converts the president's net approval to their party's national margin. senate_responsiveness scales how much of the national swing reaches Senate races. It only moves the fundamentals prior — polled races already price the climate in, so this mainly lifts thinly-polled seats.",
+    "president_party": "R",
+    "house_baseline_2024": -2.8,
+    "generic_weight": 0.6,
+    "approval_weight": 0.4,
+    "approval_to_margin_coef": 0.3,
+    "senate_responsiveness": 1.0
+  },
   "competitive_races": [
     {
       "state": "Georgia", "race": "Georgia Senate 2026",

@@ -136,9 +136,22 @@ export interface SenateForecastData {
   mean_dem_seats_with_vibes?: number;
   fundamentals_weight_recent?: number;
   fundamentals_blend_k?: number;
+  national_environment?: NationalEnvironment;
   market_control_dem_prob: Record<string, number>;
   maturity: string;
   label: string;
+}
+
+export interface NationalEnvironment {
+  national_swing: number;
+  available: boolean;
+  president_party?: string;
+  approval_net?: number | null;
+  generic_margin?: number | null;
+  approval_implied_margin?: number | null;
+  expected_national_margin?: number;
+  house_baseline_2024?: number;
+  senate_responsiveness?: number;
 }
 
 export interface Meta {

@@ -437,7 +437,65 @@ def _load_forecast_calibration() -> dict:
         return {}
 
 
-def _senate_forecast_payload(senate_payload: dict) -> dict:
+def _national_environment(
+    cfg: dict, approval_net: float | None, generic_margin: float | None
+) -> dict:
+    """Translate today's presidential approval + generic ballot into a uniform
+    national swing (Dem−Rep points) relative to the 2024 House baseline.
+
+    Returns a dict with the swing and its components for transparency. When the
+    config block is absent the swing is 0 and the forecast is unchanged.
+    """
+    if not cfg:
+        return {"national_swing": 0.0, "available": False}
+
+    pres_party = cfg.get("president_party", "R").upper()
+    house_baseline = cfg.get("house_baseline_2024", 0.0)
+    generic_weight = cfg.get("generic_weight", 0.6)
+    approval_weight = cfg.get("approval_weight", 0.4)
+    appr_coef = cfg.get("approval_to_margin_coef", 0.3)
+    responsiveness = cfg.get("senate_responsiveness", 1.0)
+
+    # Generic ballot is already a Dem−Rep margin (positive = D advantage).
+    gb_term = generic_margin if generic_margin is not None else None
+    # Approval → the president's party's national margin, then flip to Dem−Rep.
+    if approval_net is not None:
+        pres_party_margin = appr_coef * approval_net
+        appr_term = -pres_party_margin if pres_party == "R" else pres_party_margin
+    else:
+        appr_term = None
+
+    # Re-normalise the weights over whichever signals are available so a missing
+    # feed doesn't silently halve the environment.
+    parts = []
+    if gb_term is not None:
+        parts.append((generic_weight, gb_term))
+    if appr_term is not None:
+        parts.append((approval_weight, appr_term))
+    if not parts:
+        return {"national_swing": 0.0, "available": False}
+    wsum = sum(w for w, _ in parts) or 1.0
+    e_national = sum(w * v for w, v in parts) / wsum
+
+    national_swing = round((e_national - house_baseline) * responsiveness, 3)
+    return {
+        "national_swing": national_swing,
+        "available": True,
+        "president_party": pres_party,
+        "approval_net": approval_net,
+        "generic_margin": generic_margin,
+        "approval_implied_margin": (round(appr_term, 3) if appr_term is not None else None),
+        "expected_national_margin": round(e_national, 3),
+        "house_baseline_2024": house_baseline,
+        "senate_responsiveness": responsiveness,
+    }
+
+
+def _senate_forecast_payload(
+    senate_payload: dict,
+    approval_net: float | None = None,
+    generic_margin: float | None = None,
+) -> dict:
     """50,000-simulation Senate-control Monte Carlo + market comparison."""
     cycle = load_cycle_config()
     market_odds = MarketOddsCsvSource(FALLBACK_DIR).load()
@@ -447,17 +505,31 @@ def _senate_forecast_payload(senate_payload: dict) -> dict:
     w_recent = fund_cfg.get("pres_weight_recent", 0.75)
     blend_k = fund_cfg.get("blend_k", 3.0)
 
+    env = _national_environment(
+        cycle.get("national_environment", {}), approval_net, generic_margin
+    )
+    national_swing = env["national_swing"]
+    if env.get("available"):
+        print(
+            f"  national environment: approval_net={approval_net}, "
+            f"generic_margin={generic_margin} → swing={national_swing:+.2f} "
+            f"Dem−Rep points (vs 2024 House baseline "
+            f"{env.get('house_baseline_2024')})"
+        )
+
     def _fundamentals_margin(entry: dict) -> float | None:
         """Dem−Rep fundamentals prior: blend of the state's 2024 & 2020
-        presidential margins (2024 weighted ``pres_weight_recent``)."""
+        presidential margins (2024 weighted ``pres_weight_recent``), shifted by
+        the current national midterm swing (approval + generic ballot)."""
         p24, p20 = entry.get("pres_2024"), entry.get("pres_2020")
         if p24 is None and p20 is None:
-            return entry.get("lean_margin")
+            base = entry.get("lean_margin")
+            return None if base is None else base + national_swing
         if p20 is None:
-            return p24
+            return p24 + national_swing
         if p24 is None:
-            return p20
-        return w_recent * p24 + (1.0 - w_recent) * p20
+            return p20 + national_swing
+        return w_recent * p24 + (1.0 - w_recent) * p20 + national_swing
 
     def _build_inputs(apply_vibes: bool) -> list[RaceInput]:
         out: list[RaceInput] = []
@@ -557,6 +629,9 @@ def _senate_forecast_payload(senate_payload: dict) -> dict:
     payload["fundamentals_blend_k"] = blend_k
     payload["dem_control_prob_with_vibes"] = vibes_forecast.dem_control_prob
     payload["mean_dem_seats_with_vibes"] = vibes_forecast.mean_dem_seats
+    # National midterm environment (presidential approval + generic ballot)
+    # folded into the fundamentals prior, exposed for transparency in the UI.
+    payload["national_environment"] = env
     return payload
 
 
@@ -596,10 +671,22 @@ def main() -> None:
         "approval_comparison.json",
         _approval_comparison_payload(approval_payload, approval_polls, args.trend_days),
     )
-    _write("generic_ballot.json", _generic_ballot_payload(gb_polls, args.trend_days))
+    gb_payload = _generic_ballot_payload(gb_polls, args.trend_days)
+    _write("generic_ballot.json", gb_payload)
     senate_payload = _senate_payload(senate_polls, args.trend_days)
     _write("senate.json", senate_payload)
-    _write("senate_forecast.json", _senate_forecast_payload(senate_payload))
+
+    # Current national environment feeding the forecast's fundamentals prior.
+    approval_current = approval_payload.get("current")
+    approval_net = (
+        approval_current.net_approval if approval_current is not None else None
+    )
+    gb_current = gb_payload.get("current")
+    generic_margin = gb_current.margin if gb_current is not None else None
+    _write(
+        "senate_forecast.json",
+        _senate_forecast_payload(senate_payload, approval_net, generic_margin),
+    )
 
     def _latest_poll(polls: list[Poll]) -> str | None:
         dates = [p.midpoint_date for p in polls if p.midpoint_date]
