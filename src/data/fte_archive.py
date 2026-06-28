@@ -156,8 +156,12 @@ class FTEArchiveClient:
         cache_path = self.cache_dir / f"{office}_polls.csv"
 
         if cache_path.exists():
-            logger.info(f"Loading cached 538 {office} polls")
-            return self._parse_csv(cache_path.read_text(), office)
+            cached = cache_path.read_text()
+            if _looks_like_csv(cached):
+                logger.info(f"Loading cached 538 {office} polls")
+                return self._parse_csv(cached, office)
+            # A prior run may have cached an HTML redirect page — discard it.
+            logger.warning(f"Cached {cache_path.name} is not valid CSV — refetching")
 
         candidates = _candidate_urls(office)
         if not candidates:
