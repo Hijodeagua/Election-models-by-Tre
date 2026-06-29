@@ -653,6 +653,7 @@ def _attach_race_forecasts(senate_payload: dict, forecast_payload: dict) -> None
             "margin_p10": fc.get("margin_p10"),
             "margin_p90": fc.get("margin_p90"),
             "num_simulations": n_sims,
+            "margin_hist": fc.get("margin_hist", []),
         }
 
 

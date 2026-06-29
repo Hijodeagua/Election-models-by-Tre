@@ -1,10 +1,10 @@
 'use client';
 
 import {
-  Area,
-  ComposedChart,
+  Bar,
+  BarChart,
+  Cell,
   CartesianGrid,
-  ReferenceDot,
   ReferenceLine,
   ResponsiveContainer,
   Tooltip,
@@ -16,83 +16,75 @@ import type { SenateRaceSnapshot } from '@/app/lib/data';
 const DEM = '#2563eb';
 const REP = '#dc2626';
 
-function fmtDate(iso: string): string {
-  // "2026-06-24" -> "Jun 24"
-  const d = new Date(`${iso}T00:00:00`);
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+function marginLabel(v: number): string {
+  if (v === 0) return 'Tie';
+  return v > 0 ? `D+${Math.abs(v).toFixed(0)}` : `R+${Math.abs(v).toFixed(0)}`;
 }
 
-// Per-race history: our model's probability the Democrat wins, over time. The
-// 50% line is the tipping point — above it we favour the Democrat, below it the
-// Republican. Shown when a race card is expanded.
+// Per-race histogram of the 50,000 simulated Dem−Rep margins. Democratic-win
+// outcomes sit on the LEFT in blue, Republican-win outcomes on the RIGHT in red,
+// with a reference line at the 50/50 tipping point (margin 0). Shown when a race
+// card is expanded.
 export default function SenateRaceChart({ race }: { race: SenateRaceSnapshot }) {
-  const trend = race.trend ?? [];
   const demName = race.dem_candidate ?? 'Democrat';
   const repName = race.rep_candidate ?? 'Republican';
+  const fc = race.forecast;
+  const bins = fc?.margin_hist ?? [];
 
-  if (trend.length === 0) {
+  if (bins.length === 0) {
     return (
       <p className="py-6 text-center text-xs text-cocoa-400">
-        Not enough polling history yet to chart this race.
+        No simulation distribution available for this race yet.
       </p>
     );
   }
 
-  const data = trend.map((p) => ({
-    date: fmtDate(p.as_of),
-    demProb: Math.round(p.dem_win_prob * 1000) / 10,
-    margin: p.dem_margin,
-  }));
-
-  const latest = data[data.length - 1];
-  const demLeads = latest.demProb >= 50;
-  const leader = demLeads ? demName : repName;
-  const leaderProb = demLeads ? latest.demProb : 100 - latest.demProb;
-  const leaderColor = demLeads ? DEM : REP;
-  const gradId = `race-grad-${race.state.replace(/\s+/g, '')}`;
+  const data = bins.map((b) => ({ mid: b.mid, pct: Math.round(b.pct * 1000) / 10 }));
+  const demWinProb = fc?.dem_win_prob ?? null;
+  const demPct = demWinProb != null ? Math.round(demWinProb * 100) : null;
+  const repPct = demPct != null ? 100 - demPct : null;
+  const median = fc?.median_margin ?? null;
+  const nSims = fc?.num_simulations ?? null;
 
   return (
     <div className="rounded-lg bg-cream-50/60 p-3">
       <div className="mb-2 flex items-baseline justify-between">
         <span className="text-[11px] font-medium uppercase tracking-wide text-cocoa-400">
-          Probability {demName} (D) wins
+          {nSims ? `${nSims.toLocaleString()} simulated outcomes` : 'Simulated outcomes'}
         </span>
-        <span
-          className="rounded-full px-2 py-0.5 text-xs font-semibold"
-          style={{ color: leaderColor, backgroundColor: `${leaderColor}14` }}
-        >
-          {leader} {Math.round(leaderProb)}%
-        </span>
+        {demPct != null && repPct != null && (
+          <span className="text-xs font-semibold">
+            <span style={{ color: DEM }}>{demName} {demPct}%</span>
+            <span className="mx-1 text-cocoa-300">·</span>
+            <span style={{ color: REP }}>{repName} {repPct}%</span>
+          </span>
+        )}
       </div>
-      <ResponsiveContainer width="100%" height={208}>
-        <ComposedChart data={data} margin={{ top: 10, right: 14, left: 0, bottom: 0 }}>
-          <defs>
-            <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={DEM} stopOpacity={0.28} />
-              <stop offset="100%" stopColor={DEM} stopOpacity={0.02} />
-            </linearGradient>
-          </defs>
+      <ResponsiveContainer width="100%" height={216}>
+        <BarChart data={data} margin={{ top: 16, right: 10, left: 0, bottom: 4 }} barCategoryGap={1}>
           <CartesianGrid strokeDasharray="2 4" stroke="#ece2da" vertical={false} />
           <XAxis
-            dataKey="date"
+            dataKey="mid"
+            type="number"
+            domain={[-30, 30]}
+            ticks={[-20, -10, 0, 10, 20]}
+            reversed
             tick={{ fontSize: 10.5, fill: '#b69a90' }}
+            tickFormatter={marginLabel}
             axisLine={false}
             tickLine={false}
-            minTickGap={28}
-            padding={{ left: 6, right: 6 }}
           />
           <YAxis
-            domain={[0, 100]}
-            ticks={[0, 50, 100]}
             tick={{ fontSize: 10.5, fill: '#b69a90' }}
             axisLine={false}
             tickLine={false}
             tickFormatter={(v: number) => `${v}%`}
-            width={40}
+            width={34}
           />
           <Tooltip
-            cursor={{ stroke: '#cbb6ab', strokeDasharray: '3 3' }}
-            formatter={(value: number) => [`${value.toFixed(0)}%`, `P(${demName})`]}
+            cursor={{ fill: 'rgba(203,182,171,0.15)' }}
+            formatter={(value: number) => [`${value.toFixed(1)}% of sims`, 'Frequency']}
+            labelFormatter={(v: number) => `Margin ${marginLabel(Number(v))}`}
             labelStyle={{ color: '#5c3d2a', fontWeight: 600, marginBottom: 2 }}
             contentStyle={{
               fontSize: 12,
@@ -102,34 +94,40 @@ export default function SenateRaceChart({ race }: { race: SenateRaceSnapshot }) 
               padding: '6px 10px',
             }}
           />
-          <ReferenceLine y={50} stroke="#d8c3b8" strokeWidth={1} strokeDasharray="4 4" />
-          <Area
-            type="monotone"
-            dataKey="demProb"
-            stroke={DEM}
-            strokeWidth={2.5}
-            fill={`url(#${gradId})`}
-            dot={false}
-            activeDot={{ r: 4, fill: DEM, stroke: '#fff', strokeWidth: 2 }}
-            isAnimationActive={false}
+          {/* The 50/50 line: everything left of it (blue) is a Democratic win. */}
+          <ReferenceLine
+            x={0}
+            stroke="#7c6a5d"
+            strokeWidth={1.5}
+            strokeDasharray="4 3"
+            label={{ value: '50/50', position: 'top', fontSize: 10, fill: '#7c6a5d' }}
           />
-          {/* Emphasise the current value. */}
-          <ReferenceDot
-            x={latest.date}
-            y={latest.demProb}
-            r={4.5}
-            fill={leaderColor}
-            stroke="#fff"
-            strokeWidth={2}
-            isFront
-          />
-        </ComposedChart>
+          {median != null && (
+            <ReferenceLine
+              x={median}
+              stroke={median > 0 ? DEM : REP}
+              strokeWidth={1}
+              label={{
+                value: `median ${marginLabel(median)}`,
+                position: 'insideTopRight',
+                fontSize: 9.5,
+                fill: median > 0 ? DEM : REP,
+              }}
+            />
+          )}
+          <Bar dataKey="pct" isAnimationActive={false} maxBarSize={16} radius={[2, 2, 0, 0]}>
+            {data.map((d) => (
+              <Cell key={d.mid} fill={d.mid > 0 ? DEM : REP} />
+            ))}
+          </Bar>
+        </BarChart>
       </ResponsiveContainer>
       <p className="mt-1.5 flex items-center gap-1.5 text-[11px] leading-relaxed text-cocoa-400">
         <span className="inline-block h-2 w-2 rounded-full" style={{ backgroundColor: DEM }} />
-        Above the 50% line favours {demName} (D); below favours {repName} (R). Each point runs
-        our weighted polling margin that day through the same error model as the chamber
-        simulation.
+        Left of the 50/50 line, {demName} (D) wins;
+        <span className="ml-1 inline-block h-2 w-2 rounded-full" style={{ backgroundColor: REP }} />
+        right of it, {repName} (R) wins. Each bar is the share of the chamber
+        simulation&rsquo;s 50,000 runs landing on that Dem−Rep margin.
       </p>
     </div>
   );

@@ -46,6 +46,10 @@ DEFAULT_MARKET_WEIGHT = 0.25
 
 DEFAULT_NUM_SIMULATIONS = 50000
 
+# Fixed bins for the per-race simulated-margin histogram (Dem−Rep points), shared
+# across races so they're directly comparable. Tails are clipped into the ends.
+MARGIN_HIST_EDGES = np.arange(-30.0, 30.0001, 2.0)
+
 CONFIG_PATH = Path(__file__).resolve().parent.parent.parent / "config" / "senate_2026.json"
 
 
@@ -83,6 +87,9 @@ class RaceForecast:
     median_margin: float | None = None
     margin_p10: float | None = None
     margin_p90: float | None = None
+    # Binned distribution of the simulated Dem−Rep margin: a list of
+    # {"mid": bin_center, "pct": fraction_of_sims}. Powers the per-race histogram.
+    margin_hist: list[dict] = field(default_factory=list)
 
 
 @dataclass
@@ -242,12 +249,21 @@ class SenateControlSimulator:
             race_p10 = np.percentile(sim_margins, 10, axis=0)
             race_p90 = np.percentile(sim_margins, 90, axis=0)
             race_winshare = dem_wins.mean(axis=0)
+            # Histogram bins (clip tails into the end bins so no mass is lost).
+            edges = MARGIN_HIST_EDGES
+            mids = (edges[:-1] + edges[1:]) / 2.0
+            clipped = np.clip(sim_margins, edges[0] + 1e-6, edges[-1] - 1e-6)
             for j, fi in enumerate(margin_to_forecast):
                 fc = forecasts[fi]
                 fc.dem_win_prob_sim = round(float(race_winshare[j]), 4)
                 fc.median_margin = round(float(race_median[j]), 2)
                 fc.margin_p10 = round(float(race_p10[j]), 2)
                 fc.margin_p90 = round(float(race_p90[j]), 2)
+                counts, _ = np.histogram(clipped[:, j], bins=edges)
+                fc.margin_hist = [
+                    {"mid": round(float(m), 1), "pct": round(float(c) / num_simulations, 5)}
+                    for m, c in zip(mids, counts, strict=True)
+                ]
         else:
             dem_seats = np.full(num_simulations, self.dem_safe_seats)
 

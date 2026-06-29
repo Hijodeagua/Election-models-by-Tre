@@ -64,12 +64,18 @@ export interface SenateRaceTrendPoint {
   num_polls: number;
 }
 
+export interface MarginHistBin {
+  mid: number;
+  pct: number;
+}
+
 export interface RaceForecastSummary {
   dem_win_prob: number | null;
   median_margin: number | null;
   margin_p10: number | null;
   margin_p90: number | null;
   num_simulations: number | null;
+  margin_hist?: MarginHistBin[];
 }
 
 export interface SenateRaceSnapshot {
