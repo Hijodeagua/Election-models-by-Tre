@@ -65,7 +65,8 @@ class RaceInput:
 
 @dataclass
 class RaceForecast:
-    """Per-race output: polls-only, market and blended win probabilities."""
+    """Per-race output: polls-only, market and blended win probabilities, plus
+    the simulated outcome distribution (win share + median/80% margin band)."""
 
     state: str
     race: str
@@ -76,6 +77,12 @@ class RaceForecast:
     dem_win_prob_polls: float | None
     dem_win_prob_blended: float | None
     market_dem_prob: dict[str, float]
+    # Drawn straight from the Monte Carlo: the share of simulations the Democrat
+    # wins, and the Dem−Rep margin distribution across simulations.
+    dem_win_prob_sim: float | None = None
+    median_margin: float | None = None
+    margin_p10: float | None = None
+    margin_p90: float | None = None
 
 
 @dataclass
@@ -170,8 +177,11 @@ class SenateControlSimulator:
         Probabilities are clipped away from 0/1 so the inverse CDF stays finite.
         """
         clipped = float(np.clip(prob, 1e-4, 1.0 - 1e-4))
-        # Inverse of win_prob_from_margin: prob = Φ((m + bias)/σ) ⇒ m = ppf·σ − bias.
-        return float(norm.ppf(clipped) * self._total_sigma - self.bias)
+        # The simulation draws mean-zero noise, so its marginal for an effective
+        # margin m is Φ(m/σ). We want that to equal `prob` — and `prob` already
+        # carries the bias (it came from win_prob_from_margin / the market blend),
+        # so the bias must NOT be re-applied here, or it cancels out.
+        return float(norm.ppf(clipped) * self._total_sigma)
 
     # ── Simulation ────────────────────────────────────────────────────────
 
@@ -191,6 +201,9 @@ class SenateControlSimulator:
 
         forecasts: list[RaceForecast] = []
         effective_margins: list[float] = []
+        # Forecast index for each effective margin, so per-race simulated stats
+        # can be written back onto the right RaceForecast.
+        margin_to_forecast: list[int] = []
         for race in races:
             p_polls = (
                 round(self.win_prob_from_margin(race.margin), 4)
@@ -213,6 +226,7 @@ class SenateControlSimulator:
             )
             if p_blend is not None:
                 effective_margins.append(self._effective_margin(p_blend))
+                margin_to_forecast.append(len(forecasts) - 1)
 
         margins = np.array(effective_margins)
         if margins.size > 0:
@@ -220,8 +234,20 @@ class SenateControlSimulator:
             idiosyncratic = rng.normal(
                 0.0, self.race_sigma, size=(num_simulations, margins.size)
             )
-            dem_wins = (margins[None, :] + national + idiosyncratic) > 0.0
+            sim_margins = margins[None, :] + national + idiosyncratic
+            dem_wins = sim_margins > 0.0
             dem_seats = self.dem_safe_seats + dem_wins.sum(axis=1)
+            # Per-race simulated outcome distribution (median + 80% band + win share).
+            race_median = np.median(sim_margins, axis=0)
+            race_p10 = np.percentile(sim_margins, 10, axis=0)
+            race_p90 = np.percentile(sim_margins, 90, axis=0)
+            race_winshare = dem_wins.mean(axis=0)
+            for j, fi in enumerate(margin_to_forecast):
+                fc = forecasts[fi]
+                fc.dem_win_prob_sim = round(float(race_winshare[j]), 4)
+                fc.median_margin = round(float(race_median[j]), 2)
+                fc.margin_p10 = round(float(race_p10[j]), 2)
+                fc.margin_p90 = round(float(race_p90[j]), 2)
         else:
             dem_seats = np.full(num_simulations, self.dem_safe_seats)
 

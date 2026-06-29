@@ -64,6 +64,14 @@ export interface SenateRaceTrendPoint {
   num_polls: number;
 }
 
+export interface RaceForecastSummary {
+  dem_win_prob: number | null;
+  median_margin: number | null;
+  margin_p10: number | null;
+  margin_p90: number | null;
+  num_simulations: number | null;
+}
+
 export interface SenateRaceSnapshot {
   state: string;
   as_of: string;
@@ -75,6 +83,7 @@ export interface SenateRaceSnapshot {
   rep_candidate?: string;
   dem_margin?: number | null;
   dem_win_prob?: number | null;
+  forecast?: RaceForecastSummary;
   vibes?: RaceVibes;
   market_odds?: MarketOddsBySource;
   trend?: SenateRaceTrendPoint[];
@@ -115,6 +124,63 @@ export interface RaceForecast {
   dem_win_prob_polls: number | null;
   dem_win_prob_blended: number | null;
   market_dem_prob: Record<string, number>;
+  dem_win_prob_sim?: number | null;
+  median_margin?: number | null;
+  margin_p10?: number | null;
+  margin_p90?: number | null;
+}
+
+export interface PollsterEmpirical {
+  mean_error: number;
+  std_error: number;
+  n_polls: number;
+}
+
+export interface NationalPollsterGrade {
+  pollster: string;
+  quality: number;
+  grade: string | null;
+  sb_error: number;
+  empirical: PollsterEmpirical | null;
+}
+
+export interface StatePoll {
+  pollster: string;
+  rated: boolean;
+  grade: string | null;
+  quality: number | null;
+  start_date: string;
+  end_date: string;
+  sample_size: number | null;
+  population: string | null;
+  dem_candidate: string;
+  rep_candidate: string;
+  dem_pct: number | null;
+  rep_pct: number | null;
+  margin: number | null;
+  partisan: boolean;
+}
+
+export interface StatePollsterHistory {
+  pollster: string;
+  n_polls: number;
+  mean_error: number;
+  std_error: number;
+}
+
+export interface StatePolls {
+  state: string;
+  abbr: string | null;
+  num_polls: number;
+  polls: StatePoll[];
+  pollster_history: StatePollsterHistory[];
+}
+
+export interface PollstersData {
+  national: NationalPollsterGrade[];
+  states: StatePolls[];
+  unknown_default_quality: number;
+  unknown_default_grade: string | null;
 }
 
 export interface SenateForecastData {
@@ -132,9 +198,26 @@ export interface SenateForecastData {
   national_sigma: number;
   race_sigma: number;
   bias?: number;
+  dem_control_prob_with_vibes?: number;
+  mean_dem_seats_with_vibes?: number;
+  fundamentals_weight_recent?: number;
+  fundamentals_blend_k?: number;
+  national_environment?: NationalEnvironment;
   market_control_dem_prob: Record<string, number>;
   maturity: string;
   label: string;
+}
+
+export interface NationalEnvironment {
+  national_swing: number;
+  available: boolean;
+  president_party?: string;
+  approval_net?: number | null;
+  generic_margin?: number | null;
+  approval_implied_margin?: number | null;
+  expected_national_margin?: number;
+  house_baseline_2024?: number;
+  senate_responsiveness?: number;
 }
 
 export interface Meta {
@@ -173,6 +256,15 @@ export function getApprovalComparison(): ApprovalComparisonData {
 
 export function getSenateForecast(): SenateForecastData | null {
   return read<SenateForecastData | null>('senate_forecast.json', null);
+}
+
+export function getPollsters(): PollstersData {
+  return read<PollstersData>('pollsters.json', {
+    national: [],
+    states: [],
+    unknown_default_quality: 0,
+    unknown_default_grade: null,
+  });
 }
 
 export function getMeta(): Meta {

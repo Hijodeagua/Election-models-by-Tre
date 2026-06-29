@@ -125,24 +125,28 @@ def _pollster_bias(pollster_errs: dict[str, list[float]], min_polls: int = 5) ->
     return sorted(out, key=lambda x: x["mean_error"])
 
 
-def calibrate(min_year: int, max_year: int, lookback_days: int) -> dict:
-    loader = TrainingDataLoader(
-        cache_dir=RAW_CACHE, lookback_days=lookback_days, min_polls=2
-    )
-    races = loader.load(offices=["senate"], min_year=min_year, max_year=max_year)
-    logger.info("Loaded %d senate training races", len(races))
+def _build_rows(
+    races: list, engine: PollingAverageEngine
+) -> tuple[list[dict], dict, dict]:
+    """Per-race poll-vs-actual error rows for one office.
 
-    engine = PollingAverageEngine()
+    Also returns per-pollster errors (the national house effect) and per-state
+    per-pollster errors (the in-state track record), both as
+    ``{name: [error, ...]}`` / ``{state: {name: [error, ...]}}``.
+    """
     rows: list[dict] = []
     pollster_errs: dict[str, list[float]] = {}
+    state_pollster_errs: dict[str, dict[str, list[float]]] = {}
     for race in races:
         poll_margin = _dem_rep_poll_margin(race, engine)
         if poll_margin is None:
             continue
         actual_margin = race.actual_dem_share - race.actual_rep_share
+        state = race.race_id.split("-")[0]
         rows.append(
             {
                 "race_id": race.race_id,
+                "state": state,
                 "year": race.year,
                 "poll_margin": round(poll_margin, 2),
                 "actual_margin": round(actual_margin, 2),
@@ -150,19 +154,115 @@ def calibrate(min_year: int, max_year: int, lookback_days: int) -> dict:
                 "dem_won": bool(race.dem_won),
             }
         )
-        # Per-poll error by pollster (each poll's own D−R margin vs the result),
-        # for the pollster house-effect / bias table.
         for poll in race.polls:
             pm = _poll_dem_rep_margin(poll, race.dem_candidate, race.rep_candidate)
             if pm is not None:
-                pollster_errs.setdefault(poll.pollster or "Unknown", []).append(actual_margin - pm)
+                err = actual_margin - pm
+                name = poll.pollster or "Unknown"
+                pollster_errs.setdefault(name, []).append(err)
+                state_pollster_errs.setdefault(state, {}).setdefault(name, []).append(err)
+    return rows, pollster_errs, state_pollster_errs
 
-    logger.info("Usable races with a clean D−R matchup: %d", len(rows))
+
+def _state_pollster_bias(
+    state_pollster_errs: dict[str, dict[str, list[float]]], min_polls: int = 2
+) -> dict[str, list[dict]]:
+    """Per-state, per-pollster mean error (actual − poll) — the in-state track
+    record. Samples are thin, so this is gated at ``min_polls`` and meant as a
+    directional signal, not a precise grade."""
+    out: dict[str, list[dict]] = {}
+    for state, pmap in state_pollster_errs.items():
+        entries = []
+        for name, errs in pmap.items():
+            if len(errs) >= min_polls:
+                arr = np.array(errs, dtype=float)
+                entries.append(
+                    {
+                        "pollster": name,
+                        "n_polls": len(errs),
+                        "mean_error": round(float(arr.mean()), 2),
+                        "std_error": round(
+                            float(arr.std(ddof=1)) if len(errs) > 1 else 0.0, 2
+                        ),
+                    }
+                )
+        if entries:
+            out[state] = sorted(entries, key=lambda x: x["mean_error"])
+    return out
+
+
+def _state_bias(rows: list[dict]) -> dict[str, dict]:
+    """Mean polling error by state, for cross-office comparison."""
+    by: dict[str, list[float]] = {}
+    for r in rows:
+        by.setdefault(r["state"], []).append(r["error"])
+    return {s: {"bias": round(float(np.mean(e)), 2), "n": len(e)} for s, e in by.items()}
+
+
+def calibrate(
+    min_year: int,
+    max_year: int,
+    lookback_days: int,
+    control_offices: list[str] | None = None,
+) -> dict:
+    control_offices = control_offices if control_offices is not None else ["governor"]
+    loader = TrainingDataLoader(
+        cache_dir=RAW_CACHE, lookback_days=lookback_days, min_polls=2
+    )
+    all_races = loader.load(
+        offices=["senate"] + control_offices, min_year=min_year, max_year=max_year
+    )
+    by_office: dict[str, list] = {}
+    for race in all_races:
+        by_office.setdefault(race.office, []).append(race)
+    logger.info("Loaded races by office: %s", {o: len(rs) for o, rs in by_office.items()})
+
+    engine = PollingAverageEngine()
+    rows, pollster_errs, state_pollster_errs = _build_rows(
+        by_office.get("senate", []), engine
+    )
+
+    logger.info("Usable senate races with a clean D−R matchup: %d", len(rows))
     for r in rows:
         logger.info(
             "  %-18s poll D%+.1f  actual D%+.1f  err %+.1f",
             r["race_id"], r["poll_margin"], r["actual_margin"], r["error"],
         )
+
+    # ── Cross-office control: statewide governor races as a check on the
+    # state-level Senate polling bias (off-year; use agreement, not the level) ──
+    control: dict[str, dict] = {}
+    cross_office: list[dict] = []
+    senate_state = _state_bias(rows)
+    for office in control_offices:
+        o_rows, _, _ = _build_rows(by_office.get(office, []), engine)
+        if not o_rows:
+            continue
+        o_err = np.array([r["error"] for r in o_rows], dtype=float)
+        o_state = _state_bias(o_rows)
+        control[office] = {
+            "n_races": len(o_rows),
+            "cycles": sorted({r["year"] for r in o_rows}),
+            "bias": round(float(o_err.mean()), 3),
+            "sigma": round(float(o_err.std(ddof=1)), 3) if len(o_rows) > 1 else 0.0,
+            "by_state": o_state,
+        }
+        logger.info(
+            "Control [%s]: n=%d bias=%+.2f sigma=%.2f",
+            office, len(o_rows), float(o_err.mean()),
+            float(o_err.std(ddof=1)) if len(o_rows) > 1 else 0.0,
+        )
+        for st, sb in senate_state.items():
+            if st in o_state:
+                cross_office.append(
+                    {
+                        "state": st,
+                        "senate_bias": sb["bias"],
+                        "senate_n": sb["n"],
+                        f"{office}_bias": o_state[st]["bias"],
+                        f"{office}_n": o_state[st]["n"],
+                    }
+                )
 
     if len(rows) < 2:
         logger.warning("Not enough races to calibrate — writing a not-usable stub.")
@@ -244,6 +344,9 @@ def calibrate(min_year: int, max_year: int, lookback_days: int) -> dict:
         "single_cycle_split": single_cycle_split,
         "cycle_mean_error": {str(y): round(v, 2) for y, v in cycle_means.items()},
         "pollster_bias": _pollster_bias(pollster_errs),
+        "state_pollster_bias": _state_pollster_bias(state_pollster_errs),
+        "control": control,
+        "cross_office_state_bias": cross_office,
         "win_accuracy": round(win_acc, 4),
         "brier_score": round(brier, 4),
         "reliability": reliability,
@@ -258,11 +361,19 @@ def main() -> None:
     parser.add_argument("--min-year", type=int, default=2016)
     parser.add_argument("--max-year", type=int, default=2024)
     parser.add_argument("--lookback-days", type=int, default=21)
+    parser.add_argument(
+        "--control-offices", nargs="*", default=["governor"],
+        choices=["governor", "house"],
+        help="Statewide off-year races used as a polling-bias control (default: governor).",
+    )
     args = parser.parse_args()
 
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-    result = calibrate(args.min_year, args.max_year, args.lookback_days)
+    result = calibrate(
+        args.min_year, args.max_year, args.lookback_days,
+        control_offices=args.control_offices,
+    )
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with OUTPUT_PATH.open("w", encoding="utf-8") as fh:
         json.dump(result, fh, indent=2)

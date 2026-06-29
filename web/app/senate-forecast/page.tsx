@@ -2,7 +2,7 @@ import Link from 'next/link';
 import LastUpdated from '@/app/components/LastUpdated';
 import SeatDistributionChart from '@/app/components/SeatDistributionChart';
 import { EmptyState, PageHead, Panel, StatCard } from '@/app/components/ui';
-import { getSenateForecast } from '@/app/lib/data';
+import { getSenateForecast, type NationalEnvironment } from '@/app/lib/data';
 
 const MARKET_LABELS: Record<string, string> = {
   polymarket: 'Polymarket',
@@ -61,6 +61,10 @@ export default function SenateForecastPage() {
           <div className="bg-rep" style={{ width: `${repPct}%` }} />
         </div>
       </Panel>
+
+      {forecast.national_environment?.available && (
+        <NationalEnvironmentPanel env={forecast.national_environment} />
+      )}
 
       <Panel
         title={`Seat distribution across ${forecast.num_simulations.toLocaleString()} simulations`}
@@ -143,6 +147,17 @@ export default function SenateForecastPage() {
             race plus an independent per-race error (σ = {forecast.race_sigma}), sized to
             historical Senate polling misses.
           </li>
+          {forecast.national_environment?.available && (
+            <li>
+              The national midterm climate — the president&rsquo;s approval and the
+              generic congressional ballot — is folded into each race&rsquo;s
+              fundamentals prior as a uniform{' '}
+              {forecast.national_environment.national_swing >= 0 ? 'D' : 'R'}+
+              {Math.abs(forecast.national_environment.national_swing).toFixed(1)} swing
+              versus the 2024 House result. It mainly lifts thinly-polled seats; heavily
+              polled races already price the climate in.
+            </li>
+          )}
           <li>
             Prediction-market odds are blended in at{' '}
             {(forecast.market_weight * 100).toFixed(0)}% weight — markets aggregate
@@ -171,6 +186,42 @@ export default function SenateForecastPage() {
 
       <LastUpdated />
     </div>
+  );
+}
+
+function NationalEnvironmentPanel({ env }: { env: NationalEnvironment }) {
+  const swing = env.national_swing;
+  const dir = swing >= 0 ? 'D' : 'R';
+  const fmt = (v: number | null | undefined, d = 1) =>
+    v == null ? '—' : `${v >= 0 ? '+' : ''}${v.toFixed(d)}`;
+  return (
+    <Panel title="National environment" className="mt-4">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <StatCard
+          label="Net presidential approval"
+          value={fmt(env.approval_net)}
+          tone="ink"
+        />
+        <StatCard label="Generic ballot (D−R)" value={fmt(env.generic_margin)} tone="ink" />
+        <StatCard
+          label="2024 House baseline"
+          value={fmt(env.house_baseline_2024)}
+          tone="ink"
+        />
+        <StatCard
+          label="Applied swing"
+          value={`${dir}+${Math.abs(swing).toFixed(1)}`}
+          tone={swing >= 0 ? 'dem' : 'rep'}
+        />
+      </div>
+      <p className="mt-2 text-xs text-cocoa-400">
+        Today&rsquo;s climate ({env.president_party === 'R' ? 'Republican' : 'Democratic'}{' '}
+        president) implies a national {dir}+{Math.abs(env.expected_national_margin ?? 0).toFixed(1)}{' '}
+        margin. Measured against the 2024 House result, that is a uniform{' '}
+        {dir}+{Math.abs(swing).toFixed(1)} swing applied to every state&rsquo;s fundamentals
+        prior. It moves thinly-polled races the most.
+      </p>
+    </Panel>
   );
 }
 

@@ -8,6 +8,7 @@ const NAV = [
   { href: '/generic-ballot', label: 'Generic Ballot' },
   { href: '/senate', label: 'Senate' },
   { href: '/senate-forecast', label: 'Senate Forecast' },
+  { href: '/pollsters', label: 'Pollsters' },
   { href: '/methodology', label: 'Methodology' },
 ];
 
