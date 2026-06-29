@@ -1,20 +1,20 @@
 {
   "as_of": "2026-06-29",
   "num_simulations": 50000,
-  "dem_control_prob": 0.3118,
-  "mean_dem_seats": 49.51,
+  "dem_control_prob": 0.3136,
+  "mean_dem_seats": 49.52,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 108,
-    "45": 663,
-    "46": 1997,
-    "47": 4362,
-    "48": 7238,
-    "49": 9581,
-    "50": 10462,
-    "51": 8447,
-    "52": 5208,
-    "53": 1934
+    "45": 661,
+    "46": 1981,
+    "47": 4354,
+    "48": 7201,
+    "49": 9561,
+    "50": 10452,
+    "51": 8488,
+    "52": 5242,
+    "53": 1952
   },
   "races": [
     {
@@ -442,14 +442,14 @@
       "margin": 9.937,
       "num_polls": 3,
       "dem_win_prob_polls": 0.93,
-      "dem_win_prob_blended": 0.701,
+      "dem_win_prob_blended": 0.7006,
       "market_dem_prob": {
-        "polymarket": 0.014
+        "polymarket": 0.0125
       },
-      "dem_win_prob_sim": 0.7006,
-      "median_margin": 3.12,
-      "margin_p10": -4.5,
-      "margin_p90": 10.67,
+      "dem_win_prob_sim": 0.7003,
+      "median_margin": 3.11,
+      "margin_p10": -4.51,
+      "margin_p90": 10.66,
       "margin_hist": [
         {
           "mid": -29.0,
@@ -485,63 +485,63 @@
         },
         {
           "mid": -13.0,
-          "pct": 0.00304
+          "pct": 0.00312
         },
         {
           "mid": -11.0,
-          "pct": 0.00802
+          "pct": 0.00796
         },
         {
           "mid": -9.0,
-          "pct": 0.0166
+          "pct": 0.01666
         },
         {
           "mid": -7.0,
-          "pct": 0.03214
+          "pct": 0.03222
         },
         {
           "mid": -5.0,
-          "pct": 0.05432
+          "pct": 0.05442
         },
         {
           "mid": -3.0,
-          "pct": 0.08006
+          "pct": 0.08008
         },
         {
           "mid": -1.0,
-          "pct": 0.10336
+          "pct": 0.10338
         },
         {
           "mid": 1.0,
-          "pct": 0.12526
+          "pct": 0.12544
         },
         {
           "mid": 3.0,
-          "pct": 0.1362
+          "pct": 0.1363
         },
         {
           "mid": 5.0,
-          "pct": 0.12774
+          "pct": 0.12758
         },
         {
           "mid": 7.0,
-          "pct": 0.10704
+          "pct": 0.10676
         },
         {
           "mid": 9.0,
-          "pct": 0.0825
+          "pct": 0.08258
         },
         {
           "mid": 11.0,
-          "pct": 0.05486
+          "pct": 0.05474
         },
         {
           "mid": 13.0,
-          "pct": 0.03426
+          "pct": 0.03422
         },
         {
           "mid": 15.0,
-          "pct": 0.01778
+          "pct": 0.01774
         },
         {
           "mid": 17.0,
@@ -549,15 +549,15 @@
         },
         {
           "mid": 19.0,
-          "pct": 0.00372
+          "pct": 0.0037
         },
         {
           "mid": 21.0,
-          "pct": 0.00138
+          "pct": 0.0014
         },
         {
           "mid": 23.0,
-          "pct": 0.00048
+          "pct": 0.00046
         },
         {
           "mid": 25.0,
@@ -720,14 +720,14 @@
       "margin": 0.574,
       "num_polls": 2,
       "dem_win_prob_polls": 0.4544,
-      "dem_win_prob_blended": 0.4796,
+      "dem_win_prob_blended": 0.4846,
       "market_dem_prob": {
-        "polymarket": 0.555
+        "polymarket": 0.575
       },
-      "dem_win_prob_sim": 0.4821,
-      "median_margin": -0.27,
-      "margin_p10": -7.82,
-      "margin_p90": 7.28,
+      "dem_win_prob_sim": 0.4871,
+      "median_margin": -0.2,
+      "margin_p10": -7.74,
+      "margin_p90": 7.36,
       "margin_hist": [
         {
           "mid": -29.0,
@@ -747,7 +747,7 @@
         },
         {
           "mid": -21.0,
-          "pct": 0.00038
+          "pct": 0.00034
         },
         {
           "mid": -19.0,
@@ -755,87 +755,87 @@
         },
         {
           "mid": -17.0,
-          "pct": 0.00252
+          "pct": 0.00236
         },
         {
           "mid": -15.0,
-          "pct": 0.0061
+          "pct": 0.00602
         },
         {
           "mid": -13.0,
-          "pct": 0.01386
+          "pct": 0.01346
         },
         {
           "mid": -11.0,
-          "pct": 0.02518
+          "pct": 0.0246
         },
         {
           "mid": -9.0,
-          "pct": 0.0456
+          "pct": 0.0448
         },
         {
           "mid": -7.0,
-          "pct": 0.07144
+          "pct": 0.07054
         },
         {
           "mid": -5.0,
-          "pct": 0.0982
+          "pct": 0.09692
         },
         {
           "mid": -3.0,
-          "pct": 0.1214
+          "pct": 0.12098
         },
         {
           "mid": -1.0,
-          "pct": 0.132
+          "pct": 0.13166
         },
         {
           "mid": 1.0,
-          "pct": 0.12996
+          "pct": 0.13028
         },
         {
           "mid": 3.0,
-          "pct": 0.11616
+          "pct": 0.11706
         },
         {
           "mid": 5.0,
-          "pct": 0.09224
+          "pct": 0.09372
         },
         {
           "mid": 7.0,
-          "pct": 0.0635
+          "pct": 0.06388
         },
         {
           "mid": 9.0,
-          "pct": 0.03982
+          "pct": 0.0406
         },
         {
           "mid": 11.0,
-          "pct": 0.02288
+          "pct": 0.02336
         },
         {
           "mid": 13.0,
-          "pct": 0.01076
+          "pct": 0.0112
         },
         {
           "mid": 15.0,
-          "pct": 0.00454
+          "pct": 0.00462
         },
         {
           "mid": 17.0,
-          "pct": 0.00154
+          "pct": 0.00164
         },
         {
           "mid": 19.0,
-          "pct": 0.00048
+          "pct": 0.00052
         },
         {
           "mid": 21.0,
-          "pct": 0.00024
+          "pct": 0.00022
         },
         {
           "mid": 23.0,
-          "pct": 2e-05
+          "pct": 4e-05
         },
         {
           "mid": 25.0,
@@ -859,14 +859,14 @@
       "margin": -1.866,
       "num_polls": 2,
       "dem_win_prob_polls": 0.2984,
-      "dem_win_prob_blended": 0.3301,
+      "dem_win_prob_blended": 0.3326,
       "market_dem_prob": {
-        "polymarket": 0.425
+        "polymarket": 0.435
       },
-      "dem_win_prob_sim": 0.3319,
-      "median_margin": -2.6,
-      "margin_p10": -10.12,
-      "margin_p90": 5.05,
+      "dem_win_prob_sim": 0.3343,
+      "median_margin": -2.56,
+      "margin_p10": -10.07,
+      "margin_p90": 5.09,
       "margin_hist": [
         {
           "mid": -29.0,
@@ -882,7 +882,7 @@
         },
         {
           "mid": -23.0,
-          "pct": 0.00042
+          "pct": 0.0004
         },
         {
           "mid": -21.0,
@@ -890,71 +890,71 @@
         },
         {
           "mid": -19.0,
-          "pct": 0.00264
+          "pct": 0.00254
         },
         {
           "mid": -17.0,
-          "pct": 0.0073
+          "pct": 0.00718
         },
         {
           "mid": -15.0,
-          "pct": 0.01486
+          "pct": 0.01482
         },
         {
           "mid": -13.0,
-          "pct": 0.02834
+          "pct": 0.02788
         },
         {
           "mid": -11.0,
-          "pct": 0.04858
+          "pct": 0.04832
         },
         {
           "mid": -9.0,
-          "pct": 0.0733
+          "pct": 0.07264
         },
         {
           "mid": -7.0,
-          "pct": 0.10332
+          "pct": 0.10232
         },
         {
           "mid": -5.0,
-          "pct": 0.12684
+          "pct": 0.12648
         },
         {
           "mid": -3.0,
-          "pct": 0.13386
+          "pct": 0.13426
         },
         {
           "mid": -1.0,
-          "pct": 0.1275
+          "pct": 0.12772
         },
         {
           "mid": 1.0,
-          "pct": 0.10996
+          "pct": 0.1106
         },
         {
           "mid": 3.0,
-          "pct": 0.08788
+          "pct": 0.08838
         },
         {
           "mid": 5.0,
-          "pct": 0.05892
+          "pct": 0.0591
         },
         {
           "mid": 7.0,
-          "pct": 0.03774
+          "pct": 0.03838
         },
         {
           "mid": 9.0,
-          "pct": 0.02058
+          "pct": 0.02064
         },
         {
           "mid": 11.0,
-          "pct": 0.01052
+          "pct": 0.01076
         },
         {
           "mid": 13.0,
-          "pct": 0.00426
+          "pct": 0.00436
         },
         {
           "mid": 15.0,
@@ -962,7 +962,7 @@
         },
         {
           "mid": 17.0,
-          "pct": 0.00038
+          "pct": 0.00042
         },
         {
           "mid": 19.0,
@@ -1275,14 +1275,14 @@
   "race_sigma": 5.139,
   "bias": -1.248,
   "market_control_dem_prob": {
-    "polymarket": 0.425
+    "polymarket": 0.42
   },
   "maturity": "nowcast",
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.3118,
-  "mean_dem_seats_with_vibes": 49.51,
+  "dem_control_prob_with_vibes": 0.3136,
+  "mean_dem_seats_with_vibes": 49.52,
   "national_environment": {
     "national_swing": 8.224,
     "available": true,
