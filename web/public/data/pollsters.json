@@ -733,12 +733,28 @@
       "num_polls": 3,
       "polls": [
         {
+          "pollster": "270toWin",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-05-13",
+          "end_date": "2026-06-26",
+          "sample_size": null,
+          "population": null,
+          "dem_candidate": "Graham Platner",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 48.0,
+          "rep_pct": 46.0,
+          "margin": 2.0,
+          "partisan": false
+        },
+        {
           "pollster": "RealClearPolitics",
           "rated": false,
           "grade": null,
           "quality": null,
           "start_date": "2026-05-13",
-          "end_date": "2026-06-16",
+          "end_date": "2026-06-26",
           "sample_size": null,
           "population": null,
           "dem_candidate": "Graham Platner",
@@ -762,22 +778,6 @@
           "dem_pct": 48.0,
           "rep_pct": 44.0,
           "margin": 4.0,
-          "partisan": false
-        },
-        {
-          "pollster": "270toWin",
-          "rated": false,
-          "grade": null,
-          "quality": null,
-          "start_date": "2026-04-03",
-          "end_date": "2026-06-12",
-          "sample_size": null,
-          "population": null,
-          "dem_candidate": "Graham Platner",
-          "rep_candidate": "Susan Collins",
-          "dem_pct": 49.0,
-          "rep_pct": 44.0,
-          "margin": 5.0,
           "partisan": false
         }
       ],

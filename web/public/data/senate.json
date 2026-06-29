@@ -139,7 +139,7 @@
       },
       "market_odds": {
         "polymarket": {
-          "Republican": 0.135,
+          "Republican": 0.1355,
           "Democrat": 0.86
         }
       },
@@ -387,7 +387,7 @@
       "market_odds": {
         "polymarket": {
           "Democrat": 0.46,
-          "Republican": 0.54
+          "Republican": 0.55
         }
       },
       "trend": [
@@ -548,22 +548,22 @@
       "state": "Maine",
       "as_of": "2026-06-29",
       "candidates": {
-        "Graham Platner": 48.2,
-        "Susan Collins": 44.0
+        "Graham Platner": 48.0,
+        "Susan Collins": 45.0
       },
-      "margin": 4.2,
+      "margin": 3.0,
       "num_polls": 3,
       "rating": null,
       "dem_candidate": "Graham Platner",
       "rep_candidate": "Susan Collins",
-      "dem_margin": 4.2,
-      "dem_win_prob": 0.7813,
+      "dem_margin": 3.0,
+      "dem_win_prob": 0.7105,
       "vibes": {
         "available": false,
         "adjustment": 0.0,
         "dem_effect": 0.0,
         "rep_effect": 0.0,
-        "adjusted_dem_margin": 4.2
+        "adjusted_dem_margin": 3.0
       },
       "market_odds": {
         "polymarket": {
@@ -572,29 +572,23 @@
       },
       "trend": [
         {
-          "as_of": "2026-06-13",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
+          "as_of": "2026-06-20",
+          "dem_margin": 4.0,
+          "dem_win_prob": 0.7702,
           "num_polls": 1
         },
         {
-          "as_of": "2026-06-20",
-          "dem_margin": 4.2,
-          "dem_win_prob": 0.7813,
-          "num_polls": 3
-        },
-        {
           "as_of": "2026-06-27",
-          "dem_margin": 4.2,
-          "dem_win_prob": 0.7813,
+          "dem_margin": 3.0,
+          "dem_win_prob": 0.7105,
           "num_polls": 3
         }
       ],
       "forecast": {
-        "dem_win_prob": 0.7005,
-        "median_margin": 3.11,
-        "margin_p10": -4.5,
-        "margin_p90": 10.67,
+        "dem_win_prob": 0.6893,
+        "median_margin": 2.93,
+        "margin_p10": -4.69,
+        "margin_p90": 10.48,
         "num_simulations": 50000
       }
     },
@@ -852,8 +846,8 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.57,
-          "Republican": 0.425
+          "Democrat": 0.575,
+          "Republican": 0.43
         }
       },
       "trend": [
@@ -871,10 +865,10 @@
         }
       ],
       "forecast": {
-        "dem_win_prob": 0.4857,
-        "median_margin": -0.21,
-        "margin_p10": -7.76,
-        "margin_p90": 7.34,
+        "dem_win_prob": 0.4871,
+        "median_margin": -0.2,
+        "margin_p10": -7.74,
+        "margin_p90": 7.36,
         "num_simulations": 50000
       }
     },
