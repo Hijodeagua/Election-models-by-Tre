@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-06-28",
+  "as_of": "2026-06-29",
   "num_simulations": 50000,
-  "dem_control_prob": 0.312,
+  "dem_control_prob": 0.3118,
   "mean_dem_seats": 49.51,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 108,
     "45": 663,
     "46": 1997,
-    "47": 4359,
-    "48": 7236,
-    "49": 9573,
-    "50": 10464,
-    "51": 8448,
-    "52": 5215,
-    "53": 1937
+    "47": 4362,
+    "48": 7238,
+    "49": 9581,
+    "50": 10462,
+    "51": 8447,
+    "52": 5208,
+    "53": 1934
   },
   "races": [
     {
@@ -76,14 +76,14 @@
       "margin": 9.937,
       "num_polls": 3,
       "dem_win_prob_polls": 0.93,
-      "dem_win_prob_blended": 0.7006,
+      "dem_win_prob_blended": 0.701,
       "market_dem_prob": {
-        "polymarket": 0.0125
+        "polymarket": 0.014
       },
-      "dem_win_prob_sim": 0.7003,
-      "median_margin": 3.11,
-      "margin_p10": -4.51,
-      "margin_p90": 10.66
+      "dem_win_prob_sim": 0.7006,
+      "median_margin": 3.12,
+      "margin_p10": -4.5,
+      "margin_p90": 10.67
     },
     {
       "state": "New Hampshire",
@@ -127,14 +127,14 @@
       "margin": -1.866,
       "num_polls": 2,
       "dem_win_prob_polls": 0.2984,
-      "dem_win_prob_blended": 0.3313,
+      "dem_win_prob_blended": 0.3301,
       "market_dem_prob": {
-        "polymarket": 0.43
+        "polymarket": 0.425
       },
-      "dem_win_prob_sim": 0.3331,
-      "median_margin": -2.58,
-      "margin_p10": -10.09,
-      "margin_p90": 5.07
+      "dem_win_prob_sim": 0.3319,
+      "median_margin": -2.6,
+      "margin_p10": -10.12,
+      "margin_p90": 5.05
     },
     {
       "state": "Iowa",
@@ -183,7 +183,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.312,
+  "dem_control_prob_with_vibes": 0.3118,
   "mean_dem_seats_with_vibes": 49.51,
   "national_environment": {
     "national_swing": 8.224,
