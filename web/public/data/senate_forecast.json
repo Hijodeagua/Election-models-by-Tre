@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-06-29",
+  "as_of": "2026-06-30",
   "num_simulations": 50000,
-  "dem_control_prob": 0.3127,
-  "mean_dem_seats": 49.51,
+  "dem_control_prob": 0.3109,
+  "mean_dem_seats": 49.5,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 110,
-    "45": 672,
-    "46": 1997,
-    "47": 4377,
-    "48": 7237,
-    "49": 9561,
-    "50": 10411,
-    "51": 8450,
-    "52": 5228,
-    "53": 1957
+    "45": 677,
+    "46": 2015,
+    "47": 4392,
+    "48": 7287,
+    "49": 9554,
+    "50": 10421,
+    "51": 8416,
+    "52": 5197,
+    "53": 1931
   },
   "races": [
     {
@@ -25,14 +25,14 @@
       "margin": 6.607,
       "num_polls": 7,
       "dem_win_prob_polls": 0.8186,
-      "dem_win_prob_blended": 0.829,
+      "dem_win_prob_blended": 0.8277,
       "market_dem_prob": {
-        "polymarket": 0.86
+        "polymarket": 0.855
       },
-      "dem_win_prob_sim": 0.831,
-      "median_margin": 5.65,
-      "margin_p10": -1.86,
-      "margin_p90": 13.17
+      "dem_win_prob_sim": 0.8299,
+      "median_margin": 5.62,
+      "margin_p10": -1.89,
+      "margin_p90": 13.14
     },
     {
       "state": "Michigan",
@@ -76,11 +76,11 @@
       "margin": 9.337,
       "num_polls": 3,
       "dem_win_prob_polls": 0.9153,
-      "dem_win_prob_blended": 0.6898,
+      "dem_win_prob_blended": 0.6899,
       "market_dem_prob": {
-        "polymarket": 0.0135
+        "polymarket": 0.014
       },
-      "dem_win_prob_sim": 0.6893,
+      "dem_win_prob_sim": 0.6895,
       "median_margin": 2.93,
       "margin_p10": -4.69,
       "margin_p90": 10.48
@@ -110,14 +110,14 @@
       "margin": 0.574,
       "num_polls": 2,
       "dem_win_prob_polls": 0.4544,
-      "dem_win_prob_blended": 0.4846,
+      "dem_win_prob_blended": 0.4796,
       "market_dem_prob": {
-        "polymarket": 0.575
+        "polymarket": 0.555
       },
-      "dem_win_prob_sim": 0.4871,
-      "median_margin": -0.2,
-      "margin_p10": -7.74,
-      "margin_p90": 7.36
+      "dem_win_prob_sim": 0.4821,
+      "median_margin": -0.27,
+      "margin_p10": -7.82,
+      "margin_p90": 7.28
     },
     {
       "state": "Texas",
@@ -144,14 +144,14 @@
       "margin": -1.309,
       "num_polls": 6,
       "dem_win_prob_polls": 0.332,
-      "dem_win_prob_blended": 0.364,
+      "dem_win_prob_blended": 0.3615,
       "market_dem_prob": {
-        "polymarket": 0.46
+        "polymarket": 0.45
       },
-      "dem_win_prob_sim": 0.3603,
-      "median_margin": -2.1,
-      "margin_p10": -9.62,
-      "margin_p90": 5.5
+      "dem_win_prob_sim": 0.3582,
+      "median_margin": -2.14,
+      "margin_p10": -9.66,
+      "margin_p90": 5.46
     },
     {
       "state": "Alaska",
@@ -183,8 +183,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.3127,
-  "mean_dem_seats_with_vibes": 49.51,
+  "dem_control_prob_with_vibes": 0.3109,
+  "mean_dem_seats_with_vibes": 49.5,
   "national_environment": {
     "national_swing": 8.224,
     "available": true,
