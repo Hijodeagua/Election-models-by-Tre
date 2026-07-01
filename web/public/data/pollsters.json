@@ -760,8 +760,8 @@
           "dem_candidate": "Graham Platner",
           "rep_candidate": "Susan Collins",
           "dem_pct": 48.0,
-          "rep_pct": 44.0,
-          "margin": 4.0,
+          "rep_pct": 47.0,
+          "margin": 1.0,
           "partisan": false
         },
         {
@@ -776,8 +776,8 @@
           "dem_candidate": "Graham Platner",
           "rep_candidate": "Susan Collins",
           "dem_pct": 48.0,
-          "rep_pct": 44.0,
-          "margin": 4.0,
+          "rep_pct": 45.0,
+          "margin": 3.0,
           "partisan": false
         }
       ],
@@ -1053,8 +1053,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 6,
+      "num_polls": 7,
       "polls": [
+        {
+          "pollster": "New York Times/Siena University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-06-15",
+          "end_date": "2026-06-27",
+          "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 46.0,
+          "rep_pct": 48.0,
+          "margin": -2.0,
+          "partisan": false
+        },
         {
           "pollster": "Cygnal (R)",
           "rated": false,
