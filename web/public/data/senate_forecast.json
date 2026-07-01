@@ -1,20 +1,20 @@
 {
   "as_of": "2026-07-01",
   "num_simulations": 50000,
-  "dem_control_prob": 0.3104,
-  "mean_dem_seats": 49.5,
+  "dem_control_prob": 0.3076,
+  "mean_dem_seats": 49.49,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 108,
-    "45": 667,
-    "46": 2025,
-    "47": 4413,
-    "48": 7273,
-    "49": 9597,
-    "50": 10398,
-    "51": 8402,
-    "52": 5176,
-    "53": 1941
+    "45": 655,
+    "46": 2016,
+    "47": 4454,
+    "48": 7329,
+    "49": 9630,
+    "50": 10426,
+    "51": 8358,
+    "52": 5127,
+    "53": 1897
   },
   "races": [
     {
@@ -25,14 +25,14 @@
       "margin": 6.661,
       "num_polls": 7,
       "dem_win_prob_polls": 0.8211,
-      "dem_win_prob_blended": 0.8295,
+      "dem_win_prob_blended": 0.832,
       "market_dem_prob": {
-        "polymarket": 0.855
+        "polymarket": 0.865
       },
-      "dem_win_prob_sim": 0.8317,
-      "median_margin": 5.67,
-      "margin_p10": -1.85,
-      "margin_p90": 13.18
+      "dem_win_prob_sim": 0.8341,
+      "median_margin": 5.72,
+      "margin_p10": -1.79,
+      "margin_p90": 13.24
     },
     {
       "state": "Michigan",
@@ -73,17 +73,17 @@
       "race": "Maine Senate 2026",
       "dem_candidate": "Graham Platner",
       "rep_candidate": "Susan Collins",
-      "margin": 8.677,
+      "margin": 8.577,
       "num_polls": 3,
-      "dem_win_prob_polls": 0.8965,
-      "dem_win_prob_blended": 0.6759,
+      "dem_win_prob_polls": 0.8934,
+      "dem_win_prob_blended": 0.6734,
       "market_dem_prob": {
-        "polymarket": 0.014
+        "polymarket": 0.0135
       },
-      "dem_win_prob_sim": 0.6759,
-      "median_margin": 2.7,
-      "margin_p10": -4.92,
-      "margin_p90": 10.25
+      "dem_win_prob_sim": 0.6728,
+      "median_margin": 2.66,
+      "margin_p10": -4.96,
+      "margin_p90": 10.21
     },
     {
       "state": "New Hampshire",
@@ -93,14 +93,14 @@
       "margin": 12.052,
       "num_polls": 2,
       "dem_win_prob_polls": 0.9668,
-      "dem_win_prob_blended": 0.9351,
+      "dem_win_prob_blended": 0.9376,
       "market_dem_prob": {
-        "polymarket": 0.84
+        "polymarket": 0.85
       },
-      "dem_win_prob_sim": 0.9348,
-      "median_margin": 8.94,
-      "margin_p10": 1.38,
-      "margin_p90": 16.49
+      "dem_win_prob_sim": 0.937,
+      "median_margin": 9.06,
+      "margin_p10": 1.49,
+      "margin_p90": 16.61
     },
     {
       "state": "Ohio",
@@ -110,14 +110,14 @@
       "margin": 0.682,
       "num_polls": 2,
       "dem_win_prob_polls": 0.4617,
-      "dem_win_prob_blended": 0.4875,
+      "dem_win_prob_blended": 0.485,
       "market_dem_prob": {
-        "polymarket": 0.565
+        "polymarket": 0.555
       },
-      "dem_win_prob_sim": 0.49,
-      "median_margin": -0.15,
-      "margin_p10": -7.7,
-      "margin_p90": 7.4
+      "dem_win_prob_sim": 0.4876,
+      "median_margin": -0.19,
+      "margin_p10": -7.74,
+      "margin_p90": 7.36
     },
     {
       "state": "Texas",
@@ -144,14 +144,14 @@
       "margin": -1.624,
       "num_polls": 7,
       "dem_win_prob_polls": 0.3128,
-      "dem_win_prob_blended": 0.3484,
+      "dem_win_prob_blended": 0.3396,
       "market_dem_prob": {
-        "polymarket": 0.455
+        "polymarket": 0.42
       },
-      "dem_win_prob_sim": 0.3458,
-      "median_margin": -2.35,
-      "margin_p10": -9.86,
-      "margin_p90": 5.25
+      "dem_win_prob_sim": 0.3378,
+      "median_margin": -2.49,
+      "margin_p10": -10.0,
+      "margin_p90": 5.11
     },
     {
       "state": "Alaska",
@@ -183,8 +183,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.3104,
-  "mean_dem_seats_with_vibes": 49.5,
+  "dem_control_prob_with_vibes": 0.3076,
+  "mean_dem_seats_with_vibes": 49.49,
   "national_environment": {
     "national_swing": 8.404,
     "available": true,
