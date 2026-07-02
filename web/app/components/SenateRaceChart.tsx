@@ -12,16 +12,14 @@ import {
   YAxis,
 } from 'recharts';
 import type { SenateRaceSnapshot } from '@/app/lib/data';
+import { fmtMargin, fmtProb } from '@/app/lib/format';
 
+// Hex twins of the text-dem / text-rep Tailwind colors, for SVG chart props.
 const DEM = '#2563eb';
 const REP = '#dc2626';
+const NEUTRAL = '#7c6a5d';
 
-function marginLabel(v: number): string {
-  if (v === 0) return 'Tie';
-  return v > 0 ? `D+${Math.abs(v).toFixed(0)}` : `R+${Math.abs(v).toFixed(0)}`;
-}
-
-// Per-race histogram of the 50,000 simulated Dem−Rep margins. Democratic-win
+// Per-race histogram of the simulated Dem−Rep margins. Democratic-win
 // outcomes sit on the LEFT in blue, Republican-win outcomes on the RIGHT in red,
 // with a reference line at the 50/50 tipping point (margin 0). Shown when a race
 // card is expanded.
@@ -29,9 +27,8 @@ export default function SenateRaceChart({ race }: { race: SenateRaceSnapshot }) 
   const demName = race.dem_candidate ?? 'Democrat';
   const repName = race.rep_candidate ?? 'Republican';
   const fc = race.forecast;
-  const bins = fc?.margin_hist ?? [];
 
-  if (bins.length === 0) {
+  if (!fc?.margin_hist?.length) {
     return (
       <p className="py-6 text-center text-xs text-cocoa-400">
         No simulation distribution available for this race yet.
@@ -39,12 +36,31 @@ export default function SenateRaceChart({ race }: { race: SenateRaceSnapshot }) 
     );
   }
 
-  const data = bins.map((b) => ({ mid: b.mid, pct: Math.round(b.pct * 1000) / 10 }));
-  const demWinProb = fc?.dem_win_prob ?? null;
-  const demPct = demWinProb != null ? Math.round(demWinProb * 100) : null;
-  const repPct = demPct != null ? 100 - demPct : null;
-  const median = fc?.median_margin ?? null;
-  const nSims = fc?.num_simulations ?? null;
+  const data = fc.margin_hist.map((b) => ({ mid: b.mid, pct: b.pct * 100 }));
+  const demProb = fc.dem_win_prob;
+  const median = fc.median_margin;
+  const nSims = fc.num_simulations;
+
+  // Derive the axis from the bins themselves so a Python-side change to the
+  // histogram range/width can't silently clip the chart.
+  const step = data.length > 1 ? Math.abs(data[1].mid - data[0].mid) : 2;
+  const loMid = data[0].mid;
+  const hiMid = data[data.length - 1].mid;
+  const domainLo = loMid - step / 2;
+  const domainHi = hiMid + step / 2;
+  const ticks: number[] = [];
+  for (let t = Math.ceil((domainLo + 1) / 10) * 10; t < domainHi; t += 10) ticks.push(t);
+
+  // The end bins are catch-alls (tail mass beyond the range is clipped into
+  // them), so label them as open-ended rather than as a specific margin.
+  const binLabel = (mid: number) => {
+    if (mid >= hiMid) return `Margin ${fmtMargin(mid - step / 2, 0)} or more`;
+    if (mid <= loMid) return `Margin ${fmtMargin(mid + step / 2, 0)} or more`;
+    return `Margin ${fmtMargin(mid, 0)}`;
+  };
+  const medianColor = median == null || Math.abs(median) < 0.05
+    ? NEUTRAL
+    : median > 0 ? DEM : REP;
 
   return (
     <div className="rounded-lg bg-cream-50/60 p-3">
@@ -52,11 +68,11 @@ export default function SenateRaceChart({ race }: { race: SenateRaceSnapshot }) 
         <span className="text-[11px] font-medium uppercase tracking-wide text-cocoa-400">
           {nSims ? `${nSims.toLocaleString()} simulated outcomes` : 'Simulated outcomes'}
         </span>
-        {demPct != null && repPct != null && (
+        {demProb != null && (
           <span className="text-xs font-semibold">
-            <span style={{ color: DEM }}>{demName} {demPct}%</span>
+            <span className="text-dem">{demName} {fmtProb(demProb)}</span>
             <span className="mx-1 text-cocoa-300">·</span>
-            <span style={{ color: REP }}>{repName} {repPct}%</span>
+            <span className="text-rep">{repName} {fmtProb(1 - demProb)}</span>
           </span>
         )}
       </div>
@@ -66,11 +82,11 @@ export default function SenateRaceChart({ race }: { race: SenateRaceSnapshot }) 
           <XAxis
             dataKey="mid"
             type="number"
-            domain={[-30, 30]}
-            ticks={[-20, -10, 0, 10, 20]}
+            domain={[domainLo, domainHi]}
+            ticks={ticks}
             reversed
             tick={{ fontSize: 10.5, fill: '#b69a90' }}
-            tickFormatter={marginLabel}
+            tickFormatter={(v: number) => fmtMargin(v, 0)}
             axisLine={false}
             tickLine={false}
           />
@@ -83,8 +99,11 @@ export default function SenateRaceChart({ race }: { race: SenateRaceSnapshot }) 
           />
           <Tooltip
             cursor={{ fill: 'rgba(203,182,171,0.15)' }}
-            formatter={(value: number) => [`${value.toFixed(1)}% of sims`, 'Frequency']}
-            labelFormatter={(v: number) => `Margin ${marginLabel(Number(v))}`}
+            formatter={(value: number) => [
+              value > 0 && value < 0.05 ? '<0.1% of sims' : `${value.toFixed(1)}% of sims`,
+              'Frequency',
+            ]}
+            labelFormatter={(v: number) => binLabel(Number(v))}
             labelStyle={{ color: '#5c3d2a', fontWeight: 600, marginBottom: 2 }}
             contentStyle={{
               fontSize: 12,
@@ -97,21 +116,21 @@ export default function SenateRaceChart({ race }: { race: SenateRaceSnapshot }) 
           {/* The 50/50 line: everything left of it (blue) is a Democratic win. */}
           <ReferenceLine
             x={0}
-            stroke="#7c6a5d"
+            stroke={NEUTRAL}
             strokeWidth={1.5}
             strokeDasharray="4 3"
-            label={{ value: '50/50', position: 'top', fontSize: 10, fill: '#7c6a5d' }}
+            label={{ value: '50/50', position: 'top', fontSize: 10, fill: NEUTRAL }}
           />
           {median != null && (
             <ReferenceLine
               x={median}
-              stroke={median > 0 ? DEM : REP}
+              stroke={medianColor}
               strokeWidth={1}
               label={{
-                value: `median ${marginLabel(median)}`,
+                value: `median ${fmtMargin(median, 1)}`,
                 position: 'insideTopRight',
                 fontSize: 9.5,
-                fill: median > 0 ? DEM : REP,
+                fill: medianColor,
               }}
             />
           )}
@@ -123,11 +142,12 @@ export default function SenateRaceChart({ race }: { race: SenateRaceSnapshot }) 
         </BarChart>
       </ResponsiveContainer>
       <p className="mt-1.5 flex items-center gap-1.5 text-[11px] leading-relaxed text-cocoa-400">
-        <span className="inline-block h-2 w-2 rounded-full" style={{ backgroundColor: DEM }} />
+        <span className="inline-block h-2 w-2 rounded-full bg-dem" />
         Left of the 50/50 line, {demName} (D) wins;
-        <span className="ml-1 inline-block h-2 w-2 rounded-full" style={{ backgroundColor: REP }} />
+        <span className="ml-1 inline-block h-2 w-2 rounded-full bg-rep" />
         right of it, {repName} (R) wins. Each bar is the share of the chamber
-        simulation&rsquo;s 50,000 runs landing on that Dem−Rep margin.
+        simulation&rsquo;s {nSims ? `${nSims.toLocaleString()} ` : ''}runs landing on that
+        Dem−Rep margin.
       </p>
     </div>
   );

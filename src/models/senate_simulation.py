@@ -249,17 +249,18 @@ class SenateControlSimulator:
             race_p10 = np.percentile(sim_margins, 10, axis=0)
             race_p90 = np.percentile(sim_margins, 90, axis=0)
             race_winshare = dem_wins.mean(axis=0)
-            # Histogram bins (clip tails into the end bins so no mass is lost).
+            # Histogram bins (clip tails into the end bins so no mass is lost;
+            # np.histogram's last bin is closed, so exact-edge clipping is safe).
             edges = MARGIN_HIST_EDGES
             mids = (edges[:-1] + edges[1:]) / 2.0
-            clipped = np.clip(sim_margins, edges[0] + 1e-6, edges[-1] - 1e-6)
             for j, fi in enumerate(margin_to_forecast):
                 fc = forecasts[fi]
                 fc.dem_win_prob_sim = round(float(race_winshare[j]), 4)
                 fc.median_margin = round(float(race_median[j]), 2)
                 fc.margin_p10 = round(float(race_p10[j]), 2)
                 fc.margin_p90 = round(float(race_p90[j]), 2)
-                counts, _ = np.histogram(clipped[:, j], bins=edges)
+                clipped = np.clip(sim_margins[:, j], edges[0], edges[-1])
+                counts, _ = np.histogram(clipped, bins=edges)
                 fc.margin_hist = [
                     {"mid": round(float(m), 1), "pct": round(float(c) / num_simulations, 5)}
                     for m, c in zip(mids, counts, strict=True)

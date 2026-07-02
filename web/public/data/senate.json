@@ -2,7 +2,7 @@
   "races": [
     {
       "state": "Alaska",
-      "as_of": "2026-06-30",
+      "as_of": "2026-07-02",
       "candidates": {
         "Mary Peltola": 46.0,
         "Dan Sullivan": 41.0
@@ -22,98 +22,6 @@
         "adjusted_dem_margin": 5.0
       },
       "market_odds": {},
-      "trend": [
-        {
-          "as_of": "2026-03-22",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-03-29",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-04-05",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-04-12",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-04-19",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-04-26",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-05-03",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-05-10",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-05-17",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-05-24",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-05-31",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-06-07",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-06-14",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-06-21",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-06-28",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 1
-        }
-      ],
       "forecast": {
         "dem_win_prob": 0.3043,
         "median_margin": -3.03,
@@ -246,7 +154,7 @@
     },
     {
       "state": "Georgia",
-      "as_of": "2026-06-30",
+      "as_of": "2026-07-02",
       "candidates": {
         "Jon Ossoff": 50.4,
         "Mike Collins": 43.8
@@ -271,218 +179,6 @@
           "Democrat": 0.855
         }
       },
-      "trend": [
-        {
-          "as_of": "2025-11-02",
-          "dem_margin": 0.2,
-          "dem_win_prob": 0.5147,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2025-11-09",
-          "dem_margin": 0.2,
-          "dem_win_prob": 0.5147,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2025-11-16",
-          "dem_margin": 0.2,
-          "dem_win_prob": 0.5147,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2025-11-23",
-          "dem_margin": 0.2,
-          "dem_win_prob": 0.5147,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2025-11-30",
-          "dem_margin": 0.2,
-          "dem_win_prob": 0.5147,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2025-12-07",
-          "dem_margin": 0.2,
-          "dem_win_prob": 0.5147,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2025-12-14",
-          "dem_margin": 0.2,
-          "dem_win_prob": 0.5147,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2025-12-21",
-          "dem_margin": 0.2,
-          "dem_win_prob": 0.5147,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2025-12-28",
-          "dem_margin": 0.2,
-          "dem_win_prob": 0.5147,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2026-01-04",
-          "dem_margin": 0.2,
-          "dem_win_prob": 0.5147,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2026-01-11",
-          "dem_margin": 0.2,
-          "dem_win_prob": 0.5147,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2026-01-18",
-          "dem_margin": 0.2,
-          "dem_win_prob": 0.5147,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2026-01-25",
-          "dem_margin": 0.2,
-          "dem_win_prob": 0.5147,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2026-02-01",
-          "dem_margin": 0.2,
-          "dem_win_prob": 0.5147,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2026-02-08",
-          "dem_margin": 0.2,
-          "dem_win_prob": 0.5147,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2026-02-15",
-          "dem_margin": 0.2,
-          "dem_win_prob": 0.5147,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2026-02-22",
-          "dem_margin": 0.2,
-          "dem_win_prob": 0.5147,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2026-03-01",
-          "dem_margin": 0.2,
-          "dem_win_prob": 0.5147,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2026-03-08",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 6
-        },
-        {
-          "as_of": "2026-03-15",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 6
-        },
-        {
-          "as_of": "2026-03-22",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 6
-        },
-        {
-          "as_of": "2026-03-29",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 6
-        },
-        {
-          "as_of": "2026-04-05",
-          "dem_margin": 5.0,
-          "dem_win_prob": 0.8224,
-          "num_polls": 6
-        },
-        {
-          "as_of": "2026-04-12",
-          "dem_margin": 6.6,
-          "dem_win_prob": 0.8888,
-          "num_polls": 7
-        },
-        {
-          "as_of": "2026-04-19",
-          "dem_margin": 6.6,
-          "dem_win_prob": 0.8888,
-          "num_polls": 7
-        },
-        {
-          "as_of": "2026-04-26",
-          "dem_margin": 6.6,
-          "dem_win_prob": 0.8888,
-          "num_polls": 7
-        },
-        {
-          "as_of": "2026-05-03",
-          "dem_margin": 6.6,
-          "dem_win_prob": 0.8888,
-          "num_polls": 7
-        },
-        {
-          "as_of": "2026-05-10",
-          "dem_margin": 6.6,
-          "dem_win_prob": 0.8888,
-          "num_polls": 7
-        },
-        {
-          "as_of": "2026-05-17",
-          "dem_margin": 6.6,
-          "dem_win_prob": 0.8888,
-          "num_polls": 7
-        },
-        {
-          "as_of": "2026-05-24",
-          "dem_margin": 6.6,
-          "dem_win_prob": 0.8888,
-          "num_polls": 7
-        },
-        {
-          "as_of": "2026-05-31",
-          "dem_margin": 6.6,
-          "dem_win_prob": 0.8888,
-          "num_polls": 7
-        },
-        {
-          "as_of": "2026-06-07",
-          "dem_margin": 6.6,
-          "dem_win_prob": 0.8888,
-          "num_polls": 7
-        },
-        {
-          "as_of": "2026-06-14",
-          "dem_margin": 6.6,
-          "dem_win_prob": 0.8888,
-          "num_polls": 7
-        },
-        {
-          "as_of": "2026-06-21",
-          "dem_margin": 6.6,
-          "dem_win_prob": 0.8888,
-          "num_polls": 7
-        },
-        {
-          "as_of": "2026-06-28",
-          "dem_margin": 6.6,
-          "dem_win_prob": 0.8888,
-          "num_polls": 7
-        }
-      ],
       "forecast": {
         "dem_win_prob": 0.8299,
         "median_margin": 5.62,
@@ -615,7 +311,7 @@
     },
     {
       "state": "Iowa",
-      "as_of": "2026-06-30",
+      "as_of": "2026-07-02",
       "candidates": {
         "Ashley Hinson": 45.6,
         "Josh Turek": 45.5
@@ -640,158 +336,6 @@
           "Republican": 0.55
         }
       },
-      "trend": [
-        {
-          "as_of": "2026-01-11",
-          "dem_margin": -3.0,
-          "dem_win_prob": 0.2895,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-01-18",
-          "dem_margin": -3.0,
-          "dem_win_prob": 0.2895,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-01-25",
-          "dem_margin": -3.0,
-          "dem_win_prob": 0.2895,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-02-01",
-          "dem_margin": -3.0,
-          "dem_win_prob": 0.2895,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-02-08",
-          "dem_margin": -3.0,
-          "dem_win_prob": 0.2895,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-02-15",
-          "dem_margin": -3.0,
-          "dem_win_prob": 0.2895,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-02-22",
-          "dem_margin": -3.0,
-          "dem_win_prob": 0.2895,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-03-01",
-          "dem_margin": -3.0,
-          "dem_win_prob": 0.2895,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-03-08",
-          "dem_margin": -3.0,
-          "dem_win_prob": 0.2895,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-03-15",
-          "dem_margin": -3.0,
-          "dem_win_prob": 0.2895,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-03-22",
-          "dem_margin": -4.0,
-          "dem_win_prob": 0.2298,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-03-29",
-          "dem_margin": -4.0,
-          "dem_win_prob": 0.2298,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-04-05",
-          "dem_margin": -4.0,
-          "dem_win_prob": 0.2298,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-04-12",
-          "dem_margin": -0.8,
-          "dem_win_prob": 0.4412,
-          "num_polls": 3
-        },
-        {
-          "as_of": "2026-04-19",
-          "dem_margin": -0.8,
-          "dem_win_prob": 0.4412,
-          "num_polls": 3
-        },
-        {
-          "as_of": "2026-04-26",
-          "dem_margin": -0.8,
-          "dem_win_prob": 0.4412,
-          "num_polls": 3
-        },
-        {
-          "as_of": "2026-05-03",
-          "dem_margin": -0.8,
-          "dem_win_prob": 0.4412,
-          "num_polls": 3
-        },
-        {
-          "as_of": "2026-05-10",
-          "dem_margin": -0.8,
-          "dem_win_prob": 0.4412,
-          "num_polls": 3
-        },
-        {
-          "as_of": "2026-05-17",
-          "dem_margin": -0.8,
-          "dem_win_prob": 0.4412,
-          "num_polls": 3
-        },
-        {
-          "as_of": "2026-05-24",
-          "dem_margin": -0.8,
-          "dem_win_prob": 0.4412,
-          "num_polls": 3
-        },
-        {
-          "as_of": "2026-05-31",
-          "dem_margin": -0.8,
-          "dem_win_prob": 0.4412,
-          "num_polls": 3
-        },
-        {
-          "as_of": "2026-06-07",
-          "dem_margin": -0.1,
-          "dem_win_prob": 0.4926,
-          "num_polls": 4
-        },
-        {
-          "as_of": "2026-06-14",
-          "dem_margin": 1.4,
-          "dem_win_prob": 0.6021,
-          "num_polls": 5
-        },
-        {
-          "as_of": "2026-06-21",
-          "dem_margin": -0.1,
-          "dem_win_prob": 0.4926,
-          "num_polls": 6
-        },
-        {
-          "as_of": "2026-06-28",
-          "dem_margin": -0.1,
-          "dem_win_prob": 0.4926,
-          "num_polls": 6
-        }
-      ],
       "forecast": {
         "dem_win_prob": 0.3582,
         "median_margin": -2.14,
@@ -924,7 +468,7 @@
     },
     {
       "state": "Maine",
-      "as_of": "2026-06-30",
+      "as_of": "2026-07-02",
       "candidates": {
         "Graham Platner": 48.0,
         "Susan Collins": 45.0
@@ -948,26 +492,6 @@
           "Democrat": 0.014
         }
       },
-      "trend": [
-        {
-          "as_of": "2026-06-14",
-          "dem_margin": 4.0,
-          "dem_win_prob": 0.7702,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-06-21",
-          "dem_margin": 4.0,
-          "dem_win_prob": 0.7702,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-06-28",
-          "dem_margin": 3.0,
-          "dem_win_prob": 0.7105,
-          "num_polls": 3
-        }
-      ],
       "forecast": {
         "dem_win_prob": 0.6895,
         "median_margin": 2.93,
@@ -1100,7 +624,7 @@
     },
     {
       "state": "Michigan",
-      "as_of": "2026-06-30",
+      "as_of": "2026-07-02",
       "candidates": {
         "Haley Stevens": 44.0,
         "Mike Rogers": 43.0
@@ -1125,26 +649,6 @@
           "Democrat": 0.72
         }
       },
-      "trend": [
-        {
-          "as_of": "2026-06-14",
-          "dem_margin": 1.0,
-          "dem_win_prob": 0.5733,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-06-21",
-          "dem_margin": 1.0,
-          "dem_win_prob": 0.5733,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-06-28",
-          "dem_margin": 1.0,
-          "dem_win_prob": 0.5733,
-          "num_polls": 2
-        }
-      ],
       "forecast": {
         "dem_win_prob": 0.7401,
         "median_margin": 3.76,
@@ -1277,7 +781,7 @@
     },
     {
       "state": "New Hampshire",
-      "as_of": "2026-06-30",
+      "as_of": "2026-07-02",
       "candidates": {
         "Chris Pappas": 49.6,
         "Scott Brown": 38.0
@@ -1302,68 +806,6 @@
           "Republican": 0.135
         }
       },
-      "trend": [
-        {
-          "as_of": "2026-04-26",
-          "dem_margin": 11.6,
-          "dem_win_prob": 0.984,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-05-03",
-          "dem_margin": 11.6,
-          "dem_win_prob": 0.984,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-05-10",
-          "dem_margin": 11.6,
-          "dem_win_prob": 0.984,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-05-17",
-          "dem_margin": 11.6,
-          "dem_win_prob": 0.984,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-05-24",
-          "dem_margin": 11.6,
-          "dem_win_prob": 0.984,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-05-31",
-          "dem_margin": 11.6,
-          "dem_win_prob": 0.984,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-06-07",
-          "dem_margin": 11.6,
-          "dem_win_prob": 0.984,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-06-14",
-          "dem_margin": 11.6,
-          "dem_win_prob": 0.984,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-06-21",
-          "dem_margin": 11.6,
-          "dem_win_prob": 0.984,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-06-28",
-          "dem_margin": 11.6,
-          "dem_win_prob": 0.984,
-          "num_polls": 2
-        }
-      ],
       "forecast": {
         "dem_win_prob": 0.9336,
         "median_margin": 8.89,
@@ -1496,7 +938,7 @@
     },
     {
       "state": "North Carolina",
-      "as_of": "2026-06-30",
+      "as_of": "2026-07-02",
       "candidates": {
         "Roy Cooper": 49.8,
         "Michael Whatley": 41.2
@@ -1521,50 +963,6 @@
           "Republican": 0.145
         }
       },
-      "trend": [
-        {
-          "as_of": "2026-05-17",
-          "dem_margin": 7.0,
-          "dem_win_prob": 0.9022,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-05-24",
-          "dem_margin": 8.6,
-          "dem_win_prob": 0.9441,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-05-31",
-          "dem_margin": 8.6,
-          "dem_win_prob": 0.9441,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-06-07",
-          "dem_margin": 8.6,
-          "dem_win_prob": 0.9441,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-06-14",
-          "dem_margin": 8.6,
-          "dem_win_prob": 0.9441,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-06-21",
-          "dem_margin": 8.6,
-          "dem_win_prob": 0.9441,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-06-28",
-          "dem_margin": 8.6,
-          "dem_win_prob": 0.9441,
-          "num_polls": 2
-        }
-      ],
       "forecast": {
         "dem_win_prob": 0.8319,
         "median_margin": 5.7,
@@ -1697,7 +1095,7 @@
     },
     {
       "state": "Ohio",
-      "as_of": "2026-06-30",
+      "as_of": "2026-07-02",
       "candidates": {
         "Sherrod Brown": 49.8,
         "Jon Husted": 45.1
@@ -1722,20 +1120,6 @@
           "Republican": 0.43
         }
       },
-      "trend": [
-        {
-          "as_of": "2026-06-21",
-          "dem_margin": 2.0,
-          "dem_win_prob": 0.6442,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-06-28",
-          "dem_margin": 4.7,
-          "dem_win_prob": 0.8076,
-          "num_polls": 2
-        }
-      ],
       "forecast": {
         "dem_win_prob": 0.4821,
         "median_margin": -0.27,
@@ -1868,7 +1252,7 @@
     },
     {
       "state": "Texas",
-      "as_of": "2026-06-30",
+      "as_of": "2026-07-02",
       "candidates": {
         "James Talarico": 44.7,
         "Ken Paxton": 44.3
@@ -1893,26 +1277,6 @@
           "Republican": 0.565
         }
       },
-      "trend": [
-        {
-          "as_of": "2026-06-14",
-          "dem_margin": 0.4,
-          "dem_win_prob": 0.5295,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-06-21",
-          "dem_margin": 0.4,
-          "dem_win_prob": 0.5295,
-          "num_polls": 2
-        },
-        {
-          "as_of": "2026-06-28",
-          "dem_margin": 0.4,
-          "dem_win_prob": 0.5295,
-          "num_polls": 2
-        }
-      ],
       "forecast": {
         "dem_win_prob": 0.3343,
         "median_margin": -2.56,
