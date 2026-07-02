@@ -333,7 +333,7 @@
       "market_odds": {
         "polymarket": {
           "Democrat": 0.425,
-          "Republican": 0.575
+          "Republican": 0.58
         }
       },
       "forecast": {
@@ -627,21 +627,21 @@
       "as_of": "2026-07-02",
       "candidates": {
         "Haley Stevens": 44.0,
-        "Mike Rogers": 43.3
+        "Mike Rogers": 43.2
       },
-      "margin": 0.7,
-      "num_polls": 2,
+      "margin": 0.8,
+      "num_polls": 3,
       "rating": null,
       "dem_candidate": "Haley Stevens",
       "rep_candidate": "Mike Rogers",
-      "dem_margin": 0.7,
-      "dem_win_prob": 0.5515,
+      "dem_margin": 0.8,
+      "dem_win_prob": 0.5588,
       "vibes": {
         "available": true,
         "adjustment": 0.0,
         "dem_effect": 0.0,
         "rep_effect": 0.0,
-        "adjusted_dem_margin": 0.7
+        "adjusted_dem_margin": 0.8
       },
       "market_odds": {
         "polymarket": {
@@ -650,10 +650,10 @@
         }
       },
       "forecast": {
-        "dem_win_prob": 0.7379,
-        "median_margin": 3.73,
-        "margin_p10": -3.79,
-        "margin_p90": 11.32,
+        "dem_win_prob": 0.7091,
+        "median_margin": 3.22,
+        "margin_p10": -4.3,
+        "margin_p90": 10.81,
         "num_simulations": 50000,
         "margin_hist": [
           {
@@ -678,103 +678,103 @@
           },
           {
             "mid": -19.0,
-            "pct": 4e-05
+            "pct": 0.0001
           },
           {
             "mid": -17.0,
-            "pct": 0.0004
+            "pct": 0.00044
           },
           {
             "mid": -15.0,
-            "pct": 0.00098
+            "pct": 0.00124
           },
           {
             "mid": -13.0,
-            "pct": 0.00208
+            "pct": 0.00262
           },
           {
             "mid": -11.0,
-            "pct": 0.00582
+            "pct": 0.0076
           },
           {
             "mid": -9.0,
-            "pct": 0.01438
+            "pct": 0.01664
           },
           {
             "mid": -7.0,
-            "pct": 0.02552
+            "pct": 0.0311
           },
           {
             "mid": -5.0,
-            "pct": 0.04494
+            "pct": 0.05002
           },
           {
             "mid": -3.0,
-            "pct": 0.0719
+            "pct": 0.07758
           },
           {
             "mid": -1.0,
-            "pct": 0.096
+            "pct": 0.10352
           },
           {
             "mid": 1.0,
-            "pct": 0.1209
+            "pct": 0.12586
           },
           {
             "mid": 3.0,
-            "pct": 0.13584
+            "pct": 0.13556
           },
           {
             "mid": 5.0,
-            "pct": 0.13062
+            "pct": 0.12702
           },
           {
             "mid": 7.0,
-            "pct": 0.11546
+            "pct": 0.11066
           },
           {
             "mid": 9.0,
-            "pct": 0.09028
+            "pct": 0.0829
           },
           {
             "mid": 11.0,
-            "pct": 0.06314
+            "pct": 0.05762
           },
           {
             "mid": 13.0,
-            "pct": 0.03992
+            "pct": 0.0352
           },
           {
             "mid": 15.0,
-            "pct": 0.0223
+            "pct": 0.01892
           },
           {
             "mid": 17.0,
-            "pct": 0.01112
+            "pct": 0.0092
           },
           {
             "mid": 19.0,
-            "pct": 0.00514
+            "pct": 0.00384
           },
           {
             "mid": 21.0,
-            "pct": 0.00226
+            "pct": 0.00158
           },
           {
             "mid": 23.0,
-            "pct": 0.0006
+            "pct": 0.00054
           },
           {
             "mid": 25.0,
-            "pct": 0.00028
+            "pct": 0.00016
           },
           {
             "mid": 27.0,
-            "pct": 6e-05
+            "pct": 8e-05
           },
           {
             "mid": 29.0,
-            "pct": 2e-05
+            "pct": 0.0
           }
         ]
       }
@@ -1117,7 +1117,7 @@
       "market_odds": {
         "polymarket": {
           "Democrat": 0.545,
-          "Republican": 0.465
+          "Republican": 0.46
         }
       },
       "forecast": {

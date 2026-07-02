@@ -1,20 +1,20 @@
 {
   "as_of": "2026-07-02",
   "num_simulations": 50000,
-  "dem_control_prob": 0.3296,
-  "mean_dem_seats": 49.63,
+  "dem_control_prob": 0.3252,
+  "mean_dem_seats": 49.6,
   "median_dem_seats": 50.0,
   "seat_distribution": {
-    "44": 70,
-    "45": 442,
-    "46": 1613,
-    "47": 3916,
-    "48": 7091,
-    "49": 9636,
-    "50": 10753,
-    "51": 8863,
-    "52": 5494,
-    "53": 2122
+    "44": 72,
+    "45": 459,
+    "46": 1708,
+    "47": 4044,
+    "48": 7191,
+    "49": 9649,
+    "50": 10618,
+    "51": 8759,
+    "52": 5408,
+    "53": 2092
   },
   "races": [
     {
@@ -39,17 +39,17 @@
       "race": "Michigan Senate 2026",
       "dem_candidate": "Haley Stevens",
       "rep_candidate": "Mike Rogers",
-      "margin": 5.112,
-      "num_polls": 2,
-      "dem_win_prob_polls": 0.7442,
-      "dem_win_prob_blended": 0.7369,
+      "margin": 4.427,
+      "num_polls": 3,
+      "dem_win_prob_polls": 0.7054,
+      "dem_win_prob_blended": 0.7078,
       "market_dem_prob": {
         "polymarket": 0.715
       },
-      "dem_win_prob_sim": 0.7379,
-      "median_margin": 3.73,
-      "margin_p10": -3.79,
-      "margin_p90": 11.32
+      "dem_win_prob_sim": 0.7091,
+      "median_margin": 3.22,
+      "margin_p10": -4.3,
+      "margin_p90": 10.81
     },
     {
       "state": "North Carolina",
@@ -183,8 +183,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.3296,
-  "mean_dem_seats_with_vibes": 49.63,
+  "dem_control_prob_with_vibes": 0.3252,
+  "mean_dem_seats_with_vibes": 49.6,
   "national_environment": {
     "national_swing": 8.404,
     "available": true,

@@ -466,7 +466,7 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 2,
+      "num_polls": 3,
       "polls": [
         {
           "pollster": "270toWin",
@@ -475,6 +475,22 @@
           "quality": null,
           "start_date": "2026-05-20",
           "end_date": "2026-06-30",
+          "sample_size": null,
+          "population": null,
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": 44.0,
+          "rep_pct": 43.0,
+          "margin": 1.0,
+          "partisan": false
+        },
+        {
+          "pollster": "270toWin",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-05-20",
+          "end_date": "2026-06-14",
           "sample_size": null,
           "population": null,
           "dem_candidate": "Haley Stevens",
