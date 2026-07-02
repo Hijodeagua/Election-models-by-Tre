@@ -145,8 +145,8 @@
       },
       "market_odds": {
         "polymarket": {
-          "Republican": 0.136,
-          "Democrat": 0.865
+          "Democrat": 0.865,
+          "Republican": 0.1355
         }
       },
       "trend": [
@@ -392,7 +392,7 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.425,
+          "Democrat": 0.42,
           "Republican": 0.58
         }
       },
@@ -549,10 +549,10 @@
         }
       ],
       "forecast": {
-        "dem_win_prob": 0.3858,
-        "median_margin": -1.72,
-        "margin_p10": -9.23,
-        "margin_p90": 5.88,
+        "dem_win_prob": 0.3847,
+        "median_margin": -1.73,
+        "margin_p10": -9.25,
+        "margin_p90": 5.86,
         "num_simulations": 50000
       }
     },
@@ -579,7 +579,7 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.0125
+          "Democrat": 0.0005
         }
       },
       "trend": [
@@ -591,10 +591,10 @@
         }
       ],
       "forecast": {
-        "dem_win_prob": 0.6725,
-        "median_margin": 2.65,
-        "margin_p10": -4.97,
-        "margin_p90": 10.21,
+        "dem_win_prob": 0.6698,
+        "median_margin": 2.6,
+        "margin_p10": -5.01,
+        "margin_p90": 10.16,
         "num_simulations": 50000
       }
     },
@@ -603,53 +603,53 @@
       "as_of": "2026-07-02",
       "candidates": {
         "Haley Stevens": 44.0,
-        "Mike Rogers": 43.0
+        "Mike Rogers": 43.3
       },
-      "margin": 1.0,
+      "margin": 0.7,
       "num_polls": 2,
       "rating": null,
       "dem_candidate": "Haley Stevens",
       "rep_candidate": "Mike Rogers",
-      "dem_margin": 1.0,
-      "dem_win_prob": 0.5733,
+      "dem_margin": 0.7,
+      "dem_win_prob": 0.5515,
       "vibes": {
         "available": true,
         "adjustment": 0.0,
         "dem_effect": 0.0,
         "rep_effect": 0.0,
-        "adjusted_dem_margin": 1.0
+        "adjusted_dem_margin": 0.7
       },
       "market_odds": {
         "polymarket": {
-          "Republican": 0.275,
-          "Democrat": 0.715
+          "Democrat": 0.705,
+          "Republican": 0.275
         }
       },
       "trend": [
         {
           "as_of": "2026-06-16",
-          "dem_margin": 1.0,
-          "dem_win_prob": 0.5733,
-          "num_polls": 2
+          "dem_margin": 0.0,
+          "dem_win_prob": 0.5,
+          "num_polls": 1
         },
         {
           "as_of": "2026-06-23",
-          "dem_margin": 1.0,
-          "dem_win_prob": 0.5733,
-          "num_polls": 2
+          "dem_margin": 0.0,
+          "dem_win_prob": 0.5,
+          "num_polls": 1
         },
         {
           "as_of": "2026-06-30",
-          "dem_margin": 1.0,
-          "dem_win_prob": 0.5733,
+          "dem_margin": 0.7,
+          "dem_win_prob": 0.5515,
           "num_polls": 2
         }
       ],
       "forecast": {
-        "dem_win_prob": 0.7428,
-        "median_margin": 3.82,
-        "margin_p10": -3.7,
-        "margin_p90": 11.41,
+        "dem_win_prob": 0.7354,
+        "median_margin": 3.69,
+        "margin_p10": -3.83,
+        "margin_p90": 11.28,
         "num_simulations": 50000
       }
     },
@@ -676,8 +676,8 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.845,
-          "Republican": 0.15
+          "Democrat": 0.84,
+          "Republican": 0.155
         }
       },
       "trend": [
@@ -749,10 +749,10 @@
         }
       ],
       "forecast": {
-        "dem_win_prob": 0.9359,
-        "median_margin": 9.0,
-        "margin_p10": 1.44,
-        "margin_p90": 16.55,
+        "dem_win_prob": 0.9348,
+        "median_margin": 8.94,
+        "margin_p10": 1.38,
+        "margin_p90": 16.49,
         "num_simulations": 50000
       }
     },
@@ -779,7 +779,7 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.865,
+          "Democrat": 0.87,
           "Republican": 0.135
         }
       },
@@ -834,10 +834,10 @@
         }
       ],
       "forecast": {
-        "dem_win_prob": 0.8356,
-        "median_margin": 5.78,
-        "margin_p10": -1.82,
-        "margin_p90": 13.33,
+        "dem_win_prob": 0.8367,
+        "median_margin": 5.81,
+        "margin_p10": -1.79,
+        "margin_p90": 13.36,
         "num_simulations": 50000
       }
     },
@@ -864,8 +864,8 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.545,
-          "Republican": 0.46
+          "Democrat": 0.49,
+          "Republican": 0.505
         }
       },
       "trend": [
@@ -889,10 +889,10 @@
         }
       ],
       "forecast": {
-        "dem_win_prob": 0.4852,
-        "median_margin": -0.23,
-        "margin_p10": -7.77,
-        "margin_p90": 7.33,
+        "dem_win_prob": 0.471,
+        "median_margin": -0.43,
+        "margin_p10": -7.98,
+        "margin_p90": 7.12,
         "num_simulations": 50000
       }
     },

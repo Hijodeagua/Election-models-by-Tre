@@ -474,7 +474,7 @@
           "grade": null,
           "quality": null,
           "start_date": "2026-05-20",
-          "end_date": "2026-06-14",
+          "end_date": "2026-06-30",
           "sample_size": null,
           "population": null,
           "dem_candidate": "Haley Stevens",
@@ -496,8 +496,8 @@
           "dem_candidate": "Haley Stevens",
           "rep_candidate": "Mike Rogers",
           "dem_pct": 44.0,
-          "rep_pct": 43.0,
-          "margin": 1.0,
+          "rep_pct": 44.0,
+          "margin": 0.0,
           "partisan": false
         }
       ],
