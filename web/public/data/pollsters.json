@@ -233,8 +233,24 @@
     {
       "state": "Georgia",
       "abbr": "GA",
-      "num_polls": 7,
+      "num_polls": 8,
       "polls": [
+        {
+          "pollster": "Beacon Research (D)/Shaw & Co. Research (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-06-23",
+          "end_date": "2026-06-27",
+          "sample_size": 1002,
+          "population": "rv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 56.0,
+          "rep_pct": 43.0,
+          "margin": 13.0,
+          "partisan": false
+        },
         {
           "pollster": "Echelon Insights (R)",
           "rated": false,
@@ -1053,8 +1069,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 7,
+      "num_polls": 8,
       "polls": [
+        {
+          "pollster": "Beacon Research (D)/Shaw & Co. Research (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-06-23",
+          "end_date": "2026-06-27",
+          "sample_size": 1003,
+          "population": "rv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 50.0,
+          "rep_pct": 46.0,
+          "margin": 4.0,
+          "partisan": false
+        },
         {
           "pollster": "New York Times/Siena University",
           "rated": false,
