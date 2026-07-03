@@ -1,20 +1,20 @@
 {
   "as_of": "2026-07-03",
   "num_simulations": 50000,
-  "dem_control_prob": 0.3112,
-  "mean_dem_seats": 49.55,
-  "median_dem_seats": 50.0,
+  "dem_control_prob": 0.2858,
+  "mean_dem_seats": 49.45,
+  "median_dem_seats": 49.0,
   "seat_distribution": {
-    "44": 72,
-    "45": 467,
-    "46": 1730,
-    "47": 4121,
-    "48": 7464,
-    "49": 9974,
-    "50": 10613,
-    "51": 8517,
-    "52": 5130,
-    "53": 1912
+    "44": 73,
+    "45": 490,
+    "46": 1793,
+    "47": 4413,
+    "48": 7840,
+    "49": 10444,
+    "50": 10658,
+    "51": 8103,
+    "52": 4612,
+    "53": 1574
   },
   "races": [
     {
@@ -141,17 +141,17 @@
       "race": "Iowa Senate 2026",
       "dem_candidate": "Josh Turek",
       "rep_candidate": "Ashley Hinson",
-      "margin": -0.603,
-      "num_polls": 8,
-      "dem_win_prob_polls": 0.3766,
-      "dem_win_prob_blended": 0.385,
+      "margin": -2.909,
+      "num_polls": 1,
+      "dem_win_prob_polls": 0.2401,
+      "dem_win_prob_blended": 0.2851,
       "market_dem_prob": {
-        "polymarket": 0.41
+        "polymarket": 0.42
       },
-      "dem_win_prob_sim": 0.3817,
-      "median_margin": -1.77,
-      "margin_p10": -9.29,
-      "margin_p90": 5.82
+      "dem_win_prob_sim": 0.283,
+      "median_margin": -3.39,
+      "margin_p10": -10.91,
+      "margin_p90": 4.2
     },
     {
       "state": "Alaska",
@@ -183,8 +183,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.3112,
-  "mean_dem_seats_with_vibes": 49.55,
+  "dem_control_prob_with_vibes": 0.2858,
+  "mean_dem_seats_with_vibes": 49.45,
   "national_environment": {
     "national_swing": 8.404,
     "available": true,
