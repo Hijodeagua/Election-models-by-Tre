@@ -57,11 +57,9 @@ export type MarketOddsBySource = Record<string, Record<string, number>>;
 
 // One point in a race's history: our Dem−Rep margin and the model's implied
 // probability the Democrat wins, as of that date.
-export interface SenateRaceTrendPoint {
-  as_of: string;
-  dem_margin: number;
-  dem_win_prob: number;
-  num_polls: number;
+export interface MarginHistBin {
+  mid: number;
+  pct: number;
 }
 
 export interface RaceForecastSummary {
@@ -70,6 +68,7 @@ export interface RaceForecastSummary {
   margin_p10: number | null;
   margin_p90: number | null;
   num_simulations: number | null;
+  margin_hist?: MarginHistBin[];
 }
 
 export interface SenateRaceSnapshot {
@@ -86,7 +85,6 @@ export interface SenateRaceSnapshot {
   forecast?: RaceForecastSummary;
   vibes?: RaceVibes;
   market_odds?: MarketOddsBySource;
-  trend?: SenateRaceTrendPoint[];
 }
 
 export interface SenateData {

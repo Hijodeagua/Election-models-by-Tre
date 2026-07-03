@@ -3,17 +3,12 @@
 import { useState } from 'react';
 import type { SenateRaceSnapshot } from '@/app/lib/data';
 import SenateRaceChart from '@/app/components/SenateRaceChart';
+import { fmtMargin, fmtProb } from '@/app/lib/format';
 
 const MARKET_LABELS: Record<string, string> = {
   polymarket: 'Polymarket',
   kalshi: 'Kalshi',
 };
-
-function fmtMargin(margin: number | null | undefined): string {
-  if (margin == null) return '—';
-  const side = margin > 0 ? 'D' : margin < 0 ? 'R' : 'Even';
-  return margin === 0 ? 'Even' : `${side} +${Math.abs(margin).toFixed(1)}`;
-}
 
 // "Our forecast has X winning over Y in N% of simulations, median margin Z."
 function ForecastSummary({ race }: { race: SenateRaceSnapshot }) {
@@ -24,17 +19,17 @@ function ForecastSummary({ race }: { race: SenateRaceSnapshot }) {
   const winner = demWins ? race.dem_candidate : race.rep_candidate;
   const loser = demWins ? race.rep_candidate : race.dem_candidate;
   const winnerSide = demWins ? 'D' : 'R';
-  const winPct = Math.round((demWins ? demProb : 1 - demProb) * 100);
   const med = fc.median_margin;
-  const medSide = med == null ? '' : med > 0 ? 'D' : 'R';
-  const medTxt = med == null ? '—' : `${medSide}+${Math.abs(med).toFixed(1)}`;
+  const medTxt = fmtMargin(med, 1);
+  const medClass =
+    med == null || Math.abs(med) < 0.05 ? 'text-ink' : med > 0 ? 'text-dem' : 'text-rep';
   return (
     <p className="mt-2 text-sm text-cocoa-700">
       Our forecast has{' '}
       <strong className={winnerSide === 'D' ? 'text-dem' : 'text-rep'}>{winner}</strong>{' '}
       winning over <strong>{loser}</strong> in{' '}
-      <strong>{winPct}%</strong> of simulations, with a median margin of{' '}
-      <strong className={medSide === 'D' ? 'text-dem' : 'text-rep'}>{medTxt}</strong>
+      <strong>{fmtProb(demWins ? demProb : 1 - demProb)}</strong> of simulations, with a
+      median margin of <strong className={medClass}>{medTxt}</strong>
       {fc.margin_p10 != null && fc.margin_p90 != null && (
         <span className="text-cocoa-400">
           {' '}(80% range {fmtMargin(fc.margin_p10)} to {fmtMargin(fc.margin_p90)})
@@ -101,7 +96,7 @@ export default function SenateRaceCard({ race }: { race: SenateRaceSnapshot }) {
                   winProb >= 0.5 ? 'text-dem' : 'text-rep'
                 }`}
               >
-                {winProb >= 0.5 ? 'D' : 'R'} {Math.round((winProb >= 0.5 ? winProb : 1 - winProb) * 100)}%
+                {winProb >= 0.5 ? 'D' : 'R'} {fmtProb(winProb >= 0.5 ? winProb : 1 - winProb)}
               </div>
               <div className="mt-1 text-xs text-cocoa-400">win probability</div>
             </>

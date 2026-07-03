@@ -150,6 +150,18 @@ class TestSimulation:
             dem_fav.dem_win_prob_blended, abs=0.02
         )
 
+    def test_margin_histogram_is_a_distribution(self):
+        # The per-race histogram covers ~all the probability mass and leans the
+        # right way: a Dem-favoured race puts most of its mass on positive bins.
+        races = [_race("A", margin=8.0)]
+        result = _simulator().simulate(races, num_simulations=20000, seed=11)
+        hist = result.races[0].margin_hist
+        assert hist, "expected a non-empty histogram"
+        total = sum(b["pct"] for b in hist)
+        assert total == pytest.approx(1.0, abs=1e-3)
+        dem_mass = sum(b["pct"] for b in hist if b["mid"] > 0)
+        assert dem_mass > 0.5
+
     def test_median_margin_carries_bias(self):
         # A Republican bias must pull the simulated median margin downward.
         races = [_race("A", margin=0.0)]

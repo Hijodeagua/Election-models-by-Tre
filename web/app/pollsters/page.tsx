@@ -6,6 +6,7 @@ import {
   type StatePoll,
   type StatePolls,
 } from '@/app/lib/data';
+import { fmtMargin } from '@/app/lib/format';
 
 const GRADE_TONE: Record<string, string> = {
   A: 'bg-stamp-wash text-stamp border-[#cfe2c6]',
@@ -44,12 +45,6 @@ function leanText(meanError: number): string {
 function fmtDate(iso: string): string {
   const d = new Date(iso + 'T00:00:00');
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' });
-}
-
-function fmtMargin(m: number | null): string {
-  if (m == null) return '—';
-  if (m === 0) return 'Even';
-  return `${m > 0 ? 'D' : 'R'}+${Math.abs(m).toFixed(1)}`;
 }
 
 export default function PollstersPage() {
