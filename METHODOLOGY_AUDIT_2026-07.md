@@ -248,6 +248,34 @@ Concur with the briefing's split, with two sharpened caveats:
 
 ---
 
+## Implementation status (July 2026, this branch)
+
+Items 1–3 and 6 of the priority order below are **implemented**:
+
+- **Evaluator** (`evaluator.py`): predictions are two-party-normalized before
+  differencing, and the winner call uses the two-party share.
+- **Ratings unified**: the engine's default ratings now come from
+  `build_ratings_dict()` (same source as production), the dict-miss fallback
+  is `_UNKNOWN_DEFAULT` (1.408), `config/pollster_ratings.json` is a generated
+  snapshot of that pool, and `PollsterWeightManager` uses the same default.
+- **Complement derivation removed**: the state-space paths fit Disapprove and
+  the Republican series as their own latent states with real CIs;
+  `candidate_quality.py` documents its two-party-share contract.
+- **Dedup rule** (`src/data/base.py: dedupe_polls`, applied in both CSV
+  loaders): collapses multi-population releases of the same fieldwork
+  (LV > RV > A) and overlapping tracking-poll windows (keep newest release).
+  Effect on the live approval feed: 2,906 → 1,825 rows.
+- **New finding fixed — subject leakage**: the approval feed also carries
+  Congress (703), Supreme Court (338), and JD Vance (33) polls, and the
+  published presidential average was mixing them in. `PresidentialApprovalModel`
+  now screens to presidential subjects (blank subjects pass for legacy feeds).
+  Published approval moved from 37.9/58.1 to 39.8/57.6 (n=751), and the
+  corrected net approval flows through the national environment into the
+  Senate control simulation (0.287 → 0.280).
+
+Still open: items 4–5 (state-space in the refresh workflow; first CV'd
+training run) and 7–8 (knob sensitivity sweep; covariance/tails, seat slope).
+
 ## Revised priority order
 
 1. Fix evaluator two-party normalization **and** the `> 50` win rule

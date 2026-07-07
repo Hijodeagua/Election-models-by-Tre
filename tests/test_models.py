@@ -168,3 +168,45 @@ class TestPollingAverageEngine:
         # Should auto-detect Approve and Disapprove as choices
         assert "Approve" in result.averages
         assert "Disapprove" in result.averages
+
+
+# ── PresidentialApprovalModel subject screen ──────────────────────────
+
+
+class TestPresidentialApprovalSubjectFilter:
+    def test_non_presidential_subjects_excluded(self):
+        """Congress/Supreme Court/VP approval polls arrive with the same
+        PollType.APPROVAL and must not leak into the presidential average."""
+        from dataclasses import replace
+        from src.models.approval import PresidentialApprovalModel
+
+        trump = [
+            make_poll(poll_id=f"t{i}", pollster=f"Pollster {i}", approve=40.0, disapprove=55.0)
+            for i in range(5)
+        ]
+        congress = [
+            replace(p, poll_id=f"c{i}", subject="Congress",
+                    answers=[PollAnswer("Approve", 15.0), PollAnswer("Disapprove", 70.0)])
+            for i, p in enumerate(trump)
+        ]
+        model = PresidentialApprovalModel(engine=PollingAverageEngine(pollster_ratings={}))
+        snap = model.current_approval(trump + congress)
+        assert snap is not None
+        assert snap.num_polls == 5
+        assert abs(snap.approve - 40.0) < 0.2  # Congress's 15% never mixed in
+
+    def test_blank_subject_passes_for_legacy_feeds(self):
+        from dataclasses import replace
+        from src.models.approval import PresidentialApprovalModel
+
+        legacy = [
+            replace(
+                make_poll(poll_id=f"l{i}", pollster=f"Pollster {i}"),
+                subject="",
+            )
+            for i in range(5)
+        ]
+        model = PresidentialApprovalModel(engine=PollingAverageEngine(pollster_ratings={}))
+        snap = model.current_approval(legacy)
+        assert snap is not None
+        assert snap.num_polls == 5

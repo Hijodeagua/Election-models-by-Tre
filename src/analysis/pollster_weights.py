@@ -10,7 +10,11 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-DEFAULT_RATING = 1.5  # Unknown pollsters get a middling rating
+from src.data.pollster_ratings import _UNKNOWN_DEFAULT
+
+# Unknown pollsters get the survivorship-adjusted 25th-percentile default
+# (~1.41), matching the engine and the documented ratings policy.
+DEFAULT_RATING = _UNKNOWN_DEFAULT
 
 
 class PollsterWeightManager:

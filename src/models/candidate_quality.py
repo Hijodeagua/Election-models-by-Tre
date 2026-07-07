@@ -165,6 +165,12 @@ class CandidateQualityModel:
     ) -> tuple[CandidateQuality, CandidateQuality]:
         """Compute candidate quality (WAR) for both candidates in a race.
 
+        Args:
+            actual_dem_share: The Dem share of the TWO-PARTY vote (0–100).
+                The Republican side is derived as ``100 − actual_dem_share``,
+                which is exact only on the two-party scale — do not pass raw
+                shares that still include third-party/undecided votes.
+
         Returns:
             (dem_quality, rep_quality) tuple.
         """

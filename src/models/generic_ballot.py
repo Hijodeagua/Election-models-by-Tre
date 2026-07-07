@@ -50,6 +50,20 @@ class GenericBallotSnapshot:
     ci_rep: tuple[float, float] | None = None
 
 
+def _dominant_choice(
+    polls: list[Poll], variants: tuple[str, ...], default: str
+) -> str:
+    """Most common answer label among the given variants, or ``default``."""
+    from collections import Counter
+
+    counter: Counter[str] = Counter()
+    for p in polls:
+        for a in p.answers:
+            if a.choice.lower() in variants:
+                counter[a.choice] += 1
+    return counter.most_common(1)[0][0] if counter else default
+
+
 class GenericBallotModel:
     """Generic ballot tracker with seat projection.
 
@@ -93,14 +107,13 @@ class GenericBallotModel:
         if len(gb_polls) < MIN_POLLS_FOR_ESTIMATE:
             return None
 
-        # Detect which Dem label dominates this dataset
-        from collections import Counter
-        choice_counter: Counter[str] = Counter()
-        for p in gb_polls:
-            for a in p.answers:
-                if a.choice.lower() in ("democrat", "democratic", "democrats"):
-                    choice_counter[a.choice] += 1
-        dem_choice = choice_counter.most_common(1)[0][0] if choice_counter else "Democrat"
+        # Detect which Dem/Rep labels dominate this dataset
+        dem_choice = _dominant_choice(
+            gb_polls, ("democrat", "democratic", "democrats", "dem"), "Democrat"
+        )
+        rep_choice = _dominant_choice(
+            gb_polls, ("republican", "republicans", "gop", "rep"), "Republican"
+        )
 
         result = state_space.fit(
             gb_polls, choice=dem_choice, as_of=as_of,
@@ -109,11 +122,20 @@ class GenericBallotModel:
         if result is None:
             return None
 
-        dem_mean, dem_lo, dem_hi = result.estimate_at(as_of)
+        # Republican fitted as its own latent series, NOT 100 − dem: the
+        # complement folds undecided/third-party into the Republican share and
+        # inflates the margin (which then feeds the seat translation). The
+        # second fit doubles runtime — acceptable for this opt-in path.
+        rep_result = state_space.fit(
+            gb_polls, choice=rep_choice, as_of=as_of,
+            draws=draws, tune=tune,
+        )
+        if rep_result is None:
+            return None
 
-        # Republican derived as complement; fitting separately would double runtime.
-        rep_mean = 100.0 - dem_mean
-        ci_rep = None
+        dem_mean, dem_lo, dem_hi = result.estimate_at(as_of)
+        rep_mean, rep_lo, rep_hi = rep_result.estimate_at(as_of)
+        ci_rep = (round(rep_lo, 1), round(rep_hi, 1))
 
         margin = round(dem_mean - rep_mean, 1)
         est_dem = round(self.baseline_dem_seats + margin * self.seats_per_margin_point)

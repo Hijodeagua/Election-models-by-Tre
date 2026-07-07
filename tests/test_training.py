@@ -268,6 +268,38 @@ class TestEvaluator:
         with pytest.raises(ValueError):
             PollingAverageEvaluator([])
 
+    def test_undecided_does_not_bias_error(self):
+        """Raw polls with undecideds must be two-party-normalized before
+        differencing against the two-party actual (audit Finding 1)."""
+        # Polls: D 48, R 44 (8% undecided) → two-party pred = 48/92 ≈ 52.17.
+        # Actual two-party share 52.17 → error ≈ 0 (the old raw comparison
+        # reported a spurious −4pp bias here).
+        races = []
+        for _ in range(10):
+            race = make_training_race(dem_share=52.17, pred_dem_pct=48.0)
+            for poll in race.polls:
+                poll.answers[1].pct = 44.0  # Republican at 44, not 52
+            races.append(race)
+        evaluator = PollingAverageEvaluator(races)
+        params = {k: v for k, v in PollingAverageParams().__dict__.items()}
+        result = evaluator.evaluate(params)
+        assert abs(result.mean_error) < 0.5
+        assert result.rmse < 1.0
+
+    def test_win_call_on_two_party_share(self):
+        """A raw 48–44 lead is a predicted win once normalized (the old
+        `raw > 50` rule counted it as a predicted loss)."""
+        races = []
+        for _ in range(10):
+            race = make_training_race(dem_share=52.0, pred_dem_pct=48.0)
+            for poll in race.polls:
+                poll.answers[1].pct = 44.0
+            races.append(race)
+        evaluator = PollingAverageEvaluator(races)
+        params = {k: v for k, v in PollingAverageParams().__dict__.items()}
+        result = evaluator.evaluate(params)
+        assert result.win_accuracy == 1.0
+
     def test_higher_half_life_smooths_more(self):
         """Longer half-life gives more weight to older polls."""
         races = [make_training_race() for _ in range(5)]

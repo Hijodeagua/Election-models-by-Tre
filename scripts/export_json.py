@@ -173,6 +173,14 @@ def _votehub_unweighted_trend(
     recency or population weighting, so divergence from our model shows what
     the weighting buys us.
     """
+    # Same subject screen as PresidentialApprovalModel: the approval feed also
+    # carries Congress / Supreme Court / VP ratings that don't belong here.
+    from src.models.approval import PRESIDENTIAL_SUBJECT_KEYWORD
+    polls = [
+        p for p in polls
+        if not p.subject or PRESIDENTIAL_SUBJECT_KEYWORD in p.subject.lower()
+    ]
+
     points: list[dict] = []
     current = start
     while current <= end:

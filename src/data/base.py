@@ -87,6 +87,68 @@ class Poll:
         }
 
 
+# Preference order when several releases of the same fieldwork differ only by
+# population: LV screens are the horse-race standard, then RV, then Adults.
+_POPULATION_RANK: dict[Population | None, int] = {
+    Population.LIKELY_VOTERS: 3,
+    Population.REGISTERED_VOTERS: 2,
+    Population.ADULTS: 1,
+    None: 0,
+}
+
+
+def dedupe_polls(polls: list[Poll]) -> list[Poll]:
+    """One poll per (pollster, subject, overlapping field window).
+
+    Canonical deduplication rule (METHODOLOGY_REVIEW.md "Data policy" /
+    audit Finding 6). Without it, two kinds of duplicates silently
+    over-weight a pollster in the averages:
+
+    1. **Multi-population releases** — the same fieldwork published as both
+       an LV and an RV (or Adults) row. Keep one, preferring LV > RV > A
+       (largest sample as the tie-break).
+    2. **Overlapping tracking-poll windows** — daily/weekly trackers whose
+       field periods overlap earlier releases. Keep the most recent
+       release; drop any earlier poll from the same pollster on the same
+       subject whose window overlaps one already kept.
+
+    Distinct polls with non-overlapping windows always survive. Order of
+    the result follows the input order of the surviving polls.
+    """
+    # Pass 1: collapse same-fieldwork multi-population releases.
+    by_fieldwork: dict[tuple, Poll] = {}
+    for poll in polls:
+        key = (poll.pollster, poll.poll_type, poll.subject, poll.start_date, poll.end_date)
+        best = by_fieldwork.get(key)
+        if best is None:
+            by_fieldwork[key] = poll
+            continue
+        cand_rank = (_POPULATION_RANK.get(poll.population, 0), poll.sample_size or 0)
+        best_rank = (_POPULATION_RANK.get(best.population, 0), best.sample_size or 0)
+        if cand_rank > best_rank:
+            by_fieldwork[key] = poll
+
+    # Pass 2: within (pollster, poll_type, subject), keep newest release and
+    # drop earlier polls whose field windows overlap an already-kept poll.
+    groups: dict[tuple, list[Poll]] = {}
+    for poll in by_fieldwork.values():
+        groups.setdefault((poll.pollster, poll.poll_type, poll.subject), []).append(poll)
+
+    kept_ids: set[int] = set()
+    for group in groups.values():
+        kept: list[Poll] = []
+        for poll in sorted(group, key=lambda p: (p.end_date, p.start_date), reverse=True):
+            overlaps = any(
+                poll.start_date <= k.end_date and k.start_date <= poll.end_date
+                for k in kept
+            )
+            if not overlaps:
+                kept.append(poll)
+                kept_ids.add(id(poll))
+
+    return [p for p in by_fieldwork.values() if id(p) in kept_ids]
+
+
 class DataSource(ABC):
     """Interface every data source must implement.
 

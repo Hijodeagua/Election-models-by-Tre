@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-07-06",
+  "as_of": "2026-07-07",
   "num_simulations": 50000,
-  "dem_control_prob": 0.2869,
-  "mean_dem_seats": 49.46,
-  "median_dem_seats": 50.0,
+  "dem_control_prob": 0.2797,
+  "mean_dem_seats": 49.43,
+  "median_dem_seats": 49.0,
   "seat_distribution": {
-    "44": 72,
-    "45": 489,
-    "46": 1769,
-    "47": 4394,
-    "48": 7816,
-    "49": 10431,
-    "50": 10682,
-    "51": 8127,
-    "52": 4637,
-    "53": 1583
+    "44": 73,
+    "45": 513,
+    "46": 1823,
+    "47": 4517,
+    "48": 7934,
+    "49": 10497,
+    "50": 10657,
+    "51": 7978,
+    "52": 4507,
+    "53": 1501
   },
   "races": [
     {
@@ -22,151 +22,151 @@
       "race": "Georgia Senate 2026",
       "dem_candidate": "Jon Ossoff",
       "rep_candidate": "Mike Collins",
-      "margin": 11.237,
+      "margin": 11.192,
       "num_polls": 8,
-      "dem_win_prob_polls": 0.9551,
-      "dem_win_prob_blended": 0.9326,
+      "dem_win_prob_polls": 0.9544,
+      "dem_win_prob_blended": 0.932,
       "market_dem_prob": {
         "polymarket": 0.865
       },
-      "dem_win_prob_sim": 0.9339,
-      "median_margin": 8.86,
-      "margin_p10": 1.35,
-      "margin_p90": 16.38
+      "dem_win_prob_sim": 0.9332,
+      "median_margin": 8.84,
+      "margin_p10": 1.32,
+      "margin_p90": 16.35
     },
     {
       "state": "Michigan",
       "race": "Michigan Senate 2026",
       "dem_candidate": "Haley Stevens",
       "rep_candidate": "Mike Rogers",
-      "margin": 5.112,
+      "margin": 5.012,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.7442,
-      "dem_win_prob_blended": 0.7394,
+      "dem_win_prob_polls": 0.7387,
+      "dem_win_prob_blended": 0.7353,
       "market_dem_prob": {
         "polymarket": 0.725
       },
-      "dem_win_prob_sim": 0.7407,
-      "median_margin": 3.78,
-      "margin_p10": -3.74,
-      "margin_p90": 11.37
+      "dem_win_prob_sim": 0.7362,
+      "median_margin": 3.7,
+      "margin_p10": -3.82,
+      "margin_p90": 11.29
     },
     {
       "state": "North Carolina",
       "race": "North Carolina Senate 2026",
       "dem_candidate": "Roy Cooper",
       "rep_candidate": "Michael Whatley",
-      "margin": 6.802,
+      "margin": 6.702,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.8272,
-      "dem_win_prob_blended": 0.8379,
+      "dem_win_prob_polls": 0.8229,
+      "dem_win_prob_blended": 0.8347,
       "market_dem_prob": {
         "polymarket": 0.87
       },
-      "dem_win_prob_sim": 0.8367,
-      "median_margin": 5.81,
-      "margin_p10": -1.79,
-      "margin_p90": 13.36
+      "dem_win_prob_sim": 0.8335,
+      "median_margin": 5.74,
+      "margin_p10": -1.87,
+      "margin_p90": 13.28
     },
     {
       "state": "Maine",
       "race": "Maine Senate 2026",
       "dem_candidate": "Graham Platner",
       "rep_candidate": "Susan Collins",
-      "margin": 8.577,
+      "margin": 8.493,
       "num_polls": 3,
-      "dem_win_prob_polls": 0.8934,
-      "dem_win_prob_blended": 0.6702,
+      "dem_win_prob_polls": 0.8908,
+      "dem_win_prob_blended": 0.6682,
       "market_dem_prob": {
         "polymarket": 0.0005
       },
-      "dem_win_prob_sim": 0.6698,
-      "median_margin": 2.6,
-      "margin_p10": -5.01,
-      "margin_p90": 10.16
+      "dem_win_prob_sim": 0.6679,
+      "median_margin": 2.57,
+      "margin_p10": -5.05,
+      "margin_p90": 10.12
     },
     {
       "state": "New Hampshire",
       "race": "New Hampshire Senate 2026",
       "dem_candidate": "Chris Pappas",
       "rep_candidate": "Scott Brown",
-      "margin": 12.052,
+      "margin": 11.952,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.9668,
-      "dem_win_prob_blended": 0.9338,
+      "dem_win_prob_polls": 0.9655,
+      "dem_win_prob_blended": 0.9329,
       "market_dem_prob": {
         "polymarket": 0.835
       },
-      "dem_win_prob_sim": 0.9334,
-      "median_margin": 8.88,
-      "margin_p10": 1.32,
-      "margin_p90": 16.44
+      "dem_win_prob_sim": 0.9326,
+      "median_margin": 8.84,
+      "margin_p10": 1.28,
+      "margin_p90": 16.39
     },
     {
       "state": "Ohio",
       "race": "Ohio Senate 2026",
       "dem_candidate": "Sherrod Brown",
       "rep_candidate": "Jon Husted",
-      "margin": -0.438,
+      "margin": -0.538,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.3873,
-      "dem_win_prob_blended": 0.413,
+      "dem_win_prob_polls": 0.3808,
+      "dem_win_prob_blended": 0.4081,
       "market_dem_prob": {
         "polymarket": 0.49
       },
-      "dem_win_prob_sim": 0.4169,
-      "median_margin": -1.26,
-      "margin_p10": -8.81,
-      "margin_p90": 6.29
+      "dem_win_prob_sim": 0.412,
+      "median_margin": -1.34,
+      "margin_p10": -8.88,
+      "margin_p90": 6.22
     },
     {
       "state": "Texas",
       "race": "Texas Senate 2026",
       "dem_candidate": "James Talarico",
       "rep_candidate": "Ken Paxton",
-      "margin": -1.918,
+      "margin": -2.018,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.2954,
-      "dem_win_prob_blended": 0.3303,
+      "dem_win_prob_polls": 0.2895,
+      "dem_win_prob_blended": 0.3259,
       "market_dem_prob": {
         "polymarket": 0.435
       },
-      "dem_win_prob_sim": 0.3321,
-      "median_margin": -2.6,
-      "margin_p10": -10.11,
-      "margin_p90": 5.05
+      "dem_win_prob_sim": 0.3275,
+      "median_margin": -2.67,
+      "margin_p10": -10.18,
+      "margin_p90": 4.98
     },
     {
       "state": "Iowa",
       "race": "Iowa Senate 2026",
       "dem_candidate": "Josh Turek",
       "rep_candidate": "Ashley Hinson",
-      "margin": -2.909,
+      "margin": -3.035,
       "num_polls": 1,
-      "dem_win_prob_polls": 0.2401,
-      "dem_win_prob_blended": 0.2851,
+      "dem_win_prob_polls": 0.2335,
+      "dem_win_prob_blended": 0.2801,
       "market_dem_prob": {
         "polymarket": 0.42
       },
-      "dem_win_prob_sim": 0.283,
-      "median_margin": -3.39,
-      "margin_p10": -10.91,
-      "margin_p90": 4.2
+      "dem_win_prob_sim": 0.2778,
+      "median_margin": -3.48,
+      "margin_p10": -11.0,
+      "margin_p90": 4.11
     },
     {
       "state": "Alaska",
       "race": "Alaska Senate 2026",
       "dem_candidate": "Mary Peltola",
       "rep_candidate": "Dan Sullivan",
-      "margin": -1.709,
+      "margin": -1.835,
       "num_polls": 1,
-      "dem_win_prob_polls": 0.3077,
-      "dem_win_prob_blended": 0.3077,
+      "dem_win_prob_polls": 0.3003,
+      "dem_win_prob_blended": 0.3003,
       "market_dem_prob": {},
-      "dem_win_prob_sim": 0.3125,
-      "median_margin": -2.9,
-      "margin_p10": -10.49,
-      "margin_p90": 4.65
+      "dem_win_prob_sim": 0.3049,
+      "median_margin": -3.02,
+      "margin_p10": -10.62,
+      "margin_p90": 4.53
     }
   ],
   "dem_safe_seats": 44,
@@ -183,16 +183,16 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.2869,
-  "mean_dem_seats_with_vibes": 49.46,
+  "dem_control_prob_with_vibes": 0.2797,
+  "mean_dem_seats_with_vibes": 49.43,
   "national_environment": {
-    "national_swing": 8.404,
+    "national_swing": 8.236,
     "available": true,
     "president_party": "R",
-    "approval_net": -20.2,
-    "generic_margin": 5.3,
-    "approval_implied_margin": 6.06,
-    "expected_national_margin": 5.604,
+    "approval_net": -17.8,
+    "generic_margin": 5.5,
+    "approval_implied_margin": 5.34,
+    "expected_national_margin": 5.436,
     "house_baseline_2024": -2.8,
     "senate_responsiveness": 1.0
   }
