@@ -1,20 +1,20 @@
 {
   "as_of": "2026-07-07",
   "num_simulations": 50000,
-  "dem_control_prob": 0.2797,
-  "mean_dem_seats": 49.43,
+  "dem_control_prob": 0.2552,
+  "mean_dem_seats": 49.4,
   "median_dem_seats": 49.0,
   "seat_distribution": {
-    "44": 73,
-    "45": 513,
-    "46": 1823,
-    "47": 4517,
-    "48": 7934,
-    "49": 10497,
-    "50": 10657,
-    "51": 7978,
-    "52": 4507,
-    "53": 1501
+    "44": 97,
+    "45": 447,
+    "46": 1598,
+    "47": 4002,
+    "48": 8108,
+    "49": 11862,
+    "50": 11128,
+    "51": 7654,
+    "52": 3869,
+    "53": 1235
   },
   "races": [
     {
@@ -24,15 +24,15 @@
       "rep_candidate": "Mike Collins",
       "margin": 11.192,
       "num_polls": 8,
-      "dem_win_prob_polls": 0.9544,
-      "dem_win_prob_blended": 0.932,
+      "dem_win_prob_polls": 0.9595,
+      "dem_win_prob_blended": 0.9359,
       "market_dem_prob": {
         "polymarket": 0.865
       },
-      "dem_win_prob_sim": 0.9332,
-      "median_margin": 8.84,
-      "margin_p10": 1.32,
-      "margin_p90": 16.35
+      "dem_win_prob_sim": 0.9382,
+      "median_margin": 8.35,
+      "margin_p10": 1.66,
+      "margin_p90": 15.02
     },
     {
       "state": "Michigan",
@@ -41,15 +41,15 @@
       "rep_candidate": "Mike Rogers",
       "margin": 5.012,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.7387,
-      "dem_win_prob_blended": 0.7353,
+      "dem_win_prob_polls": 0.7766,
+      "dem_win_prob_blended": 0.7637,
       "market_dem_prob": {
         "polymarket": 0.725
       },
-      "dem_win_prob_sim": 0.7362,
-      "median_margin": 3.7,
-      "margin_p10": -3.82,
-      "margin_p90": 11.29
+      "dem_win_prob_sim": 0.7646,
+      "median_margin": 3.54,
+      "margin_p10": -3.21,
+      "margin_p90": 10.32
     },
     {
       "state": "North Carolina",
@@ -58,15 +58,15 @@
       "rep_candidate": "Michael Whatley",
       "margin": 6.702,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.8229,
-      "dem_win_prob_blended": 0.8347,
+      "dem_win_prob_polls": 0.8573,
+      "dem_win_prob_blended": 0.8605,
       "market_dem_prob": {
         "polymarket": 0.87
       },
-      "dem_win_prob_sim": 0.8335,
-      "median_margin": 5.74,
-      "margin_p10": -1.87,
-      "margin_p90": 13.28
+      "dem_win_prob_sim": 0.8599,
+      "median_margin": 5.54,
+      "margin_p10": -1.21,
+      "margin_p90": 12.24
     },
     {
       "state": "Maine",
@@ -75,15 +75,15 @@
       "rep_candidate": "Susan Collins",
       "margin": 8.493,
       "num_polls": 3,
-      "dem_win_prob_polls": 0.8908,
-      "dem_win_prob_blended": 0.6682,
+      "dem_win_prob_polls": 0.9135,
+      "dem_win_prob_blended": 0.6852,
       "market_dem_prob": {
         "polymarket": 0.0005
       },
-      "dem_win_prob_sim": 0.6679,
-      "median_margin": 2.57,
-      "margin_p10": -5.05,
-      "margin_p90": 10.12
+      "dem_win_prob_sim": 0.6852,
+      "median_margin": 2.35,
+      "margin_p10": -4.4,
+      "margin_p90": 9.1
     },
     {
       "state": "New Hampshire",
@@ -92,15 +92,15 @@
       "rep_candidate": "Scott Brown",
       "margin": 11.952,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.9655,
-      "dem_win_prob_blended": 0.9329,
+      "dem_win_prob_polls": 0.9671,
+      "dem_win_prob_blended": 0.9341,
       "market_dem_prob": {
         "polymarket": 0.835
       },
-      "dem_win_prob_sim": 0.9326,
-      "median_margin": 8.84,
-      "margin_p10": 1.28,
-      "margin_p90": 16.39
+      "dem_win_prob_sim": 0.9343,
+      "median_margin": 8.22,
+      "margin_p10": 1.48,
+      "margin_p90": 14.97
     },
     {
       "state": "Ohio",
@@ -109,15 +109,15 @@
       "rep_candidate": "Jon Husted",
       "margin": -0.538,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.3808,
-      "dem_win_prob_blended": 0.4081,
+      "dem_win_prob_polls": 0.3557,
+      "dem_win_prob_blended": 0.3893,
       "market_dem_prob": {
         "polymarket": 0.49
       },
-      "dem_win_prob_sim": 0.412,
-      "median_margin": -1.34,
-      "margin_p10": -8.88,
-      "margin_p90": 6.22
+      "dem_win_prob_sim": 0.3936,
+      "median_margin": -1.33,
+      "margin_p10": -8.05,
+      "margin_p90": 5.4
     },
     {
       "state": "Texas",
@@ -126,15 +126,15 @@
       "rep_candidate": "Ken Paxton",
       "margin": -2.018,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.2895,
-      "dem_win_prob_blended": 0.3259,
+      "dem_win_prob_polls": 0.253,
+      "dem_win_prob_blended": 0.2985,
       "market_dem_prob": {
         "polymarket": 0.435
       },
-      "dem_win_prob_sim": 0.3275,
-      "median_margin": -2.67,
-      "margin_p10": -10.18,
-      "margin_p90": 4.98
+      "dem_win_prob_sim": 0.3004,
+      "median_margin": -2.59,
+      "margin_p10": -9.21,
+      "margin_p90": 4.22
     },
     {
       "state": "Iowa",
@@ -143,15 +143,15 @@
       "rep_candidate": "Ashley Hinson",
       "margin": -3.035,
       "num_polls": 1,
-      "dem_win_prob_polls": 0.2335,
-      "dem_win_prob_blended": 0.2801,
+      "dem_win_prob_polls": 0.1954,
+      "dem_win_prob_blended": 0.2515,
       "market_dem_prob": {
         "polymarket": 0.42
       },
-      "dem_win_prob_sim": 0.2778,
-      "median_margin": -3.48,
-      "margin_p10": -11.0,
-      "margin_p90": 4.11
+      "dem_win_prob_sim": 0.2492,
+      "median_margin": -3.33,
+      "margin_p10": -10.0,
+      "margin_p90": 3.41
     },
     {
       "state": "Alaska",
@@ -160,13 +160,13 @@
       "rep_candidate": "Dan Sullivan",
       "margin": -1.835,
       "num_polls": 1,
-      "dem_win_prob_polls": 0.3003,
-      "dem_win_prob_blended": 0.3003,
+      "dem_win_prob_polls": 0.2645,
+      "dem_win_prob_blended": 0.2645,
       "market_dem_prob": {},
-      "dem_win_prob_sim": 0.3049,
-      "median_margin": -3.02,
-      "margin_p10": -10.62,
-      "margin_p90": 4.53
+      "dem_win_prob_sim": 0.2706,
+      "median_margin": -3.03,
+      "margin_p10": -9.8,
+      "margin_p90": 3.66
     }
   ],
   "dem_safe_seats": 44,
@@ -176,6 +176,7 @@
   "national_sigma": 2.873,
   "race_sigma": 5.139,
   "bias": -1.248,
+  "tail_dof": 5,
   "market_control_dem_prob": {
     "polymarket": 0.455
   },
@@ -183,8 +184,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.2797,
-  "mean_dem_seats_with_vibes": 49.43,
+  "dem_control_prob_with_vibes": 0.2552,
+  "mean_dem_seats_with_vibes": 49.4,
   "national_environment": {
     "national_swing": 8.236,
     "available": true,
