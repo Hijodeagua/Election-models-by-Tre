@@ -746,24 +746,8 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 3,
+      "num_polls": 2,
       "polls": [
-        {
-          "pollster": "Race to the WH",
-          "rated": false,
-          "grade": null,
-          "quality": null,
-          "start_date": "2026-05-21",
-          "end_date": "2026-06-27",
-          "sample_size": null,
-          "population": null,
-          "dem_candidate": "Graham Platner",
-          "rep_candidate": "Susan Collins",
-          "dem_pct": 48.0,
-          "rep_pct": 46.0,
-          "margin": 2.0,
-          "partisan": false
-        },
         {
           "pollster": "270toWin",
           "rated": false,
