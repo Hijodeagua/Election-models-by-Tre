@@ -183,3 +183,61 @@ class TestCycleConfig:
         assert cfg["dem_safe_seats"] + n_competitive >= cfg["dem_majority_threshold"]
         for entry in cfg["competitive_races"]:
             assert {"state", "race", "dem_candidate", "rep_candidate"} <= set(entry)
+
+
+# ── Student-t fat tails (audit item 8) ────────────────────────────────
+
+
+class TestStudentTTails:
+    def _simulator(self, tail_dof=None):
+        from src.models.senate_simulation import SenateControlSimulator
+        return SenateControlSimulator(
+            dem_safe_seats=45, rep_safe_seats=45, tail_dof=tail_dof,
+        )
+
+    def test_dof_must_exceed_two(self):
+        import pytest
+        with pytest.raises(ValueError, match="tail_dof"):
+            self._simulator(tail_dof=2.0)
+
+    def test_simulated_win_share_matches_analytic_marginal(self):
+        """The chi-square-mixed draws must reproduce the t marginal that
+        win_prob_from_margin computes, or the effective-margin inversion
+        breaks."""
+        from src.models.senate_simulation import RaceInput
+        sim = self._simulator(tail_dof=5.0)
+        race = RaceInput(state="X", race="X Senate", dem_candidate="D",
+                         rep_candidate="R", margin=4.0, num_polls=5)
+        fc = sim.simulate([race], num_simulations=200_000, seed=7)
+        analytic = sim.win_prob_from_margin(4.0)
+        assert abs(fc.races[0].dem_win_prob_sim - analytic) < 0.01
+
+    def test_variance_matched_to_calibrated_sigma(self):
+        """t draws must keep the calibrated error variance, so the sigmas
+        retain their empirical meaning."""
+        import numpy as np
+        from src.models.senate_simulation import RaceInput
+        race = RaceInput(state="X", race="X Senate", dem_candidate="D",
+                         rep_candidate="R", margin=0.0, num_polls=5)
+        gauss = self._simulator().simulate([race], num_simulations=200_000, seed=7)
+        fat = self._simulator(tail_dof=5.0).simulate([race], num_simulations=200_000, seed=7)
+        # Compare inter-decile widths only loosely; variances should be close
+        g_w = gauss.races[0].margin_p90 - gauss.races[0].margin_p10
+        f_w = fat.races[0].margin_p90 - fat.races[0].margin_p10
+        # Same variance but heavier tails ⇒ t's 10-90 width is a bit NARROWER
+        assert f_w < g_w
+        assert abs(f_w - g_w) / g_w < 0.25
+
+    def test_big_leads_less_certain_under_fat_tails(self):
+        """Fat tails put more mass on huge misses, so a big polling lead
+        converts to a lower win probability than under a Gaussian."""
+        gauss = self._simulator().win_prob_from_margin(12.0)
+        fat = self._simulator(tail_dof=5.0).win_prob_from_margin(12.0)
+        assert fat < gauss
+        assert fat > 0.9  # still a very likely win
+
+    def test_default_stays_gaussian(self):
+        sim = self._simulator()
+        assert sim.tail_dof is None
+        fc = sim.simulate([], num_simulations=10)
+        assert fc.tail_dof is None

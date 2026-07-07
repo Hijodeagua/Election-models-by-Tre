@@ -1,0 +1,233 @@
+{
+  "generated": "2026-07-07T05:58:50.093163+00:00",
+  "baseline": {
+    "dem_control_prob": 0.2552,
+    "mean_dem_seats": 49.4
+  },
+  "note": "\u0394 P(Dem control) across each knob's grid, all else at baseline. Knobs sorted by spread \u2014 the widest spreads are where a hand-set choice moves the headline most and deserve empirical grounding first.",
+  "knobs": [
+    {
+      "knob": "senate_responsiveness",
+      "description": "how much national swing reaches Senate fundamentals (base 1.0)",
+      "spread_across_grid": 0.3528,
+      "grid": [
+        {
+          "value": "0.5",
+          "dem_control_prob": 0.1184,
+          "delta_vs_base": -0.1368,
+          "mean_dem_seats": 48.64
+        },
+        {
+          "value": "0.75",
+          "dem_control_prob": 0.175,
+          "delta_vs_base": -0.0802,
+          "mean_dem_seats": 49.0
+        },
+        {
+          "value": "1.0*",
+          "dem_control_prob": 0.2552,
+          "delta_vs_base": 0.0,
+          "mean_dem_seats": 49.4
+        },
+        {
+          "value": "1.25",
+          "dem_control_prob": 0.3572,
+          "delta_vs_base": 0.102,
+          "mean_dem_seats": 49.82
+        },
+        {
+          "value": "1.5",
+          "dem_control_prob": 0.4712,
+          "delta_vs_base": 0.216,
+          "mean_dem_seats": 50.25
+        }
+      ]
+    },
+    {
+      "knob": "calibration_bias_weight",
+      "description": "scales the fitted \u22122.5pp poll bias before applying (base 0.5)",
+      "spread_across_grid": 0.1682,
+      "grid": [
+        {
+          "value": "0.0",
+          "dem_control_prob": 0.3479,
+          "delta_vs_base": 0.0927,
+          "mean_dem_seats": 49.79
+        },
+        {
+          "value": "0.25",
+          "dem_control_prob": 0.2991,
+          "delta_vs_base": 0.0439,
+          "mean_dem_seats": 49.59
+        },
+        {
+          "value": "0.5*",
+          "dem_control_prob": 0.2552,
+          "delta_vs_base": 0.0,
+          "mean_dem_seats": 49.4
+        },
+        {
+          "value": "0.75",
+          "dem_control_prob": 0.2161,
+          "delta_vs_base": -0.0391,
+          "mean_dem_seats": 49.2
+        },
+        {
+          "value": "1.0",
+          "dem_control_prob": 0.1797,
+          "delta_vs_base": -0.0755,
+          "mean_dem_seats": 49.01
+        }
+      ]
+    },
+    {
+      "knob": "pres_weight_recent",
+      "description": "weight on 2024 vs 2020 presidential lean (base 0.75)",
+      "spread_across_grid": 0.0938,
+      "grid": [
+        {
+          "value": "0.5",
+          "dem_control_prob": 0.3059,
+          "delta_vs_base": 0.0507,
+          "mean_dem_seats": 49.61
+        },
+        {
+          "value": "0.75*",
+          "dem_control_prob": 0.2552,
+          "delta_vs_base": 0.0,
+          "mean_dem_seats": 49.4
+        },
+        {
+          "value": "1.0",
+          "dem_control_prob": 0.2121,
+          "delta_vs_base": -0.0431,
+          "mean_dem_seats": 49.2
+        }
+      ]
+    },
+    {
+      "knob": "tail_dof",
+      "description": "Student-t dof for polling error (base t(5), backtest-selected; audit item 8)",
+      "spread_across_grid": 0.0613,
+      "grid": [
+        {
+          "value": "gaussian",
+          "dem_control_prob": 0.2797,
+          "delta_vs_base": 0.0245,
+          "mean_dem_seats": 49.43
+        },
+        {
+          "value": "t(10)",
+          "dem_control_prob": 0.2703,
+          "delta_vs_base": 0.0151,
+          "mean_dem_seats": 49.42
+        },
+        {
+          "value": "t(5)*",
+          "dem_control_prob": 0.2552,
+          "delta_vs_base": 0.0,
+          "mean_dem_seats": 49.4
+        },
+        {
+          "value": "t(3)",
+          "dem_control_prob": 0.2184,
+          "delta_vs_base": -0.0368,
+          "mean_dem_seats": 49.34
+        }
+      ]
+    },
+    {
+      "knob": "blend_k",
+      "description": "fundamentals weight k/(k+n) anchoring thin-poll races (base 3.0)",
+      "spread_across_grid": 0.0591,
+      "grid": [
+        {
+          "value": "1.5",
+          "dem_control_prob": 0.2868,
+          "delta_vs_base": 0.0316,
+          "mean_dem_seats": 49.48
+        },
+        {
+          "value": "3.0*",
+          "dem_control_prob": 0.2552,
+          "delta_vs_base": 0.0,
+          "mean_dem_seats": 49.4
+        },
+        {
+          "value": "4.5",
+          "dem_control_prob": 0.2383,
+          "delta_vs_base": -0.0169,
+          "mean_dem_seats": 49.35
+        },
+        {
+          "value": "6.0",
+          "dem_control_prob": 0.2277,
+          "delta_vs_base": -0.0275,
+          "mean_dem_seats": 49.32
+        }
+      ]
+    },
+    {
+      "knob": "market_weight",
+      "description": "weight on prediction-market odds in the blend (base 0.25)",
+      "spread_across_grid": 0.011,
+      "grid": [
+        {
+          "value": "0.0",
+          "dem_control_prob": 0.249,
+          "delta_vs_base": -0.0062,
+          "mean_dem_seats": 49.56
+        },
+        {
+          "value": "0.125",
+          "dem_control_prob": 0.254,
+          "delta_vs_base": -0.0012,
+          "mean_dem_seats": 49.48
+        },
+        {
+          "value": "0.25*",
+          "dem_control_prob": 0.2552,
+          "delta_vs_base": 0.0,
+          "mean_dem_seats": 49.4
+        },
+        {
+          "value": "0.375",
+          "dem_control_prob": 0.2514,
+          "delta_vs_base": -0.0038,
+          "mean_dem_seats": 49.32
+        },
+        {
+          "value": "0.5",
+          "dem_control_prob": 0.2442,
+          "delta_vs_base": -0.011,
+          "mean_dem_seats": 49.24
+        }
+      ]
+    },
+    {
+      "knob": "generic/approval weights",
+      "description": "mix of generic ballot vs approval in national environment (base 0.6/0.4)",
+      "spread_across_grid": 0.0031,
+      "grid": [
+        {
+          "value": "0.8/0.2",
+          "dem_control_prob": 0.2566,
+          "delta_vs_base": 0.0014,
+          "mean_dem_seats": 49.4
+        },
+        {
+          "value": "0.6/0.4*",
+          "dem_control_prob": 0.2552,
+          "delta_vs_base": 0.0,
+          "mean_dem_seats": 49.4
+        },
+        {
+          "value": "0.4/0.6",
+          "dem_control_prob": 0.2535,
+          "delta_vs_base": -0.0017,
+          "mean_dem_seats": 49.39
+        }
+      ]
+    }
+  ]
+}

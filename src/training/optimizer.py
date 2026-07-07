@@ -24,6 +24,20 @@ logger = logging.getLogger(__name__)
 
 BEST_PARAMS_PATH = Path(__file__).resolve().parent.parent.parent / "config" / "trained_params.json"
 
+
+class _NoOpMLflow:
+    """Drop-in stand-in when mlflow isn't installed: every call is a no-op."""
+
+    def __getattr__(self, name: str) -> Any:
+        if name == "start_run":
+            return self._start_run
+        return lambda *a, **k: None
+
+    def _start_run(self, *a: Any, **k: Any) -> Any:
+        import contextlib
+
+        return contextlib.nullcontext()
+
 # Search space bounds for each parameter
 PARAM_SPACE: dict[str, tuple[float, float]] = {
     "recency_half_life_days":    (5.0,  45.0),
@@ -54,14 +68,20 @@ def run_optimization(
         Best parameter dict found.
     """
     try:
-        import mlflow
         import optuna
         optuna.logging.set_verbosity(optuna.logging.WARNING)
     except ImportError as exc:
         raise ImportError(
-            "Optimization requires optuna and mlflow. "
-            "Install with: pip install optuna mlflow"
+            "Optimization requires optuna. Install with: pip install optuna"
         ) from exc
+
+    # MLflow is optional — experiment tracking is nice locally but should not
+    # block training in CI, where nothing serves the tracking UI anyway.
+    try:
+        import mlflow
+    except ImportError:
+        mlflow = _NoOpMLflow()  # type: ignore[assignment]
+        logger.info("mlflow not installed — skipping experiment tracking")
 
     evaluator = PollingAverageEvaluator(training_races)
 

@@ -5,8 +5,10 @@ chain (curated CSV → VoteHub CSV) and the same model classes. No new model
 code: it calls the existing PresidentialApprovalModel, GenericBallotModel and
 SenateModel, then serialises their dataclass snapshots with dataclasses.asdict.
 
-Heavy state-space / PyMC estimates are intentionally skipped — too slow for CI.
-Everything here runs in offline mode with no API keys.
+State-space / PyMC estimates run when --state-space is passed (the audit's
+runtime measurement put a full fit at a few minutes — affordable in the
+twice-daily refresh). Without the flag, everything runs offline with no
+heavy dependencies.
 
 Outputs (web/public/data/):
     approval.json        — current reading + daily trend series with CI bands
@@ -69,7 +71,8 @@ MODEL_VERSIONS = {
     "generic_ballot": "GenericBallotModel (weighted polling average, Phase 2)",
     "senate": "SenateModel (per-race polling average) + vibes/market overlays",
     "senate_control": "SenateControlSimulator (50,000-sim Monte Carlo NOWCAST)",
-    "state_space": "skipped (opt-in only — too heavy for CI)",
+    # Overwritten at runtime when --state-space runs (see main()).
+    "state_space": "not run this refresh (pass --state-space)",
 }
 
 # Fixed seed so the daily cron produces a stable simulation for a given
@@ -105,6 +108,136 @@ def _load_polls(poll_type: PollType, votehub_filename: str) -> list[Poll]:
     source = CsvFallbackSource(FALLBACK_DIR)
     polls, _meta = source.load(poll_type)
     return polls
+
+
+# ── State-space (Jackman) estimates — opt-in via --state-space ────────────────
+
+def _ss_series_block(result, dis_result=None, labels=("approve", "disapprove")) -> dict:
+    """Serialize one (or a pair of) StateSpaceResult latent paths for the web.
+
+    Emits the full posterior path so the frontend can draw the corrected trend
+    with credible bands, plus the fitted house effects — the whole point of
+    publishing this model is that additive pollster lean is removed rather
+    than merely downweighted (METHODOLOGY_REVIEW Error 3).
+    """
+    a, b = labels
+    lo_by_date = dict(zip(result.dates, zip(result.alpha_lo, result.alpha_hi)))
+    series = []
+    dis_by_date = {}
+    if dis_result is not None:
+        dis_by_date = {
+            d: (m, lo, hi)
+            for d, m, lo, hi in zip(
+                dis_result.dates, dis_result.alpha_mean,
+                dis_result.alpha_lo, dis_result.alpha_hi,
+            )
+        }
+    for d, mean in zip(result.dates, result.alpha_mean):
+        lo, hi = lo_by_date[d]
+        point = {
+            "as_of": d,
+            a: round(float(mean), 2),
+            f"{a}_lo": round(float(lo), 2),
+            f"{a}_hi": round(float(hi), 2),
+        }
+        if d in dis_by_date:
+            m2, lo2, hi2 = dis_by_date[d]
+            point[b] = round(float(m2), 2)
+            point[f"{b}_lo"] = round(float(lo2), 2)
+            point[f"{b}_hi"] = round(float(hi2), 2)
+        series.append(point)
+
+    house_effects = sorted(
+        (
+            {
+                "pollster": p,
+                "effect": round(float(m), 2),
+                "lo": round(float(lo), 2),
+                "hi": round(float(hi), 2),
+            }
+            for p, m, lo, hi in zip(
+                result.pollsters, result.delta_mean, result.delta_lo, result.delta_hi
+            )
+        ),
+        key=lambda r: -abs(r["effect"]),
+    )
+
+    return {
+        "trend": series,
+        "house_effects": house_effects,
+        "sigma_alpha": round(float(result.sigma_alpha_mean), 3),
+        "convergence_ok": bool(result.convergence_ok),
+        "n_polls": result.n_polls,
+    }
+
+
+def _approval_state_space(polls: list[Poll], draws: int, tune: int) -> dict:
+    """Jackman state-space presidential approval block, or {'available': False}."""
+    from src.models import state_space
+    from src.models.approval import PRESIDENTIAL_SUBJECT_KEYWORD
+
+    pres = [
+        p for p in polls
+        if not p.subject or PRESIDENTIAL_SUBJECT_KEYWORD in p.subject.lower()
+    ]
+    approve = state_space.fit(pres, choice="Approve", draws=draws, tune=tune)
+    disapprove = state_space.fit(pres, choice="Disapprove", draws=draws, tune=tune)
+    if approve is None or disapprove is None:
+        return {"available": False, "reason": "fit failed or PyMC unavailable"}
+
+    today = date.today()
+    a_mean, a_lo, a_hi = approve.estimate_at(today)
+    d_mean, d_lo, d_hi = disapprove.estimate_at(today)
+    block = {
+        "available": True,
+        "model": "Jackman state-space: random-walk latent + additive house effects (Phase 3)",
+        "as_of": today,
+        "current": {
+            "approve": round(a_mean, 1),
+            "approve_lo": round(a_lo, 1),
+            "approve_hi": round(a_hi, 1),
+            "disapprove": round(d_mean, 1),
+            "disapprove_lo": round(d_lo, 1),
+            "disapprove_hi": round(d_hi, 1),
+            "net": round(a_mean - d_mean, 1),
+        },
+    }
+    block.update(_ss_series_block(approve, disapprove))
+    return block
+
+
+def _generic_ballot_state_space(polls: list[Poll], draws: int, tune: int) -> dict:
+    """Jackman state-space generic-ballot block, or {'available': False}."""
+    from src.models import state_space
+    from src.models.generic_ballot import _dominant_choice
+
+    gb = [p for p in polls if p.poll_type == PollType.GENERIC_BALLOT]
+    dem_choice = _dominant_choice(gb, ("democrat", "democratic", "democrats", "dem"), "Democrat")
+    rep_choice = _dominant_choice(gb, ("republican", "republicans", "gop", "rep"), "Republican")
+    dem = state_space.fit(gb, choice=dem_choice, draws=draws, tune=tune)
+    rep = state_space.fit(gb, choice=rep_choice, draws=draws, tune=tune)
+    if dem is None or rep is None:
+        return {"available": False, "reason": "fit failed or PyMC unavailable"}
+
+    today = date.today()
+    d_mean, d_lo, d_hi = dem.estimate_at(today)
+    r_mean, r_lo, r_hi = rep.estimate_at(today)
+    block = {
+        "available": True,
+        "model": "Jackman state-space: random-walk latent + additive house effects (Phase 3)",
+        "as_of": today,
+        "current": {
+            "dem": round(d_mean, 1),
+            "dem_lo": round(d_lo, 1),
+            "dem_hi": round(d_hi, 1),
+            "rep": round(r_mean, 1),
+            "rep_lo": round(r_lo, 1),
+            "rep_hi": round(r_hi, 1),
+            "margin": round(d_mean - r_mean, 1),
+        },
+    }
+    block.update(_ss_series_block(dem, rep, labels=("dem", "rep")))
+    return block
 
 
 # ── Serialisers ────────────────────────────────────────────────────────────────
@@ -441,13 +574,35 @@ def _national_environment(
     }
 
 
+def _deep_merge(base: dict, overrides: dict) -> dict:
+    """Recursively merge ``overrides`` onto a copy of ``base``."""
+    merged = dict(base)
+    for key, value in overrides.items():
+        if isinstance(value, dict) and isinstance(merged.get(key), dict):
+            merged[key] = _deep_merge(merged[key], value)
+        else:
+            merged[key] = value
+    return merged
+
+
 def _senate_forecast_payload(
     senate_payload: dict,
     approval_net: float | None = None,
     generic_margin: float | None = None,
+    overrides: dict | None = None,
+    quiet: bool = False,
 ) -> dict:
-    """50,000-simulation Senate-control Monte Carlo + market comparison."""
+    """50,000-simulation Senate-control Monte Carlo + market comparison.
+
+    ``overrides`` deep-merges onto the cycle config so the sensitivity sweep
+    (scripts/sensitivity_sweep.py) can vary governance knobs through the exact
+    production path. The special top-level key ``market_weight`` overrides the
+    simulator's market blend weight.
+    """
     cycle = load_cycle_config()
+    overrides = overrides or {}
+    if overrides:
+        cycle = _deep_merge(cycle, {k: v for k, v in overrides.items() if k != "market_weight"})
     market_odds = MarketOddsCsvSource(FALLBACK_DIR).load()
     races_by_state = {r["state"]: r for r in senate_payload["races"]}
 
@@ -459,7 +614,7 @@ def _senate_forecast_payload(
         cycle.get("national_environment", {}), approval_net, generic_margin
     )
     national_swing = env["national_swing"]
-    if env.get("available"):
+    if env.get("available") and not quiet:
         print(
             f"  national environment: approval_net={approval_net}, "
             f"generic_margin={generic_margin} → swing={national_swing:+.2f} "
@@ -532,11 +687,17 @@ def _senate_forecast_payload(
             "race_sigma": calib["race_sigma"],
             "bias": applied_bias,
         }
-        print(
-            f"  using calibrated error model (σ_nat={calib['national_sigma']}, "
-            f"σ_race={calib['race_sigma']}, bias={calib.get('bias', 0.0)}×{bias_weight}"
-            f"={applied_bias}, from {calib['n_races']} historical races)"
-        )
+        if not quiet:
+            print(
+                f"  using calibrated error model (σ_nat={calib['national_sigma']}, "
+                f"σ_race={calib['race_sigma']}, bias={calib.get('bias', 0.0)}×{bias_weight}"
+                f"={applied_bias}, from {calib['n_races']} historical races)"
+            )
+    if "market_weight" in overrides:
+        sim_kwargs["market_weight"] = overrides["market_weight"]
+    tail_dof = cycle.get("forecast", {}).get("tail_dof")
+    if tail_dof is not None:
+        sim_kwargs["tail_dof"] = tail_dof
     simulator = SenateControlSimulator(
         dem_safe_seats=cycle["dem_safe_seats"],
         rep_safe_seats=cycle["rep_safe_seats"],
@@ -762,6 +923,13 @@ def main() -> None:
         "--trend-days", type=int, default=240,
         help="Number of days of daily trend history to emit (default: 240).",
     )
+    parser.add_argument(
+        "--state-space", action="store_true",
+        help="Also fit and publish the Jackman state-space estimates "
+        "(requires PyMC; ~2-3 min per series on a CI runner).",
+    )
+    parser.add_argument("--ss-draws", type=int, default=1000, help="Posterior draws per chain.")
+    parser.add_argument("--ss-tune", type=int, default=1000, help="Tuning steps per chain.")
     args = parser.parse_args()
 
     logging.basicConfig(level=logging.WARNING, format="%(levelname)s: %(message)s")
@@ -777,12 +945,29 @@ def main() -> None:
     )
 
     approval_payload = _approval_payload(approval_polls, args.trend_days)
+    gb_payload = _generic_ballot_payload(gb_polls, args.trend_days)
+
+    if args.state_space:
+        print("  fitting state-space models (this takes a few minutes)...")
+        approval_payload["state_space"] = _approval_state_space(
+            approval_polls, args.ss_draws, args.ss_tune
+        )
+        gb_payload["state_space"] = _generic_ballot_state_space(
+            gb_polls, args.ss_draws, args.ss_tune
+        )
+        for name, payload in (("approval", approval_payload), ("generic ballot", gb_payload)):
+            ss = payload["state_space"]
+            status = "ok" if ss.get("available") else f"unavailable ({ss.get('reason')})"
+            print(f"  state-space {name}: {status}")
+    else:
+        approval_payload["state_space"] = {"available": False, "reason": "not run (opt-in)"}
+        gb_payload["state_space"] = {"available": False, "reason": "not run (opt-in)"}
+
     _write("approval.json", approval_payload)
     _write(
         "approval_comparison.json",
         _approval_comparison_payload(approval_payload, approval_polls, args.trend_days),
     )
-    gb_payload = _generic_ballot_payload(gb_polls, args.trend_days)
     _write("generic_ballot.json", gb_payload)
     senate_payload = _senate_payload(senate_polls)
 
@@ -808,11 +993,22 @@ def main() -> None:
         dates = [p.midpoint_date for p in polls if p.midpoint_date]
         return max(dates).isoformat() if dates else None
 
+    model_versions = dict(MODEL_VERSIONS)
+    if args.state_space:
+        ss_ok = approval_payload["state_space"].get("available") and gb_payload[
+            "state_space"
+        ].get("available")
+        model_versions["state_space"] = (
+            "Jackman state-space (random-walk latent + house effects), published"
+            if ss_ok
+            else "attempted this refresh but unavailable — see state_space.reason"
+        )
+
     meta = {
         "last_updated": datetime.now().astimezone().isoformat(),
         "data_tier": DATA_TIER,
         "label": "A work in progress from the team at Policy y Peaches",
-        "model_versions": MODEL_VERSIONS,
+        "model_versions": model_versions,
         "poll_counts": {
             "approval": len(approval_polls),
             "generic_ballot": len(gb_polls),

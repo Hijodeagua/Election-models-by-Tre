@@ -273,8 +273,50 @@ Items 1–3 and 6 of the priority order below are **implemented**:
   corrected net approval flows through the national environment into the
   Senate control simulation (0.287 → 0.280).
 
-Still open: items 4–5 (state-space in the refresh workflow; first CV'd
-training run) and 7–8 (knob sensitivity sweep; covariance/tails, seat slope).
+**Second wave (same branch): items 4, 5, 7 and 8 are now implemented too.**
+
+- **Item 4 — state-space in production.** `export_json.py --state-space` fits
+  the Jackman model for Approve/Disapprove and Dem/Rep and publishes a
+  `state_space` block (current + full posterior trend + house effects +
+  convergence) in `approval.json` / `generic_ballot.json`; the twice-daily
+  refresh workflow now passes the flag, with graceful `available:false`
+  degradation if PyMC or the fit fails. Measured runtime: ~6.5 min for both
+  approval fits (1000+1000 draws, converged) — "too heavy for CI" was stale.
+- **Item 5 — rolling-origin CV training.** `src/training/cross_validation.py`
+  locks the protocol: Optuna minimizes mean per-cycle RMSE on all cycles
+  except a final holdout; the holdout is scored once; `trained_params.json`
+  is written only when the winner beats the hand-set defaults there (pass/
+  fail gate). MLflow is now optional. The poll archive is unreachable from
+  this sandbox (CI can reach it), so the actual run is wired as
+  `.github/workflows/train_parameters.yml` (on-demand + quarterly).
+- **Item 7 — sensitivity sweep.** `scripts/sensitivity_sweep.py` runs every
+  governance knob through the production forecast path; results committed in
+  `config/sensitivity_analysis.json`. Ranked by impact on P(Dem control):
+  `senate_responsiveness` (spread 0.33 across 0.5–1.5 — by far the most
+  consequential hand-set choice), `calibration_bias_weight` (0.16),
+  `pres_weight_recent` (0.09), `tail_dof` (0.06), `blend_k` (0.04),
+  `market_weight` (0.02), generic/approval mix (0.002).
+- **Item 8 — fat tails + seat slope.** `SenateControlSimulator` supports
+  variance-matched Student-t error via a shared chi-square scale shock
+  (a fat-tail event is a correlated across-the-board miss), with the analytic
+  marginal, effective-margin inversion and simulation all consistent.
+  Backtested on the 98 calibration races: t(5) Brier 0.0591 / log-loss 0.1905
+  vs Gaussian 0.0602 / 0.1952 — enabled in production (`tail_dof: 5`), and the
+  comparison now recomputes monthly inside `calibrate_forecast.py`
+  (`tail_comparison` block). The seat conversion is now fitted from
+  1998–2024 national results (`scripts/fit_seat_conversion.py` →
+  `config/seat_conversion.json`): **3.03 ± 0.43** seats/point around a
+  **212-seat** neutral baseline with a ±8.6-seat residual SD published as an
+  80% band — the hand-set 5.5/218 overstated responsiveness by ~80%.
+  Headline effect: P(Dem control) 0.280 → **0.255** under t(5).
+
+Still open: the regional/demographic **error covariance** upgrade (Finding 5's
+low-rank factor structure). The calibration archive's `state_pollster_bias` /
+`cross_office_state_bias` tables are the raw material, but with only ~13
+competitive races per cycle a fitted covariance would be noise-dominated;
+revisit when the archive spans another cycle. The generic-ballot-overstates-
+Dems polling bias also remains uncorrected in the seat translation (needs
+archived GB averages per cycle) — seat outputs stay labeled illustrative.
 
 ## Revised priority order
 
