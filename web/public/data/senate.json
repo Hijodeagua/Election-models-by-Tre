@@ -489,14 +489,15 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.0005
+          "Democrat": 0.575,
+          "Republican": 0.405
         }
       },
       "forecast": {
-        "dem_win_prob": 0.6972,
-        "median_margin": 3.05,
-        "margin_p10": -4.57,
-        "margin_p90": 10.6,
+        "dem_win_prob": 0.8384,
+        "median_margin": 5.89,
+        "margin_p10": -1.73,
+        "margin_p90": 13.44,
         "num_simulations": 50000,
         "margin_hist": [
           {
@@ -509,115 +510,115 @@
           },
           {
             "mid": -25.0,
-            "pct": 2e-05
+            "pct": 0.0
           },
           {
             "mid": -23.0,
-            "pct": 4e-05
+            "pct": 2e-05
           },
           {
             "mid": -21.0,
-            "pct": 6e-05
+            "pct": 0.0
           },
           {
             "mid": -19.0,
-            "pct": 0.00014
+            "pct": 8e-05
           },
           {
             "mid": -17.0,
-            "pct": 0.00038
+            "pct": 6e-05
           },
           {
             "mid": -15.0,
-            "pct": 0.00128
+            "pct": 0.00032
           },
           {
             "mid": -13.0,
-            "pct": 0.00318
+            "pct": 0.00064
           },
           {
             "mid": -11.0,
-            "pct": 0.00816
+            "pct": 0.0023
           },
           {
             "mid": -9.0,
-            "pct": 0.01698
+            "pct": 0.00548
           },
           {
             "mid": -7.0,
-            "pct": 0.03288
+            "pct": 0.01278
           },
           {
             "mid": -5.0,
-            "pct": 0.05474
+            "pct": 0.02546
           },
           {
             "mid": -3.0,
-            "pct": 0.08098
+            "pct": 0.0451
           },
           {
             "mid": -1.0,
-            "pct": 0.104
+            "pct": 0.06932
           },
           {
             "mid": 1.0,
-            "pct": 0.12602
+            "pct": 0.09502
           },
           {
             "mid": 3.0,
-            "pct": 0.13656
+            "pct": 0.11764
           },
           {
             "mid": 5.0,
-            "pct": 0.12708
+            "pct": 0.13274
           },
           {
             "mid": 7.0,
-            "pct": 0.1058
+            "pct": 0.13426
           },
           {
             "mid": 9.0,
-            "pct": 0.082
+            "pct": 0.11608
           },
           {
             "mid": 11.0,
-            "pct": 0.05436
+            "pct": 0.09172
           },
           {
             "mid": 13.0,
-            "pct": 0.03336
+            "pct": 0.0663
           },
           {
             "mid": 15.0,
-            "pct": 0.01734
+            "pct": 0.04126
           },
           {
             "mid": 17.0,
-            "pct": 0.00902
+            "pct": 0.02298
           },
           {
             "mid": 19.0,
-            "pct": 0.00342
+            "pct": 0.01184
           },
           {
             "mid": 21.0,
-            "pct": 0.0014
+            "pct": 0.00552
           },
           {
             "mid": 23.0,
-            "pct": 0.00044
+            "pct": 0.00182
           },
           {
             "mid": 25.0,
-            "pct": 0.00016
+            "pct": 0.00076
           },
           {
             "mid": 27.0,
-            "pct": 0.00016
+            "pct": 0.00024
           },
           {
             "mid": 29.0,
-            "pct": 4e-05
+            "pct": 0.00026
           }
         ]
       }
@@ -1117,7 +1118,7 @@
       "market_odds": {
         "polymarket": {
           "Democrat": 0.48,
-          "Republican": 0.53
+          "Republican": 0.525
         }
       },
       "forecast": {
@@ -1274,7 +1275,7 @@
       "market_odds": {
         "polymarket": {
           "Democrat": 0.43,
-          "Republican": 0.57
+          "Republican": 0.575
         }
       },
       "forecast": {
