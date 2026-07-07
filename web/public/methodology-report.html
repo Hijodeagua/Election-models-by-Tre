@@ -145,6 +145,16 @@
     <p class="meta mono">July 2026 · branch claude/election-forecast-audit-vnu3ty · 232 tests passing</p>
   </header>
 
+  <section aria-label="Operational status">
+    <h2 style="margin-top:36px;">Two questions, answered straight</h2>
+    <dl class="fix">
+      <dt><span class="chip fixed">Yes</span></dt>
+      <dd><b>Does it update with new polls automatically?</b> A scheduled GitHub Action runs twice a day (10:00 &amp; 22:00 UTC): it pulls fresh polls from VoteHub, Wikipedia’s Senate pages, RealClearPolling and the prediction markets, re-runs every model — including the new state-space fits and the 50,000-run Senate simulation — and commits the results, which redeploys the site. A second job recalibrates the error model monthly; a third can retrain parameters quarterly behind the holdout gate. <span class="fine">One catch: scheduled jobs run from the <code>main</code> branch, and this session’s work lives on the audit branch — the upgraded pipeline goes fully automatic the moment the branch merges. This report page itself is a session snapshot, not a live dashboard.</span></dd>
+      <dt><span class="chip hold">No</span></dt>
+      <dd><b>Is the NYT “vibes” analysis in these numbers?</b> The plumbing exists — a media-sentiment overlay that nudges each race’s margin, simulated side-by-side with the base forecast — but it currently runs on neutral placeholder data because the NYT pipeline has never been given an API key. Today “with vibes” equals the base forecast exactly. Per the audit it stays out of the headline numbers until it’s fed real data <i>and</i> validated against actual outcomes. <span class="fine">It’s a switch waiting for evidence, not a missing feature.</span></dd>
+    </dl>
+  </section>
+
   <section aria-label="Headline numbers">
     <div class="tiles">
       <div class="tile">
@@ -254,11 +264,32 @@
   </section>
 
   <section>
-    <h2>Still open</h2>
+    <h2>What happened this session</h2>
+    <p class="h2-sub">Four commits on <span class="mono">claude/election-forecast-audit-vnu3ty</span>, in order.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th scope="col">Commit</th><th scope="col">What it did</th></tr></thead>
+        <tbody>
+          <tr><td class="num">eabc320</td><td><b>The audit.</b> All seven findings from the data-science briefing verified line-by-line against the code; three needed material corrections (no trained parameters had ever shipped; the pollster-default issue was really a training/serving skew; the complement bug never touched published numbers — it gated the state-space rollout).</td></tr>
+          <tr><td class="num">f27dc21</td><td><b>Five correctness fixes</b> — the training scorekeeper, the dueling grade books, the fabricated opposition numbers, poll dedup, and the Congress-polls-in-presidential-approval leak found along the way. Approval corrected 37.9 → 39.8.</td></tr>
+          <tr><td class="num">cd90b93</td><td><b>Four structural upgrades</b> — state-space to the production path, the gated CV training protocol + CI workflow, the seven-dial sensitivity sweep, and backtested t(5) tails + the fitted seat curve.</td></tr>
+          <tr><td class="num">d8640f6</td><td><b>First corrected publish.</b> The state-space fits ran end-to-end and their output is committed to the live data feed, alongside this report page.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="color:var(--ink-2); font-size:14px;">Test suite: 206 → 232 passing, all new behavior covered by regression tests.</p>
+  </section>
+
+  <section>
+    <h2>What’s next</h2>
+    <p class="h2-sub">In priority order. The first two are pushes of a button; the rest are real work.</p>
     <ul>
-      <li><b>Regional error covariance.</b> The simulation still uses one national factor; a Midwest-style regional miss is underrepresented. Deferred deliberately: with ~13 competitive races per cycle the fit would be noise-dominated. Revisit after 2026 results join the archive.</li>
-      <li><b>First gated training run.</b> The CV protocol is wired into CI; the poll archive is only reachable from there. Trigger the <code>train_parameters</code> workflow to produce the first out-of-cycle-validated parameter set.</li>
-      <li><b>Generic-ballot bias correction</b> for the seat curve (needs archived per-cycle ballot averages).</li>
+      <li><b>Merge the branch.</b> Everything above goes fully automatic — twice-daily refresh with the corrected feeds and state-space estimates, monthly recalibration with the tail comparison.</li>
+      <li><b>Trigger the first training run.</b> The <code>train_parameters</code> workflow (poll archive is reachable only from CI) produces the first parameter set with out-of-cycle evidence — or fails the gate and changes nothing.</li>
+      <li><b>Ground <span class="mono">senate_responsiveness</span> empirically.</b> The sensitivity sweep’s loudest result: this one judgment call moves the headline by 33 points. Fit it from historical Senate results vs national swing instead of assuming 1.0.</li>
+      <li><b>Feed and validate the vibes signal.</b> Add the NYT API key, accumulate a real sentiment series, then backtest it against race outcomes before it touches a published number.</li>
+      <li><b>Regional error covariance.</b> One national factor still understates clustered misses (the 2016 Midwest pattern). Deferred deliberately — with ~13 competitive races a cycle the fit would be noise — revisit once 2026 results join the archive.</li>
+      <li><b>Generic-ballot bias correction</b> for the seat curve (needs archived per-cycle ballot averages), plus the Phase 5 scoring metrics (CRPS, PIT, coverage) in the calibration job.</li>
     </ul>
   </section>
 
