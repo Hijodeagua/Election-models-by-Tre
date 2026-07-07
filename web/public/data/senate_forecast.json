@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-07-06",
+  "as_of": "2026-07-07",
   "num_simulations": 50000,
-  "dem_control_prob": 0.2869,
-  "mean_dem_seats": 49.46,
+  "dem_control_prob": 0.2906,
+  "mean_dem_seats": 49.48,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 72,
-    "45": 489,
-    "46": 1769,
-    "47": 4394,
-    "48": 7816,
-    "49": 10431,
-    "50": 10682,
-    "51": 8127,
-    "52": 4637,
-    "53": 1583
+    "45": 471,
+    "46": 1698,
+    "47": 4294,
+    "48": 7675,
+    "49": 10470,
+    "50": 10791,
+    "51": 8235,
+    "52": 4706,
+    "53": 1588
   },
   "races": [
     {
@@ -73,17 +73,17 @@
       "race": "Maine Senate 2026",
       "dem_candidate": "Graham Platner",
       "rep_candidate": "Susan Collins",
-      "margin": 8.577,
-      "num_polls": 3,
-      "dem_win_prob_polls": 0.8934,
-      "dem_win_prob_blended": 0.6702,
+      "margin": 9.912,
+      "num_polls": 2,
+      "dem_win_prob_polls": 0.9294,
+      "dem_win_prob_blended": 0.6972,
       "market_dem_prob": {
         "polymarket": 0.0005
       },
-      "dem_win_prob_sim": 0.6698,
-      "median_margin": 2.6,
-      "margin_p10": -5.01,
-      "margin_p90": 10.16
+      "dem_win_prob_sim": 0.6972,
+      "median_margin": 3.05,
+      "margin_p10": -4.57,
+      "margin_p90": 10.6
     },
     {
       "state": "New Hampshire",
@@ -110,14 +110,14 @@
       "margin": -0.438,
       "num_polls": 2,
       "dem_win_prob_polls": 0.3873,
-      "dem_win_prob_blended": 0.413,
+      "dem_win_prob_blended": 0.4105,
       "market_dem_prob": {
-        "polymarket": 0.49
+        "polymarket": 0.48
       },
-      "dem_win_prob_sim": 0.4169,
-      "median_margin": -1.26,
-      "margin_p10": -8.81,
-      "margin_p90": 6.29
+      "dem_win_prob_sim": 0.4143,
+      "median_margin": -1.3,
+      "margin_p10": -8.85,
+      "margin_p90": 6.25
     },
     {
       "state": "Texas",
@@ -127,14 +127,14 @@
       "margin": -1.918,
       "num_polls": 2,
       "dem_win_prob_polls": 0.2954,
-      "dem_win_prob_blended": 0.3303,
+      "dem_win_prob_blended": 0.329,
       "market_dem_prob": {
-        "polymarket": 0.435
+        "polymarket": 0.43
       },
-      "dem_win_prob_sim": 0.3321,
-      "median_margin": -2.6,
-      "margin_p10": -10.11,
-      "margin_p90": 5.05
+      "dem_win_prob_sim": 0.3309,
+      "median_margin": -2.62,
+      "margin_p10": -10.13,
+      "margin_p90": 5.03
     },
     {
       "state": "Iowa",
@@ -183,8 +183,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.2869,
-  "mean_dem_seats_with_vibes": 49.46,
+  "dem_control_prob_with_vibes": 0.2906,
+  "mean_dem_seats_with_vibes": 49.48,
   "national_environment": {
     "national_swing": 8.404,
     "available": true,
