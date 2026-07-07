@@ -164,8 +164,8 @@
       </div>
       <div class="tile">
         <div class="lbl">P(Dem Senate control)</div>
-        <div class="val"><span class="old">28.7</span> <span class="arr">→</span> 25.5<span style="font-size:15px; color:var(--ink-3);">%</span></div>
-        <div class="why">After the corrected inputs and fat-tailed error model that wins the historical backtest.</div>
+        <div class="val"><span class="old">28.7</span> <span class="arr">→</span> 25.7<span style="font-size:15px; color:var(--ink-3);">%</span></div>
+        <div class="why">After the corrected inputs and fat-tailed error model that wins the historical backtest. Includes the July 7 poll refresh merged from main.</div>
       </div>
       <div class="tile">
         <div class="lbl">Seats per ballot point</div>
@@ -208,7 +208,7 @@
 
   <section>
     <h2>Which dials actually matter</h2>
-    <p class="h2-sub">Each hand-set dial swept across its plausible range through the production forecast; bars show how far P(Dem control) moves across the grid. Baseline: 25.5%.</p>
+    <p class="h2-sub">Each hand-set dial swept across its plausible range through the production forecast; bars show how far P(Dem control) moves across the grid. Baseline at sweep time: 25.5% (25.7% after the July 7 poll refresh).</p>
     <figure>
       <p class="fig-title">Swing in P(Dem Senate control) per dial</p>
       <p class="fig-sub">percentage points of probability, full grid range · hover for the grid</p>
@@ -274,6 +274,7 @@
           <tr><td class="num">f27dc21</td><td><b>Five correctness fixes</b> — the training scorekeeper, the dueling grade books, the fabricated opposition numbers, poll dedup, and the Congress-polls-in-presidential-approval leak found along the way. Approval corrected 37.9 → 39.8.</td></tr>
           <tr><td class="num">cd90b93</td><td><b>Four structural upgrades</b> — state-space to the production path, the gated CV training protocol + CI workflow, the seven-dial sensitivity sweep, and backtested t(5) tails + the fitted seat curve.</td></tr>
           <tr><td class="num">d8640f6</td><td><b>First corrected publish.</b> The state-space fits ran end-to-end and their output is committed to the live data feed, alongside this report page.</td></tr>
+          <tr><td class="num">eadb6cd</td><td><b>Merged main back in.</b> The cron’s July 7 poll refresh had conflicted with our regenerated data; resolved by keeping main’s fresher polls and re-running the full upgraded pipeline on them. The branch now merges into <code>main</code> cleanly.</td></tr>
         </tbody>
       </table>
     </div>
@@ -284,7 +285,7 @@
     <h2>What’s next</h2>
     <p class="h2-sub">In priority order. The first two are pushes of a button; the rest are real work.</p>
     <ul>
-      <li><b>Merge the branch.</b> Everything above goes fully automatic — twice-daily refresh with the corrected feeds and state-space estimates, monthly recalibration with the tail comparison.</li>
+      <li><b>Merge the branch.</b> Conflicts with <code>main</code> are already resolved — it merges clean. Once in, everything above goes fully automatic: twice-daily refresh with the corrected feeds and state-space estimates, monthly recalibration with the tail comparison.</li>
       <li><b>Trigger the first training run.</b> The <code>train_parameters</code> workflow (poll archive is reachable only from CI) produces the first parameter set with out-of-cycle evidence — or fails the gate and changes nothing.</li>
       <li><b>Ground <span class="mono">senate_responsiveness</span> empirically.</b> The sensitivity sweep’s loudest result: this one judgment call moves the headline by 33 points. Fit it from historical Senate results vs national swing instead of assuming 1.0.</li>
       <li><b>Feed and validate the vibes signal.</b> Add the NYT API key, accumulate a real sentiment series, then backtest it against race outcomes before it touches a published number.</li>
