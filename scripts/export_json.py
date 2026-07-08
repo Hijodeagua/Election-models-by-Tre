@@ -121,7 +121,8 @@ def _ss_series_block(result, dis_result=None, labels=("approve", "disapprove")) 
     than merely downweighted (METHODOLOGY_REVIEW Error 3).
     """
     a, b = labels
-    lo_by_date = dict(zip(result.dates, zip(result.alpha_lo, result.alpha_hi)))
+    bounds = zip(result.alpha_lo, result.alpha_hi, strict=True)
+    lo_by_date = dict(zip(result.dates, bounds, strict=True))
     series = []
     dis_by_date = {}
     if dis_result is not None:
@@ -129,10 +130,10 @@ def _ss_series_block(result, dis_result=None, labels=("approve", "disapprove")) 
             d: (m, lo, hi)
             for d, m, lo, hi in zip(
                 dis_result.dates, dis_result.alpha_mean,
-                dis_result.alpha_lo, dis_result.alpha_hi,
+                dis_result.alpha_lo, dis_result.alpha_hi, strict=True,
             )
         }
-    for d, mean in zip(result.dates, result.alpha_mean):
+    for d, mean in zip(result.dates, result.alpha_mean, strict=True):
         lo, hi = lo_by_date[d]
         point = {
             "as_of": d,
@@ -156,7 +157,8 @@ def _ss_series_block(result, dis_result=None, labels=("approve", "disapprove")) 
                 "hi": round(float(hi), 2),
             }
             for p, m, lo, hi in zip(
-                result.pollsters, result.delta_mean, result.delta_lo, result.delta_hi
+                result.pollsters, result.delta_mean, result.delta_lo, result.delta_hi,
+                strict=True,
             )
         ),
         key=lambda r: -abs(r["effect"]),
@@ -993,6 +995,19 @@ def main() -> None:
         dates = [p.midpoint_date for p in polls if p.midpoint_date]
         return max(dates).isoformat() if dates else None
 
+    def _stale_feeds(threshold_days: int = 3) -> list[str]:
+        """Feeds whose newest poll ended more than threshold_days ago."""
+        out = []
+        for name, polls in (
+            ("approval", approval_polls),
+            ("generic_ballot", gb_polls),
+            ("senate", senate_polls),
+        ):
+            ends = [p.end_date for p in polls]
+            if not ends or (date.today() - max(ends)).days > threshold_days:
+                out.append(name)
+        return out
+
     model_versions = dict(MODEL_VERSIONS)
     if args.state_space:
         ss_ok = approval_payload["state_space"].get("available") and gb_payload[
@@ -1021,6 +1036,9 @@ def main() -> None:
             "generic_ballot": _latest_poll(gb_polls),
             "senate": _latest_poll(senate_polls),
         },
+        # Feeds whose newest poll is >3 days old at export time. The site
+        # badges these; scripts/check_staleness.py alerts on them in CI.
+        "stale_feeds": _stale_feeds(),
     }
     _write("meta.json", meta)
 

@@ -6,7 +6,7 @@ name: Probe data sources
 
 on:
   push:
-    branches: ["claude/keen-mendel-precsp"]
+    branches: ["main"]
     paths: ["scripts/probe_sources.py", ".github/workflows/probe_sources.yml"]
   workflow_dispatch:
 
@@ -21,5 +21,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install httpx
+      - run: |
+          pip install httpx pandas lxml beautifulsoup4 tenacity pydantic \
+            pydantic-settings python-dotenv numpy
       - run: python scripts/probe_sources.py

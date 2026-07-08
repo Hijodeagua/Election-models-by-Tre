@@ -100,6 +100,56 @@ def _polls_to_votehub_csv(polls: list[Poll]) -> str:
 
 # ── Source fetchers ──────────────────────────────────────────────────────────
 
+# If the newest poll in a primary (VoteHub) feed is older than this, top the
+# feed up from Wikipedia's national polling articles. VoteHub's approval and
+# generic-ballot feeds stalled for 10+ days in July 2026 while returning
+# HTTP 200 the whole time — a silent failure this guard turns loud and
+# self-healing. Senate already sources from Wikipedia directly.
+STALE_FALLBACK_HOURS = 72
+
+
+def _wikipedia_topup(
+    polls: list[Poll], poll_type: PollType, label: str
+) -> list[Poll]:
+    """When the primary feed is stale, append newer polls from Wikipedia.
+
+    Best-effort: any failure returns the polls unchanged.
+    """
+    from datetime import date, timedelta
+
+    from src.data.wikipedia_national import WikipediaNationalSource, polls_newer_than
+
+    if poll_type not in (PollType.APPROVAL, PollType.GENERIC_BALLOT) or not polls:
+        return polls
+    newest = max(p.end_date for p in polls)
+    age_hours = (date.today() - newest).days * 24
+    if age_hours <= STALE_FALLBACK_HOURS:
+        return polls
+
+    logger.warning(
+        "  %s: newest primary poll is %s (>%dh old) — trying Wikipedia fallback",
+        label, newest, STALE_FALLBACK_HOURS,
+    )
+    try:
+        with WikipediaNationalSource(cache_dir=settings.raw_data_dir) as src:
+            wiki = src.fetch_polls(poll_type=poll_type)
+    except Exception as exc:  # pragma: no cover - defensive
+        logger.warning("  %s: Wikipedia fallback failed (%s)", label, exc)
+        return polls
+    fresh = polls_newer_than(wiki, newest)
+    # Only trust the fallback for genuinely recent polls — stale-on-stale
+    # (Wikipedia also behind) adds nothing.
+    fresh = polls_newer_than(fresh, date.today() - timedelta(days=45))
+    if fresh:
+        logger.info(
+            "  %s: +%d Wikipedia polls newer than %s (through %s)",
+            label, len(fresh), newest, max(p.end_date for p in fresh),
+        )
+    else:
+        logger.warning("  %s: Wikipedia had nothing newer either", label)
+    return polls + fresh
+
+
 def _refresh_votehub(dry_run: bool = False) -> None:
     logger.info("=== VoteHub ===")
     with VoteHubClient(cache_dir=settings.raw_data_dir) as client:
@@ -112,6 +162,8 @@ def _refresh_votehub(dry_run: bool = False) -> None:
             try:
                 polls = client.fetch_polls(poll_type=poll_type)
                 logger.info("  %s: %d polls", label, len(polls))
+                if not dry_run:
+                    polls = _wikipedia_topup(polls, poll_type, label)
                 if not dry_run and polls:
                     dest = FALLBACK_DIR / filename
                     dest.write_text(_polls_to_votehub_csv(polls), encoding="utf-8")

@@ -108,7 +108,8 @@ def main() -> None:
     print(f"  holdout cycle    : {report.holdout_cycle}")
     print(f"  holdout trained  : {report.holdout_trained}")
     print(f"  holdout default  : {report.holdout_default}")
-    print(f"  gate             : {'PASSED' if report.passed_gate else 'FAILED'} — {report.gate_reason}")
+    verdict = "PASSED" if report.passed_gate else "FAILED"
+    print(f"  gate             : {verdict} — {report.gate_reason}")
     if report.passed_gate:
         print("\n── Best Parameters ──────────────────────────────")
         for k, v in best_params.items():

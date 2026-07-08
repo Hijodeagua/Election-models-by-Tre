@@ -131,14 +131,66 @@ def probe_silver_bulletin() -> None:
 
 
 def probe_rcp() -> None:
-    print("=== RCP with browser UA ===")
-    url = "https://www.realclearpolling.com/polls/approval/president/donald-trump"
-    try:
-        resp = httpx.get(url, timeout=30, follow_redirects=True,
-                         headers={"User-Agent": BROWSER_UA})
-        print(f"  [{resp.status_code}] {url} ({len(resp.text)} bytes)")
-    except Exception as exc:
-        print(f"  [ERR] {url}: {exc}")
+    print("=== RCP via RCPClient (full browser header set) ===")
+    from src.data.base import PollType
+    from src.data.rcp import RCPClient
+
+    with RCPClient() as client:
+        for pt in (PollType.APPROVAL, PollType.GENERIC_BALLOT):
+            try:
+                polls = client.fetch_polls(poll_type=pt)
+                newest = max((p.end_date for p in polls), default=None)
+                print(f"  {pt.value}: {len(polls)} polls, newest end_date={newest}")
+            except Exception as exc:
+                print(f"  [ERR] {pt.value}: {exc}")
+
+
+def probe_votehub_freshness() -> None:
+    """The July 2026 stall: VoteHub kept returning 200 with no new polls.
+    Print the newest end_date per feed so the stall is visible in one line."""
+    print("=== VoteHub feed freshness ===")
+    for pt in ("approval", "generic-ballot", "head-to-head"):
+        try:
+            resp = httpx.get(
+                "https://api.votehub.com/polls", params={"poll_type": pt}, timeout=30
+            )
+            rows = resp.json() if resp.status_code == 200 else []
+            newest = max((r.get("end_date", "") for r in rows), default="—")
+            print(f"  {pt}: [{resp.status_code}] {len(rows)} polls, newest end_date={newest}")
+        except Exception as exc:
+            print(f"  [ERR] {pt}: {exc}")
+
+
+def probe_wikipedia_national() -> None:
+    """Prove the stale-feed fallback works from CI: fetch + parse both articles."""
+    print("=== Wikipedia national polling articles (stale-feed fallback) ===")
+    from src.data.base import PollType
+    from src.data.wikipedia_national import WikipediaNationalSource
+
+    with WikipediaNationalSource() as src:
+        for pt in (PollType.APPROVAL, PollType.GENERIC_BALLOT):
+            try:
+                polls = src.fetch_polls(poll_type=pt)
+                newest = max((p.end_date for p in polls), default=None)
+                print(f"  {pt.value}: {len(polls)} polls parsed, newest end_date={newest}")
+            except Exception as exc:
+                print(f"  [ERR] {pt.value}: {exc}")
+
+
+def probe_ballotpedia() -> None:
+    """Reachability check only — Ballotpedia is a possible second fallback,
+    but has no API and stricter reuse terms; see wikipedia_national.py."""
+    print("=== Ballotpedia reachability ===")
+    for url in (
+        "https://ballotpedia.org/Ballotpedia:Polling_index",
+        "https://ballotpedia.org/United_States_Congress_elections,_2026",
+    ):
+        try:
+            resp = httpx.get(url, timeout=30, follow_redirects=True,
+                             headers={"User-Agent": BROWSER_UA})
+            print(f"  [{resp.status_code}] {url} ({len(resp.text)} bytes)")
+        except Exception as exc:
+            print(f"  [ERR] {url}: {exc}")
 
 
 def probe_polymarket_missing_races() -> None:
@@ -159,9 +211,12 @@ def probe_polymarket_missing_races() -> None:
 
 def main() -> None:
     probe_votehub()
+    probe_votehub_freshness()
     probe_kalshi()
     probe_silver_bulletin()
     probe_rcp()
+    probe_wikipedia_national()
+    probe_ballotpedia()
     probe_polymarket_missing_races()
 
 

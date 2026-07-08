@@ -18,6 +18,8 @@ on:
 
 permissions:
   contents: write
+  # For the staleness alert issue.
+  issues: write
 
 concurrency:
   group: refresh-data
@@ -65,6 +67,35 @@ jobs:
         # a few minutes per refresh; export_json degrades to available:false
         # if the fit fails, so this cannot take the trackers down.
         run: python scripts/export_json.py --state-space
+
+      - name: Check feed freshness
+        # Warn (never fail) when a feed's newest poll is older than 3 days —
+        # publishing yesterday's data beats publishing nothing, but going
+        # quiet about it is how the July 2026 VoteHub stall went unnoticed.
+        id: staleness
+        run: python scripts/check_staleness.py --max-age-days 3
+
+      - name: Open alert issue if feeds are stale
+        if: steps.staleness.outputs.stale != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          STALE: ${{ steps.staleness.outputs.stale }}
+        run: |
+          TITLE="Stale polling feeds detected"
+          existing=$(curl -sf -H "Authorization: Bearer $GH_TOKEN" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/issues?state=open&creator=github-actions%5Bbot%5D&per_page=100" \
+            | python -c "import json,sys; print(sum(1 for i in json.load(sys.stdin) if i['title']=='$TITLE'))")
+          if [ "$existing" != "0" ]; then
+            echo "Alert issue already open — not filing a duplicate."
+            exit 0
+          fi
+          BODY="Feeds stale for >3 days: **${STALE}**. The refresh job keeps publishing the last good data, but the upstream source has stopped delivering new polls. Check the [latest refresh run](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}) logs — the Wikipedia fallback engages automatically after 72h for approval/generic-ballot; if this issue stays open, the fallback is dry too."
+          PAYLOAD=$(BODY_TEXT="$BODY" TITLE_TEXT="$TITLE" python -c "import json,os; print(json.dumps({'title': os.environ['TITLE_TEXT'], 'body': os.environ['BODY_TEXT'], 'labels': ['data-quality']}))")
+          curl -sf -X POST -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/issues" \
+            -d "$PAYLOAD" > /dev/null && echo "Filed alert issue."
+        shell: bash
 
       - name: Commit and push updated JSON
         run: |
