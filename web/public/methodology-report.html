@@ -143,13 +143,14 @@
     <h1>Methodology audit &amp; upgrade report</h1>
     <p class="dek">Seven claimed defects verified against the code, five correctness bugs fixed, and four structural upgrades shipped — with every number below reproduced from the live pipeline.</p>
     <p class="meta mono">July 2026 · updated Jul 8 after merging main's data refreshes · PR #15 · 232 tests passing</p>
+    <p class="meta mono" id="live-stamp" hidden style="color:var(--aqua-deep);"></p>
   </header>
 
   <section aria-label="Operational status">
     <h2 style="margin-top:36px;">Two questions, answered straight</h2>
     <dl class="fix">
       <dt><span class="chip fixed">Yes</span></dt>
-      <dd><b>Does it update with new polls automatically?</b> A scheduled GitHub Action runs twice a day (10:00 &amp; 22:00 UTC): it pulls fresh polls from VoteHub, Wikipedia’s Senate pages, RealClearPolling and the prediction markets, re-runs every model — including the new state-space fits and the 50,000-run Senate simulation — and commits the results, which redeploys the site. A second job recalibrates the error model monthly; a third can retrain parameters quarterly behind the holdout gate. <span class="fine">One catch: scheduled jobs run from the <code>main</code> branch, and this session’s work lives on the audit branch — the upgraded pipeline goes fully automatic the moment the branch merges. This report page itself is a session snapshot, not a live dashboard.</span></dd>
+      <dd><b>Does it update with new polls automatically?</b> A scheduled GitHub Action runs twice a day (10:00 &amp; 22:00 UTC): it pulls fresh polls from VoteHub, Wikipedia’s Senate pages, RealClearPolling and the prediction markets, re-runs every model — including the new state-space fits and the 50,000-run Senate simulation — and commits the results, which redeploys the site. A second job recalibrates the error model monthly; a third can retrain parameters quarterly behind the holdout gate. <span class="fine">One catch: scheduled jobs run from the <code>main</code> branch, and this session’s work lives on the audit branch — the upgraded pipeline goes fully automatic the moment the branch merges. Served from the site, this page’s headline tiles hydrate from the latest refresh (green “live” stamp above); in the Claude artifact viewer it’s a static snapshot.</span></dd>
       <dt><span class="chip hold">No</span></dt>
       <dd><b>Is the NYT “vibes” analysis in these numbers?</b> The plumbing exists — a media-sentiment overlay that nudges each race’s margin, simulated side-by-side with the base forecast — but it currently runs on neutral placeholder data because the NYT pipeline has never been given an API key. Today “with vibes” equals the base forecast exactly. Per the audit it stays out of the headline numbers until it’s fed real data <i>and</i> validated against actual outcomes. <span class="fine">It’s a switch waiting for evidence, not a missing feature.</span></dd>
     </dl>
@@ -159,13 +160,13 @@
     <div class="tiles">
       <div class="tile">
         <div class="lbl">Trump approval (published)</div>
-        <div class="val"><span class="old">37.9</span> <span class="arr">→</span> 39.8<span style="font-size:15px; color:var(--ink-3);">%</span></div>
+        <div class="val"><span class="old">37.9</span> <span class="arr">→</span> <span id="live-approval">39.8</span><span style="font-size:15px; color:var(--ink-3);">%</span></div>
         <div class="why">1,074 of 1,825 polls in the feed were about Congress, the Supreme Court, or JD Vance — not the president. Now screened out.</div>
       </div>
       <div class="tile">
         <div class="lbl">P(Dem Senate control)</div>
-        <div class="val"><span class="old">28.7</span> <span class="arr">→</span> 27.6<span style="font-size:15px; color:var(--ink-3);">%</span></div>
-        <div class="why">Corrected inputs + the fat-tailed error model that wins the historical backtest, on the latest merged data (Jul 7 23:01 UTC refresh). Like-for-like on the audit-day snapshot the methodology change alone was 28.7 → 25.5.</div>
+        <div class="val"><span class="old">28.7</span> <span class="arr">→</span> <span id="live-control">27.6</span><span style="font-size:15px; color:var(--ink-3);">%</span></div>
+        <div class="why">Corrected inputs + the fat-tailed error model that wins the historical backtest. Served from the site, this tile tracks the latest twice-daily refresh; the methodology change alone, like-for-like on audit-day data, was 28.7 → 25.5.</div>
       </div>
       <div class="tile">
         <div class="lbl">Seats per ballot point</div>
@@ -430,6 +431,34 @@
   }
 
   render();
+
+  /* ── Live hydration ───────────────────────────────────────
+     When this page is served from the site itself (next to /data/), the
+     headline tiles update from the latest twice-daily refresh. Inside the
+     Claude artifact viewer the fetch is blocked by CSP and the page keeps
+     its committed snapshot — by design, not by accident. */
+  (async function () {
+    try {
+      var base = "data/";
+      var rsp = await Promise.all([
+        fetch(base + "senate_forecast.json"),
+        fetch(base + "approval.json"),
+        fetch(base + "meta.json"),
+      ]);
+      if (rsp.some(function (r) { return !r.ok; })) return;
+      var f = await rsp[0].json(), a = await rsp[1].json(), m = await rsp[2].json();
+      if (f.dem_control_prob != null)
+        document.getElementById("live-control").textContent = (f.dem_control_prob * 100).toFixed(1);
+      if (a.current && a.current.approve != null)
+        document.getElementById("live-approval").textContent = a.current.approve.toFixed(1);
+      var stamp = document.getElementById("live-stamp");
+      stamp.textContent = "● live — headline tiles show the latest refresh (" +
+        String(m.last_updated).slice(0, 16).replace("T", " ") + " UTC, " +
+        (m.poll_counts ? m.poll_counts.approval + " approval polls" : "current feed") + ")";
+      stamp.hidden = false;
+    } catch (e) { /* static snapshot stands */ }
+  })();
+
   new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   var mq = window.matchMedia("(prefers-color-scheme: dark)");
   if (mq.addEventListener) mq.addEventListener("change", render);
