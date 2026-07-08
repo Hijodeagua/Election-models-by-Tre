@@ -32,6 +32,7 @@ from typing import Any
 
 import numpy as np
 from scipy.stats import norm
+from scipy.stats import t as student_t
 
 from src.models import ModelMaturity
 
@@ -111,6 +112,8 @@ class SenateControlForecast:
     national_sigma: float
     race_sigma: float
     bias: float = 0.0
+    # Student-t degrees of freedom for the error draws; None = Gaussian.
+    tail_dof: float | None = None
     # Chamber-control odds straight from the markets, for comparison.
     market_control_dem_prob: dict[str, float] = field(default_factory=dict)
 
@@ -139,9 +142,12 @@ class SenateControlSimulator:
         race_sigma: float = DEFAULT_RACE_SIGMA,
         market_weight: float = DEFAULT_MARKET_WEIGHT,
         bias: float = 0.0,
+        tail_dof: float | None = None,
     ) -> None:
         if not 0.0 <= market_weight <= 1.0:
             raise ValueError(f"market_weight must be in [0, 1], got {market_weight}")
+        if tail_dof is not None and tail_dof <= 2.0:
+            raise ValueError(f"tail_dof must be > 2 for finite variance, got {tail_dof}")
         self.dem_safe_seats = dem_safe_seats
         self.rep_safe_seats = rep_safe_seats
         self.dem_majority_threshold = dem_majority_threshold
@@ -152,6 +158,13 @@ class SenateControlSimulator:
         # actual − poll over historical races). Positive = polls have
         # understated Democrats; the expected margin is shifted by +bias.
         self.bias = bias
+        # Degrees of freedom for Student-t polling error (None = Gaussian).
+        # Implemented as a multivariate t: one shared chi-square scale shock
+        # per simulation multiplies BOTH error components, so a fat-tail event
+        # is a correlated across-the-board polling miss (2016-style), not an
+        # independent per-race fluke. Draws are variance-matched to the
+        # calibrated sigmas, so σ_nat/σ_race keep their empirical meaning.
+        self.tail_dof = tail_dof
 
     # ── Probability helpers ───────────────────────────────────────────────
 
@@ -159,9 +172,23 @@ class SenateControlSimulator:
     def _total_sigma(self) -> float:
         return float(np.hypot(self.national_sigma, self.race_sigma))
 
+    @property
+    def _t_scale(self) -> float:
+        """Scale of the variance-matched t: Var(t_ν · s) = σ² ⇒ s = σ·√((ν−2)/ν)."""
+        assert self.tail_dof is not None
+        return self._total_sigma * float(np.sqrt((self.tail_dof - 2.0) / self.tail_dof))
+
     def win_prob_from_margin(self, margin: float) -> float:
-        """Marginal P(Dem win) implied by a Dem−Rep polling margin."""
-        return float(norm.cdf((margin + self.bias) / self._total_sigma))
+        """Marginal P(Dem win) implied by a Dem−Rep polling margin.
+
+        Uses the same error distribution the simulation draws from (Gaussian,
+        or variance-matched Student-t when ``tail_dof`` is set) so the
+        analytic marginal and the simulated win share agree.
+        """
+        x = margin + self.bias
+        if self.tail_dof is not None:
+            return float(student_t.cdf(x / self._t_scale, df=self.tail_dof))
+        return float(norm.cdf(x / self._total_sigma))
 
     def _blended_prob(self, race: RaceInput) -> float | None:
         """Combine the polls-only probability with averaged market odds."""
@@ -185,9 +212,12 @@ class SenateControlSimulator:
         """
         clipped = float(np.clip(prob, 1e-4, 1.0 - 1e-4))
         # The simulation draws mean-zero noise, so its marginal for an effective
-        # margin m is Φ(m/σ). We want that to equal `prob` — and `prob` already
-        # carries the bias (it came from win_prob_from_margin / the market blend),
-        # so the bias must NOT be re-applied here, or it cancels out.
+        # margin m is F(m/scale) for the configured error distribution. We want
+        # that to equal `prob` — and `prob` already carries the bias (it came
+        # from win_prob_from_margin / the market blend), so the bias must NOT
+        # be re-applied here, or it cancels out.
+        if self.tail_dof is not None:
+            return float(student_t.ppf(clipped, df=self.tail_dof) * self._t_scale)
         return float(norm.ppf(clipped) * self._total_sigma)
 
     # ── Simulation ────────────────────────────────────────────────────────
@@ -241,7 +271,17 @@ class SenateControlSimulator:
             idiosyncratic = rng.normal(
                 0.0, self.race_sigma, size=(num_simulations, margins.size)
             )
-            sim_margins = margins[None, :] + national + idiosyncratic
+            error = national + idiosyncratic
+            if self.tail_dof is not None:
+                # Multivariate t via a shared chi-square mixing draw: the same
+                # scale shock hits every race in a simulation, and the factor
+                # √((ν−2)/ν) keeps the error variance equal to the calibrated
+                # Gaussian case. Each race's marginal error is then exactly the
+                # variance-matched t used by win_prob_from_margin.
+                nu = self.tail_dof
+                w = rng.chisquare(nu, size=(num_simulations, 1))
+                error = error * np.sqrt(nu / w) * np.sqrt((nu - 2.0) / nu)
+            sim_margins = margins[None, :] + error
             dem_wins = sim_margins > 0.0
             dem_seats = self.dem_safe_seats + dem_wins.sum(axis=1)
             # Per-race simulated outcome distribution (median + 80% band + win share).
@@ -287,5 +327,6 @@ class SenateControlSimulator:
             national_sigma=self.national_sigma,
             race_sigma=self.race_sigma,
             bias=self.bias,
+            tail_dof=self.tail_dof,
             market_control_dem_prob=market_control_dem_prob or {},
         )

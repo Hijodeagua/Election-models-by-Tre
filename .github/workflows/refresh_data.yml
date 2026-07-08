@@ -42,6 +42,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas scipy statsmodels numpy pydantic pydantic-settings \
             python-dotenv httpx beautifulsoup4 tenacity lxml
+          # PyMC powers the Jackman state-space estimates. Kept separate so a
+          # resolver failure here degrades to tracker-only output instead of
+          # killing the whole refresh (export falls back gracefully).
+          pip install pymc || echo "pymc install failed — state-space will be skipped"
 
       - name: Refresh source data
         # refresh_data.py pulls fresh polls into data/fallback/ for offline use.
@@ -56,7 +60,11 @@ jobs:
           fi
 
       - name: Export static JSON
-        run: python scripts/export_json.py
+        # --state-space publishes the house-effect-corrected Jackman estimates
+        # alongside the weighted averages (audit item 4). Measured runtime is
+        # a few minutes per refresh; export_json degrades to available:false
+        # if the fit fails, so this cannot take the trackers down.
+        run: python scripts/export_json.py --state-space
 
       - name: Commit and push updated JSON
         run: |

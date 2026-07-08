@@ -19,6 +19,12 @@ if TYPE_CHECKING:
 
 MIN_POLLS_FOR_ESTIMATE = 3  # publish "no estimate" below this threshold
 
+# The approval feed carries more than presidential approval (Congress, Supreme
+# Court, VP favorability all arrive as PollType.APPROVAL). Only polls whose
+# subject matches this keyword — or with no subject, for legacy feeds that
+# predate the Subject column — belong in the presidential average.
+PRESIDENTIAL_SUBJECT_KEYWORD = "trump"
+
 
 @dataclass
 class ApprovalSnapshot:
@@ -42,13 +48,25 @@ class PresidentialApprovalModel:
 
     maturity = ModelMaturity.TRACKER
 
-    def __init__(self, engine: PollingAverageEngine | None = None) -> None:
+    def __init__(
+        self,
+        engine: PollingAverageEngine | None = None,
+        subject_keyword: str = PRESIDENTIAL_SUBJECT_KEYWORD,
+    ) -> None:
         self.engine = engine or PollingAverageEngine()
+        self.subject_keyword = subject_keyword
+
+    def _presidential_polls(self, polls: list[Poll]) -> list[Poll]:
+        """Approval polls about the president (blank subjects pass for legacy feeds)."""
+        return [
+            p for p in polls
+            if p.poll_type == PollType.APPROVAL
+            and (not p.subject or self.subject_keyword in p.subject.lower())
+        ]
 
     def current_approval(self, polls: list[Poll]) -> ApprovalSnapshot | None:
         """Return current approval average, or None if too few polls."""
-        """Compute the current approval average from recent polls."""
-        approval_polls = [p for p in polls if p.poll_type == PollType.APPROVAL]
+        approval_polls = self._presidential_polls(polls)
         if len(approval_polls) < MIN_POLLS_FOR_ESTIMATE:
             return None
         result = self.engine.compute_average(
@@ -72,7 +90,7 @@ class PresidentialApprovalModel:
             end: Last date (default: today).
             step_days: Days between snapshots.
         """
-        approval_polls = [p for p in polls if p.poll_type == PollType.APPROVAL]
+        approval_polls = self._presidential_polls(polls)
         if not approval_polls:
             return []
 
@@ -110,7 +128,7 @@ class PresidentialApprovalModel:
         from src.models import state_space
 
         as_of = as_of or date.today()
-        approval_polls = [p for p in polls if p.poll_type == PollType.APPROVAL]
+        approval_polls = self._presidential_polls(polls)
         if len(approval_polls) < MIN_POLLS_FOR_ESTIMATE:
             return None
 
@@ -121,11 +139,20 @@ class PresidentialApprovalModel:
         if result is None:
             return None
 
-        mean, lo, hi = result.estimate_at(as_of)
+        # Disapprove is fitted as its own latent series, NOT derived as
+        # 100 − Approve: real polls leave 5–15pp undecided/no-opinion, so the
+        # complement overstates disapproval and fabricates its CI. The second
+        # fit doubles runtime, which is acceptable for this opt-in path.
+        dis_result = state_space.fit(
+            approval_polls, choice="Disapprove", as_of=as_of,
+            draws=draws, tune=tune,
+        )
+        if dis_result is None:
+            return None
 
-        # Disapprove derived as complement (Approve + Disapprove ≈ 100 in most polls).
-        # Fitting separately would double runtime; accepted approximation for Phase 3.
-        dis_mean = 100.0 - mean
+        mean, lo, hi = result.estimate_at(as_of)
+        dis_mean, dis_lo, dis_hi = dis_result.estimate_at(as_of)
+
         snap = ApprovalSnapshot(
             as_of=as_of,
             approve=round(mean, 1),
@@ -133,7 +160,7 @@ class PresidentialApprovalModel:
             net_approval=round(mean - dis_mean, 1),
             num_polls=result.n_polls,
             ci_approve=(round(lo, 1), round(hi, 1)),
-            ci_disapprove=(round(100.0 - hi, 1), round(100.0 - lo, 1)),
+            ci_disapprove=(round(dis_lo, 1), round(dis_hi, 1)),
         )
         return snap, result
 

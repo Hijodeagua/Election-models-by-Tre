@@ -1,19 +1,26 @@
 """Train polling average engine parameters against historical data.
 
 Downloads 538 archived polls and MIT election results, then runs Optuna
-to find the parameter set that minimizes prediction error.
+under a rolling-origin cross-validation protocol (see
+src/training/cross_validation.py):
 
-Trained parameters are saved to config/trained_params.json and
-automatically loaded by the polling average engine on next run.
+- selection minimizes the mean per-cycle RMSE across all cycles except the
+  final holdout cycle;
+- the holdout cycle is scored exactly once with the winning parameters;
+- trained_params.json is written ONLY if the winner beats the hand-set
+  defaults on the holdout (the pass/fail gate) — a failed gate leaves the
+  defaults in production.
+
+Trained parameters are saved to config/trained_params.json (with the CV
+report embedded) and automatically loaded by the polling average engine.
 
 Usage:
     python scripts/train_parameters.py
     python scripts/train_parameters.py --n-trials 500
     python scripts/train_parameters.py --min-year 2014 --offices senate governor
+    python scripts/train_parameters.py --no-cv     # legacy pooled objective
 
-Then start the MLflow UI to explore results:
-    mlflow ui
-    # Open http://localhost:5000
+MLflow tracking is optional; if installed, trials are logged as before.
 """
 
 from __future__ import annotations
@@ -40,24 +47,22 @@ def main() -> None:
         help="Only use polls within this many days before election day",
     )
     parser.add_argument(
-        "--experiment", type=str, default="polling-average-optimization",
-        help="MLflow experiment name",
+        "--holdout-cycle", type=int, default=None,
+        help="Cycle held out of selection entirely (default: most recent cycle)",
+    )
+    parser.add_argument(
+        "--no-cv", action="store_true",
+        help="Legacy pooled-RMSE objective without holdout gate (not recommended)",
     )
     args = parser.parse_args()
 
-    # Check dependencies
     try:
-        import mlflow  # noqa: F401  # availability check before optimization
         import optuna  # noqa: F401  # availability check before optimization
     except ImportError as exc:
-        logger.error(
-            "Missing dependencies. Install with:\n"
-            "  pip install optuna mlflow"
-        )
+        logger.error("Missing dependency. Install with: pip install optuna")
         raise SystemExit(1) from exc
 
     from src.training.data_loader import TrainingDataLoader
-    from src.training.optimizer import run_optimization
 
     logger.info("Loading training data...")
     loader = TrainingDataLoader(lookback_days=args.lookback_days)
@@ -75,22 +80,43 @@ def main() -> None:
         raise SystemExit(1)
 
     logger.info(f"Loaded {len(training_races)} training races")
-    logger.info(f"Running {args.n_trials} Optuna trials...")
-    logger.info("Track progress: mlflow ui  →  http://localhost:5000")
 
-    best_params = run_optimization(
-        training_races=training_races,
+    if args.no_cv:
+        from src.training.optimizer import run_optimization
+
+        best_params = run_optimization(
+            training_races=training_races,
+            n_trials=args.n_trials,
+            save_best=True,
+        )
+        print("\n── Best Parameters (pooled objective — no holdout gate) ──")
+        for k, v in best_params.items():
+            print(f"  {k}: {v:.4f}")
+        return
+
+    from src.training.cross_validation import run_cv_optimization
+
+    best_params, report = run_cv_optimization(
+        training_races,
         n_trials=args.n_trials,
-        experiment_name=args.experiment,
-        save_best=True,
+        holdout_cycle=args.holdout_cycle,
     )
 
-    print("\n── Best Parameters ──────────────────────────────")
-    for k, v in best_params.items():
-        print(f"  {k}: {v:.4f}")
-    print("\nSaved to config/trained_params.json")
-    print("The polling average engine will use these automatically.")
-    print("\nView full experiment results:\n  mlflow ui")
+    print("\n── Rolling-origin CV result ─────────────────────")
+    print(f"  selection cycles : {report.selection_cycles}")
+    print(f"  mean sel. RMSE   : {report.mean_selection_rmse:.3f}")
+    print(f"  holdout cycle    : {report.holdout_cycle}")
+    print(f"  holdout trained  : {report.holdout_trained}")
+    print(f"  holdout default  : {report.holdout_default}")
+    print(f"  gate             : {'PASSED' if report.passed_gate else 'FAILED'} — {report.gate_reason}")
+    if report.passed_gate:
+        print("\n── Best Parameters ──────────────────────────────")
+        for k, v in best_params.items():
+            print(f"  {k}: {v:.4f}")
+        print("\nSaved to config/trained_params.json (with CV report).")
+    else:
+        print("\nGate failed — trained_params.json NOT written; defaults stay in production.")
+        raise SystemExit(2)
 
 
 if __name__ == "__main__":

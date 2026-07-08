@@ -1,0 +1,65 @@
+name: Train polling-average parameters
+
+# Runs the rolling-origin CV training protocol (audit item 5) against the
+# 538 poll archive + MEDSL results and commits config/trained_params.json
+# ONLY when the holdout gate passes (trained params beat the hand-set
+# defaults on the most recent, never-selected-on cycle).
+#
+# Historical data changes only when a cycle completes, so this runs on
+# demand and quarterly — not per-refresh.
+
+on:
+  workflow_dispatch:
+    inputs:
+      n_trials:
+        description: "Optuna trial budget"
+        default: "200"
+        required: false
+  schedule:
+    # 07:23 UTC on the 2nd of Jan/Apr/Jul/Oct.
+    - cron: "23 7 2 1,4,7,10 *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: train-parameters
+  cancel-in-progress: false
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy scipy pandas python-dotenv httpx pydantic pydantic-settings optuna
+
+      - name: Run rolling-origin CV training
+        run: |
+          python scripts/train_parameters.py \
+            --n-trials "${{ github.event.inputs.n_trials || '200' }}" \
+            --min-year 2010 --lookback-days 60
+
+      - name: Commit trained parameters (gate passed)
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add config/trained_params.json || true
+          if [ -n "$(git status --porcelain)" ]; then
+            timestamp=$(date -u +'%Y-%m-%d %H:%M UTC')
+            git commit -m "Train polling-average parameters (CV gate passed): $timestamp"
+            git push
+          else
+            echo "No parameter change to commit."
+          fi

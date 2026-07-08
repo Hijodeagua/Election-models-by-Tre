@@ -17,16 +17,21 @@ from src.analysis.trend import moving_average
 class TestPollsterWeightManager:
     def test_load_default_ratings(self):
         mgr = PollsterWeightManager()
-        # Should load from config/pollster_ratings.json
-        assert mgr.get_rating("Marist College") == 2.9
+        # config/pollster_ratings.json is generated from the PPM-derived pool
+        # in src/data/pollster_ratings.py — the two must agree.
+        from src.data.pollster_ratings import hybrid_quality
+        assert mgr.get_rating("Marist College") == hybrid_quality("Marist College")
 
     def test_unknown_pollster_gets_default(self):
+        from src.data.pollster_ratings import _UNKNOWN_DEFAULT
         mgr = PollsterWeightManager()
-        assert mgr.get_rating("Unknown Pollster Inc") == 1.5
+        # Survivorship-adjusted 25th-percentile default, not the 1.5 midpoint
+        assert mgr.get_rating("Unknown Pollster Inc") == _UNKNOWN_DEFAULT
 
     def test_case_insensitive_lookup(self):
+        from src.data.pollster_ratings import hybrid_quality
         mgr = PollsterWeightManager()
-        assert mgr.get_rating("marist college") == 2.9
+        assert mgr.get_rating("marist college") == hybrid_quality("Marist College")
 
     def test_set_and_get_rating(self):
         mgr = PollsterWeightManager()

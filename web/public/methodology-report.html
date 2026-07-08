@@ -1,0 +1,468 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Election Oracle — Methodology Upgrade Report</title>
+<style>
+  :root {
+    --paper: #FBFAF7;
+    --ink: #20242B;
+    --ink-2: #5C6370;
+    --ink-3: #8A8F99;
+    --rule: #E3E1D9;
+    --card: #FFFFFF;
+    --aqua: #1baf7a;
+    --aqua-deep: #0E7A57;
+    --gold: #eda100;
+    --gold-deep: #A87200;
+    --good-bg: #E5F3EC; --good-ink: #14603F;
+    --hold-bg: #F7EDD8; --hold-ink: #7A5A10;
+    --fix-bg:  #EDEFF3; --fix-ink:  #3D4450;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #15181D;
+      --ink: #E8EAED;
+      --ink-2: #A8AEB8;
+      --ink-3: #7C828C;
+      --rule: #2A2F37;
+      --card: #1C2026;
+      --aqua: #199e70;
+      --aqua-deep: #34C08D;
+      --gold: #c98500;
+      --gold-deep: #E0A62E;
+      --good-bg: #12301F; --good-ink: #7BD3A4;
+      --hold-bg: #2E2513; --hold-ink: #DDB55E;
+      --fix-bg:  #242932; --fix-ink:  #B7BEC9;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #15181D; --ink: #E8EAED; --ink-2: #A8AEB8; --ink-3: #7C828C;
+    --rule: #2A2F37; --card: #1C2026;
+    --aqua: #199e70; --aqua-deep: #34C08D; --gold: #c98500; --gold-deep: #E0A62E;
+    --good-bg: #12301F; --good-ink: #7BD3A4;
+    --hold-bg: #2E2513; --hold-ink: #DDB55E;
+    --fix-bg:  #242932; --fix-ink:  #B7BEC9;
+  }
+  :root[data-theme="light"] {
+    --paper: #FBFAF7; --ink: #20242B; --ink-2: #5C6370; --ink-3: #8A8F99;
+    --rule: #E3E1D9; --card: #FFFFFF;
+    --aqua: #1baf7a; --aqua-deep: #0E7A57; --gold: #eda100; --gold-deep: #A87200;
+    --good-bg: #E5F3EC; --good-ink: #14603F;
+    --hold-bg: #F7EDD8; --hold-ink: #7A5A10;
+    --fix-bg:  #EDEFF3; --fix-ink:  #3D4450;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 74ch; margin: 0 auto; padding: 40px 20px 72px; }
+  .serif { font-family: Charter, Georgia, Cambria, "Times New Roman", serif; }
+  .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+
+  .eyebrow {
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--aqua-deep); font-weight: 600; margin: 0 0 10px;
+  }
+  h1 {
+    font-family: Charter, Georgia, Cambria, serif;
+    font-size: clamp(28px, 6vw, 40px); line-height: 1.15;
+    margin: 0 0 10px; text-wrap: balance; font-weight: 700;
+  }
+  .dek { color: var(--ink-2); font-size: 17px; margin: 0 0 8px; max-width: 62ch; }
+  .meta { color: var(--ink-3); font-size: 13px; margin: 0 0 36px; }
+
+  h2 {
+    font-family: Charter, Georgia, Cambria, serif;
+    font-size: 23px; margin: 52px 0 6px; text-wrap: balance;
+  }
+  .h2-sub { color: var(--ink-2); font-size: 14.5px; margin: 0 0 18px; }
+  p { max-width: 66ch; }
+
+  /* Stat tiles */
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin: 28px 0 4px; }
+  .tile { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 16px 14px; }
+  .tile .lbl { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+  .tile .val { font-family: ui-monospace, Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; font-size: 26px; font-weight: 700; margin: 6px 0 2px; }
+  .tile .val .old { color: var(--ink-3); font-weight: 400; font-size: 19px; text-decoration: line-through; text-decoration-thickness: 1.5px; }
+  .tile .val .arr { color: var(--ink-3); font-weight: 400; font-size: 19px; }
+  .tile .why { font-size: 13px; color: var(--ink-2); line-height: 1.45; }
+
+  /* Fix list */
+  .fix { display: grid; grid-template-columns: auto 1fr; gap: 12px 14px; margin: 18px 0; }
+  .fix dt { grid-column: 1; }
+  .fix dd { grid-column: 2; margin: 0 0 14px; max-width: 62ch; }
+  .chip {
+    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 3px 9px; border-radius: 999px; white-space: nowrap;
+  }
+  .chip.fixed { background: var(--good-bg); color: var(--good-ink); }
+  .chip.built { background: var(--fix-bg); color: var(--fix-ink); }
+  .chip.hold  { background: var(--hold-bg); color: var(--hold-ink); }
+  .fix b { font-weight: 650; }
+  .fix .fine { color: var(--ink-2); font-size: 14px; }
+
+  /* Figures */
+  figure { margin: 22px 0 8px; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 18px 16px 10px; }
+  figcaption { font-size: 13px; color: var(--ink-2); padding: 8px 4px 6px; line-height: 1.5; }
+  .fig-title { font-weight: 650; font-size: 15px; color: var(--ink); margin: 0 4px 2px; }
+  .fig-sub { font-size: 13px; color: var(--ink-2); margin: 0 4px 12px; }
+  .chart-scroll { overflow-x: auto; }
+  svg text { font-family: system-ui, -apple-system, sans-serif; }
+  .tooltip {
+    position: fixed; pointer-events: none; z-index: 10; display: none;
+    background: var(--ink); color: var(--paper); font-size: 12.5px; line-height: 1.45;
+    padding: 7px 10px; border-radius: 7px; max-width: 260px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Tables */
+  .tbl-wrap { overflow-x: auto; margin: 18px 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+  th { text-align: left; font-size: 12px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; padding: 8px 12px 6px 0; border-bottom: 1px solid var(--rule); }
+  td { padding: 8px 12px 8px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  td.num, th.num { text-align: right; font-family: ui-monospace, Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+  tr.pick td { background: var(--good-bg); }
+  tr.pick td:first-child { border-radius: 6px 0 0 6px; }
+  tr.pick td:last-child { border-radius: 0 6px 6px 0; }
+
+  ul { padding-left: 20px; max-width: 64ch; }
+  li { margin: 6px 0; }
+  a { color: var(--aqua-deep); }
+  code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.92em; background: var(--fix-bg); padding: 1px 5px; border-radius: 4px; }
+
+  footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule); color: var(--ink-3); font-size: 13px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Policy y Peaches · Election Oracle</p>
+    <h1>Methodology audit &amp; upgrade report</h1>
+    <p class="dek">Seven claimed defects verified against the code, five correctness bugs fixed, and four structural upgrades shipped — with every number below reproduced from the live pipeline.</p>
+    <p class="meta mono">July 2026 · updated Jul 8 after merging main's data refreshes · PR #15 · 232 tests passing</p>
+    <p class="meta mono" id="live-stamp" hidden style="color:var(--aqua-deep);"></p>
+  </header>
+
+  <section aria-label="Operational status">
+    <h2 style="margin-top:36px;">Two questions, answered straight</h2>
+    <dl class="fix">
+      <dt><span class="chip fixed">Yes</span></dt>
+      <dd><b>Does it update with new polls automatically?</b> A scheduled GitHub Action runs twice a day (10:00 &amp; 22:00 UTC): it pulls fresh polls from VoteHub, Wikipedia’s Senate pages, RealClearPolling and the prediction markets, re-runs every model — including the new state-space fits and the 50,000-run Senate simulation — and commits the results, which redeploys the site. A second job recalibrates the error model monthly; a third can retrain parameters quarterly behind the holdout gate. <span class="fine">One catch: scheduled jobs run from the <code>main</code> branch, and this session’s work lives on the audit branch — the upgraded pipeline goes fully automatic the moment the branch merges. Served from the site, this page’s headline tiles hydrate from the latest refresh (green “live” stamp above); in the Claude artifact viewer it’s a static snapshot.</span></dd>
+      <dt><span class="chip hold">No</span></dt>
+      <dd><b>Is the NYT “vibes” analysis in these numbers?</b> The plumbing exists — a media-sentiment overlay that nudges each race’s margin, simulated side-by-side with the base forecast — but it currently runs on neutral placeholder data because the NYT pipeline has never been given an API key. Today “with vibes” equals the base forecast exactly. Per the audit it stays out of the headline numbers until it’s fed real data <i>and</i> validated against actual outcomes. <span class="fine">It’s a switch waiting for evidence, not a missing feature.</span></dd>
+    </dl>
+  </section>
+
+  <section aria-label="Headline numbers">
+    <div class="tiles">
+      <div class="tile">
+        <div class="lbl">Trump approval (published)</div>
+        <div class="val"><span class="old">37.9</span> <span class="arr">→</span> <span id="live-approval">39.8</span><span style="font-size:15px; color:var(--ink-3);">%</span></div>
+        <div class="why">1,074 of 1,825 polls in the feed were about Congress, the Supreme Court, or JD Vance — not the president. Now screened out.</div>
+      </div>
+      <div class="tile">
+        <div class="lbl">P(Dem Senate control)</div>
+        <div class="val"><span class="old">28.7</span> <span class="arr">→</span> <span id="live-control">27.6</span><span style="font-size:15px; color:var(--ink-3);">%</span></div>
+        <div class="why">Corrected inputs + the fat-tailed error model that wins the historical backtest. Served from the site, this tile tracks the latest twice-daily refresh; the methodology change alone, like-for-like on audit-day data, was 28.7 → 25.5.</div>
+      </div>
+      <div class="tile">
+        <div class="lbl">Seats per ballot point</div>
+        <div class="val"><span class="old">5.5</span> <span class="arr">→</span> 3.03</div>
+        <div class="why">Hand-set constant replaced by a fit on 1998–2024 results (±0.43). The old value overstated responsiveness by ~80%.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Wave 1 — five correctness bugs, found and fixed</h2>
+    <p class="h2-sub">Each verified in the code before touching anything. All fixes are covered by new regression tests.</p>
+    <dl class="fix">
+      <dt><span class="chip fixed">Fixed</span></dt>
+      <dd><b>The training scorekeeper compared incompatible numbers.</b> Predictions kept undecided voters in; election results didn't. Every prediction looked ~4 points too low, and a candidate leading 48–44 was scored as a predicted <i>loser</i>. <span class="fine">Both sides now normalized to the two-party share before scoring.</span></dd>
+      <dt><span class="chip fixed">Fixed</span></dt>
+      <dd><b>Two different pollster grade books.</b> The live site graded pollsters on one scale, model training on an older hand-typed table with entirely different values (Marist: 2.9 vs 1.77). <span class="fine">One source of truth now; unknown pollsters get the documented skeptical default (1.41, not 1.5).</span></dd>
+      <dt><span class="chip fixed">Fixed</span></dt>
+      <dd><b>Made-up opposition numbers.</b> The advanced model estimated “Approve,” then declared Disapprove = 100 − Approve — but 5–15% of respondents pick neither, so disapproval was inflated and its error bar was fiction. <span class="fine">Both sides now estimated independently, with real credible intervals.</span></dd>
+      <dt><span class="chip fixed">Fixed</span></dt>
+      <dd><b>Tracking polls counted many times.</b> Daily trackers and duplicate likely-voter/all-adult releases each entered with full weight, letting single firms dominate. <span class="fine">A dedup rule (one poll per pollster per overlapping window) trimmed the approval feed from 2,906 rows to 1,825 real polls.</span></dd>
+      <dt><span class="chip fixed">Fixed</span></dt>
+      <dd><b>Congress polls in the presidential average.</b> The bug behind the headline tile: Congress approval (~15% approve) was quietly dragging the president’s number down by nearly two points. <span class="fine">Found while verifying the dedup fix — not in the original briefing.</span></dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Wave 2 — four structural upgrades</h2>
+    <dl class="fix">
+      <dt><span class="chip built">Shipped</span></dt>
+      <dd><b>The good model now publishes.</b> The Jackman state-space model — which removes each pollster’s systematic lean instead of merely down-weighting it — was written months ago but never ran in production (“too heavy for CI”). Measured: ~6.5 minutes, converged. It now runs in the twice-daily refresh and publishes house-effect-corrected estimates with full uncertainty bands. <span class="fine">Corrected approval: 40.3 [38.6–42.0].</span></dd>
+      <dt><span class="chip built">Shipped</span></dt>
+      <dd><b>Honest training protocol.</b> Parameter training now uses rolling-origin cross-validation: tune on older cycles, score once on the most recent cycle, and keep the result <i>only if it beats the hand-set defaults there</i>. A quarterly CI job runs it; a failed gate changes nothing. <span class="fine">No trained parameters ship without out-of-cycle evidence.</span></dd>
+      <dt><span class="chip built">Shipped</span></dt>
+      <dd><b>Every hand-set dial stress-tested.</b> Seven judgment-call settings were swept through the live forecast. One dominates all others — see the chart below.</dd>
+      <dt><span class="chip built">Shipped</span></dt>
+      <dd><b>Fat-tailed error + a fitted seat curve.</b> Polling catastrophes (2016-style correlated misses) now have a place in the simulation, chosen because they score better on 98 historical races — and the generic-ballot→seats conversion is fitted from 26 years of results with a published uncertainty band.</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Which dials actually matter</h2>
+    <p class="h2-sub">Each hand-set dial swept across its plausible range through the production forecast; bars show how far P(Dem control) moves across the grid. Baseline at sweep time: 25.5% (25.7% after the July 7 poll refresh).</p>
+    <figure>
+      <p class="fig-title">Swing in P(Dem Senate control) per dial</p>
+      <p class="fig-sub">percentage points of probability, full grid range · hover for the grid</p>
+      <div class="chart-scroll"><div id="sens-chart"></div></div>
+      <figcaption><span style="color:var(--aqua-deep); font-weight:650;">senate_responsiveness</span> — how much of the national mood reaches individual Senate races — moves the headline by 33 points, five times any market/mix choice. It is the dial most worth grounding empirically next. Prediction-market weight and the generic/approval mix are near-irrelevant.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Fat tails win the backtest</h2>
+    <p class="h2-sub">Same calibrated bias and spread, only the tail shape varies. Scored against the 98 races in the calibration archive (lower is better). Enabled in production: t(5), the standard middle in the literature — recomputed monthly with each recalibration.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th scope="col">Error model</th><th class="num" scope="col">Brier</th><th class="num" scope="col">Log-loss</th><th scope="col"></th></tr></thead>
+        <tbody>
+          <tr><td>Gaussian (old)</td><td class="num">0.0602</td><td class="num">0.1952</td><td></td></tr>
+          <tr><td>Student-t (ν=10)</td><td class="num">0.0596</td><td class="num">0.1932</td><td></td></tr>
+          <tr><td>Student-t (ν=7)</td><td class="num">0.0594</td><td class="num">0.1922</td><td></td></tr>
+          <tr class="pick"><td><b>Student-t (ν=5)</b></td><td class="num"><b>0.0591</b></td><td class="num"><b>0.1905</b></td><td><span class="chip fixed">In production</span></td></tr>
+          <tr><td>Student-t (ν=3)</td><td class="num">0.0590</td><td class="num">0.1859</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fine" style="color:var(--ink-2); font-size:14px; max-width:64ch;">The t(3) row edges ahead on log-loss but its tails are extreme; improvement flattens on Brier. Fat tails also make big leads appropriately less certain: a 12-point lead is 97.9% under Gaussian, 96.6% under t(5).</p>
+  </section>
+
+  <section>
+    <h2>The seat curve, fitted instead of guessed</h2>
+    <p class="h2-sub">Democratic House seats vs the national two-party vote margin, one dot per cycle since 1998.</p>
+    <figure>
+      <p class="fig-title">House seats won vs national vote margin, 1998–2024</p>
+      <p class="fig-sub">hover any cycle · shaded band = ±8.6-seat residual spread (80% band published with every estimate)</p>
+      <div class="chart-scroll"><div id="seat-chart"></div></div>
+      <figcaption>The fitted line — <b style="color:var(--aqua-deep);">3.03 seats per margin point around a 212-seat neutral baseline</b> — is far shallower than the hand-set <b style="color:var(--gold-deep);">5.5 / 218</b> the site used before, which both exaggerated wave years and flattered Democrats at neutral. Fit: R² = 0.81 on 14 cycles. Known limit, documented not hidden: polls historically overstate Democrats on the generic ballot, and that bias isn’t corrected yet, so seat outputs stay labeled <i>illustrative</i>.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Publish / hold</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th scope="col">Output</th><th scope="col">Call</th><th scope="col">Why</th></tr></thead>
+        <tbody>
+          <tr><td>Approval &amp; generic-ballot trackers</td><td><span class="chip fixed">Publish</span></td><td>Corrected feeds, dedup applied, framed as polling averages.</td></tr>
+          <tr><td>State-space estimates</td><td><span class="chip fixed">Publish</span></td><td>House effects removed for real; complement bug fixed; converged.</td></tr>
+          <tr><td>Senate control nowcast</td><td><span class="chip fixed">Publish</span></td><td>98-race calibration, backtested fat tails, reliability curve shown.</td></tr>
+          <tr><td>Seat point-estimates as probability claims</td><td><span class="chip hold">Hold</span></td><td>Band published, but generic-ballot bias uncorrected — keep “illustrative.”</td></tr>
+          <tr><td>House / Governor / 2028 models</td><td><span class="chip hold">Hold</span></td><td>Stubs. Nothing to publish.</td></tr>
+          <tr><td>“Vibes” media signal</td><td><span class="chip hold">Hold</span></td><td>Placeholder data; zero validation against outcomes so far.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>What happened this session</h2>
+    <p class="h2-sub">Four commits on <span class="mono">claude/election-forecast-audit-vnu3ty</span>, in order.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th scope="col">Commit</th><th scope="col">What it did</th></tr></thead>
+        <tbody>
+          <tr><td class="num">eabc320</td><td><b>The audit.</b> All seven findings from the data-science briefing verified line-by-line against the code; three needed material corrections (no trained parameters had ever shipped; the pollster-default issue was really a training/serving skew; the complement bug never touched published numbers — it gated the state-space rollout).</td></tr>
+          <tr><td class="num">f27dc21</td><td><b>Five correctness fixes</b> — the training scorekeeper, the dueling grade books, the fabricated opposition numbers, poll dedup, and the Congress-polls-in-presidential-approval leak found along the way. Approval corrected 37.9 → 39.8.</td></tr>
+          <tr><td class="num">cd90b93</td><td><b>Four structural upgrades</b> — state-space to the production path, the gated CV training protocol + CI workflow, the seven-dial sensitivity sweep, and backtested t(5) tails + the fitted seat curve.</td></tr>
+          <tr><td class="num">d8640f6</td><td><b>First corrected publish.</b> The state-space fits ran end-to-end and their output is committed to the live data feed, alongside this report page.</td></tr>
+          <tr><td class="num">eadb6cd / 59b4fca</td><td><b>Two conflict resolutions.</b> Main’s twice-daily data cron kept committing over the same generated JSON files; each merge took main’s fresher polls and market odds and regenerated everything through the upgraded pipeline. This treadmill ends when PR&nbsp;#15 merges — until then, expect the PR to show conflicts again after each scheduled refresh (10:00 &amp; 22:00 UTC).</td></tr>
+          <tr><td class="num">eadb6cd</td><td><b>Merged main back in.</b> The cron’s July 7 poll refresh had conflicted with our regenerated data; resolved by keeping main’s fresher polls and re-running the full upgraded pipeline on them. The branch now merges into <code>main</code> cleanly.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="color:var(--ink-2); font-size:14px;">Test suite: 206 → 232 passing, all new behavior covered by regression tests.</p>
+  </section>
+
+  <section>
+    <h2>What’s next</h2>
+    <p class="h2-sub">In priority order. The first two are pushes of a button; the rest are real work.</p>
+    <ul>
+      <li><b>Merge the branch.</b> Conflicts with <code>main</code> are already resolved — it merges clean. Once in, everything above goes fully automatic: twice-daily refresh with the corrected feeds and state-space estimates, monthly recalibration with the tail comparison.</li>
+      <li><b>Trigger the first training run.</b> The <code>train_parameters</code> workflow (poll archive is reachable only from CI) produces the first parameter set with out-of-cycle evidence — or fails the gate and changes nothing.</li>
+      <li><b>Ground <span class="mono">senate_responsiveness</span> empirically.</b> The sensitivity sweep’s loudest result: this one judgment call moves the headline by 33 points. Fit it from historical Senate results vs national swing instead of assuming 1.0.</li>
+      <li><b>Feed and validate the vibes signal.</b> Add the NYT API key, accumulate a real sentiment series, then backtest it against race outcomes before it touches a published number.</li>
+      <li><b>Regional error covariance.</b> One national factor still understates clustered misses (the 2016 Midwest pattern). Deferred deliberately — with ~13 competitive races a cycle the fit would be noise — revisit once 2026 results join the archive.</li>
+      <li><b>Generic-ballot bias correction</b> for the seat curve (needs archived per-cycle ballot averages), plus the Phase 5 scoring metrics (CRPS, PIT, coverage) in the calibration job.</li>
+    </ul>
+  </section>
+
+  <footer>
+    Election Oracle · methodology report generated July 7, 2026 · all figures reproduced from the repository’s live pipeline (<span class="mono">scripts/sensitivity_sweep.py</span>, <span class="mono">scripts/fit_seat_conversion.py</span>, <span class="mono">config/forecast_calibration.json</span>) · full detail in <span class="mono">METHODOLOGY_AUDIT_2026-07.md</span>
+  </footer>
+</div>
+
+<div class="tooltip" id="tip" role="status"></div>
+
+<script>
+(function () {
+  var css = getComputedStyle(document.documentElement);
+  function tok(n) { return css.getPropertyValue(n).trim(); }
+  var tip = document.getElementById("tip");
+  function showTip(html, x, y) {
+    tip.innerHTML = html;
+    tip.style.display = "block";
+    var pad = 14, w = tip.offsetWidth, h = tip.offsetHeight;
+    var left = Math.min(x + pad, window.innerWidth - w - 8);
+    var top = y - h - pad; if (top < 8) top = y + pad;
+    tip.style.left = left + "px"; tip.style.top = top + "px";
+  }
+  function hideTip() { tip.style.display = "none"; }
+
+  // Re-render charts when theme flips so tokens re-resolve.
+  function render() {
+    css = getComputedStyle(document.documentElement);
+    sensChart(); seatChart();
+  }
+
+  /* ── Sensitivity bars ─────────────────────────────────── */
+  var SENS = [
+    { k: "senate_responsiveness", v: 0.326, d: "How much national swing reaches Senate races (0.5–1.5). P(control) runs 14.1% → 46.8% across the grid." },
+    { k: "calibration_bias_weight", v: 0.156, d: "How much of the fitted −2.5pt poll bias to apply (0–1). P(control) runs 20.9% → 36.5%." },
+    { k: "pres_weight_recent", v: 0.087, d: "Weight on 2024 vs 2020 presidential lean (0.5–1.0)." },
+    { k: "tail_dof", v: 0.061, d: "Tail shape, Gaussian → t(3). Fatter tails pull the underdog’s odds down here." },
+    { k: "blend_k", v: 0.042, d: "How strongly fundamentals anchor thin-poll races (1.5–6)." },
+    { k: "market_weight", v: 0.024, d: "Weight on prediction-market odds (0–0.5). Nearly irrelevant." },
+    { k: "generic/approval mix", v: 0.002, d: "Mix of ballot vs approval in the national mood. Irrelevant." }
+  ];
+  function sensChart() {
+    var host = document.getElementById("sens-chart");
+    var W = Math.max(520, Math.min(host.clientWidth || 640, 720));
+    var rowH = 34, labelW = 178, padR = 52, padT = 6;
+    var H = SENS.length * rowH + padT + 22;
+    var plotW = W - labelW - padR;
+    var max = 0.35;
+    var aqua = tok("--aqua"), ink2 = tok("--ink-2"), ink = tok("--ink"), rule = tok("--rule");
+    var s = '<svg width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Bar chart: probability swing per governance dial">';
+    [0, 0.1, 0.2, 0.3].forEach(function (g) {
+      var x = labelW + (g / max) * plotW;
+      s += '<line x1="' + x + '" y1="' + padT + '" x2="' + x + '" y2="' + (H - 20) + '" stroke="' + rule + '" stroke-width="1"/>';
+      s += '<text x="' + x + '" y="' + (H - 6) + '" font-size="11" fill="' + ink2 + '" text-anchor="middle" font-family="ui-monospace,Menlo,monospace">' + Math.round(g * 100) + "</text>";
+    });
+    SENS.forEach(function (r, i) {
+      var y = padT + i * rowH;
+      var bw = Math.max(2, (r.v / max) * plotW);
+      s += '<text x="' + (labelW - 8) + '" y="' + (y + 21) + '" font-size="12.5" fill="' + ink + '" text-anchor="end" font-family="ui-monospace,Menlo,monospace">' + r.k + "</text>";
+      s += '<rect class="sbar" data-i="' + i + '" x="' + labelW + '" y="' + (y + 8) + '" width="' + bw + '" height="18" rx="3" fill="' + aqua + '"/>';
+      s += '<text x="' + (labelW + bw + 7) + '" y="' + (y + 21) + '" font-size="12" fill="' + ink2 + '" font-family="ui-monospace,Menlo,monospace" font-variant-numeric="tabular-nums">' + (r.v * 100).toFixed(1).replace(/\.0$/, "") + "</text>";
+      s += '<rect class="shit" data-i="' + i + '" x="0" y="' + y + '" width="' + W + '" height="' + rowH + '" fill="transparent"/>';
+    });
+    s += "</svg>";
+    host.innerHTML = s;
+    host.querySelectorAll(".shit").forEach(function (el) {
+      el.addEventListener("mousemove", function (e) {
+        var r = SENS[+el.dataset.i];
+        showTip("<b>" + r.k + "</b> · swing " + (r.v * 100).toFixed(1) + "pts<br>" + r.d, e.clientX, e.clientY);
+      });
+      el.addEventListener("mouseleave", hideTip);
+    });
+  }
+
+  /* ── Seat conversion scatter ──────────────────────────── */
+  var CYC = [
+    [1998, -1.2, 211], [2000, -0.6, 212], [2002, -4.8, 205], [2004, -2.8, 202],
+    [2006, 8.2, 233], [2008, 11.0, 257], [2010, -7.0, 193], [2012, 1.2, 201],
+    [2014, -5.8, 188], [2016, -1.2, 194], [2018, 8.8, 235], [2020, 3.2, 222],
+    [2022, -2.8, 213], [2024, -2.4, 215]
+  ];
+  var FIT = { a: 212.1, b: 3.03, sd: 8.6 }, OLD = { a: 218, b: 5.5 };
+  function seatChart() {
+    var host = document.getElementById("seat-chart");
+    var W = Math.max(520, Math.min(host.clientWidth || 640, 720)), H = 330;
+    var m = { l: 46, r: 96, t: 12, b: 34 };
+    var x0 = -9, x1 = 13, y0 = 175, y1 = 270;
+    function X(v) { return m.l + ((v - x0) / (x1 - x0)) * (W - m.l - m.r); }
+    function Y(v) { return H - m.b - ((v - y0) / (y1 - y0)) * (H - m.t - m.b); }
+    var aqua = tok("--aqua"), aquaDeep = tok("--aqua-deep"), gold = tok("--gold"),
+        goldDeep = tok("--gold-deep"), ink = tok("--ink"), ink2 = tok("--ink-2"),
+        rule = tok("--rule"), card = tok("--card");
+    var s = '<svg width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Scatter: House seats vs national vote margin with fitted and legacy conversion lines">';
+    [180, 200, 220, 240, 260].forEach(function (g) {
+      s += '<line x1="' + m.l + '" y1="' + Y(g) + '" x2="' + (W - m.r) + '" y2="' + Y(g) + '" stroke="' + rule + '" stroke-width="1"/>';
+      s += '<text x="' + (m.l - 7) + '" y="' + (Y(g) + 4) + '" font-size="11" fill="' + ink2 + '" text-anchor="end" font-family="ui-monospace,Menlo,monospace">' + g + "</text>";
+    });
+    [-8, -4, 0, 4, 8, 12].forEach(function (g) {
+      s += '<text x="' + X(g) + '" y="' + (H - 12) + '" font-size="11" fill="' + ink2 + '" text-anchor="middle" font-family="ui-monospace,Menlo,monospace">' + (g > 0 ? "D+" + g : g < 0 ? "R+" + (-g) : "even") + "</text>";
+    });
+    s += '<line x1="' + X(0) + '" y1="' + m.t + '" x2="' + X(0) + '" y2="' + (H - m.b) + '" stroke="' + ink2 + '" stroke-width="1" stroke-dasharray="2 3" opacity="0.55"/>';
+    s += '<line x1="' + m.l + '" y1="' + Y(218) + '" x2="' + (W - m.r) + '" y2="' + Y(218) + '" stroke="' + ink2 + '" stroke-width="1" stroke-dasharray="2 3" opacity="0.55"/>';
+    s += '<text x="' + (W - m.r - 4) + '" y="' + (Y(218) - 5) + '" font-size="10.5" fill="' + ink2 + '" text-anchor="end">218 = majority</text>';
+    // residual band around fit
+    function fy(x) { return FIT.a + FIT.b * x; }
+    s += '<path d="M' + X(x0) + " " + Y(fy(x0) + 1.282 * FIT.sd) + " L" + X(x1) + " " + Y(fy(x1) + 1.282 * FIT.sd) +
+         " L" + X(x1) + " " + Y(fy(x1) - 1.282 * FIT.sd) + " L" + X(x0) + " " + Y(fy(x0) - 1.282 * FIT.sd) +
+         ' Z" fill="' + aqua + '" opacity="0.13"/>';
+    // old line — clip where it exits the top of the plot (218 + 5.5x = y1)
+    var oldXExit = Math.min(x1, (y1 - OLD.a) / OLD.b);
+    s += '<line x1="' + X(x0) + '" y1="' + Y(OLD.a + OLD.b * x0) + '" x2="' + X(oldXExit) + '" y2="' + Y(OLD.a + OLD.b * oldXExit) + '" stroke="' + gold + '" stroke-width="2" stroke-dasharray="6 5"/>';
+    // fitted line
+    s += '<line x1="' + X(x0) + '" y1="' + Y(fy(x0)) + '" x2="' + X(x1) + '" y2="' + Y(fy(x1)) + '" stroke="' + aqua + '" stroke-width="2.5"/>';
+    // direct labels — old label sits along the visible part of its line
+    s += '<text x="' + (X(x1) + 6) + '" y="' + (Y(fy(x1)) + 4) + '" font-size="12" font-weight="650" fill="' + aquaDeep + '">fitted 3.03/pt</text>';
+    s += '<text x="' + (X(oldXExit) + 5) + '" y="' + (Y(OLD.a + OLD.b * oldXExit) + 12) + '" font-size="12" font-weight="650" fill="' + goldDeep + '">old 5.5/pt</text>';
+    // points
+    CYC.forEach(function (c, i) {
+      var cx = X(c[1]), cy = Y(c[2]);
+      s += '<circle cx="' + cx + '" cy="' + cy + '" r="5" fill="' + ink + '" stroke="' + card + '" stroke-width="2"/>';
+      if (c[0] === 2008 || c[0] === 2010 || c[0] === 2018 || c[0] === 2024) {
+        s += '<text x="' + cx + '" y="' + (cy - 10) + '" font-size="10.5" fill="' + ink2 + '" text-anchor="middle" font-family="ui-monospace,Menlo,monospace">' + c[0] + "</text>";
+      }
+      s += '<circle class="chit" data-i="' + i + '" cx="' + cx + '" cy="' + cy + '" r="13" fill="transparent"/>';
+    });
+    s += "</svg>";
+    host.innerHTML = s;
+    host.querySelectorAll(".chit").forEach(function (el) {
+      el.addEventListener("mousemove", function (e) {
+        var c = CYC[+el.dataset.i];
+        var mgn = c[1] > 0 ? "D+" + c[1].toFixed(1) : c[1] < 0 ? "R+" + (-c[1]).toFixed(1) : "even";
+        showTip("<b>" + c[0] + "</b><br>national two-party margin " + mgn + "<br>Democrats won <b>" + c[2] + "</b> seats", e.clientX, e.clientY);
+      });
+      el.addEventListener("mouseleave", hideTip);
+    });
+  }
+
+  render();
+
+  /* ── Live hydration ───────────────────────────────────────
+     When this page is served from the site itself (next to /data/), the
+     headline tiles update from the latest twice-daily refresh. Inside the
+     Claude artifact viewer the fetch is blocked by CSP and the page keeps
+     its committed snapshot — by design, not by accident. */
+  (async function () {
+    try {
+      var base = "data/";
+      var rsp = await Promise.all([
+        fetch(base + "senate_forecast.json"),
+        fetch(base + "approval.json"),
+        fetch(base + "meta.json"),
+      ]);
+      if (rsp.some(function (r) { return !r.ok; })) return;
+      var f = await rsp[0].json(), a = await rsp[1].json(), m = await rsp[2].json();
+      if (f.dem_control_prob != null)
+        document.getElementById("live-control").textContent = (f.dem_control_prob * 100).toFixed(1);
+      if (a.current && a.current.approve != null)
+        document.getElementById("live-approval").textContent = a.current.approve.toFixed(1);
+      var stamp = document.getElementById("live-stamp");
+      stamp.textContent = "● live — headline tiles show the latest refresh (" +
+        String(m.last_updated).slice(0, 16).replace("T", " ") + " UTC, " +
+        (m.poll_counts ? m.poll_counts.approval + " approval polls" : "current feed") + ")";
+      stamp.hidden = false;
+    } catch (e) { /* static snapshot stands */ }
+  })();
+
+  new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+  if (mq.addEventListener) mq.addEventListener("change", render);
+  window.addEventListener("resize", function () { clearTimeout(window.__rt); window.__rt = setTimeout(render, 150); });
+})();
+</script>
+</html>

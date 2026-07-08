@@ -2,7 +2,8 @@
 
 Methodology:
     1. Recency weighting      — exponential decay (configurable half-life)
-    2. Pollster quality        — from pollster_ratings.json (0–3 scale)
+    2. Pollster quality        — Silver Bulletin PPM-derived (0–3 scale);
+                                 see src/data/pollster_ratings.py
     3. Sample size adjustment  — sqrt scaling
     4. Population screen       — LV > RV > Adults
     5. Partisan penalty        — downweight partisan-sponsored polls
@@ -22,6 +23,7 @@ import numpy as np
 
 from config.settings import Settings
 from src.data.base import Poll, PollType, Population
+from src.data.pollster_ratings import _UNKNOWN_DEFAULT
 
 
 @dataclass
@@ -112,12 +114,17 @@ class PollingAverageEngine:
 
     @staticmethod
     def _load_pollster_ratings() -> dict[str, float]:
-        """Load pollster ratings from config/pollster_ratings.json."""
-        path = Path(__file__).resolve().parent.parent.parent / "config" / "pollster_ratings.json"
-        if path.exists():
-            data = json.loads(path.read_text())
-            return data.get("ratings", {})
-        return {}
+        """Default ratings: the PPM-derived pool from src/data/pollster_ratings.
+
+        Single source of truth with the production entrypoints (run_models /
+        export_json build their ratings the same way), so engines constructed
+        bare — e.g. by the training evaluator — score polls on the same quality
+        scale production uses. config/pollster_ratings.json is a generated
+        snapshot of this pool, kept for external readers.
+        """
+        from src.data.pollster_ratings import build_ratings_dict
+
+        return build_ratings_dict()
 
     def compute_average(
         self,
@@ -227,9 +234,11 @@ class PollingAverageEngine:
         age_days = max(0, (as_of - poll.midpoint_date).days)
         w *= math.exp(-math.log(2) * age_days / p.recency_half_life_days)
 
-        # 2. Pollster quality (0–3 scale, default 1.5 for unknown)
+        # 2. Pollster quality (0–3 scale). Unknown pollsters get the
+        # survivorship-adjusted 25th-percentile default (~1.41), matching the
+        # documented ratings policy (METHODOLOGY_REVIEW.md, Error 2 note).
         # Exponent is trainable: >1 amplifies quality differences, <1 flattens them
-        rating = self.pollster_ratings.get(poll.pollster, 1.5)
+        rating = self.pollster_ratings.get(poll.pollster, _UNKNOWN_DEFAULT)
         w *= (rating / 3.0) ** p.pollster_quality_exponent
 
         # 3. Sample size — trainable exponent (default 0.5 = sqrt)

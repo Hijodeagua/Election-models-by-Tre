@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 class EvaluationResult:
     """Summary metrics for a parameter set evaluated on training races."""
 
-    rmse: float              # root mean squared error of vote share prediction
+    rmse: float              # RMSE of the two-party Dem share prediction
     mae: float               # mean absolute error
     mean_error: float        # signed bias (positive = model overestimates Dems)
     win_accuracy: float      # % of races where model correctly predicts winner
@@ -82,16 +82,24 @@ class PollingAverageEvaluator:
             if not result.averages:
                 continue
 
-            # Find predicted dem share
-            pred_dem = _find_dem_share(result.averages, race.dem_candidate)
-            if pred_dem is None:
+            # Find predicted dem/rep shares (raw poll percentages)
+            pred_dem = _find_share(result.averages, race.dem_candidate, _DEM_LABELS)
+            pred_rep = _find_share(result.averages, race.rep_candidate, _REP_LABELS)
+            if pred_dem is None or pred_rep is None or pred_dem + pred_rep <= 0:
                 continue
 
-            error = pred_dem - race.dem_two_party_share
+            # Two-party-normalize the prediction before comparing to the
+            # two-party actual. Raw poll shares carry undecided/third-party
+            # (typically 4–10pp), so differencing them against a two-party
+            # result bakes a systematic negative bias into the objective.
+            pred_dem_2p = pred_dem / (pred_dem + pred_rep) * 100.0
+
+            error = pred_dem_2p - race.dem_two_party_share
             errors.append(error)
 
-            # Win prediction: Dem wins if predicted dem share > 50
-            predicted_winner = "D" if pred_dem > 50 else "R"
+            # Win prediction on the two-party share: a raw 48–44 lead is a
+            # predicted win, which the old `raw > 50` rule miscounted.
+            predicted_winner = "D" if pred_dem_2p > 50 else "R"
             correct_winner.append(predicted_winner == race.winner_party)
 
         if not errors:
@@ -111,10 +119,14 @@ class PollingAverageEvaluator:
         )
 
 
+_DEM_LABELS = ("Democrat", "Democratic", "DEM", "D")
+_REP_LABELS = ("Republican", "GOP", "REP", "R")
+
+
 def _dem_choices(race: TrainingRace) -> list[str]:
     """Get candidate name variants for the Dem candidate in this race."""
     if not race.dem_candidate:
-        return ["Democrat", "Democratic", "DEM", "D"]
+        return list(_DEM_LABELS)
     last = race.dem_candidate.split()[-1]
     return [race.dem_candidate, last, "Democrat", "DEM", "D"]
 
@@ -122,25 +134,27 @@ def _dem_choices(race: TrainingRace) -> list[str]:
 def _rep_choices(race: TrainingRace) -> list[str]:
     """Get candidate name variants for the Rep candidate."""
     if not race.rep_candidate:
-        return ["Republican", "GOP", "REP", "R"]
+        return list(_REP_LABELS)
     last = race.rep_candidate.split()[-1]
     return [race.rep_candidate, last, "Republican", "GOP", "REP", "R"]
 
 
-def _find_dem_share(averages: dict[str, float], dem_candidate: str) -> float | None:
-    """Find the Dem candidate's share in an averages dict."""
+def _find_share(
+    averages: dict[str, float], candidate: str, party_labels: tuple[str, ...]
+) -> float | None:
+    """Find a candidate's share in an averages dict (name, surname, then party)."""
     # Try exact match first
-    if dem_candidate and dem_candidate in averages:
-        return averages[dem_candidate]
+    if candidate and candidate in averages:
+        return averages[candidate]
 
     # Try last name
-    if dem_candidate:
-        last = dem_candidate.split()[-1]
+    if candidate:
+        last = candidate.split()[-1]
         if last in averages:
             return averages[last]
 
     # Try party labels
-    for label in ("Democrat", "Democratic", "DEM", "D"):
+    for label in party_labels:
         if label in averages:
             return averages[label]
 

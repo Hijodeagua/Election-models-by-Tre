@@ -1,0 +1,23 @@
+{
+  "_meta": {
+    "description": "National House results by cycle: Democratic share of the two-party vote and Democratic seats won. Inputs to scripts/fit_seat_conversion.py.",
+    "source": "Compiled from public records (Clerk of the U.S. House official election statistics). Vote shares are two-party (D/(D+R)); seat counts are seats won in the November general. Verify against the Clerk's statistics when appending a new cycle.",
+    "caveat": "dem_two_party_pct values are rounded to 0.1pp from published national totals; treat as accurate to ~0.2pp."
+  },
+  "cycles": [
+    {"year": 1998, "dem_two_party_pct": 49.4, "dem_seats": 211},
+    {"year": 2000, "dem_two_party_pct": 49.7, "dem_seats": 212},
+    {"year": 2002, "dem_two_party_pct": 47.6, "dem_seats": 205},
+    {"year": 2004, "dem_two_party_pct": 48.6, "dem_seats": 202},
+    {"year": 2006, "dem_two_party_pct": 54.1, "dem_seats": 233},
+    {"year": 2008, "dem_two_party_pct": 55.5, "dem_seats": 257},
+    {"year": 2010, "dem_two_party_pct": 46.5, "dem_seats": 193},
+    {"year": 2012, "dem_two_party_pct": 50.6, "dem_seats": 201},
+    {"year": 2014, "dem_two_party_pct": 47.1, "dem_seats": 188},
+    {"year": 2016, "dem_two_party_pct": 49.4, "dem_seats": 194},
+    {"year": 2018, "dem_two_party_pct": 54.4, "dem_seats": 235},
+    {"year": 2020, "dem_two_party_pct": 51.6, "dem_seats": 222},
+    {"year": 2022, "dem_two_party_pct": 48.6, "dem_seats": 213},
+    {"year": 2024, "dem_two_party_pct": 48.8, "dem_seats": 215}
+  ]
+}

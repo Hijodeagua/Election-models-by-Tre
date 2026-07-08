@@ -26,7 +26,7 @@ from dataclasses import dataclass
 from datetime import date, datetime
 from pathlib import Path
 
-from src.data.base import Poll, PollAnswer, PollType, Population
+from src.data.base import Poll, PollAnswer, PollType, Population, dedupe_polls
 
 _FILENAME_TO_TYPE: dict[str, PollType] = {
     "approval": PollType.APPROVAL,
@@ -92,7 +92,9 @@ class CsvFallbackSource:
             pulled_at=pulled_at,
             source_label=source_label or path.name,
         )
-        return polls, meta
+        # Canonical dedup rule (audit Finding 6): one poll per pollster +
+        # subject + overlapping field window, preferring LV releases.
+        return dedupe_polls(polls), meta
 
     def available(self) -> list[PollType]:
         """Return poll types that have a fallback file present."""

@@ -324,11 +324,39 @@ def calibrate(
             }
         )
 
+    # ── Tail comparison: Gaussian vs variance-matched Student-t ─────────────
+    # Scores the same fitted bias/sigma under fat-tailed error, to ground the
+    # tail_dof knob in evidence rather than taste (audit item 8). The t draws
+    # are variance-matched (scale = σ·√((ν−2)/ν)) so only tail shape varies.
+    from scipy.stats import t as student_t
+
+    margins_arr = np.array([r["poll_margin"] for r in rows])
+    clip = lambda p: np.clip(p, 1e-6, 1 - 1e-6)  # noqa: E731
+
+    def _scores(p: np.ndarray) -> dict[str, float]:
+        p = clip(p)
+        return {
+            "brier": round(float(np.mean((p - actual) ** 2)), 4),
+            "log_loss": round(
+                float(-np.mean(actual * np.log(p) + (1 - actual) * np.log(1 - p))), 4
+            ),
+        }
+
+    tail_comparison: dict[str, dict[str, float]] = {
+        "gaussian": _scores(norm.cdf((margins_arr + bias) / total_sigma))
+    }
+    for dof in (10, 7, 5, 3):
+        scale = total_sigma * np.sqrt((dof - 2) / dof)
+        tail_comparison[f"t{dof}"] = _scores(
+            student_t.cdf((margins_arr + bias) / scale, df=dof)
+        )
+
     logger.info(
         "Fitted: bias=%+.2f  national_sigma=%.2f  race_sigma=%.2f  total_sigma=%.2f",
         bias, national_sigma, race_sigma, total_sigma,
     )
     logger.info("Validation: win_accuracy=%.1f%%  brier=%.3f", win_acc * 100, brier)
+    logger.info("Tail comparison: %s", tail_comparison)
 
     return {
         "usable": len(rows) >= MIN_RACES_FOR_USE,
@@ -349,6 +377,7 @@ def calibrate(
         "cross_office_state_bias": cross_office,
         "win_accuracy": round(win_acc, 4),
         "brier_score": round(brier, 4),
+        "tail_comparison": tail_comparison,
         "reliability": reliability,
         "default_national_sigma": DEFAULT_NATIONAL_SIGMA,
         "default_race_sigma": DEFAULT_RACE_SIGMA,

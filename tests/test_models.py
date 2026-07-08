@@ -168,3 +168,85 @@ class TestPollingAverageEngine:
         # Should auto-detect Approve and Disapprove as choices
         assert "Approve" in result.averages
         assert "Disapprove" in result.averages
+
+
+# ── PresidentialApprovalModel subject screen ──────────────────────────
+
+
+class TestPresidentialApprovalSubjectFilter:
+    def test_non_presidential_subjects_excluded(self):
+        """Congress/Supreme Court/VP approval polls arrive with the same
+        PollType.APPROVAL and must not leak into the presidential average."""
+        from dataclasses import replace
+        from src.models.approval import PresidentialApprovalModel
+
+        trump = [
+            make_poll(poll_id=f"t{i}", pollster=f"Pollster {i}", approve=40.0, disapprove=55.0)
+            for i in range(5)
+        ]
+        congress = [
+            replace(p, poll_id=f"c{i}", subject="Congress",
+                    answers=[PollAnswer("Approve", 15.0), PollAnswer("Disapprove", 70.0)])
+            for i, p in enumerate(trump)
+        ]
+        model = PresidentialApprovalModel(engine=PollingAverageEngine(pollster_ratings={}))
+        snap = model.current_approval(trump + congress)
+        assert snap is not None
+        assert snap.num_polls == 5
+        assert abs(snap.approve - 40.0) < 0.2  # Congress's 15% never mixed in
+
+    def test_blank_subject_passes_for_legacy_feeds(self):
+        from dataclasses import replace
+        from src.models.approval import PresidentialApprovalModel
+
+        legacy = [
+            replace(
+                make_poll(poll_id=f"l{i}", pollster=f"Pollster {i}"),
+                subject="",
+            )
+            for i in range(5)
+        ]
+        model = PresidentialApprovalModel(engine=PollingAverageEngine(pollster_ratings={}))
+        snap = model.current_approval(legacy)
+        assert snap is not None
+        assert snap.num_polls == 5
+
+
+# ── Generic ballot seat conversion (fitted, audit item 8) ─────────────
+
+
+class TestSeatConversionFit:
+    def test_model_loads_fitted_conversion(self):
+        """With config/seat_conversion.json present, the model uses the
+        empirical slope/baseline, not the old hand-set 5.5/218."""
+        import json
+        from pathlib import Path
+        from src.models.generic_ballot import GenericBallotModel
+
+        fitted = json.loads(
+            (Path(__file__).parent.parent / "config" / "seat_conversion.json").read_text()
+        )
+        model = GenericBallotModel(engine=PollingAverageEngine(pollster_ratings={}))
+        assert model.seats_per_margin_point == fitted["seats_per_margin_point"]
+        assert model.baseline_dem_seats == round(fitted["baseline_dem_seats"])
+        assert model.seat_resid_sd == fitted["resid_sd_seats"]
+
+    def test_explicit_args_override_fit(self):
+        from src.models.generic_ballot import GenericBallotModel
+
+        model = GenericBallotModel(
+            engine=PollingAverageEngine(pollster_ratings={}),
+            seats_per_margin_point=5.5, baseline_dem_seats=218,
+        )
+        assert model.seats_per_margin_point == 5.5
+        assert model.baseline_dem_seats == 218
+
+    def test_seat_estimate_carries_uncertainty_band(self):
+        from src.models.generic_ballot import GenericBallotModel
+
+        model = GenericBallotModel(engine=PollingAverageEngine(pollster_ratings={}))
+        est, lo, hi = model._seat_estimate(margin=4.0)
+        assert lo is not None and hi is not None
+        assert lo < est < hi
+        # 80% band from resid SD ≈ ±1.282σ
+        assert (hi - lo) >= 2 * model.seat_resid_sd

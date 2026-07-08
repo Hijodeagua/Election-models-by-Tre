@@ -23,7 +23,7 @@ import re
 from datetime import date
 from pathlib import Path
 
-from src.data.base import Poll, PollAnswer, PollType, Population
+from src.data.base import Poll, PollAnswer, PollType, Population, dedupe_polls
 
 _MONTH_MAP = {
     "Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4, "May": 5, "Jun": 6,
@@ -240,7 +240,10 @@ class VoteHubCsvLoader:
                 raw={"grade": grade},
             ))
 
-        return polls
+        # Canonical dedup rule: collapse multi-population releases of the same
+        # fieldwork and overlapping tracking-poll windows (audit Finding 6),
+        # so no pollster is silently over-weighted in the averages.
+        return dedupe_polls(polls)
 
 
 def _normalize_approval_choice(raw: str) -> str:
