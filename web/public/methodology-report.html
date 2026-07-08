@@ -142,7 +142,7 @@
     <p class="eyebrow">Policy y Peaches · Election Oracle</p>
     <h1>Methodology audit &amp; upgrade report</h1>
     <p class="dek">Seven claimed defects verified against the code, five correctness bugs fixed, and four structural upgrades shipped — with every number below reproduced from the live pipeline.</p>
-    <p class="meta mono">July 2026 · branch claude/election-forecast-audit-vnu3ty · 232 tests passing</p>
+    <p class="meta mono">July 2026 · updated Jul 8 after merging main's data refreshes · PR #15 · 232 tests passing</p>
   </header>
 
   <section aria-label="Operational status">
@@ -164,8 +164,8 @@
       </div>
       <div class="tile">
         <div class="lbl">P(Dem Senate control)</div>
-        <div class="val"><span class="old">28.7</span> <span class="arr">→</span> 25.7<span style="font-size:15px; color:var(--ink-3);">%</span></div>
-        <div class="why">After the corrected inputs and fat-tailed error model that wins the historical backtest. Includes the July 7 poll refresh merged from main.</div>
+        <div class="val"><span class="old">28.7</span> <span class="arr">→</span> 27.6<span style="font-size:15px; color:var(--ink-3);">%</span></div>
+        <div class="why">Corrected inputs + the fat-tailed error model that wins the historical backtest, on the latest merged data (Jul 7 23:01 UTC refresh). Like-for-like on the audit-day snapshot the methodology change alone was 28.7 → 25.5.</div>
       </div>
       <div class="tile">
         <div class="lbl">Seats per ballot point</div>
@@ -274,6 +274,7 @@
           <tr><td class="num">f27dc21</td><td><b>Five correctness fixes</b> — the training scorekeeper, the dueling grade books, the fabricated opposition numbers, poll dedup, and the Congress-polls-in-presidential-approval leak found along the way. Approval corrected 37.9 → 39.8.</td></tr>
           <tr><td class="num">cd90b93</td><td><b>Four structural upgrades</b> — state-space to the production path, the gated CV training protocol + CI workflow, the seven-dial sensitivity sweep, and backtested t(5) tails + the fitted seat curve.</td></tr>
           <tr><td class="num">d8640f6</td><td><b>First corrected publish.</b> The state-space fits ran end-to-end and their output is committed to the live data feed, alongside this report page.</td></tr>
+          <tr><td class="num">eadb6cd / 59b4fca</td><td><b>Two conflict resolutions.</b> Main’s twice-daily data cron kept committing over the same generated JSON files; each merge took main’s fresher polls and market odds and regenerated everything through the upgraded pipeline. This treadmill ends when PR&nbsp;#15 merges — until then, expect the PR to show conflicts again after each scheduled refresh (10:00 &amp; 22:00 UTC).</td></tr>
           <tr><td class="num">eadb6cd</td><td><b>Merged main back in.</b> The cron’s July 7 poll refresh had conflicted with our regenerated data; resolved by keeping main’s fresher polls and re-running the full upgraded pipeline on them. The branch now merges into <code>main</code> cleanly.</td></tr>
         </tbody>
       </table>
