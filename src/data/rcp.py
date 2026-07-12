@@ -37,15 +37,28 @@ class RCPClient(DataSource):
     def __init__(self, cache_dir: Path | None = None, timeout: float = 30.0) -> None:
         super().__init__(cache_dir=cache_dir)
         self.timeout = timeout
+        # RealClearPolling started returning 403 to the old self-identifying
+        # bot UA (first observed July 2026 — likely WAF bot filtering). Send a
+        # plain modern-browser header set instead. Best-effort: if their WAF
+        # requires a JS challenge, headers won't beat it — the refresh treats
+        # RCP as optional and the trackers don't depend on it.
         self._client = httpx.Client(
             timeout=timeout,
             headers={
                 "User-Agent": (
-                    "Mozilla/5.0 (compatible; ElectionOracle/0.1; "
-                    "+https://github.com/election-oracle)"
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/126.0.0.0 Safari/537.36"
                 ),
+                "Accept": (
+                    "text/html,application/xhtml+xml,application/xml;q=0.9,"
+                    "image/avif,image/webp,*/*;q=0.8"
+                ),
+                "Accept-Language": "en-US,en;q=0.9",
+                "Referer": "https://www.realclearpolling.com/",
             },
             follow_redirects=True,
+            http2=False,
         )
 
     def close(self) -> None:

@@ -37,6 +37,7 @@ export default function MethodologyPage() {
     : 'unknown';
   const pollDates = meta.last_poll_dates ?? {};
   const pollCounts = meta.poll_counts ?? {};
+  const staleFeeds: string[] = meta.stale_feeds ?? [];
   const feeds = Object.keys(POLL_LABELS);
 
   return (
@@ -103,8 +104,11 @@ export default function MethodologyPage() {
       <H>Data &amp; refresh</H>
       <P>
         Polling data is refreshed by a scheduled job that runs the model pipeline
-        and publishes static JSON. The heavier hierarchical state-space estimates
-        are intentionally excluded from the published data for performance reasons.
+        twice a day and publishes static JSON — including the hierarchical
+        state-space estimates (house-effect-corrected approval and generic
+        ballot). If a primary feed stops delivering new polls for more than 72
+        hours, the pipeline tops it up from Wikipedia&rsquo;s national polling
+        tables and flags the feed below.
       </P>
 
       <div className="mb-4 overflow-hidden rounded-xl border border-cream-300 bg-white">
@@ -125,6 +129,11 @@ export default function MethodologyPage() {
                 </td>
                 <td className="px-4 py-3 text-right text-cocoa-700">
                   {fmtDate(pollDates[key])}
+                  {staleFeeds.includes(key) && (
+                    <span className="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-800">
+                      stale
+                    </span>
+                  )}
                 </td>
               </tr>
             ))}

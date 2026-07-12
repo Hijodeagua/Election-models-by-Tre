@@ -215,7 +215,6 @@ class TestStudentTTails:
     def test_variance_matched_to_calibrated_sigma(self):
         """t draws must keep the calibrated error variance, so the sigmas
         retain their empirical meaning."""
-        import numpy as np
         from src.models.senate_simulation import RaceInput
         race = RaceInput(state="X", race="X Senate", dem_candidate="D",
                          rep_candidate="R", margin=0.0, num_polls=5)

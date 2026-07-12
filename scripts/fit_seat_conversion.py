@@ -84,7 +84,7 @@ def main() -> None:
     print(f"  seats = {intercept:.1f} (±{intercept_se:.1f}) "
           f"+ {slope:.2f} (±{slope_se:.2f}) × margin")
     print(f"  residual SD = {resid_sd:.1f} seats, R² = {r2:.3f}")
-    print(f"  (old hand-set values: 218 + 5.5 × margin, no uncertainty)")
+    print("  (old hand-set values: 218 + 5.5 × margin, no uncertainty)")
     print(f"Wrote {OUTPUT_PATH.relative_to(PROJECT_ROOT)}")
 
 

@@ -178,6 +178,7 @@ class TestPresidentialApprovalSubjectFilter:
         """Congress/Supreme Court/VP approval polls arrive with the same
         PollType.APPROVAL and must not leak into the presidential average."""
         from dataclasses import replace
+
         from src.models.approval import PresidentialApprovalModel
 
         trump = [
@@ -197,6 +198,7 @@ class TestPresidentialApprovalSubjectFilter:
 
     def test_blank_subject_passes_for_legacy_feeds(self):
         from dataclasses import replace
+
         from src.models.approval import PresidentialApprovalModel
 
         legacy = [
@@ -221,6 +223,7 @@ class TestSeatConversionFit:
         empirical slope/baseline, not the old hand-set 5.5/218."""
         import json
         from pathlib import Path
+
         from src.models.generic_ballot import GenericBallotModel
 
         fitted = json.loads(

@@ -167,10 +167,13 @@ def parse_polling_tables(
     Pure function (no network) so it can be unit-tested against a fixture.
     """
     try:
+        # flavor pinned to lxml: without it, a no-tables page makes pandas
+        # fall back to html5lib and raise ImportError instead of ValueError.
         tables = pd.read_html(
-            StringIO(html), match=re.compile("administered|conducted", re.I)
+            StringIO(html), match=re.compile("administered|conducted", re.I),
+            flavor="lxml",
         )
-    except ValueError:
+    except (ValueError, ImportError):
         logger.info("  %s: no polling table found in article", race)
         return []
 

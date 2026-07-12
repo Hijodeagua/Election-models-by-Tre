@@ -225,6 +225,8 @@ export interface Meta {
   model_versions: Record<string, string>;
   poll_counts: Record<string, number>;
   last_poll_dates?: Record<string, string | null>;
+  // Feeds whose newest poll is >3 days old at export time (see export_json.py).
+  stale_feeds?: string[];
 }
 
 function read<T>(file: string, fallback: T): T {
