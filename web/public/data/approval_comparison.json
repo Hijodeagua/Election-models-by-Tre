@@ -6,14 +6,6 @@
       "available": true,
       "series": [
         {
-          "as_of": "2025-11-13",
-          "approve": 42.6,
-          "disapprove": 54.2,
-          "net": -11.6,
-          "lo": 42.1,
-          "hi": 43.1
-        },
-        {
           "as_of": "2025-11-14",
           "approve": 42.4,
           "disapprove": 54.4,
@@ -1919,19 +1911,27 @@
         },
         {
           "as_of": "2026-07-10",
-          "approve": 39.8,
+          "approve": 39.6,
           "disapprove": 57.6,
-          "net": -17.8,
-          "lo": 39.3,
-          "hi": 40.4
+          "net": -18.0,
+          "lo": 39.1,
+          "hi": 40.1
         },
         {
           "as_of": "2026-07-11",
-          "approve": 39.8,
+          "approve": 39.6,
           "disapprove": 57.6,
-          "net": -17.8,
-          "lo": 39.3,
-          "hi": 40.4
+          "net": -18.0,
+          "lo": 39.1,
+          "hi": 40.1
+        },
+        {
+          "as_of": "2026-07-12",
+          "approve": 39.6,
+          "disapprove": 57.6,
+          "net": -18.0,
+          "lo": 39.1,
+          "hi": 40.1
         }
       ]
     },
@@ -1940,12 +1940,6 @@
       "description": "Silver Bulletin's published daily approval model.",
       "available": true,
       "series": [
-        {
-          "as_of": "2025-11-13",
-          "approve": 41.26,
-          "disapprove": 54.96,
-          "net": -13.7
-        },
         {
           "as_of": "2025-11-14",
           "approve": 41.41,
@@ -3201,13 +3195,6 @@
       "description": "Unweighted 14-day trailing mean of VoteHub approval polls.",
       "available": true,
       "series": [
-        {
-          "as_of": "2025-11-13",
-          "approve": 41.8,
-          "disapprove": 55.3,
-          "net": -13.5,
-          "num_polls": 20
-        },
         {
           "as_of": "2025-11-14",
           "approve": 41.52,
@@ -4876,10 +4863,24 @@
         },
         {
           "as_of": "2026-07-10",
-          "approve": 42.0,
-          "disapprove": 55.5,
-          "net": -13.5,
-          "num_polls": 2
+          "approve": 39.64,
+          "disapprove": 57.27,
+          "net": -17.64,
+          "num_polls": 11
+        },
+        {
+          "as_of": "2026-07-11",
+          "approve": 39.11,
+          "disapprove": 57.67,
+          "net": -18.56,
+          "num_polls": 9
+        },
+        {
+          "as_of": "2026-07-12",
+          "approve": 39.11,
+          "disapprove": 57.67,
+          "net": -18.56,
+          "num_polls": 9
         }
       ]
     },
