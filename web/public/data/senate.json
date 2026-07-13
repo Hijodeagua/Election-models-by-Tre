@@ -2,7 +2,7 @@
   "races": [
     {
       "state": "Alaska",
-      "as_of": "2026-07-12",
+      "as_of": "2026-07-13",
       "candidates": {
         "Mary Peltola": 46.0,
         "Dan Sullivan": 41.0
@@ -154,7 +154,7 @@
     },
     {
       "state": "Georgia",
-      "as_of": "2026-07-12",
+      "as_of": "2026-07-13",
       "candidates": {
         "Jon Ossoff": 50.1,
         "Mike Collins": 43.0
@@ -311,7 +311,7 @@
     },
     {
       "state": "Iowa",
-      "as_of": "2026-07-12",
+      "as_of": "2026-07-13",
       "candidates": {
         "Ashley Hinson": 47.0,
         "Josh Turek": 46.0
@@ -468,7 +468,7 @@
     },
     {
       "state": "Maine",
-      "as_of": "2026-07-12",
+      "as_of": "2026-07-13",
       "candidates": {
         "Susan Collins": 47.2,
         "Graham Platner": 47.3
@@ -490,7 +490,7 @@
       "market_odds": {
         "polymarket": {
           "Democrat": 0.635,
-          "Republican": 0.35
+          "Republican": 0.36
         }
       },
       "forecast": {
@@ -625,7 +625,7 @@
     },
     {
       "state": "Michigan",
-      "as_of": "2026-07-12",
+      "as_of": "2026-07-13",
       "candidates": {
         "Haley Stevens": 44.0,
         "Mike Rogers": 43.3
@@ -647,7 +647,7 @@
       "market_odds": {
         "polymarket": {
           "Democrat": 0.73,
-          "Republican": 0.265
+          "Republican": 0.26
         }
       },
       "forecast": {
@@ -782,7 +782,7 @@
     },
     {
       "state": "New Hampshire",
-      "as_of": "2026-07-12",
+      "as_of": "2026-07-13",
       "candidates": {
         "Chris Pappas": 49.6,
         "Scott Brown": 38.0
@@ -939,7 +939,7 @@
     },
     {
       "state": "North Carolina",
-      "as_of": "2026-07-12",
+      "as_of": "2026-07-13",
       "candidates": {
         "Roy Cooper": 49.8,
         "Michael Whatley": 41.2
@@ -1096,7 +1096,7 @@
     },
     {
       "state": "Ohio",
-      "as_of": "2026-07-12",
+      "as_of": "2026-07-13",
       "candidates": {
         "Sherrod Brown": 48.9,
         "Jon Husted": 47.0
@@ -1117,15 +1117,15 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.48,
+          "Democrat": 0.485,
           "Republican": 0.515
         }
       },
       "forecast": {
-        "dem_win_prob": 0.392,
-        "median_margin": -1.35,
-        "margin_p10": -8.07,
-        "margin_p90": 5.37,
+        "dem_win_prob": 0.3931,
+        "median_margin": -1.33,
+        "margin_p10": -8.06,
+        "margin_p90": 5.39,
         "num_simulations": 50000,
         "margin_hist": [
           {
@@ -1134,7 +1134,7 @@
           },
           {
             "mid": -27.0,
-            "pct": 0.00072
+            "pct": 0.0007
           },
           {
             "mid": -25.0,
@@ -1142,11 +1142,11 @@
           },
           {
             "mid": -23.0,
-            "pct": 0.00088
+            "pct": 0.0009
           },
           {
             "mid": -21.0,
-            "pct": 0.00152
+            "pct": 0.0015
           },
           {
             "mid": -19.0,
@@ -1154,7 +1154,7 @@
           },
           {
             "mid": -17.0,
-            "pct": 0.00438
+            "pct": 0.0044
           },
           {
             "mid": -15.0,
@@ -1162,47 +1162,47 @@
           },
           {
             "mid": -13.0,
-            "pct": 0.01452
+            "pct": 0.01438
           },
           {
             "mid": -11.0,
-            "pct": 0.02508
+            "pct": 0.02504
           },
           {
             "mid": -9.0,
-            "pct": 0.0423
+            "pct": 0.04194
           },
           {
             "mid": -7.0,
-            "pct": 0.075
+            "pct": 0.07478
           },
           {
             "mid": -5.0,
-            "pct": 0.11762
+            "pct": 0.11714
           },
           {
             "mid": -3.0,
-            "pct": 0.15166
+            "pct": 0.15164
           },
           {
             "mid": -1.0,
-            "pct": 0.16176
+            "pct": 0.16192
           },
           {
             "mid": 1.0,
-            "pct": 0.14364
+            "pct": 0.14368
           },
           {
             "mid": 3.0,
-            "pct": 0.10166
+            "pct": 0.10186
           },
           {
             "mid": 5.0,
-            "pct": 0.06228
+            "pct": 0.06278
           },
           {
             "mid": 7.0,
-            "pct": 0.03546
+            "pct": 0.03572
           },
           {
             "mid": 9.0,
@@ -1210,11 +1210,11 @@
           },
           {
             "mid": 11.0,
-            "pct": 0.01194
+            "pct": 0.01204
           },
           {
             "mid": 13.0,
-            "pct": 0.00746
+            "pct": 0.00742
           },
           {
             "mid": 15.0,
@@ -1222,11 +1222,11 @@
           },
           {
             "mid": 17.0,
-            "pct": 0.00202
+            "pct": 0.00206
           },
           {
             "mid": 19.0,
-            "pct": 0.00132
+            "pct": 0.0013
           },
           {
             "mid": 21.0,
@@ -1234,7 +1234,7 @@
           },
           {
             "mid": 23.0,
-            "pct": 0.00042
+            "pct": 0.00044
           },
           {
             "mid": 25.0,
@@ -1253,7 +1253,7 @@
     },
     {
       "state": "Texas",
-      "as_of": "2026-07-12",
+      "as_of": "2026-07-13",
       "candidates": {
         "James Talarico": 45.0,
         "Ken Paxton": 45.0
