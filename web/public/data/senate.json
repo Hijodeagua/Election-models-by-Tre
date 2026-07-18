@@ -176,7 +176,7 @@
       "market_odds": {
         "polymarket": {
           "Democrat": 0.855,
-          "Republican": 0.1485
+          "Republican": 0.148
         }
       },
       "forecast": {
@@ -804,7 +804,7 @@
       "market_odds": {
         "polymarket": {
           "Democrat": 0.825,
-          "Republican": 0.175
+          "Republican": 0.18
         }
       },
       "forecast": {
@@ -960,15 +960,15 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.86,
+          "Democrat": 0.865,
           "Republican": 0.145
         }
       },
       "forecast": {
-        "dem_win_prob": 0.8722,
-        "median_margin": 5.87,
-        "margin_p10": -0.87,
-        "margin_p90": 12.57,
+        "dem_win_prob": 0.8736,
+        "median_margin": 5.91,
+        "margin_p10": -0.84,
+        "margin_p90": 12.6,
         "num_simulations": 50000,
         "margin_hist": [
           {
@@ -997,99 +997,99 @@
           },
           {
             "mid": -17.0,
-            "pct": 0.00072
+            "pct": 0.0007
           },
           {
             "mid": -15.0,
-            "pct": 0.00106
+            "pct": 0.00108
           },
           {
             "mid": -13.0,
-            "pct": 0.00196
+            "pct": 0.00194
           },
           {
             "mid": -11.0,
-            "pct": 0.00366
+            "pct": 0.00358
           },
           {
             "mid": -9.0,
-            "pct": 0.0055
+            "pct": 0.00542
           },
           {
             "mid": -7.0,
-            "pct": 0.009
+            "pct": 0.00892
           },
           {
             "mid": -5.0,
-            "pct": 0.0183
+            "pct": 0.01808
           },
           {
             "mid": -3.0,
-            "pct": 0.03024
+            "pct": 0.03006
           },
           {
             "mid": -1.0,
-            "pct": 0.05582
+            "pct": 0.05508
           },
           {
             "mid": 1.0,
-            "pct": 0.0911
+            "pct": 0.09064
           },
           {
             "mid": 3.0,
-            "pct": 0.12924
+            "pct": 0.1285
           },
           {
             "mid": 5.0,
-            "pct": 0.16294
+            "pct": 0.16224
           },
           {
             "mid": 7.0,
-            "pct": 0.1607
+            "pct": 0.16164
           },
           {
             "mid": 9.0,
-            "pct": 0.12666
+            "pct": 0.12702
           },
           {
             "mid": 11.0,
-            "pct": 0.0834
+            "pct": 0.08424
           },
           {
             "mid": 13.0,
-            "pct": 0.05092
+            "pct": 0.05144
           },
           {
             "mid": 15.0,
-            "pct": 0.02842
+            "pct": 0.02866
           },
           {
             "mid": 17.0,
-            "pct": 0.01588
+            "pct": 0.01606
           },
           {
             "mid": 19.0,
-            "pct": 0.009
+            "pct": 0.00914
           },
           {
             "mid": 21.0,
-            "pct": 0.0051
+            "pct": 0.00508
           },
           {
             "mid": 23.0,
-            "pct": 0.00286
+            "pct": 0.00296
           },
           {
             "mid": 25.0,
-            "pct": 0.00246
+            "pct": 0.00238
           },
           {
             "mid": 27.0,
-            "pct": 0.0012
+            "pct": 0.00126
           },
           {
             "mid": 29.0,
-            "pct": 0.00234
+            "pct": 0.00236
           }
         ]
       }
