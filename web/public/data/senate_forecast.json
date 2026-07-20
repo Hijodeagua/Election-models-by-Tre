@@ -1,19 +1,19 @@
 {
-  "as_of": "2026-07-19",
+  "as_of": "2026-07-20",
   "num_simulations": 50000,
-  "dem_control_prob": 0.2329,
+  "dem_control_prob": 0.2331,
   "mean_dem_seats": 49.23,
   "median_dem_seats": 49.0,
   "seat_distribution": {
-    "44": 141,
-    "45": 658,
-    "46": 2033,
-    "47": 4797,
-    "48": 8993,
-    "49": 11520,
-    "50": 10215,
-    "51": 6972,
-    "52": 3557,
+    "44": 139,
+    "45": 645,
+    "46": 2026,
+    "47": 4785,
+    "48": 9003,
+    "49": 11522,
+    "50": 10227,
+    "51": 6981,
+    "52": 3558,
     "53": 1114
   },
   "races": [
@@ -93,14 +93,14 @@
       "margin": 12.46,
       "num_polls": 2,
       "dem_win_prob_polls": 0.9713,
-      "dem_win_prob_blended": 0.9347,
+      "dem_win_prob_blended": 0.9372,
       "market_dem_prob": {
-        "polymarket": 0.825
+        "polymarket": 0.835
       },
-      "dem_win_prob_sim": 0.9351,
-      "median_margin": 8.26,
-      "margin_p10": 1.51,
-      "margin_p90": 15.01
+      "dem_win_prob_sim": 0.9377,
+      "median_margin": 8.4,
+      "margin_p10": 1.65,
+      "margin_p90": 15.15
     },
     {
       "state": "Ohio",
@@ -184,7 +184,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.2329,
+  "dem_control_prob_with_vibes": 0.2331,
   "mean_dem_seats_with_vibes": 49.23,
   "national_environment": {
     "national_swing": 8.284,
