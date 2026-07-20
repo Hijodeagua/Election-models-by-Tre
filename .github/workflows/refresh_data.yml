@@ -13,9 +13,7 @@ on:
   # GITHUB_TOKEN, which never re-triggers workflows, so this cannot loop.
   # Remove this trigger when the branch merges.
   push:
-    branches:
-      - "claude/senate-forecast-updates-lfyz56"
-      - "claude/polls-not-updating-v1fltn"
+    branches: ["claude/senate-forecast-updates-lfyz56"]
     paths: ["scripts/**", "src/data/**", ".github/workflows/refresh_data.yml"]
 
 permissions:
