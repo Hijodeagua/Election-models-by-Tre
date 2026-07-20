@@ -67,6 +67,41 @@ _POP_MAP = {
     "a": Population.ADULTS,
 }
 
+# Poll-of-polls / model rows that Wikipedia lists inside the same wikitables as
+# real polls. They must never enter a feed: ingesting an average as if it were
+# a single poll double-counts and distorts the weighted average, and — worse —
+# a race article's *aggregation* table often sits ABOVE the individual-poll
+# table, so if the parser accepts its rows it stops at the aggregates and never
+# reaches the real polls (this is exactly how the Senate feed froze in July
+# 2026: "RealClearPolitics"/"270toWin" rows were accepted and the real polls
+# below them were never read).
+#
+# Patterns are deliberately specific so genuine pollsters that merely share a
+# word are kept — e.g. "RealClear Opinion Research" (a real poll) is NOT
+# "RealClearPolitics" (the RCP average), and "NewsNation/Decision Desk HQ" (a
+# real poll) is left in.
+_AGGREGATE_PATTERNS = (
+    r"\baverage\b",              # "RCP Average", "Polling average"
+    r"aggregat",                 # aggregate / aggregation
+    r"projection",
+    r"\bnowcast\b",
+    r"realclearpolitics",        # RCP poll-of-polls (keeps "RealClear Opinion Research")
+    r"real\s*clear\s*politics",
+    r"\brcp\b",
+    r"270\s*to\s*win",           # 270toWin model
+    r"race to the wh",           # "Race to the WH" / "...White House"
+    r"fivethirtyeight",
+    r"\b538\b",
+    r"silver bulletin",
+    r"split[\s-]ticket",
+)
+_AGGREGATE_RE = re.compile("|".join(_AGGREGATE_PATTERNS), re.I)
+
+
+def is_aggregate_pollster(name: str) -> bool:
+    """True for poll-of-polls / model rows that must be excluded from feeds."""
+    return bool(name) and bool(_AGGREGATE_RE.search(name))
+
 
 def article_title_for_state(state: str) -> str:
     """Default Wikipedia article title for a state's 2026 Senate race."""
@@ -154,17 +189,74 @@ def _match_column(columns: list[str], candidate: str) -> str | None:
     return None
 
 
+# Party annotation in a candidate column header, e.g. "Troy Jackson (D)",
+# "Susan Collins (R)", "Tim Walz (DFL)". Wikipedia race tables carry these on
+# the general-election matchup columns, which lets us pick "the Democrat" and
+# "the Republican" without a configured nominee name.
+_PARTY_SUFFIX_RE = re.compile(r"\(\s*(D|DFL|R)\b[^)]*\)", re.I)
+
+
+def _column_party(col: str) -> str | None:
+    """"Democrat"/"Republican" if the column header is party-annotated."""
+    m = _PARTY_SUFFIX_RE.search(col)
+    if not m:
+        return None
+    letter = m.group(1).upper()
+    if letter in ("D", "DFL"):
+        return "Democrat"
+    if letter == "R":
+        return "Republican"
+    return None
+
+
+def _candidate_name_from_column(col: str) -> str:
+    """Clean candidate name from a column header ('Troy Jackson (D)' → 'Troy
+    Jackson'), dropping the party parenthetical and any footnote markers."""
+    name = _PARTY_SUFFIX_RE.sub("", _clean(col)).strip()
+    # Drop a trailing bare parenthetical (e.g. sample-note leftovers).
+    return re.sub(r"\s*\([^)]*\)\s*$", "", name).strip()
+
+
+def _top_party_column(
+    table: pd.DataFrame, columns: list[str], party: str
+) -> str | None:
+    """Pick the leading candidate column for a party: the party-annotated
+    column with the most filled-in poll numbers (the de-facto frontrunner),
+    breaking ties by higher average share. Returns None if the party isn't
+    represented with annotated columns."""
+    candidates = [c for c in columns if _column_party(c) == party]
+    if not candidates:
+        return None
+
+    def _score(col: str) -> tuple[int, float]:
+        vals = [_parse_pct(str(v)) for v in table[col]]
+        vals = [v for v in vals if v is not None]
+        count = len(vals)
+        mean = sum(vals) / count if count else 0.0
+        return count, mean
+
+    return max(candidates, key=_score)
+
+
 def parse_polling_tables(
     html: str,
     state: str,
     race: str,
-    dem_candidate: str,
-    rep_candidate: str,
+    dem_candidate: str | None,
+    rep_candidate: str | None,
     default_year: int = 2026,
 ) -> list[Poll]:
     """Extract head-to-head polls for one race from article HTML.
 
     Pure function (no network) so it can be unit-tested against a fixture.
+
+    ``dem_candidate`` / ``rep_candidate`` name the tracked matchup. When a
+    configured name isn't a column in the table — the race has no settled
+    nominee yet, or the tracked candidate dropped out — the parser falls back
+    to the party's top (most-polled) candidate, read from Wikipedia's ``(D)`` /
+    ``(R)`` column annotations. Pass ``None`` to always auto-pick that party's
+    frontrunner. Extracted answers are tagged with their party so downstream
+    code can find "the Democrat" without the nominee's name.
     """
     try:
         # flavor pinned to lxml: without it, a no-tables page makes pandas
@@ -194,9 +286,21 @@ def parse_polling_tables(
             (c for c in columns if "poll" in c.lower() and "source" in c.lower()),
             columns[0] if columns else None,
         )
-        dem_col = _match_column(columns, dem_candidate)
-        rep_col = _match_column(columns, rep_candidate)
-        if not (date_col and dem_col and rep_col):
+        # Resolve each side to a column: the configured candidate if present,
+        # otherwise the party's top-polled candidate from the (D)/(R) columns.
+        dem_col = _match_column(columns, dem_candidate) if dem_candidate else None
+        dem_name = dem_candidate
+        if dem_col is None:
+            dem_col = _top_party_column(table, columns, "Democrat")
+            dem_name = _candidate_name_from_column(dem_col) if dem_col else None
+
+        rep_col = _match_column(columns, rep_candidate) if rep_candidate else None
+        rep_name = rep_candidate
+        if rep_col is None:
+            rep_col = _top_party_column(table, columns, "Republican")
+            rep_name = _candidate_name_from_column(rep_col) if rep_col else None
+
+        if not (date_col and dem_col and rep_col and dem_name and rep_name):
             logger.info(
                 "  %s: skipping a table (cols=%s; dem=%s rep=%s)",
                 race, columns, dem_col, rep_col,
@@ -207,8 +311,10 @@ def parse_polling_tables(
 
         for idx, row in table.iterrows():
             pollster = _clean(row.get(poll_col, ""))
-            # Skip aggregate / non-poll rows.
-            if not pollster or re.search(r"average|aggregate|projection", pollster, re.I):
+            # Skip aggregate / non-poll rows. Dropping these also lets the loop
+            # fall through an aggregation table to the real individual-poll
+            # table below it, instead of stopping on the aggregates.
+            if not pollster or is_aggregate_pollster(pollster):
                 continue
             dates = parse_dates(str(row.get(date_col, "")), default_year)
             dem_pct = _parse_pct(str(row.get(dem_col, "")))
@@ -231,8 +337,8 @@ def parse_polling_tables(
                     sample_size=sample_size,
                     population=population,
                     answers=[
-                        PollAnswer(choice=dem_candidate, pct=dem_pct),
-                        PollAnswer(choice=rep_candidate, pct=rep_pct),
+                        PollAnswer(choice=dem_name, pct=dem_pct, party="Democrat"),
+                        PollAnswer(choice=rep_name, pct=rep_pct, party="Republican"),
                     ],
                 )
             )
@@ -271,8 +377,8 @@ class WikipediaSenateSource(DataSource):
         self,
         state: str,
         race: str,
-        dem_candidate: str,
-        rep_candidate: str,
+        dem_candidate: str | None,
+        rep_candidate: str | None,
         article: str | None = None,
         default_year: int = 2026,
     ) -> list[Poll]:

@@ -46,6 +46,7 @@ from src.data.fiftyplusone import FiftyPlusOneApprovalCsvLoader
 from src.data.markets import SENATE_CONTROL_RACE, MarketOddsCsvSource, odds_for_race
 from src.data.silverb_csv import SilverBulletinApprovalLoader
 from src.data.votehub_csv import VoteHubCsvLoader
+from src.data.wikipedia_senate import is_aggregate_pollster
 from src.models.approval import PresidentialApprovalModel
 from src.models.generic_ballot import (
     GENERIC_BALLOT_CHOICES,
@@ -102,12 +103,20 @@ def _load_polls(poll_type: PollType, votehub_filename: str) -> list[Poll]:
         try:
             polls = VoteHubCsvLoader(poll_type).load(vh_path)
             if polls:
-                return polls
+                return _drop_aggregates(polls)
         except Exception as exc:  # pragma: no cover - defensive
             logging.warning("%s load failed: %s", votehub_filename, exc)
     source = CsvFallbackSource(FALLBACK_DIR)
     polls, _meta = source.load(poll_type)
-    return polls
+    return _drop_aggregates(polls)
+
+
+def _drop_aggregates(polls: list[Poll]) -> list[Poll]:
+    """Exclude poll-of-polls / model rows (RealClearPolitics, 270toWin, RCP
+    Average, …) so they never enter the weighted average or the reported
+    last-poll date. Ingesting an average as a single poll double-counts and,
+    because these rows carry wide date ranges, makes a stalled feed look fresh."""
+    return [p for p in polls if not is_aggregate_pollster(p.pollster)]
 
 
 # ── State-space (Jackman) estimates — opt-in via --state-space ────────────────
@@ -435,17 +444,55 @@ def _dem_rep_margin(
 ) -> float | None:
     """Dem − Rep margin from a race's candidate averages (name-tolerant)."""
 
-    def _find(target: str) -> float | None:
-        for name, pct in candidates.items():
-            if target.lower() in name.lower() or name.lower() in target.lower():
-                return pct
-        return None
-
-    dem = _find(dem_candidate)
-    rep = _find(rep_candidate)
+    dem = _find_candidate_pct(candidates, dem_candidate)
+    rep = _find_candidate_pct(candidates, rep_candidate)
     if dem is None or rep is None:
         return None
     return round(dem - rep, 2)
+
+
+def _find_candidate_pct(candidates: dict[str, float], target: str | None) -> float | None:
+    """Average share for a candidate, matched tolerantly by name."""
+    if not target:
+        return None
+    for name, pct in candidates.items():
+        if target.lower() in name.lower() or name.lower() in target.lower():
+            return pct
+    return None
+
+
+def _party_by_candidate(polls: list[Poll], state: str) -> dict[str, str]:
+    """Map each polled candidate name → party for one state, from the party
+    tags the Wikipedia scraper attaches to head-to-head answers."""
+    out: dict[str, str] = {}
+    for p in polls:
+        if state.lower() not in p.subject.lower():
+            continue
+        for a in p.answers:
+            if a.party and a.choice:
+                out[a.choice] = a.party
+    return out
+
+
+def _resolve_nominee(
+    candidates: dict[str, float],
+    party_by_name: dict[str, str],
+    configured: str | None,
+    party: str,
+) -> str | None:
+    """The name to track for one party in a race: the configured nominee when
+    it's actually in the polling, otherwise the party's frontrunner (highest
+    average share among candidates tagged with that party). This is how a race
+    with no settled primary — or a stale configured name — picks up the top
+    candidate for each party instead of showing nothing."""
+    if configured and _find_candidate_pct(candidates, configured) is not None:
+        return configured
+    ranked = sorted(
+        (name for name, pct in candidates.items() if party_by_name.get(name) == party),
+        key=lambda n: candidates[n],
+        reverse=True,
+    )
+    return ranked[0] if ranked else configured
 
 
 def _senate_payload(polls: list[Poll]) -> dict:
@@ -475,11 +522,19 @@ def _senate_payload(polls: list[Poll]) -> dict:
         record: dict = dataclasses.asdict(race)
         if entry:
             race_key = entry["race"]
-            record["dem_candidate"] = entry["dem_candidate"]
-            record["rep_candidate"] = entry["rep_candidate"]
-            dem_margin = _dem_rep_margin(
-                race.candidates, entry["dem_candidate"], entry["rep_candidate"]
+            # Track the configured nominee, but fall back to the party's
+            # frontrunner when that name isn't in the polls (no settled primary,
+            # or a candidate who has since dropped out).
+            party_by_name = _party_by_candidate(polls, race.state)
+            dem_name = _resolve_nominee(
+                race.candidates, party_by_name, entry.get("dem_candidate"), "Democrat"
             )
+            rep_name = _resolve_nominee(
+                race.candidates, party_by_name, entry.get("rep_candidate"), "Republican"
+            )
+            record["dem_candidate"] = dem_name
+            record["rep_candidate"] = rep_name
+            dem_margin = _dem_rep_margin(race.candidates, dem_name, rep_name)
             record["dem_margin"] = dem_margin
             record["dem_win_prob"] = (
                 round(prob_simulator.win_prob_from_margin(dem_margin), 4)
@@ -488,7 +543,7 @@ def _senate_payload(polls: list[Poll]) -> dict:
             )
 
             vibes = vibes_model.adjustment_for_race(
-                race_key, entry["dem_candidate"], entry["rep_candidate"]
+                race_key, dem_name, rep_name
             )
             record["vibes"] = {
                 "available": vibes.has_data,

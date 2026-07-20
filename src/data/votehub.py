@@ -11,6 +11,7 @@ Endpoints:
 
 from __future__ import annotations
 
+import logging
 from datetime import date
 from pathlib import Path
 from typing import Any
@@ -20,6 +21,15 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 
 from config.settings import settings
 from src.data.base import DataSource, Poll, PollAnswer, PollType, Population
+
+logger = logging.getLogger(__name__)
+
+# A 200 OK with only weeks-old polls is a stalled upstream, not a healthy feed.
+# VoteHub's approval and generic-ballot feeds did exactly this for 10+ days in
+# July 2026 — same payload, HTTP 200 every run — and nothing noticed because
+# the request "succeeded". Fetches older than this are flagged loudly so a
+# silent stall can't masquerade as fresh data.
+VOTEHUB_STALE_AFTER_DAYS = 3
 
 
 def _parse_population(raw: str | None) -> Population | None:
@@ -113,7 +123,37 @@ class VoteHubClient(DataSource):
             raw_polls = self._get("/polls", params=params)
             self._write_cache(cache_key, raw_polls)
 
-        return [self._normalize(p) for p in raw_polls]
+        polls = [self._normalize(p) for p in raw_polls]
+        self._warn_if_stale(polls, poll_type)
+        return polls
+
+    def _warn_if_stale(
+        self, polls: list[Poll], poll_type: PollType | None
+    ) -> int | None:
+        """Flag a feed whose newest poll is older than the staleness threshold,
+        even though the HTTP request succeeded. Returns the age in days of the
+        newest poll (None when the feed is empty). Never raises — a monitoring
+        aid, not a gate."""
+        ends = [p.end_date for p in polls if p.end_date]
+        if not ends:
+            return None
+        newest = max(ends)
+        age = (date.today() - newest).days
+        if age > VOTEHUB_STALE_AFTER_DAYS:
+            label = poll_type.value if poll_type else "polls"
+            logger.warning(
+                "VoteHub returned HTTP 200 for %s but its newest poll is %s "
+                "(%dd old, threshold %dd) — treating the feed as STALLED, not "
+                "healthy.",
+                label, newest, age, VOTEHUB_STALE_AFTER_DAYS,
+            )
+            # GitHub Actions annotation so the stall is loud on the run summary.
+            print(
+                f"::warning title=VoteHub feed stalled::{label}: HTTP 200 but "
+                f"newest poll is {newest} ({age}d old, threshold "
+                f"{VOTEHUB_STALE_AFTER_DAYS}d)."
+            )
+        return age
 
     def fetch_poll_by_id(self, poll_id: str) -> Poll:
         """Fetch a single poll by its VoteHub ID."""

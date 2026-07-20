@@ -39,6 +39,7 @@ from src.data.wikipedia_senate import (
     _clean,
     _parse_pct,
     _parse_sample,
+    is_aggregate_pollster,
     parse_dates,
 )
 
@@ -49,7 +50,6 @@ APPROVAL_ARTICLE = "Opinion_polling_on_the_second_Donald_Trump_administration"
 GENERIC_BALLOT_ARTICLE = "2026_United_States_House_of_Representatives_elections"
 
 _DATE_COL_RE = re.compile(r"administered|conducted|date", re.I)
-_AGGREGATE_RE = re.compile(r"average|aggregate|projection|rcp|538|silver", re.I)
 
 
 def _find_col(columns: list[str], want: str, reject: str | None = None) -> str | None:
@@ -92,7 +92,7 @@ def _table_polls(
     polls: list[Poll] = []
     for idx, row in table.iterrows():
         pollster = _clean(row.get(poll_col, ""))
-        if not pollster or _AGGREGATE_RE.search(pollster):
+        if not pollster or is_aggregate_pollster(pollster):
             continue
         dates = parse_dates(str(row.get(date_col, "")), default_year)
         a_pct = _parse_pct(str(row.get(a_col, "")))
