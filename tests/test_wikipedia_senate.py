@@ -202,6 +202,35 @@ def test_stale_configured_name_falls_back_to_frontrunner():
     )
 
 
+# Two Democrats polled in exactly the same number of surveys: the tie breaks to
+# the one with the higher average share; if that is equal too, to the first
+# column (deterministic — never a coin flip between runs).
+EQUAL_COVERAGE_HTML = """
+<table class="wikitable">
+  <tr>
+    <th>Poll source</th><th>Date(s) administered</th>
+    <th>Alpha Adams (D)</th><th>Beta Brooks (D)</th><th>Rick Roe (R)</th>
+  </tr>
+  <tr>
+    <td>Poll A</td><td>July 10-12, 2026</td><td>44%</td><td>47%</td><td>45%</td>
+  </tr>
+  <tr>
+    <td>Poll B</td><td>July 5-8, 2026</td><td>43%</td><td>46%</td><td>45%</td>
+  </tr>
+</table>
+"""
+
+
+def test_equal_coverage_tie_breaks_to_higher_average():
+    polls = parse_polling_tables(
+        EQUAL_COVERAGE_HTML, "Somewhere", "Somewhere Senate 2026",
+        dem_candidate=None, rep_candidate="Rick Roe",
+    )
+    # Both Dems appear in both polls (equal coverage); Beta Brooks polls higher.
+    dem_choices = {a.choice for p in polls for a in p.answers if a.party == "Democrat"}
+    assert dem_choices == {"Beta Brooks"}
+
+
 NO_PARTY_ANNOTATION_HTML = FIXTURE_HTML.replace(" (D)", "").replace(" (R)", "")
 
 
