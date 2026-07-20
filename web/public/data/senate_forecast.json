@@ -1,20 +1,20 @@
 {
   "as_of": "2026-07-20",
   "num_simulations": 50000,
-  "dem_control_prob": 0.3639,
+  "dem_control_prob": 0.3643,
   "mean_dem_seats": 49.86,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 75,
-    "45": 380,
-    "46": 1054,
-    "47": 2645,
-    "48": 5495,
-    "49": 10246,
-    "50": 11908,
-    "51": 10010,
-    "52": 6026,
-    "53": 2161
+    "45": 379,
+    "46": 1055,
+    "47": 2641,
+    "48": 5489,
+    "49": 10233,
+    "50": 11913,
+    "51": 10019,
+    "52": 6032,
+    "53": 2164
   },
   "races": [
     {
@@ -110,14 +110,14 @@
       "margin": 0.735,
       "num_polls": 15,
       "dem_win_prob_polls": 0.4574,
-      "dem_win_prob_blended": 0.4631,
+      "dem_win_prob_blended": 0.4643,
       "market_dem_prob": {
-        "polymarket": 0.48
+        "polymarket": 0.485
       },
-      "dem_win_prob_sim": 0.4659,
-      "median_margin": -0.42,
-      "margin_p10": -7.14,
-      "margin_p90": 6.3
+      "dem_win_prob_sim": 0.4673,
+      "median_margin": -0.4,
+      "margin_p10": -7.13,
+      "margin_p90": 6.32
     },
     {
       "state": "Texas",
@@ -184,7 +184,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.3639,
+  "dem_control_prob_with_vibes": 0.3643,
   "mean_dem_seats_with_vibes": 49.86,
   "national_environment": {
     "national_swing": 8.308,
