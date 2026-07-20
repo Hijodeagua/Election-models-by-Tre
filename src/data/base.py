@@ -32,9 +32,17 @@ class PollAnswer:
 
     choice: str
     pct: float
+    # Party label ("Democrat"/"Republican") when the source annotates it — e.g.
+    # Wikipedia's "Troy Jackson (D)" column. Lets downstream code find "the
+    # Democrat" in a race without hard-coding a nominee name. Optional: most
+    # sources don't provide it, so it defaults to None and is ignored.
+    party: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
-        return {"choice": self.choice, "pct": self.pct}
+        d = {"choice": self.choice, "pct": self.pct}
+        if self.party is not None:
+            d["party"] = self.party
+        return d
 
 
 @dataclass

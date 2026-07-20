@@ -138,10 +138,79 @@ def test_is_aggregate_pollster_precision():
         assert not is_aggregate_pollster(name), name
 
 
-def test_parse_polling_tables_no_match_returns_empty():
-    # Candidate names that don't appear → no usable matchup → empty, not error.
+def test_configured_candidates_are_party_tagged():
     polls = parse_polling_tables(
-        FIXTURE_HTML, "Georgia", "Georgia Senate 2026", "Jane Doe", "John Roe"
+        FIXTURE_HTML, "Georgia", "Georgia Senate 2026", "Jon Ossoff", "Mike Collins"
+    )
+    parties = {a.choice: a.party for a in polls[0].answers}
+    assert parties == {"Jon Ossoff": "Democrat", "Mike Collins": "Republican"}
+
+
+# No settled nominee: three Democrats and one Republican are polled, with the
+# party read from the (D)/(R) column annotations. With no configured Dem, the
+# parser should track the party's frontrunner — the most-polled Democrat.
+AUTO_NOMINEE_HTML = """
+<table class="wikitable">
+  <tr>
+    <th>Poll source</th><th>Date(s) administered</th><th>Sample size</th>
+    <th>Abdul El-Sayed (D)</th><th>Haley Stevens (D)</th>
+    <th>Mike Rogers (R)</th><th>Undecided</th>
+  </tr>
+  <tr>
+    <td>Emerson College</td><td>July 10-12, 2026</td><td>900 (LV)</td>
+    <td>45%</td><td></td><td>44%</td><td>11%</td>
+  </tr>
+  <tr>
+    <td>EPIC-MRA</td><td>July 5-8, 2026</td><td>600 (LV)</td>
+    <td>46%</td><td></td><td>43%</td><td>11%</td>
+  </tr>
+  <tr>
+    <td>Marketing Resource Group</td><td>July 1-3, 2026</td><td>500 (LV)</td>
+    <td></td><td>42%</td><td>45%</td><td>13%</td>
+  </tr>
+</table>
+"""
+
+
+def test_auto_selects_top_candidate_per_party_when_nominee_unset():
+    polls = parse_polling_tables(
+        AUTO_NOMINEE_HTML,
+        state="Michigan",
+        race="Michigan Senate 2026",
+        dem_candidate=None,          # no settled primary
+        rep_candidate="Mike Rogers",
+    )
+    # El-Sayed is polled in more surveys than Stevens → he's the frontrunner.
+    dem_choices = {a.choice for p in polls for a in p.answers if a.party == "Democrat"}
+    assert dem_choices == {"Abdul El-Sayed"}
+    assert len(polls) == 2  # the two El-Sayed vs Rogers polls
+    for p in polls:
+        parties = {a.choice: a.party for a in p.answers}
+        assert parties == {"Abdul El-Sayed": "Democrat", "Mike Rogers": "Republican"}
+
+
+def test_stale_configured_name_falls_back_to_frontrunner():
+    # Configured Dem isn't in the table at all → still resolves via (D) columns.
+    polls = parse_polling_tables(
+        AUTO_NOMINEE_HTML, "Michigan", "Michigan Senate 2026",
+        dem_candidate="Gretchen Whitmer", rep_candidate="Mike Rogers",
+    )
+    assert polls
+    assert all(
+        a.choice == "Abdul El-Sayed"
+        for p in polls for a in p.answers if a.party == "Democrat"
+    )
+
+
+NO_PARTY_ANNOTATION_HTML = FIXTURE_HTML.replace(" (D)", "").replace(" (R)", "")
+
+
+def test_no_match_and_no_party_annotation_returns_empty():
+    # Names don't match and there are no (D)/(R) columns to auto-detect from →
+    # empty, not an error.
+    polls = parse_polling_tables(
+        NO_PARTY_ANNOTATION_HTML, "Georgia", "Georgia Senate 2026",
+        "Jane Doe", "John Roe",
     )
     assert polls == []
 
