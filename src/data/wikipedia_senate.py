@@ -67,6 +67,41 @@ _POP_MAP = {
     "a": Population.ADULTS,
 }
 
+# Poll-of-polls / model rows that Wikipedia lists inside the same wikitables as
+# real polls. They must never enter a feed: ingesting an average as if it were
+# a single poll double-counts and distorts the weighted average, and — worse —
+# a race article's *aggregation* table often sits ABOVE the individual-poll
+# table, so if the parser accepts its rows it stops at the aggregates and never
+# reaches the real polls (this is exactly how the Senate feed froze in July
+# 2026: "RealClearPolitics"/"270toWin" rows were accepted and the real polls
+# below them were never read).
+#
+# Patterns are deliberately specific so genuine pollsters that merely share a
+# word are kept — e.g. "RealClear Opinion Research" (a real poll) is NOT
+# "RealClearPolitics" (the RCP average), and "NewsNation/Decision Desk HQ" (a
+# real poll) is left in.
+_AGGREGATE_PATTERNS = (
+    r"\baverage\b",              # "RCP Average", "Polling average"
+    r"aggregat",                 # aggregate / aggregation
+    r"projection",
+    r"\bnowcast\b",
+    r"realclearpolitics",        # RCP poll-of-polls (keeps "RealClear Opinion Research")
+    r"real\s*clear\s*politics",
+    r"\brcp\b",
+    r"270\s*to\s*win",           # 270toWin model
+    r"race to the wh",           # "Race to the WH" / "...White House"
+    r"fivethirtyeight",
+    r"\b538\b",
+    r"silver bulletin",
+    r"split[\s-]ticket",
+)
+_AGGREGATE_RE = re.compile("|".join(_AGGREGATE_PATTERNS), re.I)
+
+
+def is_aggregate_pollster(name: str) -> bool:
+    """True for poll-of-polls / model rows that must be excluded from feeds."""
+    return bool(name) and bool(_AGGREGATE_RE.search(name))
+
 
 def article_title_for_state(state: str) -> str:
     """Default Wikipedia article title for a state's 2026 Senate race."""
@@ -207,8 +242,10 @@ def parse_polling_tables(
 
         for idx, row in table.iterrows():
             pollster = _clean(row.get(poll_col, ""))
-            # Skip aggregate / non-poll rows.
-            if not pollster or re.search(r"average|aggregate|projection", pollster, re.I):
+            # Skip aggregate / non-poll rows. Dropping these also lets the loop
+            # fall through an aggregation table to the real individual-poll
+            # table below it, instead of stopping on the aggregates.
+            if not pollster or is_aggregate_pollster(pollster):
                 continue
             dates = parse_dates(str(row.get(date_col, "")), default_year)
             dem_pct = _parse_pct(str(row.get(dem_col, "")))

@@ -46,6 +46,7 @@ from src.data.fiftyplusone import FiftyPlusOneApprovalCsvLoader
 from src.data.markets import SENATE_CONTROL_RACE, MarketOddsCsvSource, odds_for_race
 from src.data.silverb_csv import SilverBulletinApprovalLoader
 from src.data.votehub_csv import VoteHubCsvLoader
+from src.data.wikipedia_senate import is_aggregate_pollster
 from src.models.approval import PresidentialApprovalModel
 from src.models.generic_ballot import (
     GENERIC_BALLOT_CHOICES,
@@ -102,12 +103,20 @@ def _load_polls(poll_type: PollType, votehub_filename: str) -> list[Poll]:
         try:
             polls = VoteHubCsvLoader(poll_type).load(vh_path)
             if polls:
-                return polls
+                return _drop_aggregates(polls)
         except Exception as exc:  # pragma: no cover - defensive
             logging.warning("%s load failed: %s", votehub_filename, exc)
     source = CsvFallbackSource(FALLBACK_DIR)
     polls, _meta = source.load(poll_type)
-    return polls
+    return _drop_aggregates(polls)
+
+
+def _drop_aggregates(polls: list[Poll]) -> list[Poll]:
+    """Exclude poll-of-polls / model rows (RealClearPolitics, 270toWin, RCP
+    Average, …) so they never enter the weighted average or the reported
+    last-poll date. Ingesting an average as a single poll double-counts and,
+    because these rows carry wide date ranges, makes a stalled feed look fresh."""
+    return [p for p in polls if not is_aggregate_pollster(p.pollster)]
 
 
 # ── State-space (Jackman) estimates — opt-in via --state-space ────────────────

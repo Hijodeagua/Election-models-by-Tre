@@ -30,6 +30,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.data.base import PollType
 from src.data.votehub_csv import VoteHubCsvLoader
+from src.data.wikipedia_senate import is_aggregate_pollster
 
 FALLBACK_DIR = PROJECT_ROOT / "data" / "fallback"
 
@@ -68,6 +69,11 @@ def main() -> None:
             print(f"  {name:16} UNREADABLE ({exc})")
             stale.append(name)
             continue
+        # Ignore poll-of-polls / model rows: their wide "as-of" date ranges
+        # carry a recent end date and mask a stalled feed (a RealClearPolitics
+        # average dated through last week makes a feed with no real poll in
+        # three weeks look fresh). Freshness must reflect genuine new polls.
+        polls = [p for p in polls if not is_aggregate_pollster(p.pollster)]
         if not polls:
             print(f"  {name:16} EMPTY")
             stale.append(name)
