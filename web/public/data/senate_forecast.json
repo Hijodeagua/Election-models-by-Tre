@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-07-20",
+  "as_of": "2026-07-21",
   "num_simulations": 50000,
-  "dem_control_prob": 0.3643,
+  "dem_control_prob": 0.3637,
   "mean_dem_seats": 49.86,
   "median_dem_seats": 50.0,
   "seat_distribution": {
-    "44": 75,
-    "45": 379,
-    "46": 1055,
-    "47": 2641,
-    "48": 5489,
-    "49": 10233,
+    "44": 74,
+    "45": 380,
+    "46": 1054,
+    "47": 2632,
+    "48": 5505,
+    "49": 10258,
     "50": 11913,
-    "51": 10019,
-    "52": 6032,
-    "53": 2164
+    "51": 9999,
+    "52": 6024,
+    "53": 2161
   },
   "races": [
     {
@@ -25,14 +25,14 @@
       "margin": 7.002,
       "num_polls": 9,
       "dem_win_prob_polls": 0.8686,
-      "dem_win_prob_blended": 0.8652,
+      "dem_win_prob_blended": 0.8665,
       "market_dem_prob": {
-        "polymarket": 0.855
+        "polymarket": 0.86
       },
-      "dem_win_prob_sim": 0.8683,
-      "median_margin": 5.71,
-      "margin_p10": -0.98,
-      "margin_p90": 12.38
+      "dem_win_prob_sim": 0.8694,
+      "median_margin": 5.74,
+      "margin_p10": -0.95,
+      "margin_p90": 12.41
     },
     {
       "state": "Michigan",
@@ -110,14 +110,14 @@
       "margin": 0.735,
       "num_polls": 15,
       "dem_win_prob_polls": 0.4574,
-      "dem_win_prob_blended": 0.4643,
+      "dem_win_prob_blended": 0.4618,
       "market_dem_prob": {
-        "polymarket": 0.485
+        "polymarket": 0.475
       },
-      "dem_win_prob_sim": 0.4673,
-      "median_margin": -0.4,
-      "margin_p10": -7.13,
-      "margin_p90": 6.32
+      "dem_win_prob_sim": 0.4648,
+      "median_margin": -0.43,
+      "margin_p10": -7.16,
+      "margin_p90": 6.29
     },
     {
       "state": "Texas",
@@ -184,7 +184,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.3643,
+  "dem_control_prob_with_vibes": 0.3637,
   "mean_dem_seats_with_vibes": 49.86,
   "national_environment": {
     "national_swing": 8.308,
