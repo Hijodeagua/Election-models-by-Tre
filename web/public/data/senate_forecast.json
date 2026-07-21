@@ -1,20 +1,20 @@
 {
   "as_of": "2026-07-21",
   "num_simulations": 50000,
-  "dem_control_prob": 0.3637,
-  "mean_dem_seats": 49.86,
+  "dem_control_prob": 0.3617,
+  "mean_dem_seats": 49.84,
   "median_dem_seats": 50.0,
   "seat_distribution": {
-    "44": 74,
-    "45": 380,
-    "46": 1054,
-    "47": 2632,
-    "48": 5505,
-    "49": 10258,
-    "50": 11913,
-    "51": 9999,
-    "52": 6024,
-    "53": 2161
+    "44": 79,
+    "45": 382,
+    "46": 1087,
+    "47": 2673,
+    "48": 5568,
+    "49": 10283,
+    "50": 11841,
+    "51": 9955,
+    "52": 5986,
+    "53": 2146
   },
   "races": [
     {
@@ -25,14 +25,14 @@
       "margin": 7.002,
       "num_polls": 9,
       "dem_win_prob_polls": 0.8686,
-      "dem_win_prob_blended": 0.8665,
+      "dem_win_prob_blended": 0.8677,
       "market_dem_prob": {
-        "polymarket": 0.86
+        "polymarket": 0.865
       },
-      "dem_win_prob_sim": 0.8694,
-      "median_margin": 5.74,
-      "margin_p10": -0.95,
-      "margin_p90": 12.41
+      "dem_win_prob_sim": 0.8706,
+      "median_margin": 5.78,
+      "margin_p10": -0.91,
+      "margin_p90": 12.45
     },
     {
       "state": "Michigan",
@@ -73,17 +73,17 @@
       "race": "Maine Senate 2026",
       "dem_candidate": "Troy Jackson",
       "rep_candidate": "Susan Collins",
-      "margin": 9.179,
-      "num_polls": 3,
-      "dem_win_prob_polls": 0.9287,
-      "dem_win_prob_blended": 0.8628,
+      "margin": 8.353,
+      "num_polls": 4,
+      "dem_win_prob_polls": 0.91,
+      "dem_win_prob_blended": 0.8525,
       "market_dem_prob": {
-        "polymarket": 0.665
+        "polymarket": 0.68
       },
-      "dem_win_prob_sim": 0.8637,
-      "median_margin": 5.61,
-      "margin_p10": -1.15,
-      "margin_p90": 12.35
+      "dem_win_prob_sim": 0.8526,
+      "median_margin": 5.34,
+      "margin_p10": -1.41,
+      "margin_p90": 12.09
     },
     {
       "state": "New Hampshire",
@@ -144,14 +144,14 @@
       "margin": -0.63,
       "num_polls": 8,
       "dem_win_prob_polls": 0.3488,
-      "dem_win_prob_blended": 0.3603,
+      "dem_win_prob_blended": 0.3578,
       "market_dem_prob": {
-        "polymarket": 0.395
+        "polymarket": 0.385
       },
-      "dem_win_prob_sim": 0.3584,
-      "median_margin": -1.77,
-      "margin_p10": -8.43,
-      "margin_p90": 4.98
+      "dem_win_prob_sim": 0.3561,
+      "median_margin": -1.8,
+      "margin_p10": -8.47,
+      "margin_p90": 4.94
     },
     {
       "state": "Alaska",
@@ -184,8 +184,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.3637,
-  "mean_dem_seats_with_vibes": 49.86,
+  "dem_control_prob_with_vibes": 0.3617,
+  "mean_dem_seats_with_vibes": 49.84,
   "national_environment": {
     "national_swing": 8.308,
     "available": true,
