@@ -1,19 +1,19 @@
 {
   "as_of": "2026-07-22",
   "num_simulations": 50000,
-  "dem_control_prob": 0.3607,
+  "dem_control_prob": 0.361,
   "mean_dem_seats": 49.84,
   "median_dem_seats": 50.0,
   "seat_distribution": {
-    "44": 79,
-    "45": 389,
-    "46": 1105,
-    "47": 2703,
-    "48": 5598,
-    "49": 10272,
-    "50": 11817,
-    "51": 9928,
-    "52": 5966,
+    "44": 78,
+    "45": 388,
+    "46": 1103,
+    "47": 2698,
+    "48": 5589,
+    "49": 10270,
+    "50": 11826,
+    "51": 9938,
+    "52": 5967,
     "53": 2143
   },
   "races": [
@@ -76,14 +76,14 @@
       "margin": 8.353,
       "num_polls": 4,
       "dem_win_prob_polls": 0.91,
-      "dem_win_prob_blended": 0.8525,
+      "dem_win_prob_blended": 0.8538,
       "market_dem_prob": {
-        "polymarket": 0.68
+        "polymarket": 0.685
       },
-      "dem_win_prob_sim": 0.8526,
-      "median_margin": 5.34,
-      "margin_p10": -1.41,
-      "margin_p90": 12.09
+      "dem_win_prob_sim": 0.8539,
+      "median_margin": 5.37,
+      "margin_p10": -1.38,
+      "margin_p90": 12.12
     },
     {
       "state": "New Hampshire",
@@ -184,7 +184,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.3607,
+  "dem_control_prob_with_vibes": 0.361,
   "mean_dem_seats_with_vibes": 49.84,
   "national_environment": {
     "national_swing": 8.308,
