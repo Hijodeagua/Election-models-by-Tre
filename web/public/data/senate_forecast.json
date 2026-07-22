@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-07-21",
+  "as_of": "2026-07-22",
   "num_simulations": 50000,
-  "dem_control_prob": 0.3617,
+  "dem_control_prob": 0.3607,
   "mean_dem_seats": 49.84,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 79,
-    "45": 382,
-    "46": 1087,
-    "47": 2673,
-    "48": 5568,
-    "49": 10283,
-    "50": 11841,
-    "51": 9955,
-    "52": 5986,
-    "53": 2146
+    "45": 389,
+    "46": 1105,
+    "47": 2703,
+    "48": 5598,
+    "49": 10272,
+    "50": 11817,
+    "51": 9928,
+    "52": 5966,
+    "53": 2143
   },
   "races": [
     {
@@ -42,14 +42,14 @@
       "margin": 7.958,
       "num_polls": 13,
       "dem_win_prob_polls": 0.8994,
-      "dem_win_prob_blended": 0.8533,
+      "dem_win_prob_blended": 0.8471,
       "market_dem_prob": {
-        "polymarket": 0.715
+        "polymarket": 0.69
       },
-      "dem_win_prob_sim": 0.8541,
-      "median_margin": 5.35,
-      "margin_p10": -1.39,
-      "margin_p90": 12.13
+      "dem_win_prob_sim": 0.8477,
+      "median_margin": 5.2,
+      "margin_p10": -1.55,
+      "margin_p90": 11.98
     },
     {
       "state": "North Carolina",
@@ -184,7 +184,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.3617,
+  "dem_control_prob_with_vibes": 0.3607,
   "mean_dem_seats_with_vibes": 49.84,
   "national_environment": {
     "national_swing": 8.308,
