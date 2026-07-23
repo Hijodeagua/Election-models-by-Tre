@@ -233,8 +233,24 @@
     {
       "state": "Georgia",
       "abbr": "GA",
-      "num_polls": 9,
+      "num_polls": 10,
       "polls": [
+        {
+          "pollster": "Fabrizio Ward (R)/Impact Research (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-07-13",
+          "end_date": "2026-07-16",
+          "sample_size": 1060,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 52.0,
+          "rep_pct": 43.0,
+          "margin": 9.0,
+          "partisan": false
+        },
         {
           "pollster": "Wick",
           "rated": false,

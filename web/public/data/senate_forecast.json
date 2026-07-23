@@ -1,20 +1,20 @@
 {
   "as_of": "2026-07-23",
   "num_simulations": 50000,
-  "dem_control_prob": 0.3608,
-  "mean_dem_seats": 49.84,
+  "dem_control_prob": 0.3658,
+  "mean_dem_seats": 49.87,
   "median_dem_seats": 50.0,
   "seat_distribution": {
-    "44": 77,
-    "45": 385,
-    "46": 1107,
-    "47": 2695,
-    "48": 5598,
-    "49": 10275,
-    "50": 11821,
-    "51": 9932,
-    "52": 5969,
-    "53": 2141
+    "44": 75,
+    "45": 364,
+    "46": 1059,
+    "47": 2588,
+    "48": 5474,
+    "49": 10207,
+    "50": 11942,
+    "51": 10051,
+    "52": 6059,
+    "53": 2181
   },
   "races": [
     {
@@ -22,17 +22,17 @@
       "race": "Georgia Senate 2026",
       "dem_candidate": "Jon Ossoff",
       "rep_candidate": "Mike Collins",
-      "margin": 7.002,
-      "num_polls": 9,
-      "dem_win_prob_polls": 0.8686,
-      "dem_win_prob_blended": 0.8677,
+      "margin": 7.856,
+      "num_polls": 10,
+      "dem_win_prob_polls": 0.8965,
+      "dem_win_prob_blended": 0.8886,
       "market_dem_prob": {
         "polymarket": 0.865
       },
-      "dem_win_prob_sim": 0.8706,
-      "median_margin": 5.78,
-      "margin_p10": -0.91,
-      "margin_p90": 12.45
+      "dem_win_prob_sim": 0.8906,
+      "median_margin": 6.39,
+      "margin_p10": -0.3,
+      "margin_p90": 13.07
     },
     {
       "state": "Michigan",
@@ -110,14 +110,14 @@
       "margin": 0.735,
       "num_polls": 15,
       "dem_win_prob_polls": 0.4574,
-      "dem_win_prob_blended": 0.4618,
+      "dem_win_prob_blended": 0.4643,
       "market_dem_prob": {
-        "polymarket": 0.475
+        "polymarket": 0.485
       },
-      "dem_win_prob_sim": 0.4648,
-      "median_margin": -0.43,
-      "margin_p10": -7.16,
-      "margin_p90": 6.29
+      "dem_win_prob_sim": 0.4673,
+      "median_margin": -0.4,
+      "margin_p10": -7.13,
+      "margin_p90": 6.32
     },
     {
       "state": "Texas",
@@ -144,14 +144,14 @@
       "margin": -0.63,
       "num_polls": 8,
       "dem_win_prob_polls": 0.3488,
-      "dem_win_prob_blended": 0.3578,
+      "dem_win_prob_blended": 0.3628,
       "market_dem_prob": {
-        "polymarket": 0.385
+        "polymarket": 0.405
       },
-      "dem_win_prob_sim": 0.3561,
-      "median_margin": -1.8,
-      "margin_p10": -8.47,
-      "margin_p90": 4.94
+      "dem_win_prob_sim": 0.3608,
+      "median_margin": -1.73,
+      "margin_p10": -8.4,
+      "margin_p90": 5.01
     },
     {
       "state": "Alaska",
@@ -184,8 +184,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.3608,
-  "mean_dem_seats_with_vibes": 49.84,
+  "dem_control_prob_with_vibes": 0.3658,
+  "mean_dem_seats_with_vibes": 49.87,
   "national_environment": {
     "national_swing": 8.308,
     "available": true,
