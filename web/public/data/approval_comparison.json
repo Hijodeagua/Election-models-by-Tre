@@ -6,14 +6,6 @@
       "available": true,
       "series": [
         {
-          "as_of": "2025-11-27",
-          "approve": 42.1,
-          "disapprove": 54.7,
-          "net": -12.6,
-          "lo": 41.5,
-          "hi": 42.6
-        },
-        {
           "as_of": "2025-11-28",
           "approve": 42.1,
           "disapprove": 54.7,
@@ -1932,6 +1924,14 @@
           "net": -18.9,
           "lo": 38.6,
           "hi": 39.8
+        },
+        {
+          "as_of": "2026-07-26",
+          "approve": 39.2,
+          "disapprove": 58.1,
+          "net": -18.9,
+          "lo": 38.6,
+          "hi": 39.8
         }
       ]
     },
@@ -1940,12 +1940,6 @@
       "description": "Silver Bulletin's published daily approval model.",
       "available": true,
       "series": [
-        {
-          "as_of": "2025-11-27",
-          "approve": 41.19,
-          "disapprove": 55.26,
-          "net": -14.1
-        },
         {
           "as_of": "2025-11-28",
           "approve": 41.19,
@@ -3117,13 +3111,6 @@
       "description": "Unweighted 14-day trailing mean of VoteHub approval polls.",
       "available": true,
       "series": [
-        {
-          "as_of": "2025-11-27",
-          "approve": 41.68,
-          "disapprove": 54.63,
-          "net": -12.95,
-          "num_polls": 19
-        },
         {
           "as_of": "2025-11-28",
           "approve": 42.16,
@@ -4701,6 +4688,13 @@
         },
         {
           "as_of": "2026-07-25",
+          "approve": 38.43,
+          "disapprove": 58.57,
+          "net": -20.14,
+          "num_polls": 7
+        },
+        {
+          "as_of": "2026-07-26",
           "approve": 38.43,
           "disapprove": 58.57,
           "net": -20.14,
