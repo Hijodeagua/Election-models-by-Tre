@@ -1874,8 +1874,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 18,
+      "num_polls": 19,
       "polls": [
+        {
+          "pollster": "Texas Public Opinion Research",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-07-15",
+          "end_date": "2026-07-17",
+          "sample_size": 1048,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 45.0,
+          "rep_pct": 40.0,
+          "margin": 5.0,
+          "partisan": false
+        },
         {
           "pollster": "A2 Insights",
           "rated": false,
