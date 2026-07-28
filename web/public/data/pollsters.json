@@ -498,8 +498,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 13,
+      "num_polls": 14,
       "polls": [
+        {
+          "pollster": "Glengariff Group",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-07-22",
+          "end_date": "2026-07-24",
+          "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 49.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Quantus Insights (R)",
           "rated": false,
