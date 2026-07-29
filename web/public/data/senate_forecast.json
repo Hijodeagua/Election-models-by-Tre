@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-07-28",
+  "as_of": "2026-07-29",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4045,
-  "mean_dem_seats": 49.99,
+  "dem_control_prob": 0.4062,
+  "mean_dem_seats": 50.0,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 73,
-    "45": 341,
-    "46": 994,
-    "47": 2404,
-    "48": 5059,
-    "49": 9218,
-    "50": 11684,
-    "51": 10752,
-    "52": 6883,
-    "53": 2592
+    "45": 340,
+    "46": 992,
+    "47": 2395,
+    "48": 5039,
+    "49": 9183,
+    "50": 11670,
+    "51": 10795,
+    "52": 6909,
+    "53": 2604
   },
   "races": [
     {
@@ -127,14 +127,14 @@
       "margin": 1.632,
       "num_polls": 19,
       "dem_win_prob_polls": 0.5319,
-      "dem_win_prob_blended": 0.5102,
+      "dem_win_prob_blended": 0.5152,
       "market_dem_prob": {
-        "polymarket": 0.445
+        "polymarket": 0.465
       },
-      "dem_win_prob_sim": 0.5089,
-      "median_margin": 0.11,
-      "margin_p10": -6.51,
-      "margin_p90": 6.91
+      "dem_win_prob_sim": 0.5138,
+      "median_margin": 0.17,
+      "margin_p10": -6.45,
+      "margin_p90": 6.97
     },
     {
       "state": "Iowa",
@@ -184,8 +184,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4045,
-  "mean_dem_seats_with_vibes": 49.99,
+  "dem_control_prob_with_vibes": 0.4062,
+  "mean_dem_seats_with_vibes": 50.0,
   "national_environment": {
     "national_swing": 8.368,
     "available": true,
