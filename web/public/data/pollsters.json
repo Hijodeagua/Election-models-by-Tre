@@ -851,8 +851,24 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 21,
+      "num_polls": 22,
       "polls": [
+        {
+          "pollster": "Beacon Research (D)/ Shaw & Co. Research (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-07-23",
+          "end_date": "2026-07-27",
+          "sample_size": 1005,
+          "population": "rv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 53.0,
+          "rep_pct": 44.0,
+          "margin": 9.0,
+          "partisan": false
+        },
         {
           "pollster": "Public Policy Polling (D)",
           "rated": false,

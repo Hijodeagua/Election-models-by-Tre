@@ -2,7 +2,7 @@
   "races": [
     {
       "state": "Alaska",
-      "as_of": "2026-07-29",
+      "as_of": "2026-07-30",
       "candidates": {
         "Mary Peltola": 46.0,
         "Dan Sullivan": 41.0
@@ -154,7 +154,7 @@
     },
     {
       "state": "Georgia",
-      "as_of": "2026-07-29",
+      "as_of": "2026-07-30",
       "candidates": {
         "Jon Ossoff": 51.2,
         "Mike Collins": 43.0
@@ -311,7 +311,7 @@
     },
     {
       "state": "Iowa",
-      "as_of": "2026-07-29",
+      "as_of": "2026-07-30",
       "candidates": {
         "Josh Turek": 46.8,
         "Ashley Hinson": 46.3
@@ -468,7 +468,7 @@
     },
     {
       "state": "Maine",
-      "as_of": "2026-07-29",
+      "as_of": "2026-07-30",
       "candidates": {
         "Troy Jackson": 48.4,
         "Susan Collins": 45.6
@@ -625,7 +625,7 @@
     },
     {
       "state": "Michigan",
-      "as_of": "2026-07-29",
+      "as_of": "2026-07-30",
       "candidates": {
         "Mike Rogers": 46.2,
         "Abdul El-Sayed": 42.3
@@ -782,7 +782,7 @@
     },
     {
       "state": "New Hampshire",
-      "as_of": "2026-07-29",
+      "as_of": "2026-07-30",
       "candidates": {
         "Chris Pappas": 50.4,
         "Scott Brown": 37.2
@@ -939,45 +939,45 @@
     },
     {
       "state": "North Carolina",
-      "as_of": "2026-07-29",
+      "as_of": "2026-07-30",
       "candidates": {
-        "Roy Cooper": 48.5,
-        "Michael Whatley": 42.4
+        "Roy Cooper": 50.7,
+        "Michael Whatley": 43.2
       },
-      "margin": 6.1,
-      "num_polls": 21,
+      "margin": 7.5,
+      "num_polls": 22,
       "rating": null,
       "dem_candidate": "Roy Cooper",
       "rep_candidate": "Michael Whatley",
-      "dem_margin": 6.1,
-      "dem_win_prob": 0.8703,
+      "dem_margin": 7.5,
+      "dem_win_prob": 0.9172,
       "vibes": {
         "available": false,
         "adjustment": 0.0,
         "dem_effect": 0.0,
         "rep_effect": 0.0,
-        "adjusted_dem_margin": 6.1
+        "adjusted_dem_margin": 7.5
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.875,
+          "Democrat": 0.885,
           "Republican": 0.125
         }
       },
       "forecast": {
-        "dem_win_prob": 0.84,
-        "median_margin": 5.05,
-        "margin_p10": -1.7,
-        "margin_p90": 11.75,
+        "dem_win_prob": 0.8798,
+        "median_margin": 6.08,
+        "margin_p10": -0.67,
+        "margin_p90": 12.77,
         "num_simulations": 50000,
         "margin_hist": [
           {
             "mid": -29.0,
-            "pct": 0.00034
+            "pct": 0.00032
           },
           {
             "mid": -27.0,
-            "pct": 0.0001
+            "pct": 6e-05
           },
           {
             "mid": -25.0,
@@ -985,118 +985,118 @@
           },
           {
             "mid": -23.0,
-            "pct": 0.00022
+            "pct": 0.0001
           },
           {
             "mid": -21.0,
-            "pct": 0.00032
+            "pct": 0.00036
           },
           {
             "mid": -19.0,
-            "pct": 0.00062
+            "pct": 0.00046
           },
           {
             "mid": -17.0,
-            "pct": 0.00082
+            "pct": 0.00078
           },
           {
             "mid": -15.0,
-            "pct": 0.0014
+            "pct": 0.00088
           },
           {
             "mid": -13.0,
-            "pct": 0.00254
+            "pct": 0.00196
           },
           {
             "mid": -11.0,
-            "pct": 0.00418
+            "pct": 0.00336
           },
           {
             "mid": -9.0,
-            "pct": 0.00696
+            "pct": 0.00526
           },
           {
             "mid": -7.0,
-            "pct": 0.01186
+            "pct": 0.00852
           },
           {
             "mid": -5.0,
-            "pct": 0.0232
+            "pct": 0.0173
           },
           {
             "mid": -3.0,
-            "pct": 0.03922
+            "pct": 0.0289
           },
           {
             "mid": -1.0,
-            "pct": 0.06812
+            "pct": 0.05178
           },
           {
             "mid": 1.0,
-            "pct": 0.1075
+            "pct": 0.08776
           },
           {
             "mid": 3.0,
-            "pct": 0.14668
+            "pct": 0.12478
           },
           {
             "mid": 5.0,
-            "pct": 0.1651
+            "pct": 0.15986
           },
           {
             "mid": 7.0,
-            "pct": 0.15022
+            "pct": 0.16438
           },
           {
             "mid": 9.0,
-            "pct": 0.10764
+            "pct": 0.1306
           },
           {
             "mid": 11.0,
-            "pct": 0.06924
+            "pct": 0.08742
           },
           {
             "mid": 13.0,
-            "pct": 0.04028
+            "pct": 0.05358
           },
           {
             "mid": 15.0,
-            "pct": 0.02208
+            "pct": 0.03026
           },
           {
             "mid": 17.0,
-            "pct": 0.01236
+            "pct": 0.01698
           },
           {
             "mid": 19.0,
-            "pct": 0.0075
+            "pct": 0.00966
           },
           {
             "mid": 21.0,
-            "pct": 0.00382
+            "pct": 0.0052
           },
           {
             "mid": 23.0,
-            "pct": 0.0027
+            "pct": 0.00312
           },
           {
             "mid": 25.0,
-            "pct": 0.00182
+            "pct": 0.00254
           },
           {
             "mid": 27.0,
-            "pct": 0.00098
+            "pct": 0.00122
           },
           {
             "mid": 29.0,
-            "pct": 0.00204
+            "pct": 0.00246
           }
         ]
       }
     },
     {
       "state": "Ohio",
-      "as_of": "2026-07-29",
+      "as_of": "2026-07-30",
       "candidates": {
         "Jon Husted": 46.5,
         "Sherrod Brown": 47.8
@@ -1117,15 +1117,15 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.495,
-          "Republican": 0.515
+          "Democrat": 0.505,
+          "Republican": 0.495
         }
       },
       "forecast": {
-        "dem_win_prob": 0.4703,
-        "median_margin": -0.37,
-        "margin_p10": -7.09,
-        "margin_p90": 6.36,
+        "dem_win_prob": 0.4722,
+        "median_margin": -0.34,
+        "margin_p10": -7.06,
+        "margin_p90": 6.39,
         "num_simulations": 50000,
         "margin_hist": [
           {
@@ -1138,11 +1138,11 @@
           },
           {
             "mid": -25.0,
-            "pct": 0.00082
+            "pct": 0.0008
           },
           {
             "mid": -23.0,
-            "pct": 0.00064
+            "pct": 0.00066
           },
           {
             "mid": -21.0,
@@ -1150,75 +1150,75 @@
           },
           {
             "mid": -19.0,
-            "pct": 0.00198
+            "pct": 0.00194
           },
           {
             "mid": -17.0,
-            "pct": 0.0034
+            "pct": 0.00334
           },
           {
             "mid": -15.0,
-            "pct": 0.00606
+            "pct": 0.00596
           },
           {
             "mid": -13.0,
-            "pct": 0.011
+            "pct": 0.01104
           },
           {
             "mid": -11.0,
-            "pct": 0.01856
+            "pct": 0.01844
           },
           {
             "mid": -9.0,
-            "pct": 0.03344
+            "pct": 0.03308
           },
           {
             "mid": -7.0,
-            "pct": 0.0569
+            "pct": 0.05682
           },
           {
             "mid": -5.0,
-            "pct": 0.09546
+            "pct": 0.09422
           },
           {
             "mid": -3.0,
-            "pct": 0.1372
+            "pct": 0.137
           },
           {
             "mid": -1.0,
-            "pct": 0.16188
+            "pct": 0.16212
           },
           {
             "mid": 1.0,
-            "pct": 0.15556
+            "pct": 0.15542
           },
           {
             "mid": 3.0,
-            "pct": 0.12464
+            "pct": 0.12526
           },
           {
             "mid": 5.0,
-            "pct": 0.07954
+            "pct": 0.08028
           },
           {
             "mid": 7.0,
-            "pct": 0.04714
+            "pct": 0.04732
           },
           {
             "mid": 9.0,
-            "pct": 0.02592
+            "pct": 0.02604
           },
           {
             "mid": 11.0,
-            "pct": 0.01574
+            "pct": 0.01598
           },
           {
             "mid": 13.0,
-            "pct": 0.00934
+            "pct": 0.0094
           },
           {
             "mid": 15.0,
-            "pct": 0.0054
+            "pct": 0.00548
           },
           {
             "mid": 17.0,
@@ -1226,15 +1226,15 @@
           },
           {
             "mid": 19.0,
-            "pct": 0.00164
+            "pct": 0.00162
           },
           {
             "mid": 21.0,
-            "pct": 0.00108
+            "pct": 0.0011
           },
           {
             "mid": 23.0,
-            "pct": 0.00054
+            "pct": 0.00056
           },
           {
             "mid": 25.0,
@@ -1253,7 +1253,7 @@
     },
     {
       "state": "Texas",
-      "as_of": "2026-07-29",
+      "as_of": "2026-07-30",
       "candidates": {
         "James Talarico": 45.7,
         "Ken Paxton": 43.3
@@ -1274,15 +1274,15 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.46,
+          "Democrat": 0.465,
           "Republican": 0.535
         }
       },
       "forecast": {
-        "dem_win_prob": 0.5125,
-        "median_margin": 0.15,
-        "margin_p10": -6.47,
-        "margin_p90": 6.96,
+        "dem_win_prob": 0.5138,
+        "median_margin": 0.17,
+        "margin_p10": -6.45,
+        "margin_p90": 6.97,
         "num_simulations": 50000,
         "margin_hist": [
           {
@@ -1303,11 +1303,11 @@
           },
           {
             "mid": -21.0,
-            "pct": 0.00122
+            "pct": 0.0012
           },
           {
             "mid": -19.0,
-            "pct": 0.00192
+            "pct": 0.00194
           },
           {
             "mid": -17.0,
@@ -1315,71 +1315,71 @@
           },
           {
             "mid": -15.0,
-            "pct": 0.00458
+            "pct": 0.00454
           },
           {
             "mid": -13.0,
-            "pct": 0.0081
+            "pct": 0.00808
           },
           {
             "mid": -11.0,
-            "pct": 0.0157
+            "pct": 0.01556
           },
           {
             "mid": -9.0,
-            "pct": 0.02826
+            "pct": 0.02824
           },
           {
             "mid": -7.0,
-            "pct": 0.04964
+            "pct": 0.04952
           },
           {
             "mid": -5.0,
-            "pct": 0.08446
+            "pct": 0.08398
           },
           {
             "mid": -3.0,
-            "pct": 0.12774
+            "pct": 0.12746
           },
           {
             "mid": -1.0,
-            "pct": 0.16074
+            "pct": 0.1606
           },
           {
             "mid": 1.0,
-            "pct": 0.15854
+            "pct": 0.15866
           },
           {
             "mid": 3.0,
-            "pct": 0.13194
+            "pct": 0.13222
           },
           {
             "mid": 5.0,
-            "pct": 0.09192
+            "pct": 0.0923
           },
           {
             "mid": 7.0,
-            "pct": 0.05588
+            "pct": 0.0561
           },
           {
             "mid": 9.0,
-            "pct": 0.0313
+            "pct": 0.03122
           },
           {
             "mid": 11.0,
-            "pct": 0.01812
+            "pct": 0.01826
           },
           {
             "mid": 13.0,
-            "pct": 0.01006
+            "pct": 0.0102
           },
           {
             "mid": 15.0,
-            "pct": 0.00608
+            "pct": 0.0061
           },
           {
             "mid": 17.0,
-            "pct": 0.00294
+            "pct": 0.00296
           },
           {
             "mid": 19.0,
@@ -1387,11 +1387,11 @@
           },
           {
             "mid": 21.0,
-            "pct": 0.00088
+            "pct": 0.00086
           },
           {
             "mid": 23.0,
-            "pct": 0.0008
+            "pct": 0.00082
           },
           {
             "mid": 25.0,
