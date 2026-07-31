@@ -133,6 +133,29 @@ class PollsterRecord:
     percentile: float = 0.0
     methodology: str = ""
     partisan_share: float = 0.0
+    # Share of this firm's polls whose leader actually won, and the same share
+    # for the rest of the field on those same races. The difference is the
+    # honest version: a raw call rate mostly measures which races a firm chose
+    # to poll (64% of polls call races decided by under 5 points, 100% of polls
+    # call blowouts), so it is only comparable against the field's rate on the
+    # identical set.
+    call_rate: float = 0.0
+    field_call_rate: float = 0.0
+    n_called: int = 0
+
+    @property
+    def call_edge(self) -> float:
+        """Percentage points of call accuracy above the field on the same races."""
+        return self.call_rate - self.field_call_rate
+
+    @property
+    def lean_direction(self) -> str:
+        """Which party this house reads friendlier to than the result."""
+        if self.lean_shrunk > 0.5:
+            return "Lean D"
+        if self.lean_shrunk < -0.5:
+            return "Lean R"
+        return "Neutral"
 
     def to_dict(self) -> dict:
         return {
@@ -153,6 +176,11 @@ class PollsterRecord:
             "percentile": round(self.percentile, 4),
             "methodology": self.methodology,
             "partisan_share": round(self.partisan_share, 3),
+            "lean_direction": self.lean_direction,
+            "call_rate": round(self.call_rate, 4),
+            "field_call_rate": round(self.field_call_rate, 4),
+            "call_edge": round(self.call_edge, 4),
+            "n_called": self.n_called,
         }
 
 
@@ -220,6 +248,13 @@ def _time_adjustment(polls: list[RawPoll]) -> dict[int, float]:
     }
 
 
+def _called(poll: RawPoll) -> bool | None:
+    """Did this poll's leader win? None when the poll showed an exact tie."""
+    if poll.dem_margin_poll == 0:
+        return None
+    return (poll.dem_margin_poll > 0) == (poll.dem_margin_actual > 0)
+
+
 def _recency_weight(cycle: int, latest_cycle: int) -> float:
     if RECENCY_HALF_LIFE_CYCLES is None:
         return 1.0
@@ -267,6 +302,13 @@ def build_records(
     if not scored:
         return []
 
+    # Field call rate per race, for the leave-one-out comparison below.
+    field_calls: dict[str, list[bool]] = {}
+    for p, _, _ in scored:
+        c = _called(p)
+        if c is not None:
+            field_calls.setdefault(p.race_id, []).append(c)
+
     by_pollster: dict[str, list[tuple[RawPoll, float, float]]] = {}
     for item in scored:
         by_pollster.setdefault(item[0].pollster, []).append(item)
@@ -289,6 +331,10 @@ def build_records(
         lean_s = (wsum * lean + k * pool_lean) / (wsum + k)
         cycles = sorted({p.cycle for p, _, _ in items})
         methods = [p.methodology for p, _, _ in items if p.methodology]
+        called = [(p, _called(p)) for p, _, _ in items]
+        called = [(p, c) for p, c in called if c is not None]
+        mine = [c for _, c in called]
+        field = [c for p, _ in called for c in field_calls.get(p.race_id, [])]
         records.append(PollsterRecord(
             pollster=name,
             n_polls=len(items),
@@ -303,6 +349,9 @@ def build_records(
             lean_shrunk=lean_s,
             methodology=max(set(methods), key=methods.count) if methods else "",
             partisan_share=sum(1 for p, _, _ in items if p.partisan) / len(items),
+            call_rate=(sum(mine) / len(mine)) if mine else 0.0,
+            field_call_rate=(sum(field) / len(field)) if field else 0.0,
+            n_called=len(mine),
         ))
 
     _assign_grades(records)
@@ -521,3 +570,109 @@ class GradeBook:
 
     def __len__(self) -> int:
         return len(self.records)
+
+
+# ── brands and partnerships ──────────────────────────────────────────────────
+#
+# The archive files a joint poll under the partnership name, so "The New York
+# Times" as a literal string holds 8 polls from 2000-2010 while the NYT's real
+# record is 281 polls across three mastheads:
+#
+#     The New York Times/Siena College   196   2016-2022
+#     CBS News/The New York Times         77   1998-2016
+#     The New York Times                   8   2000-2010
+#
+# Grading the fragments separately is wrong twice over: it invents a firm that
+# stopped polling in 2010, and it throws away the sample that would make the
+# real record meaningful. So a poll is credited to *every* brand in its
+# partnership — a CBS/NYT poll counts toward both CBS News and the New York
+# Times, which is how a reader means the question "how accurate is NYT
+# polling?". Par error is still leave-one-out within a race, so a poll never
+# competes against itself; it is simply aggregated under two headings.
+
+# Firm names that contain a slash but are not partnerships.
+_NOT_A_PARTNERSHIP = frozenset({
+    "co/efficient",
+    "change research/embold research",
+})
+
+# Canonical brand names for components that appear under several spellings.
+_BRAND_CANON: dict[str, str] = {
+    "the new york times": "New York Times",
+    "nyt": "New York Times",
+    "the washington post": "Washington Post",
+    "wapo": "Washington Post",
+    "the wall street journal": "Wall Street Journal",
+    "wsj": "Wall Street Journal",
+    "the economist": "The Economist",
+    "abc news": "ABC News",
+    "cbs news": "CBS News",
+    "nbc news": "NBC News",
+    "cnn": "CNN",
+    "fox news": "Fox News",
+    "usa today": "USA Today",
+    "siena college": "Siena College",
+    "siena university": "Siena College",
+    "marist college": "Marist College",
+    "marist": "Marist College",
+    "yougov": "YouGov",
+    "ipsos": "Ipsos",
+    "ssrs": "SSRS",
+    "reuters": "Reuters",
+    "harris poll": "Harris Insights & Analytics",
+    "harrisx": "Harris Insights & Analytics",
+}
+
+# A component this short or generic is a sponsor fragment, not a pollster.
+_MIN_BRAND_CHARS = 3
+
+
+def split_brands(name: str) -> list[str]:
+    """Split a partnership masthead into its canonical brand components.
+
+    A name with no slash is a single brand. ``co/efficient`` and friends are
+    firm names that happen to contain a slash and are never split.
+    """
+    raw = (name or "").strip()
+    if not raw:
+        return []
+    if raw.lower() in _NOT_A_PARTNERSHIP or "/" not in raw:
+        return [_canon_brand(raw)]
+    parts = [p.strip() for p in raw.split("/") if p.strip()]
+    out, seen = [], set()
+    for p in parts:
+        if len(p) < _MIN_BRAND_CHARS:
+            continue
+        c = _canon_brand(p)
+        if c and c.lower() not in seen:
+            seen.add(c.lower())
+            out.append(c)
+    return out or [_canon_brand(raw)]
+
+
+def _canon_brand(part: str) -> str:
+    s = _PARTY_TAG.sub("", part).strip()
+    key = s.lower().removeprefix("the ").strip()
+    if key in _BRAND_CANON:
+        return _BRAND_CANON[key]
+    if s.lower() in _BRAND_CANON:
+        return _BRAND_CANON[s.lower()]
+    return s
+
+
+def build_brand_records(polls: Iterable[RawPoll], **kw) -> list[PollsterRecord]:
+    """Grade by brand rather than by literal masthead.
+
+    Each poll is duplicated once per brand in its partnership before fitting,
+    so a joint poll contributes to both partners' records. Everything else —
+    leave-one-out par, shrinkage, grading — is unchanged.
+    """
+    expanded: list[RawPoll] = []
+    for p in polls:
+        brands = split_brands(p.pollster)
+        if len(brands) <= 1:
+            expanded.append(p)
+            continue
+        for b in brands:
+            expanded.append(RawPoll(**{**p.__dict__, "pollster": b}))
+    return build_records(expanded, **kw)

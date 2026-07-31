@@ -282,3 +282,95 @@ class TestScoreScale:
                  for i in range(40) for j, n in enumerate(["A", "B", "C"])]
         rec = build_records(polls)[0].to_dict()
         assert rec["score"] == score_from_par(rec["par_error_shrunk"])
+
+
+class TestBrandsAndPartnerships:
+    def test_partnership_splits_into_brands(self):
+        from src.analysis.pollster_grades import split_brands
+        assert split_brands("The New York Times/Siena College") == ["New York Times", "Siena College"]
+        assert split_brands("CBS News/The New York Times") == ["CBS News", "New York Times"]
+        assert split_brands("ABC News/The Washington Post") == ["ABC News", "Washington Post"]
+
+    def test_solo_name_is_one_brand(self):
+        from src.analysis.pollster_grades import split_brands
+        assert split_brands("Emerson College") == ["Emerson College"]
+
+    def test_firm_names_containing_a_slash_are_not_split(self):
+        from src.analysis.pollster_grades import split_brands
+        assert split_brands("co/efficient") == ["co/efficient"]
+
+    def test_sponsor_tag_stripped_from_components(self):
+        from src.analysis.pollster_grades import split_brands
+        assert split_brands("Fabrizio Ward (R)/Impact Research (D)") == [
+            "Fabrizio Ward", "Impact Research"]
+
+    def test_empty_name_is_no_brands(self):
+        from src.analysis.pollster_grades import split_brands
+        assert split_brands("") == []
+
+    def test_joint_poll_credits_both_partners(self):
+        """The bug this fixes: a brand's record was the fragment filed under its
+        exact string, not its actual body of work."""
+        from src.analysis.pollster_grades import build_brand_records
+        polls = []
+        for i in range(40):
+            polls.append(_poll("Alpha News/Beta Research", f"r{i}", 1.0))
+            polls.append(_poll("Filler One", f"r{i}", 3.0))
+            polls.append(_poll("Filler Two", f"r{i}", 3.0))
+        recs = {r.pollster: r for r in build_brand_records(polls)}
+        assert "Alpha News" in recs and "Beta Research" in recs
+        assert "Alpha News/Beta Research" not in recs
+        assert recs["Alpha News"].n_polls == recs["Beta Research"].n_polls == 40
+        # Both partners inherit the same performance from the shared polls.
+        assert recs["Alpha News"].par_error == pytest.approx(recs["Beta Research"].par_error)
+
+
+class TestCallAccuracy:
+    def test_call_rate_counts_correct_winners(self):
+        polls = []
+        for i in range(40):
+            # Sharp always has the right side; Wrong always has the wrong side.
+            polls.append(_poll("Sharp", f"r{i}", 2.0))
+            polls.append(_poll("Wrong", f"r{i}", -2.0))
+            polls.append(_poll("Filler", f"r{i}", 1.0))
+        # actual margin is 0.0 for every _poll, so "dem won" is False everywhere
+        recs = {r.pollster: r for r in build_records(polls)}
+        assert recs["Wrong"].call_rate == 1.0     # showed R ahead, R "won"
+        assert recs["Sharp"].call_rate == 0.0
+        assert recs["Sharp"].n_called == 40
+
+    def test_call_edge_is_relative_to_the_field(self):
+        polls = []
+        for i in range(40):
+            polls.append(_poll("Contrarian", f"r{i}", -2.0))
+            polls.append(_poll("Herd1", f"r{i}", 2.0))
+            polls.append(_poll("Herd2", f"r{i}", 2.0))
+        recs = {r.pollster: r for r in build_records(polls)}
+        # Contrarian calls every race right; the field (itself included) mostly does not.
+        assert recs["Contrarian"].call_edge > 0
+        assert recs["Herd1"].call_edge < 0
+
+    def test_exact_tie_polls_are_not_counted(self):
+        polls = [_poll("Tied", f"r{i}", 0.0) for i in range(40)]
+        polls += [_poll("Filler", f"r{i}", 2.0) for i in range(40)]
+        polls += [_poll("Filler2", f"r{i}", 3.0) for i in range(40)]
+        recs = {r.pollster: r for r in build_records(polls)}
+        assert recs["Tied"].n_called == 0
+
+
+class TestLeanDirection:
+    def _rec(self, lean):
+        from src.analysis.pollster_grades import PollsterRecord
+        return PollsterRecord(pollster="X", n_polls=1, n_races=1, n_weighted=1.0,
+                              cycles=[2022], last_cycle=2022, raw_abs_error=0.0,
+                              par_error=0.0, par_error_shrunk=0.0, lean=lean, lean_shrunk=lean)
+
+    def test_positive_lean_reads_democratic(self):
+        assert self._rec(2.0).lean_direction == "Lean D"
+
+    def test_negative_lean_reads_republican(self):
+        assert self._rec(-2.0).lean_direction == "Lean R"
+
+    def test_small_lean_is_neutral(self):
+        assert self._rec(0.2).lean_direction == "Neutral"
+        assert self._rec(-0.2).lean_direction == "Neutral"

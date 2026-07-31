@@ -29,6 +29,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from src.analysis.pollster_grades import (  # noqa: E402
+    build_brand_records,
     build_records,
     normalize_poll_row,
     quality_from_par,
@@ -212,7 +213,10 @@ def main() -> None:
     print("Building Policy y Peaches pollster grades")
     src = args.raw_polls or fetch_raw_polls(CACHE)
     polls = read_polls([src, *args.extra])
-    records = build_records(polls)
+    # Grade by brand: a joint poll counts toward every masthead in the
+    # partnership, so "New York Times" holds its real 227-poll record rather
+    # than the 8-poll fragment filed under that exact string.
+    records = build_brand_records(polls)
     default_q = unknown_default(records)
     cycles = sorted({p.cycle for p in polls})
     print(f"  graded {len(records)} pollsters over cycles {cycles[0]}–{cycles[-1]}")
@@ -233,13 +237,14 @@ def main() -> None:
             "unknown_default": default_q,
             "scale": "quality 0-3, 1.5 = par; grade = percentile of the graded pool",
         },
+        "literal_names": len({p.pollster for p in polls}),
         "ratings": {r.pollster: r.quality for r in records},
         "grades": [r.to_dict() for r in records],
         "regions": {},
     }
     for region, states in REGIONS.items():
         sub = [p for p in polls if p.location in set(states)]
-        recs = build_records(sub, min_weighted=5.0)
+        recs = build_brand_records(sub, min_weighted=5.0)
         payload["regions"][region] = {
             "states": states,
             "n_polls": len(sub),
