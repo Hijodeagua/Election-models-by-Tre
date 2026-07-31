@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-07-30",
+  "as_of": "2026-07-31",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4208,
-  "mean_dem_seats": 50.06,
+  "dem_control_prob": 0.4226,
+  "mean_dem_seats": 50.07,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 67,
-    "45": 304,
-    "46": 899,
-    "47": 2220,
-    "48": 4718,
-    "49": 8954,
-    "50": 11796,
-    "51": 11088,
-    "52": 7214,
-    "53": 2740
+    "45": 300,
+    "46": 890,
+    "47": 2186,
+    "48": 4688,
+    "49": 8933,
+    "50": 11804,
+    "51": 11132,
+    "52": 7244,
+    "53": 2756
   },
   "races": [
     {
@@ -25,14 +25,14 @@
       "margin": 7.892,
       "num_polls": 10,
       "dem_win_prob_polls": 0.8975,
-      "dem_win_prob_blended": 0.8894,
+      "dem_win_prob_blended": 0.8919,
       "market_dem_prob": {
-        "polymarket": 0.865
+        "polymarket": 0.875
       },
-      "dem_win_prob_sim": 0.8914,
-      "median_margin": 6.42,
-      "margin_p10": -0.27,
-      "margin_p90": 13.09
+      "dem_win_prob_sim": 0.8941,
+      "median_margin": 6.5,
+      "margin_p10": -0.19,
+      "margin_p90": 13.17
     },
     {
       "state": "Michigan",
@@ -40,16 +40,16 @@
       "dem_candidate": "Haley Stevens",
       "rep_candidate": "Mike Rogers",
       "margin": 8.114,
-      "num_polls": 14,
+      "num_polls": 15,
       "dem_win_prob_polls": 0.9037,
-      "dem_win_prob_blended": 0.8466,
+      "dem_win_prob_blended": 0.8478,
       "market_dem_prob": {
-        "polymarket": 0.675
+        "polymarket": 0.68
       },
-      "dem_win_prob_sim": 0.847,
-      "median_margin": 5.19,
-      "margin_p10": -1.56,
-      "margin_p90": 11.97
+      "dem_win_prob_sim": 0.8484,
+      "median_margin": 5.22,
+      "margin_p10": -1.53,
+      "margin_p90": 12.0
     },
     {
       "state": "North Carolina",
@@ -127,14 +127,14 @@
       "margin": 1.765,
       "num_polls": 20,
       "dem_win_prob_polls": 0.5429,
-      "dem_win_prob_blended": 0.5272,
+      "dem_win_prob_blended": 0.5309,
       "market_dem_prob": {
-        "polymarket": 0.48
+        "polymarket": 0.495
       },
-      "dem_win_prob_sim": 0.5258,
-      "median_margin": 0.31,
-      "margin_p10": -6.31,
-      "margin_p90": 7.12
+      "dem_win_prob_sim": 0.5295,
+      "median_margin": 0.36,
+      "margin_p10": -6.26,
+      "margin_p90": 7.16
     },
     {
       "state": "Iowa",
@@ -184,8 +184,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4208,
-  "mean_dem_seats_with_vibes": 50.06,
+  "dem_control_prob_with_vibes": 0.4226,
+  "mean_dem_seats_with_vibes": 50.07,
   "national_environment": {
     "national_swing": 8.464,
     "available": true,
