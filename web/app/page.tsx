@@ -1,5 +1,6 @@
 import ApprovalChart from '@/app/components/ApprovalChart';
 import ApprovalComparisonChart from '@/app/components/ApprovalComparisonChart';
+import DataFreshnessBanner from '@/app/components/DataFreshnessBanner';
 import LastUpdated from '@/app/components/LastUpdated';
 import { EmptyState, MetaStrip, PageHead, Panel, StatCard } from '@/app/components/ui';
 import { getApproval, getApprovalComparison } from '@/app/lib/data';
@@ -15,6 +16,7 @@ export default function ApprovalPage() {
         title="Is the country buying what the President is selling?"
         sub="A weighted average of public job-approval polls — weighted by pollster quality, recency, and sample size — showing where polling stands today."
       />
+      <DataFreshnessBanner feed="approval" />
 
       {current ? (
         <>

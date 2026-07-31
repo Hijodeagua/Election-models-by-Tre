@@ -1,4 +1,5 @@
 import LastUpdated from '@/app/components/LastUpdated';
+import DataFreshnessBanner from '@/app/components/DataFreshnessBanner';
 import MarginChart from '@/app/components/MarginChart';
 import { EmptyState, MetaStrip, PageHead, Panel, StatCard } from '@/app/components/ui';
 import { getGenericBallot } from '@/app/lib/data';
@@ -22,6 +23,7 @@ export default function GenericBallotPage() {
           </>
         }
       />
+      <DataFreshnessBanner feed="generic_ballot" />
 
       {current ? (
         <>
@@ -47,7 +49,12 @@ export default function GenericBallotPage() {
           {current.estimated_dem_seats != null && (
             <p className="mb-4 rounded-lg border border-peach-border bg-peach-wash px-3.5 py-2.5 text-xs leading-relaxed text-cocoa-700">
               Rough seat translation from the national margin: D{' '}
-              {current.estimated_dem_seats} / R {current.estimated_rep_seats}.
+              {current.estimated_dem_seats} / R {current.estimated_rep_seats}
+              {current.estimated_dem_seats_lo != null &&
+                current.estimated_dem_seats_hi != null && (
+                  <> (80% range: D {current.estimated_dem_seats_lo}–{current.estimated_dem_seats_hi})</>
+                )}
+              .
             </p>
           )}
 
