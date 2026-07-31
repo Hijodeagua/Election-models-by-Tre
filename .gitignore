@@ -27,6 +27,8 @@ env/
 # Data (keep structure, ignore large files)
 data/raw/*.json
 data/raw/*.csv
+# Third-party 2024 inputs, re-fetched by scripts/build_2024_raw_polls.py
+data/raw/2024/
 data/processed/*.csv
 data/processed/*.parquet
 !data/raw/.gitkeep

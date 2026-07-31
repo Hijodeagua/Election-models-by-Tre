@@ -324,6 +324,36 @@ class TestBrandsAndPartnerships:
         # Both partners inherit the same performance from the shared polls.
         assert recs["Alpha News"].par_error == pytest.approx(recs["Beta Research"].par_error)
 
+    def test_solo_masthead_is_canonicalised_too(self):
+        """A name with no partner still has to be normalised before grading.
+
+        Skipping that step left ``The New York Times`` standing beside
+        ``New York Times`` as a separate eight-poll record with its own grade.
+        """
+        from src.analysis.pollster_grades import build_brand_records
+        polls = []
+        for i in range(30):
+            polls.append(_poll("The New York Times", f"r{i}", 1.0))
+            polls.append(_poll("The New York Times/Siena College", f"r{i}", 1.0))
+            polls.append(_poll("Filler One", f"r{i}", 3.0))
+        recs = {r.pollster: r for r in build_brand_records(polls)}
+        assert "The New York Times" not in recs
+        assert recs["New York Times"].n_polls == 60
+
+    def test_masthead_alias_merges_eras(self):
+        """CNN's polls are filed under SSRS before 2024 and under CNN after."""
+        from src.analysis.pollster_grades import build_brand_records, split_brands
+        assert split_brands("CNN") == ["CNN", "SSRS"]
+        assert split_brands("SSRS") == ["CNN", "SSRS"]
+        polls = []
+        for i in range(30):
+            polls.append(_poll("SSRS" if i % 2 else "CNN", f"r{i}", 1.0))
+            polls.append(_poll("Filler One", f"r{i}", 3.0))
+            polls.append(_poll("Filler Two", f"r{i}", 3.0))
+        recs = {r.pollster: r for r in build_brand_records(polls)}
+        assert recs["CNN"].n_polls == 30
+        assert recs["SSRS"].n_polls == 30
+
 
 class TestCallAccuracy:
     def test_call_rate_counts_correct_winners(self):

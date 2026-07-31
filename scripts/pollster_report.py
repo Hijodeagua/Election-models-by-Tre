@@ -31,12 +31,15 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from src.analysis.pollster_grades import (  # noqa: E402
     GradeBook,
-    build_records,
+    build_brand_records,
     normalize_poll_row,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "data" / "raw" / "raw_polls.csv"
+# The 2024 cycle, assembled by scripts/build_2024_raw_polls.py. 538's archive
+# stops at 2022, so without this every "last decade" cut ends two years early.
+RAW_2024 = ROOT / "data" / "raw" / "raw_polls_2024.csv"
 
 # The nine competitive Senate races of 2026 — the states a 2026 grade should be
 # judged on, rather than the national average across all fifty.
@@ -47,10 +50,11 @@ NINE_2026 = ["GA", "MI", "NC", "ME", "NH", "OH", "TX", "IA", "AK"]
 PRES_BATTLEGROUNDS = NINE_2026 + ["AZ", "WI", "PA", "NV", "FL", "MN", "VA", "CO"]
 
 ERAS: list[tuple[str, int, int]] = [
-    ("1998–2022 (all)", 1998, 2022),
+    ("1998–2024 (all)", 1998, 2024),
     ("1998–2012 (early)", 1998, 2012),
-    ("2014–2022 (last decade)", 2014, 2022),
-    ("2018–2022 (last half-decade)", 2018, 2022),
+    ("2014–2024 (last decade)", 2014, 2024),
+    ("2018–2024 (last half-decade)", 2018, 2024),
+    ("2024 only", 2024, 2024),
 ]
 
 MIN_POLLS_CELL = 5
@@ -73,7 +77,7 @@ def subset(polls, states=None, lo=None, hi=None):
 
 def cell(polls, min_polls: int = MIN_POLLS_CELL) -> dict[str, dict]:
     """Fit records on a subset and return them keyed by pollster."""
-    recs = build_records(polls, min_weighted=float(min_polls))
+    recs = build_brand_records(polls, min_weighted=float(min_polls))
     return {r.pollster: r.to_dict() for r in recs}
 
 
@@ -115,6 +119,8 @@ def per_state(polls, pollsters: list[str], states: list[str]) -> dict:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--raw-polls", type=Path, default=RAW)
+    ap.add_argument("--extra", type=Path, nargs="*", default=None,
+                    help=f"additional CSVs in the same schema (default: {RAW_2024.name} if present)")
     ap.add_argument("--states", type=str, default=",".join(NINE_2026))
     ap.add_argument("--json", type=Path, default=None)
     ap.add_argument("--top", type=int, default=25)
@@ -123,7 +129,11 @@ def main() -> None:
     if not args.raw_polls.exists():
         sys.exit(f"missing {args.raw_polls} — run scripts/build_pollster_grades.py first")
     states = [s.strip().upper() for s in args.states.split(",") if s.strip()]
+    extra = args.extra if args.extra is not None else ([RAW_2024] if RAW_2024.exists() else [])
     polls = load_polls(args.raw_polls)
+    for path in extra:
+        polls += load_polls(path)
+        print(f"  + {path.name}")
     cycles = sorted({p.cycle for p in polls})
     print(f"{len(polls):,} scored polls, cycles {cycles[0]}–{cycles[-1]}")
     print(f"battleground set: {', '.join(states)}\n")

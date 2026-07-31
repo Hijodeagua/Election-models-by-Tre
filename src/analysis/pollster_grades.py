@@ -621,6 +621,25 @@ _BRAND_CANON: dict[str, str] = {
     "reuters": "Reuters",
     "harris poll": "Harris Insights & Analytics",
     "harrisx": "Harris Insights & Analytics",
+    # 538 respelled several firms between the 2022 archive and the 2024 files.
+    "fabrizio, lee & associates": "Fabrizio Lee & Associates",
+    "fabrizio lee": "Fabrizio Lee & Associates",
+    "fabrizio": "Fabrizio Lee & Associates",
+    "trafalgar group": "Trafalgar Group",
+    "the trafalgar group": "Trafalgar Group",
+    "susquehanna polling & research inc.": "Susquehanna Polling & Research",
+    "susquehanna polling & research": "Susquehanna Polling & Research",
+    "susquehanna polling and research": "Susquehanna Polling & Research",
+}
+
+# Mastheads filed under one name in one era and under the partnership in
+# another. Rewriting to the fuller form before splitting keeps a firm's record
+# in one place across the archive: 538 filed CNN's polls under the field house
+# (SSRS) through 2022 and under the network from 2024, and both deserve credit
+# under the same rule that credits the Times for a Times/Siena poll.
+_MASTHEAD_ALIASES: dict[str, str] = {
+    "cnn": "CNN/SSRS",
+    "ssrs": "CNN/SSRS",
 }
 
 # A component this short or generic is a sponsor fragment, not a pollster.
@@ -636,6 +655,7 @@ def split_brands(name: str) -> list[str]:
     raw = (name or "").strip()
     if not raw:
         return []
+    raw = _MASTHEAD_ALIASES.get(raw.lower(), raw)
     if raw.lower() in _NOT_A_PARTNERSHIP or "/" not in raw:
         return [_canon_brand(raw)]
     parts = [p.strip() for p in raw.split("/") if p.strip()]
@@ -666,13 +686,13 @@ def build_brand_records(polls: Iterable[RawPoll], **kw) -> list[PollsterRecord]:
     Each poll is duplicated once per brand in its partnership before fitting,
     so a joint poll contributes to both partners' records. Everything else —
     leave-one-out par, shrinkage, grading — is unchanged.
+
+    A masthead with no partner still goes through canonicalisation. Skipping
+    that step is what let ``The New York Times`` sit next to ``New York Times``
+    as two records, the eight-poll fragment scoring a grade of its own.
     """
     expanded: list[RawPoll] = []
     for p in polls:
-        brands = split_brands(p.pollster)
-        if len(brands) <= 1:
-            expanded.append(p)
-            continue
-        for b in brands:
-            expanded.append(RawPoll(**{**p.__dict__, "pollster": b}))
+        for b in split_brands(p.pollster) or [p.pollster]:
+            expanded.append(p if b == p.pollster else RawPoll(**{**p.__dict__, "pollster": b}))
     return build_records(expanded, **kw)
