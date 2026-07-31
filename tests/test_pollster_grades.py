@@ -116,13 +116,29 @@ class TestBuildRecords:
         # Sorted best first, so grades run best to worst.
         assert recs[0].par_error_shrunk <= recs[-1].par_error_shrunk
 
-    def test_recency_weighting_favours_recent_cycles(self):
+    def test_recency_decay_is_off_by_default(self):
+        """Decay lost on both holdout splits, so the default is no decay.
+
+        This is deliberate and counterintuitive enough to be worth pinning: an
+        old poll is bad evidence about today's race but good evidence about a
+        pollster's house effect.
+        """
+        import src.analysis.pollster_grades as PG
+        assert PG.RECENCY_HALF_LIFE_CYCLES is None
+        assert PG._recency_weight(1998, 2022) == 1.0
+
+    def test_recency_decay_works_when_enabled(self, monkeypatch):
+        import src.analysis.pollster_grades as PG
+        monkeypatch.setattr(PG, "RECENCY_HALF_LIFE_CYCLES", 2.0)
+        assert PG._recency_weight(2022, 2022) == 1.0
+        assert PG._recency_weight(2018, 2022) < PG._recency_weight(2020, 2022) < 1.0
+
         old = [_poll("Faded", f"r{i}", 0.0, cycle=1998) for i in range(40)]
         new = [_poll("Faded", f"r{i}", 6.0, cycle=2022) for i in range(40)]
         filler = [_poll(f"F{j}", f"r{i}", 3.0, cycle=c)
                   for i in range(40) for j, c in enumerate([1998, 2022])]
         recs = {r.pollster: r for r in build_records(old + new + filler)}
-        # The recent bad run should dominate the ancient good one.
+        # With decay on, the recent bad run dominates the ancient good one.
         assert recs["Faded"].par_error > 0
 
 

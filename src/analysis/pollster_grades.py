@@ -45,12 +45,33 @@ GENERAL_TYPES = frozenset({"Pres-G", "Sen-G", "Gov-G", "House-G"})
 MIN_POLLS_PER_RACE = 3
 
 # Empirical-Bayes shrinkage constant, in polls. A pollster with K polls is
-# pulled halfway to the pool mean.
-SHRINK_K = 20.0
+# pulled halfway to the pool mean. Tuned on two holdout splits (train ≤2016
+# scored on 2018-2022, train ≤2018 scored on 2020-2022); 10 is the value that
+# is at or near the optimum on both.
+SHRINK_K = 10.0
 
-# Recency half-life in cycles: a poll from four cycles (8 years) back counts
-# half as much as one from the most recent cycle.
-RECENCY_HALF_LIFE_CYCLES = 4.0
+# Recency half-life in cycles, or None for no decay.
+#
+# None is not an oversight. Decaying old cycles was tested against both holdout
+# splits at every shrinkage constant and lost every time — monotonically, and
+# by more the harder the decay:
+#
+#     half-life   train ≤2016   train ≤2018     (mean abs error, k=10)
+#     2 cycles       4.6234        4.9014
+#     4 cycles       4.5727        4.7604
+#     8 cycles       4.5523        4.7190
+#     none           4.5342        4.6588
+#
+# Lowering SHRINK_K does not rescue decay, so this is not an effective-sample-
+# size artefact: old polls genuinely carry information about a house's lean.
+# That is the opposite of how recency works when *averaging* polls, and the two
+# should not be confused — an old poll is bad evidence about today's race and
+# good evidence about a pollster's methodology.
+#
+# Caveat: only testable through 2022, which is where the archive ends. Re-tune
+# once a 2024 corpus is available, since a regime shift in methodology is
+# exactly the thing that would make decay start paying.
+RECENCY_HALF_LIFE_CYCLES: float | None = None
 
 # Minimum recency-weighted polls before a pollster is graded at all.
 MIN_POLLS_TO_GRADE = 8.0
@@ -199,6 +220,8 @@ def _time_adjustment(polls: list[RawPoll]) -> dict[int, float]:
 
 
 def _recency_weight(cycle: int, latest_cycle: int) -> float:
+    if RECENCY_HALF_LIFE_CYCLES is None:
+        return 1.0
     cycles_back = max(0, (latest_cycle - cycle)) / 2.0  # cycles, not years
     return 0.5 ** (cycles_back / RECENCY_HALF_LIFE_CYCLES)
 
