@@ -15,23 +15,41 @@ from src.analysis.trend import moving_average
 
 
 class TestPollsterWeightManager:
-    def test_load_default_ratings(self):
+    def test_prefers_our_fitted_grades(self):
+        """When config/pollster_grades.json exists it outranks the imported table."""
+        from src.analysis.pollster_grades import GradeBook
         mgr = PollsterWeightManager()
-        # config/pollster_ratings.json is generated from the PPM-derived pool
-        # in src/data/pollster_ratings.py — the two must agree.
+        if mgr.grades is None:
+            pytest.skip("grades not built — run scripts/build_pollster_grades.py")
+        assert mgr.get_rating("Marist College") == GradeBook().quality("Marist College")
+
+    def test_falls_back_to_imported_table(self):
+        """An explicit ratings_path opts out of the fitted grades entirely."""
         from src.data.pollster_ratings import hybrid_quality
+        mgr = PollsterWeightManager(
+            ratings_path=Path(__file__).resolve().parents[1] / "config" / "pollster_ratings.json"
+        )
+        assert mgr.grades is None
         assert mgr.get_rating("Marist College") == hybrid_quality("Marist College")
 
     def test_unknown_pollster_gets_default(self):
         from src.data.pollster_ratings import _UNKNOWN_DEFAULT
         mgr = PollsterWeightManager()
-        # Survivorship-adjusted 25th-percentile default, not the 1.5 midpoint
-        assert mgr.get_rating("Unknown Pollster Inc") == _UNKNOWN_DEFAULT
+        # Survivorship-adjusted 25th-percentile default, not the 1.5 midpoint.
+        expected = mgr.grades.unknown_quality if mgr.grades else _UNKNOWN_DEFAULT
+        assert mgr.get_rating("Unknown Pollster Inc") == expected
 
     def test_case_insensitive_lookup(self):
-        from src.data.pollster_ratings import hybrid_quality
         mgr = PollsterWeightManager()
-        assert mgr.get_rating("marist college") == hybrid_quality("Marist College")
+        assert mgr.get_rating("marist college") == mgr.get_rating("Marist College")
+
+    def test_sponsor_tagged_name_resolves(self):
+        """State feeds tag names with a sponsor party; that must not lose the rating."""
+        mgr = PollsterWeightManager()
+        if mgr.grades is None:
+            pytest.skip("grades not built — run scripts/build_pollster_grades.py")
+        assert mgr.get_rating("Trafalgar Group (R)") == mgr.get_rating("Trafalgar Group")
+        assert mgr.get_rating("Trafalgar Group (R)") != mgr.grades.unknown_quality
 
     def test_set_and_get_rating(self):
         mgr = PollsterWeightManager()
