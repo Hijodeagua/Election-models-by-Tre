@@ -192,6 +192,40 @@ def main() -> None:
               f"{r['lean_shrunk']:+8.2f}{r['raw_abs_error']:9.2f}{r['n_polls']:7d}{r['n_races']:7d}"
               f"{span:>11}")
 
+    # The field's own miss, cycle by cycle. This is the number the forecast's
+    # bias term is supposed to absorb, and it is the origin the pollster
+    # quadrant is centred on — a firm at zero there is average, not calibrated.
+    print("\nFIELD-WIDE SIGNED ERROR BY CYCLE  (+ overstated Democrats)")
+    payload["field_bias"] = {"by_cycle": [], "by_era": {}, "by_office": {}}
+    for c in sorted({p.cycle for p in polls}):
+        sub = [p for p in polls if p.cycle == c]
+        if len(sub) < 100:
+            continue
+        row = {"cycle": c, "n": len(sub),
+               "signed": round(sum(p.signed_error for p in sub) / len(sub), 3),
+               "abs": round(sum(p.abs_error for p in sub) / len(sub), 3)}
+        payload["field_bias"]["by_cycle"].append(row)
+        bar = int(abs(row["signed"]) * 6)
+        side = ("D" if row["signed"] > 0 else "R") * bar
+        print(f"  {c}  {row['signed']:+6.2f}  abs {row['abs']:5.2f}  n={row['n']:5d}  "
+              + (" " * (30 - bar) + side if row["signed"] < 0 else " " * 30 + side))
+    for lab, lo, hi in ERAS:
+        sub = subset(polls, lo=lo, hi=hi)
+        if sub:
+            payload["field_bias"]["by_era"][lab] = round(
+                sum(p.signed_error for p in sub) / len(sub), 3)
+    print("  era means: " + " · ".join(
+        f"{k} {v:+.2f}" for k, v in payload["field_bias"]["by_era"].items()))
+    for lab, t in (("President", "Pres-G"), ("Senate", "Sen-G"),
+                   ("Governor", "Gov-G"), ("House", "House-G")):
+        sub = [p for p in polls if p.race_type == t]
+        if sub:
+            payload["field_bias"]["by_office"][lab] = round(
+                sum(p.signed_error for p in sub) / len(sub), 3)
+    print("  by office: " + " · ".join(
+        f"{k} {v:+.2f}" for k, v in payload["field_bias"]["by_office"].items())
+        + "   (small because the eras cancel — do not read as 'no bias')")
+
     print(f"\nTIME TO ELECTION — mean absolute error, all {len(polls):,} polls")
     for b in payload["time_curve"]["all"]:
         print(f"  {b['label']:16} n={b['n']:5d}  {b['mean_abs_error']:5.2f}")
