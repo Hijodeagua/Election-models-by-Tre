@@ -412,6 +412,11 @@ class GradeBook:
         }
         self.unknown_quality: float = self.meta.get("unknown_default", 1.408)
         self._pool_lean: float | None = None
+        # Region-scoped leans, e.g. {"battleground_2026": {"states": [...],
+        # "leans": {pollster: lean}}}. Fitting the lean on the states you are
+        # actually forecasting beats both a national lean and a per-state one —
+        # see docs in relative_lean().
+        self.regions: dict = payload.get("regions", {})
         self._index: dict[str, str] = {}
         for name in self.records:
             self._index.setdefault(normalize_name(name), name)
@@ -459,15 +464,40 @@ class GradeBook:
         rec = self.get(name)
         return rec["lean_shrunk"] if rec else 0.0
 
-    def relative_lean(self, name: str) -> float:
+    def relative_lean(self, name: str, region: str | None = None) -> float:
         """House effect net of the field's systematic lean.
 
         This is the number to subtract from a poll when the model downstream
         also applies a calibrated bias term. An unrated house is treated as
         average, which is the honest default: we know nothing about it.
+
+        Pass ``region`` to use a lean fitted on that region's races instead of
+        the national one. A firm's lean is not a constant — it moves by five to
+        seven points between states — and on held-out battleground races a
+        region-scoped lean beats the national figure on both validation splits:
+
+            correction                 fit ≤2016   fit ≤2018   (mean abs error)
+            none                          3.8308      4.0410
+            national lean                 3.6260      3.7063
+            region-pooled lean            3.5279      3.4113
+            per-state lean                3.5551      3.4641
+
+        Per-state is worse than region-pooled: those cells run three to twenty
+        polls and the noise costs more than the specificity buys. Pool the
+        region, do not slice it further. Quality/grade still comes from the full
+        national fit, where coverage is much better.
         """
+        if region:
+            leans = (self.regions.get(region) or {}).get("leans") or {}
+            canon = self.resolve(name)
+            if canon and canon in leans:
+                return leans[canon] - self.pool_lean
         rec = self.get(name)
         return (rec["lean_shrunk"] - self.pool_lean) if rec else 0.0
+
+    def region_states(self, region: str) -> list[str]:
+        """States a fitted region covers, empty if the region is unknown."""
+        return list((self.regions.get(region) or {}).get("states") or [])
 
     def __contains__(self, name: str) -> bool:
         return self.resolve(name) is not None

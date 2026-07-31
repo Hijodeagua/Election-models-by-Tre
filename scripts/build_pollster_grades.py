@@ -43,6 +43,13 @@ ROOT = Path(__file__).resolve().parents[1]
 CACHE = ROOT / "data" / "raw" / "raw_polls.csv"
 OUT = ROOT / "config" / "pollster_grades.json"
 
+# Region-scoped leans. Quality comes from the national fit — coverage is what
+# matters there — but the lean correction is fitted on the states being
+# forecast, which beats a national lean out of sample. See relative_lean().
+REGIONS: dict[str, list[str]] = {
+    "battleground_2026": ["GA", "MI", "NC", "ME", "NH", "OH", "TX", "IA", "AK"],
+}
+
 
 def fetch_raw_polls(dest: Path) -> Path:
     """Download the archive to ``dest`` unless it is already cached."""
@@ -144,6 +151,34 @@ def validate(polls: list) -> dict:
             ),
             "n_races": len(errs),
         }
+    # Where the lean is fitted matters more than how it is weighted. Score the
+    # same held-out races restricted to the region, comparing a national lean
+    # against one fitted on the region's own history.
+    region_states = set(REGIONS["battleground_2026"])
+    bg_fit = {r.pollster: r for r in build_records(
+        [p for p in train if p.location in region_states], min_weighted=5.0)}
+    pool_lean = (sum(r.lean_shrunk * r.n_weighted for r in fitted.values())
+                 / sum(r.n_weighted for r in fitted.values()))
+    bg_races = [v for v in races.values() if all(p.location in region_states for p in v)]
+    if bg_races:
+        def _score(lean_fn):
+            errs = []
+            for rp in bg_races:
+                w = [((fitted[p.pollster].quality if p.pollster in fitted else default_q) / 3.0) ** 2
+                     for p in rp]
+                corr = [p.dem_margin_poll - lean_fn(p) for p in rp]
+                errs.append(abs(sum(c * x for c, x in zip(corr, w)) / sum(w) - rp[0].dem_margin_actual))
+            return round(sum(errs) / len(errs), 4)
+        out["_region_lean"] = {
+            "n_races": len(bg_races),
+            "no correction": _score(lambda p: 0.0),
+            "national lean": _score(
+                lambda p: (fitted[p.pollster].lean_shrunk - pool_lean) if p.pollster in fitted else 0.0),
+            "region-fitted lean": _score(
+                lambda p: ((bg_fit.get(p.pollster) or fitted.get(p.pollster)).lean_shrunk - pool_lean)
+                if (p.pollster in bg_fit or p.pollster in fitted) else 0.0),
+        }
+
     # Coverage matters as much as accuracy: a rating that only knows 28 houses
     # cannot weight most of the field.
     names = {p.pollster for p in test}
@@ -189,7 +224,20 @@ def main() -> None:
         },
         "ratings": {r.pollster: r.quality for r in records},
         "grades": [r.to_dict() for r in records],
+        "regions": {},
     }
+    for region, states in REGIONS.items():
+        sub = [p for p in polls if p.location in set(states)]
+        recs = build_records(sub, min_weighted=5.0)
+        payload["regions"][region] = {
+            "states": states,
+            "n_polls": len(sub),
+            "n_races": len({p.race_id for p in sub}),
+            "leans": {r.pollster: r.lean_shrunk for r in recs},
+            "records": [r.to_dict() for r in recs],
+        }
+        print(f"  region {region}: {len(recs)} firms fitted on {len(sub):,} polls "
+              f"across {len({p.race_id for p in sub})} races")
     if args.validate:
         payload["validation"] = validate(polls)
         print("\n  holdout results:")

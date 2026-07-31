@@ -200,3 +200,51 @@ class TestGradeBook:
     def test_unrated_house_is_treated_as_average(self):
         """No record means no correction — not a correction of zero lean."""
         assert self._book().relative_lean("Nobody Polling") == 0.0
+
+
+class TestRegionScopedLean:
+    def _book(self) -> GradeBook:
+        return GradeBook({
+            "_meta": {"unknown_default": 1.2},
+            "grades": [
+                {"pollster": "Marquette Law School", "grade": "A", "quality": 1.9,
+                 "lean_shrunk": 2.0, "n_weighted": 30.0},
+                {"pollster": "Trafalgar Group", "grade": "C", "quality": 1.1,
+                 "lean_shrunk": -2.0, "n_weighted": 10.0},
+            ],
+            "regions": {
+                "battleground_2026": {
+                    "states": ["GA", "MI"],
+                    "leans": {"Marquette Law School": 5.0},
+                },
+            },
+        })
+
+    def test_region_lean_overrides_national(self):
+        b = self._book()
+        assert b.relative_lean("Marquette Law School") == pytest.approx(1.0)
+        assert b.relative_lean("Marquette Law School", "battleground_2026") == pytest.approx(4.0)
+
+    def test_falls_back_when_region_lacks_the_firm(self):
+        """Coverage is why quality stays on the national fit; the lean falls back too."""
+        b = self._book()
+        assert b.relative_lean("Trafalgar Group", "battleground_2026") == pytest.approx(-3.0)
+
+    def test_unknown_region_falls_back(self):
+        b = self._book()
+        assert (b.relative_lean("Marquette Law School", "no_such_region")
+                == b.relative_lean("Marquette Law School"))
+
+    def test_region_lean_resolves_tagged_names(self):
+        b = self._book()
+        assert (b.relative_lean("Marquette University Law School", "battleground_2026")
+                == pytest.approx(4.0))
+
+    def test_region_states_listed(self):
+        assert self._book().region_states("battleground_2026") == ["GA", "MI"]
+        assert self._book().region_states("nope") == []
+
+    def test_no_regions_is_safe(self):
+        b = GradeBook({"_meta": {}, "grades": []})
+        assert b.regions == {}
+        assert b.relative_lean("Anyone", "battleground_2026") == 0.0
