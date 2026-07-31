@@ -117,9 +117,14 @@ npm run dev        # http://localhost:3000/election
 npm run build      # production build (static, prerendered)
 ```
 
-The site is framed explicitly as a **tracker, not a forecast** — it shows
-weighted polling averages and confidence bands only, with no win probabilities.
-It is served under the `/election` base path (see `web/next.config.mjs`).
+The approval, generic-ballot, and race-level Senate pages are **trackers**: they
+show weighted polling averages and confidence bands rather than election-day
+predictions. The separate Senate Forecast page is a **nowcast** of where chamber
+control stands today. It runs 50,000 simulations using race polling,
+fundamentals, correlated polling error, fat-tailed uncertainty, and a transparent
+prediction-market blend. It is not an election-day forecast and does not model
+future campaign movement. The site is served under the `/election` base path
+(see `web/next.config.mjs`).
 
 ### Automated refresh
 

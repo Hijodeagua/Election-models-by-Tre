@@ -34,6 +34,8 @@ export interface GenericBallotSnapshot {
   num_polls: number;
   estimated_dem_seats: number | null;
   estimated_rep_seats: number | null;
+  estimated_dem_seats_lo: number | null;
+  estimated_dem_seats_hi: number | null;
   ci_dem: CI;
   ci_rep: CI;
 }

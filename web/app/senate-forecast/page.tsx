@@ -101,7 +101,25 @@ export default function SenateForecastPage() {
         </Panel>
       )}
 
-      <div className="mt-4 overflow-x-auto rounded-xl border border-cream-300 bg-white">
+      <div className="mt-4 grid gap-3 sm:hidden">
+        {forecast.races.map((race) => (
+          <div key={race.state} className="rounded-xl border border-cream-300 bg-white p-4">
+            <div className="font-medium text-cocoa-700">{race.state}</div>
+            <div className="mt-0.5 text-xs text-cocoa-400">
+              {race.dem_candidate} (D) v. {race.rep_candidate} (R)
+            </div>
+            <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
+              <MobileDatum label="Polling margin" value={formatRaceMargin(race.margin)} />
+              <MobileDatum label="P(D), polls" value={formatProbability(race.dem_win_prob_polls)} />
+              <MobileDatum label="P(D), blended" value={formatProbability(race.dem_win_prob_blended)} bold />
+              <MobileDatum label="Polymarket" value={formatProbability(race.market_dem_prob.polymarket)} />
+              <MobileDatum label="Kalshi" value={formatProbability(race.market_dem_prob.kalshi)} />
+            </dl>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-4 hidden overflow-x-auto rounded-xl border border-cream-300 bg-white sm:block">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-cream-300 text-left text-xs uppercase tracking-wide text-cocoa-400">
@@ -142,10 +160,11 @@ export default function SenateForecastPage() {
         <ul className="mt-2 list-disc space-y-1 pl-5">
           <li>
             Each race&rsquo;s <Link href="/senate" className="text-peach underline">polling
-            average</Link> margin is converted to a win probability using a normal
-            error model: a national error (σ = {forecast.national_sigma}) shared by every
-            race plus an independent per-race error (σ = {forecast.race_sigma}), sized to
-            historical Senate polling misses.
+            average</Link> margin is converted to a win probability using a fat-tailed
+            Student-t error model: a national error (σ = {forecast.national_sigma}) shared by
+            every race plus an independent per-race error (σ = {forecast.race_sigma}), sized
+            to historical Senate polling misses. A shared tail shock allows unusually large
+            misses to move several races together.
           </li>
           {forecast.national_environment?.available && (
             <li>
@@ -253,5 +272,24 @@ function Prob({ value, bold }: { value: number | null; bold?: boolean }) {
     >
       {value != null ? `${(value * 100).toFixed(0)}%` : '—'}
     </td>
+  );
+}
+
+function formatProbability(value: number | null | undefined): string {
+  return value != null ? `${(value * 100).toFixed(0)}%` : '—';
+}
+
+function formatRaceMargin(value: number | null): string {
+  return value != null ? `${value > 0 ? 'D' : 'R'} +${Math.abs(value).toFixed(1)}` : '—';
+}
+
+function MobileDatum({ label, value, bold }: { label: string; value: string; bold?: boolean }) {
+  return (
+    <div>
+      <dt className="text-cocoa-400">{label}</dt>
+      <dd className={`mt-0.5 text-sm ${bold ? 'font-semibold text-ink' : 'text-cocoa-700'}`}>
+        {value}
+      </dd>
+    </div>
   );
 }

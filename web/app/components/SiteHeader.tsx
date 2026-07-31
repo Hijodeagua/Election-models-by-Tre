@@ -45,7 +45,7 @@ export default function SiteHeader() {
             Subscribe
           </a>
         </div>
-        <nav className="-mb-px flex flex-wrap gap-0.5 border-t border-cream-300">
+        <nav className="-mb-px flex flex-nowrap gap-0.5 overflow-x-auto border-t border-cream-300 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {NAV.map((item) => {
             const active =
               item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);
@@ -53,7 +53,7 @@ export default function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`border-b-2 px-3 py-2.5 text-[13px] transition-colors ${
+                className={`shrink-0 whitespace-nowrap border-b-2 px-3 py-2.5 text-[13px] transition-colors ${
                   active
                     ? 'border-peach font-semibold text-ink'
                     : 'border-transparent font-medium text-cocoa-500 hover:text-ink'

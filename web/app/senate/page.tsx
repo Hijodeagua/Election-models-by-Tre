@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import LastUpdated from '@/app/components/LastUpdated';
+import DataFreshnessBanner from '@/app/components/DataFreshnessBanner';
 import SenateRaceCard from '@/app/components/SenateRaceCard';
 import { EmptyState, PageHead } from '@/app/components/ui';
 import { getSenate } from '@/app/lib/data';
@@ -32,6 +33,7 @@ export default function SenatePage() {
           </>
         }
       />
+      <DataFreshnessBanner feed="senate" />
 
       {keyRaces.length > 0 ? (
         <div className="grid gap-4 sm:grid-cols-2">
