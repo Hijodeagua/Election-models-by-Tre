@@ -141,6 +141,7 @@ class PollsterRecord:
             "quality": round(self.quality, 3),
             "par_error": round(self.par_error, 3),
             "par_error_shrunk": round(self.par_error_shrunk, 3),
+            "score": score_from_par(self.par_error_shrunk),
             "raw_abs_error": round(self.raw_abs_error, 3),
             "lean": round(self.lean, 3),
             "lean_shrunk": round(self.lean_shrunk, 3),
@@ -322,6 +323,22 @@ def _assign_grades(records: list[PollsterRecord]) -> None:
         else:
             rec.grade = GRADE_PERCENTILES[-1][1]
         rec.quality = quality_from_par(rec.par_error_shrunk)
+
+
+def score_from_par(par_error: float) -> float:
+    """Map par error onto a 0-100 score. 50 is exactly average for the field.
+
+    Each point of par error is worth 15 points of score, so the realistic
+    range (par roughly -2.5 to +2.6) lands inside 11-88 without clipping and
+    the gaps between firms stay proportional. This is a rescaling of par
+    error, not a new measurement: a score of 65 means one point of margin
+    better than the field on the same races, nothing more.
+
+    Deliberately not a percentile — percentiles are uniform by construction
+    and would hide that most of the field is bunched within a point of par.
+    The letter grade already carries the percentile.
+    """
+    return round(max(0.0, min(100.0, 50.0 - par_error * 15.0)), 1)
 
 
 def quality_from_par(par_error: float) -> float:

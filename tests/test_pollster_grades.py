@@ -248,3 +248,37 @@ class TestRegionScopedLean:
         b = GradeBook({"_meta": {}, "grades": []})
         assert b.regions == {}
         assert b.relative_lean("Anyone", "battleground_2026") == 0.0
+
+
+class TestScoreScale:
+    def test_par_zero_is_fifty(self):
+        from src.analysis.pollster_grades import score_from_par
+        assert score_from_par(0.0) == 50.0
+
+    def test_better_than_par_scores_above_fifty(self):
+        from src.analysis.pollster_grades import score_from_par
+        assert score_from_par(-1.0) == 65.0
+        assert score_from_par(1.0) == 35.0
+
+    def test_clamped_to_range(self):
+        from src.analysis.pollster_grades import score_from_par
+        assert score_from_par(-99.0) == 100.0
+        assert score_from_par(99.0) == 0.0
+
+    def test_monotone_and_ordered_with_grade(self):
+        """Score and letter must never disagree about who is better."""
+        from src.analysis.pollster_grades import score_from_par
+        polls = []
+        for i in range(40):
+            for j, name in enumerate(["A", "B", "C", "D", "E"]):
+                polls.append(_poll(name, f"r{i}", float(j)))
+        recs = build_records(polls)
+        scores = [score_from_par(r.par_error_shrunk) for r in recs]
+        assert scores == sorted(scores, reverse=True)
+
+    def test_record_dict_carries_the_score(self):
+        from src.analysis.pollster_grades import score_from_par
+        polls = [_poll(n, f"r{i}", float(j))
+                 for i in range(40) for j, n in enumerate(["A", "B", "C"])]
+        rec = build_records(polls)[0].to_dict()
+        assert rec["score"] == score_from_par(rec["par_error_shrunk"])

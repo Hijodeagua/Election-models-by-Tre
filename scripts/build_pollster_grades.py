@@ -195,8 +195,19 @@ def main() -> None:
     ap.add_argument("--raw-polls", type=Path, default=None, help="local raw_polls.csv")
     ap.add_argument("--extra", type=Path, nargs="*", default=[], help="additional CSVs in the same schema")
     ap.add_argument("--validate", action="store_true", help="run the holdout comparison")
+    ap.add_argument("--recency-half-life", type=float, default=None, metavar="CYCLES",
+                    help="fade older cycles with this half-life, in cycles. Off by "
+                         "default because it lost on both holdout splits — see the "
+                         "note on RECENCY_HALF_LIFE_CYCLES. Use to produce a "
+                         "recency-weighted variant for comparison.")
     ap.add_argument("--out", type=Path, default=OUT)
     args = ap.parse_args()
+
+    if args.recency_half_life is not None:
+        import src.analysis.pollster_grades as PG
+        PG.RECENCY_HALF_LIFE_CYCLES = args.recency_half_life
+        print(f"  recency half-life set to {args.recency_half_life} cycles "
+              f"(default is no decay — this variant scored worse out of sample)")
 
     print("Building Policy y Peaches pollster grades")
     src = args.raw_polls or fetch_raw_polls(CACHE)
