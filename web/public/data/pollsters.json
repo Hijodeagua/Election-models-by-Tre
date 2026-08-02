@@ -1529,8 +1529,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 20,
+      "num_polls": 21,
       "polls": [
+        {
+          "pollster": "Wedgewood Polls",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-07-30",
+          "end_date": "2026-07-31",
+          "sample_size": 800,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 48.0,
+          "rep_pct": 46.0,
+          "margin": 2.0,
+          "partisan": false
+        },
         {
           "pollster": "Beacon Research (D)/ Shaw & Co. Research (R)",
           "rated": false,
