@@ -1,20 +1,20 @@
 {
   "as_of": "2026-08-02",
   "num_simulations": 50000,
-  "dem_control_prob": 0.5528,
-  "mean_dem_seats": 50.56,
+  "dem_control_prob": 0.5519,
+  "mean_dem_seats": 50.55,
   "median_dem_seats": 51.0,
   "seat_distribution": {
-    "44": 68,
-    "45": 257,
-    "46": 631,
-    "47": 1487,
-    "48": 3294,
-    "49": 6534,
-    "50": 10088,
-    "51": 11598,
-    "52": 10146,
-    "53": 5897
+    "44": 69,
+    "45": 259,
+    "46": 648,
+    "47": 1513,
+    "48": 3302,
+    "49": 6564,
+    "50": 10050,
+    "51": 11574,
+    "52": 10135,
+    "53": 5886
   },
   "races": [
     {
@@ -40,16 +40,16 @@
       "dem_candidate": "Haley Stevens",
       "rep_candidate": "Mike Rogers",
       "margin": 8.27,
-      "num_polls": 16,
+      "num_polls": 17,
       "dem_win_prob_polls": 0.9473,
-      "dem_win_prob_blended": 0.8817,
+      "dem_win_prob_blended": 0.8767,
       "market_dem_prob": {
-        "polymarket": 0.685
+        "polymarket": 0.665
       },
-      "dem_win_prob_sim": 0.8829,
-      "median_margin": 5.64,
-      "margin_p10": -0.52,
-      "margin_p90": 11.84
+      "dem_win_prob_sim": 0.878,
+      "median_margin": 5.5,
+      "margin_p10": -0.66,
+      "margin_p90": 11.7
     },
     {
       "state": "North Carolina",
@@ -93,14 +93,14 @@
       "margin": 13.082,
       "num_polls": 13,
       "dem_win_prob_polls": 0.9869,
-      "dem_win_prob_blended": 0.9489,
+      "dem_win_prob_blended": 0.9477,
       "market_dem_prob": {
-        "polymarket": 0.835
+        "polymarket": 0.83
       },
-      "dem_win_prob_sim": 0.9494,
-      "median_margin": 8.4,
-      "margin_p10": 2.19,
-      "margin_p90": 14.59
+      "dem_win_prob_sim": 0.9482,
+      "median_margin": 8.32,
+      "margin_p10": 2.11,
+      "margin_p90": 14.51
     },
     {
       "state": "Ohio",
@@ -110,14 +110,14 @@
       "margin": 0.787,
       "num_polls": 15,
       "dem_win_prob_polls": 0.5708,
-      "dem_win_prob_blended": 0.5569,
+      "dem_win_prob_blended": 0.5544,
       "market_dem_prob": {
-        "polymarket": 0.515
+        "polymarket": 0.505
       },
-      "dem_win_prob_sim": 0.559,
-      "median_margin": 0.65,
-      "margin_p10": -5.52,
-      "margin_p90": 6.84
+      "dem_win_prob_sim": 0.5569,
+      "median_margin": 0.62,
+      "margin_p10": -5.55,
+      "margin_p90": 6.82
     },
     {
       "state": "Texas",
@@ -144,14 +144,14 @@
       "margin": -0.545,
       "num_polls": 8,
       "dem_win_prob_polls": 0.4508,
-      "dem_win_prob_blended": 0.4493,
+      "dem_win_prob_blended": 0.4518,
       "market_dem_prob": {
-        "polymarket": 0.445
+        "polymarket": 0.455
       },
-      "dem_win_prob_sim": 0.4459,
-      "median_margin": -0.58,
-      "margin_p10": -6.73,
-      "margin_p90": 5.59
+      "dem_win_prob_sim": 0.4484,
+      "median_margin": -0.55,
+      "margin_p10": -6.7,
+      "margin_p90": 5.62
     },
     {
       "state": "Alaska",
@@ -184,8 +184,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.5528,
-  "mean_dem_seats_with_vibes": 50.56,
+  "dem_control_prob_with_vibes": 0.5519,
+  "mean_dem_seats_with_vibes": 50.55,
   "national_environment": {
     "national_swing": 8.62,
     "available": true,

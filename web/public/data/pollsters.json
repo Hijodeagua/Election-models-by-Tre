@@ -369,8 +369,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 16,
+      "num_polls": 17,
       "polls": [
+        {
+          "pollster": "EPIC-MRA",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-07-24",
+          "end_date": "2026-07-31",
+          "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 46.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "SoCal Strategies (R)",
           "rated": false,
