@@ -2,7 +2,7 @@
   "races": [
     {
       "state": "Alaska",
-      "as_of": "2026-08-02",
+      "as_of": "2026-08-03",
       "candidates": {
         "Mary Peltola": 46.0,
         "Dan Sullivan": 41.0
@@ -154,7 +154,7 @@
     },
     {
       "state": "Georgia",
-      "as_of": "2026-08-02",
+      "as_of": "2026-08-03",
       "candidates": {
         "Jon Ossoff": 51.2,
         "Mike Collins": 43.0
@@ -176,7 +176,7 @@
       "market_odds": {
         "polymarket": {
           "Democrat": 0.915,
-          "Republican": 0.092
+          "Republican": 0.0915
         }
       },
       "forecast": {
@@ -311,7 +311,7 @@
     },
     {
       "state": "Iowa",
-      "as_of": "2026-08-02",
+      "as_of": "2026-08-03",
       "candidates": {
         "Josh Turek": 46.8,
         "Ashley Hinson": 46.3
@@ -468,7 +468,7 @@
     },
     {
       "state": "Maine",
-      "as_of": "2026-08-02",
+      "as_of": "2026-08-03",
       "candidates": {
         "Troy Jackson": 48.4,
         "Susan Collins": 45.6
@@ -490,7 +490,7 @@
       "market_odds": {
         "polymarket": {
           "Democrat": 0.675,
-          "Republican": 0.33
+          "Republican": 0.335
         }
       },
       "forecast": {
@@ -625,7 +625,7 @@
     },
     {
       "state": "Michigan",
-      "as_of": "2026-08-02",
+      "as_of": "2026-08-03",
       "candidates": {
         "Mike Rogers": 44.9,
         "Abdul El-Sayed": 42.7
@@ -646,15 +646,15 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.665,
-          "Republican": 0.32
+          "Democrat": 0.675,
+          "Republican": 0.33
         }
       },
       "forecast": {
-        "dem_win_prob": 0.878,
-        "median_margin": 5.5,
-        "margin_p10": -0.66,
-        "margin_p90": 11.7,
+        "dem_win_prob": 0.8802,
+        "median_margin": 5.57,
+        "margin_p10": -0.59,
+        "margin_p90": 11.77,
         "num_simulations": 50000,
         "margin_hist": [
           {
@@ -683,15 +683,15 @@
           },
           {
             "mid": -17.0,
-            "pct": 0.00056
+            "pct": 0.0005
           },
           {
             "mid": -15.0,
-            "pct": 0.0007
+            "pct": 0.00076
           },
           {
             "mid": -13.0,
-            "pct": 0.00174
+            "pct": 0.00162
           },
           {
             "mid": -11.0,
@@ -699,67 +699,67 @@
           },
           {
             "mid": -9.0,
-            "pct": 0.00508
+            "pct": 0.00504
           },
           {
             "mid": -7.0,
-            "pct": 0.0083
+            "pct": 0.00816
           },
           {
             "mid": -5.0,
-            "pct": 0.01596
+            "pct": 0.01558
           },
           {
             "mid": -3.0,
-            "pct": 0.03016
+            "pct": 0.02964
           },
           {
             "mid": -1.0,
-            "pct": 0.05568
+            "pct": 0.05464
           },
           {
             "mid": 1.0,
-            "pct": 0.09854
+            "pct": 0.09704
           },
           {
             "mid": 3.0,
-            "pct": 0.14482
+            "pct": 0.14314
           },
           {
             "mid": 5.0,
-            "pct": 0.1793
+            "pct": 0.17868
           },
           {
             "mid": 7.0,
-            "pct": 0.16568
+            "pct": 0.1676
           },
           {
             "mid": 9.0,
-            "pct": 0.12256
+            "pct": 0.12354
           },
           {
             "mid": 11.0,
-            "pct": 0.07516
+            "pct": 0.07644
           },
           {
             "mid": 13.0,
-            "pct": 0.04212
+            "pct": 0.04288
           },
           {
             "mid": 15.0,
-            "pct": 0.02272
+            "pct": 0.02338
           },
           {
             "mid": 17.0,
-            "pct": 0.01146
+            "pct": 0.01148
           },
           {
             "mid": 19.0,
-            "pct": 0.00662
+            "pct": 0.00698
           },
           {
             "mid": 21.0,
-            "pct": 0.00356
+            "pct": 0.00352
           },
           {
             "mid": 23.0,
@@ -767,7 +767,7 @@
           },
           {
             "mid": 25.0,
-            "pct": 0.0012
+            "pct": 0.00128
           },
           {
             "mid": 27.0,
@@ -775,14 +775,14 @@
           },
           {
             "mid": 29.0,
-            "pct": 0.0012
+            "pct": 0.00122
           }
         ]
       }
     },
     {
       "state": "New Hampshire",
-      "as_of": "2026-08-02",
+      "as_of": "2026-08-03",
       "candidates": {
         "Chris Pappas": 50.4,
         "Scott Brown": 37.2
@@ -939,7 +939,7 @@
     },
     {
       "state": "North Carolina",
-      "as_of": "2026-08-02",
+      "as_of": "2026-08-03",
       "candidates": {
         "Roy Cooper": 50.7,
         "Michael Whatley": 43.2
@@ -961,7 +961,7 @@
       "market_odds": {
         "polymarket": {
           "Democrat": 0.9,
-          "Republican": 0.11
+          "Republican": 0.105
         }
       },
       "forecast": {
@@ -1096,7 +1096,7 @@
     },
     {
       "state": "Ohio",
-      "as_of": "2026-08-02",
+      "as_of": "2026-08-03",
       "candidates": {
         "Jon Husted": 46.5,
         "Sherrod Brown": 47.8
@@ -1118,7 +1118,7 @@
       "market_odds": {
         "polymarket": {
           "Democrat": 0.505,
-          "Republican": 0.505
+          "Republican": 0.5
         }
       },
       "forecast": {
@@ -1253,7 +1253,7 @@
     },
     {
       "state": "Texas",
-      "as_of": "2026-08-02",
+      "as_of": "2026-08-03",
       "candidates": {
         "James Talarico": 47.6,
         "Ken Paxton": 45.2
