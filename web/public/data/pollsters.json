@@ -1545,7 +1545,7 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 21,
+      "num_polls": 22,
       "polls": [
         {
           "pollster": "Wedgewood Polls",
@@ -1560,6 +1560,22 @@
           "rep_candidate": "Ken Paxton",
           "dem_pct": 48.0,
           "rep_pct": 46.0,
+          "margin": 2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Texas Southern University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-07-27",
+          "end_date": "2026-07-30",
+          "sample_size": 1223,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 47.0,
+          "rep_pct": 45.0,
           "margin": 2.0,
           "partisan": false
         },

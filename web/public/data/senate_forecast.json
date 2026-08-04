@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-08-03",
+  "as_of": "2026-08-04",
   "num_simulations": 50000,
-  "dem_control_prob": 0.5523,
-  "mean_dem_seats": 50.55,
+  "dem_control_prob": 0.5499,
+  "mean_dem_seats": 50.54,
   "median_dem_seats": 51.0,
   "seat_distribution": {
-    "44": 69,
-    "45": 258,
-    "46": 646,
-    "47": 1501,
-    "48": 3293,
-    "49": 6559,
-    "50": 10059,
-    "51": 11580,
-    "52": 10143,
-    "53": 5892
+    "44": 71,
+    "45": 262,
+    "46": 653,
+    "47": 1544,
+    "48": 3328,
+    "49": 6590,
+    "50": 10058,
+    "51": 11539,
+    "52": 10089,
+    "53": 5866
   },
   "races": [
     {
@@ -42,14 +42,14 @@
       "margin": 8.27,
       "num_polls": 17,
       "dem_win_prob_polls": 0.9473,
-      "dem_win_prob_blended": 0.8792,
+      "dem_win_prob_blended": 0.8717,
       "market_dem_prob": {
-        "polymarket": 0.675
+        "polymarket": 0.645
       },
-      "dem_win_prob_sim": 0.8802,
-      "median_margin": 5.57,
-      "margin_p10": -0.59,
-      "margin_p90": 11.77
+      "dem_win_prob_sim": 0.8727,
+      "median_margin": 5.37,
+      "margin_p10": -0.79,
+      "margin_p90": 11.57
     },
     {
       "state": "North Carolina",
@@ -124,17 +124,17 @@
       "race": "Texas Senate 2026",
       "dem_candidate": "James Talarico",
       "rep_candidate": "Ken Paxton",
-      "margin": 1.728,
-      "num_polls": 21,
-      "dem_win_prob_polls": 0.6515,
-      "dem_win_prob_blended": 0.6073,
+      "margin": 1.666,
+      "num_polls": 22,
+      "dem_win_prob_polls": 0.6464,
+      "dem_win_prob_blended": 0.6048,
       "market_dem_prob": {
-        "polymarket": 0.475
+        "polymarket": 0.48
       },
-      "dem_win_prob_sim": 0.6066,
-      "median_margin": 1.2,
-      "margin_p10": -4.88,
-      "margin_p90": 7.41
+      "dem_win_prob_sim": 0.6038,
+      "median_margin": 1.17,
+      "margin_p10": -4.91,
+      "margin_p90": 7.38
     },
     {
       "state": "Iowa",
@@ -178,14 +178,14 @@
   "bias": 0.0,
   "tail_dof": 5,
   "market_control_dem_prob": {
-    "polymarket": 0.445
+    "polymarket": 0.455
   },
   "maturity": "nowcast",
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.5523,
-  "mean_dem_seats_with_vibes": 50.55,
+  "dem_control_prob_with_vibes": 0.5499,
+  "mean_dem_seats_with_vibes": 50.54,
   "national_environment": {
     "national_swing": 8.62,
     "available": true,
