@@ -1905,8 +1905,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 8,
+      "num_polls": 9,
       "polls": [
+        {
+          "pollster": "Emerson College",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.468,
+          "start_date": "2026-08-02",
+          "end_date": "2026-08-04",
+          "sample_size": 712,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 45.0,
+          "rep_pct": 48.0,
+          "margin": -3.0,
+          "partisan": false
+        },
         {
           "pollster": "Beacon Research (D)/Shaw & Co. Research (R)",
           "rated": false,
