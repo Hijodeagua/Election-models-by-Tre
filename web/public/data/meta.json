@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-07T10:56:11.656741+00:00",
+  "last_updated": "2026-08-07T22:39:39.513906+00:00",
   "data_tier": "tracker",
   "label": "A work in progress from the team at Policy y Peaches",
   "model_versions": {
@@ -12,15 +12,14 @@
   "poll_counts": {
     "approval": 1833,
     "generic_ballot": 395,
-    "senate": 115
+    "senate": 117
   },
   "last_poll_dates": {
-    "approval": "2026-07-31",
+    "approval": "2026-08-07",
     "generic_ballot": "2026-06-28",
     "senate": "2026-08-03"
   },
   "stale_feeds": [
-    "approval",
     "generic_ballot"
   ]
 }

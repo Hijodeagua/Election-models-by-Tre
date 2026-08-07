@@ -204,7 +204,7 @@
       "num_polls": 10,
       "polls": [
         {
-          "pollster": "Fabrizio Ward (R)/Impact Research (D)",
+          "pollster": "Fabrizio Ward (R)/ Impact Research (D)",
           "rated": false,
           "grade": null,
           "quality": null,
@@ -649,8 +649,24 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 22,
+      "num_polls": 23,
       "polls": [
+        {
+          "pollster": "Change Research (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-07-29",
+          "end_date": "2026-08-01",
+          "sample_size": 967,
+          "population": "rv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 50.0,
+          "rep_pct": 41.0,
+          "margin": 9.0,
+          "partisan": false
+        },
         {
           "pollster": "Beacon Research (D)/ Shaw & Co. Research (R)",
           "rated": false,
@@ -1561,7 +1577,7 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 23,
+      "num_polls": 24,
       "polls": [
         {
           "pollster": "Wedgewood Polls",
@@ -1593,6 +1609,22 @@
           "dem_pct": 48.0,
           "rep_pct": 45.0,
           "margin": 3.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Texas A&M University/ReconMR/Siena University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-07-27",
+          "end_date": "2026-07-30",
+          "sample_size": 619,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 47.0,
+          "rep_pct": 43.0,
+          "margin": 4.0,
           "partisan": false
         },
         {
@@ -1628,7 +1660,7 @@
           "partisan": false
         },
         {
-          "pollster": "Texas Public Opinion Research",
+          "pollster": "Texas Public Opinion Research (D)",
           "rated": false,
           "grade": null,
           "quality": null,
@@ -1708,7 +1740,7 @@
           "partisan": false
         },
         {
-          "pollster": "Quantus Insights (R)",
+          "pollster": "Quantus Insights",
           "rated": false,
           "grade": null,
           "quality": null,
@@ -1740,7 +1772,7 @@
           "partisan": false
         },
         {
-          "pollster": "Texas Public Opinion Research",
+          "pollster": "Texas Public Opinion Research (D)",
           "rated": false,
           "grade": null,
           "quality": null,
@@ -1788,7 +1820,7 @@
           "partisan": false
         },
         {
-          "pollster": "Texas Public Opinion Research",
+          "pollster": "Texas Public Opinion Research (D)",
           "rated": false,
           "grade": null,
           "quality": null,
