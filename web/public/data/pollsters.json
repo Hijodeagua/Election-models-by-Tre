@@ -1009,8 +1009,24 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 4,
+      "num_polls": 5,
       "polls": [
+        {
+          "pollster": "Hart Research (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-07-27",
+          "end_date": "2026-08-01",
+          "sample_size": 802,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 49.0,
+          "rep_pct": 45.0,
+          "margin": 4.0,
+          "partisan": false
+        },
         {
           "pollster": "University of New Hampshire",
           "rated": false,
@@ -1060,7 +1076,7 @@
           "partisan": false
         },
         {
-          "pollster": "Wedgewood Polls",
+          "pollster": "Wedgewood Polls (D)",
           "rated": false,
           "grade": null,
           "quality": null,
@@ -1545,7 +1561,7 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 22,
+      "num_polls": 23,
       "polls": [
         {
           "pollster": "Wedgewood Polls",
@@ -1561,6 +1577,22 @@
           "dem_pct": 48.0,
           "rep_pct": 46.0,
           "margin": 2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "YouGov Blue (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-07-15",
+          "end_date": "2026-07-31",
+          "sample_size": 1001,
+          "population": "rv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 48.0,
+          "rep_pct": 45.0,
+          "margin": 3.0,
           "partisan": false
         },
         {
@@ -1924,7 +1956,7 @@
           "partisan": false
         },
         {
-          "pollster": "Beacon Research (D)/Shaw & Co. Research (R)",
+          "pollster": "Beacon Research (D)/ Shaw & Co. Research (R)",
           "rated": false,
           "grade": null,
           "quality": null,
