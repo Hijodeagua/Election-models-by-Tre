@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-07T22:39:39.513906+00:00",
+  "last_updated": "2026-08-08T10:37:53.381202+00:00",
   "data_tier": "tracker",
   "label": "A work in progress from the team at Policy y Peaches",
   "model_versions": {
@@ -20,6 +20,7 @@
     "senate": "2026-08-03"
   },
   "stale_feeds": [
-    "generic_ballot"
+    "generic_ballot",
+    "senate"
   ]
 }
