@@ -649,8 +649,24 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 23,
+      "num_polls": 24,
       "polls": [
+        {
+          "pollster": "Change Research (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-03",
+          "end_date": "2026-08-06",
+          "sample_size": 915,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 50.0,
+          "rep_pct": 43.0,
+          "margin": 7.0,
+          "partisan": false
+        },
         {
           "pollster": "Change Research (D)",
           "rated": false,
