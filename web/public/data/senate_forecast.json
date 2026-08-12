@@ -1,20 +1,20 @@
 {
   "as_of": "2026-08-12",
   "num_simulations": 50000,
-  "dem_control_prob": 0.3064,
-  "mean_dem_seats": 49.22,
-  "median_dem_seats": 49.0,
+  "dem_control_prob": 0.3304,
+  "mean_dem_seats": 49.34,
+  "median_dem_seats": 50.0,
   "seat_distribution": {
-    "44": 672,
-    "45": 1916,
-    "46": 3310,
-    "47": 5098,
-    "48": 6755,
-    "49": 8329,
-    "50": 8599,
-    "51": 7743,
-    "52": 5301,
-    "53": 2277
+    "44": 634,
+    "45": 1752,
+    "46": 3143,
+    "47": 4770,
+    "48": 6444,
+    "49": 8008,
+    "50": 8728,
+    "51": 8143,
+    "52": 5858,
+    "53": 2520
   },
   "races": [
     {
@@ -25,14 +25,14 @@
       "margin": 7.925,
       "num_polls": 10,
       "dem_win_prob_polls": 0.9415,
-      "dem_win_prob_blended": 0.7298,
+      "dem_win_prob_blended": 0.7248,
       "market_dem_prob": {
-        "polymarket": 0.095
+        "polymarket": 0.075
       },
-      "dem_win_prob_sim": 0.7317,
-      "median_margin": 2.81,
-      "margin_p10": -3.34,
-      "margin_p90": 8.93
+      "dem_win_prob_sim": 0.7269,
+      "median_margin": 2.74,
+      "margin_p10": -3.41,
+      "margin_p90": 8.86
     },
     {
       "state": "Michigan",
@@ -42,31 +42,31 @@
       "margin": 8.258,
       "num_polls": 17,
       "dem_win_prob_polls": 0.9471,
-      "dem_win_prob_blended": 0.72,
+      "dem_win_prob_blended": 0.7262,
       "market_dem_prob": {
-        "polymarket": 0.0385
+        "polymarket": 0.0635
       },
-      "dem_win_prob_sim": 0.7213,
-      "median_margin": 2.62,
-      "margin_p10": -3.54,
-      "margin_p90": 8.82
+      "dem_win_prob_sim": 0.7275,
+      "median_margin": 2.71,
+      "margin_p10": -3.45,
+      "margin_p90": 8.91
     },
     {
       "state": "North Carolina",
       "race": "North Carolina Senate 2026",
       "dem_candidate": "Roy Cooper",
       "rep_candidate": "Michael Whatley",
-      "margin": 7.49,
-      "num_polls": 24,
-      "dem_win_prob_polls": 0.9331,
-      "dem_win_prob_blended": 0.7248,
+      "margin": 7.944,
+      "num_polls": 25,
+      "dem_win_prob_polls": 0.9418,
+      "dem_win_prob_blended": 0.7301,
       "market_dem_prob": {
-        "polymarket": 0.1
+        "polymarket": 0.095
       },
-      "dem_win_prob_sim": 0.7251,
-      "median_margin": 2.7,
-      "margin_p10": -3.5,
-      "margin_p90": 8.84
+      "dem_win_prob_sim": 0.7305,
+      "median_margin": 2.77,
+      "margin_p10": -3.43,
+      "margin_p90": 8.92
     },
     {
       "state": "Maine",
@@ -93,31 +93,31 @@
       "margin": 13.08,
       "num_polls": 13,
       "dem_win_prob_polls": 0.9869,
-      "dem_win_prob_blended": 0.7577,
+      "dem_win_prob_blended": 0.7564,
       "market_dem_prob": {
-        "polymarket": 0.07
+        "polymarket": 0.065
       },
-      "dem_win_prob_sim": 0.7587,
-      "median_margin": 3.18,
-      "margin_p10": -3.02,
-      "margin_p90": 9.38
+      "dem_win_prob_sim": 0.7573,
+      "median_margin": 3.16,
+      "margin_p10": -3.04,
+      "margin_p90": 9.36
     },
     {
       "state": "Ohio",
       "race": "Ohio Senate 2026",
       "dem_candidate": "Sherrod Brown",
       "rep_candidate": "Jon Husted",
-      "margin": 0.785,
-      "num_polls": 15,
-      "dem_win_prob_polls": 0.5706,
-      "dem_win_prob_blended": 0.4442,
+      "margin": 2.496,
+      "num_polls": 16,
+      "dem_win_prob_polls": 0.7114,
+      "dem_win_prob_blended": 0.5573,
       "market_dem_prob": {
-        "polymarket": 0.065
+        "polymarket": 0.095
       },
-      "dem_win_prob_sim": 0.4472,
-      "median_margin": -0.6,
-      "margin_p10": -6.77,
-      "margin_p90": 5.6
+      "dem_win_prob_sim": 0.5594,
+      "median_margin": 0.65,
+      "margin_p10": -5.52,
+      "margin_p90": 6.85
     },
     {
       "state": "Texas",
@@ -178,14 +178,14 @@
   "bias": 0.0,
   "tail_dof": 5,
   "market_control_dem_prob": {
-    "polymarket": 0.515
+    "polymarket": 0.525
   },
   "maturity": "nowcast",
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.3064,
-  "mean_dem_seats_with_vibes": 49.22,
+  "dem_control_prob_with_vibes": 0.3304,
+  "mean_dem_seats_with_vibes": 49.34,
   "national_environment": {
     "national_swing": 8.608,
     "available": true,

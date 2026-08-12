@@ -649,7 +649,7 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 24,
+      "num_polls": 25,
       "polls": [
         {
           "pollster": "Change Research (D)",
@@ -681,6 +681,22 @@
           "dem_pct": 50.0,
           "rep_pct": 41.0,
           "margin": 9.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Elon University/YouGov",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-07-23",
+          "end_date": "2026-07-31",
+          "sample_size": 466,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 53.0,
+          "rep_pct": 42.0,
+          "margin": 11.0,
           "partisan": false
         },
         {
@@ -1345,8 +1361,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 15,
+      "num_polls": 16,
       "polls": [
+        {
+          "pollster": "Tulchin Research (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-07-29",
+          "end_date": "2026-08-04",
+          "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 47.0,
+          "rep_pct": 43.0,
+          "margin": 4.0,
+          "partisan": false
+        },
         {
           "pollster": "New York Times/Siena University",
           "rated": false,
