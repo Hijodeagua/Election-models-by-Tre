@@ -1057,8 +1057,24 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 5,
+      "num_polls": 6,
       "polls": [
+        {
+          "pollster": "Beacon Research (D)/ Shaw & Co. Research (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-06",
+          "end_date": "2026-08-10",
+          "sample_size": 1000,
+          "population": "rv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 48.0,
+          "rep_pct": 46.0,
+          "margin": 2.0,
+          "partisan": false
+        },
         {
           "pollster": "Hart Research (D)",
           "rated": false,
@@ -1625,8 +1641,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 24,
+      "num_polls": 25,
       "polls": [
+        {
+          "pollster": "Emerson College",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.468,
+          "start_date": "2026-08-09",
+          "end_date": "2026-08-10",
+          "sample_size": 1000,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 46.0,
+          "rep_pct": 47.0,
+          "margin": -1.0,
+          "partisan": false
+        },
         {
           "pollster": "Wedgewood Polls",
           "rated": false,
