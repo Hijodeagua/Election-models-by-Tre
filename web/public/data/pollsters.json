@@ -369,8 +369,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 17,
+      "num_polls": 18,
       "polls": [
+        {
+          "pollster": "Beacon Research (D)/ Shaw & Co. Research (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-06",
+          "end_date": "2026-08-10",
+          "sample_size": 1006,
+          "population": "rv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 51.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "EPIC-MRA",
           "rated": false,
@@ -1393,8 +1409,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 16,
+      "num_polls": 17,
       "polls": [
+        {
+          "pollster": "Beacon Research (D)/ Shaw & Co. Research (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-06",
+          "end_date": "2026-08-10",
+          "sample_size": 1008,
+          "population": "rv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 53.0,
+          "rep_pct": 45.0,
+          "margin": 8.0,
+          "partisan": false
+        },
         {
           "pollster": "Tulchin Research (D)",
           "rated": false,
