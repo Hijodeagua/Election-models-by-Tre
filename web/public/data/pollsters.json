@@ -1409,8 +1409,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 17,
+      "num_polls": 18,
       "polls": [
+        {
+          "pollster": "Wedgewood Polls",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-11",
+          "end_date": "2026-08-13",
+          "sample_size": 800,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 48.0,
+          "rep_pct": 44.0,
+          "margin": 4.0,
+          "partisan": false
+        },
         {
           "pollster": "Beacon Research (D)/ Shaw & Co. Research (R)",
           "rated": false,
