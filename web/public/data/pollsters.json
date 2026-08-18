@@ -201,8 +201,24 @@
     {
       "state": "Georgia",
       "abbr": "GA",
-      "num_polls": 10,
+      "num_polls": 11,
       "polls": [
+        {
+          "pollster": "InsiderAdvantage (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-16",
+          "end_date": "2026-08-17",
+          "sample_size": 800,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 50.0,
+          "rep_pct": 43.0,
+          "margin": 7.0,
+          "partisan": false
+        },
         {
           "pollster": "Fabrizio Ward (R)/Impact Research (D)",
           "rated": false,
@@ -236,7 +252,7 @@
           "partisan": false
         },
         {
-          "pollster": "Beacon Research (D)/Shaw & Co. Research (R)",
+          "pollster": "Beacon Research (D)/ Shaw & Co. Research (R)",
           "rated": false,
           "grade": null,
           "quality": null,
