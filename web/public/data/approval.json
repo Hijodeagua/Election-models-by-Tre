@@ -1,35 +1,20 @@
 {
   "current": {
-    "as_of": "2026-08-17",
+    "as_of": "2026-08-18",
     "approve": 37.8,
-    "disapprove": 59.3,
-    "net_approval": -21.5,
+    "disapprove": 59.4,
+    "net_approval": -21.6,
     "num_polls": 759,
     "ci_approve": [
       37.1,
       38.6
     ],
     "ci_disapprove": [
-      58.4,
-      60.0
+      58.6,
+      60.1
     ]
   },
   "trend": [
-    {
-      "as_of": "2025-12-20",
-      "approve": 42.4,
-      "disapprove": 54.7,
-      "net_approval": -12.3,
-      "num_polls": 489,
-      "ci_approve": [
-        41.8,
-        43.1
-      ],
-      "ci_disapprove": [
-        54.0,
-        55.5
-      ]
-    },
     {
       "as_of": "2025-12-21",
       "approve": 42.5,
@@ -3618,16 +3603,31 @@
     {
       "as_of": "2026-08-17",
       "approve": 37.8,
-      "disapprove": 59.3,
-      "net_approval": -21.5,
+      "disapprove": 59.4,
+      "net_approval": -21.6,
       "num_polls": 759,
       "ci_approve": [
         37.1,
         38.6
       ],
       "ci_disapprove": [
-        58.4,
-        60.0
+        58.6,
+        60.1
+      ]
+    },
+    {
+      "as_of": "2026-08-18",
+      "approve": 37.8,
+      "disapprove": 59.4,
+      "net_approval": -21.6,
+      "num_polls": 759,
+      "ci_approve": [
+        37.1,
+        38.6
+      ],
+      "ci_disapprove": [
+        58.6,
+        60.1
       ]
     }
   ],
@@ -3635,15 +3635,15 @@
   "state_space": {
     "available": true,
     "model": "Jackman state-space: random-walk latent + additive house effects (Phase 3)",
-    "as_of": "2026-08-17",
+    "as_of": "2026-08-18",
     "current": {
       "approve": 38.7,
-      "approve_lo": 36.7,
-      "approve_hi": 40.7,
-      "disapprove": 58.7,
-      "disapprove_lo": 56.4,
-      "disapprove_hi": 60.9,
-      "net": -20.0
+      "approve_lo": 36.6,
+      "approve_hi": 40.9,
+      "disapprove": 58.8,
+      "disapprove_lo": 56.2,
+      "disapprove_hi": 61.2,
+      "net": -20.1
     },
     "trend": [
       {
@@ -3651,36 +3651,36 @@
         "approve": 49.93,
         "approve_lo": 48.99,
         "approve_hi": 50.89,
-        "disapprove": 43.36,
-        "disapprove_lo": 42.14,
-        "disapprove_hi": 44.6
+        "disapprove": 43.37,
+        "disapprove_lo": 42.09,
+        "disapprove_hi": 44.62
       },
       {
         "as_of": "2025-01-21",
         "approve": 49.9,
         "approve_lo": 49.02,
         "approve_hi": 50.83,
-        "disapprove": 43.48,
+        "disapprove": 43.49,
         "disapprove_lo": 42.34,
-        "disapprove_hi": 44.62
+        "disapprove_hi": 44.64
       },
       {
         "as_of": "2025-01-22",
         "approve": 49.87,
         "approve_lo": 49.04,
         "approve_hi": 50.76,
-        "disapprove": 43.66,
+        "disapprove": 43.67,
         "disapprove_lo": 42.6,
-        "disapprove_hi": 44.71
+        "disapprove_hi": 44.73
       },
       {
         "as_of": "2025-01-23",
         "approve": 49.82,
         "approve_lo": 49.06,
         "approve_hi": 50.58,
-        "disapprove": 43.82,
-        "disapprove_lo": 42.81,
-        "disapprove_hi": 44.84
+        "disapprove": 43.83,
+        "disapprove_lo": 42.82,
+        "disapprove_hi": 44.8
       },
       {
         "as_of": "2025-01-24",
@@ -3688,17 +3688,17 @@
         "approve_lo": 49.02,
         "approve_hi": 50.5,
         "disapprove": 43.98,
-        "disapprove_lo": 43.02,
-        "disapprove_hi": 44.96
+        "disapprove_lo": 43.04,
+        "disapprove_hi": 44.88
       },
       {
         "as_of": "2025-01-25",
         "approve": 49.69,
         "approve_lo": 48.97,
         "approve_hi": 50.41,
-        "disapprove": 44.23,
-        "disapprove_lo": 43.34,
-        "disapprove_hi": 45.14
+        "disapprove": 44.24,
+        "disapprove_lo": 43.31,
+        "disapprove_hi": 45.11
       },
       {
         "as_of": "2025-01-26",
@@ -3706,26 +3706,26 @@
         "approve_lo": 48.84,
         "approve_hi": 50.33,
         "disapprove": 44.5,
-        "disapprove_lo": 43.6,
-        "disapprove_hi": 45.34
+        "disapprove_lo": 43.62,
+        "disapprove_hi": 45.37
       },
       {
         "as_of": "2025-01-27",
         "approve": 49.52,
         "approve_lo": 48.8,
         "approve_hi": 50.28,
-        "disapprove": 44.73,
-        "disapprove_lo": 43.88,
-        "disapprove_hi": 45.58
+        "disapprove": 44.74,
+        "disapprove_lo": 43.85,
+        "disapprove_hi": 45.59
       },
       {
         "as_of": "2025-01-28",
         "approve": 49.44,
         "approve_lo": 48.72,
         "approve_hi": 50.16,
-        "disapprove": 44.96,
-        "disapprove_lo": 44.15,
-        "disapprove_hi": 45.8
+        "disapprove": 44.97,
+        "disapprove_lo": 44.09,
+        "disapprove_hi": 45.78
       },
       {
         "as_of": "2025-01-29",
@@ -3733,8 +3733,8 @@
         "approve_lo": 48.63,
         "approve_hi": 50.11,
         "disapprove": 45.2,
-        "disapprove_lo": 44.35,
-        "disapprove_hi": 46.05
+        "disapprove_lo": 44.38,
+        "disapprove_hi": 46.03
       },
       {
         "as_of": "2025-01-30",
@@ -3742,26 +3742,26 @@
         "approve_lo": 48.59,
         "approve_hi": 50.07,
         "disapprove": 45.38,
-        "disapprove_lo": 44.56,
-        "disapprove_hi": 46.21
+        "disapprove_lo": 44.54,
+        "disapprove_hi": 46.18
       },
       {
         "as_of": "2025-01-31",
         "approve": 49.26,
         "approve_lo": 48.52,
         "approve_hi": 50.0,
-        "disapprove": 45.61,
-        "disapprove_lo": 44.79,
-        "disapprove_hi": 46.47
+        "disapprove": 45.62,
+        "disapprove_lo": 44.77,
+        "disapprove_hi": 46.46
       },
       {
         "as_of": "2025-02-01",
         "approve": 49.2,
         "approve_lo": 48.49,
         "approve_hi": 49.94,
-        "disapprove": 45.79,
-        "disapprove_lo": 44.98,
-        "disapprove_hi": 46.67
+        "disapprove": 45.8,
+        "disapprove_lo": 44.97,
+        "disapprove_hi": 46.72
       },
       {
         "as_of": "2025-02-02",
@@ -3769,17 +3769,17 @@
         "approve_lo": 48.41,
         "approve_hi": 49.91,
         "disapprove": 45.93,
-        "disapprove_lo": 45.07,
-        "disapprove_hi": 46.81
+        "disapprove_lo": 45.1,
+        "disapprove_hi": 46.8
       },
       {
         "as_of": "2025-02-03",
         "approve": 49.16,
         "approve_lo": 48.43,
         "approve_hi": 49.86,
-        "disapprove": 46.05,
-        "disapprove_lo": 45.19,
-        "disapprove_hi": 46.99
+        "disapprove": 46.06,
+        "disapprove_lo": 45.22,
+        "disapprove_hi": 46.93
       },
       {
         "as_of": "2025-02-04",
@@ -3787,17 +3787,17 @@
         "approve_lo": 48.41,
         "approve_hi": 49.94,
         "disapprove": 46.22,
-        "disapprove_lo": 45.31,
-        "disapprove_hi": 47.14
+        "disapprove_lo": 45.35,
+        "disapprove_hi": 47.09
       },
       {
         "as_of": "2025-02-05",
         "approve": 49.21,
         "approve_lo": 48.46,
         "approve_hi": 49.97,
-        "disapprove": 46.34,
-        "disapprove_lo": 45.46,
-        "disapprove_hi": 47.3
+        "disapprove": 46.35,
+        "disapprove_lo": 45.43,
+        "disapprove_hi": 47.31
       },
       {
         "as_of": "2025-02-06",
@@ -3805,44 +3805,44 @@
         "approve_lo": 48.5,
         "approve_hi": 50.0,
         "disapprove": 46.47,
-        "disapprove_lo": 45.58,
-        "disapprove_hi": 47.39
+        "disapprove_lo": 45.55,
+        "disapprove_hi": 47.42
       },
       {
         "as_of": "2025-02-07",
         "approve": 49.19,
         "approve_lo": 48.45,
         "approve_hi": 49.96,
-        "disapprove": 46.61,
-        "disapprove_lo": 45.69,
-        "disapprove_hi": 47.58
+        "disapprove": 46.62,
+        "disapprove_lo": 45.68,
+        "disapprove_hi": 47.56
       },
       {
         "as_of": "2025-02-08",
         "approve": 49.15,
         "approve_lo": 48.44,
         "approve_hi": 49.89,
-        "disapprove": 46.76,
+        "disapprove": 46.77,
         "disapprove_lo": 45.86,
-        "disapprove_hi": 47.7
+        "disapprove_hi": 47.71
       },
       {
         "as_of": "2025-02-09",
         "approve": 49.11,
         "approve_lo": 48.4,
         "approve_hi": 49.85,
-        "disapprove": 46.82,
-        "disapprove_lo": 45.9,
-        "disapprove_hi": 47.72
+        "disapprove": 46.83,
+        "disapprove_lo": 45.94,
+        "disapprove_hi": 47.74
       },
       {
         "as_of": "2025-02-10",
         "approve": 49.08,
         "approve_lo": 48.36,
         "approve_hi": 49.8,
-        "disapprove": 46.88,
-        "disapprove_lo": 45.99,
-        "disapprove_hi": 47.78
+        "disapprove": 46.87,
+        "disapprove_lo": 45.96,
+        "disapprove_hi": 47.8
       },
       {
         "as_of": "2025-02-11",
@@ -3850,8 +3850,8 @@
         "approve_lo": 48.32,
         "approve_hi": 49.8,
         "disapprove": 46.9,
-        "disapprove_lo": 46.05,
-        "disapprove_hi": 47.79
+        "disapprove_lo": 46.04,
+        "disapprove_hi": 47.74
       },
       {
         "as_of": "2025-02-12",
@@ -3859,8 +3859,8 @@
         "approve_lo": 48.25,
         "approve_hi": 49.78,
         "disapprove": 46.99,
-        "disapprove_lo": 46.09,
-        "disapprove_hi": 47.84
+        "disapprove_lo": 46.1,
+        "disapprove_hi": 47.83
       },
       {
         "as_of": "2025-02-13",
@@ -3868,8 +3868,8 @@
         "approve_lo": 48.23,
         "approve_hi": 49.71,
         "disapprove": 47.09,
-        "disapprove_lo": 46.25,
-        "disapprove_hi": 47.95
+        "disapprove_lo": 46.22,
+        "disapprove_hi": 47.93
       },
       {
         "as_of": "2025-02-14",
@@ -3877,25 +3877,25 @@
         "approve_lo": 48.18,
         "approve_hi": 49.65,
         "disapprove": 47.19,
-        "disapprove_lo": 46.38,
-        "disapprove_hi": 48.05
+        "disapprove_lo": 46.35,
+        "disapprove_hi": 48.0
       },
       {
         "as_of": "2025-02-15",
         "approve": 48.83,
         "approve_lo": 48.15,
         "approve_hi": 49.58,
-        "disapprove": 47.24,
-        "disapprove_lo": 46.49,
-        "disapprove_hi": 48.04
+        "disapprove": 47.23,
+        "disapprove_lo": 46.44,
+        "disapprove_hi": 48.01
       },
       {
         "as_of": "2025-02-16",
         "approve": 48.73,
         "approve_lo": 48.05,
         "approve_hi": 49.46,
-        "disapprove": 47.18,
-        "disapprove_lo": 46.38,
+        "disapprove": 47.17,
+        "disapprove_lo": 46.36,
         "disapprove_hi": 47.97
       },
       {
@@ -3904,42 +3904,42 @@
         "approve_lo": 47.99,
         "approve_hi": 49.4,
         "disapprove": 47.15,
-        "disapprove_lo": 46.35,
-        "disapprove_hi": 47.91
+        "disapprove_lo": 46.29,
+        "disapprove_hi": 47.97
       },
       {
         "as_of": "2025-02-18",
         "approve": 48.61,
         "approve_lo": 47.94,
         "approve_hi": 49.32,
-        "disapprove": 47.13,
-        "disapprove_lo": 46.33,
-        "disapprove_hi": 47.92
+        "disapprove": 47.12,
+        "disapprove_lo": 46.27,
+        "disapprove_hi": 47.94
       },
       {
         "as_of": "2025-02-19",
         "approve": 48.54,
         "approve_lo": 47.86,
         "approve_hi": 49.27,
-        "disapprove": 47.13,
-        "disapprove_lo": 46.33,
-        "disapprove_hi": 47.95
+        "disapprove": 47.12,
+        "disapprove_lo": 46.31,
+        "disapprove_hi": 47.9
       },
       {
         "as_of": "2025-02-20",
         "approve": 48.48,
         "approve_lo": 47.8,
         "approve_hi": 49.2,
-        "disapprove": 47.21,
+        "disapprove": 47.2,
         "disapprove_lo": 46.37,
-        "disapprove_hi": 48.05
+        "disapprove_hi": 48.02
       },
       {
         "as_of": "2025-02-21",
         "approve": 48.42,
         "approve_lo": 47.73,
         "approve_hi": 49.09,
-        "disapprove": 47.28,
+        "disapprove": 47.27,
         "disapprove_lo": 46.46,
         "disapprove_hi": 48.07
       },
@@ -3949,8 +3949,8 @@
         "approve_lo": 47.68,
         "approve_hi": 49.07,
         "disapprove": 47.35,
-        "disapprove_lo": 46.53,
-        "disapprove_hi": 48.14
+        "disapprove_lo": 46.56,
+        "disapprove_hi": 48.12
       },
       {
         "as_of": "2025-02-23",
@@ -3958,26 +3958,26 @@
         "approve_lo": 47.63,
         "approve_hi": 49.05,
         "disapprove": 47.4,
-        "disapprove_lo": 46.59,
-        "disapprove_hi": 48.24
+        "disapprove_lo": 46.61,
+        "disapprove_hi": 48.19
       },
       {
         "as_of": "2025-02-24",
         "approve": 48.28,
         "approve_lo": 47.64,
         "approve_hi": 48.98,
-        "disapprove": 47.45,
-        "disapprove_lo": 46.64,
-        "disapprove_hi": 48.24
+        "disapprove": 47.46,
+        "disapprove_lo": 46.66,
+        "disapprove_hi": 48.23
       },
       {
         "as_of": "2025-02-25",
         "approve": 48.25,
         "approve_lo": 47.6,
         "approve_hi": 48.93,
-        "disapprove": 47.57,
-        "disapprove_lo": 46.79,
-        "disapprove_hi": 48.34
+        "disapprove": 47.58,
+        "disapprove_lo": 46.76,
+        "disapprove_hi": 48.36
       },
       {
         "as_of": "2025-02-26",
@@ -3985,17 +3985,17 @@
         "approve_lo": 47.55,
         "approve_hi": 48.89,
         "disapprove": 47.67,
-        "disapprove_lo": 46.89,
-        "disapprove_hi": 48.44
+        "disapprove_lo": 46.92,
+        "disapprove_hi": 48.42
       },
       {
         "as_of": "2025-02-27",
         "approve": 48.13,
         "approve_lo": 47.46,
         "approve_hi": 48.81,
-        "disapprove": 47.8,
-        "disapprove_lo": 47.01,
-        "disapprove_hi": 48.57
+        "disapprove": 47.81,
+        "disapprove_lo": 47.04,
+        "disapprove_hi": 48.56
       },
       {
         "as_of": "2025-02-28",
@@ -4003,8 +4003,8 @@
         "approve_lo": 47.29,
         "approve_hi": 48.64,
         "disapprove": 47.93,
-        "disapprove_lo": 47.15,
-        "disapprove_hi": 48.73
+        "disapprove_lo": 47.13,
+        "disapprove_hi": 48.76
       },
       {
         "as_of": "2025-03-01",
@@ -4012,143 +4012,143 @@
         "approve_lo": 47.18,
         "approve_hi": 48.52,
         "disapprove": 48.03,
-        "disapprove_lo": 47.19,
-        "disapprove_hi": 48.89
+        "disapprove_lo": 47.21,
+        "disapprove_hi": 48.85
       },
       {
         "as_of": "2025-03-02",
         "approve": 47.72,
         "approve_lo": 47.04,
         "approve_hi": 48.37,
-        "disapprove": 48.09,
-        "disapprove_lo": 47.27,
-        "disapprove_hi": 48.88
+        "disapprove": 48.1,
+        "disapprove_lo": 47.34,
+        "disapprove_hi": 48.95
       },
       {
         "as_of": "2025-03-03",
         "approve": 47.6,
         "approve_lo": 46.94,
         "approve_hi": 48.26,
-        "disapprove": 48.3,
-        "disapprove_lo": 47.45,
-        "disapprove_hi": 49.14
+        "disapprove": 48.31,
+        "disapprove_lo": 47.49,
+        "disapprove_hi": 49.12
       },
       {
         "as_of": "2025-03-04",
         "approve": 47.5,
         "approve_lo": 46.79,
         "approve_hi": 48.18,
-        "disapprove": 48.52,
-        "disapprove_lo": 47.73,
-        "disapprove_hi": 49.38
+        "disapprove": 48.53,
+        "disapprove_lo": 47.7,
+        "disapprove_hi": 49.39
       },
       {
         "as_of": "2025-03-05",
         "approve": 47.46,
         "approve_lo": 46.77,
         "approve_hi": 48.14,
-        "disapprove": 48.64,
-        "disapprove_lo": 47.81,
-        "disapprove_hi": 49.5
+        "disapprove": 48.66,
+        "disapprove_lo": 47.8,
+        "disapprove_hi": 49.54
       },
       {
         "as_of": "2025-03-06",
         "approve": 47.43,
         "approve_lo": 46.74,
         "approve_hi": 48.12,
-        "disapprove": 48.74,
+        "disapprove": 48.76,
         "disapprove_lo": 47.92,
-        "disapprove_hi": 49.62
+        "disapprove_hi": 49.67
       },
       {
         "as_of": "2025-03-07",
         "approve": 47.39,
         "approve_lo": 46.69,
         "approve_hi": 48.05,
-        "disapprove": 48.84,
-        "disapprove_lo": 48.04,
-        "disapprove_hi": 49.71
+        "disapprove": 48.86,
+        "disapprove_lo": 48.02,
+        "disapprove_hi": 49.75
       },
       {
         "as_of": "2025-03-08",
         "approve": 47.35,
         "approve_lo": 46.64,
         "approve_hi": 48.0,
-        "disapprove": 48.94,
+        "disapprove": 48.96,
         "disapprove_lo": 48.17,
-        "disapprove_hi": 49.7
+        "disapprove_hi": 49.75
       },
       {
         "as_of": "2025-03-09",
         "approve": 47.33,
         "approve_lo": 46.66,
         "approve_hi": 47.97,
-        "disapprove": 48.94,
-        "disapprove_lo": 48.18,
-        "disapprove_hi": 49.69
+        "disapprove": 48.95,
+        "disapprove_lo": 48.22,
+        "disapprove_hi": 49.74
       },
       {
         "as_of": "2025-03-10",
         "approve": 47.31,
         "approve_lo": 46.61,
         "approve_hi": 47.95,
-        "disapprove": 48.93,
-        "disapprove_lo": 48.17,
-        "disapprove_hi": 49.66
+        "disapprove": 48.95,
+        "disapprove_lo": 48.21,
+        "disapprove_hi": 49.74
       },
       {
         "as_of": "2025-03-11",
         "approve": 47.29,
         "approve_lo": 46.61,
         "approve_hi": 47.99,
-        "disapprove": 48.92,
+        "disapprove": 48.93,
         "disapprove_lo": 48.16,
-        "disapprove_hi": 49.69
+        "disapprove_hi": 49.7
       },
       {
         "as_of": "2025-03-12",
         "approve": 47.29,
         "approve_lo": 46.58,
         "approve_hi": 47.99,
-        "disapprove": 48.94,
-        "disapprove_lo": 48.14,
-        "disapprove_hi": 49.74
+        "disapprove": 48.95,
+        "disapprove_lo": 48.09,
+        "disapprove_hi": 49.78
       },
       {
         "as_of": "2025-03-13",
         "approve": 47.28,
         "approve_lo": 46.56,
         "approve_hi": 48.02,
-        "disapprove": 48.95,
-        "disapprove_lo": 48.1,
-        "disapprove_hi": 49.77
+        "disapprove": 48.96,
+        "disapprove_lo": 48.09,
+        "disapprove_hi": 49.79
       },
       {
         "as_of": "2025-03-14",
         "approve": 47.27,
         "approve_lo": 46.56,
         "approve_hi": 48.01,
-        "disapprove": 48.95,
-        "disapprove_lo": 48.11,
-        "disapprove_hi": 49.82
+        "disapprove": 48.96,
+        "disapprove_lo": 48.12,
+        "disapprove_hi": 49.85
       },
       {
         "as_of": "2025-03-15",
         "approve": 47.27,
         "approve_lo": 46.53,
         "approve_hi": 48.03,
-        "disapprove": 48.94,
-        "disapprove_lo": 48.11,
-        "disapprove_hi": 49.79
+        "disapprove": 48.95,
+        "disapprove_lo": 48.12,
+        "disapprove_hi": 49.81
       },
       {
         "as_of": "2025-03-16",
         "approve": 47.26,
         "approve_lo": 46.54,
         "approve_hi": 48.01,
-        "disapprove": 48.93,
-        "disapprove_lo": 48.09,
-        "disapprove_hi": 49.78
+        "disapprove": 48.95,
+        "disapprove_lo": 48.1,
+        "disapprove_hi": 49.82
       },
       {
         "as_of": "2025-03-17",
@@ -4156,8 +4156,8 @@
         "approve_lo": 46.53,
         "approve_hi": 47.99,
         "disapprove": 48.93,
-        "disapprove_lo": 48.06,
-        "disapprove_hi": 49.83
+        "disapprove_lo": 48.05,
+        "disapprove_hi": 49.84
       },
       {
         "as_of": "2025-03-18",
@@ -4165,8 +4165,8 @@
         "approve_lo": 46.48,
         "approve_hi": 47.97,
         "disapprove": 48.92,
-        "disapprove_lo": 48.01,
-        "disapprove_hi": 49.86
+        "disapprove_lo": 47.98,
+        "disapprove_hi": 49.85
       },
       {
         "as_of": "2025-03-19",
@@ -4174,8 +4174,8 @@
         "approve_lo": 46.44,
         "approve_hi": 47.91,
         "disapprove": 48.98,
-        "disapprove_lo": 48.04,
-        "disapprove_hi": 49.9
+        "disapprove_lo": 48.02,
+        "disapprove_hi": 49.85
       },
       {
         "as_of": "2025-03-20",
@@ -4183,17 +4183,17 @@
         "approve_lo": 46.39,
         "approve_hi": 47.89,
         "disapprove": 49.02,
-        "disapprove_lo": 48.09,
-        "disapprove_hi": 49.93
+        "disapprove_lo": 48.08,
+        "disapprove_hi": 49.95
       },
       {
         "as_of": "2025-03-21",
         "approve": 47.06,
         "approve_lo": 46.35,
         "approve_hi": 47.83,
-        "disapprove": 49.1,
-        "disapprove_lo": 48.16,
-        "disapprove_hi": 49.98
+        "disapprove": 49.11,
+        "disapprove_lo": 48.15,
+        "disapprove_hi": 50.03
       },
       {
         "as_of": "2025-03-22",
@@ -4201,8 +4201,8 @@
         "approve_lo": 46.27,
         "approve_hi": 47.75,
         "disapprove": 49.18,
-        "disapprove_lo": 48.31,
-        "disapprove_hi": 50.1
+        "disapprove_lo": 48.22,
+        "disapprove_hi": 50.08
       },
       {
         "as_of": "2025-03-23",
@@ -4210,17 +4210,17 @@
         "approve_lo": 46.2,
         "approve_hi": 47.69,
         "disapprove": 49.24,
-        "disapprove_lo": 48.35,
-        "disapprove_hi": 50.09
+        "disapprove_lo": 48.32,
+        "disapprove_hi": 50.15
       },
       {
         "as_of": "2025-03-24",
         "approve": 46.88,
         "approve_lo": 46.14,
         "approve_hi": 47.68,
-        "disapprove": 49.3,
-        "disapprove_lo": 48.39,
-        "disapprove_hi": 50.17
+        "disapprove": 49.31,
+        "disapprove_lo": 48.41,
+        "disapprove_hi": 50.16
       },
       {
         "as_of": "2025-03-25",
@@ -4228,69 +4228,69 @@
         "approve_lo": 46.08,
         "approve_hi": 47.57,
         "disapprove": 49.37,
-        "disapprove_lo": 48.48,
-        "disapprove_hi": 50.25
+        "disapprove_lo": 48.52,
+        "disapprove_hi": 50.23
       },
       {
         "as_of": "2025-03-26",
         "approve": 46.69,
         "approve_lo": 45.98,
         "approve_hi": 47.41,
-        "disapprove": 49.45,
-        "disapprove_lo": 48.59,
-        "disapprove_hi": 50.29
+        "disapprove": 49.46,
+        "disapprove_lo": 48.62,
+        "disapprove_hi": 50.32
       },
       {
         "as_of": "2025-03-27",
         "approve": 46.57,
         "approve_lo": 45.86,
         "approve_hi": 47.28,
-        "disapprove": 49.55,
-        "disapprove_lo": 48.68,
-        "disapprove_hi": 50.44
+        "disapprove": 49.57,
+        "disapprove_lo": 48.62,
+        "disapprove_hi": 50.45
       },
       {
         "as_of": "2025-03-28",
         "approve": 46.47,
         "approve_lo": 45.74,
         "approve_hi": 47.22,
-        "disapprove": 49.67,
-        "disapprove_lo": 48.76,
-        "disapprove_hi": 50.62
+        "disapprove": 49.68,
+        "disapprove_lo": 48.77,
+        "disapprove_hi": 50.59
       },
       {
         "as_of": "2025-03-29",
         "approve": 46.36,
         "approve_lo": 45.63,
         "approve_hi": 47.11,
-        "disapprove": 49.78,
-        "disapprove_lo": 48.92,
-        "disapprove_hi": 50.63
+        "disapprove": 49.8,
+        "disapprove_lo": 48.91,
+        "disapprove_hi": 50.72
       },
       {
         "as_of": "2025-03-30",
         "approve": 46.27,
         "approve_lo": 45.56,
         "approve_hi": 46.99,
-        "disapprove": 49.85,
-        "disapprove_lo": 48.95,
-        "disapprove_hi": 50.7
+        "disapprove": 49.87,
+        "disapprove_lo": 49.01,
+        "disapprove_hi": 50.73
       },
       {
         "as_of": "2025-03-31",
         "approve": 46.19,
         "approve_lo": 45.52,
         "approve_hi": 46.93,
-        "disapprove": 49.92,
-        "disapprove_lo": 49.05,
-        "disapprove_hi": 50.8
+        "disapprove": 49.95,
+        "disapprove_lo": 49.07,
+        "disapprove_hi": 50.79
       },
       {
         "as_of": "2025-04-01",
         "approve": 46.11,
         "approve_lo": 45.42,
         "approve_hi": 46.81,
-        "disapprove": 50.0,
+        "disapprove": 50.02,
         "disapprove_lo": 49.12,
         "disapprove_hi": 50.88
       },
@@ -4299,134 +4299,134 @@
         "approve": 46.03,
         "approve_lo": 45.32,
         "approve_hi": 46.74,
-        "disapprove": 50.07,
+        "disapprove": 50.1,
         "disapprove_lo": 49.18,
-        "disapprove_hi": 50.94
+        "disapprove_hi": 51.01
       },
       {
         "as_of": "2025-04-03",
         "approve": 45.94,
         "approve_lo": 45.22,
         "approve_hi": 46.64,
-        "disapprove": 50.18,
-        "disapprove_lo": 49.25,
-        "disapprove_hi": 51.01
+        "disapprove": 50.21,
+        "disapprove_lo": 49.34,
+        "disapprove_hi": 51.06
       },
       {
         "as_of": "2025-04-04",
         "approve": 45.85,
         "approve_lo": 45.15,
         "approve_hi": 46.52,
-        "disapprove": 50.28,
-        "disapprove_lo": 49.38,
-        "disapprove_hi": 51.14
+        "disapprove": 50.31,
+        "disapprove_lo": 49.43,
+        "disapprove_hi": 51.17
       },
       {
         "as_of": "2025-04-05",
         "approve": 45.76,
         "approve_lo": 45.09,
         "approve_hi": 46.47,
-        "disapprove": 50.45,
-        "disapprove_lo": 49.58,
-        "disapprove_hi": 51.29
+        "disapprove": 50.48,
+        "disapprove_lo": 49.66,
+        "disapprove_hi": 51.32
       },
       {
         "as_of": "2025-04-06",
         "approve": 45.7,
         "approve_lo": 45.04,
         "approve_hi": 46.39,
-        "disapprove": 50.55,
-        "disapprove_lo": 49.68,
-        "disapprove_hi": 51.39
+        "disapprove": 50.58,
+        "disapprove_lo": 49.72,
+        "disapprove_hi": 51.41
       },
       {
         "as_of": "2025-04-07",
         "approve": 45.63,
         "approve_lo": 44.96,
         "approve_hi": 46.34,
-        "disapprove": 50.68,
+        "disapprove": 50.7,
         "disapprove_lo": 49.88,
-        "disapprove_hi": 51.51
+        "disapprove_hi": 51.53
       },
       {
         "as_of": "2025-04-08",
         "approve": 45.53,
         "approve_lo": 44.87,
         "approve_hi": 46.21,
-        "disapprove": 50.84,
-        "disapprove_lo": 50.06,
-        "disapprove_hi": 51.62
+        "disapprove": 50.87,
+        "disapprove_lo": 50.08,
+        "disapprove_hi": 51.67
       },
       {
         "as_of": "2025-04-09",
         "approve": 45.46,
         "approve_lo": 44.8,
         "approve_hi": 46.12,
-        "disapprove": 50.93,
+        "disapprove": 50.95,
         "disapprove_lo": 50.17,
-        "disapprove_hi": 51.69
+        "disapprove_hi": 51.78
       },
       {
         "as_of": "2025-04-10",
         "approve": 45.34,
         "approve_lo": 44.66,
         "approve_hi": 46.02,
-        "disapprove": 51.06,
+        "disapprove": 51.07,
         "disapprove_lo": 50.28,
-        "disapprove_hi": 51.85
+        "disapprove_hi": 51.89
       },
       {
         "as_of": "2025-04-11",
         "approve": 45.24,
         "approve_lo": 44.56,
         "approve_hi": 45.9,
-        "disapprove": 51.1,
-        "disapprove_lo": 50.34,
-        "disapprove_hi": 51.85
+        "disapprove": 51.11,
+        "disapprove_lo": 50.33,
+        "disapprove_hi": 51.93
       },
       {
         "as_of": "2025-04-12",
         "approve": 45.18,
         "approve_lo": 44.52,
         "approve_hi": 45.85,
-        "disapprove": 51.14,
-        "disapprove_lo": 50.36,
-        "disapprove_hi": 51.87
+        "disapprove": 51.16,
+        "disapprove_lo": 50.43,
+        "disapprove_hi": 51.99
       },
       {
         "as_of": "2025-04-13",
         "approve": 45.14,
         "approve_lo": 44.43,
         "approve_hi": 45.81,
-        "disapprove": 51.16,
-        "disapprove_lo": 50.34,
-        "disapprove_hi": 51.93
+        "disapprove": 51.18,
+        "disapprove_lo": 50.41,
+        "disapprove_hi": 52.0
       },
       {
         "as_of": "2025-04-14",
         "approve": 45.11,
         "approve_lo": 44.42,
         "approve_hi": 45.8,
-        "disapprove": 51.19,
-        "disapprove_lo": 50.34,
-        "disapprove_hi": 51.97
+        "disapprove": 51.21,
+        "disapprove_lo": 50.38,
+        "disapprove_hi": 52.08
       },
       {
         "as_of": "2025-04-15",
         "approve": 45.08,
         "approve_lo": 44.38,
         "approve_hi": 45.77,
-        "disapprove": 51.21,
+        "disapprove": 51.23,
         "disapprove_lo": 50.39,
-        "disapprove_hi": 52.05
+        "disapprove_hi": 52.08
       },
       {
         "as_of": "2025-04-16",
         "approve": 45.02,
         "approve_lo": 44.3,
         "approve_hi": 45.75,
-        "disapprove": 51.25,
-        "disapprove_lo": 50.42,
+        "disapprove": 51.27,
+        "disapprove_lo": 50.44,
         "disapprove_hi": 52.12
       },
       {
@@ -4434,8 +4434,8 @@
         "approve": 44.99,
         "approve_lo": 44.27,
         "approve_hi": 45.65,
-        "disapprove": 51.25,
-        "disapprove_lo": 50.44,
+        "disapprove": 51.27,
+        "disapprove_lo": 50.46,
         "disapprove_hi": 52.09
       },
       {
@@ -4443,9 +4443,9 @@
         "approve": 44.95,
         "approve_lo": 44.28,
         "approve_hi": 45.65,
-        "disapprove": 51.25,
-        "disapprove_lo": 50.45,
-        "disapprove_hi": 52.1
+        "disapprove": 51.26,
+        "disapprove_lo": 50.48,
+        "disapprove_hi": 52.06
       },
       {
         "as_of": "2025-04-19",
@@ -4453,8 +4453,8 @@
         "approve_lo": 44.2,
         "approve_hi": 45.57,
         "disapprove": 51.37,
-        "disapprove_lo": 50.59,
-        "disapprove_hi": 52.17
+        "disapprove_lo": 50.58,
+        "disapprove_hi": 52.19
       },
       {
         "as_of": "2025-04-20",
@@ -4463,24 +4463,24 @@
         "approve_hi": 45.52,
         "disapprove": 51.39,
         "disapprove_lo": 50.59,
-        "disapprove_hi": 52.24
+        "disapprove_hi": 52.21
       },
       {
         "as_of": "2025-04-21",
         "approve": 44.83,
         "approve_lo": 44.12,
         "approve_hi": 45.51,
-        "disapprove": 51.4,
-        "disapprove_lo": 50.62,
-        "disapprove_hi": 52.2
+        "disapprove": 51.39,
+        "disapprove_lo": 50.61,
+        "disapprove_hi": 52.21
       },
       {
         "as_of": "2025-04-22",
         "approve": 44.79,
         "approve_lo": 44.1,
         "approve_hi": 45.47,
-        "disapprove": 51.42,
-        "disapprove_lo": 50.65,
+        "disapprove": 51.41,
+        "disapprove_lo": 50.61,
         "disapprove_hi": 52.22
       },
       {
@@ -4488,43 +4488,43 @@
         "approve": 44.75,
         "approve_lo": 44.01,
         "approve_hi": 45.47,
-        "disapprove": 51.43,
-        "disapprove_lo": 50.62,
-        "disapprove_hi": 52.29
+        "disapprove": 51.42,
+        "disapprove_lo": 50.56,
+        "disapprove_hi": 52.24
       },
       {
         "as_of": "2025-04-24",
         "approve": 44.7,
         "approve_lo": 43.97,
         "approve_hi": 45.4,
-        "disapprove": 51.44,
-        "disapprove_lo": 50.6,
-        "disapprove_hi": 52.31
+        "disapprove": 51.43,
+        "disapprove_lo": 50.58,
+        "disapprove_hi": 52.3
       },
       {
         "as_of": "2025-04-25",
         "approve": 44.66,
         "approve_lo": 43.93,
         "approve_hi": 45.4,
-        "disapprove": 51.45,
-        "disapprove_lo": 50.62,
-        "disapprove_hi": 52.33
+        "disapprove": 51.44,
+        "disapprove_lo": 50.58,
+        "disapprove_hi": 52.35
       },
       {
         "as_of": "2025-04-26",
         "approve": 44.62,
         "approve_lo": 43.87,
         "approve_hi": 45.33,
-        "disapprove": 51.41,
-        "disapprove_lo": 50.59,
-        "disapprove_hi": 52.25
+        "disapprove": 51.4,
+        "disapprove_lo": 50.56,
+        "disapprove_hi": 52.27
       },
       {
         "as_of": "2025-04-27",
         "approve": 44.61,
         "approve_lo": 43.85,
         "approve_hi": 45.31,
-        "disapprove": 51.32,
+        "disapprove": 51.31,
         "disapprove_lo": 50.45,
         "disapprove_hi": 52.19
       },
@@ -4533,26 +4533,26 @@
         "approve": 44.61,
         "approve_lo": 43.81,
         "approve_hi": 45.33,
-        "disapprove": 51.23,
-        "disapprove_lo": 50.38,
-        "disapprove_hi": 52.15
+        "disapprove": 51.22,
+        "disapprove_lo": 50.25,
+        "disapprove_hi": 52.18
       },
       {
         "as_of": "2025-04-29",
         "approve": 44.6,
         "approve_lo": 43.85,
         "approve_hi": 45.38,
-        "disapprove": 51.15,
-        "disapprove_lo": 50.27,
-        "disapprove_hi": 52.09
+        "disapprove": 51.14,
+        "disapprove_lo": 50.16,
+        "disapprove_hi": 52.05
       },
       {
         "as_of": "2025-04-30",
         "approve": 44.6,
         "approve_lo": 43.82,
         "approve_hi": 45.35,
-        "disapprove": 51.06,
-        "disapprove_lo": 50.17,
+        "disapprove": 51.05,
+        "disapprove_lo": 50.13,
         "disapprove_hi": 51.98
       },
       {
@@ -4560,18 +4560,18 @@
         "approve": 44.62,
         "approve_lo": 43.82,
         "approve_hi": 45.37,
-        "disapprove": 51.02,
-        "disapprove_lo": 50.12,
-        "disapprove_hi": 51.93
+        "disapprove": 51.01,
+        "disapprove_lo": 50.1,
+        "disapprove_hi": 51.92
       },
       {
         "as_of": "2025-05-02",
         "approve": 44.63,
         "approve_lo": 43.88,
         "approve_hi": 45.37,
-        "disapprove": 50.97,
-        "disapprove_lo": 50.07,
-        "disapprove_hi": 51.87
+        "disapprove": 50.98,
+        "disapprove_lo": 50.06,
+        "disapprove_hi": 51.88
       },
       {
         "as_of": "2025-05-03",
@@ -4579,17 +4579,17 @@
         "approve_lo": 43.92,
         "approve_hi": 45.41,
         "disapprove": 50.93,
-        "disapprove_lo": 50.03,
-        "disapprove_hi": 51.78
+        "disapprove_lo": 50.06,
+        "disapprove_hi": 51.81
       },
       {
         "as_of": "2025-05-04",
         "approve": 44.71,
         "approve_lo": 43.96,
         "approve_hi": 45.46,
-        "disapprove": 50.84,
-        "disapprove_lo": 49.94,
-        "disapprove_hi": 51.68
+        "disapprove": 50.85,
+        "disapprove_lo": 49.96,
+        "disapprove_hi": 51.7
       },
       {
         "as_of": "2025-05-05",
@@ -4597,7 +4597,7 @@
         "approve_lo": 44.04,
         "approve_hi": 45.49,
         "disapprove": 50.78,
-        "disapprove_lo": 49.84,
+        "disapprove_lo": 49.88,
         "disapprove_hi": 51.64
       },
       {
@@ -4606,8 +4606,8 @@
         "approve_lo": 44.08,
         "approve_hi": 45.54,
         "disapprove": 50.74,
-        "disapprove_lo": 49.85,
-        "disapprove_hi": 51.6
+        "disapprove_lo": 49.87,
+        "disapprove_hi": 51.56
       },
       {
         "as_of": "2025-05-07",
@@ -4616,34 +4616,34 @@
         "approve_hi": 45.58,
         "disapprove": 50.72,
         "disapprove_lo": 49.83,
-        "disapprove_hi": 51.55
+        "disapprove_hi": 51.57
       },
       {
         "as_of": "2025-05-08",
         "approve": 44.96,
         "approve_lo": 44.24,
         "approve_hi": 45.7,
-        "disapprove": 50.74,
-        "disapprove_lo": 49.87,
-        "disapprove_hi": 51.62
+        "disapprove": 50.73,
+        "disapprove_lo": 49.86,
+        "disapprove_hi": 51.58
       },
       {
         "as_of": "2025-05-09",
         "approve": 45.03,
         "approve_lo": 44.29,
         "approve_hi": 45.74,
-        "disapprove": 50.78,
-        "disapprove_lo": 49.93,
-        "disapprove_hi": 51.61
+        "disapprove": 50.77,
+        "disapprove_lo": 49.94,
+        "disapprove_hi": 51.57
       },
       {
         "as_of": "2025-05-10",
         "approve": 45.08,
         "approve_lo": 44.37,
         "approve_hi": 45.77,
-        "disapprove": 50.84,
-        "disapprove_lo": 50.02,
-        "disapprove_hi": 51.65
+        "disapprove": 50.83,
+        "disapprove_lo": 50.03,
+        "disapprove_hi": 51.64
       },
       {
         "as_of": "2025-05-11",
@@ -4651,17 +4651,17 @@
         "approve_lo": 44.39,
         "approve_hi": 45.84,
         "disapprove": 50.83,
-        "disapprove_lo": 50.04,
-        "disapprove_hi": 51.66
+        "disapprove_lo": 49.99,
+        "disapprove_hi": 51.63
       },
       {
         "as_of": "2025-05-12",
         "approve": 45.18,
         "approve_lo": 44.43,
         "approve_hi": 45.91,
-        "disapprove": 50.82,
-        "disapprove_lo": 49.99,
-        "disapprove_hi": 51.68
+        "disapprove": 50.81,
+        "disapprove_lo": 49.97,
+        "disapprove_hi": 51.64
       },
       {
         "as_of": "2025-05-13",
@@ -4669,17 +4669,17 @@
         "approve_lo": 44.46,
         "approve_hi": 45.9,
         "disapprove": 50.84,
-        "disapprove_lo": 50.04,
-        "disapprove_hi": 51.74
+        "disapprove_lo": 49.96,
+        "disapprove_hi": 51.71
       },
       {
         "as_of": "2025-05-14",
         "approve": 45.22,
         "approve_lo": 44.51,
         "approve_hi": 45.94,
-        "disapprove": 50.87,
+        "disapprove": 50.86,
         "disapprove_lo": 50.04,
-        "disapprove_hi": 51.76
+        "disapprove_hi": 51.75
       },
       {
         "as_of": "2025-05-15",
@@ -4687,17 +4687,17 @@
         "approve_lo": 44.56,
         "approve_hi": 45.97,
         "disapprove": 50.86,
-        "disapprove_lo": 50.01,
-        "disapprove_hi": 51.75
+        "disapprove_lo": 49.97,
+        "disapprove_hi": 51.76
       },
       {
         "as_of": "2025-05-16",
         "approve": 45.29,
         "approve_lo": 44.59,
         "approve_hi": 46.0,
-        "disapprove": 50.86,
-        "disapprove_lo": 50.05,
-        "disapprove_hi": 51.73
+        "disapprove": 50.85,
+        "disapprove_lo": 49.99,
+        "disapprove_hi": 51.75
       },
       {
         "as_of": "2025-05-17",
@@ -4705,8 +4705,8 @@
         "approve_lo": 44.6,
         "approve_hi": 46.06,
         "disapprove": 50.82,
-        "disapprove_lo": 49.99,
-        "disapprove_hi": 51.72
+        "disapprove_lo": 50.0,
+        "disapprove_hi": 51.65
       },
       {
         "as_of": "2025-05-18",
@@ -4715,7 +4715,7 @@
         "approve_hi": 46.13,
         "disapprove": 50.81,
         "disapprove_lo": 49.91,
-        "disapprove_hi": 51.71
+        "disapprove_hi": 51.7
       },
       {
         "as_of": "2025-05-19",
@@ -4723,8 +4723,8 @@
         "approve_lo": 44.53,
         "approve_hi": 46.19,
         "disapprove": 50.84,
-        "disapprove_lo": 49.96,
-        "disapprove_hi": 51.75
+        "disapprove_lo": 49.9,
+        "disapprove_hi": 51.72
       },
       {
         "as_of": "2025-05-20",
@@ -4733,33 +4733,33 @@
         "approve_hi": 46.16,
         "disapprove": 50.89,
         "disapprove_lo": 49.95,
-        "disapprove_hi": 51.81
+        "disapprove_hi": 51.85
       },
       {
         "as_of": "2025-05-21",
         "approve": 45.31,
         "approve_lo": 44.51,
         "approve_hi": 46.18,
-        "disapprove": 50.94,
+        "disapprove": 50.95,
         "disapprove_lo": 49.97,
-        "disapprove_hi": 51.88
+        "disapprove_hi": 51.89
       },
       {
         "as_of": "2025-05-22",
         "approve": 45.3,
         "approve_lo": 44.55,
         "approve_hi": 46.12,
-        "disapprove": 50.99,
-        "disapprove_lo": 50.07,
-        "disapprove_hi": 51.97
+        "disapprove": 51.0,
+        "disapprove_lo": 49.99,
+        "disapprove_hi": 51.96
       },
       {
         "as_of": "2025-05-23",
         "approve": 45.29,
         "approve_lo": 44.52,
         "approve_hi": 46.1,
-        "disapprove": 51.04,
-        "disapprove_lo": 50.14,
+        "disapprove": 51.05,
+        "disapprove_lo": 50.06,
         "disapprove_hi": 51.99
       },
       {
@@ -4767,18 +4767,18 @@
         "approve": 45.28,
         "approve_lo": 44.52,
         "approve_hi": 46.06,
-        "disapprove": 51.08,
-        "disapprove_lo": 50.18,
-        "disapprove_hi": 52.03
+        "disapprove": 51.09,
+        "disapprove_lo": 50.21,
+        "disapprove_hi": 52.05
       },
       {
         "as_of": "2025-05-25",
         "approve": 45.27,
         "approve_lo": 44.51,
         "approve_hi": 46.06,
-        "disapprove": 51.07,
-        "disapprove_lo": 50.12,
-        "disapprove_hi": 52.07
+        "disapprove": 51.08,
+        "disapprove_lo": 50.16,
+        "disapprove_hi": 52.02
       },
       {
         "as_of": "2025-05-26",
@@ -4786,17 +4786,17 @@
         "approve_lo": 44.47,
         "approve_hi": 46.08,
         "disapprove": 51.06,
-        "disapprove_lo": 50.09,
-        "disapprove_hi": 52.02
+        "disapprove_lo": 50.14,
+        "disapprove_hi": 51.99
       },
       {
         "as_of": "2025-05-27",
         "approve": 45.26,
         "approve_lo": 44.46,
         "approve_hi": 46.09,
-        "disapprove": 51.05,
-        "disapprove_lo": 50.04,
-        "disapprove_hi": 52.06
+        "disapprove": 51.04,
+        "disapprove_lo": 50.01,
+        "disapprove_hi": 51.99
       },
       {
         "as_of": "2025-05-28",
@@ -4805,7 +4805,7 @@
         "approve_hi": 46.1,
         "disapprove": 51.03,
         "disapprove_lo": 50.04,
-        "disapprove_hi": 52.04
+        "disapprove_hi": 51.98
       },
       {
         "as_of": "2025-05-29",
@@ -4813,53 +4813,53 @@
         "approve_lo": 44.5,
         "approve_hi": 46.07,
         "disapprove": 51.02,
-        "disapprove_lo": 50.06,
-        "disapprove_hi": 52.01
+        "disapprove_lo": 50.09,
+        "disapprove_hi": 51.94
       },
       {
         "as_of": "2025-05-30",
         "approve": 45.25,
         "approve_lo": 44.49,
         "approve_hi": 46.07,
-        "disapprove": 51.04,
-        "disapprove_lo": 50.08,
-        "disapprove_hi": 51.99
+        "disapprove": 51.05,
+        "disapprove_lo": 50.12,
+        "disapprove_hi": 51.96
       },
       {
         "as_of": "2025-05-31",
         "approve": 45.24,
         "approve_lo": 44.51,
         "approve_hi": 46.04,
-        "disapprove": 51.08,
-        "disapprove_lo": 50.2,
-        "disapprove_hi": 51.92
+        "disapprove": 51.07,
+        "disapprove_lo": 50.17,
+        "disapprove_hi": 51.94
       },
       {
         "as_of": "2025-06-01",
         "approve": 45.2,
         "approve_lo": 44.47,
         "approve_hi": 45.94,
-        "disapprove": 51.14,
-        "disapprove_lo": 50.24,
-        "disapprove_hi": 52.02
+        "disapprove": 51.13,
+        "disapprove_lo": 50.27,
+        "disapprove_hi": 52.01
       },
       {
         "as_of": "2025-06-02",
         "approve": 45.16,
         "approve_lo": 44.44,
         "approve_hi": 45.9,
-        "disapprove": 51.2,
-        "disapprove_lo": 50.31,
-        "disapprove_hi": 52.06
+        "disapprove": 51.19,
+        "disapprove_lo": 50.34,
+        "disapprove_hi": 52.04
       },
       {
         "as_of": "2025-06-03",
         "approve": 45.11,
         "approve_lo": 44.4,
         "approve_hi": 45.82,
-        "disapprove": 51.29,
-        "disapprove_lo": 50.41,
-        "disapprove_hi": 52.14
+        "disapprove": 51.28,
+        "disapprove_lo": 50.44,
+        "disapprove_hi": 52.16
       },
       {
         "as_of": "2025-06-04",
@@ -4867,8 +4867,8 @@
         "approve_lo": 44.32,
         "approve_hi": 45.75,
         "disapprove": 51.38,
-        "disapprove_lo": 50.54,
-        "disapprove_hi": 52.18
+        "disapprove_lo": 50.58,
+        "disapprove_hi": 52.24
       },
       {
         "as_of": "2025-06-05",
@@ -4877,16 +4877,16 @@
         "approve_hi": 45.68,
         "disapprove": 51.5,
         "disapprove_lo": 50.71,
-        "disapprove_hi": 52.31
+        "disapprove_hi": 52.33
       },
       {
         "as_of": "2025-06-06",
         "approve": 44.89,
         "approve_lo": 44.24,
         "approve_hi": 45.55,
-        "disapprove": 51.62,
-        "disapprove_lo": 50.87,
-        "disapprove_hi": 52.4
+        "disapprove": 51.61,
+        "disapprove_lo": 50.84,
+        "disapprove_hi": 52.41
       },
       {
         "as_of": "2025-06-07",
@@ -4894,8 +4894,8 @@
         "approve_lo": 44.17,
         "approve_hi": 45.49,
         "disapprove": 51.75,
-        "disapprove_lo": 50.99,
-        "disapprove_hi": 52.51
+        "disapprove_lo": 50.98,
+        "disapprove_hi": 52.53
       },
       {
         "as_of": "2025-06-08",
@@ -4903,7 +4903,7 @@
         "approve_lo": 44.13,
         "approve_hi": 45.48,
         "disapprove": 51.84,
-        "disapprove_lo": 51.06,
+        "disapprove_lo": 51.09,
         "disapprove_hi": 52.65
       },
       {
@@ -4911,44 +4911,44 @@
         "approve": 44.8,
         "approve_lo": 44.11,
         "approve_hi": 45.45,
-        "disapprove": 51.94,
-        "disapprove_lo": 51.2,
-        "disapprove_hi": 52.74
+        "disapprove": 51.93,
+        "disapprove_lo": 51.19,
+        "disapprove_hi": 52.75
       },
       {
         "as_of": "2025-06-10",
         "approve": 44.77,
         "approve_lo": 44.05,
         "approve_hi": 45.41,
-        "disapprove": 52.02,
-        "disapprove_lo": 51.26,
-        "disapprove_hi": 52.8
+        "disapprove": 52.01,
+        "disapprove_lo": 51.23,
+        "disapprove_hi": 52.85
       },
       {
         "as_of": "2025-06-11",
         "approve": 44.74,
         "approve_lo": 44.05,
         "approve_hi": 45.42,
-        "disapprove": 52.06,
-        "disapprove_lo": 51.29,
-        "disapprove_hi": 52.85
+        "disapprove": 52.05,
+        "disapprove_lo": 51.25,
+        "disapprove_hi": 52.88
       },
       {
         "as_of": "2025-06-12",
         "approve": 44.74,
         "approve_lo": 44.04,
         "approve_hi": 45.41,
-        "disapprove": 52.05,
-        "disapprove_lo": 51.27,
-        "disapprove_hi": 52.86
+        "disapprove": 52.04,
+        "disapprove_lo": 51.24,
+        "disapprove_hi": 52.88
       },
       {
         "as_of": "2025-06-13",
         "approve": 44.74,
         "approve_lo": 44.06,
         "approve_hi": 45.41,
-        "disapprove": 52.04,
-        "disapprove_lo": 51.24,
+        "disapprove": 52.03,
+        "disapprove_lo": 51.22,
         "disapprove_hi": 52.87
       },
       {
@@ -4956,54 +4956,54 @@
         "approve": 44.73,
         "approve_lo": 44.06,
         "approve_hi": 45.38,
-        "disapprove": 52.08,
-        "disapprove_lo": 51.3,
-        "disapprove_hi": 52.9
+        "disapprove": 52.06,
+        "disapprove_lo": 51.26,
+        "disapprove_hi": 52.91
       },
       {
         "as_of": "2025-06-15",
         "approve": 44.73,
         "approve_lo": 44.04,
         "approve_hi": 45.4,
-        "disapprove": 52.1,
-        "disapprove_lo": 51.3,
-        "disapprove_hi": 53.0
+        "disapprove": 52.08,
+        "disapprove_lo": 51.29,
+        "disapprove_hi": 52.89
       },
       {
         "as_of": "2025-06-16",
         "approve": 44.72,
         "approve_lo": 44.03,
         "approve_hi": 45.42,
-        "disapprove": 52.12,
-        "disapprove_lo": 51.28,
-        "disapprove_hi": 53.05
+        "disapprove": 52.1,
+        "disapprove_lo": 51.33,
+        "disapprove_hi": 52.92
       },
       {
         "as_of": "2025-06-17",
         "approve": 44.72,
         "approve_lo": 44.02,
         "approve_hi": 45.44,
-        "disapprove": 52.14,
-        "disapprove_lo": 51.29,
-        "disapprove_hi": 53.02
+        "disapprove": 52.12,
+        "disapprove_lo": 51.3,
+        "disapprove_hi": 52.98
       },
       {
         "as_of": "2025-06-18",
         "approve": 44.71,
         "approve_lo": 44.0,
         "approve_hi": 45.45,
-        "disapprove": 52.18,
-        "disapprove_lo": 51.33,
-        "disapprove_hi": 53.07
+        "disapprove": 52.16,
+        "disapprove_lo": 51.3,
+        "disapprove_hi": 53.05
       },
       {
         "as_of": "2025-06-19",
         "approve": 44.69,
         "approve_lo": 43.96,
         "approve_hi": 45.43,
-        "disapprove": 52.17,
+        "disapprove": 52.16,
         "disapprove_lo": 51.3,
-        "disapprove_hi": 53.06
+        "disapprove_hi": 53.01
       },
       {
         "as_of": "2025-06-20",
@@ -5011,8 +5011,8 @@
         "approve_lo": 43.94,
         "approve_hi": 45.42,
         "disapprove": 52.18,
-        "disapprove_lo": 51.28,
-        "disapprove_hi": 53.11
+        "disapprove_lo": 51.31,
+        "disapprove_hi": 53.08
       },
       {
         "as_of": "2025-06-21",
@@ -5020,25 +5020,25 @@
         "approve_lo": 43.89,
         "approve_hi": 45.37,
         "disapprove": 52.19,
-        "disapprove_lo": 51.35,
-        "disapprove_hi": 53.07
+        "disapprove_lo": 51.39,
+        "disapprove_hi": 53.04
       },
       {
         "as_of": "2025-06-22",
         "approve": 44.67,
         "approve_lo": 43.96,
         "approve_hi": 45.39,
-        "disapprove": 52.14,
-        "disapprove_lo": 51.3,
-        "disapprove_hi": 53.01
+        "disapprove": 52.15,
+        "disapprove_lo": 51.38,
+        "disapprove_hi": 52.98
       },
       {
         "as_of": "2025-06-23",
         "approve": 44.68,
         "approve_lo": 43.94,
         "approve_hi": 45.38,
-        "disapprove": 52.09,
-        "disapprove_lo": 51.26,
+        "disapprove": 52.1,
+        "disapprove_lo": 51.28,
         "disapprove_hi": 52.92
       },
       {
@@ -5046,27 +5046,27 @@
         "approve": 44.68,
         "approve_lo": 43.96,
         "approve_hi": 45.43,
-        "disapprove": 52.02,
-        "disapprove_lo": 51.2,
-        "disapprove_hi": 52.84
+        "disapprove": 52.03,
+        "disapprove_lo": 51.19,
+        "disapprove_hi": 52.85
       },
       {
         "as_of": "2025-06-25",
         "approve": 44.69,
         "approve_lo": 43.97,
         "approve_hi": 45.41,
-        "disapprove": 51.98,
-        "disapprove_lo": 51.09,
-        "disapprove_hi": 52.81
+        "disapprove": 51.99,
+        "disapprove_lo": 51.11,
+        "disapprove_hi": 52.86
       },
       {
         "as_of": "2025-06-26",
         "approve": 44.68,
         "approve_lo": 43.96,
         "approve_hi": 45.42,
-        "disapprove": 51.93,
-        "disapprove_lo": 51.02,
-        "disapprove_hi": 52.81
+        "disapprove": 51.94,
+        "disapprove_lo": 51.06,
+        "disapprove_hi": 52.84
       },
       {
         "as_of": "2025-06-27",
@@ -5074,8 +5074,8 @@
         "approve_lo": 43.9,
         "approve_hi": 45.44,
         "disapprove": 51.94,
-        "disapprove_lo": 51.02,
-        "disapprove_hi": 52.86
+        "disapprove_lo": 51.04,
+        "disapprove_hi": 52.82
       },
       {
         "as_of": "2025-06-28",
@@ -5083,34 +5083,34 @@
         "approve_lo": 43.88,
         "approve_hi": 45.41,
         "disapprove": 51.95,
-        "disapprove_lo": 51.05,
-        "disapprove_hi": 52.84
+        "disapprove_lo": 51.03,
+        "disapprove_hi": 52.83
       },
       {
         "as_of": "2025-06-29",
         "approve": 44.59,
         "approve_lo": 43.79,
         "approve_hi": 45.39,
-        "disapprove": 51.98,
-        "disapprove_lo": 51.02,
-        "disapprove_hi": 52.9
+        "disapprove": 51.97,
+        "disapprove_lo": 51.01,
+        "disapprove_hi": 52.91
       },
       {
         "as_of": "2025-06-30",
         "approve": 44.54,
         "approve_lo": 43.71,
         "approve_hi": 45.34,
-        "disapprove": 52.0,
+        "disapprove": 51.99,
         "disapprove_lo": 51.01,
-        "disapprove_hi": 52.98
+        "disapprove_hi": 52.97
       },
       {
         "as_of": "2025-07-01",
         "approve": 44.48,
         "approve_lo": 43.65,
         "approve_hi": 45.3,
-        "disapprove": 52.03,
-        "disapprove_lo": 51.02,
+        "disapprove": 52.02,
+        "disapprove_lo": 51.05,
         "disapprove_hi": 52.97
       },
       {
@@ -5118,7 +5118,7 @@
         "approve": 44.43,
         "approve_lo": 43.59,
         "approve_hi": 45.26,
-        "disapprove": 52.08,
+        "disapprove": 52.07,
         "disapprove_lo": 51.11,
         "disapprove_hi": 53.05
       },
@@ -5127,36 +5127,36 @@
         "approve": 44.38,
         "approve_lo": 43.57,
         "approve_hi": 45.22,
-        "disapprove": 52.14,
-        "disapprove_lo": 51.17,
-        "disapprove_hi": 53.11
+        "disapprove": 52.12,
+        "disapprove_lo": 51.15,
+        "disapprove_hi": 53.09
       },
       {
         "as_of": "2025-07-04",
         "approve": 44.33,
         "approve_lo": 43.49,
         "approve_hi": 45.16,
-        "disapprove": 52.18,
-        "disapprove_lo": 51.2,
-        "disapprove_hi": 53.15
+        "disapprove": 52.17,
+        "disapprove_lo": 51.19,
+        "disapprove_hi": 53.16
       },
       {
         "as_of": "2025-07-05",
         "approve": 44.28,
         "approve_lo": 43.44,
         "approve_hi": 45.1,
-        "disapprove": 52.23,
-        "disapprove_lo": 51.23,
-        "disapprove_hi": 53.23
+        "disapprove": 52.22,
+        "disapprove_lo": 51.27,
+        "disapprove_hi": 53.17
       },
       {
         "as_of": "2025-07-06",
         "approve": 44.24,
         "approve_lo": 43.42,
         "approve_hi": 45.04,
-        "disapprove": 52.27,
-        "disapprove_lo": 51.3,
-        "disapprove_hi": 53.21
+        "disapprove": 52.26,
+        "disapprove_lo": 51.26,
+        "disapprove_hi": 53.19
       },
       {
         "as_of": "2025-07-07",
@@ -5164,61 +5164,61 @@
         "approve_lo": 43.38,
         "approve_hi": 44.99,
         "disapprove": 52.3,
-        "disapprove_lo": 51.39,
-        "disapprove_hi": 53.27
+        "disapprove_lo": 51.37,
+        "disapprove_hi": 53.2
       },
       {
         "as_of": "2025-07-08",
         "approve": 44.22,
         "approve_lo": 43.41,
         "approve_hi": 45.02,
-        "disapprove": 52.34,
+        "disapprove": 52.33,
         "disapprove_lo": 51.4,
-        "disapprove_hi": 53.29
+        "disapprove_hi": 53.27
       },
       {
         "as_of": "2025-07-09",
         "approve": 44.24,
         "approve_lo": 43.42,
         "approve_hi": 45.05,
-        "disapprove": 52.39,
-        "disapprove_lo": 51.45,
-        "disapprove_hi": 53.29
+        "disapprove": 52.38,
+        "disapprove_lo": 51.47,
+        "disapprove_hi": 53.23
       },
       {
         "as_of": "2025-07-10",
         "approve": 44.25,
         "approve_lo": 43.48,
         "approve_hi": 44.97,
-        "disapprove": 52.41,
-        "disapprove_lo": 51.48,
-        "disapprove_hi": 53.31
+        "disapprove": 52.4,
+        "disapprove_lo": 51.51,
+        "disapprove_hi": 53.23
       },
       {
         "as_of": "2025-07-11",
         "approve": 44.26,
         "approve_lo": 43.51,
         "approve_hi": 44.98,
-        "disapprove": 52.44,
-        "disapprove_lo": 51.58,
-        "disapprove_hi": 53.31
+        "disapprove": 52.43,
+        "disapprove_lo": 51.59,
+        "disapprove_hi": 53.25
       },
       {
         "as_of": "2025-07-12",
         "approve": 44.26,
         "approve_lo": 43.56,
         "approve_hi": 44.94,
-        "disapprove": 52.47,
-        "disapprove_lo": 51.66,
-        "disapprove_hi": 53.26
+        "disapprove": 52.45,
+        "disapprove_lo": 51.7,
+        "disapprove_hi": 53.22
       },
       {
         "as_of": "2025-07-13",
         "approve": 44.25,
         "approve_lo": 43.56,
         "approve_hi": 44.96,
-        "disapprove": 52.51,
-        "disapprove_lo": 51.69,
+        "disapprove": 52.5,
+        "disapprove_lo": 51.75,
         "disapprove_hi": 53.29
       },
       {
@@ -5226,9 +5226,9 @@
         "approve": 44.23,
         "approve_lo": 43.56,
         "approve_hi": 44.9,
-        "disapprove": 52.55,
-        "disapprove_lo": 51.76,
-        "disapprove_hi": 53.36
+        "disapprove": 52.54,
+        "disapprove_lo": 51.77,
+        "disapprove_hi": 53.31
       },
       {
         "as_of": "2025-07-15",
@@ -5236,16 +5236,16 @@
         "approve_lo": 43.61,
         "approve_hi": 44.9,
         "disapprove": 52.56,
-        "disapprove_lo": 51.79,
-        "disapprove_hi": 53.34
+        "disapprove_lo": 51.81,
+        "disapprove_hi": 53.33
       },
       {
         "as_of": "2025-07-16",
         "approve": 44.24,
         "approve_lo": 43.59,
         "approve_hi": 44.9,
-        "disapprove": 52.59,
-        "disapprove_lo": 51.83,
+        "disapprove": 52.58,
+        "disapprove_lo": 51.84,
         "disapprove_hi": 53.39
       },
       {
@@ -5253,9 +5253,9 @@
         "approve": 44.24,
         "approve_lo": 43.58,
         "approve_hi": 44.9,
-        "disapprove": 52.61,
+        "disapprove": 52.62,
         "disapprove_lo": 51.85,
-        "disapprove_hi": 53.4
+        "disapprove_hi": 53.41
       },
       {
         "as_of": "2025-07-18",
@@ -5263,8 +5263,8 @@
         "approve_lo": 43.58,
         "approve_hi": 44.92,
         "disapprove": 52.64,
-        "disapprove_lo": 51.85,
-        "disapprove_hi": 53.42
+        "disapprove_lo": 51.88,
+        "disapprove_hi": 53.4
       },
       {
         "as_of": "2025-07-19",
@@ -5272,8 +5272,8 @@
         "approve_lo": 43.52,
         "approve_hi": 44.88,
         "disapprove": 52.68,
-        "disapprove_lo": 51.87,
-        "disapprove_hi": 53.47
+        "disapprove_lo": 51.88,
+        "disapprove_hi": 53.45
       },
       {
         "as_of": "2025-07-20",
@@ -5281,8 +5281,8 @@
         "approve_lo": 43.52,
         "approve_hi": 44.88,
         "disapprove": 52.67,
-        "disapprove_lo": 51.8,
-        "disapprove_hi": 53.51
+        "disapprove_lo": 51.86,
+        "disapprove_hi": 53.49
       },
       {
         "as_of": "2025-07-21",
@@ -5290,8 +5290,8 @@
         "approve_lo": 43.55,
         "approve_hi": 44.92,
         "disapprove": 52.61,
-        "disapprove_lo": 51.79,
-        "disapprove_hi": 53.44
+        "disapprove_lo": 51.81,
+        "disapprove_hi": 53.41
       },
       {
         "as_of": "2025-07-22",
@@ -5299,8 +5299,8 @@
         "approve_lo": 43.45,
         "approve_hi": 44.87,
         "disapprove": 52.59,
-        "disapprove_lo": 51.76,
-        "disapprove_hi": 53.4
+        "disapprove_lo": 51.78,
+        "disapprove_hi": 53.43
       },
       {
         "as_of": "2025-07-23",
@@ -5308,7 +5308,7 @@
         "approve_lo": 43.42,
         "approve_hi": 44.86,
         "disapprove": 52.59,
-        "disapprove_lo": 51.73,
+        "disapprove_lo": 51.77,
         "disapprove_hi": 53.48
       },
       {
@@ -5317,69 +5317,69 @@
         "approve_lo": 43.38,
         "approve_hi": 44.88,
         "disapprove": 52.59,
-        "disapprove_lo": 51.69,
-        "disapprove_hi": 53.46
+        "disapprove_lo": 51.74,
+        "disapprove_hi": 53.48
       },
       {
         "as_of": "2025-07-25",
         "approve": 44.09,
         "approve_lo": 43.34,
         "approve_hi": 44.84,
-        "disapprove": 52.58,
-        "disapprove_lo": 51.67,
-        "disapprove_hi": 53.49
+        "disapprove": 52.59,
+        "disapprove_lo": 51.74,
+        "disapprove_hi": 53.44
       },
       {
         "as_of": "2025-07-26",
         "approve": 44.07,
         "approve_lo": 43.34,
         "approve_hi": 44.84,
-        "disapprove": 52.58,
-        "disapprove_lo": 51.73,
-        "disapprove_hi": 53.48
+        "disapprove": 52.59,
+        "disapprove_lo": 51.79,
+        "disapprove_hi": 53.43
       },
       {
         "as_of": "2025-07-27",
         "approve": 44.06,
         "approve_lo": 43.34,
         "approve_hi": 44.84,
-        "disapprove": 52.58,
-        "disapprove_lo": 51.71,
-        "disapprove_hi": 53.47
+        "disapprove": 52.59,
+        "disapprove_lo": 51.78,
+        "disapprove_hi": 53.44
       },
       {
         "as_of": "2025-07-28",
         "approve": 44.05,
         "approve_lo": 43.31,
         "approve_hi": 44.81,
-        "disapprove": 52.61,
-        "disapprove_lo": 51.7,
-        "disapprove_hi": 53.48
+        "disapprove": 52.62,
+        "disapprove_lo": 51.79,
+        "disapprove_hi": 53.46
       },
       {
         "as_of": "2025-07-29",
         "approve": 44.06,
         "approve_lo": 43.28,
         "approve_hi": 44.82,
-        "disapprove": 52.59,
-        "disapprove_lo": 51.65,
-        "disapprove_hi": 53.52
+        "disapprove": 52.6,
+        "disapprove_lo": 51.68,
+        "disapprove_hi": 53.55
       },
       {
         "as_of": "2025-07-30",
         "approve": 44.08,
         "approve_lo": 43.3,
         "approve_hi": 44.84,
-        "disapprove": 52.57,
-        "disapprove_lo": 51.63,
-        "disapprove_hi": 53.53
+        "disapprove": 52.59,
+        "disapprove_lo": 51.61,
+        "disapprove_hi": 53.54
       },
       {
         "as_of": "2025-07-31",
         "approve": 44.1,
         "approve_lo": 43.32,
         "approve_hi": 44.89,
-        "disapprove": 52.56,
+        "disapprove": 52.57,
         "disapprove_lo": 51.59,
         "disapprove_hi": 53.51
       },
@@ -5388,8 +5388,8 @@
         "approve": 44.05,
         "approve_lo": 43.24,
         "approve_hi": 44.83,
-        "disapprove": 52.61,
-        "disapprove_lo": 51.66,
+        "disapprove": 52.62,
+        "disapprove_lo": 51.6,
         "disapprove_hi": 53.55
       },
       {
@@ -5397,25 +5397,25 @@
         "approve": 44.01,
         "approve_lo": 43.18,
         "approve_hi": 44.82,
-        "disapprove": 52.67,
-        "disapprove_lo": 51.73,
-        "disapprove_hi": 53.61
+        "disapprove": 52.68,
+        "disapprove_lo": 51.69,
+        "disapprove_hi": 53.63
       },
       {
         "as_of": "2025-08-03",
         "approve": 43.99,
         "approve_lo": 43.16,
         "approve_hi": 44.81,
-        "disapprove": 52.68,
-        "disapprove_lo": 51.74,
-        "disapprove_hi": 53.67
+        "disapprove": 52.69,
+        "disapprove_lo": 51.7,
+        "disapprove_hi": 53.64
       },
       {
         "as_of": "2025-08-04",
         "approve": 43.98,
         "approve_lo": 43.15,
         "approve_hi": 44.8,
-        "disapprove": 52.69,
+        "disapprove": 52.7,
         "disapprove_lo": 51.71,
         "disapprove_hi": 53.65
       },
@@ -5425,115 +5425,115 @@
         "approve_lo": 43.15,
         "approve_hi": 44.8,
         "disapprove": 52.71,
-        "disapprove_lo": 51.7,
-        "disapprove_hi": 53.67
+        "disapprove_lo": 51.74,
+        "disapprove_hi": 53.69
       },
       {
         "as_of": "2025-08-06",
         "approve": 43.95,
         "approve_lo": 43.06,
         "approve_hi": 44.75,
-        "disapprove": 52.72,
-        "disapprove_lo": 51.73,
-        "disapprove_hi": 53.67
+        "disapprove": 52.73,
+        "disapprove_lo": 51.79,
+        "disapprove_hi": 53.71
       },
       {
         "as_of": "2025-08-07",
         "approve": 43.94,
         "approve_lo": 43.1,
         "approve_hi": 44.73,
-        "disapprove": 52.73,
-        "disapprove_lo": 51.73,
-        "disapprove_hi": 53.68
+        "disapprove": 52.74,
+        "disapprove_lo": 51.82,
+        "disapprove_hi": 53.63
       },
       {
         "as_of": "2025-08-08",
         "approve": 43.94,
         "approve_lo": 43.17,
         "approve_hi": 44.72,
-        "disapprove": 52.69,
+        "disapprove": 52.7,
         "disapprove_lo": 51.79,
-        "disapprove_hi": 53.59
+        "disapprove_hi": 53.56
       },
       {
         "as_of": "2025-08-09",
         "approve": 43.95,
         "approve_lo": 43.21,
         "approve_hi": 44.7,
-        "disapprove": 52.65,
-        "disapprove_lo": 51.76,
-        "disapprove_hi": 53.5
+        "disapprove": 52.64,
+        "disapprove_lo": 51.8,
+        "disapprove_hi": 53.49
       },
       {
         "as_of": "2025-08-10",
         "approve": 43.98,
         "approve_lo": 43.27,
         "approve_hi": 44.7,
-        "disapprove": 52.6,
+        "disapprove": 52.59,
         "disapprove_lo": 51.75,
-        "disapprove_hi": 53.48
+        "disapprove_hi": 53.42
       },
       {
         "as_of": "2025-08-11",
         "approve": 44.0,
         "approve_lo": 43.24,
         "approve_hi": 44.7,
-        "disapprove": 52.54,
-        "disapprove_lo": 51.66,
-        "disapprove_hi": 53.41
+        "disapprove": 52.53,
+        "disapprove_lo": 51.67,
+        "disapprove_hi": 53.42
       },
       {
         "as_of": "2025-08-12",
         "approve": 44.01,
         "approve_lo": 43.29,
         "approve_hi": 44.73,
-        "disapprove": 52.49,
-        "disapprove_lo": 51.64,
-        "disapprove_hi": 53.36
+        "disapprove": 52.48,
+        "disapprove_lo": 51.61,
+        "disapprove_hi": 53.32
       },
       {
         "as_of": "2025-08-13",
         "approve": 44.03,
         "approve_lo": 43.3,
         "approve_hi": 44.75,
-        "disapprove": 52.41,
-        "disapprove_lo": 51.51,
-        "disapprove_hi": 53.31
+        "disapprove": 52.4,
+        "disapprove_lo": 51.54,
+        "disapprove_hi": 53.27
       },
       {
         "as_of": "2025-08-14",
         "approve": 44.05,
         "approve_lo": 43.3,
         "approve_hi": 44.81,
-        "disapprove": 52.35,
-        "disapprove_lo": 51.42,
-        "disapprove_hi": 53.18
+        "disapprove": 52.33,
+        "disapprove_lo": 51.49,
+        "disapprove_hi": 53.24
       },
       {
         "as_of": "2025-08-15",
         "approve": 44.06,
         "approve_lo": 43.34,
         "approve_hi": 44.77,
-        "disapprove": 52.27,
-        "disapprove_lo": 51.4,
-        "disapprove_hi": 53.15
+        "disapprove": 52.26,
+        "disapprove_lo": 51.41,
+        "disapprove_hi": 53.14
       },
       {
         "as_of": "2025-08-16",
         "approve": 44.13,
         "approve_lo": 43.44,
         "approve_hi": 44.82,
-        "disapprove": 52.26,
-        "disapprove_lo": 51.45,
-        "disapprove_hi": 53.07
+        "disapprove": 52.25,
+        "disapprove_lo": 51.41,
+        "disapprove_hi": 53.09
       },
       {
         "as_of": "2025-08-17",
         "approve": 44.15,
         "approve_lo": 43.42,
         "approve_hi": 44.86,
-        "disapprove": 52.31,
-        "disapprove_lo": 51.48,
+        "disapprove": 52.3,
+        "disapprove_lo": 51.47,
         "disapprove_hi": 53.15
       },
       {
@@ -5542,8 +5542,8 @@
         "approve_lo": 43.48,
         "approve_hi": 44.87,
         "disapprove": 52.34,
-        "disapprove_lo": 51.52,
-        "disapprove_hi": 53.19
+        "disapprove_lo": 51.51,
+        "disapprove_hi": 53.18
       },
       {
         "as_of": "2025-08-19",
@@ -5551,26 +5551,26 @@
         "approve_lo": 43.51,
         "approve_hi": 44.91,
         "disapprove": 52.36,
-        "disapprove_lo": 51.54,
-        "disapprove_hi": 53.19
+        "disapprove_lo": 51.52,
+        "disapprove_hi": 53.18
       },
       {
         "as_of": "2025-08-20",
         "approve": 44.23,
         "approve_lo": 43.54,
         "approve_hi": 44.94,
-        "disapprove": 52.37,
-        "disapprove_lo": 51.51,
-        "disapprove_hi": 53.24
+        "disapprove": 52.36,
+        "disapprove_lo": 51.5,
+        "disapprove_hi": 53.18
       },
       {
         "as_of": "2025-08-21",
         "approve": 44.26,
         "approve_lo": 43.56,
         "approve_hi": 44.94,
-        "disapprove": 52.36,
-        "disapprove_lo": 51.51,
-        "disapprove_hi": 53.22
+        "disapprove": 52.35,
+        "disapprove_lo": 51.5,
+        "disapprove_hi": 53.19
       },
       {
         "as_of": "2025-08-22",
@@ -5578,8 +5578,8 @@
         "approve_lo": 43.6,
         "approve_hi": 44.97,
         "disapprove": 52.35,
-        "disapprove_lo": 51.53,
-        "disapprove_hi": 53.17
+        "disapprove_lo": 51.55,
+        "disapprove_hi": 53.2
       },
       {
         "as_of": "2025-08-23",
@@ -5587,8 +5587,8 @@
         "approve_lo": 43.62,
         "approve_hi": 44.99,
         "disapprove": 52.33,
-        "disapprove_lo": 51.54,
-        "disapprove_hi": 53.12
+        "disapprove_lo": 51.55,
+        "disapprove_hi": 53.14
       },
       {
         "as_of": "2025-08-24",
@@ -5596,124 +5596,124 @@
         "approve_lo": 43.68,
         "approve_hi": 45.11,
         "disapprove": 52.3,
-        "disapprove_lo": 51.5,
-        "disapprove_hi": 53.14
+        "disapprove_lo": 51.47,
+        "disapprove_hi": 53.11
       },
       {
         "as_of": "2025-08-25",
         "approve": 44.43,
         "approve_lo": 43.69,
         "approve_hi": 45.15,
-        "disapprove": 52.28,
-        "disapprove_lo": 51.4,
-        "disapprove_hi": 53.19
+        "disapprove": 52.27,
+        "disapprove_lo": 51.42,
+        "disapprove_hi": 53.14
       },
       {
         "as_of": "2025-08-26",
         "approve": 44.47,
         "approve_lo": 43.72,
         "approve_hi": 45.2,
-        "disapprove": 52.27,
+        "disapprove": 52.26,
         "disapprove_lo": 51.41,
-        "disapprove_hi": 53.16
+        "disapprove_hi": 53.17
       },
       {
         "as_of": "2025-08-27",
         "approve": 44.47,
         "approve_lo": 43.69,
         "approve_hi": 45.25,
-        "disapprove": 52.28,
-        "disapprove_lo": 51.38,
-        "disapprove_hi": 53.21
+        "disapprove": 52.26,
+        "disapprove_lo": 51.41,
+        "disapprove_hi": 53.19
       },
       {
         "as_of": "2025-08-28",
         "approve": 44.46,
         "approve_lo": 43.7,
         "approve_hi": 45.23,
-        "disapprove": 52.3,
-        "disapprove_lo": 51.4,
-        "disapprove_hi": 53.24
+        "disapprove": 52.28,
+        "disapprove_lo": 51.41,
+        "disapprove_hi": 53.21
       },
       {
         "as_of": "2025-08-29",
         "approve": 44.45,
         "approve_lo": 43.66,
         "approve_hi": 45.23,
-        "disapprove": 52.33,
+        "disapprove": 52.32,
         "disapprove_lo": 51.43,
-        "disapprove_hi": 53.27
+        "disapprove_hi": 53.31
       },
       {
         "as_of": "2025-08-30",
         "approve": 44.44,
         "approve_lo": 43.69,
         "approve_hi": 45.2,
-        "disapprove": 52.35,
-        "disapprove_lo": 51.49,
-        "disapprove_hi": 53.29
+        "disapprove": 52.34,
+        "disapprove_lo": 51.45,
+        "disapprove_hi": 53.28
       },
       {
         "as_of": "2025-08-31",
         "approve": 44.44,
         "approve_lo": 43.68,
         "approve_hi": 45.22,
-        "disapprove": 52.36,
-        "disapprove_lo": 51.47,
-        "disapprove_hi": 53.28
+        "disapprove": 52.35,
+        "disapprove_lo": 51.46,
+        "disapprove_hi": 53.26
       },
       {
         "as_of": "2025-09-01",
         "approve": 44.44,
         "approve_lo": 43.65,
         "approve_hi": 45.22,
-        "disapprove": 52.35,
-        "disapprove_lo": 51.42,
-        "disapprove_hi": 53.3
+        "disapprove": 52.33,
+        "disapprove_lo": 51.44,
+        "disapprove_hi": 53.27
       },
       {
         "as_of": "2025-09-02",
         "approve": 44.45,
         "approve_lo": 43.66,
         "approve_hi": 45.21,
-        "disapprove": 52.33,
-        "disapprove_lo": 51.41,
-        "disapprove_hi": 53.3
+        "disapprove": 52.32,
+        "disapprove_lo": 51.39,
+        "disapprove_hi": 53.31
       },
       {
         "as_of": "2025-09-03",
         "approve": 44.45,
         "approve_lo": 43.64,
         "approve_hi": 45.24,
-        "disapprove": 52.32,
-        "disapprove_lo": 51.38,
-        "disapprove_hi": 53.3
+        "disapprove": 52.31,
+        "disapprove_lo": 51.31,
+        "disapprove_hi": 53.32
       },
       {
         "as_of": "2025-09-04",
         "approve": 44.45,
         "approve_lo": 43.65,
         "approve_hi": 45.23,
-        "disapprove": 52.31,
-        "disapprove_lo": 51.38,
-        "disapprove_hi": 53.3
+        "disapprove": 52.3,
+        "disapprove_lo": 51.35,
+        "disapprove_hi": 53.28
       },
       {
         "as_of": "2025-09-05",
         "approve": 44.45,
         "approve_lo": 43.66,
         "approve_hi": 45.21,
-        "disapprove": 52.3,
-        "disapprove_lo": 51.45,
-        "disapprove_hi": 53.2
+        "disapprove": 52.29,
+        "disapprove_lo": 51.37,
+        "disapprove_hi": 53.25
       },
       {
         "as_of": "2025-09-06",
         "approve": 44.45,
         "approve_lo": 43.67,
         "approve_hi": 45.16,
-        "disapprove": 52.28,
-        "disapprove_lo": 51.44,
+        "disapprove": 52.27,
+        "disapprove_lo": 51.43,
         "disapprove_hi": 53.13
       },
       {
@@ -5721,8 +5721,8 @@
         "approve": 44.47,
         "approve_lo": 43.72,
         "approve_hi": 45.19,
-        "disapprove": 52.28,
-        "disapprove_lo": 51.46,
+        "disapprove": 52.27,
+        "disapprove_lo": 51.43,
         "disapprove_hi": 53.1
       },
       {
@@ -5730,62 +5730,62 @@
         "approve": 44.5,
         "approve_lo": 43.74,
         "approve_hi": 45.24,
-        "disapprove": 52.25,
-        "disapprove_lo": 51.42,
-        "disapprove_hi": 53.08
+        "disapprove": 52.24,
+        "disapprove_lo": 51.35,
+        "disapprove_hi": 53.1
       },
       {
         "as_of": "2025-09-09",
         "approve": 44.49,
         "approve_lo": 43.74,
         "approve_hi": 45.22,
-        "disapprove": 52.25,
-        "disapprove_lo": 51.35,
-        "disapprove_hi": 53.1
+        "disapprove": 52.24,
+        "disapprove_lo": 51.37,
+        "disapprove_hi": 53.17
       },
       {
         "as_of": "2025-09-10",
         "approve": 44.49,
         "approve_lo": 43.75,
         "approve_hi": 45.25,
-        "disapprove": 52.25,
-        "disapprove_lo": 51.33,
-        "disapprove_hi": 53.17
+        "disapprove": 52.24,
+        "disapprove_lo": 51.37,
+        "disapprove_hi": 53.16
       },
       {
         "as_of": "2025-09-11",
         "approve": 44.49,
         "approve_lo": 43.74,
         "approve_hi": 45.19,
-        "disapprove": 52.26,
-        "disapprove_lo": 51.37,
-        "disapprove_hi": 53.14
+        "disapprove": 52.25,
+        "disapprove_lo": 51.35,
+        "disapprove_hi": 53.17
       },
       {
         "as_of": "2025-09-12",
         "approve": 44.49,
         "approve_lo": 43.77,
         "approve_hi": 45.23,
-        "disapprove": 52.3,
-        "disapprove_lo": 51.41,
-        "disapprove_hi": 53.18
+        "disapprove": 52.29,
+        "disapprove_lo": 51.39,
+        "disapprove_hi": 53.2
       },
       {
         "as_of": "2025-09-13",
         "approve": 44.49,
         "approve_lo": 43.78,
         "approve_hi": 45.21,
-        "disapprove": 52.35,
-        "disapprove_lo": 51.5,
-        "disapprove_hi": 53.16
+        "disapprove": 52.34,
+        "disapprove_lo": 51.49,
+        "disapprove_hi": 53.24
       },
       {
         "as_of": "2025-09-14",
         "approve": 44.48,
         "approve_lo": 43.76,
         "approve_hi": 45.22,
-        "disapprove": 52.37,
-        "disapprove_lo": 51.51,
+        "disapprove": 52.35,
+        "disapprove_lo": 51.49,
         "disapprove_hi": 53.22
       },
       {
@@ -5793,9 +5793,9 @@
         "approve": 44.44,
         "approve_lo": 43.72,
         "approve_hi": 45.16,
-        "disapprove": 52.43,
+        "disapprove": 52.41,
         "disapprove_lo": 51.57,
-        "disapprove_hi": 53.25
+        "disapprove_hi": 53.26
       },
       {
         "as_of": "2025-09-16",
@@ -5803,7 +5803,7 @@
         "approve_lo": 43.67,
         "approve_hi": 45.07,
         "disapprove": 52.46,
-        "disapprove_lo": 51.59,
+        "disapprove_lo": 51.61,
         "disapprove_hi": 53.31
       },
       {
@@ -5811,170 +5811,170 @@
         "approve": 44.31,
         "approve_lo": 43.66,
         "approve_hi": 45.01,
-        "disapprove": 52.47,
-        "disapprove_lo": 51.65,
-        "disapprove_hi": 53.28
+        "disapprove": 52.46,
+        "disapprove_lo": 51.66,
+        "disapprove_hi": 53.26
       },
       {
         "as_of": "2025-09-18",
         "approve": 44.26,
         "approve_lo": 43.57,
         "approve_hi": 44.96,
-        "disapprove": 52.49,
-        "disapprove_lo": 51.68,
-        "disapprove_hi": 53.31
+        "disapprove": 52.48,
+        "disapprove_lo": 51.69,
+        "disapprove_hi": 53.3
       },
       {
         "as_of": "2025-09-19",
         "approve": 44.21,
         "approve_lo": 43.52,
         "approve_hi": 44.87,
-        "disapprove": 52.52,
-        "disapprove_lo": 51.74,
-        "disapprove_hi": 53.35
+        "disapprove": 52.51,
+        "disapprove_lo": 51.71,
+        "disapprove_hi": 53.28
       },
       {
         "as_of": "2025-09-20",
         "approve": 44.19,
         "approve_lo": 43.49,
         "approve_hi": 44.84,
-        "disapprove": 52.54,
-        "disapprove_lo": 51.79,
-        "disapprove_hi": 53.36
+        "disapprove": 52.52,
+        "disapprove_lo": 51.72,
+        "disapprove_hi": 53.32
       },
       {
         "as_of": "2025-09-21",
         "approve": 44.16,
         "approve_lo": 43.43,
         "approve_hi": 44.86,
-        "disapprove": 52.53,
-        "disapprove_lo": 51.69,
-        "disapprove_hi": 53.36
+        "disapprove": 52.51,
+        "disapprove_lo": 51.66,
+        "disapprove_hi": 53.35
       },
       {
         "as_of": "2025-09-22",
         "approve": 44.12,
         "approve_lo": 43.36,
         "approve_hi": 44.82,
-        "disapprove": 52.53,
-        "disapprove_lo": 51.66,
-        "disapprove_hi": 53.34
+        "disapprove": 52.5,
+        "disapprove_lo": 51.64,
+        "disapprove_hi": 53.39
       },
       {
         "as_of": "2025-09-23",
         "approve": 44.08,
         "approve_lo": 43.32,
         "approve_hi": 44.82,
-        "disapprove": 52.52,
-        "disapprove_lo": 51.6,
-        "disapprove_hi": 53.35
+        "disapprove": 52.5,
+        "disapprove_lo": 51.65,
+        "disapprove_hi": 53.37
       },
       {
         "as_of": "2025-09-24",
         "approve": 44.05,
         "approve_lo": 43.29,
         "approve_hi": 44.76,
-        "disapprove": 52.5,
-        "disapprove_lo": 51.63,
-        "disapprove_hi": 53.34
+        "disapprove": 52.49,
+        "disapprove_lo": 51.64,
+        "disapprove_hi": 53.35
       },
       {
         "as_of": "2025-09-25",
         "approve": 44.0,
         "approve_lo": 43.26,
         "approve_hi": 44.72,
-        "disapprove": 52.52,
-        "disapprove_lo": 51.64,
-        "disapprove_hi": 53.37
+        "disapprove": 52.51,
+        "disapprove_lo": 51.68,
+        "disapprove_hi": 53.36
       },
       {
         "as_of": "2025-09-26",
         "approve": 43.94,
         "approve_lo": 43.21,
         "approve_hi": 44.66,
-        "disapprove": 52.6,
-        "disapprove_lo": 51.76,
-        "disapprove_hi": 53.41
+        "disapprove": 52.59,
+        "disapprove_lo": 51.68,
+        "disapprove_hi": 53.47
       },
       {
         "as_of": "2025-09-27",
         "approve": 43.88,
         "approve_lo": 43.15,
         "approve_hi": 44.58,
-        "disapprove": 52.68,
-        "disapprove_lo": 51.84,
-        "disapprove_hi": 53.52
+        "disapprove": 52.66,
+        "disapprove_lo": 51.79,
+        "disapprove_hi": 53.51
       },
       {
         "as_of": "2025-09-28",
         "approve": 43.84,
         "approve_lo": 43.08,
         "approve_hi": 44.57,
-        "disapprove": 52.73,
-        "disapprove_lo": 51.85,
-        "disapprove_hi": 53.61
+        "disapprove": 52.71,
+        "disapprove_lo": 51.81,
+        "disapprove_hi": 53.6
       },
       {
         "as_of": "2025-09-29",
         "approve": 43.79,
         "approve_lo": 43.06,
         "approve_hi": 44.53,
-        "disapprove": 52.79,
-        "disapprove_lo": 51.89,
-        "disapprove_hi": 53.66
+        "disapprove": 52.77,
+        "disapprove_lo": 51.86,
+        "disapprove_hi": 53.67
       },
       {
         "as_of": "2025-09-30",
         "approve": 43.74,
         "approve_lo": 43.02,
         "approve_hi": 44.49,
-        "disapprove": 52.84,
-        "disapprove_lo": 51.95,
-        "disapprove_hi": 53.74
+        "disapprove": 52.82,
+        "disapprove_lo": 51.94,
+        "disapprove_hi": 53.73
       },
       {
         "as_of": "2025-10-01",
         "approve": 43.69,
         "approve_lo": 42.98,
         "approve_hi": 44.41,
-        "disapprove": 52.91,
-        "disapprove_lo": 52.02,
-        "disapprove_hi": 53.79
+        "disapprove": 52.88,
+        "disapprove_lo": 52.0,
+        "disapprove_hi": 53.74
       },
       {
         "as_of": "2025-10-02",
         "approve": 43.64,
         "approve_lo": 42.93,
         "approve_hi": 44.35,
-        "disapprove": 52.97,
-        "disapprove_lo": 52.08,
-        "disapprove_hi": 53.85
+        "disapprove": 52.95,
+        "disapprove_lo": 52.12,
+        "disapprove_hi": 53.83
       },
       {
         "as_of": "2025-10-03",
         "approve": 43.62,
         "approve_lo": 42.89,
         "approve_hi": 44.34,
-        "disapprove": 52.92,
-        "disapprove_lo": 52.04,
-        "disapprove_hi": 53.77
+        "disapprove": 52.89,
+        "disapprove_lo": 52.07,
+        "disapprove_hi": 53.75
       },
       {
         "as_of": "2025-10-04",
         "approve": 43.57,
         "approve_lo": 42.87,
         "approve_hi": 44.3,
-        "disapprove": 52.88,
-        "disapprove_lo": 52.04,
-        "disapprove_hi": 53.73
+        "disapprove": 52.85,
+        "disapprove_lo": 52.02,
+        "disapprove_hi": 53.68
       },
       {
         "as_of": "2025-10-05",
         "approve": 43.6,
         "approve_lo": 42.89,
         "approve_hi": 44.31,
-        "disapprove": 52.89,
-        "disapprove_lo": 52.04,
+        "disapprove": 52.86,
+        "disapprove_lo": 52.05,
         "disapprove_hi": 53.74
       },
       {
@@ -5982,125 +5982,125 @@
         "approve": 43.63,
         "approve_lo": 42.91,
         "approve_hi": 44.35,
-        "disapprove": 52.87,
-        "disapprove_lo": 52.05,
-        "disapprove_hi": 53.71
+        "disapprove": 52.84,
+        "disapprove_lo": 52.01,
+        "disapprove_hi": 53.69
       },
       {
         "as_of": "2025-10-07",
         "approve": 43.65,
         "approve_lo": 42.92,
         "approve_hi": 44.37,
-        "disapprove": 52.85,
-        "disapprove_lo": 51.99,
-        "disapprove_hi": 53.72
+        "disapprove": 52.82,
+        "disapprove_lo": 51.94,
+        "disapprove_hi": 53.68
       },
       {
         "as_of": "2025-10-08",
         "approve": 43.67,
         "approve_lo": 42.97,
         "approve_hi": 44.41,
-        "disapprove": 52.82,
-        "disapprove_lo": 51.94,
-        "disapprove_hi": 53.7
+        "disapprove": 52.79,
+        "disapprove_lo": 51.9,
+        "disapprove_hi": 53.66
       },
       {
         "as_of": "2025-10-09",
         "approve": 43.67,
         "approve_lo": 42.95,
         "approve_hi": 44.41,
-        "disapprove": 52.86,
-        "disapprove_lo": 51.98,
-        "disapprove_hi": 53.72
+        "disapprove": 52.82,
+        "disapprove_lo": 51.9,
+        "disapprove_hi": 53.68
       },
       {
         "as_of": "2025-10-10",
         "approve": 43.67,
         "approve_lo": 42.97,
         "approve_hi": 44.39,
-        "disapprove": 52.88,
-        "disapprove_lo": 52.04,
-        "disapprove_hi": 53.76
+        "disapprove": 52.85,
+        "disapprove_lo": 51.97,
+        "disapprove_hi": 53.69
       },
       {
         "as_of": "2025-10-11",
         "approve": 43.68,
         "approve_lo": 42.97,
         "approve_hi": 44.37,
-        "disapprove": 52.92,
-        "disapprove_lo": 52.15,
-        "disapprove_hi": 53.75
+        "disapprove": 52.9,
+        "disapprove_lo": 52.06,
+        "disapprove_hi": 53.7
       },
       {
         "as_of": "2025-10-12",
         "approve": 43.71,
         "approve_lo": 43.0,
         "approve_hi": 44.37,
-        "disapprove": 52.93,
-        "disapprove_lo": 52.08,
-        "disapprove_hi": 53.77
+        "disapprove": 52.91,
+        "disapprove_lo": 52.1,
+        "disapprove_hi": 53.68
       },
       {
         "as_of": "2025-10-13",
         "approve": 43.74,
         "approve_lo": 43.03,
         "approve_hi": 44.43,
-        "disapprove": 52.94,
-        "disapprove_lo": 52.12,
-        "disapprove_hi": 53.77
+        "disapprove": 52.93,
+        "disapprove_lo": 52.08,
+        "disapprove_hi": 53.68
       },
       {
         "as_of": "2025-10-14",
         "approve": 43.74,
         "approve_lo": 43.06,
         "approve_hi": 44.42,
-        "disapprove": 53.01,
-        "disapprove_lo": 52.18,
-        "disapprove_hi": 53.83
+        "disapprove": 52.99,
+        "disapprove_lo": 52.16,
+        "disapprove_hi": 53.77
       },
       {
         "as_of": "2025-10-15",
         "approve": 43.75,
         "approve_lo": 43.07,
         "approve_hi": 44.45,
-        "disapprove": 53.09,
-        "disapprove_lo": 52.28,
-        "disapprove_hi": 53.93
+        "disapprove": 53.07,
+        "disapprove_lo": 52.26,
+        "disapprove_hi": 53.88
       },
       {
         "as_of": "2025-10-16",
         "approve": 43.77,
         "approve_lo": 43.11,
         "approve_hi": 44.47,
-        "disapprove": 53.16,
-        "disapprove_lo": 52.4,
-        "disapprove_hi": 53.95
+        "disapprove": 53.14,
+        "disapprove_lo": 52.34,
+        "disapprove_hi": 53.91
       },
       {
         "as_of": "2025-10-17",
         "approve": 43.78,
         "approve_lo": 43.14,
         "approve_hi": 44.45,
-        "disapprove": 53.2,
-        "disapprove_lo": 52.45,
-        "disapprove_hi": 53.95
+        "disapprove": 53.18,
+        "disapprove_lo": 52.41,
+        "disapprove_hi": 53.93
       },
       {
         "as_of": "2025-10-18",
         "approve": 43.75,
         "approve_lo": 43.1,
         "approve_hi": 44.43,
-        "disapprove": 53.24,
-        "disapprove_lo": 52.53,
-        "disapprove_hi": 54.0
+        "disapprove": 53.23,
+        "disapprove_lo": 52.52,
+        "disapprove_hi": 53.98
       },
       {
         "as_of": "2025-10-19",
         "approve": 43.68,
         "approve_lo": 43.0,
         "approve_hi": 44.4,
-        "disapprove": 53.34,
-        "disapprove_lo": 52.54,
+        "disapprove": 53.32,
+        "disapprove_lo": 52.55,
         "disapprove_hi": 54.12
       },
       {
@@ -6108,8 +6108,8 @@
         "approve": 43.58,
         "approve_lo": 42.87,
         "approve_hi": 44.33,
-        "disapprove": 53.43,
-        "disapprove_lo": 52.58,
+        "disapprove": 53.42,
+        "disapprove_lo": 52.6,
         "disapprove_hi": 54.29
       },
       {
@@ -6118,151 +6118,151 @@
         "approve_lo": 42.77,
         "approve_hi": 44.28,
         "disapprove": 53.52,
-        "disapprove_lo": 52.61,
-        "disapprove_hi": 54.39
+        "disapprove_lo": 52.64,
+        "disapprove_hi": 54.4
       },
       {
         "as_of": "2025-10-22",
         "approve": 43.41,
         "approve_lo": 42.67,
         "approve_hi": 44.17,
-        "disapprove": 53.63,
-        "disapprove_lo": 52.71,
-        "disapprove_hi": 54.51
+        "disapprove": 53.61,
+        "disapprove_lo": 52.72,
+        "disapprove_hi": 54.49
       },
       {
         "as_of": "2025-10-23",
         "approve": 43.32,
         "approve_lo": 42.55,
         "approve_hi": 44.06,
-        "disapprove": 53.72,
-        "disapprove_lo": 52.83,
-        "disapprove_hi": 54.6
+        "disapprove": 53.71,
+        "disapprove_lo": 52.81,
+        "disapprove_hi": 54.63
       },
       {
         "as_of": "2025-10-24",
         "approve": 43.23,
         "approve_lo": 42.52,
         "approve_hi": 43.94,
-        "disapprove": 53.82,
-        "disapprove_lo": 53.01,
-        "disapprove_hi": 54.69
+        "disapprove": 53.8,
+        "disapprove_lo": 52.94,
+        "disapprove_hi": 54.67
       },
       {
         "as_of": "2025-10-25",
         "approve": 43.14,
         "approve_lo": 42.43,
         "approve_hi": 43.83,
-        "disapprove": 53.92,
-        "disapprove_lo": 53.13,
-        "disapprove_hi": 54.74
+        "disapprove": 53.9,
+        "disapprove_lo": 53.07,
+        "disapprove_hi": 54.73
       },
       {
         "as_of": "2025-10-26",
         "approve": 43.05,
         "approve_lo": 42.37,
         "approve_hi": 43.74,
-        "disapprove": 53.99,
-        "disapprove_lo": 53.2,
-        "disapprove_hi": 54.83
+        "disapprove": 53.98,
+        "disapprove_lo": 53.16,
+        "disapprove_hi": 54.8
       },
       {
         "as_of": "2025-10-27",
         "approve": 42.95,
         "approve_lo": 42.26,
         "approve_hi": 43.66,
-        "disapprove": 54.07,
-        "disapprove_lo": 53.26,
-        "disapprove_hi": 54.93
+        "disapprove": 54.05,
+        "disapprove_lo": 53.21,
+        "disapprove_hi": 54.87
       },
       {
         "as_of": "2025-10-28",
         "approve": 42.87,
         "approve_lo": 42.15,
         "approve_hi": 43.6,
-        "disapprove": 54.15,
-        "disapprove_lo": 53.28,
-        "disapprove_hi": 54.98
+        "disapprove": 54.13,
+        "disapprove_lo": 53.32,
+        "disapprove_hi": 54.96
       },
       {
         "as_of": "2025-10-29",
         "approve": 42.8,
         "approve_lo": 42.1,
         "approve_hi": 43.53,
-        "disapprove": 54.19,
-        "disapprove_lo": 53.33,
-        "disapprove_hi": 55.07
+        "disapprove": 54.16,
+        "disapprove_lo": 53.32,
+        "disapprove_hi": 55.01
       },
       {
         "as_of": "2025-10-30",
         "approve": 42.74,
         "approve_lo": 42.02,
         "approve_hi": 43.47,
-        "disapprove": 54.23,
-        "disapprove_lo": 53.38,
-        "disapprove_hi": 55.08
+        "disapprove": 54.2,
+        "disapprove_lo": 53.34,
+        "disapprove_hi": 55.06
       },
       {
         "as_of": "2025-10-31",
         "approve": 42.68,
         "approve_lo": 41.96,
         "approve_hi": 43.43,
-        "disapprove": 54.27,
-        "disapprove_lo": 53.41,
-        "disapprove_hi": 55.13
+        "disapprove": 54.24,
+        "disapprove_lo": 53.36,
+        "disapprove_hi": 55.1
       },
       {
         "as_of": "2025-11-01",
         "approve": 42.62,
         "approve_lo": 41.9,
         "approve_hi": 43.36,
-        "disapprove": 54.3,
-        "disapprove_lo": 53.44,
-        "disapprove_hi": 55.19
+        "disapprove": 54.28,
+        "disapprove_lo": 53.43,
+        "disapprove_hi": 55.18
       },
       {
         "as_of": "2025-11-02",
         "approve": 42.54,
         "approve_lo": 41.83,
         "approve_hi": 43.25,
-        "disapprove": 54.36,
-        "disapprove_lo": 53.51,
-        "disapprove_hi": 55.26
+        "disapprove": 54.34,
+        "disapprove_lo": 53.48,
+        "disapprove_hi": 55.21
       },
       {
         "as_of": "2025-11-03",
         "approve": 42.48,
         "approve_lo": 41.76,
         "approve_hi": 43.19,
-        "disapprove": 54.42,
+        "disapprove": 54.41,
         "disapprove_lo": 53.58,
-        "disapprove_hi": 55.3
+        "disapprove_hi": 55.27
       },
       {
         "as_of": "2025-11-04",
         "approve": 42.42,
         "approve_lo": 41.68,
         "approve_hi": 43.13,
-        "disapprove": 54.5,
-        "disapprove_lo": 53.65,
-        "disapprove_hi": 55.32
+        "disapprove": 54.49,
+        "disapprove_lo": 53.64,
+        "disapprove_hi": 55.38
       },
       {
         "as_of": "2025-11-05",
         "approve": 42.37,
         "approve_lo": 41.62,
         "approve_hi": 43.06,
-        "disapprove": 54.58,
-        "disapprove_lo": 53.73,
-        "disapprove_hi": 55.44
+        "disapprove": 54.56,
+        "disapprove_lo": 53.74,
+        "disapprove_hi": 55.43
       },
       {
         "as_of": "2025-11-06",
         "approve": 42.34,
         "approve_lo": 41.61,
         "approve_hi": 43.07,
-        "disapprove": 54.65,
-        "disapprove_lo": 53.81,
+        "disapprove": 54.63,
+        "disapprove_lo": 53.8,
         "disapprove_hi": 55.51
       },
       {
@@ -6270,54 +6270,54 @@
         "approve": 42.31,
         "approve_lo": 41.59,
         "approve_hi": 43.02,
-        "disapprove": 54.72,
-        "disapprove_lo": 53.91,
-        "disapprove_hi": 55.54
+        "disapprove": 54.71,
+        "disapprove_lo": 53.88,
+        "disapprove_hi": 55.52
       },
       {
         "as_of": "2025-11-08",
         "approve": 42.29,
         "approve_lo": 41.59,
         "approve_hi": 42.97,
-        "disapprove": 54.76,
-        "disapprove_lo": 53.96,
-        "disapprove_hi": 55.58
+        "disapprove": 54.74,
+        "disapprove_lo": 53.98,
+        "disapprove_hi": 55.51
       },
       {
         "as_of": "2025-11-09",
         "approve": 42.26,
         "approve_lo": 41.58,
         "approve_hi": 42.93,
-        "disapprove": 54.82,
-        "disapprove_lo": 54.03,
-        "disapprove_hi": 55.63
+        "disapprove": 54.81,
+        "disapprove_lo": 54.02,
+        "disapprove_hi": 55.58
       },
       {
         "as_of": "2025-11-10",
         "approve": 42.23,
         "approve_lo": 41.52,
         "approve_hi": 42.91,
-        "disapprove": 54.87,
-        "disapprove_lo": 54.11,
-        "disapprove_hi": 55.7
+        "disapprove": 54.86,
+        "disapprove_lo": 54.07,
+        "disapprove_hi": 55.64
       },
       {
         "as_of": "2025-11-11",
         "approve": 42.21,
         "approve_lo": 41.51,
         "approve_hi": 42.89,
-        "disapprove": 54.94,
-        "disapprove_lo": 54.16,
-        "disapprove_hi": 55.77
+        "disapprove": 54.93,
+        "disapprove_lo": 54.15,
+        "disapprove_hi": 55.74
       },
       {
         "as_of": "2025-11-12",
         "approve": 42.22,
         "approve_lo": 41.54,
         "approve_hi": 42.87,
-        "disapprove": 54.96,
-        "disapprove_lo": 54.18,
-        "disapprove_hi": 55.8
+        "disapprove": 54.95,
+        "disapprove_lo": 54.15,
+        "disapprove_hi": 55.82
       },
       {
         "as_of": "2025-11-13",
@@ -6325,8 +6325,8 @@
         "approve_lo": 41.56,
         "approve_hi": 42.91,
         "disapprove": 54.95,
-        "disapprove_lo": 54.22,
-        "disapprove_hi": 55.8
+        "disapprove_lo": 54.18,
+        "disapprove_hi": 55.75
       },
       {
         "as_of": "2025-11-14",
@@ -6334,8 +6334,8 @@
         "approve_lo": 41.49,
         "approve_hi": 42.88,
         "disapprove": 55.03,
-        "disapprove_lo": 54.27,
-        "disapprove_hi": 55.86
+        "disapprove_lo": 54.19,
+        "disapprove_hi": 55.87
       },
       {
         "as_of": "2025-11-15",
@@ -6343,8 +6343,8 @@
         "approve_lo": 41.51,
         "approve_hi": 42.87,
         "disapprove": 55.08,
-        "disapprove_lo": 54.29,
-        "disapprove_hi": 55.86
+        "disapprove_lo": 54.27,
+        "disapprove_hi": 55.9
       },
       {
         "as_of": "2025-11-16",
@@ -6352,26 +6352,26 @@
         "approve_lo": 41.56,
         "approve_hi": 42.92,
         "disapprove": 55.05,
-        "disapprove_lo": 54.26,
-        "disapprove_hi": 55.86
+        "disapprove_lo": 54.24,
+        "disapprove_hi": 55.88
       },
       {
         "as_of": "2025-11-17",
         "approve": 42.29,
         "approve_lo": 41.59,
         "approve_hi": 42.97,
-        "disapprove": 55.01,
-        "disapprove_lo": 54.22,
-        "disapprove_hi": 55.89
+        "disapprove": 55.0,
+        "disapprove_lo": 54.15,
+        "disapprove_hi": 55.88
       },
       {
         "as_of": "2025-11-18",
         "approve": 42.33,
         "approve_lo": 41.62,
         "approve_hi": 43.05,
-        "disapprove": 54.97,
-        "disapprove_lo": 54.15,
-        "disapprove_hi": 55.81
+        "disapprove": 54.96,
+        "disapprove_lo": 54.09,
+        "disapprove_hi": 55.76
       },
       {
         "as_of": "2025-11-19",
@@ -6379,7 +6379,7 @@
         "approve_lo": 41.64,
         "approve_hi": 43.15,
         "disapprove": 54.9,
-        "disapprove_lo": 54.07,
+        "disapprove_lo": 54.01,
         "disapprove_hi": 55.8
       },
       {
@@ -6389,25 +6389,25 @@
         "approve_hi": 43.17,
         "disapprove": 54.78,
         "disapprove_lo": 53.91,
-        "disapprove_hi": 55.65
+        "disapprove_hi": 55.68
       },
       {
         "as_of": "2025-11-21",
         "approve": 42.46,
         "approve_lo": 41.7,
         "approve_hi": 43.26,
-        "disapprove": 54.68,
+        "disapprove": 54.69,
         "disapprove_lo": 53.79,
-        "disapprove_hi": 55.59
+        "disapprove_hi": 55.54
       },
       {
         "as_of": "2025-11-22",
         "approve": 42.52,
         "approve_lo": 41.76,
         "approve_hi": 43.31,
-        "disapprove": 54.58,
-        "disapprove_lo": 53.7,
-        "disapprove_hi": 55.45
+        "disapprove": 54.59,
+        "disapprove_lo": 53.73,
+        "disapprove_hi": 55.47
       },
       {
         "as_of": "2025-11-23",
@@ -6415,8 +6415,8 @@
         "approve_lo": 41.75,
         "approve_hi": 43.34,
         "disapprove": 54.51,
-        "disapprove_lo": 53.61,
-        "disapprove_hi": 55.41
+        "disapprove_lo": 53.62,
+        "disapprove_hi": 55.42
       },
       {
         "as_of": "2025-11-24",
@@ -6424,26 +6424,26 @@
         "approve_lo": 41.77,
         "approve_hi": 43.43,
         "disapprove": 54.45,
-        "disapprove_lo": 53.48,
-        "disapprove_hi": 55.38
+        "disapprove_lo": 53.51,
+        "disapprove_hi": 55.41
       },
       {
         "as_of": "2025-11-25",
         "approve": 42.64,
         "approve_lo": 41.84,
         "approve_hi": 43.46,
-        "disapprove": 54.38,
-        "disapprove_lo": 53.41,
-        "disapprove_hi": 55.33
+        "disapprove": 54.39,
+        "disapprove_lo": 53.44,
+        "disapprove_hi": 55.37
       },
       {
         "as_of": "2025-11-26",
         "approve": 42.69,
         "approve_lo": 41.94,
         "approve_hi": 43.47,
-        "disapprove": 54.31,
-        "disapprove_lo": 53.33,
-        "disapprove_hi": 55.22
+        "disapprove": 54.32,
+        "disapprove_lo": 53.42,
+        "disapprove_hi": 55.28
       },
       {
         "as_of": "2025-11-27",
@@ -6451,8 +6451,8 @@
         "approve_lo": 41.96,
         "approve_hi": 43.51,
         "disapprove": 54.22,
-        "disapprove_lo": 53.3,
-        "disapprove_hi": 55.11
+        "disapprove_lo": 53.32,
+        "disapprove_hi": 55.15
       },
       {
         "as_of": "2025-11-28",
@@ -6460,7 +6460,7 @@
         "approve_lo": 42.04,
         "approve_hi": 43.52,
         "disapprove": 54.17,
-        "disapprove_lo": 53.25,
+        "disapprove_lo": 53.26,
         "disapprove_hi": 55.06
       },
       {
@@ -6468,9 +6468,9 @@
         "approve": 42.8,
         "approve_lo": 42.06,
         "approve_hi": 43.52,
-        "disapprove": 54.14,
-        "disapprove_lo": 53.23,
-        "disapprove_hi": 55.02
+        "disapprove": 54.13,
+        "disapprove_lo": 53.22,
+        "disapprove_hi": 55.03
       },
       {
         "as_of": "2025-11-30",
@@ -6478,7 +6478,7 @@
         "approve_lo": 42.08,
         "approve_hi": 43.63,
         "disapprove": 54.1,
-        "disapprove_lo": 53.19,
+        "disapprove_lo": 53.11,
         "disapprove_hi": 54.99
       },
       {
@@ -6487,8 +6487,8 @@
         "approve_lo": 42.1,
         "approve_hi": 43.66,
         "disapprove": 54.06,
-        "disapprove_lo": 53.08,
-        "disapprove_hi": 55.01
+        "disapprove_lo": 53.15,
+        "disapprove_hi": 55.03
       },
       {
         "as_of": "2025-12-02",
@@ -6496,26 +6496,26 @@
         "approve_lo": 42.16,
         "approve_hi": 43.65,
         "disapprove": 54.02,
-        "disapprove_lo": 53.07,
-        "disapprove_hi": 54.92
+        "disapprove_lo": 53.08,
+        "disapprove_hi": 54.94
       },
       {
         "as_of": "2025-12-03",
         "approve": 42.91,
         "approve_lo": 42.21,
         "approve_hi": 43.67,
-        "disapprove": 53.98,
-        "disapprove_lo": 53.08,
-        "disapprove_hi": 54.84
+        "disapprove": 53.97,
+        "disapprove_lo": 53.1,
+        "disapprove_hi": 54.8
       },
       {
         "as_of": "2025-12-04",
         "approve": 42.94,
         "approve_lo": 42.25,
         "approve_hi": 43.65,
-        "disapprove": 53.94,
-        "disapprove_lo": 53.12,
-        "disapprove_hi": 54.74
+        "disapprove": 53.93,
+        "disapprove_lo": 53.11,
+        "disapprove_hi": 54.73
       },
       {
         "as_of": "2025-12-05",
@@ -6523,62 +6523,62 @@
         "approve_lo": 42.3,
         "approve_hi": 43.67,
         "disapprove": 53.94,
-        "disapprove_lo": 53.18,
-        "disapprove_hi": 54.71
+        "disapprove_lo": 53.16,
+        "disapprove_hi": 54.69
       },
       {
         "as_of": "2025-12-06",
         "approve": 42.97,
         "approve_lo": 42.32,
         "approve_hi": 43.67,
-        "disapprove": 53.95,
-        "disapprove_lo": 53.2,
-        "disapprove_hi": 54.73
+        "disapprove": 53.94,
+        "disapprove_lo": 53.17,
+        "disapprove_hi": 54.69
       },
       {
         "as_of": "2025-12-07",
         "approve": 42.96,
         "approve_lo": 42.29,
         "approve_hi": 43.66,
-        "disapprove": 53.99,
-        "disapprove_lo": 53.2,
-        "disapprove_hi": 54.75
+        "disapprove": 53.98,
+        "disapprove_lo": 53.17,
+        "disapprove_hi": 54.76
       },
       {
         "as_of": "2025-12-08",
         "approve": 42.94,
         "approve_lo": 42.27,
         "approve_hi": 43.66,
-        "disapprove": 53.99,
-        "disapprove_lo": 53.19,
-        "disapprove_hi": 54.79
+        "disapprove": 54.0,
+        "disapprove_lo": 53.17,
+        "disapprove_hi": 54.85
       },
       {
         "as_of": "2025-12-09",
         "approve": 42.96,
         "approve_lo": 42.23,
         "approve_hi": 43.68,
-        "disapprove": 53.97,
-        "disapprove_lo": 53.15,
-        "disapprove_hi": 54.79
+        "disapprove": 53.98,
+        "disapprove_lo": 53.12,
+        "disapprove_hi": 54.81
       },
       {
         "as_of": "2025-12-10",
         "approve": 42.96,
         "approve_lo": 42.28,
         "approve_hi": 43.7,
-        "disapprove": 53.97,
-        "disapprove_lo": 53.1,
-        "disapprove_hi": 54.89
+        "disapprove": 53.99,
+        "disapprove_lo": 53.12,
+        "disapprove_hi": 54.84
       },
       {
         "as_of": "2025-12-11",
         "approve": 42.97,
         "approve_lo": 42.3,
         "approve_hi": 43.67,
-        "disapprove": 53.98,
+        "disapprove": 53.99,
         "disapprove_lo": 53.15,
-        "disapprove_hi": 54.77
+        "disapprove_hi": 54.8
       },
       {
         "as_of": "2025-12-12",
@@ -6586,53 +6586,53 @@
         "approve_lo": 42.26,
         "approve_hi": 43.68,
         "disapprove": 54.02,
-        "disapprove_lo": 53.18,
-        "disapprove_hi": 54.83
+        "disapprove_lo": 53.21,
+        "disapprove_hi": 54.84
       },
       {
         "as_of": "2025-12-13",
         "approve": 42.94,
         "approve_lo": 42.27,
         "approve_hi": 43.66,
-        "disapprove": 54.04,
+        "disapprove": 54.05,
         "disapprove_lo": 53.25,
-        "disapprove_hi": 54.81
+        "disapprove_hi": 54.8
       },
       {
         "as_of": "2025-12-14",
         "approve": 42.89,
         "approve_lo": 42.2,
         "approve_hi": 43.62,
-        "disapprove": 54.06,
-        "disapprove_lo": 53.2,
-        "disapprove_hi": 54.87
+        "disapprove": 54.07,
+        "disapprove_lo": 53.26,
+        "disapprove_hi": 54.91
       },
       {
         "as_of": "2025-12-15",
         "approve": 42.84,
         "approve_lo": 42.15,
         "approve_hi": 43.6,
-        "disapprove": 54.14,
-        "disapprove_lo": 53.27,
-        "disapprove_hi": 54.98
+        "disapprove": 54.15,
+        "disapprove_lo": 53.24,
+        "disapprove_hi": 55.01
       },
       {
         "as_of": "2025-12-16",
         "approve": 42.77,
         "approve_lo": 42.01,
         "approve_hi": 43.53,
-        "disapprove": 54.23,
-        "disapprove_lo": 53.26,
-        "disapprove_hi": 55.14
+        "disapprove": 54.24,
+        "disapprove_lo": 53.32,
+        "disapprove_hi": 55.16
       },
       {
         "as_of": "2025-12-17",
         "approve": 42.7,
         "approve_lo": 41.94,
         "approve_hi": 43.47,
-        "disapprove": 54.31,
-        "disapprove_lo": 53.35,
-        "disapprove_hi": 55.27
+        "disapprove": 54.33,
+        "disapprove_lo": 53.36,
+        "disapprove_hi": 55.28
       },
       {
         "as_of": "2025-12-18",
@@ -6640,8 +6640,8 @@
         "approve_lo": 41.89,
         "approve_hi": 43.42,
         "disapprove": 54.36,
-        "disapprove_lo": 53.37,
-        "disapprove_hi": 55.35
+        "disapprove_lo": 53.43,
+        "disapprove_hi": 55.34
       },
       {
         "as_of": "2025-12-19",
@@ -6649,52 +6649,52 @@
         "approve_lo": 41.88,
         "approve_hi": 43.45,
         "disapprove": 54.27,
-        "disapprove_lo": 53.3,
-        "disapprove_hi": 55.23
+        "disapprove_lo": 53.32,
+        "disapprove_hi": 55.21
       },
       {
         "as_of": "2025-12-20",
         "approve": 42.7,
         "approve_lo": 41.86,
         "approve_hi": 43.47,
-        "disapprove": 54.24,
-        "disapprove_lo": 53.26,
-        "disapprove_hi": 55.21
+        "disapprove": 54.23,
+        "disapprove_lo": 53.23,
+        "disapprove_hi": 55.26
       },
       {
         "as_of": "2025-12-21",
         "approve": 42.7,
         "approve_lo": 41.84,
         "approve_hi": 43.52,
-        "disapprove": 54.23,
-        "disapprove_lo": 53.22,
-        "disapprove_hi": 55.22
+        "disapprove": 54.24,
+        "disapprove_lo": 53.21,
+        "disapprove_hi": 55.28
       },
       {
         "as_of": "2025-12-22",
         "approve": 42.72,
         "approve_lo": 41.88,
         "approve_hi": 43.55,
-        "disapprove": 54.2,
-        "disapprove_lo": 53.23,
-        "disapprove_hi": 55.2
+        "disapprove": 54.22,
+        "disapprove_lo": 53.14,
+        "disapprove_hi": 55.27
       },
       {
         "as_of": "2025-12-23",
         "approve": 42.73,
         "approve_lo": 41.87,
         "approve_hi": 43.6,
-        "disapprove": 54.19,
-        "disapprove_lo": 53.18,
-        "disapprove_hi": 55.2
+        "disapprove": 54.2,
+        "disapprove_lo": 53.09,
+        "disapprove_hi": 55.29
       },
       {
         "as_of": "2025-12-24",
         "approve": 42.73,
         "approve_lo": 41.88,
         "approve_hi": 43.6,
-        "disapprove": 54.16,
-        "disapprove_lo": 53.11,
+        "disapprove": 54.18,
+        "disapprove_lo": 53.07,
         "disapprove_hi": 55.27
       },
       {
@@ -6702,9 +6702,9 @@
         "approve": 42.75,
         "approve_lo": 41.89,
         "approve_hi": 43.61,
-        "disapprove": 54.14,
-        "disapprove_lo": 53.07,
-        "disapprove_hi": 55.23
+        "disapprove": 54.15,
+        "disapprove_lo": 53.09,
+        "disapprove_hi": 55.22
       },
       {
         "as_of": "2025-12-26",
@@ -6712,8 +6712,8 @@
         "approve_lo": 41.95,
         "approve_hi": 43.63,
         "disapprove": 54.13,
-        "disapprove_lo": 53.02,
-        "disapprove_hi": 55.18
+        "disapprove_lo": 53.06,
+        "disapprove_hi": 55.2
       },
       {
         "as_of": "2025-12-27",
@@ -6721,17 +6721,17 @@
         "approve_lo": 41.95,
         "approve_hi": 43.62,
         "disapprove": 54.14,
-        "disapprove_lo": 53.07,
-        "disapprove_hi": 55.19
+        "disapprove_lo": 53.08,
+        "disapprove_hi": 55.2
       },
       {
         "as_of": "2025-12-28",
         "approve": 42.77,
         "approve_lo": 41.95,
         "approve_hi": 43.63,
-        "disapprove": 54.18,
-        "disapprove_lo": 53.11,
-        "disapprove_hi": 55.21
+        "disapprove": 54.19,
+        "disapprove_lo": 53.12,
+        "disapprove_hi": 55.24
       },
       {
         "as_of": "2025-12-29",
@@ -6739,8 +6739,8 @@
         "approve_lo": 41.94,
         "approve_hi": 43.61,
         "disapprove": 54.23,
-        "disapprove_lo": 53.18,
-        "disapprove_hi": 55.25
+        "disapprove_lo": 53.15,
+        "disapprove_hi": 55.34
       },
       {
         "as_of": "2025-12-30",
@@ -6748,8 +6748,8 @@
         "approve_lo": 41.94,
         "approve_hi": 43.63,
         "disapprove": 54.28,
-        "disapprove_lo": 53.23,
-        "disapprove_hi": 55.34
+        "disapprove_lo": 53.15,
+        "disapprove_hi": 55.37
       },
       {
         "as_of": "2025-12-31",
@@ -6757,62 +6757,62 @@
         "approve_lo": 41.94,
         "approve_hi": 43.63,
         "disapprove": 54.32,
-        "disapprove_lo": 53.23,
-        "disapprove_hi": 55.36
+        "disapprove_lo": 53.2,
+        "disapprove_hi": 55.46
       },
       {
         "as_of": "2026-01-01",
         "approve": 42.78,
         "approve_lo": 41.95,
         "approve_hi": 43.61,
-        "disapprove": 54.35,
-        "disapprove_lo": 53.32,
-        "disapprove_hi": 55.35
+        "disapprove": 54.36,
+        "disapprove_lo": 53.3,
+        "disapprove_hi": 55.44
       },
       {
         "as_of": "2026-01-02",
         "approve": 42.8,
         "approve_lo": 42.01,
         "approve_hi": 43.62,
-        "disapprove": 54.35,
-        "disapprove_lo": 53.33,
-        "disapprove_hi": 55.31
+        "disapprove": 54.36,
+        "disapprove_lo": 53.31,
+        "disapprove_hi": 55.43
       },
       {
         "as_of": "2026-01-03",
         "approve": 42.82,
         "approve_lo": 42.0,
         "approve_hi": 43.63,
-        "disapprove": 54.35,
-        "disapprove_lo": 53.37,
-        "disapprove_hi": 55.36
+        "disapprove": 54.36,
+        "disapprove_lo": 53.36,
+        "disapprove_hi": 55.4
       },
       {
         "as_of": "2026-01-04",
         "approve": 42.81,
         "approve_lo": 42.03,
         "approve_hi": 43.62,
-        "disapprove": 54.38,
-        "disapprove_lo": 53.37,
-        "disapprove_hi": 55.43
+        "disapprove": 54.39,
+        "disapprove_lo": 53.41,
+        "disapprove_hi": 55.41
       },
       {
         "as_of": "2026-01-05",
         "approve": 42.78,
         "approve_lo": 42.02,
         "approve_hi": 43.58,
-        "disapprove": 54.44,
-        "disapprove_lo": 53.44,
-        "disapprove_hi": 55.48
+        "disapprove": 54.45,
+        "disapprove_lo": 53.51,
+        "disapprove_hi": 55.4
       },
       {
         "as_of": "2026-01-06",
         "approve": 42.75,
         "approve_lo": 42.04,
         "approve_hi": 43.51,
-        "disapprove": 54.5,
-        "disapprove_lo": 53.54,
-        "disapprove_hi": 55.49
+        "disapprove": 54.51,
+        "disapprove_lo": 53.53,
+        "disapprove_hi": 55.5
       },
       {
         "as_of": "2026-01-07",
@@ -6821,7 +6821,7 @@
         "approve_hi": 43.5,
         "disapprove": 54.45,
         "disapprove_lo": 53.51,
-        "disapprove_hi": 55.42
+        "disapprove_hi": 55.39
       },
       {
         "as_of": "2026-01-08",
@@ -6829,8 +6829,8 @@
         "approve_lo": 42.06,
         "approve_hi": 43.5,
         "disapprove": 54.39,
-        "disapprove_lo": 53.45,
-        "disapprove_hi": 55.31
+        "disapprove_lo": 53.46,
+        "disapprove_hi": 55.27
       },
       {
         "as_of": "2026-01-09",
@@ -6838,17 +6838,17 @@
         "approve_lo": 42.07,
         "approve_hi": 43.49,
         "disapprove": 54.33,
-        "disapprove_lo": 53.43,
-        "disapprove_hi": 55.22
+        "disapprove_lo": 53.5,
+        "disapprove_hi": 55.14
       },
       {
         "as_of": "2026-01-10",
         "approve": 42.78,
         "approve_lo": 42.12,
         "approve_hi": 43.48,
-        "disapprove": 54.28,
-        "disapprove_lo": 53.47,
-        "disapprove_hi": 55.08
+        "disapprove": 54.27,
+        "disapprove_lo": 53.49,
+        "disapprove_hi": 55.06
       },
       {
         "as_of": "2026-01-11",
@@ -6856,8 +6856,8 @@
         "approve_lo": 42.05,
         "approve_hi": 43.42,
         "disapprove": 54.34,
-        "disapprove_lo": 53.47,
-        "disapprove_hi": 55.16
+        "disapprove_lo": 53.45,
+        "disapprove_hi": 55.13
       },
       {
         "as_of": "2026-01-12",
@@ -6865,17 +6865,17 @@
         "approve_lo": 41.97,
         "approve_hi": 43.36,
         "disapprove": 54.4,
-        "disapprove_lo": 53.51,
-        "disapprove_hi": 55.24
+        "disapprove_lo": 53.54,
+        "disapprove_hi": 55.25
       },
       {
         "as_of": "2026-01-13",
         "approve": 42.61,
         "approve_lo": 41.89,
         "approve_hi": 43.33,
-        "disapprove": 54.43,
-        "disapprove_lo": 53.56,
-        "disapprove_hi": 55.3
+        "disapprove": 54.42,
+        "disapprove_lo": 53.57,
+        "disapprove_hi": 55.29
       },
       {
         "as_of": "2026-01-14",
@@ -6883,16 +6883,16 @@
         "approve_lo": 41.83,
         "approve_hi": 43.28,
         "disapprove": 54.46,
-        "disapprove_lo": 53.6,
-        "disapprove_hi": 55.33
+        "disapprove_lo": 53.61,
+        "disapprove_hi": 55.32
       },
       {
         "as_of": "2026-01-15",
         "approve": 42.5,
         "approve_lo": 41.8,
         "approve_hi": 43.26,
-        "disapprove": 54.53,
-        "disapprove_lo": 53.66,
+        "disapprove": 54.52,
+        "disapprove_lo": 53.63,
         "disapprove_hi": 55.39
       },
       {
@@ -6901,17 +6901,17 @@
         "approve_lo": 41.73,
         "approve_hi": 43.18,
         "disapprove": 54.59,
-        "disapprove_lo": 53.75,
-        "disapprove_hi": 55.45
+        "disapprove_lo": 53.74,
+        "disapprove_hi": 55.44
       },
       {
         "as_of": "2026-01-17",
         "approve": 42.37,
         "approve_lo": 41.67,
         "approve_hi": 43.08,
-        "disapprove": 54.67,
-        "disapprove_lo": 53.82,
-        "disapprove_hi": 55.46
+        "disapprove": 54.66,
+        "disapprove_lo": 53.84,
+        "disapprove_hi": 55.5
       },
       {
         "as_of": "2026-01-18",
@@ -6919,17 +6919,17 @@
         "approve_lo": 41.57,
         "approve_hi": 42.97,
         "disapprove": 54.77,
-        "disapprove_lo": 53.96,
-        "disapprove_hi": 55.54
+        "disapprove_lo": 54.0,
+        "disapprove_hi": 55.56
       },
       {
         "as_of": "2026-01-19",
         "approve": 42.19,
         "approve_lo": 41.48,
         "approve_hi": 42.86,
-        "disapprove": 54.79,
-        "disapprove_lo": 54.02,
-        "disapprove_hi": 55.61
+        "disapprove": 54.8,
+        "disapprove_lo": 54.03,
+        "disapprove_hi": 55.6
       },
       {
         "as_of": "2026-01-20",
@@ -6937,8 +6937,8 @@
         "approve_lo": 41.47,
         "approve_hi": 42.88,
         "disapprove": 54.81,
-        "disapprove_lo": 53.99,
-        "disapprove_hi": 55.59
+        "disapprove_lo": 54.04,
+        "disapprove_hi": 55.64
       },
       {
         "as_of": "2026-01-21",
@@ -6947,7 +6947,7 @@
         "approve_hi": 42.83,
         "disapprove": 54.82,
         "disapprove_lo": 54.05,
-        "disapprove_hi": 55.63
+        "disapprove_hi": 55.6
       },
       {
         "as_of": "2026-01-22",
@@ -6956,7 +6956,7 @@
         "approve_hi": 42.77,
         "disapprove": 54.84,
         "disapprove_lo": 54.06,
-        "disapprove_hi": 55.66
+        "disapprove_hi": 55.62
       },
       {
         "as_of": "2026-01-23",
@@ -6964,8 +6964,8 @@
         "approve_lo": 41.43,
         "approve_hi": 42.73,
         "disapprove": 54.88,
-        "disapprove_lo": 54.15,
-        "disapprove_hi": 55.6
+        "disapprove_lo": 54.18,
+        "disapprove_hi": 55.61
       },
       {
         "as_of": "2026-01-24",
@@ -6973,17 +6973,17 @@
         "approve_lo": 41.42,
         "approve_hi": 42.71,
         "disapprove": 54.93,
-        "disapprove_lo": 54.21,
-        "disapprove_hi": 55.66
+        "disapprove_lo": 54.23,
+        "disapprove_hi": 55.68
       },
       {
         "as_of": "2026-01-25",
         "approve": 42.07,
         "approve_lo": 41.42,
         "approve_hi": 42.72,
-        "disapprove": 54.95,
-        "disapprove_lo": 54.19,
-        "disapprove_hi": 55.71
+        "disapprove": 54.96,
+        "disapprove_lo": 54.2,
+        "disapprove_hi": 55.74
       },
       {
         "as_of": "2026-01-26",
@@ -6991,25 +6991,25 @@
         "approve_lo": 41.38,
         "approve_hi": 42.7,
         "disapprove": 54.97,
-        "disapprove_lo": 54.21,
-        "disapprove_hi": 55.71
+        "disapprove_lo": 54.17,
+        "disapprove_hi": 55.77
       },
       {
         "as_of": "2026-01-27",
         "approve": 42.04,
         "approve_lo": 41.38,
         "approve_hi": 42.72,
-        "disapprove": 54.99,
-        "disapprove_lo": 54.16,
-        "disapprove_hi": 55.73
+        "disapprove": 55.0,
+        "disapprove_lo": 54.18,
+        "disapprove_hi": 55.8
       },
       {
         "as_of": "2026-01-28",
         "approve": 42.02,
         "approve_lo": 41.35,
         "approve_hi": 42.7,
-        "disapprove": 55.01,
-        "disapprove_lo": 54.2,
+        "disapprove": 55.02,
+        "disapprove_lo": 54.19,
         "disapprove_hi": 55.81
       },
       {
@@ -7019,7 +7019,7 @@
         "approve_hi": 42.72,
         "disapprove": 55.05,
         "disapprove_lo": 54.21,
-        "disapprove_hi": 55.87
+        "disapprove_hi": 55.88
       },
       {
         "as_of": "2026-01-30",
@@ -7028,7 +7028,7 @@
         "approve_hi": 42.69,
         "disapprove": 55.07,
         "disapprove_lo": 54.22,
-        "disapprove_hi": 55.9
+        "disapprove_hi": 55.89
       },
       {
         "as_of": "2026-01-31",
@@ -7036,7 +7036,7 @@
         "approve_lo": 41.31,
         "approve_hi": 42.7,
         "disapprove": 55.11,
-        "disapprove_lo": 54.27,
+        "disapprove_lo": 54.26,
         "disapprove_hi": 55.92
       },
       {
@@ -7044,53 +7044,53 @@
         "approve": 42.0,
         "approve_lo": 41.27,
         "approve_hi": 42.7,
-        "disapprove": 55.16,
-        "disapprove_lo": 54.31,
-        "disapprove_hi": 56.03
+        "disapprove": 55.18,
+        "disapprove_lo": 54.28,
+        "disapprove_hi": 56.04
       },
       {
         "as_of": "2026-02-02",
         "approve": 42.0,
         "approve_lo": 41.3,
         "approve_hi": 42.74,
-        "disapprove": 55.18,
+        "disapprove": 55.19,
         "disapprove_lo": 54.3,
-        "disapprove_hi": 56.06
+        "disapprove_hi": 56.12
       },
       {
         "as_of": "2026-02-03",
         "approve": 42.01,
         "approve_lo": 41.28,
         "approve_hi": 42.75,
-        "disapprove": 55.19,
-        "disapprove_lo": 54.27,
-        "disapprove_hi": 56.1
+        "disapprove": 55.2,
+        "disapprove_lo": 54.3,
+        "disapprove_hi": 56.11
       },
       {
         "as_of": "2026-02-04",
         "approve": 42.02,
         "approve_lo": 41.34,
         "approve_hi": 42.78,
-        "disapprove": 55.2,
-        "disapprove_lo": 54.3,
-        "disapprove_hi": 56.12
+        "disapprove": 55.21,
+        "disapprove_lo": 54.29,
+        "disapprove_hi": 56.13
       },
       {
         "as_of": "2026-02-05",
         "approve": 42.02,
         "approve_lo": 41.31,
         "approve_hi": 42.78,
-        "disapprove": 55.21,
-        "disapprove_lo": 54.28,
-        "disapprove_hi": 56.14
+        "disapprove": 55.22,
+        "disapprove_lo": 54.29,
+        "disapprove_hi": 56.12
       },
       {
         "as_of": "2026-02-06",
         "approve": 42.03,
         "approve_lo": 41.29,
         "approve_hi": 42.76,
-        "disapprove": 55.21,
-        "disapprove_lo": 54.31,
+        "disapprove": 55.23,
+        "disapprove_lo": 54.32,
         "disapprove_hi": 56.12
       },
       {
@@ -7098,8 +7098,8 @@
         "approve": 42.05,
         "approve_lo": 41.3,
         "approve_hi": 42.77,
-        "disapprove": 55.21,
-        "disapprove_lo": 54.39,
+        "disapprove": 55.23,
+        "disapprove_lo": 54.34,
         "disapprove_hi": 56.1
       },
       {
@@ -7107,9 +7107,9 @@
         "approve": 42.03,
         "approve_lo": 41.23,
         "approve_hi": 42.77,
-        "disapprove": 55.25,
+        "disapprove": 55.26,
         "disapprove_lo": 54.38,
-        "disapprove_hi": 56.17
+        "disapprove_hi": 56.11
       },
       {
         "as_of": "2026-02-09",
@@ -7118,16 +7118,16 @@
         "approve_hi": 42.74,
         "disapprove": 55.31,
         "disapprove_lo": 54.44,
-        "disapprove_hi": 56.23
+        "disapprove_hi": 56.19
       },
       {
         "as_of": "2026-02-10",
         "approve": 41.99,
         "approve_lo": 41.22,
         "approve_hi": 42.74,
-        "disapprove": 55.36,
-        "disapprove_lo": 54.5,
-        "disapprove_hi": 56.22
+        "disapprove": 55.37,
+        "disapprove_lo": 54.49,
+        "disapprove_hi": 56.25
       },
       {
         "as_of": "2026-02-11",
@@ -7135,8 +7135,8 @@
         "approve_lo": 41.24,
         "approve_hi": 42.73,
         "disapprove": 55.43,
-        "disapprove_lo": 54.56,
-        "disapprove_hi": 56.31
+        "disapprove_lo": 54.57,
+        "disapprove_hi": 56.36
       },
       {
         "as_of": "2026-02-12",
@@ -7144,8 +7144,8 @@
         "approve_lo": 41.25,
         "approve_hi": 42.73,
         "disapprove": 55.48,
-        "disapprove_lo": 54.66,
-        "disapprove_hi": 56.38
+        "disapprove_lo": 54.62,
+        "disapprove_hi": 56.41
       },
       {
         "as_of": "2026-02-13",
@@ -7153,26 +7153,26 @@
         "approve_lo": 41.3,
         "approve_hi": 42.76,
         "disapprove": 55.45,
-        "disapprove_lo": 54.59,
-        "disapprove_hi": 56.32
+        "disapprove_lo": 54.62,
+        "disapprove_hi": 56.31
       },
       {
         "as_of": "2026-02-14",
         "approve": 42.09,
         "approve_lo": 41.38,
         "approve_hi": 42.78,
-        "disapprove": 55.44,
+        "disapprove": 55.43,
         "disapprove_lo": 54.6,
-        "disapprove_hi": 56.28
+        "disapprove_hi": 56.27
       },
       {
         "as_of": "2026-02-15",
         "approve": 42.1,
         "approve_lo": 41.38,
         "approve_hi": 42.81,
-        "disapprove": 55.46,
-        "disapprove_lo": 54.61,
-        "disapprove_hi": 56.32
+        "disapprove": 55.45,
+        "disapprove_lo": 54.63,
+        "disapprove_hi": 56.29
       },
       {
         "as_of": "2026-02-16",
@@ -7181,7 +7181,7 @@
         "approve_hi": 42.8,
         "disapprove": 55.45,
         "disapprove_lo": 54.63,
-        "disapprove_hi": 56.29
+        "disapprove_hi": 56.28
       },
       {
         "as_of": "2026-02-17",
@@ -7189,8 +7189,8 @@
         "approve_lo": 41.4,
         "approve_hi": 42.8,
         "disapprove": 55.48,
-        "disapprove_lo": 54.65,
-        "disapprove_hi": 56.33
+        "disapprove_lo": 54.66,
+        "disapprove_hi": 56.3
       },
       {
         "as_of": "2026-02-18",
@@ -7198,8 +7198,8 @@
         "approve_lo": 41.41,
         "approve_hi": 42.8,
         "disapprove": 55.5,
-        "disapprove_lo": 54.69,
-        "disapprove_hi": 56.28
+        "disapprove_lo": 54.68,
+        "disapprove_hi": 56.33
       },
       {
         "as_of": "2026-02-19",
@@ -7207,62 +7207,62 @@
         "approve_lo": 41.41,
         "approve_hi": 42.81,
         "disapprove": 55.51,
-        "disapprove_lo": 54.72,
-        "disapprove_hi": 56.3
+        "disapprove_lo": 54.71,
+        "disapprove_hi": 56.28
       },
       {
         "as_of": "2026-02-20",
         "approve": 42.18,
         "approve_lo": 41.47,
         "approve_hi": 42.85,
-        "disapprove": 55.47,
-        "disapprove_lo": 54.7,
-        "disapprove_hi": 56.28
+        "disapprove": 55.48,
+        "disapprove_lo": 54.72,
+        "disapprove_hi": 56.24
       },
       {
         "as_of": "2026-02-21",
         "approve": 42.2,
         "approve_lo": 41.53,
         "approve_hi": 42.87,
-        "disapprove": 55.46,
-        "disapprove_lo": 54.7,
-        "disapprove_hi": 56.23
+        "disapprove": 55.47,
+        "disapprove_lo": 54.78,
+        "disapprove_hi": 56.22
       },
       {
         "as_of": "2026-02-22",
         "approve": 42.19,
         "approve_lo": 41.5,
         "approve_hi": 42.89,
-        "disapprove": 55.39,
-        "disapprove_lo": 54.54,
-        "disapprove_hi": 56.19
+        "disapprove": 55.41,
+        "disapprove_lo": 54.65,
+        "disapprove_hi": 56.21
       },
       {
         "as_of": "2026-02-23",
         "approve": 42.2,
         "approve_lo": 41.46,
         "approve_hi": 42.96,
-        "disapprove": 55.29,
-        "disapprove_lo": 54.43,
-        "disapprove_hi": 56.09
+        "disapprove": 55.32,
+        "disapprove_lo": 54.46,
+        "disapprove_hi": 56.16
       },
       {
         "as_of": "2026-02-24",
         "approve": 42.2,
         "approve_lo": 41.48,
         "approve_hi": 42.95,
-        "disapprove": 55.2,
-        "disapprove_lo": 54.32,
-        "disapprove_hi": 56.05
+        "disapprove": 55.21,
+        "disapprove_lo": 54.34,
+        "disapprove_hi": 56.04
       },
       {
         "as_of": "2026-02-25",
         "approve": 42.2,
         "approve_lo": 41.48,
         "approve_hi": 42.92,
-        "disapprove": 55.11,
-        "disapprove_lo": 54.22,
-        "disapprove_hi": 55.99
+        "disapprove": 55.12,
+        "disapprove_lo": 54.21,
+        "disapprove_hi": 55.95
       },
       {
         "as_of": "2026-02-26",
@@ -7270,17 +7270,17 @@
         "approve_lo": 41.44,
         "approve_hi": 42.86,
         "disapprove": 55.13,
-        "disapprove_lo": 54.25,
-        "disapprove_hi": 55.99
+        "disapprove_lo": 54.26,
+        "disapprove_hi": 55.93
       },
       {
         "as_of": "2026-02-27",
         "approve": 42.1,
         "approve_lo": 41.41,
         "approve_hi": 42.82,
-        "disapprove": 55.16,
-        "disapprove_lo": 54.28,
-        "disapprove_hi": 56.01
+        "disapprove": 55.17,
+        "disapprove_lo": 54.33,
+        "disapprove_hi": 55.99
       },
       {
         "as_of": "2026-02-28",
@@ -7288,8 +7288,8 @@
         "approve_lo": 41.35,
         "approve_hi": 42.77,
         "disapprove": 55.19,
-        "disapprove_lo": 54.35,
-        "disapprove_hi": 56.0
+        "disapprove_lo": 54.41,
+        "disapprove_hi": 56.01
       },
       {
         "as_of": "2026-03-01",
@@ -7297,8 +7297,8 @@
         "approve_lo": 41.34,
         "approve_hi": 42.71,
         "disapprove": 55.16,
-        "disapprove_lo": 54.35,
-        "disapprove_hi": 55.97
+        "disapprove_lo": 54.32,
+        "disapprove_hi": 55.99
       },
       {
         "as_of": "2026-03-02",
@@ -7306,17 +7306,17 @@
         "approve_lo": 41.3,
         "approve_hi": 42.64,
         "disapprove": 55.15,
-        "disapprove_lo": 54.33,
-        "disapprove_hi": 55.97
+        "disapprove_lo": 54.34,
+        "disapprove_hi": 55.98
       },
       {
         "as_of": "2026-03-03",
         "approve": 41.93,
         "approve_lo": 41.22,
         "approve_hi": 42.64,
-        "disapprove": 55.14,
-        "disapprove_lo": 54.26,
-        "disapprove_hi": 55.95
+        "disapprove": 55.13,
+        "disapprove_lo": 54.29,
+        "disapprove_hi": 55.96
       },
       {
         "as_of": "2026-03-04",
@@ -7324,8 +7324,8 @@
         "approve_lo": 41.14,
         "approve_hi": 42.59,
         "disapprove": 55.16,
-        "disapprove_lo": 54.26,
-        "disapprove_hi": 56.04
+        "disapprove_lo": 54.24,
+        "disapprove_hi": 56.02
       },
       {
         "as_of": "2026-03-05",
@@ -7333,8 +7333,8 @@
         "approve_lo": 41.13,
         "approve_hi": 42.57,
         "disapprove": 55.18,
-        "disapprove_lo": 54.26,
-        "disapprove_hi": 56.07
+        "disapprove_lo": 54.27,
+        "disapprove_hi": 56.08
       },
       {
         "as_of": "2026-03-06",
@@ -7342,16 +7342,16 @@
         "approve_lo": 41.06,
         "approve_hi": 42.55,
         "disapprove": 55.2,
-        "disapprove_lo": 54.27,
-        "disapprove_hi": 56.08
+        "disapprove_lo": 54.26,
+        "disapprove_hi": 56.11
       },
       {
         "as_of": "2026-03-07",
         "approve": 41.74,
         "approve_lo": 41.0,
         "approve_hi": 42.5,
-        "disapprove": 55.23,
-        "disapprove_lo": 54.27,
+        "disapprove": 55.22,
+        "disapprove_lo": 54.35,
         "disapprove_hi": 56.09
       },
       {
@@ -7360,17 +7360,17 @@
         "approve_lo": 40.9,
         "approve_hi": 42.42,
         "disapprove": 55.3,
-        "disapprove_lo": 54.34,
-        "disapprove_hi": 56.18
+        "disapprove_lo": 54.41,
+        "disapprove_hi": 56.19
       },
       {
         "as_of": "2026-03-09",
         "approve": 41.59,
         "approve_lo": 40.82,
         "approve_hi": 42.35,
-        "disapprove": 55.39,
-        "disapprove_lo": 54.42,
-        "disapprove_hi": 56.31
+        "disapprove": 55.38,
+        "disapprove_lo": 54.4,
+        "disapprove_hi": 56.27
       },
       {
         "as_of": "2026-03-10",
@@ -7378,8 +7378,8 @@
         "approve_lo": 40.78,
         "approve_hi": 42.3,
         "disapprove": 55.48,
-        "disapprove_lo": 54.52,
-        "disapprove_hi": 56.35
+        "disapprove_lo": 54.5,
+        "disapprove_hi": 56.38
       },
       {
         "as_of": "2026-03-11",
@@ -7387,8 +7387,8 @@
         "approve_lo": 40.75,
         "approve_hi": 42.2,
         "disapprove": 55.57,
-        "disapprove_lo": 54.59,
-        "disapprove_hi": 56.48
+        "disapprove_lo": 54.68,
+        "disapprove_hi": 56.47
       },
       {
         "as_of": "2026-03-12",
@@ -7396,7 +7396,7 @@
         "approve_lo": 40.65,
         "approve_hi": 42.14,
         "disapprove": 55.66,
-        "disapprove_lo": 54.7,
+        "disapprove_lo": 54.76,
         "disapprove_hi": 56.55
       },
       {
@@ -7405,17 +7405,17 @@
         "approve_lo": 40.6,
         "approve_hi": 42.06,
         "disapprove": 55.76,
-        "disapprove_lo": 54.84,
-        "disapprove_hi": 56.63
+        "disapprove_lo": 54.88,
+        "disapprove_hi": 56.67
       },
       {
         "as_of": "2026-03-14",
         "approve": 41.26,
         "approve_lo": 40.57,
         "approve_hi": 41.96,
-        "disapprove": 55.87,
-        "disapprove_lo": 55.03,
-        "disapprove_hi": 56.69
+        "disapprove": 55.86,
+        "disapprove_lo": 55.0,
+        "disapprove_hi": 56.75
       },
       {
         "as_of": "2026-03-15",
@@ -7423,8 +7423,8 @@
         "approve_lo": 40.51,
         "approve_hi": 41.89,
         "disapprove": 55.98,
-        "disapprove_lo": 55.17,
-        "disapprove_hi": 56.78
+        "disapprove_lo": 55.19,
+        "disapprove_hi": 56.8
       },
       {
         "as_of": "2026-03-16",
@@ -7432,7 +7432,7 @@
         "approve_lo": 40.47,
         "approve_hi": 41.84,
         "disapprove": 56.09,
-        "disapprove_lo": 55.3,
+        "disapprove_lo": 55.31,
         "disapprove_hi": 56.87
       },
       {
@@ -7440,26 +7440,26 @@
         "approve": 41.09,
         "approve_lo": 40.4,
         "approve_hi": 41.76,
-        "disapprove": 56.22,
-        "disapprove_lo": 55.46,
-        "disapprove_hi": 56.99
+        "disapprove": 56.23,
+        "disapprove_lo": 55.49,
+        "disapprove_hi": 57.01
       },
       {
         "as_of": "2026-03-18",
         "approve": 41.02,
         "approve_lo": 40.35,
         "approve_hi": 41.67,
-        "disapprove": 56.37,
-        "disapprove_lo": 55.65,
-        "disapprove_hi": 57.19
+        "disapprove": 56.38,
+        "disapprove_lo": 55.63,
+        "disapprove_hi": 57.17
       },
       {
         "as_of": "2026-03-19",
         "approve": 40.95,
         "approve_lo": 40.25,
         "approve_hi": 41.65,
-        "disapprove": 56.45,
-        "disapprove_lo": 55.6,
+        "disapprove": 56.46,
+        "disapprove_lo": 55.69,
         "disapprove_hi": 57.35
       },
       {
@@ -7468,8 +7468,8 @@
         "approve_lo": 40.17,
         "approve_hi": 41.6,
         "disapprove": 56.53,
-        "disapprove_lo": 55.64,
-        "disapprove_hi": 57.39
+        "disapprove_lo": 55.73,
+        "disapprove_hi": 57.42
       },
       {
         "as_of": "2026-03-21",
@@ -7477,80 +7477,80 @@
         "approve_lo": 40.08,
         "approve_hi": 41.54,
         "disapprove": 56.61,
-        "disapprove_lo": 55.73,
-        "disapprove_hi": 57.49
+        "disapprove_lo": 55.75,
+        "disapprove_hi": 57.51
       },
       {
         "as_of": "2026-03-22",
         "approve": 40.75,
         "approve_lo": 40.03,
         "approve_hi": 41.47,
-        "disapprove": 56.74,
-        "disapprove_lo": 55.85,
-        "disapprove_hi": 57.65
+        "disapprove": 56.73,
+        "disapprove_lo": 55.86,
+        "disapprove_hi": 57.62
       },
       {
         "as_of": "2026-03-23",
         "approve": 40.69,
         "approve_lo": 39.94,
         "approve_hi": 41.44,
-        "disapprove": 56.84,
-        "disapprove_lo": 55.97,
-        "disapprove_hi": 57.75
+        "disapprove": 56.83,
+        "disapprove_lo": 55.96,
+        "disapprove_hi": 57.77
       },
       {
         "as_of": "2026-03-24",
         "approve": 40.63,
         "approve_lo": 39.85,
         "approve_hi": 41.38,
-        "disapprove": 56.91,
-        "disapprove_lo": 56.01,
-        "disapprove_hi": 57.86
+        "disapprove": 56.9,
+        "disapprove_lo": 56.03,
+        "disapprove_hi": 57.85
       },
       {
         "as_of": "2026-03-25",
         "approve": 40.58,
         "approve_lo": 39.78,
         "approve_hi": 41.31,
-        "disapprove": 56.97,
-        "disapprove_lo": 56.08,
-        "disapprove_hi": 57.94
+        "disapprove": 56.96,
+        "disapprove_lo": 56.1,
+        "disapprove_hi": 57.9
       },
       {
         "as_of": "2026-03-26",
         "approve": 40.54,
         "approve_lo": 39.76,
         "approve_hi": 41.3,
-        "disapprove": 56.97,
-        "disapprove_lo": 56.05,
-        "disapprove_hi": 57.96
+        "disapprove": 56.96,
+        "disapprove_lo": 56.04,
+        "disapprove_hi": 57.88
       },
       {
         "as_of": "2026-03-27",
         "approve": 40.5,
         "approve_lo": 39.72,
         "approve_hi": 41.29,
-        "disapprove": 56.97,
-        "disapprove_lo": 56.05,
-        "disapprove_hi": 57.92
+        "disapprove": 56.95,
+        "disapprove_lo": 56.04,
+        "disapprove_hi": 57.89
       },
       {
         "as_of": "2026-03-28",
         "approve": 40.46,
         "approve_lo": 39.71,
         "approve_hi": 41.23,
-        "disapprove": 56.96,
-        "disapprove_lo": 56.09,
-        "disapprove_hi": 57.86
+        "disapprove": 56.94,
+        "disapprove_lo": 56.06,
+        "disapprove_hi": 57.85
       },
       {
         "as_of": "2026-03-29",
         "approve": 40.44,
         "approve_lo": 39.67,
         "approve_hi": 41.25,
-        "disapprove": 56.97,
-        "disapprove_lo": 56.04,
-        "disapprove_hi": 57.91
+        "disapprove": 56.96,
+        "disapprove_lo": 56.0,
+        "disapprove_hi": 57.94
       },
       {
         "as_of": "2026-03-30",
@@ -7558,8 +7558,8 @@
         "approve_lo": 39.65,
         "approve_hi": 41.27,
         "disapprove": 56.9,
-        "disapprove_lo": 55.96,
-        "disapprove_hi": 57.88
+        "disapprove_lo": 55.95,
+        "disapprove_hi": 57.86
       },
       {
         "as_of": "2026-03-31",
@@ -7567,8 +7567,8 @@
         "approve_lo": 39.69,
         "approve_hi": 41.26,
         "disapprove": 56.83,
-        "disapprove_lo": 55.86,
-        "disapprove_hi": 57.77
+        "disapprove_lo": 55.87,
+        "disapprove_hi": 57.79
       },
       {
         "as_of": "2026-04-01",
@@ -7576,8 +7576,8 @@
         "approve_lo": 39.69,
         "approve_hi": 41.27,
         "disapprove": 56.79,
-        "disapprove_lo": 55.84,
-        "disapprove_hi": 57.75
+        "disapprove_lo": 55.86,
+        "disapprove_hi": 57.72
       },
       {
         "as_of": "2026-04-02",
@@ -7585,16 +7585,16 @@
         "approve_lo": 39.71,
         "approve_hi": 41.27,
         "disapprove": 56.74,
-        "disapprove_lo": 55.79,
-        "disapprove_hi": 57.69
+        "disapprove_lo": 55.8,
+        "disapprove_hi": 57.65
       },
       {
         "as_of": "2026-04-03",
         "approve": 40.51,
         "approve_lo": 39.74,
         "approve_hi": 41.27,
-        "disapprove": 56.7,
-        "disapprove_lo": 55.73,
+        "disapprove": 56.69,
+        "disapprove_lo": 55.74,
         "disapprove_hi": 57.6
       },
       {
@@ -7603,8 +7603,8 @@
         "approve_lo": 39.78,
         "approve_hi": 41.22,
         "disapprove": 56.65,
-        "disapprove_lo": 55.71,
-        "disapprove_hi": 57.5
+        "disapprove_lo": 55.76,
+        "disapprove_hi": 57.53
       },
       {
         "as_of": "2026-04-05",
@@ -7612,7 +7612,7 @@
         "approve_lo": 39.78,
         "approve_hi": 41.23,
         "disapprove": 56.66,
-        "disapprove_lo": 55.77,
+        "disapprove_lo": 55.74,
         "disapprove_hi": 57.53
       },
       {
@@ -7620,62 +7620,62 @@
         "approve": 40.5,
         "approve_lo": 39.79,
         "approve_hi": 41.2,
-        "disapprove": 56.67,
-        "disapprove_lo": 55.77,
-        "disapprove_hi": 57.52
+        "disapprove": 56.66,
+        "disapprove_lo": 55.73,
+        "disapprove_hi": 57.54
       },
       {
         "as_of": "2026-04-07",
         "approve": 40.5,
         "approve_lo": 39.73,
         "approve_hi": 41.26,
-        "disapprove": 56.67,
-        "disapprove_lo": 55.75,
-        "disapprove_hi": 57.51
+        "disapprove": 56.66,
+        "disapprove_lo": 55.72,
+        "disapprove_hi": 57.53
       },
       {
         "as_of": "2026-04-08",
         "approve": 40.46,
         "approve_lo": 39.74,
         "approve_hi": 41.22,
-        "disapprove": 56.7,
-        "disapprove_lo": 55.79,
-        "disapprove_hi": 57.58
+        "disapprove": 56.68,
+        "disapprove_lo": 55.72,
+        "disapprove_hi": 57.55
       },
       {
         "as_of": "2026-04-09",
         "approve": 40.44,
         "approve_lo": 39.71,
         "approve_hi": 41.19,
-        "disapprove": 56.74,
-        "disapprove_lo": 55.84,
-        "disapprove_hi": 57.65
+        "disapprove": 56.72,
+        "disapprove_lo": 55.82,
+        "disapprove_hi": 57.64
       },
       {
         "as_of": "2026-04-10",
         "approve": 40.41,
         "approve_lo": 39.71,
         "approve_hi": 41.13,
-        "disapprove": 56.78,
+        "disapprove": 56.75,
         "disapprove_lo": 55.9,
-        "disapprove_hi": 57.64
+        "disapprove_hi": 57.57
       },
       {
         "as_of": "2026-04-11",
         "approve": 40.37,
         "approve_lo": 39.67,
         "approve_hi": 41.07,
-        "disapprove": 56.82,
-        "disapprove_lo": 55.99,
-        "disapprove_hi": 57.63
+        "disapprove": 56.8,
+        "disapprove_lo": 55.94,
+        "disapprove_hi": 57.59
       },
       {
         "as_of": "2026-04-12",
         "approve": 40.32,
         "approve_lo": 39.6,
         "approve_hi": 41.03,
-        "disapprove": 56.9,
-        "disapprove_lo": 56.04,
+        "disapprove": 56.87,
+        "disapprove_lo": 56.02,
         "disapprove_hi": 57.69
       },
       {
@@ -7683,80 +7683,80 @@
         "approve": 40.29,
         "approve_lo": 39.58,
         "approve_hi": 41.03,
-        "disapprove": 56.95,
+        "disapprove": 56.92,
         "disapprove_lo": 56.08,
-        "disapprove_hi": 57.78
+        "disapprove_hi": 57.77
       },
       {
         "as_of": "2026-04-14",
         "approve": 40.25,
         "approve_lo": 39.53,
         "approve_hi": 40.99,
-        "disapprove": 57.0,
-        "disapprove_lo": 56.11,
-        "disapprove_hi": 57.87
+        "disapprove": 56.97,
+        "disapprove_lo": 56.12,
+        "disapprove_hi": 57.8
       },
       {
         "as_of": "2026-04-15",
         "approve": 40.22,
         "approve_lo": 39.55,
         "approve_hi": 40.95,
-        "disapprove": 57.06,
-        "disapprove_lo": 56.17,
-        "disapprove_hi": 57.89
+        "disapprove": 57.03,
+        "disapprove_lo": 56.19,
+        "disapprove_hi": 57.88
       },
       {
         "as_of": "2026-04-16",
         "approve": 40.2,
         "approve_lo": 39.52,
         "approve_hi": 40.9,
-        "disapprove": 57.12,
-        "disapprove_lo": 56.34,
-        "disapprove_hi": 57.9
+        "disapprove": 57.1,
+        "disapprove_lo": 56.3,
+        "disapprove_hi": 57.95
       },
       {
         "as_of": "2026-04-17",
         "approve": 40.17,
         "approve_lo": 39.5,
         "approve_hi": 40.85,
-        "disapprove": 57.19,
+        "disapprove": 57.17,
         "disapprove_lo": 56.4,
-        "disapprove_hi": 57.9
+        "disapprove_hi": 57.95
       },
       {
         "as_of": "2026-04-18",
         "approve": 40.2,
         "approve_lo": 39.55,
         "approve_hi": 40.9,
-        "disapprove": 57.11,
-        "disapprove_lo": 56.38,
-        "disapprove_hi": 57.84
+        "disapprove": 57.1,
+        "disapprove_lo": 56.35,
+        "disapprove_hi": 57.88
       },
       {
         "as_of": "2026-04-19",
         "approve": 40.21,
         "approve_lo": 39.56,
         "approve_hi": 40.91,
-        "disapprove": 57.15,
+        "disapprove": 57.13,
         "disapprove_lo": 56.37,
-        "disapprove_hi": 57.92
+        "disapprove_hi": 57.9
       },
       {
         "as_of": "2026-04-20",
         "approve": 40.2,
         "approve_lo": 39.52,
         "approve_hi": 40.9,
-        "disapprove": 57.21,
-        "disapprove_lo": 56.38,
-        "disapprove_hi": 58.04
+        "disapprove": 57.2,
+        "disapprove_lo": 56.41,
+        "disapprove_hi": 57.98
       },
       {
         "as_of": "2026-04-21",
         "approve": 40.2,
         "approve_lo": 39.51,
         "approve_hi": 40.86,
-        "disapprove": 57.27,
-        "disapprove_lo": 56.49,
+        "disapprove": 57.26,
+        "disapprove_lo": 56.47,
         "disapprove_hi": 58.05
       },
       {
@@ -7764,8 +7764,8 @@
         "approve": 40.2,
         "approve_lo": 39.51,
         "approve_hi": 40.92,
-        "disapprove": 57.31,
-        "disapprove_lo": 56.54,
+        "disapprove": 57.3,
+        "disapprove_lo": 56.5,
         "disapprove_hi": 58.08
       },
       {
@@ -7773,9 +7773,9 @@
         "approve": 40.19,
         "approve_lo": 39.48,
         "approve_hi": 40.92,
-        "disapprove": 57.32,
-        "disapprove_lo": 56.53,
-        "disapprove_hi": 58.09
+        "disapprove": 57.31,
+        "disapprove_lo": 56.54,
+        "disapprove_hi": 58.11
       },
       {
         "as_of": "2026-04-24",
@@ -7783,80 +7783,80 @@
         "approve_lo": 39.51,
         "approve_hi": 40.9,
         "disapprove": 57.32,
-        "disapprove_lo": 56.57,
-        "disapprove_hi": 58.07
+        "disapprove_lo": 56.53,
+        "disapprove_hi": 58.12
       },
       {
         "as_of": "2026-04-25",
         "approve": 40.21,
         "approve_lo": 39.56,
         "approve_hi": 40.9,
-        "disapprove": 57.34,
-        "disapprove_lo": 56.59,
-        "disapprove_hi": 58.08
+        "disapprove": 57.33,
+        "disapprove_lo": 56.54,
+        "disapprove_hi": 58.09
       },
       {
         "as_of": "2026-04-26",
         "approve": 40.17,
         "approve_lo": 39.49,
         "approve_hi": 40.85,
-        "disapprove": 57.42,
-        "disapprove_lo": 56.67,
-        "disapprove_hi": 58.21
+        "disapprove": 57.4,
+        "disapprove_lo": 56.59,
+        "disapprove_hi": 58.22
       },
       {
         "as_of": "2026-04-27",
         "approve": 40.16,
         "approve_lo": 39.46,
         "approve_hi": 40.87,
-        "disapprove": 57.43,
-        "disapprove_lo": 56.6,
-        "disapprove_hi": 58.27
+        "disapprove": 57.41,
+        "disapprove_lo": 56.58,
+        "disapprove_hi": 58.26
       },
       {
         "as_of": "2026-04-28",
         "approve": 40.18,
         "approve_lo": 39.46,
         "approve_hi": 40.91,
-        "disapprove": 57.4,
-        "disapprove_lo": 56.56,
-        "disapprove_hi": 58.23
+        "disapprove": 57.39,
+        "disapprove_lo": 56.55,
+        "disapprove_hi": 58.26
       },
       {
         "as_of": "2026-04-29",
         "approve": 40.18,
         "approve_lo": 39.46,
         "approve_hi": 40.94,
-        "disapprove": 57.38,
-        "disapprove_lo": 56.5,
-        "disapprove_hi": 58.24
+        "disapprove": 57.36,
+        "disapprove_lo": 56.47,
+        "disapprove_hi": 58.26
       },
       {
         "as_of": "2026-04-30",
         "approve": 40.19,
         "approve_lo": 39.46,
         "approve_hi": 40.97,
-        "disapprove": 57.33,
-        "disapprove_lo": 56.44,
-        "disapprove_hi": 58.25
+        "disapprove": 57.32,
+        "disapprove_lo": 56.42,
+        "disapprove_hi": 58.23
       },
       {
         "as_of": "2026-05-01",
         "approve": 40.21,
         "approve_lo": 39.46,
         "approve_hi": 40.97,
-        "disapprove": 57.29,
+        "disapprove": 57.27,
         "disapprove_lo": 56.37,
-        "disapprove_hi": 58.16
+        "disapprove_hi": 58.19
       },
       {
         "as_of": "2026-05-02",
         "approve": 40.2,
         "approve_lo": 39.43,
         "approve_hi": 40.96,
-        "disapprove": 57.29,
+        "disapprove": 57.28,
         "disapprove_lo": 56.4,
-        "disapprove_hi": 58.18
+        "disapprove_hi": 58.16
       },
       {
         "as_of": "2026-05-03",
@@ -7864,7 +7864,7 @@
         "approve_lo": 39.4,
         "approve_hi": 40.98,
         "disapprove": 57.29,
-        "disapprove_lo": 56.4,
+        "disapprove_lo": 56.35,
         "disapprove_hi": 58.19
       },
       {
@@ -7873,26 +7873,26 @@
         "approve_lo": 39.38,
         "approve_hi": 40.94,
         "disapprove": 57.32,
-        "disapprove_lo": 56.4,
-        "disapprove_hi": 58.26
+        "disapprove_lo": 56.38,
+        "disapprove_hi": 58.24
       },
       {
         "as_of": "2026-05-05",
         "approve": 40.13,
         "approve_lo": 39.35,
         "approve_hi": 40.92,
-        "disapprove": 57.35,
-        "disapprove_lo": 56.43,
-        "disapprove_hi": 58.3
+        "disapprove": 57.34,
+        "disapprove_lo": 56.37,
+        "disapprove_hi": 58.33
       },
       {
         "as_of": "2026-05-06",
         "approve": 40.1,
         "approve_lo": 39.3,
         "approve_hi": 40.9,
-        "disapprove": 57.38,
-        "disapprove_lo": 56.44,
-        "disapprove_hi": 58.33
+        "disapprove": 57.37,
+        "disapprove_lo": 56.38,
+        "disapprove_hi": 58.37
       },
       {
         "as_of": "2026-05-07",
@@ -7900,8 +7900,8 @@
         "approve_lo": 39.29,
         "approve_hi": 40.86,
         "disapprove": 57.4,
-        "disapprove_lo": 56.49,
-        "disapprove_hi": 58.34
+        "disapprove_lo": 56.43,
+        "disapprove_hi": 58.39
       },
       {
         "as_of": "2026-05-08",
@@ -7909,17 +7909,17 @@
         "approve_lo": 39.24,
         "approve_hi": 40.84,
         "disapprove": 57.45,
-        "disapprove_lo": 56.51,
-        "disapprove_hi": 58.41
+        "disapprove_lo": 56.49,
+        "disapprove_hi": 58.42
       },
       {
         "as_of": "2026-05-09",
         "approve": 39.99,
         "approve_lo": 39.19,
         "approve_hi": 40.8,
-        "disapprove": 57.5,
-        "disapprove_lo": 56.55,
-        "disapprove_hi": 58.45
+        "disapprove": 57.49,
+        "disapprove_lo": 56.57,
+        "disapprove_hi": 58.47
       },
       {
         "as_of": "2026-05-10",
@@ -7927,71 +7927,71 @@
         "approve_lo": 39.18,
         "approve_hi": 40.79,
         "disapprove": 57.43,
-        "disapprove_lo": 56.52,
-        "disapprove_hi": 58.34
+        "disapprove_lo": 56.48,
+        "disapprove_hi": 58.37
       },
       {
         "as_of": "2026-05-11",
         "approve": 39.95,
         "approve_lo": 39.18,
         "approve_hi": 40.73,
-        "disapprove": 57.41,
-        "disapprove_lo": 56.48,
-        "disapprove_hi": 58.27
+        "disapprove": 57.4,
+        "disapprove_lo": 56.45,
+        "disapprove_hi": 58.31
       },
       {
         "as_of": "2026-05-12",
         "approve": 39.93,
         "approve_lo": 39.18,
         "approve_hi": 40.75,
-        "disapprove": 57.39,
-        "disapprove_lo": 56.5,
-        "disapprove_hi": 58.27
+        "disapprove": 57.37,
+        "disapprove_lo": 56.42,
+        "disapprove_hi": 58.25
       },
       {
         "as_of": "2026-05-13",
         "approve": 39.91,
         "approve_lo": 39.19,
         "approve_hi": 40.67,
-        "disapprove": 57.36,
-        "disapprove_lo": 56.5,
-        "disapprove_hi": 58.22
+        "disapprove": 57.34,
+        "disapprove_lo": 56.45,
+        "disapprove_hi": 58.23
       },
       {
         "as_of": "2026-05-14",
         "approve": 39.9,
         "approve_lo": 39.15,
         "approve_hi": 40.65,
-        "disapprove": 57.34,
-        "disapprove_lo": 56.49,
-        "disapprove_hi": 58.18
+        "disapprove": 57.32,
+        "disapprove_lo": 56.4,
+        "disapprove_hi": 58.19
       },
       {
         "as_of": "2026-05-15",
         "approve": 39.88,
         "approve_lo": 39.18,
         "approve_hi": 40.61,
-        "disapprove": 57.31,
-        "disapprove_lo": 56.49,
-        "disapprove_hi": 58.14
+        "disapprove": 57.29,
+        "disapprove_lo": 56.47,
+        "disapprove_hi": 58.09
       },
       {
         "as_of": "2026-05-16",
         "approve": 39.86,
         "approve_lo": 39.22,
         "approve_hi": 40.52,
-        "disapprove": 57.31,
-        "disapprove_lo": 56.56,
-        "disapprove_hi": 58.12
+        "disapprove": 57.29,
+        "disapprove_lo": 56.54,
+        "disapprove_hi": 58.02
       },
       {
         "as_of": "2026-05-17",
         "approve": 39.85,
         "approve_lo": 39.15,
         "approve_hi": 40.53,
-        "disapprove": 57.31,
-        "disapprove_lo": 56.49,
-        "disapprove_hi": 58.17
+        "disapprove": 57.29,
+        "disapprove_lo": 56.46,
+        "disapprove_hi": 58.09
       },
       {
         "as_of": "2026-05-18",
@@ -7999,62 +7999,62 @@
         "approve_lo": 39.12,
         "approve_hi": 40.54,
         "disapprove": 57.3,
-        "disapprove_lo": 56.45,
-        "disapprove_hi": 58.16
+        "disapprove_lo": 56.5,
+        "disapprove_hi": 58.11
       },
       {
         "as_of": "2026-05-19",
         "approve": 39.84,
         "approve_lo": 39.11,
         "approve_hi": 40.57,
-        "disapprove": 57.33,
-        "disapprove_lo": 56.4,
-        "disapprove_hi": 58.27
+        "disapprove": 57.31,
+        "disapprove_lo": 56.49,
+        "disapprove_hi": 58.14
       },
       {
         "as_of": "2026-05-20",
         "approve": 39.85,
         "approve_lo": 39.13,
         "approve_hi": 40.56,
-        "disapprove": 57.34,
-        "disapprove_lo": 56.4,
-        "disapprove_hi": 58.28
+        "disapprove": 57.33,
+        "disapprove_lo": 56.47,
+        "disapprove_hi": 58.19
       },
       {
         "as_of": "2026-05-21",
         "approve": 39.86,
         "approve_lo": 39.14,
         "approve_hi": 40.62,
-        "disapprove": 57.36,
-        "disapprove_lo": 56.44,
-        "disapprove_hi": 58.27
+        "disapprove": 57.35,
+        "disapprove_lo": 56.41,
+        "disapprove_hi": 58.25
       },
       {
         "as_of": "2026-05-22",
         "approve": 39.84,
         "approve_lo": 39.14,
         "approve_hi": 40.59,
-        "disapprove": 57.42,
-        "disapprove_lo": 56.5,
-        "disapprove_hi": 58.34
+        "disapprove": 57.41,
+        "disapprove_lo": 56.46,
+        "disapprove_hi": 58.31
       },
       {
         "as_of": "2026-05-23",
         "approve": 39.84,
         "approve_lo": 39.12,
         "approve_hi": 40.56,
-        "disapprove": 57.45,
-        "disapprove_lo": 56.51,
-        "disapprove_hi": 58.32
+        "disapprove": 57.44,
+        "disapprove_lo": 56.5,
+        "disapprove_hi": 58.33
       },
       {
         "as_of": "2026-05-24",
         "approve": 39.79,
         "approve_lo": 39.09,
         "approve_hi": 40.5,
-        "disapprove": 57.56,
-        "disapprove_lo": 56.6,
-        "disapprove_hi": 58.45
+        "disapprove": 57.57,
+        "disapprove_lo": 56.63,
+        "disapprove_hi": 58.46
       },
       {
         "as_of": "2026-05-25",
@@ -8063,16 +8063,16 @@
         "approve_hi": 40.49,
         "disapprove": 57.63,
         "disapprove_lo": 56.7,
-        "disapprove_hi": 58.51
+        "disapprove_hi": 58.59
       },
       {
         "as_of": "2026-05-26",
         "approve": 39.79,
         "approve_lo": 39.08,
         "approve_hi": 40.54,
-        "disapprove": 57.65,
-        "disapprove_lo": 56.71,
-        "disapprove_hi": 58.55
+        "disapprove": 57.64,
+        "disapprove_lo": 56.7,
+        "disapprove_hi": 58.65
       },
       {
         "as_of": "2026-05-27",
@@ -8080,17 +8080,17 @@
         "approve_lo": 39.08,
         "approve_hi": 40.54,
         "disapprove": 57.67,
-        "disapprove_lo": 56.78,
-        "disapprove_hi": 58.55
+        "disapprove_lo": 56.71,
+        "disapprove_hi": 58.61
       },
       {
         "as_of": "2026-05-28",
         "approve": 39.83,
         "approve_lo": 39.14,
         "approve_hi": 40.54,
-        "disapprove": 57.69,
-        "disapprove_lo": 56.8,
-        "disapprove_hi": 58.58
+        "disapprove": 57.68,
+        "disapprove_lo": 56.74,
+        "disapprove_hi": 58.56
       },
       {
         "as_of": "2026-05-29",
@@ -8107,79 +8107,79 @@
         "approve_lo": 39.16,
         "approve_hi": 40.55,
         "disapprove": 57.75,
-        "disapprove_lo": 56.9,
-        "disapprove_hi": 58.6
+        "disapprove_lo": 56.94,
+        "disapprove_hi": 58.57
       },
       {
         "as_of": "2026-05-31",
         "approve": 39.88,
         "approve_lo": 39.19,
         "approve_hi": 40.59,
-        "disapprove": 57.73,
-        "disapprove_lo": 56.96,
-        "disapprove_hi": 58.53
+        "disapprove": 57.75,
+        "disapprove_lo": 56.94,
+        "disapprove_hi": 58.54
       },
       {
         "as_of": "2026-06-01",
         "approve": 39.9,
         "approve_lo": 39.21,
         "approve_hi": 40.61,
-        "disapprove": 57.72,
-        "disapprove_lo": 56.94,
-        "disapprove_hi": 58.58
+        "disapprove": 57.74,
+        "disapprove_lo": 56.92,
+        "disapprove_hi": 58.54
       },
       {
         "as_of": "2026-06-02",
         "approve": 39.94,
         "approve_lo": 39.25,
         "approve_hi": 40.64,
-        "disapprove": 57.69,
+        "disapprove": 57.71,
         "disapprove_lo": 56.89,
-        "disapprove_hi": 58.5
+        "disapprove_hi": 58.57
       },
       {
         "as_of": "2026-06-03",
         "approve": 39.95,
         "approve_lo": 39.25,
         "approve_hi": 40.66,
-        "disapprove": 57.66,
-        "disapprove_lo": 56.78,
-        "disapprove_hi": 58.52
+        "disapprove": 57.69,
+        "disapprove_lo": 56.85,
+        "disapprove_hi": 58.58
       },
       {
         "as_of": "2026-06-04",
         "approve": 39.96,
         "approve_lo": 39.29,
         "approve_hi": 40.67,
-        "disapprove": 57.64,
-        "disapprove_lo": 56.76,
-        "disapprove_hi": 58.52
+        "disapprove": 57.66,
+        "disapprove_lo": 56.84,
+        "disapprove_hi": 58.51
       },
       {
         "as_of": "2026-06-05",
         "approve": 39.98,
         "approve_lo": 39.33,
         "approve_hi": 40.66,
-        "disapprove": 57.62,
+        "disapprove": 57.63,
         "disapprove_lo": 56.79,
-        "disapprove_hi": 58.44
+        "disapprove_hi": 58.46
       },
       {
         "as_of": "2026-06-06",
         "approve": 39.98,
         "approve_lo": 39.31,
         "approve_hi": 40.64,
-        "disapprove": 57.58,
-        "disapprove_lo": 56.75,
-        "disapprove_hi": 58.38
+        "disapprove": 57.59,
+        "disapprove_lo": 56.76,
+        "disapprove_hi": 58.39
       },
       {
         "as_of": "2026-06-07",
         "approve": 39.99,
         "approve_lo": 39.32,
         "approve_hi": 40.68,
-        "disapprove": 57.56,
-        "disapprove_lo": 56.71,
+        "disapprove": 57.58,
+        "disapprove_lo": 56.73,
         "disapprove_hi": 58.37
       },
       {
@@ -8187,26 +8187,26 @@
         "approve": 39.99,
         "approve_lo": 39.3,
         "approve_hi": 40.73,
-        "disapprove": 57.52,
-        "disapprove_lo": 56.64,
-        "disapprove_hi": 58.4
+        "disapprove": 57.55,
+        "disapprove_lo": 56.65,
+        "disapprove_hi": 58.39
       },
       {
         "as_of": "2026-06-09",
         "approve": 40.0,
         "approve_lo": 39.32,
         "approve_hi": 40.7,
-        "disapprove": 57.49,
-        "disapprove_lo": 56.58,
-        "disapprove_hi": 58.34
+        "disapprove": 57.51,
+        "disapprove_lo": 56.63,
+        "disapprove_hi": 58.36
       },
       {
         "as_of": "2026-06-10",
         "approve": 40.01,
         "approve_lo": 39.29,
         "approve_hi": 40.74,
-        "disapprove": 57.46,
-        "disapprove_lo": 56.57,
+        "disapprove": 57.47,
+        "disapprove_lo": 56.53,
         "disapprove_hi": 58.37
       },
       {
@@ -8215,8 +8215,8 @@
         "approve_lo": 39.32,
         "approve_hi": 40.72,
         "disapprove": 57.43,
-        "disapprove_lo": 56.59,
-        "disapprove_hi": 58.27
+        "disapprove_lo": 56.55,
+        "disapprove_hi": 58.3
       },
       {
         "as_of": "2026-06-12",
@@ -8224,35 +8224,35 @@
         "approve_lo": 39.32,
         "approve_hi": 40.74,
         "disapprove": 57.4,
-        "disapprove_lo": 56.56,
-        "disapprove_hi": 58.23
+        "disapprove_lo": 56.55,
+        "disapprove_hi": 58.2
       },
       {
         "as_of": "2026-06-13",
         "approve": 40.08,
         "approve_lo": 39.38,
         "approve_hi": 40.81,
-        "disapprove": 57.29,
-        "disapprove_lo": 56.41,
-        "disapprove_hi": 58.16
+        "disapprove": 57.3,
+        "disapprove_lo": 56.47,
+        "disapprove_hi": 58.14
       },
       {
         "as_of": "2026-06-14",
         "approve": 40.11,
         "approve_lo": 39.38,
         "approve_hi": 40.86,
-        "disapprove": 57.22,
-        "disapprove_lo": 56.35,
-        "disapprove_hi": 58.09
+        "disapprove": 57.23,
+        "disapprove_lo": 56.38,
+        "disapprove_hi": 58.05
       },
       {
         "as_of": "2026-06-15",
         "approve": 40.09,
         "approve_lo": 39.33,
         "approve_hi": 40.85,
-        "disapprove": 57.25,
-        "disapprove_lo": 56.29,
-        "disapprove_hi": 58.14
+        "disapprove": 57.26,
+        "disapprove_lo": 56.34,
+        "disapprove_hi": 58.12
       },
       {
         "as_of": "2026-06-16",
@@ -8260,7 +8260,7 @@
         "approve_lo": 39.3,
         "approve_hi": 40.84,
         "disapprove": 57.28,
-        "disapprove_lo": 56.36,
+        "disapprove_lo": 56.29,
         "disapprove_hi": 58.17
       },
       {
@@ -8268,27 +8268,27 @@
         "approve": 40.04,
         "approve_lo": 39.24,
         "approve_hi": 40.83,
-        "disapprove": 57.29,
-        "disapprove_lo": 56.36,
-        "disapprove_hi": 58.23
+        "disapprove": 57.3,
+        "disapprove_lo": 56.35,
+        "disapprove_hi": 58.2
       },
       {
         "as_of": "2026-06-18",
         "approve": 40.01,
         "approve_lo": 39.25,
         "approve_hi": 40.81,
-        "disapprove": 57.3,
-        "disapprove_lo": 56.38,
-        "disapprove_hi": 58.2
+        "disapprove": 57.31,
+        "disapprove_lo": 56.4,
+        "disapprove_hi": 58.22
       },
       {
         "as_of": "2026-06-19",
         "approve": 40.01,
         "approve_lo": 39.26,
         "approve_hi": 40.83,
-        "disapprove": 57.25,
-        "disapprove_lo": 56.39,
-        "disapprove_hi": 58.11
+        "disapprove": 57.26,
+        "disapprove_lo": 56.35,
+        "disapprove_hi": 58.18
       },
       {
         "as_of": "2026-06-20",
@@ -8296,8 +8296,8 @@
         "approve_lo": 39.26,
         "approve_hi": 40.86,
         "disapprove": 57.22,
-        "disapprove_lo": 56.33,
-        "disapprove_hi": 58.11
+        "disapprove_lo": 56.25,
+        "disapprove_hi": 58.13
       },
       {
         "as_of": "2026-06-21",
@@ -8305,107 +8305,107 @@
         "approve_lo": 39.22,
         "approve_hi": 40.86,
         "disapprove": 57.22,
-        "disapprove_lo": 56.25,
-        "disapprove_hi": 58.15
+        "disapprove_lo": 56.19,
+        "disapprove_hi": 58.2
       },
       {
         "as_of": "2026-06-22",
         "approve": 40.01,
         "approve_lo": 39.18,
         "approve_hi": 40.89,
-        "disapprove": 57.22,
-        "disapprove_lo": 56.18,
-        "disapprove_hi": 58.29
+        "disapprove": 57.23,
+        "disapprove_lo": 56.16,
+        "disapprove_hi": 58.28
       },
       {
         "as_of": "2026-06-23",
         "approve": 40.0,
         "approve_lo": 39.12,
         "approve_hi": 40.94,
-        "disapprove": 57.22,
-        "disapprove_lo": 56.1,
-        "disapprove_hi": 58.33
+        "disapprove": 57.23,
+        "disapprove_lo": 56.11,
+        "disapprove_hi": 58.34
       },
       {
         "as_of": "2026-06-24",
         "approve": 39.99,
         "approve_lo": 39.11,
         "approve_hi": 40.96,
-        "disapprove": 57.22,
-        "disapprove_lo": 55.99,
-        "disapprove_hi": 58.34
+        "disapprove": 57.24,
+        "disapprove_lo": 56.07,
+        "disapprove_hi": 58.36
       },
       {
         "as_of": "2026-06-25",
         "approve": 39.98,
         "approve_lo": 39.03,
         "approve_hi": 40.94,
-        "disapprove": 57.23,
-        "disapprove_lo": 55.95,
-        "disapprove_hi": 58.45
+        "disapprove": 57.25,
+        "disapprove_lo": 56.06,
+        "disapprove_hi": 58.5
       },
       {
         "as_of": "2026-06-26",
         "approve": 39.98,
         "approve_lo": 38.98,
         "approve_hi": 40.99,
-        "disapprove": 57.23,
-        "disapprove_lo": 55.97,
-        "disapprove_hi": 58.46
+        "disapprove": 57.25,
+        "disapprove_lo": 56.0,
+        "disapprove_hi": 58.54
       },
       {
         "as_of": "2026-06-27",
         "approve": 39.97,
         "approve_lo": 38.93,
         "approve_hi": 41.04,
-        "disapprove": 57.24,
-        "disapprove_lo": 55.98,
-        "disapprove_hi": 58.48
+        "disapprove": 57.26,
+        "disapprove_lo": 56.02,
+        "disapprove_hi": 58.55
       },
       {
         "as_of": "2026-06-28",
         "approve": 39.93,
         "approve_lo": 38.83,
         "approve_hi": 41.05,
-        "disapprove": 57.27,
-        "disapprove_lo": 55.92,
-        "disapprove_hi": 58.59
+        "disapprove": 57.29,
+        "disapprove_lo": 55.96,
+        "disapprove_hi": 58.67
       },
       {
         "as_of": "2026-06-29",
         "approve": 39.9,
         "approve_lo": 38.76,
         "approve_hi": 41.08,
-        "disapprove": 57.31,
-        "disapprove_lo": 55.87,
-        "disapprove_hi": 58.69
+        "disapprove": 57.32,
+        "disapprove_lo": 55.98,
+        "disapprove_hi": 58.77
       },
       {
         "as_of": "2026-06-30",
         "approve": 39.87,
         "approve_lo": 38.65,
         "approve_hi": 41.08,
-        "disapprove": 57.35,
-        "disapprove_lo": 55.86,
-        "disapprove_hi": 58.76
+        "disapprove": 57.36,
+        "disapprove_lo": 55.94,
+        "disapprove_hi": 58.87
       },
       {
         "as_of": "2026-07-01",
         "approve": 39.83,
         "approve_lo": 38.61,
         "approve_hi": 41.1,
-        "disapprove": 57.39,
-        "disapprove_lo": 55.85,
-        "disapprove_hi": 58.85
+        "disapprove": 57.4,
+        "disapprove_lo": 55.88,
+        "disapprove_hi": 58.92
       },
       {
         "as_of": "2026-07-02",
         "approve": 39.8,
         "approve_lo": 38.58,
         "approve_hi": 41.05,
-        "disapprove": 57.43,
-        "disapprove_lo": 55.85,
-        "disapprove_hi": 58.94
+        "disapprove": 57.44,
+        "disapprove_lo": 55.86,
+        "disapprove_hi": 59.04
       },
       {
         "as_of": "2026-07-03",
@@ -8413,8 +8413,8 @@
         "approve_lo": 38.52,
         "approve_hi": 41.07,
         "disapprove": 57.47,
-        "disapprove_lo": 55.89,
-        "disapprove_hi": 59.04
+        "disapprove_lo": 55.8,
+        "disapprove_hi": 59.08
       },
       {
         "as_of": "2026-07-04",
@@ -8422,26 +8422,26 @@
         "approve_lo": 38.44,
         "approve_hi": 41.09,
         "disapprove": 57.51,
-        "disapprove_lo": 55.88,
-        "disapprove_hi": 59.14
+        "disapprove_lo": 55.81,
+        "disapprove_hi": 59.2
       },
       {
         "as_of": "2026-07-05",
         "approve": 39.71,
         "approve_lo": 38.39,
         "approve_hi": 41.05,
-        "disapprove": 57.55,
-        "disapprove_lo": 55.87,
-        "disapprove_hi": 59.21
+        "disapprove": 57.54,
+        "disapprove_lo": 55.77,
+        "disapprove_hi": 59.25
       },
       {
         "as_of": "2026-07-06",
         "approve": 39.68,
         "approve_lo": 38.29,
         "approve_hi": 41.06,
-        "disapprove": 57.59,
-        "disapprove_lo": 55.89,
-        "disapprove_hi": 59.33
+        "disapprove": 57.58,
+        "disapprove_lo": 55.8,
+        "disapprove_hi": 59.35
       },
       {
         "as_of": "2026-07-07",
@@ -8449,8 +8449,8 @@
         "approve_lo": 38.24,
         "approve_hi": 41.05,
         "disapprove": 57.63,
-        "disapprove_lo": 55.9,
-        "disapprove_hi": 59.43
+        "disapprove_lo": 55.81,
+        "disapprove_hi": 59.46
       },
       {
         "as_of": "2026-07-08",
@@ -8459,7 +8459,7 @@
         "approve_hi": 41.07,
         "disapprove": 57.67,
         "disapprove_lo": 55.86,
-        "disapprove_hi": 59.54
+        "disapprove_hi": 59.51
       },
       {
         "as_of": "2026-07-09",
@@ -8468,276 +8468,276 @@
         "approve_hi": 41.1,
         "disapprove": 57.71,
         "disapprove_lo": 55.85,
-        "disapprove_hi": 59.61
+        "disapprove_hi": 59.58
       },
       {
         "as_of": "2026-07-10",
         "approve": 39.56,
         "approve_lo": 38.03,
         "approve_hi": 41.01,
-        "disapprove": 57.74,
-        "disapprove_lo": 55.85,
-        "disapprove_hi": 59.75
+        "disapprove": 57.75,
+        "disapprove_lo": 55.9,
+        "disapprove_hi": 59.61
       },
       {
         "as_of": "2026-07-11",
         "approve": 39.53,
         "approve_lo": 37.97,
         "approve_hi": 41.04,
-        "disapprove": 57.78,
-        "disapprove_lo": 55.84,
-        "disapprove_hi": 59.8
+        "disapprove": 57.79,
+        "disapprove_lo": 55.86,
+        "disapprove_hi": 59.65
       },
       {
         "as_of": "2026-07-12",
         "approve": 39.5,
         "approve_lo": 37.89,
         "approve_hi": 41.08,
-        "disapprove": 57.82,
-        "disapprove_lo": 55.85,
-        "disapprove_hi": 59.82
+        "disapprove": 57.83,
+        "disapprove_lo": 55.87,
+        "disapprove_hi": 59.75
       },
       {
         "as_of": "2026-07-13",
         "approve": 39.47,
         "approve_lo": 37.87,
         "approve_hi": 41.02,
-        "disapprove": 57.85,
-        "disapprove_lo": 55.8,
-        "disapprove_hi": 59.85
+        "disapprove": 57.86,
+        "disapprove_lo": 55.94,
+        "disapprove_hi": 59.81
       },
       {
         "as_of": "2026-07-14",
         "approve": 39.43,
         "approve_lo": 37.8,
         "approve_hi": 41.01,
-        "disapprove": 57.89,
-        "disapprove_lo": 55.89,
-        "disapprove_hi": 59.97
+        "disapprove": 57.91,
+        "disapprove_lo": 55.96,
+        "disapprove_hi": 59.79
       },
       {
         "as_of": "2026-07-15",
         "approve": 39.41,
         "approve_lo": 37.81,
         "approve_hi": 40.96,
-        "disapprove": 57.93,
-        "disapprove_lo": 55.86,
-        "disapprove_hi": 60.11
+        "disapprove": 57.94,
+        "disapprove_lo": 55.97,
+        "disapprove_hi": 59.98
       },
       {
         "as_of": "2026-07-16",
         "approve": 39.38,
         "approve_lo": 37.7,
         "approve_hi": 40.98,
-        "disapprove": 57.96,
-        "disapprove_lo": 55.88,
-        "disapprove_hi": 60.17
+        "disapprove": 57.98,
+        "disapprove_lo": 56.02,
+        "disapprove_hi": 59.94
       },
       {
         "as_of": "2026-07-17",
         "approve": 39.35,
         "approve_lo": 37.73,
         "approve_hi": 40.92,
-        "disapprove": 57.99,
-        "disapprove_lo": 55.96,
-        "disapprove_hi": 60.24
+        "disapprove": 58.02,
+        "disapprove_lo": 55.98,
+        "disapprove_hi": 60.1
       },
       {
         "as_of": "2026-07-18",
         "approve": 39.33,
         "approve_lo": 37.65,
         "approve_hi": 40.92,
-        "disapprove": 58.03,
-        "disapprove_lo": 55.98,
-        "disapprove_hi": 60.23
+        "disapprove": 58.06,
+        "disapprove_lo": 56.01,
+        "disapprove_hi": 60.04
       },
       {
         "as_of": "2026-07-19",
         "approve": 39.3,
         "approve_lo": 37.62,
         "approve_hi": 40.9,
-        "disapprove": 58.07,
-        "disapprove_lo": 55.96,
-        "disapprove_hi": 60.35
+        "disapprove": 58.09,
+        "disapprove_lo": 56.11,
+        "disapprove_hi": 60.11
       },
       {
         "as_of": "2026-07-20",
         "approve": 39.27,
         "approve_lo": 37.55,
         "approve_hi": 40.91,
-        "disapprove": 58.11,
-        "disapprove_lo": 55.96,
-        "disapprove_hi": 60.37
+        "disapprove": 58.13,
+        "disapprove_lo": 56.14,
+        "disapprove_hi": 60.23
       },
       {
         "as_of": "2026-07-21",
         "approve": 39.24,
         "approve_lo": 37.53,
         "approve_hi": 40.9,
-        "disapprove": 58.14,
-        "disapprove_lo": 56.03,
-        "disapprove_hi": 60.45
+        "disapprove": 58.19,
+        "disapprove_lo": 56.23,
+        "disapprove_hi": 60.28
       },
       {
         "as_of": "2026-07-22",
         "approve": 39.21,
         "approve_lo": 37.45,
         "approve_hi": 40.87,
-        "disapprove": 58.18,
-        "disapprove_lo": 56.04,
-        "disapprove_hi": 60.46
+        "disapprove": 58.23,
+        "disapprove_lo": 56.26,
+        "disapprove_hi": 60.31
       },
       {
         "as_of": "2026-07-23",
         "approve": 39.18,
         "approve_lo": 37.41,
         "approve_hi": 40.84,
-        "disapprove": 58.22,
-        "disapprove_lo": 56.05,
-        "disapprove_hi": 60.41
+        "disapprove": 58.27,
+        "disapprove_lo": 56.26,
+        "disapprove_hi": 60.3
       },
       {
         "as_of": "2026-07-24",
         "approve": 39.14,
         "approve_lo": 37.32,
         "approve_hi": 40.87,
-        "disapprove": 58.25,
-        "disapprove_lo": 56.09,
-        "disapprove_hi": 60.52
+        "disapprove": 58.3,
+        "disapprove_lo": 56.23,
+        "disapprove_hi": 60.38
       },
       {
         "as_of": "2026-07-25",
         "approve": 39.12,
         "approve_lo": 37.33,
         "approve_hi": 40.82,
-        "disapprove": 58.29,
-        "disapprove_lo": 56.06,
-        "disapprove_hi": 60.61
+        "disapprove": 58.34,
+        "disapprove_lo": 56.29,
+        "disapprove_hi": 60.45
       },
       {
         "as_of": "2026-07-26",
         "approve": 39.11,
         "approve_lo": 37.27,
         "approve_hi": 40.8,
-        "disapprove": 58.32,
-        "disapprove_lo": 56.18,
-        "disapprove_hi": 60.63
+        "disapprove": 58.36,
+        "disapprove_lo": 56.33,
+        "disapprove_hi": 60.49
       },
       {
         "as_of": "2026-07-27",
         "approve": 39.09,
         "approve_lo": 37.28,
         "approve_hi": 40.84,
-        "disapprove": 58.33,
-        "disapprove_lo": 56.15,
-        "disapprove_hi": 60.59
+        "disapprove": 58.38,
+        "disapprove_lo": 56.28,
+        "disapprove_hi": 60.53
       },
       {
         "as_of": "2026-07-28",
         "approve": 39.07,
         "approve_lo": 37.2,
         "approve_hi": 40.86,
-        "disapprove": 58.35,
-        "disapprove_lo": 56.18,
-        "disapprove_hi": 60.7
+        "disapprove": 58.4,
+        "disapprove_lo": 56.22,
+        "disapprove_hi": 60.57
       },
       {
         "as_of": "2026-07-29",
         "approve": 39.05,
         "approve_lo": 37.23,
         "approve_hi": 40.84,
-        "disapprove": 58.37,
-        "disapprove_lo": 56.14,
-        "disapprove_hi": 60.72
+        "disapprove": 58.42,
+        "disapprove_lo": 56.2,
+        "disapprove_hi": 60.54
       },
       {
         "as_of": "2026-07-30",
         "approve": 39.03,
         "approve_lo": 37.12,
         "approve_hi": 40.86,
-        "disapprove": 58.38,
-        "disapprove_lo": 56.19,
-        "disapprove_hi": 60.68
+        "disapprove": 58.44,
+        "disapprove_lo": 56.25,
+        "disapprove_hi": 60.67
       },
       {
         "as_of": "2026-07-31",
         "approve": 39.01,
         "approve_lo": 37.09,
         "approve_hi": 40.88,
-        "disapprove": 58.4,
-        "disapprove_lo": 56.17,
-        "disapprove_hi": 60.76
+        "disapprove": 58.46,
+        "disapprove_lo": 56.3,
+        "disapprove_hi": 60.66
       },
       {
         "as_of": "2026-08-01",
         "approve": 38.99,
         "approve_lo": 37.04,
         "approve_hi": 40.86,
-        "disapprove": 58.41,
-        "disapprove_lo": 56.2,
-        "disapprove_hi": 60.85
+        "disapprove": 58.48,
+        "disapprove_lo": 56.29,
+        "disapprove_hi": 60.76
       },
       {
         "as_of": "2026-08-02",
         "approve": 38.98,
         "approve_lo": 37.04,
         "approve_hi": 40.87,
-        "disapprove": 58.42,
-        "disapprove_lo": 56.19,
-        "disapprove_hi": 60.77
+        "disapprove": 58.5,
+        "disapprove_lo": 56.23,
+        "disapprove_hi": 60.82
       },
       {
         "as_of": "2026-08-03",
         "approve": 38.96,
         "approve_lo": 37.05,
         "approve_hi": 40.89,
-        "disapprove": 58.43,
-        "disapprove_lo": 56.22,
-        "disapprove_hi": 60.82
+        "disapprove": 58.52,
+        "disapprove_lo": 56.3,
+        "disapprove_hi": 60.8
       },
       {
         "as_of": "2026-08-04",
         "approve": 38.94,
         "approve_lo": 36.98,
         "approve_hi": 40.89,
-        "disapprove": 58.45,
-        "disapprove_lo": 56.21,
-        "disapprove_hi": 60.85
+        "disapprove": 58.54,
+        "disapprove_lo": 56.33,
+        "disapprove_hi": 60.81
       },
       {
         "as_of": "2026-08-05",
         "approve": 38.93,
         "approve_lo": 36.92,
         "approve_hi": 40.88,
-        "disapprove": 58.47,
-        "disapprove_lo": 56.17,
-        "disapprove_hi": 60.85
+        "disapprove": 58.56,
+        "disapprove_lo": 56.3,
+        "disapprove_hi": 60.82
       },
       {
         "as_of": "2026-08-06",
         "approve": 38.91,
         "approve_lo": 36.91,
         "approve_hi": 40.88,
-        "disapprove": 58.49,
-        "disapprove_lo": 56.15,
-        "disapprove_hi": 60.93
+        "disapprove": 58.57,
+        "disapprove_lo": 56.31,
+        "disapprove_hi": 60.92
       },
       {
         "as_of": "2026-08-07",
         "approve": 38.89,
         "approve_lo": 36.9,
         "approve_hi": 40.89,
-        "disapprove": 58.51,
-        "disapprove_lo": 56.17,
-        "disapprove_hi": 60.91
+        "disapprove": 58.58,
+        "disapprove_lo": 56.37,
+        "disapprove_hi": 60.94
       },
       {
         "as_of": "2026-08-08",
         "approve": 38.87,
         "approve_lo": 36.92,
         "approve_hi": 40.87,
-        "disapprove": 58.53,
-        "disapprove_lo": 56.24,
+        "disapprove": 58.6,
+        "disapprove_lo": 56.38,
         "disapprove_hi": 60.95
       },
       {
@@ -8745,81 +8745,81 @@
         "approve": 38.85,
         "approve_lo": 36.87,
         "approve_hi": 40.8,
-        "disapprove": 58.55,
-        "disapprove_lo": 56.29,
-        "disapprove_hi": 61.01
+        "disapprove": 58.62,
+        "disapprove_lo": 56.4,
+        "disapprove_hi": 60.95
       },
       {
         "as_of": "2026-08-10",
         "approve": 38.83,
         "approve_lo": 36.85,
         "approve_hi": 40.77,
-        "disapprove": 58.57,
-        "disapprove_lo": 56.32,
-        "disapprove_hi": 60.98
+        "disapprove": 58.64,
+        "disapprove_lo": 56.42,
+        "disapprove_hi": 60.96
       },
       {
         "as_of": "2026-08-11",
         "approve": 38.82,
         "approve_lo": 36.82,
         "approve_hi": 40.76,
-        "disapprove": 58.58,
-        "disapprove_lo": 56.37,
-        "disapprove_hi": 61.01
+        "disapprove": 58.66,
+        "disapprove_lo": 56.4,
+        "disapprove_hi": 60.95
       },
       {
         "as_of": "2026-08-12",
         "approve": 38.8,
         "approve_lo": 36.82,
         "approve_hi": 40.77,
-        "disapprove": 58.59,
-        "disapprove_lo": 56.39,
-        "disapprove_hi": 61.05
+        "disapprove": 58.67,
+        "disapprove_lo": 56.49,
+        "disapprove_hi": 60.98
       },
       {
         "as_of": "2026-08-13",
         "approve": 38.78,
         "approve_lo": 36.79,
         "approve_hi": 40.78,
-        "disapprove": 58.61,
-        "disapprove_lo": 56.34,
-        "disapprove_hi": 61.06
+        "disapprove": 58.69,
+        "disapprove_lo": 56.52,
+        "disapprove_hi": 61.0
       },
       {
         "as_of": "2026-08-14",
         "approve": 38.76,
         "approve_lo": 36.82,
         "approve_hi": 40.73,
-        "disapprove": 58.62,
-        "disapprove_lo": 56.35,
-        "disapprove_hi": 60.99
+        "disapprove": 58.71,
+        "disapprove_lo": 56.52,
+        "disapprove_hi": 60.97
       },
       {
         "as_of": "2026-08-15",
         "approve": 38.74,
         "approve_lo": 36.81,
         "approve_hi": 40.75,
-        "disapprove": 58.64,
-        "disapprove_lo": 56.32,
-        "disapprove_hi": 60.96
+        "disapprove": 58.73,
+        "disapprove_lo": 56.45,
+        "disapprove_hi": 61.05
       },
       {
         "as_of": "2026-08-16",
         "approve": 38.72,
         "approve_lo": 36.75,
         "approve_hi": 40.69,
-        "disapprove": 58.66,
-        "disapprove_lo": 56.41,
-        "disapprove_hi": 60.95
+        "disapprove": 58.75,
+        "disapprove_lo": 56.46,
+        "disapprove_hi": 60.98
       },
       {
         "as_of": "2026-08-17",
         "approve": 38.69,
         "approve_lo": 36.74,
         "approve_hi": 40.72,
-        "disapprove": 58.68,
-        "disapprove_lo": 56.45,
-        "disapprove_hi": 60.93
+        "disapprove": 58.77,
+        "disapprove_lo": 56.49,
+        "disapprove_hi": 60.99
       }
     ],
     "house_effects": [
