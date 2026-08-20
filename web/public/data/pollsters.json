@@ -385,7 +385,7 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 21,
+      "num_polls": 22,
       "polls": [
         {
           "pollster": "Susquehanna Polling & Research (R)",
@@ -400,6 +400,22 @@
           "rep_candidate": "Mike Rogers",
           "dem_pct": null,
           "rep_pct": 39.0,
+          "margin": null,
+          "partisan": false
+        },
+        {
+          "pollster": "Fabrizio Ward (R)/ Impact Research (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-09",
+          "end_date": "2026-08-11",
+          "sample_size": 877,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 47.0,
           "margin": null,
           "partisan": false
         },
