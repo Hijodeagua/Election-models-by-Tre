@@ -1273,8 +1273,24 @@
     {
       "state": "New Hampshire",
       "abbr": "NH",
-      "num_polls": 13,
+      "num_polls": 14,
       "polls": [
+        {
+          "pollster": "Saint Anselm College",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-17",
+          "end_date": "2026-08-18",
+          "sample_size": 1411,
+          "population": "lv",
+          "dem_candidate": "Chris Pappas",
+          "rep_candidate": "Scott Brown",
+          "dem_pct": 49.0,
+          "rep_pct": 37.0,
+          "margin": 12.0,
+          "partisan": false
+        },
         {
           "pollster": "Saint Anselm College",
           "rated": false,
