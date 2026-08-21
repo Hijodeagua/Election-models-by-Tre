@@ -745,8 +745,24 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 26,
+      "num_polls": 27,
       "polls": [
+        {
+          "pollster": "High Point University/YouGov",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-03",
+          "end_date": "2026-08-12",
+          "sample_size": 660,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 50.0,
+          "rep_pct": 45.0,
+          "margin": 5.0,
+          "partisan": false
+        },
         {
           "pollster": "Harper Polling (R)",
           "rated": false,
