@@ -1817,8 +1817,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 25,
+      "num_polls": 26,
       "polls": [
+        {
+          "pollster": "University of Texas/Texas Politics Project",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-05",
+          "end_date": "2026-08-13",
+          "sample_size": 1200,
+          "population": "rv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 42.0,
+          "rep_pct": 39.0,
+          "margin": 3.0,
+          "partisan": false
+        },
         {
           "pollster": "Emerson College",
           "rated": true,

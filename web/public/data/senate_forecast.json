@@ -1,20 +1,20 @@
 {
   "as_of": "2026-08-25",
   "num_simulations": 50000,
-  "dem_control_prob": 0.32,
-  "mean_dem_seats": 49.28,
+  "dem_control_prob": 0.3241,
+  "mean_dem_seats": 49.3,
   "median_dem_seats": 49.0,
   "seat_distribution": {
-    "44": 694,
-    "45": 1881,
-    "46": 3295,
-    "47": 4824,
-    "48": 6597,
-    "49": 8035,
-    "50": 8674,
-    "51": 7941,
-    "52": 5613,
-    "53": 2446
+    "44": 686,
+    "45": 1861,
+    "46": 3247,
+    "47": 4782,
+    "48": 6548,
+    "49": 8030,
+    "50": 8643,
+    "51": 8007,
+    "52": 5698,
+    "53": 2498
   },
   "races": [
     {
@@ -59,14 +59,14 @@
       "margin": 8.242,
       "num_polls": 27,
       "dem_win_prob_polls": 0.9469,
-      "dem_win_prob_blended": 0.7161,
+      "dem_win_prob_blended": 0.7218,
       "market_dem_prob": {
-        "polymarket": 0.024
+        "polymarket": 0.0465
       },
-      "dem_win_prob_sim": 0.7165,
-      "median_margin": 2.58,
-      "margin_p10": -3.62,
-      "margin_p90": 8.72
+      "dem_win_prob_sim": 0.7221,
+      "median_margin": 2.65,
+      "margin_p10": -3.54,
+      "margin_p90": 8.8
     },
     {
       "state": "Maine",
@@ -110,31 +110,31 @@
       "margin": 3.959,
       "num_polls": 18,
       "dem_win_prob_polls": 0.806,
-      "dem_win_prob_blended": 0.617,
+      "dem_win_prob_blended": 0.6182,
       "market_dem_prob": {
-        "polymarket": 0.05
+        "polymarket": 0.055
       },
-      "dem_win_prob_sim": 0.6198,
-      "median_margin": 1.34,
-      "margin_p10": -4.84,
-      "margin_p90": 7.53
+      "dem_win_prob_sim": 0.6209,
+      "median_margin": 1.35,
+      "margin_p10": -4.82,
+      "margin_p90": 7.55
     },
     {
       "state": "Texas",
       "race": "Texas Senate 2026",
       "dem_candidate": "James Talarico",
       "rep_candidate": "Ken Paxton",
-      "margin": 1.12,
-      "num_polls": 25,
-      "dem_win_prob_polls": 0.6001,
-      "dem_win_prob_blended": 0.4529,
+      "margin": 1.315,
+      "num_polls": 26,
+      "dem_win_prob_polls": 0.6169,
+      "dem_win_prob_blended": 0.4655,
       "market_dem_prob": {
         "polymarket": 0.0115
       },
-      "dem_win_prob_sim": 0.4515,
-      "median_margin": -0.53,
-      "margin_p10": -6.61,
-      "margin_p90": 5.68
+      "dem_win_prob_sim": 0.4641,
+      "median_margin": -0.39,
+      "margin_p10": -6.47,
+      "margin_p90": 5.82
     },
     {
       "state": "Iowa",
@@ -184,8 +184,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.32,
-  "mean_dem_seats_with_vibes": 49.28,
+  "dem_control_prob_with_vibes": 0.3241,
+  "mean_dem_seats_with_vibes": 49.3,
   "national_environment": {
     "national_swing": 8.716,
     "available": true,
