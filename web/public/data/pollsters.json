@@ -1289,8 +1289,24 @@
     {
       "state": "New Hampshire",
       "abbr": "NH",
-      "num_polls": 14,
+      "num_polls": 15,
       "polls": [
+        {
+          "pollster": "University of New Hampshire",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-20",
+          "end_date": "2026-08-24",
+          "sample_size": 1878,
+          "population": "lv",
+          "dem_candidate": "Chris Pappas",
+          "rep_candidate": "Scott Brown",
+          "dem_pct": 45.0,
+          "rep_pct": 40.0,
+          "margin": 5.0,
+          "partisan": false
+        },
         {
           "pollster": "Saint Anselm College",
           "rated": false,
@@ -2241,8 +2257,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 9,
+      "num_polls": 10,
       "polls": [
+        {
+          "pollster": "Suffolk University",
+          "rated": true,
+          "grade": "A-",
+          "quality": 1.708,
+          "start_date": "2026-08-20",
+          "end_date": "2026-08-23",
+          "sample_size": 500,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 41.0,
+          "rep_pct": 45.0,
+          "margin": -4.0,
+          "partisan": false
+        },
         {
           "pollster": "Emerson College",
           "rated": true,

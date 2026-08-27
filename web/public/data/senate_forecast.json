@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-08-26",
+  "as_of": "2026-08-27",
   "num_simulations": 50000,
-  "dem_control_prob": 0.3101,
-  "mean_dem_seats": 49.23,
+  "dem_control_prob": 0.2953,
+  "mean_dem_seats": 49.16,
   "median_dem_seats": 49.0,
   "seat_distribution": {
-    "44": 719,
-    "45": 1927,
-    "46": 3349,
-    "47": 4970,
-    "48": 6689,
-    "49": 8159,
-    "50": 8681,
-    "51": 7918,
-    "52": 5332,
-    "53": 2256
+    "44": 747,
+    "45": 1998,
+    "46": 3467,
+    "47": 5104,
+    "48": 6846,
+    "49": 8253,
+    "50": 8819,
+    "51": 7795,
+    "52": 5093,
+    "53": 1878
   },
   "races": [
     {
@@ -59,14 +59,14 @@
       "margin": 8.179,
       "num_polls": 27,
       "dem_win_prob_polls": 0.9458,
-      "dem_win_prob_blended": 0.721,
+      "dem_win_prob_blended": 0.7197,
       "market_dem_prob": {
-        "polymarket": 0.0465
+        "polymarket": 0.0415
       },
-      "dem_win_prob_sim": 0.7214,
-      "median_margin": 2.64,
-      "margin_p10": -3.55,
-      "margin_p90": 8.79
+      "dem_win_prob_sim": 0.7204,
+      "median_margin": 2.63,
+      "margin_p10": -3.57,
+      "margin_p90": 8.77
     },
     {
       "state": "Maine",
@@ -76,31 +76,31 @@
       "margin": 7.047,
       "num_polls": 6,
       "dem_win_prob_polls": 0.9233,
-      "dem_win_prob_blended": 0.7014,
+      "dem_win_prob_blended": 0.699,
       "market_dem_prob": {
-        "polymarket": 0.0355
+        "polymarket": 0.026
       },
-      "dem_win_prob_sim": 0.7012,
-      "median_margin": 2.36,
-      "margin_p10": -3.78,
-      "margin_p90": 8.56
+      "dem_win_prob_sim": 0.6985,
+      "median_margin": 2.33,
+      "margin_p10": -3.81,
+      "margin_p90": 8.53
     },
     {
       "state": "New Hampshire",
       "race": "New Hampshire Senate 2026",
       "dem_candidate": "Chris Pappas",
       "rep_candidate": "Scott Brown",
-      "margin": 12.172,
-      "num_polls": 14,
-      "dem_win_prob_polls": 0.9832,
-      "dem_win_prob_blended": 0.748,
+      "margin": 8.757,
+      "num_polls": 15,
+      "dem_win_prob_polls": 0.9546,
+      "dem_win_prob_blended": 0.7266,
       "market_dem_prob": {
         "polymarket": 0.0425
       },
-      "dem_win_prob_sim": 0.7487,
-      "median_margin": 3.04,
-      "margin_p10": -3.17,
-      "margin_p90": 9.23
+      "dem_win_prob_sim": 0.7273,
+      "median_margin": 2.73,
+      "margin_p10": -3.48,
+      "margin_p90": 8.92
     },
     {
       "state": "Ohio",
@@ -141,17 +141,17 @@
       "race": "Iowa Senate 2026",
       "dem_candidate": "Josh Turek",
       "rep_candidate": "Ashley Hinson",
-      "margin": -2.464,
-      "num_polls": 9,
-      "dem_win_prob_polls": 0.291,
-      "dem_win_prob_blended": 0.2191,
+      "margin": -3.352,
+      "num_polls": 10,
+      "dem_win_prob_polls": 0.23,
+      "dem_win_prob_blended": 0.1734,
       "market_dem_prob": {
         "polymarket": 0.0035
       },
-      "dem_win_prob_sim": 0.2179,
-      "median_margin": -3.54,
-      "margin_p10": -9.7,
-      "margin_p90": 2.63
+      "dem_win_prob_sim": 0.1723,
+      "median_margin": -4.37,
+      "margin_p10": -10.52,
+      "margin_p90": 1.8
     },
     {
       "state": "Alaska",
@@ -178,14 +178,14 @@
   "bias": 0.0,
   "tail_dof": 5,
   "market_control_dem_prob": {
-    "polymarket": 0.495
+    "polymarket": 0.505
   },
   "maturity": "nowcast",
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.3101,
-  "mean_dem_seats_with_vibes": 49.23,
+  "dem_control_prob_with_vibes": 0.2953,
+  "mean_dem_seats_with_vibes": 49.16,
   "national_environment": {
     "national_swing": 8.092,
     "available": true,
