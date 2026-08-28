@@ -1,20 +1,20 @@
 {
   "as_of": "2026-08-28",
   "num_simulations": 50000,
-  "dem_control_prob": 0.3184,
+  "dem_control_prob": 0.3187,
   "mean_dem_seats": 49.26,
   "median_dem_seats": 49.0,
   "seat_distribution": {
-    "44": 705,
-    "45": 1897,
-    "46": 3309,
-    "47": 4852,
+    "44": 704,
+    "45": 1888,
+    "46": 3311,
+    "47": 4849,
     "48": 6579,
-    "49": 7984,
-    "50": 8756,
-    "51": 8227,
+    "49": 7975,
+    "50": 8761,
+    "51": 8241,
     "52": 5619,
-    "53": 2072
+    "53": 2073
   },
   "races": [
     {
@@ -25,14 +25,14 @@
       "margin": 7.196,
       "num_polls": 11,
       "dem_win_prob_polls": 0.9268,
-      "dem_win_prob_blended": 0.7113,
+      "dem_win_prob_blended": 0.7126,
       "market_dem_prob": {
-        "polymarket": 0.065
+        "polymarket": 0.07
       },
-      "dem_win_prob_sim": 0.7131,
-      "median_margin": 2.55,
-      "margin_p10": -3.59,
-      "margin_p90": 8.67
+      "dem_win_prob_sim": 0.7147,
+      "median_margin": 2.57,
+      "margin_p10": -3.57,
+      "margin_p90": 8.69
     },
     {
       "state": "Michigan",
@@ -184,7 +184,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.3184,
+  "dem_control_prob_with_vibes": 0.3187,
   "mean_dem_seats_with_vibes": 49.26,
   "national_environment": {
     "national_swing": 8.416,
