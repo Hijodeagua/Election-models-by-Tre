@@ -175,15 +175,15 @@
       },
       "market_odds": {
         "polymarket": {
-          "Republican": 0.06,
-          "Democrat": 0.075
+          "Republican": 0.07,
+          "Democrat": 0.08
         }
       },
       "forecast": {
-        "dem_win_prob": 0.7159,
-        "median_margin": 2.58,
-        "margin_p10": -3.56,
-        "margin_p90": 8.7,
+        "dem_win_prob": 0.7171,
+        "median_margin": 2.6,
+        "margin_p10": -3.54,
+        "margin_p90": 8.72,
         "num_simulations": 50000,
         "margin_hist": [
           {
@@ -212,7 +212,7 @@
           },
           {
             "mid": -17.0,
-            "pct": 0.00122
+            "pct": 0.0012
           },
           {
             "mid": -15.0,
@@ -224,7 +224,7 @@
           },
           {
             "mid": -11.0,
-            "pct": 0.00636
+            "pct": 0.00624
           },
           {
             "mid": -9.0,
@@ -232,59 +232,59 @@
           },
           {
             "mid": -7.0,
-            "pct": 0.01998
+            "pct": 0.01992
           },
           {
             "mid": -5.0,
-            "pct": 0.04138
+            "pct": 0.04136
           },
           {
             "mid": -3.0,
-            "pct": 0.0734
+            "pct": 0.0728
           },
           {
             "mid": -1.0,
-            "pct": 0.12308
+            "pct": 0.12276
           },
           {
             "mid": 1.0,
-            "pct": 0.16354
+            "pct": 0.16306
           },
           {
             "mid": 3.0,
-            "pct": 0.1779
+            "pct": 0.17786
           },
           {
             "mid": 5.0,
-            "pct": 0.1478
+            "pct": 0.14832
           },
           {
             "mid": 7.0,
-            "pct": 0.10192
+            "pct": 0.10218
           },
           {
             "mid": 9.0,
-            "pct": 0.05728
+            "pct": 0.05784
           },
           {
             "mid": 11.0,
-            "pct": 0.03174
+            "pct": 0.03162
           },
           {
             "mid": 13.0,
-            "pct": 0.01588
+            "pct": 0.01616
           },
           {
             "mid": 15.0,
-            "pct": 0.00838
+            "pct": 0.00848
           },
           {
             "mid": 17.0,
-            "pct": 0.00492
+            "pct": 0.00494
           },
           {
             "mid": 19.0,
-            "pct": 0.00218
+            "pct": 0.00222
           },
           {
             "mid": 21.0,
@@ -332,7 +332,7 @@
       },
       "market_odds": {
         "polymarket": {
-          "Republican": 0.16,
+          "Republican": 0.165,
           "Democrat": 0.003
         }
       },
@@ -627,11 +627,11 @@
       "state": "Michigan",
       "as_of": "2026-08-29",
       "candidates": {
-        "Abdul El-Sayed": 45.8,
-        "Mike Rogers": 44.2
+        "Abdul El-Sayed": 46.6,
+        "Mike Rogers": 44.4
       },
-      "margin": 1.6,
-      "num_polls": 22,
+      "margin": 2.2,
+      "num_polls": 23,
       "rating": null,
       "dem_candidate": "Haley Stevens",
       "rep_candidate": "Mike Rogers",

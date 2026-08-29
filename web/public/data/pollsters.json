@@ -385,8 +385,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 22,
+      "num_polls": 23,
       "polls": [
+        {
+          "pollster": "EPIC-MRA",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-22",
+          "end_date": "2026-08-28",
+          "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 45.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Susquehanna Polling & Research (R)",
           "rated": false,

@@ -1,19 +1,19 @@
 {
   "as_of": "2026-08-29",
   "num_simulations": 50000,
-  "dem_control_prob": 0.3184,
+  "dem_control_prob": 0.3185,
   "mean_dem_seats": 49.26,
   "median_dem_seats": 49.0,
   "seat_distribution": {
-    "44": 706,
-    "45": 1895,
-    "46": 3310,
-    "47": 4861,
-    "48": 6583,
-    "49": 7972,
-    "50": 8754,
+    "44": 705,
+    "45": 1894,
+    "46": 3301,
+    "47": 4862,
+    "48": 6582,
+    "49": 7971,
+    "50": 8761,
     "51": 8243,
-    "52": 5604,
+    "52": 5609,
     "53": 2072
   },
   "races": [
@@ -25,14 +25,14 @@
       "margin": 7.196,
       "num_polls": 11,
       "dem_win_prob_polls": 0.9268,
-      "dem_win_prob_blended": 0.7138,
+      "dem_win_prob_blended": 0.7151,
       "market_dem_prob": {
-        "polymarket": 0.075
+        "polymarket": 0.08
       },
-      "dem_win_prob_sim": 0.7159,
-      "median_margin": 2.58,
-      "margin_p10": -3.56,
-      "margin_p90": 8.7
+      "dem_win_prob_sim": 0.7171,
+      "median_margin": 2.6,
+      "margin_p10": -3.54,
+      "margin_p90": 8.72
     },
     {
       "state": "Michigan",
@@ -40,7 +40,7 @@
       "dem_candidate": "Haley Stevens",
       "rep_candidate": "Mike Rogers",
       "margin": 8.066,
-      "num_polls": 22,
+      "num_polls": 23,
       "dem_win_prob_polls": 0.9439,
       "dem_win_prob_blended": 0.7146,
       "market_dem_prob": {
@@ -184,7 +184,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.3184,
+  "dem_control_prob_with_vibes": 0.3185,
   "mean_dem_seats_with_vibes": 49.26,
   "national_environment": {
     "national_swing": 8.416,
