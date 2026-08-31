@@ -2289,8 +2289,40 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 10,
+      "num_polls": 12,
       "polls": [
+        {
+          "pollster": "Wedgewood Polls",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-27",
+          "end_date": "2026-08-29",
+          "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 48.0,
+          "rep_pct": 50.0,
+          "margin": -2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Abacus Data (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-29",
+          "end_date": "2026-08-29",
+          "sample_size": 2500,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 54.0,
+          "rep_pct": 45.0,
+          "margin": 9.0,
+          "partisan": false
+        },
         {
           "pollster": "Suffolk University",
           "rated": true,

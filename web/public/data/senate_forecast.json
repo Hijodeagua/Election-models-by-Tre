@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-08-30",
+  "as_of": "2026-08-31",
   "num_simulations": 50000,
-  "dem_control_prob": 0.3185,
-  "mean_dem_seats": 49.26,
-  "median_dem_seats": 49.0,
+  "dem_control_prob": 0.3856,
+  "mean_dem_seats": 49.57,
+  "median_dem_seats": 50.0,
   "seat_distribution": {
-    "44": 705,
-    "45": 1891,
-    "46": 3308,
-    "47": 4861,
-    "48": 6577,
-    "49": 7975,
-    "50": 8760,
-    "51": 8241,
-    "52": 5609,
-    "53": 2073
+    "44": 643,
+    "45": 1704,
+    "46": 2993,
+    "47": 4298,
+    "48": 5872,
+    "49": 7110,
+    "50": 8101,
+    "51": 8126,
+    "52": 6970,
+    "53": 4183
   },
   "races": [
     {
@@ -93,13 +93,13 @@
       "margin": 8.811,
       "num_polls": 15,
       "dem_win_prob_polls": 0.9553,
-      "dem_win_prob_blended": 0.726,
+      "dem_win_prob_blended": 0.7256,
       "market_dem_prob": {
-        "polymarket": 0.038
+        "polymarket": 0.0365
       },
-      "dem_win_prob_sim": 0.7267,
-      "median_margin": 2.72,
-      "margin_p10": -3.48,
+      "dem_win_prob_sim": 0.7263,
+      "median_margin": 2.71,
+      "margin_p10": -3.49,
       "margin_p90": 8.91
     },
     {
@@ -110,9 +110,9 @@
       "margin": 3.917,
       "num_polls": 18,
       "dem_win_prob_polls": 0.8036,
-      "dem_win_prob_blended": 0.6116,
+      "dem_win_prob_blended": 0.6115,
       "market_dem_prob": {
-        "polymarket": 0.0355
+        "polymarket": 0.035
       },
       "dem_win_prob_sim": 0.6143,
       "median_margin": 1.27,
@@ -127,11 +127,11 @@
       "margin": 2.472,
       "num_polls": 27,
       "dem_win_prob_polls": 0.7096,
-      "dem_win_prob_blended": 0.5351,
+      "dem_win_prob_blended": 0.5352,
       "market_dem_prob": {
-        "polymarket": 0.0115
+        "polymarket": 0.012
       },
-      "dem_win_prob_sim": 0.5333,
+      "dem_win_prob_sim": 0.5334,
       "median_margin": 0.38,
       "margin_p10": -5.7,
       "margin_p90": 6.59
@@ -141,17 +141,17 @@
       "race": "Iowa Senate 2026",
       "dem_candidate": "Josh Turek",
       "rep_candidate": "Ashley Hinson",
-      "margin": -3.277,
-      "num_polls": 10,
-      "dem_win_prob_polls": 0.2347,
-      "dem_win_prob_blended": 0.1768,
+      "margin": 1.693,
+      "num_polls": 12,
+      "dem_win_prob_polls": 0.6486,
+      "dem_win_prob_blended": 0.4874,
       "market_dem_prob": {
-        "polymarket": 0.003
+        "polymarket": 0.004
       },
-      "dem_win_prob_sim": 0.1756,
-      "median_margin": -4.3,
-      "margin_p10": -10.45,
-      "margin_p90": 1.87
+      "dem_win_prob_sim": 0.4853,
+      "median_margin": -0.15,
+      "margin_p10": -6.31,
+      "margin_p90": 6.01
     },
     {
       "state": "Alaska",
@@ -184,8 +184,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.3185,
-  "mean_dem_seats_with_vibes": 49.26,
+  "dem_control_prob_with_vibes": 0.3856,
+  "mean_dem_seats_with_vibes": 49.57,
   "national_environment": {
     "national_swing": 8.416,
     "available": true,
