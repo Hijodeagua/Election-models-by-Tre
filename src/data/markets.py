@@ -170,6 +170,14 @@ def _with_complement(odds: MarketOdds) -> list[MarketOdds]:
     return [odds, complement]
 
 
+# Event titles/slugs containing these tokens are derivative markets (margin
+# buckets, vote-share ranges, ...) whose per-outcome prices are NOT win
+# probabilities. Search results routinely rank them above the winner market,
+# which once poisoned the Senate blend with 3–7% "win odds" in races the
+# polls had at 90%+.
+NON_WINNER_EVENT_TOKENS = ("margin", "vote share", "spread", "by how much")
+
+
 class PolymarketClient:
     """Read-only Gamma API client. No key required.
 
@@ -216,40 +224,76 @@ class PolymarketClient:
         events = payload.get("events") or [] if isinstance(payload, dict) else []
         for event in events:
             title = str(event.get("title", ""))
+            slug = str(event.get("slug", ""))
             if not all(tok in title.lower() for tok in required_tokens):
                 continue
-            slug = event.get("slug", "")
+            if any(tok in f"{title} {slug}".lower() for tok in NON_WINNER_EVENT_TOKENS):
+                logger.info("polymarket: skipping non-winner event %r for %s", title, race)
+                continue
             url = f"https://polymarket.com/event/{slug}" if slug else None
-            odds: list[MarketOdds] = []
-            for market in event.get("markets") or []:
-                outcomes = _json_list(market.get("outcomes"))
-                prices = _json_list(market.get("outcomePrices"))
-                question = str(market.get("question", ""))
-                for outcome, price in zip(outcomes, prices, strict=False):
-                    try:
-                        prob = float(price)
-                    except (TypeError, ValueError):
-                        continue
-                    # "Democrat"/"Republican" outcome labels, or Yes/No
-                    # markets whose question names the party.
-                    party = _party_from_text(str(outcome)) or (
-                        _party_from_text(question) if str(outcome) == "Yes" else None
-                    )
-                    if party is None:
-                        continue
-                    odds.append(
-                        MarketOdds(
-                            as_of=as_of,
-                            source=self.name,
-                            race=race,
-                            outcome=party,
-                            probability=round(prob, 4),
-                            url=url,
-                        )
-                    )
-            if odds:
-                return odds  # first matching event wins
+            party_probs = self._winner_probs(event)
+            if party_probs is None:
+                continue
+            odds = [
+                MarketOdds(
+                    as_of=as_of,
+                    source=self.name,
+                    race=race,
+                    outcome=party,
+                    probability=round(prob, 4),
+                    url=url,
+                )
+                for party, prob in party_probs.items()
+            ]
+            if len(odds) == 1:
+                odds = _with_complement(odds[0])
+            return odds  # first *winner-shaped* matching event wins
         return []
+
+    @staticmethod
+    def _winner_probs(event: dict[str, Any]) -> dict[str, float] | None:
+        """Extract per-party win probabilities, or None if the event isn't a
+        winner market.
+
+        A winner event prices each party exactly once. Derivative events
+        (margin-of-victory and similar) price the same party across many
+        bucket sub-markets, so a repeated party means the prices are bucket
+        probabilities and the whole event must be rejected. As a final guard,
+        a two-party result must sum to ≈1 like real winner odds do.
+        """
+        party_probs: dict[str, float] = {}
+        for market in event.get("markets") or []:
+            outcomes = _json_list(market.get("outcomes"))
+            prices = _json_list(market.get("outcomePrices"))
+            question = str(market.get("question", ""))
+            for outcome, price in zip(outcomes, prices, strict=False):
+                try:
+                    prob = float(price)
+                except (TypeError, ValueError):
+                    continue
+                # "Democrat"/"Republican" outcome labels, or Yes/No
+                # markets whose question names the party.
+                party = _party_from_text(str(outcome)) or (
+                    _party_from_text(question) if str(outcome) == "Yes" else None
+                )
+                if party is None:
+                    continue
+                if party in party_probs:
+                    logger.info(
+                        "polymarket: %r prices %s more than once — bucket-style "
+                        "event, rejecting", event.get("title"), party,
+                    )
+                    return None
+                party_probs[party] = prob
+        if not party_probs:
+            return None
+        if len(party_probs) == 2 and not 0.85 <= sum(party_probs.values()) <= 1.15:
+            logger.info(
+                "polymarket: %r party prices sum to %.3f, not a winner market",
+                event.get("title"), sum(party_probs.values()),
+            )
+            return None
+        return party_probs
 
 
 class KalshiClient:

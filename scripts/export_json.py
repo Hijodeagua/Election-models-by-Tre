@@ -44,7 +44,6 @@ from src.data.base import Poll, PollType
 from src.data.csv_source import CsvFallbackSource
 from src.data.fiftyplusone import FiftyPlusOneApprovalCsvLoader
 from src.data.markets import SENATE_CONTROL_RACE, MarketOddsCsvSource, odds_for_race
-from src.data.silverb_csv import SilverBulletinApprovalLoader
 from src.data.votehub_csv import VoteHubCsvLoader
 from src.data.wikipedia_senate import is_aggregate_pollster
 from src.models.approval import PresidentialApprovalModel
@@ -375,23 +374,6 @@ def _approval_comparison_payload(
         for s in approval_payload["trend"]
     ]
 
-    silverb_series: list[dict] = []
-    silverb_path = FALLBACK_DIR / "silverb_approval.csv"
-    if silverb_path.exists():
-        try:
-            silverb_series = [
-                {
-                    "as_of": s.as_of,
-                    "approve": round(s.approve, 2),
-                    "disapprove": round(s.disapprove, 2),
-                    "net": round(s.net_approval, 2),
-                }
-                for s in SilverBulletinApprovalLoader().load_series(silverb_path)
-                if s.as_of >= start
-            ]
-        except Exception as exc:  # pragma: no cover - defensive
-            logging.warning("silver bulletin series load failed: %s", exc)
-
     votehub_series = _votehub_unweighted_trend(polls, start=start, end=end)
 
     fpo_series = [
@@ -415,12 +397,6 @@ def _approval_comparison_payload(
                 "sample size and population weighting, partisan penalty.",
                 "available": len(ours) > 0,
                 "series": ours,
-            },
-            "silver_bulletin": {
-                "label": "Silver Bulletin",
-                "description": "Silver Bulletin's published daily approval model.",
-                "available": len(silverb_series) > 0,
-                "series": silverb_series,
             },
             "votehub": {
                 "label": "VoteHub (raw average)",

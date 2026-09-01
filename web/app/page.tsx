@@ -71,8 +71,8 @@ export default function ApprovalPage() {
       {Object.keys(comparison.sources).length > 0 && (
         <Panel title="Model comparison — toggle the sources you want">
           <p className="mb-3 text-xs text-cocoa-400">
-            Our weighted average alongside Silver Bulletin&apos;s model, a raw
-            unweighted VoteHub poll average, and 50+1 (when available).
+            Our weighted average alongside a raw unweighted VoteHub poll
+            average, and 50+1 (when available).
           </p>
           <ApprovalComparisonChart data={comparison} />
         </Panel>
