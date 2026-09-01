@@ -10,14 +10,11 @@ Usage:
 Sources:
     votehub     — VoteHub API (free, no key required)
     rcp         — RealClearPolling scraper
-    silverb     — Silver Bulletin model CSV download
     markets     — Polymarket + Kalshi prediction-market odds
 
 Outputs written to data/fallback/:
     votehub_approval.csv
     votehub_generic_ballot.csv
-    silverb_approval.csv          (if download succeeds)
-    silverb_generic_ballot.csv    (if download succeeds)
     market_odds.csv               (if at least one market fetch succeeds)
 """
 
@@ -35,7 +32,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from config.settings import settings
 from src.data.base import Poll, PollType
 from src.data.rcp import RCPClient
-from src.data.silverb_download import SilverBulletinDownloader
 from src.data.votehub import VoteHubClient
 from src.data.wikipedia_senate import WikipediaSenateSource
 
@@ -254,26 +250,6 @@ def _refresh_markets(dry_run: bool = False) -> None:
             logger.warning("  no market data fetched — keeping existing market_odds.csv")
 
 
-def _refresh_silverb(dry_run: bool = False) -> None:
-    logger.info("=== Silver Bulletin ===")
-    # Silver Bulletin's model CSVs are paywalled — there is no free public URL.
-    # Skip entirely unless the operator supplies real URLs via env vars, instead
-    # of hammering a dead default and logging a DNS error every run.
-    approval_url = getattr(settings, "silverb_approval_csv_url", "") or ""
-    gb_url = getattr(settings, "silverb_gb_csv_url", "") or ""
-    if not approval_url and not gb_url:
-        logger.info(
-            "  skipped — set SILVERB_APPROVAL_CSV_URL / SILVERB_GB_CSV_URL to enable "
-            "(data is subscriber-only; the comparison line uses the committed snapshot)."
-        )
-        return
-    if dry_run:
-        logger.info("  (dry run — would download approval + generic ballot CSVs)")
-        return
-    with SilverBulletinDownloader(fallback_dir=FALLBACK_DIR) as dl:
-        for name, ok in dl.refresh_all().items():
-            logger.info("  %s: %s", name, "✓ updated" if ok else "✗ kept existing file")
-
 
 def _refresh_wikipedia_senate(dry_run: bool = False) -> None:
     """Scrape per-race Senate polls from Wikipedia → votehub_senate.csv.
@@ -322,7 +298,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Refresh all polling data sources.")
     parser.add_argument(
         "--source",
-        choices=["votehub", "rcp", "silverb", "markets", "wikipedia", "all"],
+        choices=["votehub", "rcp", "markets", "wikipedia", "all"],
         default="all",
         help="Which source to refresh (default: all).",
     )
@@ -344,8 +320,6 @@ def main() -> None:
         _refresh_wikipedia_senate(dry_run=args.dry_run)
     if args.source in ("all", "rcp"):
         _refresh_rcp(dry_run=args.dry_run)
-    if args.source in ("all", "silverb"):
-        _refresh_silverb(dry_run=args.dry_run)
     if args.source in ("all", "markets"):
         _refresh_markets(dry_run=args.dry_run)
 

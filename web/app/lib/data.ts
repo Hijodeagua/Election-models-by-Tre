@@ -87,6 +87,7 @@ export interface SenateRaceSnapshot {
   forecast?: RaceForecastSummary;
   vibes?: RaceVibes;
   market_odds?: MarketOddsBySource;
+  market_urls?: Record<string, string>;
 }
 
 export interface SenateData {
@@ -128,6 +129,7 @@ export interface RaceForecast {
   median_margin?: number | null;
   margin_p10?: number | null;
   margin_p90?: number | null;
+  market_urls?: Record<string, string>;
 }
 
 export interface PollsterEmpirical {
@@ -204,6 +206,7 @@ export interface SenateForecastData {
   fundamentals_blend_k?: number;
   national_environment?: NationalEnvironment;
   market_control_dem_prob: Record<string, number>;
+  market_control_urls?: Record<string, string>;
   maturity: string;
   label: string;
 }

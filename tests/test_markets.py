@@ -13,6 +13,7 @@ from src.data.markets import (
     PolymarketClient,
     _json_list,
     odds_for_race,
+    urls_for_race,
     write_market_odds_csv,
 )
 
@@ -86,6 +87,23 @@ class TestOddsForRace:
         assert grouped["polymarket"]["Democrat"] == 0.47
 
 
+class TestUrlsForRace:
+    def test_url_per_source_most_recent_wins(self):
+        odds = [
+            _odds(as_of=date(2026, 5, 1), url="https://polymarket.com/event/old"),
+            _odds(as_of=date(2026, 5, 19), url="https://polymarket.com/event/new"),
+            _odds(source="kalshi", url="https://kalshi.com/markets/SENATEGA-26-D"),
+            _odds(race="Other race", url="https://polymarket.com/event/other"),
+        ]
+        assert urls_for_race(odds, "Georgia Senate 2026") == {
+            "polymarket": "https://polymarket.com/event/new",
+            "kalshi": "https://kalshi.com/markets/SENATEGA-26-D",
+        }
+
+    def test_missing_urls_skipped(self):
+        assert urls_for_race([_odds(url=None)], "Georgia Senate 2026") == {}
+
+
 class TestPolymarketParsing:
     def test_network_failure_returns_empty(self, monkeypatch):
         client = PolymarketClient()
@@ -143,8 +161,96 @@ class TestPolymarketParsing:
         client = PolymarketClient()
         monkeypatch.setattr(client, "_get", lambda *a, **k: payload)
         odds = client.fetch_markets("q", race="r", required_tokens=("georgia",))
-        # Only the Yes leg maps to a party; the No leg is ambiguous and skipped.
-        assert [(o.outcome, o.probability) for o in odds] == [("Republican", 0.53)]
+        # Only the Yes leg maps to a party; the No leg is ambiguous and
+        # skipped, so the other party's probability is implied as 1 − p.
+        assert [(o.outcome, o.probability) for o in odds] == [
+            ("Republican", 0.53),
+            ("Democrat", 0.47),
+        ]
+
+    def test_margin_of_victory_event_skipped_for_winner_event(self, monkeypatch):
+        # Search results rank the margin-of-victory event first; the client
+        # must skip it and use the actual winner market behind it.
+        payload = {
+            "events": [
+                {
+                    "title": "Georgia Senate Election first round margin of victory",
+                    "slug": "georgia-senate-election-first-round-margin-of-victory",
+                    "markets": [
+                        {
+                            "question": "Will the Republican win by 0-5?",
+                            "outcomes": '["Yes", "No"]',
+                            "outcomePrices": '["0.07", "0.93"]',
+                        }
+                    ],
+                },
+                {
+                    "title": "Georgia Senate Election Winner 2026",
+                    "slug": "georgia-senate-winner",
+                    "markets": [
+                        {
+                            "question": "Georgia Senate winner",
+                            "outcomes": '["Democrat", "Republican"]',
+                            "outcomePrices": '["0.91", "0.09"]',
+                        }
+                    ],
+                },
+            ]
+        }
+        client = PolymarketClient()
+        monkeypatch.setattr(client, "_get", lambda *a, **k: payload)
+        odds = client.fetch_markets("q", race="r", required_tokens=("georgia",))
+        assert [(o.outcome, o.probability) for o in odds] == [
+            ("Democrat", 0.91),
+            ("Republican", 0.09),
+        ]
+
+    def test_bucket_style_event_rejected(self, monkeypatch):
+        # An event that prices the same party in several sub-markets is a
+        # derivative (bucket) market even if its title looks innocent.
+        payload = {
+            "events": [
+                {
+                    "title": "Georgia Senate Election 2026",
+                    "slug": "ga",
+                    "markets": [
+                        {
+                            "question": "Will the Democrat win 50-55% of the vote?",
+                            "outcomes": '["Yes", "No"]',
+                            "outcomePrices": '["0.12", "0.88"]',
+                        },
+                        {
+                            "question": "Will the Democrat win 55-60% of the vote?",
+                            "outcomes": '["Yes", "No"]',
+                            "outcomePrices": '["0.07", "0.93"]',
+                        },
+                    ],
+                }
+            ]
+        }
+        client = PolymarketClient()
+        monkeypatch.setattr(client, "_get", lambda *a, **k: payload)
+        assert client.fetch_markets("q", race="r", required_tokens=("georgia",)) == []
+
+    def test_two_party_prices_must_sum_to_one(self, monkeypatch):
+        payload = {
+            "events": [
+                {
+                    "title": "Georgia Senate Election 2026",
+                    "slug": "ga",
+                    "markets": [
+                        {
+                            "question": "outcome buckets",
+                            "outcomes": '["Democrat", "Republican"]',
+                            "outcomePrices": '["0.20", "0.10"]',
+                        }
+                    ],
+                }
+            ]
+        }
+        client = PolymarketClient()
+        monkeypatch.setattr(client, "_get", lambda *a, **k: payload)
+        assert client.fetch_markets("q", race="r", required_tokens=("georgia",)) == []
 
     def test_candidate_name_outcomes_skipped(self, monkeypatch):
         payload = {

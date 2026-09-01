@@ -1201,8 +1201,24 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 6,
+      "num_polls": 7,
       "polls": [
+        {
+          "pollster": "Abacus Data",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-26",
+          "end_date": "2026-08-28",
+          "sample_size": 327,
+          "population": "rv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 50.0,
+          "rep_pct": 42.0,
+          "margin": 8.0,
+          "partisan": false
+        },
         {
           "pollster": "Beacon Research (D)/ Shaw & Co. Research (R)",
           "rated": false,

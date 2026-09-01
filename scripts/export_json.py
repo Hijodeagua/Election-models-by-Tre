@@ -43,8 +43,12 @@ from scripts.run_models import (
 from src.data.base import Poll, PollType
 from src.data.csv_source import CsvFallbackSource
 from src.data.fiftyplusone import FiftyPlusOneApprovalCsvLoader
-from src.data.markets import SENATE_CONTROL_RACE, MarketOddsCsvSource, odds_for_race
-from src.data.silverb_csv import SilverBulletinApprovalLoader
+from src.data.markets import (
+    SENATE_CONTROL_RACE,
+    MarketOddsCsvSource,
+    odds_for_race,
+    urls_for_race,
+)
 from src.data.votehub_csv import VoteHubCsvLoader
 from src.data.wikipedia_senate import is_aggregate_pollster
 from src.models.approval import PresidentialApprovalModel
@@ -375,23 +379,6 @@ def _approval_comparison_payload(
         for s in approval_payload["trend"]
     ]
 
-    silverb_series: list[dict] = []
-    silverb_path = FALLBACK_DIR / "silverb_approval.csv"
-    if silverb_path.exists():
-        try:
-            silverb_series = [
-                {
-                    "as_of": s.as_of,
-                    "approve": round(s.approve, 2),
-                    "disapprove": round(s.disapprove, 2),
-                    "net": round(s.net_approval, 2),
-                }
-                for s in SilverBulletinApprovalLoader().load_series(silverb_path)
-                if s.as_of >= start
-            ]
-        except Exception as exc:  # pragma: no cover - defensive
-            logging.warning("silver bulletin series load failed: %s", exc)
-
     votehub_series = _votehub_unweighted_trend(polls, start=start, end=end)
 
     fpo_series = [
@@ -415,12 +402,6 @@ def _approval_comparison_payload(
                 "sample size and population weighting, partisan penalty.",
                 "available": len(ours) > 0,
                 "series": ours,
-            },
-            "silver_bulletin": {
-                "label": "Silver Bulletin",
-                "description": "Silver Bulletin's published daily approval model.",
-                "available": len(silverb_series) > 0,
-                "series": silverb_series,
             },
             "votehub": {
                 "label": "VoteHub (raw average)",
@@ -555,6 +536,7 @@ def _senate_payload(polls: list[Poll]) -> dict:
                 ),
             }
             record["market_odds"] = odds_for_race(market_odds, race_key)
+            record["market_urls"] = urls_for_race(market_odds, race_key)
         enriched.append(record)
 
     return {"races": enriched, "num_races": len(enriched)}
@@ -786,6 +768,10 @@ def _senate_forecast_payload(
     payload["seat_distribution"] = {
         str(k): v for k, v in forecast.seat_distribution.items()
     }
+    # Market page links so the site can send readers to the source market.
+    for race_dict in payload.get("races", []):
+        race_dict["market_urls"] = urls_for_race(market_odds, race_dict["race"])
+    payload["market_control_urls"] = urls_for_race(market_odds, SENATE_CONTROL_RACE)
     payload["maturity"] = "nowcast"
     payload["label"] = (
         "Where the race stands today — current polling averages blended with "

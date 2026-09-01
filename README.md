@@ -12,7 +12,7 @@ A Python-based election modeling and forecasting system that ingests polling dat
 - **Senate race models** — individual race polling averages, with an experimental NYT "vibes" media-sentiment overlay
 - **Senate control simulation** — 1,000-run Monte Carlo nowcast with correlated national error, blended with prediction-market odds
 - **Prediction-market integration** — Polymarket and Kalshi implied odds per race and for chamber control (offline CSV fallback)
-- **Model comparison** — our approval average side-by-side with Silver Bulletin, raw VoteHub averages, and 50+1 (when available)
+- **Model comparison** — our approval average side-by-side with raw VoteHub averages and 50+1 (when available)
 - **Web tracker** — deployable Next.js front end (`web/`) that reads static JSON exported from the Python pipeline
 - **Streamlit dashboard** — local exploration UI (skeleton)
 
@@ -73,8 +73,8 @@ All fallback data lives in `data/fallback/` and is committed to the repo — no 
 |---|---|---|
 | `votehub_approval.csv` | VoteHub approval polls, Jan 2025 – May 2026 | 683 |
 | `votehub_generic_ballot.csv` | VoteHub generic ballot polls | 344 |
-| `silverb_approval.csv` | Silver Bulletin daily model estimates | daily |
-| `silverb_generic_ballot.csv` | Silver Bulletin generic ballot estimates | daily |
+| `silverb_approval.csv` | Silver Bulletin snapshot (CLI benchmark only — not on the site) | daily |
+| `silverb_generic_ballot.csv` | Silver Bulletin snapshot (CLI benchmark only) | daily |
 | `approval.csv` / `generic_ballot.csv` / `senate.csv` | Hand-curated samples | 5 each |
 
 ### Expected output (weighted average, offline)
@@ -189,7 +189,7 @@ The core engine (`src/models/polling_average.py`) computes weighted averages usi
 | VoteHub | API | Free (CC BY 4.0) | Implemented |
 | RealClearPolitics | Scraper | Free | Implemented |
 | FiftyPlusOne | API | $8/mo+ | Stub (adapter ready) |
-| Silver Bulletin | CSV download | Free | Implemented (model-estimate CSV loader + downloader) |
+| Silver Bulletin | CSV snapshot | Free | CLI benchmark only (removed from the site comparison — feed frozen) |
 | Congress.gov | API | Free | Stub |
 
 ## Development

@@ -16,7 +16,6 @@ type Metric = 'approve' | 'disapprove' | 'net';
 
 const SOURCE_COLORS: Record<string, string> = {
   ours: '#c1533d', // our model wears the brand peach
-  silver_bulletin: '#9333ea',
   votehub: '#0d9488',
   fiftyplusone: '#2563eb',
 };

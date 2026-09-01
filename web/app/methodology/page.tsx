@@ -82,9 +82,9 @@ export default function MethodologyPage() {
       <ul className="mb-4 list-disc space-y-1.5 pl-5 font-serifbody text-base leading-relaxed text-cocoa-700">
         <li>
           <strong>Model comparison (homepage)</strong> — our approval average
-          shown alongside Silver Bulletin&rsquo;s published model, an unweighted
-          VoteHub poll average, and 50+1 when available. Each line is that
-          source&rsquo;s own output; we don&rsquo;t blend them.
+          shown alongside an unweighted VoteHub poll average, and 50+1 when
+          available. Each line is that source&rsquo;s own output; we
+          don&rsquo;t blend them.
         </li>
         <li>
           <strong>NYT vibes adjustment (Senate)</strong> — an experimental,
@@ -157,7 +157,7 @@ export default function MethodologyPage() {
         >
           learn more here
         </a>
-        . Data sources: VoteHub, Silver Bulletin, Polymarket, Kalshi, state
+        . Data sources: VoteHub, Polymarket, Kalshi, state
         pollster releases. Code &amp; full poll log on{' '}
         <a
           href="https://github.com/Hijodeagua/Election-models-by-Tre"
