@@ -470,3 +470,19 @@ def odds_for_race(odds: list[MarketOdds], race: str) -> dict[str, dict[str, floa
         source: {outcome: prob for outcome, (_, prob) in outcomes.items()}
         for source, outcomes in grouped.items()
     }
+
+
+def urls_for_race(odds: list[MarketOdds], race: str) -> dict[str, str]:
+    """Market page URL per source for a race (most recent ``as_of`` wins).
+
+    Lets the site link each odds chip to the underlying market so readers
+    can check the live price themselves.
+    """
+    best: dict[str, tuple[date, str]] = {}
+    for o in odds:
+        if o.race != race or not o.url:
+            continue
+        existing = best.get(o.source)
+        if existing is None or o.as_of >= existing[0]:
+            best[o.source] = (o.as_of, o.url)
+    return {source: url for source, (_, url) in best.items()}

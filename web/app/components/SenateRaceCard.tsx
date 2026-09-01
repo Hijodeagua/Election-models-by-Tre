@@ -159,16 +159,37 @@ export default function SenateRaceCard({ race }: { race: SenateRaceSnapshot }) {
             )}
           </button>
         )}
-        {marketSources.map((source) => (
-          <span
-            key={source}
-            className="rounded-full border border-cream-300 bg-cream-50 px-2.5 py-1 font-semibold text-cocoa-500"
-            title={`${MARKET_LABELS[source] ?? source}: implied probability the Democrat wins`}
-          >
-            {MARKET_LABELS[source] ?? source}: D{' '}
-            {(marketOdds[source].Democrat * 100).toFixed(0)}%
-          </span>
-        ))}
+        {marketSources.map((source) => {
+          const url = race.market_urls?.[source];
+          const label = (
+            <>
+              {MARKET_LABELS[source] ?? source}: D{' '}
+              {(marketOdds[source].Democrat * 100).toFixed(0)}%
+            </>
+          );
+          const chipClass =
+            'rounded-full border border-cream-300 bg-cream-50 px-2.5 py-1 font-semibold text-cocoa-500';
+          return url ? (
+            <a
+              key={source}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${chipClass} transition-colors hover:border-cocoa-400 hover:text-cocoa-700 hover:underline`}
+              title={`${MARKET_LABELS[source] ?? source}: implied probability the Democrat wins — view the market`}
+            >
+              {label} ↗
+            </a>
+          ) : (
+            <span
+              key={source}
+              className={chipClass}
+              title={`${MARKET_LABELS[source] ?? source}: implied probability the Democrat wins`}
+            >
+              {label}
+            </span>
+          );
+        })}
       </div>
     </div>
   );

@@ -90,6 +90,7 @@ export default function SenateForecastPage() {
                 key={source}
                 label={MARKET_LABELS[source] ?? source}
                 pct={prob}
+                href={forecast.market_control_urls?.[source]}
               />
             ))}
           </div>
@@ -112,8 +113,16 @@ export default function SenateForecastPage() {
               <MobileDatum label="Polling margin" value={formatRaceMargin(race.margin)} />
               <MobileDatum label="P(D), polls" value={formatProbability(race.dem_win_prob_polls)} />
               <MobileDatum label="P(D), blended" value={formatProbability(race.dem_win_prob_blended)} bold />
-              <MobileDatum label="Polymarket" value={formatProbability(race.market_dem_prob.polymarket)} />
-              <MobileDatum label="Kalshi" value={formatProbability(race.market_dem_prob.kalshi)} />
+              <MobileDatum
+                label="Polymarket"
+                value={formatProbability(race.market_dem_prob.polymarket)}
+                href={race.market_urls?.polymarket}
+              />
+              <MobileDatum
+                label="Kalshi"
+                value={formatProbability(race.market_dem_prob.kalshi)}
+                href={race.market_urls?.kalshi}
+              />
             </dl>
           </div>
         ))}
@@ -147,8 +156,11 @@ export default function SenateForecastPage() {
                 </td>
                 <Prob value={race.dem_win_prob_polls} />
                 <Prob value={race.dem_win_prob_blended} bold />
-                <Prob value={race.market_dem_prob.polymarket ?? null} />
-                <Prob value={race.market_dem_prob.kalshi ?? null} />
+                <Prob
+                  value={race.market_dem_prob.polymarket ?? null}
+                  href={race.market_urls?.polymarket}
+                />
+                <Prob value={race.market_dem_prob.kalshi ?? null} href={race.market_urls?.kalshi} />
               </tr>
             ))}
           </tbody>
@@ -248,29 +260,59 @@ function ComparisonChip({
   label,
   pct,
   highlight,
+  href,
 }: {
   label: string;
   pct: number;
   highlight?: boolean;
+  href?: string;
 }) {
-  return (
-    <div
-      className={`rounded-lg border px-4 py-2 text-center ${
-        highlight ? 'border-peach-border bg-peach-wash' : 'border-cream-300 bg-white'
-      }`}
-    >
-      <div className="text-xs text-cocoa-500">{label}</div>
+  const body = (
+    <>
+      <div className="text-xs text-cocoa-500">
+        {label}
+        {href ? ' ↗' : ''}
+      </div>
       <div className="font-display text-lg text-ink">{(pct * 100).toFixed(0)}%</div>
-    </div>
+    </>
+  );
+  const chipClass = `rounded-lg border px-4 py-2 text-center ${
+    highlight ? 'border-peach-border bg-peach-wash' : 'border-cream-300 bg-white'
+  }`;
+  return href ? (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${chipClass} transition-colors hover:border-cocoa-400`}
+      title="View the market"
+    >
+      {body}
+    </a>
+  ) : (
+    <div className={chipClass}>{body}</div>
   );
 }
 
-function Prob({ value, bold }: { value: number | null; bold?: boolean }) {
+function Prob({ value, bold, href }: { value: number | null; bold?: boolean; href?: string }) {
+  const text = value != null ? `${(value * 100).toFixed(0)}%` : '—';
   return (
     <td
       className={`px-4 py-3 text-right ${bold ? 'font-semibold text-ink' : 'text-cocoa-500'}`}
     >
-      {value != null ? `${(value * 100).toFixed(0)}%` : '—'}
+      {href && value != null ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline decoration-cream-300 underline-offset-2 hover:text-cocoa-700 hover:decoration-cocoa-400"
+          title="View the market"
+        >
+          {text}
+        </a>
+      ) : (
+        text
+      )}
     </td>
   );
 }
@@ -283,12 +325,34 @@ function formatRaceMargin(value: number | null): string {
   return value != null ? `${value > 0 ? 'D' : 'R'} +${Math.abs(value).toFixed(1)}` : '—';
 }
 
-function MobileDatum({ label, value, bold }: { label: string; value: string; bold?: boolean }) {
+function MobileDatum({
+  label,
+  value,
+  bold,
+  href,
+}: {
+  label: string;
+  value: string;
+  bold?: boolean;
+  href?: string;
+}) {
   return (
     <div>
       <dt className="text-cocoa-400">{label}</dt>
       <dd className={`mt-0.5 text-sm ${bold ? 'font-semibold text-ink' : 'text-cocoa-700'}`}>
-        {value}
+        {href && value !== '—' ? (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline decoration-cream-300 underline-offset-2 hover:text-cocoa-700"
+            title="View the market"
+          >
+            {value}
+          </a>
+        ) : (
+          value
+        )}
       </dd>
     </div>
   );

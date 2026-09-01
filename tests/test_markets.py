@@ -13,6 +13,7 @@ from src.data.markets import (
     PolymarketClient,
     _json_list,
     odds_for_race,
+    urls_for_race,
     write_market_odds_csv,
 )
 
@@ -84,6 +85,23 @@ class TestOddsForRace:
         ]
         grouped = odds_for_race(odds, "Georgia Senate 2026")
         assert grouped["polymarket"]["Democrat"] == 0.47
+
+
+class TestUrlsForRace:
+    def test_url_per_source_most_recent_wins(self):
+        odds = [
+            _odds(as_of=date(2026, 5, 1), url="https://polymarket.com/event/old"),
+            _odds(as_of=date(2026, 5, 19), url="https://polymarket.com/event/new"),
+            _odds(source="kalshi", url="https://kalshi.com/markets/SENATEGA-26-D"),
+            _odds(race="Other race", url="https://polymarket.com/event/other"),
+        ]
+        assert urls_for_race(odds, "Georgia Senate 2026") == {
+            "polymarket": "https://polymarket.com/event/new",
+            "kalshi": "https://kalshi.com/markets/SENATEGA-26-D",
+        }
+
+    def test_missing_urls_skipped(self):
+        assert urls_for_race([_odds(url=None)], "Georgia Senate 2026") == {}
 
 
 class TestPolymarketParsing:

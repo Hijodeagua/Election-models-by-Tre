@@ -43,7 +43,12 @@ from scripts.run_models import (
 from src.data.base import Poll, PollType
 from src.data.csv_source import CsvFallbackSource
 from src.data.fiftyplusone import FiftyPlusOneApprovalCsvLoader
-from src.data.markets import SENATE_CONTROL_RACE, MarketOddsCsvSource, odds_for_race
+from src.data.markets import (
+    SENATE_CONTROL_RACE,
+    MarketOddsCsvSource,
+    odds_for_race,
+    urls_for_race,
+)
 from src.data.votehub_csv import VoteHubCsvLoader
 from src.data.wikipedia_senate import is_aggregate_pollster
 from src.models.approval import PresidentialApprovalModel
@@ -531,6 +536,7 @@ def _senate_payload(polls: list[Poll]) -> dict:
                 ),
             }
             record["market_odds"] = odds_for_race(market_odds, race_key)
+            record["market_urls"] = urls_for_race(market_odds, race_key)
         enriched.append(record)
 
     return {"races": enriched, "num_races": len(enriched)}
@@ -762,6 +768,10 @@ def _senate_forecast_payload(
     payload["seat_distribution"] = {
         str(k): v for k, v in forecast.seat_distribution.items()
     }
+    # Market page links so the site can send readers to the source market.
+    for race_dict in payload.get("races", []):
+        race_dict["market_urls"] = urls_for_race(market_odds, race_dict["race"])
+    payload["market_control_urls"] = urls_for_race(market_odds, SENATE_CONTROL_RACE)
     payload["maturity"] = "nowcast"
     payload["label"] = (
         "Where the race stands today — current polling averages blended with "
