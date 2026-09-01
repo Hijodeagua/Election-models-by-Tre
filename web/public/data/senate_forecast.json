@@ -32,7 +32,10 @@
       "dem_win_prob_sim": 0.9307,
       "median_margin": 7.34,
       "margin_p10": 1.2,
-      "margin_p90": 13.46
+      "margin_p90": 13.46,
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/georgia-senate-election-winner"
+      }
     },
     {
       "state": "Michigan",
@@ -49,7 +52,10 @@
       "dem_win_prob_sim": 0.8698,
       "median_margin": 5.29,
       "margin_p10": -0.86,
-      "margin_p90": 11.5
+      "margin_p90": 11.5,
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/michigan-senate-election-winner"
+      }
     },
     {
       "state": "North Carolina",
@@ -66,7 +72,10 @@
       "dem_win_prob_sim": 0.9382,
       "median_margin": 7.78,
       "margin_p10": 1.58,
-      "margin_p90": 13.93
+      "margin_p90": 13.93,
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/north-carolina-senate-election-winner"
+      }
     },
     {
       "state": "Maine",
@@ -83,7 +92,10 @@
       "dem_win_prob_sim": 0.8808,
       "median_margin": 5.57,
       "margin_p10": -0.57,
-      "margin_p90": 11.77
+      "margin_p90": 11.77,
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/maine-senate-election-winner"
+      }
     },
     {
       "state": "New Hampshire",
@@ -100,7 +112,10 @@
       "dem_win_prob_sim": 0.9282,
       "median_margin": 7.26,
       "margin_p10": 1.06,
-      "margin_p90": 13.45
+      "margin_p90": 13.45,
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/new-hampshire-senate-election-winner"
+      }
     },
     {
       "state": "Ohio",
@@ -117,7 +132,10 @@
       "dem_win_prob_sim": 0.74,
       "median_margin": 2.9,
       "margin_p10": -3.27,
-      "margin_p90": 9.09
+      "margin_p90": 9.09,
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/ohio-senate-election-winner"
+      }
     },
     {
       "state": "Texas",
@@ -134,7 +152,10 @@
       "dem_win_prob_sim": 0.6587,
       "median_margin": 1.8,
       "margin_p10": -4.27,
-      "margin_p90": 8.02
+      "margin_p90": 8.02,
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/texas-senate-election-winner"
+      }
     },
     {
       "state": "Iowa",
@@ -151,7 +172,10 @@
       "dem_win_prob_sim": 0.5816,
       "median_margin": 0.93,
       "margin_p10": -5.23,
-      "margin_p90": 7.1
+      "margin_p90": 7.1,
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/iowa-senate-election-winner"
+      }
     },
     {
       "state": "Alaska",
@@ -166,7 +190,8 @@
       "dem_win_prob_sim": 0.3547,
       "median_margin": -1.68,
       "margin_p10": -7.89,
-      "margin_p90": 4.47
+      "margin_p90": 4.47,
+      "market_urls": {}
     }
   ],
   "dem_safe_seats": 44,
@@ -179,6 +204,9 @@
   "tail_dof": 5,
   "market_control_dem_prob": {
     "polymarket": 0.505
+  },
+  "market_control_urls": {
+    "polymarket": "https://polymarket.com/event/which-party-will-win-the-senate-in-2026"
   },
   "maturity": "nowcast",
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",

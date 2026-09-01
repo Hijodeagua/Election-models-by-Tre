@@ -22,6 +22,7 @@
         "adjusted_dem_margin": 5.0
       },
       "market_odds": {},
+      "market_urls": {},
       "forecast": {
         "dem_win_prob": 0.3547,
         "median_margin": -1.68,
@@ -178,6 +179,9 @@
           "Democrat": 0.935,
           "Republican": 0.064
         }
+      },
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/georgia-senate-election-winner"
       },
       "forecast": {
         "dem_win_prob": 0.9307,
@@ -336,6 +340,9 @@
           "Republican": 0.605
         }
       },
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/iowa-senate-election-winner"
+      },
       "forecast": {
         "dem_win_prob": 0.5816,
         "median_margin": 0.93,
@@ -492,6 +499,9 @@
           "Democrat": 0.695,
           "Republican": 0.305
         }
+      },
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/maine-senate-election-winner"
       },
       "forecast": {
         "dem_win_prob": 0.8808,
@@ -650,6 +660,9 @@
           "Republican": 0.355
         }
       },
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/michigan-senate-election-winner"
+      },
       "forecast": {
         "dem_win_prob": 0.8698,
         "median_margin": 5.29,
@@ -806,6 +819,9 @@
           "Democrat": 0.845,
           "Republican": 0.16
         }
+      },
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/new-hampshire-senate-election-winner"
       },
       "forecast": {
         "dem_win_prob": 0.9282,
@@ -964,6 +980,9 @@
           "Republican": 0.08
         }
       },
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/north-carolina-senate-election-winner"
+      },
       "forecast": {
         "dem_win_prob": 0.9382,
         "median_margin": 7.78,
@@ -1121,6 +1140,9 @@
           "Republican": 0.455
         }
       },
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/ohio-senate-election-winner"
+      },
       "forecast": {
         "dem_win_prob": 0.74,
         "median_margin": 2.9,
@@ -1277,6 +1299,9 @@
           "Democrat": 0.505,
           "Republican": 0.485
         }
+      },
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/texas-senate-election-winner"
       },
       "forecast": {
         "dem_win_prob": 0.6587,
