@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import LastUpdated from '@/app/components/LastUpdated';
-import SeatDistributionChart from '@/app/components/SeatDistributionChart';
+import SenateHemicycle from '@/app/components/SenateHemicycle';
 import { EmptyState, PageHead, Panel, StatCard } from '@/app/components/ui';
 import { getSenateForecast, type NationalEnvironment } from '@/app/lib/data';
 
@@ -40,8 +40,8 @@ export default function SenateForecastPage() {
       />
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <StatCard label="D keeps/takes control" value={`${demPct}%`} tone="dem" />
-        <StatCard label="R control" value={`${repPct}%`} tone="rep" />
+        <StatCard label="D takes control" value={`${demPct}%`} tone="dem" />
+        <StatCard label="R keeps control" value={`${repPct}%`} tone="rep" />
         <StatCard label="Mean D seats" value={forecast.mean_dem_seats.toFixed(1)} tone="ink" />
         <StatCard
           label="Median D seats"
@@ -67,10 +67,10 @@ export default function SenateForecastPage() {
       )}
 
       <Panel
-        title={`Seat distribution across ${forecast.num_simulations.toLocaleString()} simulations`}
+        title={`The Senate across ${forecast.num_simulations.toLocaleString()} simulations`}
         className="mt-4"
       >
-        <SeatDistributionChart forecast={forecast} />
+        <SenateHemicycle forecast={forecast} />
         <p className="mt-1 text-xs text-cocoa-400">
           Baseline: {forecast.dem_safe_seats} safe D seats + {forecast.rep_safe_seats} safe R
           seats; {forecast.races.length} competitive races simulated. Democrats need{' '}
@@ -169,50 +169,23 @@ export default function SenateForecastPage() {
 
       <div className="mt-8 rounded-xl border border-cream-300 bg-cream-100 p-5 text-sm text-cocoa-700">
         <h3 className="font-display text-lg text-ink">How the simulation works</h3>
-        <ul className="mt-2 list-disc space-y-1 pl-5">
-          <li>
-            Each race&rsquo;s <Link href="/senate" className="text-peach underline">polling
-            average</Link> margin is converted to a win probability using a fat-tailed
-            Student-t error model: a national error (σ = {forecast.national_sigma}) shared by
-            every race plus an independent per-race error (σ = {forecast.race_sigma}), sized
-            to historical Senate polling misses. A shared tail shock allows unusually large
-            misses to move several races together.
-          </li>
-          {forecast.national_environment?.available && (
-            <li>
-              The national midterm climate — the president&rsquo;s approval and the
-              generic congressional ballot — is folded into each race&rsquo;s
-              fundamentals prior as a uniform{' '}
-              {forecast.national_environment.national_swing >= 0 ? 'D' : 'R'}+
-              {Math.abs(forecast.national_environment.national_swing).toFixed(1)} swing
-              versus the 2024 House result. It mainly lifts thinly-polled seats; heavily
-              polled races already price the climate in.
-            </li>
-          )}
-          <li>
-            Prediction-market odds are blended in at{' '}
-            {(forecast.market_weight * 100).toFixed(0)}% weight — markets aggregate
-            information polls miss, and the weight is a tunable model parameter.
-          </li>
-          <li>
-            We then simulate {forecast.num_simulations.toLocaleString()} elections. The
-            shared national error is what makes sweeps (all close races breaking one
-            way) more likely than independent coin flips would suggest.
-          </li>
-          <li>
-            This shows where the race stands today, given current polling and market
-            prices. A work in progress from the team at Policy y Peaches —{' '}
-            <a
-              href="https://policyypeaches.substack.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-peach underline"
-            >
-              learn more here
-            </a>
-            .
-          </li>
-        </ul>
+        <p className="mt-2">
+          {forecast.num_simulations.toLocaleString()} simulated elections, seeded by the{' '}
+          <Link href="/senate" className="text-peach underline">
+            polling averages
+          </Link>{' '}
+          with correlated polling error, fundamentals, and a prediction-market blend. A
+          full methodology write-up is coming — until then,{' '}
+          <a
+            href="https://policyypeaches.substack.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-peach underline"
+          >
+            read more at Policy y Peaches
+          </a>
+          .
+        </p>
       </div>
 
       <LastUpdated />
