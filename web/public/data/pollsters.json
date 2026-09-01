@@ -514,8 +514,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 23,
+      "num_polls": 25,
       "polls": [
+        {
+          "pollster": "Abacus Data",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-26",
+          "end_date": "2026-08-28",
+          "sample_size": null,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 45.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "EPIC-MRA",
           "rated": false,
@@ -524,6 +540,22 @@
           "start_date": "2026-08-22",
           "end_date": "2026-08-28",
           "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 45.0,
+          "margin": null,
+          "partisan": false
+        },
+        {
+          "pollster": "Michigan State University/YouGov",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-10",
+          "end_date": "2026-08-20",
+          "sample_size": 779,
           "population": "lv",
           "dem_candidate": "Haley Stevens",
           "rep_candidate": "Mike Rogers",
@@ -1935,8 +1967,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 18,
+      "num_polls": 19,
       "polls": [
+        {
+          "pollster": "Abacus Data",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-26",
+          "end_date": "2026-08-28",
+          "sample_size": null,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 52.0,
+          "rep_pct": 46.0,
+          "margin": 6.0,
+          "partisan": false
+        },
         {
           "pollster": "Wedgewood Polls",
           "rated": false,
@@ -2800,13 +2848,13 @@
           "partisan": false
         },
         {
-          "pollster": "Abacus Data (R)",
+          "pollster": "Abacus Data",
           "rated": false,
           "grade": null,
           "quality": null,
-          "start_date": "2026-08-29",
-          "end_date": "2026-08-29",
-          "sample_size": 2500,
+          "start_date": "2026-08-26",
+          "end_date": "2026-08-28",
+          "sample_size": null,
           "population": "lv",
           "dem_candidate": "Josh Turek",
           "rep_candidate": "Ashley Hinson",
