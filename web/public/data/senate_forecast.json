@@ -1,20 +1,20 @@
 {
   "as_of": "2026-09-03",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4611,
-  "mean_dem_seats": 50.18,
+  "dem_control_prob": 0.4605,
+  "mean_dem_seats": 50.17,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 75,
-    "45": 303,
-    "46": 872,
-    "47": 2019,
-    "48": 4147,
-    "49": 7677,
-    "50": 11853,
-    "51": 12473,
-    "52": 7861,
-    "53": 2720
+    "45": 310,
+    "46": 878,
+    "47": 2031,
+    "48": 4145,
+    "49": 7686,
+    "50": 11852,
+    "51": 12457,
+    "52": 7847,
+    "53": 2719
   },
   "races": [
     {
@@ -105,14 +105,14 @@
       "margin": 8.805,
       "num_polls": 15,
       "dem_win_prob_polls": 0.9204,
-      "dem_win_prob_blended": 0.8991,
+      "dem_win_prob_blended": 0.8966,
       "market_dem_prob": {
-        "polymarket": 0.835
+        "polymarket": 0.825
       },
-      "dem_win_prob_sim": 0.8991,
-      "median_margin": 6.74,
-      "margin_p10": -0.03,
-      "margin_p90": 13.51,
+      "dem_win_prob_sim": 0.8961,
+      "median_margin": 6.65,
+      "margin_p10": -0.12,
+      "margin_p90": 13.42,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/new-hampshire-senate-election-winner"
       }
@@ -212,8 +212,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4611,
-  "mean_dem_seats_with_vibes": 50.18,
+  "dem_control_prob_with_vibes": 0.4605,
+  "mean_dem_seats_with_vibes": 50.17,
   "national_environment": {
     "national_swing": 8.38,
     "available": true,
