@@ -2845,8 +2845,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 12,
+      "num_polls": 13,
       "polls": [
+        {
+          "pollster": "Emerson College",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.468,
+          "start_date": "2026-08-31",
+          "end_date": "2026-09-01",
+          "sample_size": 750,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 45.0,
+          "rep_pct": 50.0,
+          "margin": -5.0,
+          "partisan": false
+        },
         {
           "pollster": "Wedgewood Polls",
           "rated": false,
