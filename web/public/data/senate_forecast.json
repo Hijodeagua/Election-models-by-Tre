@@ -1,19 +1,19 @@
 {
   "as_of": "2026-09-05",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4591,
+  "dem_control_prob": 0.4594,
   "mean_dem_seats": 50.17,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 76,
-    "45": 312,
-    "46": 879,
-    "47": 2032,
-    "48": 4145,
-    "49": 7709,
-    "50": 11893,
-    "51": 12461,
-    "52": 7798,
+    "45": 306,
+    "46": 875,
+    "47": 2025,
+    "48": 4151,
+    "49": 7702,
+    "50": 11896,
+    "51": 12468,
+    "52": 7806,
     "53": 2695
   },
   "races": [
@@ -45,14 +45,14 @@
       "margin": 7.958,
       "num_polls": 25,
       "dem_win_prob_polls": 0.899,
-      "dem_win_prob_blended": 0.8393,
+      "dem_win_prob_blended": 0.838,
       "market_dem_prob": {
-        "polymarket": 0.66
+        "polymarket": 0.655
       },
-      "dem_win_prob_sim": 0.8397,
-      "median_margin": 5.03,
-      "margin_p10": -1.73,
-      "margin_p90": 11.82,
+      "dem_win_prob_sim": 0.8385,
+      "median_margin": 5.01,
+      "margin_p10": -1.76,
+      "margin_p90": 11.8,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/michigan-senate-election-winner"
       }
@@ -105,14 +105,14 @@
       "margin": 8.793,
       "num_polls": 15,
       "dem_win_prob_polls": 0.9202,
-      "dem_win_prob_blended": 0.8964,
+      "dem_win_prob_blended": 0.8989,
       "market_dem_prob": {
-        "polymarket": 0.825
+        "polymarket": 0.835
       },
-      "dem_win_prob_sim": 0.8959,
-      "median_margin": 6.64,
-      "margin_p10": -0.13,
-      "margin_p90": 13.41,
+      "dem_win_prob_sim": 0.8989,
+      "median_margin": 6.73,
+      "margin_p10": -0.04,
+      "margin_p90": 13.5,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/new-hampshire-senate-election-winner"
       }
@@ -212,7 +212,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4591,
+  "dem_control_prob_with_vibes": 0.4594,
   "mean_dem_seats_with_vibes": 50.17,
   "national_environment": {
     "national_swing": 8.308,
