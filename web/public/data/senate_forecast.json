@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-09-05",
+  "as_of": "2026-09-06",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4594,
+  "dem_control_prob": 0.4583,
   "mean_dem_seats": 50.17,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 76,
-    "45": 306,
-    "46": 875,
-    "47": 2025,
-    "48": 4151,
-    "49": 7702,
-    "50": 11896,
-    "51": 12468,
-    "52": 7806,
-    "53": 2695
+    "45": 308,
+    "46": 877,
+    "47": 2041,
+    "48": 4166,
+    "49": 7716,
+    "50": 11902,
+    "51": 12473,
+    "52": 7766,
+    "53": 2675
   },
   "races": [
     {
@@ -45,14 +45,14 @@
       "margin": 7.958,
       "num_polls": 25,
       "dem_win_prob_polls": 0.899,
-      "dem_win_prob_blended": 0.838,
+      "dem_win_prob_blended": 0.8355,
       "market_dem_prob": {
-        "polymarket": 0.655
+        "polymarket": 0.645
       },
-      "dem_win_prob_sim": 0.8385,
-      "median_margin": 5.01,
-      "margin_p10": -1.76,
-      "margin_p90": 11.8,
+      "dem_win_prob_sim": 0.8363,
+      "median_margin": 4.95,
+      "margin_p10": -1.81,
+      "margin_p90": 11.74,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/michigan-senate-election-winner"
       }
@@ -165,14 +165,14 @@
       "margin": -1.902,
       "num_polls": 13,
       "dem_win_prob_polls": 0.2612,
-      "dem_win_prob_blended": 0.2872,
+      "dem_win_prob_blended": 0.2847,
       "market_dem_prob": {
-        "polymarket": 0.365
+        "polymarket": 0.355
       },
-      "dem_win_prob_sim": 0.2852,
-      "median_margin": -2.79,
-      "margin_p10": -9.47,
-      "margin_p90": 3.98,
+      "dem_win_prob_sim": 0.2825,
+      "median_margin": -2.82,
+      "margin_p10": -9.51,
+      "margin_p90": 3.94,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/iowa-senate-election-winner"
       }
@@ -212,7 +212,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4594,
+  "dem_control_prob_with_vibes": 0.4583,
   "mean_dem_seats_with_vibes": 50.17,
   "national_environment": {
     "national_swing": 8.308,
