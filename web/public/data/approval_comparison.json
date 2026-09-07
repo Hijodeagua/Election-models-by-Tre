@@ -6,14 +6,6 @@
       "available": true,
       "series": [
         {
-          "as_of": "2026-01-09",
-          "approve": 42.6,
-          "disapprove": 54.4,
-          "net": -11.8,
-          "lo": 42.0,
-          "hi": 43.2
-        },
-        {
           "as_of": "2026-01-10",
           "approve": 42.6,
           "disapprove": 54.4,
@@ -1932,6 +1924,14 @@
           "net": -19.8,
           "lo": 37.5,
           "hi": 39.0
+        },
+        {
+          "as_of": "2026-09-07",
+          "approve": 38.2,
+          "disapprove": 58.0,
+          "net": -19.8,
+          "lo": 37.5,
+          "hi": 39.0
         }
       ]
     },
@@ -1940,13 +1940,6 @@
       "description": "Unweighted 14-day trailing mean of VoteHub approval polls.",
       "available": true,
       "series": [
-        {
-          "as_of": "2026-01-09",
-          "approve": 42.44,
-          "disapprove": 54.78,
-          "net": -12.33,
-          "num_polls": 9
-        },
         {
           "as_of": "2026-01-10",
           "approve": 42.31,
@@ -3391,6 +3384,13 @@
         },
         {
           "as_of": "2026-09-06",
+          "approve": 37.5,
+          "disapprove": 58.12,
+          "net": -20.62,
+          "num_polls": 8
+        },
+        {
+          "as_of": "2026-09-07",
           "approve": 37.5,
           "disapprove": 58.12,
           "net": -20.62,

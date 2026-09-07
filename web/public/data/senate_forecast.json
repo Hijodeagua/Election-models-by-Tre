@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-09-06",
+  "as_of": "2026-09-07",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4605,
+  "dem_control_prob": 0.46,
   "mean_dem_seats": 50.17,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 76,
-    "45": 304,
-    "46": 868,
-    "47": 2022,
-    "48": 4139,
-    "49": 7704,
-    "50": 11864,
-    "51": 12501,
-    "52": 7822,
-    "53": 2700
+    "45": 310,
+    "46": 878,
+    "47": 2038,
+    "48": 4142,
+    "49": 7687,
+    "50": 11871,
+    "51": 12508,
+    "52": 7802,
+    "53": 2688
   },
   "races": [
     {
@@ -25,14 +25,14 @@
       "margin": 7.183,
       "num_polls": 11,
       "dem_win_prob_polls": 0.8747,
-      "dem_win_prob_blended": 0.8898,
+      "dem_win_prob_blended": 0.886,
       "market_dem_prob": {
-        "polymarket": 0.935
+        "polymarket": 0.92
       },
-      "dem_win_prob_sim": 0.8919,
-      "median_margin": 6.45,
-      "margin_p10": -0.26,
-      "margin_p90": 13.13,
+      "dem_win_prob_sim": 0.8883,
+      "median_margin": 6.33,
+      "margin_p10": -0.38,
+      "margin_p90": 13.02,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/georgia-senate-election-winner"
       }
@@ -85,14 +85,14 @@
       "margin": 8.522,
       "num_polls": 7,
       "dem_win_prob_polls": 0.9138,
-      "dem_win_prob_blended": 0.8591,
+      "dem_win_prob_blended": 0.8616,
       "market_dem_prob": {
-        "polymarket": 0.695
+        "polymarket": 0.705
       },
-      "dem_win_prob_sim": 0.8599,
-      "median_margin": 5.52,
-      "margin_p10": -1.25,
-      "margin_p90": 12.29,
+      "dem_win_prob_sim": 0.8622,
+      "median_margin": 5.59,
+      "margin_p10": -1.18,
+      "margin_p90": 12.36,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/maine-senate-election-winner"
       }
@@ -105,14 +105,14 @@
       "margin": 8.801,
       "num_polls": 15,
       "dem_win_prob_polls": 0.9203,
-      "dem_win_prob_blended": 0.899,
+      "dem_win_prob_blended": 0.8965,
       "market_dem_prob": {
-        "polymarket": 0.835
+        "polymarket": 0.825
       },
-      "dem_win_prob_sim": 0.899,
-      "median_margin": 6.73,
-      "margin_p10": -0.03,
-      "margin_p90": 13.5,
+      "dem_win_prob_sim": 0.8961,
+      "median_margin": 6.65,
+      "margin_p10": -0.12,
+      "margin_p90": 13.42,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/new-hampshire-senate-election-winner"
       }
@@ -125,14 +125,14 @@
       "margin": 4.299,
       "num_polls": 19,
       "dem_win_prob_polls": 0.7332,
-      "dem_win_prob_blended": 0.6887,
+      "dem_win_prob_blended": 0.6912,
       "market_dem_prob": {
-        "polymarket": 0.555
+        "polymarket": 0.565
       },
-      "dem_win_prob_sim": 0.6897,
-      "median_margin": 2.42,
-      "margin_p10": -4.32,
-      "margin_p90": 9.17,
+      "dem_win_prob_sim": 0.6919,
+      "median_margin": 2.46,
+      "margin_p10": -4.29,
+      "margin_p90": 9.2,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/ohio-senate-election-winner"
       }
@@ -165,14 +165,14 @@
       "margin": -1.893,
       "num_polls": 13,
       "dem_win_prob_polls": 0.2618,
-      "dem_win_prob_blended": 0.2851,
+      "dem_win_prob_blended": 0.2838,
       "market_dem_prob": {
-        "polymarket": 0.355
+        "polymarket": 0.35
       },
-      "dem_win_prob_sim": 0.283,
-      "median_margin": -2.82,
-      "margin_p10": -9.5,
-      "margin_p90": 3.95,
+      "dem_win_prob_sim": 0.2816,
+      "median_margin": -2.83,
+      "margin_p10": -9.52,
+      "margin_p90": 3.93,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/iowa-senate-election-winner"
       }
@@ -212,7 +212,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4605,
+  "dem_control_prob_with_vibes": 0.46,
   "mean_dem_seats_with_vibes": 50.17,
   "national_environment": {
     "national_swing": 8.356,
