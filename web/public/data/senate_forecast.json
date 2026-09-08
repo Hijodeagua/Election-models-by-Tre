@@ -1,20 +1,20 @@
 {
   "as_of": "2026-09-08",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4591,
-  "mean_dem_seats": 50.17,
+  "dem_control_prob": 0.4611,
+  "mean_dem_seats": 50.18,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 76,
-    "45": 316,
-    "46": 875,
-    "47": 2051,
-    "48": 4155,
-    "49": 7684,
-    "50": 11886,
-    "51": 12488,
-    "52": 7784,
-    "53": 2685
+    "45": 304,
+    "46": 858,
+    "47": 2024,
+    "48": 4094,
+    "49": 7691,
+    "50": 11900,
+    "51": 12542,
+    "52": 7821,
+    "53": 2690
   },
   "races": [
     {
@@ -43,7 +43,7 @@
       "dem_candidate": "Haley Stevens",
       "rep_candidate": "Mike Rogers",
       "margin": 8.006,
-      "num_polls": 25,
+      "num_polls": 26,
       "dem_win_prob_polls": 0.9004,
       "dem_win_prob_blended": 0.839,
       "market_dem_prob": {
@@ -85,14 +85,14 @@
       "margin": 8.522,
       "num_polls": 7,
       "dem_win_prob_polls": 0.9138,
-      "dem_win_prob_blended": 0.8616,
+      "dem_win_prob_blended": 0.8666,
       "market_dem_prob": {
-        "polymarket": 0.705
+        "polymarket": 0.725
       },
-      "dem_win_prob_sim": 0.8622,
-      "median_margin": 5.59,
-      "margin_p10": -1.18,
-      "margin_p90": 12.36,
+      "dem_win_prob_sim": 0.8677,
+      "median_margin": 5.72,
+      "margin_p10": -1.05,
+      "margin_p90": 12.49,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/maine-senate-election-winner"
       }
@@ -105,14 +105,14 @@
       "margin": 8.801,
       "num_polls": 15,
       "dem_win_prob_polls": 0.9203,
-      "dem_win_prob_blended": 0.8915,
+      "dem_win_prob_blended": 0.8953,
       "market_dem_prob": {
-        "polymarket": 0.805
+        "polymarket": 0.82
       },
-      "dem_win_prob_sim": 0.8906,
-      "median_margin": 6.48,
-      "margin_p10": -0.29,
-      "margin_p90": 13.25,
+      "dem_win_prob_sim": 0.8945,
+      "median_margin": 6.6,
+      "margin_p10": -0.16,
+      "margin_p90": 13.37,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/new-hampshire-senate-election-winner"
       }
@@ -212,8 +212,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4591,
-  "mean_dem_seats_with_vibes": 50.17,
+  "dem_control_prob_with_vibes": 0.4611,
+  "mean_dem_seats_with_vibes": 50.18,
   "national_environment": {
     "national_swing": 8.356,
     "available": true,
