@@ -514,8 +514,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 26,
+      "num_polls": 27,
       "polls": [
+        {
+          "pollster": "SSRS",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-31",
+          "end_date": "2026-09-06",
+          "sample_size": 843,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 44.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Glengariff Group",
           "rated": false,
@@ -1578,8 +1594,24 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 7,
+      "num_polls": 8,
       "polls": [
+        {
+          "pollster": "SSRS",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-31",
+          "end_date": "2026-09-06",
+          "sample_size": 880,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 48.0,
+          "rep_pct": 45.0,
+          "margin": 3.0,
+          "partisan": false
+        },
         {
           "pollster": "Abacus Data",
           "rated": false,
@@ -2386,8 +2418,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 28,
+      "num_polls": 29,
       "polls": [
+        {
+          "pollster": "Univision/YouGov",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-27",
+          "end_date": "2026-09-04",
+          "sample_size": 1000,
+          "population": "rv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 48.0,
+          "rep_pct": 43.0,
+          "margin": 5.0,
+          "partisan": false
+        },
         {
           "pollster": "Overton Insights (R)",
           "rated": false,
