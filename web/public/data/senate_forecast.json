@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-09-09",
+  "as_of": "2026-09-10",
   "num_simulations": 50000,
-  "dem_control_prob": 0.5117,
+  "dem_control_prob": 0.5093,
   "mean_dem_seats": 50.36,
   "median_dem_seats": 51.0,
   "seat_distribution": {
-    "44": 58,
-    "45": 235,
-    "46": 723,
-    "47": 1759,
-    "48": 3627,
-    "49": 6940,
-    "50": 11074,
-    "51": 12754,
-    "52": 9129,
-    "53": 3701
+    "44": 57,
+    "45": 234,
+    "46": 710,
+    "47": 1746,
+    "48": 3678,
+    "49": 7013,
+    "50": 11095,
+    "51": 12692,
+    "52": 9084,
+    "53": 3691
   },
   "races": [
     {
@@ -45,14 +45,14 @@
       "margin": 8.87,
       "num_polls": 27,
       "dem_win_prob_polls": 0.9219,
-      "dem_win_prob_blended": 0.8539,
+      "dem_win_prob_blended": 0.8552,
       "market_dem_prob": {
-        "polymarket": 0.65
+        "polymarket": 0.655
       },
-      "dem_win_prob_sim": 0.8546,
-      "median_margin": 5.39,
-      "margin_p10": -1.38,
-      "margin_p90": 12.18,
+      "dem_win_prob_sim": 0.8558,
+      "median_margin": 5.42,
+      "margin_p10": -1.34,
+      "margin_p90": 12.21,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/michigan-senate-election-winner"
       }
@@ -62,17 +62,17 @@
       "race": "North Carolina Senate 2026",
       "dem_candidate": "Roy Cooper",
       "rep_candidate": "Michael Whatley",
-      "margin": 8.292,
-      "num_polls": 27,
-      "dem_win_prob_polls": 0.9081,
-      "dem_win_prob_blended": 0.9098,
+      "margin": 9.021,
+      "num_polls": 28,
+      "dem_win_prob_polls": 0.9251,
+      "dem_win_prob_blended": 0.9251,
       "market_dem_prob": {
-        "polymarket": 0.915
+        "polymarket": 0.925
       },
-      "dem_win_prob_sim": 0.9097,
-      "median_margin": 7.13,
-      "margin_p10": 0.36,
-      "margin_p90": 13.83,
+      "dem_win_prob_sim": 0.9256,
+      "median_margin": 7.79,
+      "margin_p10": 1.02,
+      "margin_p90": 14.49,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/north-carolina-senate-election-winner"
       }
@@ -82,17 +82,17 @@
       "race": "Maine Senate 2026",
       "dem_candidate": "Troy Jackson",
       "rep_candidate": "Susan Collins",
-      "margin": 7.601,
-      "num_polls": 8,
-      "dem_win_prob_polls": 0.8884,
-      "dem_win_prob_blended": 0.8451,
+      "margin": 7.318,
+      "num_polls": 9,
+      "dem_win_prob_polls": 0.8793,
+      "dem_win_prob_blended": 0.8357,
       "market_dem_prob": {
-        "polymarket": 0.715
+        "polymarket": 0.705
       },
-      "dem_win_prob_sim": 0.8452,
-      "median_margin": 5.18,
-      "margin_p10": -1.6,
-      "margin_p90": 11.94,
+      "dem_win_prob_sim": 0.8355,
+      "median_margin": 4.96,
+      "margin_p10": -1.81,
+      "margin_p90": 11.73,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/maine-senate-election-winner"
       }
@@ -105,14 +105,14 @@
       "margin": 13.17,
       "num_polls": 18,
       "dem_win_prob_polls": 0.9761,
-      "dem_win_prob_blended": 0.9396,
+      "dem_win_prob_blended": 0.9346,
       "market_dem_prob": {
-        "polymarket": 0.83
+        "polymarket": 0.81
       },
-      "dem_win_prob_sim": 0.94,
-      "median_margin": 8.56,
-      "margin_p10": 1.79,
-      "margin_p90": 15.33,
+      "dem_win_prob_sim": 0.935,
+      "median_margin": 8.28,
+      "margin_p10": 1.51,
+      "margin_p90": 15.05,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/new-hampshire-senate-election-winner"
       }
@@ -125,14 +125,14 @@
       "margin": 4.416,
       "num_polls": 19,
       "dem_win_prob_polls": 0.7407,
-      "dem_win_prob_blended": 0.6918,
+      "dem_win_prob_blended": 0.6843,
       "market_dem_prob": {
-        "polymarket": 0.545
+        "polymarket": 0.515
       },
-      "dem_win_prob_sim": 0.6923,
-      "median_margin": 2.47,
-      "margin_p10": -4.28,
-      "margin_p90": 9.21,
+      "dem_win_prob_sim": 0.6849,
+      "median_margin": 2.36,
+      "margin_p10": -4.38,
+      "margin_p90": 9.1,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/ohio-senate-election-winner"
       }
@@ -212,7 +212,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.5117,
+  "dem_control_prob_with_vibes": 0.5093,
   "mean_dem_seats_with_vibes": 50.36,
   "national_environment": {
     "national_swing": 9.22,

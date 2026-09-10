@@ -1075,8 +1075,24 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 27,
+      "num_polls": 28,
       "polls": [
+        {
+          "pollster": "Elon University/YouGov",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-21",
+          "end_date": "2026-08-31",
+          "sample_size": 565,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 49.0,
+          "rep_pct": 38.0,
+          "margin": 11.0,
+          "partisan": false
+        },
         {
           "pollster": "High Point University/YouGov",
           "rated": false,
@@ -1594,8 +1610,24 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 8,
+      "num_polls": 9,
       "polls": [
+        {
+          "pollster": "YouGov",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.618,
+          "start_date": "2026-09-02",
+          "end_date": "2026-09-08",
+          "sample_size": 1335,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 48.0,
+          "rep_pct": 44.0,
+          "margin": 4.0,
+          "partisan": false
+        },
         {
           "pollster": "SSRS",
           "rated": false,
