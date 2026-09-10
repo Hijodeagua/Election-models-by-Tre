@@ -514,8 +514,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 27,
+      "num_polls": 28,
       "polls": [
+        {
+          "pollster": "Trafalgar Group (R)",
+          "rated": true,
+          "grade": "C+",
+          "quality": 1.048,
+          "start_date": "2026-09-07",
+          "end_date": "2026-09-09",
+          "sample_size": 1079,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 45.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "SSRS",
           "rated": false,
@@ -2095,8 +2111,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 19,
+      "num_polls": 20,
       "polls": [
+        {
+          "pollster": "InsiderAdvantage (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-08",
+          "end_date": "2026-09-09",
+          "sample_size": 1200,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 47.0,
+          "rep_pct": 42.0,
+          "margin": 5.0,
+          "partisan": false
+        },
         {
           "pollster": "Abacus Data",
           "rated": false,
@@ -2450,8 +2482,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 29,
+      "num_polls": 31,
       "polls": [
+        {
+          "pollster": "InsiderAdvantage (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-08",
+          "end_date": "2026-09-09",
+          "sample_size": 1200,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 47.0,
+          "rep_pct": 46.0,
+          "margin": 1.0,
+          "partisan": false
+        },
         {
           "pollster": "Univision/YouGov",
           "rated": false,
@@ -2466,6 +2514,22 @@
           "dem_pct": 48.0,
           "rep_pct": 43.0,
           "margin": 5.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Fabrizio Ward (R)/ Impact Research (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-30",
+          "end_date": "2026-09-01",
+          "sample_size": 895,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 48.0,
+          "rep_pct": 44.0,
+          "margin": 4.0,
           "partisan": false
         },
         {
