@@ -1794,8 +1794,24 @@
     {
       "state": "New Hampshire",
       "abbr": "NH",
-      "num_polls": 18,
+      "num_polls": 19,
       "polls": [
+        {
+          "pollster": "Rasmussen Reports (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-08",
+          "end_date": "2026-09-10",
+          "sample_size": 1000,
+          "population": "lv",
+          "dem_candidate": "Chris Pappas",
+          "rep_candidate": "Scott Brown",
+          "dem_pct": 45.0,
+          "rep_pct": null,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Fabrizio, Lee, & Associates (R)",
           "rated": false,
@@ -3069,8 +3085,40 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 14,
+      "num_polls": 16,
       "polls": [
+        {
+          "pollster": "Rasmussen Reports (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-08",
+          "end_date": "2026-09-10",
+          "sample_size": 1031,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 45.0,
+          "rep_pct": 40.0,
+          "margin": 5.0,
+          "partisan": false
+        },
+        {
+          "pollster": "YouGov",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.618,
+          "start_date": "2026-09-03",
+          "end_date": "2026-09-08",
+          "sample_size": 2041,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 47.0,
+          "rep_pct": 43.0,
+          "margin": 4.0,
+          "partisan": false
+        },
         {
           "pollster": "Emerson College",
           "rated": true,

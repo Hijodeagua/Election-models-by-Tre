@@ -1,20 +1,20 @@
 {
   "as_of": "2026-09-11",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4708,
-  "mean_dem_seats": 50.26,
-  "median_dem_seats": 50.0,
+  "dem_control_prob": 0.5134,
+  "mean_dem_seats": 50.39,
+  "median_dem_seats": 51.0,
   "seat_distribution": {
-    "44": 58,
-    "45": 239,
-    "46": 733,
-    "47": 1738,
-    "48": 3866,
-    "49": 7731,
-    "50": 12096,
-    "51": 12155,
-    "52": 8159,
-    "53": 3225
+    "44": 57,
+    "45": 226,
+    "46": 697,
+    "47": 1618,
+    "48": 3600,
+    "49": 7013,
+    "50": 11120,
+    "51": 12339,
+    "52": 9264,
+    "53": 4066
   },
   "races": [
     {
@@ -45,14 +45,14 @@
       "margin": 8.882,
       "num_polls": 28,
       "dem_win_prob_polls": 0.9221,
-      "dem_win_prob_blended": 0.8491,
+      "dem_win_prob_blended": 0.8479,
       "market_dem_prob": {
-        "polymarket": 0.63
+        "polymarket": 0.625
       },
-      "dem_win_prob_sim": 0.8498,
-      "median_margin": 5.27,
-      "margin_p10": -1.49,
-      "margin_p90": 12.06,
+      "dem_win_prob_sim": 0.8485,
+      "median_margin": 5.24,
+      "margin_p10": -1.52,
+      "margin_p90": 12.03,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/michigan-senate-election-winner"
       }
@@ -103,16 +103,16 @@
       "dem_candidate": "Chris Pappas",
       "rep_candidate": "Scott Brown",
       "margin": 13.182,
-      "num_polls": 18,
+      "num_polls": 19,
       "dem_win_prob_polls": 0.9762,
-      "dem_win_prob_blended": 0.9359,
+      "dem_win_prob_blended": 0.9384,
       "market_dem_prob": {
-        "polymarket": 0.815
+        "polymarket": 0.825
       },
-      "dem_win_prob_sim": 0.9362,
-      "median_margin": 8.35,
-      "margin_p10": 1.58,
-      "margin_p90": 15.12,
+      "dem_win_prob_sim": 0.9388,
+      "median_margin": 8.49,
+      "margin_p10": 1.72,
+      "margin_p90": 15.26,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/new-hampshire-senate-election-winner"
       }
@@ -145,14 +145,14 @@
       "margin": 2.07,
       "num_polls": 31,
       "dem_win_prob_polls": 0.5683,
-      "dem_win_prob_blended": 0.4412,
+      "dem_win_prob_blended": 0.44,
       "market_dem_prob": {
-        "polymarket": 0.06
+        "polymarket": 0.055
       },
-      "dem_win_prob_sim": 0.4406,
-      "median_margin": -0.73,
-      "margin_p10": -7.37,
-      "margin_p90": 6.1,
+      "dem_win_prob_sim": 0.4395,
+      "median_margin": -0.74,
+      "margin_p10": -7.38,
+      "margin_p90": 6.08,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-texas-state-senate-in-2026"
       }
@@ -162,17 +162,17 @@
       "race": "Iowa Senate 2026",
       "dem_candidate": "Josh Turek",
       "rep_candidate": "Ashley Hinson",
-      "margin": -0.727,
-      "num_polls": 14,
-      "dem_win_prob_polls": 0.3424,
-      "dem_win_prob_blended": 0.343,
+      "margin": 1.339,
+      "num_polls": 16,
+      "dem_win_prob_polls": 0.5081,
+      "dem_win_prob_blended": 0.4798,
       "market_dem_prob": {
-        "polymarket": 0.345
+        "polymarket": 0.395
       },
-      "dem_win_prob_sim": 0.3412,
-      "median_margin": -2.0,
-      "margin_p10": -8.68,
-      "margin_p90": 4.76,
+      "dem_win_prob_sim": 0.4759,
+      "median_margin": -0.28,
+      "margin_p10": -6.97,
+      "margin_p90": 6.48,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/iowa-senate-election-winner"
       }
@@ -212,8 +212,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4708,
-  "mean_dem_seats_with_vibes": 50.26,
+  "dem_control_prob_with_vibes": 0.5134,
+  "mean_dem_seats_with_vibes": 50.39,
   "national_environment": {
     "national_swing": 9.232,
     "available": true,
