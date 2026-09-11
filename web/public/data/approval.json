@@ -1,6 +1,6 @@
 {
   "current": {
-    "as_of": "2026-09-10",
+    "as_of": "2026-09-11",
     "approve": 38.1,
     "disapprove": 58.2,
     "net_approval": -20.1,
@@ -15,21 +15,6 @@
     ]
   },
   "trend": [
-    {
-      "as_of": "2026-01-13",
-      "approve": 42.2,
-      "disapprove": 54.7,
-      "net_approval": -12.5,
-      "num_polls": 513,
-      "ci_approve": [
-        41.7,
-        42.6
-      ],
-      "ci_disapprove": [
-        54.0,
-        55.4
-      ]
-    },
     {
       "as_of": "2026-01-14",
       "approve": 42.4,
@@ -3629,20 +3614,35 @@
         57.0,
         59.3
       ]
+    },
+    {
+      "as_of": "2026-09-11",
+      "approve": 38.1,
+      "disapprove": 58.2,
+      "net_approval": -20.1,
+      "num_polls": 766,
+      "ci_approve": [
+        37.4,
+        38.9
+      ],
+      "ci_disapprove": [
+        57.0,
+        59.3
+      ]
     }
   ],
   "num_polls": 1842,
   "state_space": {
     "available": true,
     "model": "Jackman state-space: random-walk latent + additive house effects (Phase 3)",
-    "as_of": "2026-09-10",
+    "as_of": "2026-09-11",
     "current": {
       "approve": 39.1,
-      "approve_lo": 37.2,
+      "approve_lo": 37.1,
       "approve_hi": 41.0,
       "disapprove": 58.0,
-      "disapprove_lo": 55.6,
-      "disapprove_hi": 60.4,
+      "disapprove_lo": 55.5,
+      "disapprove_hi": 60.5,
       "net": -18.9
     },
     "trend": [

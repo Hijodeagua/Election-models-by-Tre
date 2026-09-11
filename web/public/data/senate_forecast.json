@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-09-10",
+  "as_of": "2026-09-11",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4724,
-  "mean_dem_seats": 50.27,
+  "dem_control_prob": 0.4708,
+  "mean_dem_seats": 50.26,
   "median_dem_seats": 50.0,
   "seat_distribution": {
-    "44": 55,
-    "45": 224,
-    "46": 701,
-    "47": 1704,
-    "48": 3828,
-    "49": 7711,
-    "50": 12155,
-    "51": 12189,
-    "52": 8197,
-    "53": 3236
+    "44": 58,
+    "45": 239,
+    "46": 733,
+    "47": 1738,
+    "48": 3866,
+    "49": 7731,
+    "50": 12096,
+    "51": 12155,
+    "52": 8159,
+    "53": 3225
   },
   "races": [
     {
@@ -25,14 +25,14 @@
       "margin": 7.371,
       "num_polls": 11,
       "dem_win_prob_polls": 0.881,
-      "dem_win_prob_blended": 0.892,
+      "dem_win_prob_blended": 0.8895,
       "market_dem_prob": {
-        "polymarket": 0.925
+        "polymarket": 0.915
       },
-      "dem_win_prob_sim": 0.8943,
-      "median_margin": 6.52,
-      "margin_p10": -0.19,
-      "margin_p90": 13.21,
+      "dem_win_prob_sim": 0.8916,
+      "median_margin": 6.44,
+      "margin_p10": -0.27,
+      "margin_p90": 13.13,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/georgia-senate-election-winner"
       }
@@ -45,14 +45,14 @@
       "margin": 8.882,
       "num_polls": 28,
       "dem_win_prob_polls": 0.9221,
-      "dem_win_prob_blended": 0.8529,
+      "dem_win_prob_blended": 0.8491,
       "market_dem_prob": {
-        "polymarket": 0.645
+        "polymarket": 0.63
       },
-      "dem_win_prob_sim": 0.8535,
-      "median_margin": 5.36,
-      "margin_p10": -1.4,
-      "margin_p90": 12.15,
+      "dem_win_prob_sim": 0.8498,
+      "median_margin": 5.27,
+      "margin_p10": -1.49,
+      "margin_p90": 12.06,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/michigan-senate-election-winner"
       }
@@ -62,17 +62,17 @@
       "race": "North Carolina Senate 2026",
       "dem_candidate": "Roy Cooper",
       "rep_candidate": "Michael Whatley",
-      "margin": 9.022,
-      "num_polls": 28,
-      "dem_win_prob_polls": 0.9252,
-      "dem_win_prob_blended": 0.9251,
+      "margin": 8.397,
+      "num_polls": 29,
+      "dem_win_prob_polls": 0.9107,
+      "dem_win_prob_blended": 0.9143,
       "market_dem_prob": {
         "polymarket": 0.925
       },
-      "dem_win_prob_sim": 0.9256,
-      "median_margin": 7.79,
-      "margin_p10": 1.02,
-      "margin_p90": 14.49,
+      "dem_win_prob_sim": 0.9144,
+      "median_margin": 7.31,
+      "margin_p10": 0.54,
+      "margin_p90": 14.02,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/north-carolina-senate-election-winner"
       }
@@ -85,14 +85,14 @@
       "margin": 7.321,
       "num_polls": 9,
       "dem_win_prob_polls": 0.8794,
-      "dem_win_prob_blended": 0.8795,
+      "dem_win_prob_blended": 0.8845,
       "market_dem_prob": {
-        "polymarket": 0.88
+        "polymarket": 0.9
       },
-      "dem_win_prob_sim": 0.8806,
-      "median_margin": 6.09,
-      "margin_p10": -0.68,
-      "margin_p90": 12.86,
+      "dem_win_prob_sim": 0.8857,
+      "median_margin": 6.24,
+      "margin_p10": -0.53,
+      "margin_p90": 13.01,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-maine-state-senate-in-2026"
       }
@@ -105,14 +105,14 @@
       "margin": 13.182,
       "num_polls": 18,
       "dem_win_prob_polls": 0.9762,
-      "dem_win_prob_blended": 0.9346,
+      "dem_win_prob_blended": 0.9359,
       "market_dem_prob": {
-        "polymarket": 0.81
+        "polymarket": 0.815
       },
-      "dem_win_prob_sim": 0.9351,
-      "median_margin": 8.28,
-      "margin_p10": 1.51,
-      "margin_p90": 15.05,
+      "dem_win_prob_sim": 0.9362,
+      "median_margin": 8.35,
+      "margin_p10": 1.58,
+      "margin_p90": 15.12,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/new-hampshire-senate-election-winner"
       }
@@ -212,8 +212,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4724,
-  "mean_dem_seats_with_vibes": 50.27,
+  "dem_control_prob_with_vibes": 0.4708,
+  "mean_dem_seats_with_vibes": 50.26,
   "national_environment": {
     "national_swing": 9.232,
     "available": true,

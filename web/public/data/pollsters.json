@@ -1091,8 +1091,24 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 28,
+      "num_polls": 29,
       "polls": [
+        {
+          "pollster": "East Carolina University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-31",
+          "end_date": "2026-09-03",
+          "sample_size": 675,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 46.0,
+          "rep_pct": 39.0,
+          "margin": 7.0,
+          "partisan": false
+        },
         {
           "pollster": "Elon University/YouGov",
           "rated": false,
