@@ -1642,8 +1642,24 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 9,
+      "num_polls": 10,
       "polls": [
+        {
+          "pollster": "Rasmussen Reports (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-08",
+          "end_date": "2026-09-10",
+          "sample_size": 1033,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 46.0,
+          "rep_pct": 45.0,
+          "margin": 1.0,
+          "partisan": false
+        },
         {
           "pollster": "YouGov",
           "rated": true,
