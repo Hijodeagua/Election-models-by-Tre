@@ -1,7 +1,7 @@
 {
   "as_of": "2026-09-12",
   "num_simulations": 50000,
-  "dem_control_prob": 0.5096,
+  "dem_control_prob": 0.51,
   "mean_dem_seats": 50.38,
   "median_dem_seats": 51.0,
   "seat_distribution": {
@@ -9,12 +9,12 @@
     "45": 233,
     "46": 717,
     "47": 1686,
-    "48": 3668,
-    "49": 7064,
-    "50": 11092,
-    "51": 12259,
-    "52": 9176,
-    "53": 4047
+    "48": 3663,
+    "49": 7058,
+    "50": 11086,
+    "51": 12264,
+    "52": 9178,
+    "53": 4057
   },
   "races": [
     {
@@ -165,14 +165,14 @@
       "margin": 1.343,
       "num_polls": 16,
       "dem_win_prob_polls": 0.5084,
-      "dem_win_prob_blended": 0.4775,
+      "dem_win_prob_blended": 0.4788,
       "market_dem_prob": {
-        "polymarket": 0.385
+        "polymarket": 0.39
       },
-      "dem_win_prob_sim": 0.4737,
-      "median_margin": -0.31,
-      "margin_p10": -6.99,
-      "margin_p90": 6.45,
+      "dem_win_prob_sim": 0.4748,
+      "median_margin": -0.29,
+      "margin_p10": -6.98,
+      "margin_p90": 6.47,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/iowa-senate-election-winner"
       }
@@ -203,7 +203,7 @@
   "bias": -1.242,
   "tail_dof": 5,
   "market_control_dem_prob": {
-    "polymarket": 0.525
+    "polymarket": 0.535
   },
   "market_control_urls": {
     "polymarket": "https://polymarket.com/event/which-party-will-win-the-senate-in-2026"
@@ -212,7 +212,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.5096,
+  "dem_control_prob_with_vibes": 0.51,
   "mean_dem_seats_with_vibes": 50.38,
   "national_environment": {
     "national_swing": 9.256,
