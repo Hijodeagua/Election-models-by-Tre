@@ -157,42 +157,42 @@
       "state": "Georgia",
       "as_of": "2026-09-13",
       "candidates": {
-        "Jon Ossoff": 50.3,
+        "Jon Ossoff": 49.4,
         "Mike Collins": 43.0
       },
-      "margin": 7.3,
-      "num_polls": 11,
+      "margin": 6.4,
+      "num_polls": 12,
       "rating": null,
       "dem_candidate": "Jon Ossoff",
       "rep_candidate": "Mike Collins",
-      "dem_margin": 7.3,
-      "dem_win_prob": 0.9115,
+      "dem_margin": 6.4,
+      "dem_win_prob": 0.8817,
       "vibes": {
         "available": true,
         "adjustment": 0.0,
         "dem_effect": 0.0,
         "rep_effect": 0.0,
-        "adjusted_dem_margin": 7.3
+        "adjusted_dem_margin": 6.4
       },
       "market_odds": {
         "polymarket": {
           "Democrat": 0.925,
-          "Republican": 0.0725
+          "Republican": 0.0755
         }
       },
       "market_urls": {
         "polymarket": "https://polymarket.com/event/georgia-senate-election-winner"
       },
       "forecast": {
-        "dem_win_prob": 0.8944,
-        "median_margin": 6.53,
-        "margin_p10": -0.18,
-        "margin_p90": 13.21,
+        "dem_win_prob": 0.8753,
+        "median_margin": 5.92,
+        "margin_p10": -0.79,
+        "margin_p90": 12.61,
         "num_simulations": 50000,
         "margin_hist": [
           {
             "mid": -29.0,
-            "pct": 0.00026
+            "pct": 0.00028
           },
           {
             "mid": -27.0,
@@ -200,115 +200,115 @@
           },
           {
             "mid": -25.0,
-            "pct": 0.0001
+            "pct": 0.00014
           },
           {
             "mid": -23.0,
-            "pct": 0.00016
+            "pct": 0.00018
           },
           {
             "mid": -21.0,
-            "pct": 0.00024
+            "pct": 0.00022
           },
           {
             "mid": -19.0,
-            "pct": 0.0005
+            "pct": 0.00068
           },
           {
             "mid": -17.0,
-            "pct": 0.0008
+            "pct": 0.00074
           },
           {
             "mid": -15.0,
-            "pct": 0.001
+            "pct": 0.00114
           },
           {
             "mid": -13.0,
-            "pct": 0.00148
+            "pct": 0.00204
           },
           {
             "mid": -11.0,
-            "pct": 0.00306
+            "pct": 0.00324
           },
           {
             "mid": -9.0,
-            "pct": 0.00432
+            "pct": 0.00542
           },
           {
             "mid": -7.0,
-            "pct": 0.00804
+            "pct": 0.00954
           },
           {
             "mid": -5.0,
-            "pct": 0.01354
+            "pct": 0.01602
           },
           {
             "mid": -3.0,
-            "pct": 0.0255
+            "pct": 0.03052
           },
           {
             "mid": -1.0,
-            "pct": 0.04654
+            "pct": 0.0545
           },
           {
             "mid": 1.0,
-            "pct": 0.07724
+            "pct": 0.08954
           },
           {
             "mid": 3.0,
-            "pct": 0.1204
+            "pct": 0.13186
           },
           {
             "mid": 5.0,
-            "pct": 0.15278
+            "pct": 0.16016
           },
           {
             "mid": 7.0,
-            "pct": 0.1624
+            "pct": 0.15834
           },
           {
             "mid": 9.0,
-            "pct": 0.1399
+            "pct": 0.12812
           },
           {
             "mid": 11.0,
-            "pct": 0.09974
+            "pct": 0.0879
           },
           {
             "mid": 13.0,
-            "pct": 0.06148
+            "pct": 0.05128
           },
           {
             "mid": 15.0,
-            "pct": 0.03506
+            "pct": 0.02984
           },
           {
             "mid": 17.0,
-            "pct": 0.01944
+            "pct": 0.01612
           },
           {
             "mid": 19.0,
-            "pct": 0.01068
+            "pct": 0.00898
           },
           {
             "mid": 21.0,
-            "pct": 0.00606
+            "pct": 0.00518
           },
           {
             "mid": 23.0,
-            "pct": 0.00332
+            "pct": 0.00268
           },
           {
             "mid": 25.0,
-            "pct": 0.00182
+            "pct": 0.00168
           },
           {
             "mid": 27.0,
-            "pct": 0.00118
+            "pct": 0.00102
           },
           {
             "mid": 29.0,
-            "pct": 0.00288
+            "pct": 0.00256
           }
         ]
       }
@@ -656,18 +656,18 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.635,
-          "Republican": 0.365
+          "Democrat": 0.595,
+          "Republican": 0.4
         }
       },
       "market_urls": {
         "polymarket": "https://polymarket.com/event/michigan-senate-election-winner"
       },
       "forecast": {
-        "dem_win_prob": 0.8514,
-        "median_margin": 5.31,
-        "margin_p10": -1.45,
-        "margin_p90": 12.1,
+        "dem_win_prob": 0.8411,
+        "median_margin": 5.07,
+        "margin_p10": -1.69,
+        "margin_p90": 11.86,
         "num_simulations": 50000,
         "margin_hist": [
           {
@@ -680,7 +680,7 @@
           },
           {
             "mid": -25.0,
-            "pct": 0.00012
+            "pct": 0.00014
           },
           {
             "mid": -23.0,
@@ -688,107 +688,107 @@
           },
           {
             "mid": -21.0,
-            "pct": 0.00042
+            "pct": 0.00044
           },
           {
             "mid": -19.0,
-            "pct": 0.00054
+            "pct": 0.0006
           },
           {
             "mid": -17.0,
-            "pct": 0.0007
+            "pct": 0.00066
           },
           {
             "mid": -15.0,
-            "pct": 0.00148
+            "pct": 0.0016
           },
           {
             "mid": -13.0,
-            "pct": 0.00238
+            "pct": 0.00252
           },
           {
             "mid": -11.0,
-            "pct": 0.00426
+            "pct": 0.00448
           },
           {
             "mid": -9.0,
-            "pct": 0.00614
+            "pct": 0.00676
           },
           {
             "mid": -7.0,
-            "pct": 0.01194
+            "pct": 0.01262
           },
           {
             "mid": -5.0,
-            "pct": 0.02002
+            "pct": 0.02106
           },
           {
             "mid": -3.0,
-            "pct": 0.03582
+            "pct": 0.03908
           },
           {
             "mid": -1.0,
-            "pct": 0.06414
+            "pct": 0.06828
           },
           {
             "mid": 1.0,
-            "pct": 0.10208
+            "pct": 0.10616
           },
           {
             "mid": 3.0,
-            "pct": 0.14116
+            "pct": 0.14648
           },
           {
             "mid": 5.0,
-            "pct": 0.16464
+            "pct": 0.1652
           },
           {
             "mid": 7.0,
-            "pct": 0.15214
+            "pct": 0.14642
           },
           {
             "mid": 9.0,
-            "pct": 0.11568
+            "pct": 0.11194
           },
           {
             "mid": 11.0,
-            "pct": 0.07294
+            "pct": 0.06874
           },
           {
             "mid": 13.0,
-            "pct": 0.04376
+            "pct": 0.04152
           },
           {
             "mid": 15.0,
-            "pct": 0.0259
+            "pct": 0.02346
           },
           {
             "mid": 17.0,
-            "pct": 0.01312
+            "pct": 0.01262
           },
           {
             "mid": 19.0,
-            "pct": 0.00812
+            "pct": 0.00748
           },
           {
             "mid": 21.0,
-            "pct": 0.00456
+            "pct": 0.00424
           },
           {
             "mid": 23.0,
-            "pct": 0.00266
+            "pct": 0.00248
           },
           {
             "mid": 25.0,
-            "pct": 0.00182
+            "pct": 0.00172
           },
           {
             "mid": 27.0,
-            "pct": 0.00096
+            "pct": 0.00094
           },
           {
             "mid": 29.0,
-            "pct": 0.00184
+            "pct": 0.0017
           }
         ]
       }
@@ -817,7 +817,7 @@
       "market_odds": {
         "polymarket": {
           "Democrat": 0.845,
-          "Republican": 0.145
+          "Republican": 0.15
         }
       },
       "market_urls": {
@@ -957,22 +957,22 @@
       "state": "North Carolina",
       "as_of": "2026-09-13",
       "candidates": {
-        "Roy Cooper": 48.9,
-        "Michael Whatley": 40.3
+        "Roy Cooper": 48.5,
+        "Michael Whatley": 40.9
       },
-      "margin": 8.6,
-      "num_polls": 29,
+      "margin": 7.6,
+      "num_polls": 30,
       "rating": null,
       "dem_candidate": "Roy Cooper",
       "rep_candidate": "Michael Whatley",
-      "dem_margin": 8.6,
-      "dem_win_prob": 0.9441,
+      "dem_margin": 7.6,
+      "dem_win_prob": 0.92,
       "vibes": {
         "available": false,
         "adjustment": 0.0,
         "dem_effect": 0.0,
         "rep_effect": 0.0,
-        "adjusted_dem_margin": 8.6
+        "adjusted_dem_margin": 7.6
       },
       "market_odds": {
         "polymarket": {
@@ -984,35 +984,35 @@
         "polymarket": "https://polymarket.com/event/north-carolina-senate-election-winner"
       },
       "forecast": {
-        "dem_win_prob": 0.9129,
-        "median_margin": 7.26,
-        "margin_p10": 0.49,
-        "margin_p90": 13.97,
+        "dem_win_prob": 0.8938,
+        "median_margin": 6.54,
+        "margin_p10": -0.22,
+        "margin_p90": 13.25,
         "num_simulations": 50000,
         "margin_hist": [
           {
             "mid": -29.0,
-            "pct": 0.00024
+            "pct": 0.0003
           },
           {
             "mid": -27.0,
-            "pct": 0.0001
+            "pct": 8e-05
           },
           {
             "mid": -25.0,
-            "pct": 0.0001
+            "pct": 0.00014
           },
           {
             "mid": -23.0,
-            "pct": 0.00012
+            "pct": 8e-05
           },
           {
             "mid": -21.0,
-            "pct": 0.00024
+            "pct": 0.00038
           },
           {
             "mid": -19.0,
-            "pct": 0.00028
+            "pct": 0.00034
           },
           {
             "mid": -17.0,
@@ -1020,95 +1020,95 @@
           },
           {
             "mid": -15.0,
-            "pct": 0.00072
+            "pct": 0.00092
           },
           {
             "mid": -13.0,
-            "pct": 0.00132
+            "pct": 0.00168
           },
           {
             "mid": -11.0,
-            "pct": 0.00246
+            "pct": 0.00298
           },
           {
             "mid": -9.0,
-            "pct": 0.0042
+            "pct": 0.00472
           },
           {
             "mid": -7.0,
-            "pct": 0.00644
+            "pct": 0.0077
           },
           {
             "mid": -5.0,
-            "pct": 0.01106
+            "pct": 0.01472
           },
           {
             "mid": -3.0,
-            "pct": 0.022
+            "pct": 0.02612
           },
           {
             "mid": -1.0,
-            "pct": 0.03718
+            "pct": 0.04542
           },
           {
             "mid": 1.0,
-            "pct": 0.06464
+            "pct": 0.07802
           },
           {
             "mid": 3.0,
-            "pct": 0.1041
+            "pct": 0.1162
           },
           {
             "mid": 5.0,
-            "pct": 0.1423
+            "pct": 0.15478
           },
           {
             "mid": 7.0,
-            "pct": 0.16384
+            "pct": 0.165
           },
           {
             "mid": 9.0,
-            "pct": 0.15252
+            "pct": 0.14046
           },
           {
             "mid": 11.0,
-            "pct": 0.11248
+            "pct": 0.09796
           },
           {
             "mid": 13.0,
-            "pct": 0.07364
+            "pct": 0.06008
           },
           {
             "mid": 15.0,
-            "pct": 0.04268
+            "pct": 0.03386
           },
           {
             "mid": 17.0,
-            "pct": 0.02358
+            "pct": 0.01984
           },
           {
             "mid": 19.0,
-            "pct": 0.01296
+            "pct": 0.01074
           },
           {
             "mid": 21.0,
-            "pct": 0.00808
+            "pct": 0.00658
           },
           {
             "mid": 23.0,
-            "pct": 0.00412
+            "pct": 0.00318
           },
           {
             "mid": 25.0,
-            "pct": 0.0026
+            "pct": 0.00272
           },
           {
             "mid": 27.0,
-            "pct": 0.00212
+            "pct": 0.00148
           },
           {
             "mid": 29.0,
-            "pct": 0.00322
+            "pct": 0.00286
           }
         ]
       }
@@ -1137,7 +1137,7 @@
       "market_odds": {
         "polymarket": {
           "Democrat": 0.515,
-          "Republican": 0.485
+          "Republican": 0.47
         }
       },
       "market_urls": {
@@ -1277,154 +1277,154 @@
       "state": "Texas",
       "as_of": "2026-09-13",
       "candidates": {
-        "James Talarico": 47.6,
+        "James Talarico": 48.0,
         "Ken Paxton": 45.1
       },
-      "margin": 2.5,
-      "num_polls": 31,
+      "margin": 2.9,
+      "num_polls": 32,
       "rating": null,
       "dem_candidate": "James Talarico",
       "rep_candidate": "Ken Paxton",
-      "dem_margin": 2.5,
-      "dem_win_prob": 0.678,
+      "dem_margin": 2.9,
+      "dem_win_prob": 0.7041,
       "vibes": {
         "available": false,
         "adjustment": 0.0,
         "dem_effect": 0.0,
         "rep_effect": 0.0,
-        "adjusted_dem_margin": 2.5
+        "adjusted_dem_margin": 2.9
       },
       "market_odds": {
         "polymarket": {
           "Democrat": 0.06,
-          "Republican": 0.95
+          "Republican": 0.945
         }
       },
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-texas-state-senate-in-2026"
       },
       "forecast": {
-        "dem_win_prob": 0.4407,
-        "median_margin": -0.73,
-        "margin_p10": -7.36,
-        "margin_p90": 6.1,
+        "dem_win_prob": 0.4628,
+        "median_margin": -0.45,
+        "margin_p10": -7.09,
+        "margin_p90": 6.38,
         "num_simulations": 50000,
         "margin_hist": [
           {
             "mid": -29.0,
-            "pct": 0.00098
+            "pct": 0.0009
           },
           {
             "mid": -27.0,
-            "pct": 0.00026
+            "pct": 0.00032
           },
           {
             "mid": -25.0,
-            "pct": 0.0007
+            "pct": 0.00066
           },
           {
             "mid": -23.0,
-            "pct": 0.00092
+            "pct": 0.00076
           },
           {
             "mid": -21.0,
-            "pct": 0.00154
+            "pct": 0.00152
           },
           {
             "mid": -19.0,
-            "pct": 0.00212
+            "pct": 0.00196
           },
           {
             "mid": -17.0,
-            "pct": 0.00334
+            "pct": 0.00328
           },
           {
             "mid": -15.0,
-            "pct": 0.0064
+            "pct": 0.00602
           },
           {
             "mid": -13.0,
-            "pct": 0.01102
+            "pct": 0.00958
           },
           {
             "mid": -11.0,
-            "pct": 0.02082
+            "pct": 0.01896
           },
           {
             "mid": -9.0,
-            "pct": 0.03532
+            "pct": 0.03348
           },
           {
             "mid": -7.0,
-            "pct": 0.0641
+            "pct": 0.05918
           },
           {
             "mid": -5.0,
-            "pct": 0.10326
+            "pct": 0.09682
           },
           {
             "mid": -3.0,
-            "pct": 0.14424
+            "pct": 0.14048
           },
           {
             "mid": -1.0,
-            "pct": 0.16428
+            "pct": 0.16328
           },
           {
             "mid": 1.0,
-            "pct": 0.14898
+            "pct": 0.15196
           },
           {
             "mid": 3.0,
-            "pct": 0.1141
+            "pct": 0.1197
           },
           {
             "mid": 5.0,
-            "pct": 0.07494
+            "pct": 0.08044
           },
           {
             "mid": 7.0,
-            "pct": 0.0442
+            "pct": 0.0476
           },
           {
             "mid": 9.0,
-            "pct": 0.02426
+            "pct": 0.0261
           },
           {
             "mid": 11.0,
-            "pct": 0.01424
+            "pct": 0.01544
           },
           {
             "mid": 13.0,
-            "pct": 0.008
+            "pct": 0.00884
           },
           {
             "mid": 15.0,
-            "pct": 0.00472
+            "pct": 0.00516
           },
           {
             "mid": 17.0,
-            "pct": 0.00256
+            "pct": 0.00248
           },
           {
             "mid": 19.0,
-            "pct": 0.00168
+            "pct": 0.00196
           },
           {
             "mid": 21.0,
-            "pct": 0.00074
+            "pct": 0.00064
           },
           {
             "mid": 23.0,
-            "pct": 0.00068
+            "pct": 0.00082
           },
           {
             "mid": 25.0,
-            "pct": 0.00046
+            "pct": 0.00042
           },
           {
             "mid": 27.0,
-            "pct": 0.00032
+            "pct": 0.00042
           },
           {
             "mid": 29.0,

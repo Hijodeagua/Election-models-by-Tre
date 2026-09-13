@@ -233,8 +233,24 @@
     {
       "state": "Georgia",
       "abbr": "GA",
-      "num_polls": 11,
+      "num_polls": 12,
       "polls": [
+        {
+          "pollster": "Trafalgar Group",
+          "rated": true,
+          "grade": "C+",
+          "quality": 1.048,
+          "start_date": "2026-09-10",
+          "end_date": "2026-09-12",
+          "sample_size": 1091,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 49.0,
+          "rep_pct": 43.0,
+          "margin": 6.0,
+          "partisan": false
+        },
         {
           "pollster": "InsiderAdvantage (R)",
           "rated": false,
@@ -1091,8 +1107,24 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 29,
+      "num_polls": 30,
       "polls": [
+        {
+          "pollster": "The Trafalgar Group",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-08",
+          "end_date": "2026-09-10",
+          "sample_size": 1084,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 48.0,
+          "rep_pct": 42.0,
+          "margin": 6.0,
+          "partisan": false
+        },
         {
           "pollster": "East Carolina University",
           "rated": false,
@@ -2530,8 +2562,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 31,
+      "num_polls": 32,
       "polls": [
+        {
+          "pollster": "SoCal Strategies (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-12",
+          "end_date": "2026-09-13",
+          "sample_size": 649,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 50.0,
+          "rep_pct": 45.0,
+          "margin": 5.0,
+          "partisan": false
+        },
         {
           "pollster": "InsiderAdvantage (R)",
           "rated": false,
