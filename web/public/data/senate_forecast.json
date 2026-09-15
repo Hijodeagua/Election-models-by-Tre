@@ -1,20 +1,20 @@
 {
   "as_of": "2026-09-15",
   "num_simulations": 50000,
-  "dem_control_prob": 0.5161,
-  "mean_dem_seats": 50.38,
+  "dem_control_prob": 0.518,
+  "mean_dem_seats": 50.39,
   "median_dem_seats": 51.0,
   "seat_distribution": {
     "44": 61,
     "45": 256,
-    "46": 769,
-    "47": 1795,
+    "46": 770,
+    "47": 1786,
     "48": 3731,
-    "49": 6937,
-    "50": 10647,
-    "51": 12113,
-    "52": 9431,
-    "53": 4260
+    "49": 6898,
+    "50": 10598,
+    "51": 12104,
+    "52": 9505,
+    "53": 4291
   },
   "races": [
     {
@@ -25,14 +25,14 @@
       "margin": 6.574,
       "num_polls": 12,
       "dem_win_prob_polls": 0.8519,
-      "dem_win_prob_blended": 0.8726,
+      "dem_win_prob_blended": 0.8714,
       "market_dem_prob": {
-        "polymarket": 0.935
+        "polymarket": 0.93
       },
-      "dem_win_prob_sim": 0.8754,
-      "median_margin": 5.93,
-      "margin_p10": -0.78,
-      "margin_p90": 12.62,
+      "dem_win_prob_sim": 0.8741,
+      "median_margin": 5.89,
+      "margin_p10": -0.82,
+      "margin_p90": 12.58,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/georgia-senate-election-winner"
       }
@@ -103,7 +103,7 @@
       "dem_candidate": "Chris Pappas",
       "rep_candidate": "Scott Brown",
       "margin": 13.218,
-      "num_polls": 19,
+      "num_polls": 20,
       "dem_win_prob_polls": 0.9764,
       "dem_win_prob_blended": 0.9411,
       "market_dem_prob": {
@@ -145,14 +145,14 @@
       "margin": 2.634,
       "num_polls": 32,
       "dem_win_prob_polls": 0.6134,
-      "dem_win_prob_blended": 0.4751,
+      "dem_win_prob_blended": 0.4788,
       "market_dem_prob": {
-        "polymarket": 0.06
+        "polymarket": 0.075
       },
-      "dem_win_prob_sim": 0.4743,
-      "median_margin": -0.32,
-      "margin_p10": -6.95,
-      "margin_p90": 6.51,
+      "dem_win_prob_sim": 0.4779,
+      "median_margin": -0.27,
+      "margin_p10": -6.91,
+      "margin_p90": 6.55,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-texas-state-senate-in-2026"
       }
@@ -165,14 +165,14 @@
       "margin": 1.345,
       "num_polls": 16,
       "dem_win_prob_polls": 0.5085,
-      "dem_win_prob_blended": 0.4877,
+      "dem_win_prob_blended": 0.4914,
       "market_dem_prob": {
-        "polymarket": 0.425
+        "polymarket": 0.44
       },
-      "dem_win_prob_sim": 0.4846,
-      "median_margin": -0.19,
-      "margin_p10": -6.87,
-      "margin_p90": 6.57,
+      "dem_win_prob_sim": 0.4882,
+      "median_margin": -0.14,
+      "margin_p10": -6.82,
+      "margin_p90": 6.62,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/iowa-senate-election-winner"
       }
@@ -203,7 +203,7 @@
   "bias": -1.242,
   "tail_dof": 5,
   "market_control_dem_prob": {
-    "polymarket": 0.535
+    "polymarket": 0.545
   },
   "market_control_urls": {
     "polymarket": "https://polymarket.com/event/which-party-will-win-the-senate-in-2026"
@@ -212,8 +212,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.5161,
-  "mean_dem_seats_with_vibes": 50.38,
+  "dem_control_prob_with_vibes": 0.518,
+  "mean_dem_seats_with_vibes": 50.39,
   "national_environment": {
     "national_swing": 9.268,
     "available": true,

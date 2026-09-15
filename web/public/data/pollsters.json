@@ -1842,8 +1842,24 @@
     {
       "state": "New Hampshire",
       "abbr": "NH",
-      "num_polls": 19,
+      "num_polls": 20,
       "polls": [
+        {
+          "pollster": "co/efficient (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-09",
+          "end_date": "2026-09-11",
+          "sample_size": 958,
+          "population": "lv",
+          "dem_candidate": "Chris Pappas",
+          "rep_candidate": "Scott Brown",
+          "dem_pct": 46.0,
+          "rep_pct": null,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Rasmussen Reports (R)",
           "rated": false,
