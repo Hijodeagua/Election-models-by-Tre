@@ -233,8 +233,24 @@
     {
       "state": "Georgia",
       "abbr": "GA",
-      "num_polls": 12,
+      "num_polls": 13,
       "polls": [
+        {
+          "pollster": "Rasmussen Reports",
+          "rated": true,
+          "grade": "B-",
+          "quality": 1.168,
+          "start_date": "2026-09-14",
+          "end_date": "2026-09-14",
+          "sample_size": 1019,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 51.0,
+          "rep_pct": 42.0,
+          "margin": 9.0,
+          "partisan": false
+        },
         {
           "pollster": "Trafalgar Group (R)",
           "rated": true,
@@ -2578,7 +2594,7 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 32,
+      "num_polls": 33,
       "polls": [
         {
           "pollster": "SoCal Strategies",
@@ -2594,6 +2610,22 @@
           "dem_pct": 50.0,
           "rep_pct": 45.0,
           "margin": 5.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Mason-Dixon",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-08",
+          "end_date": "2026-09-10",
+          "sample_size": 625,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 46.0,
+          "rep_pct": 43.0,
+          "margin": 3.0,
           "partisan": false
         },
         {
@@ -3165,8 +3197,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 16,
+      "num_polls": 17,
       "polls": [
+        {
+          "pollster": "Cygnal (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-09",
+          "end_date": "2026-09-11",
+          "sample_size": 500,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 43.0,
+          "rep_pct": 43.0,
+          "margin": 0.0,
+          "partisan": false
+        },
         {
           "pollster": "Rasmussen Reports (R)",
           "rated": false,
