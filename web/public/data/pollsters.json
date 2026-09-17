@@ -236,10 +236,10 @@
       "num_polls": 13,
       "polls": [
         {
-          "pollster": "Rasmussen Reports",
-          "rated": true,
-          "grade": "B-",
-          "quality": 1.168,
+          "pollster": "Rasmussen Reports (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
           "start_date": "2026-09-14",
           "end_date": "2026-09-14",
           "sample_size": 1019,
@@ -1690,8 +1690,24 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 10,
+      "num_polls": 11,
       "polls": [
+        {
+          "pollster": "Quantus Insights (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-14",
+          "end_date": "2026-09-15",
+          "sample_size": 621,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 47.0,
+          "rep_pct": 48.0,
+          "margin": -1.0,
+          "partisan": false
+        },
         {
           "pollster": "Rasmussen Reports (R)",
           "rated": false,
@@ -2223,8 +2239,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 20,
+      "num_polls": 21,
       "polls": [
+        {
+          "pollster": "Bowling Green State University/YouGov",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-01",
+          "end_date": "2026-09-10",
+          "sample_size": 1000,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 48.0,
+          "rep_pct": 45.0,
+          "margin": 3.0,
+          "partisan": false
+        },
         {
           "pollster": "InsiderAdvantage (R)",
           "rated": false,
@@ -3200,19 +3232,19 @@
       "num_polls": 17,
       "polls": [
         {
-          "pollster": "Cygnal (R)",
+          "pollster": "co/efficient (R)",
           "rated": false,
           "grade": null,
           "quality": null,
-          "start_date": "2026-09-09",
-          "end_date": "2026-09-11",
-          "sample_size": 500,
+          "start_date": "2026-09-14",
+          "end_date": "2026-09-16",
+          "sample_size": 831,
           "population": "lv",
           "dem_candidate": "Josh Turek",
           "rep_candidate": "Ashley Hinson",
-          "dem_pct": 43.0,
-          "rep_pct": 43.0,
-          "margin": 0.0,
+          "dem_pct": 42.0,
+          "rep_pct": 46.0,
+          "margin": -4.0,
           "partisan": false
         },
         {
