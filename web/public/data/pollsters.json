@@ -546,8 +546,40 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 28,
+      "num_polls": 30,
       "polls": [
+        {
+          "pollster": "Emerson College",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.468,
+          "start_date": "2026-09-12",
+          "end_date": "2026-09-14",
+          "sample_size": 1000,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 46.0,
+          "margin": null,
+          "partisan": false
+        },
+        {
+          "pollster": "The Washington Post/SSPG",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-10",
+          "end_date": "2026-09-14",
+          "sample_size": 803,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 45.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Trafalgar Group (R)",
           "rated": true,
@@ -2626,8 +2658,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 33,
+      "num_polls": 35,
       "polls": [
+        {
+          "pollster": "Emerson College",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.468,
+          "start_date": "2026-09-12",
+          "end_date": "2026-09-14",
+          "sample_size": 1000,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 47.0,
+          "rep_pct": 46.0,
+          "margin": 1.0,
+          "partisan": false
+        },
         {
           "pollster": "SoCal Strategies",
           "rated": false,
@@ -2642,6 +2690,22 @@
           "dem_pct": 50.0,
           "rep_pct": 45.0,
           "margin": 5.0,
+          "partisan": false
+        },
+        {
+          "pollster": "ReconMR/Siena University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-08",
+          "end_date": "2026-09-11",
+          "sample_size": 614,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 49.0,
+          "rep_pct": 43.0,
+          "margin": 6.0,
           "partisan": false
         },
         {
