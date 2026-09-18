@@ -20,6 +20,30 @@ logger = logging.getLogger(__name__)
 
 
 @dataclass
+class RacePrediction:
+    """One race's two-party prediction and its error.
+
+    The residual (``error``) is what a new feature would have to explain: the
+    part of the outcome the polling average does not capture.
+    """
+
+    race: TrainingRace
+    pred_dem_2p: float       # two-party-normalized Dem share from the polls
+    actual_dem_2p: float     # actual two-party Dem share
+    error: float             # pred - actual (positive = polls overstated Dems)
+    n_polls: int
+
+    @property
+    def pred_margin(self) -> float:
+        """Dem-Rep margin implied by the polling average."""
+        return 2.0 * self.pred_dem_2p - 100.0
+
+    @property
+    def actual_margin(self) -> float:
+        return 2.0 * self.actual_dem_2p - 100.0
+
+
+@dataclass
 class EvaluationResult:
     """Summary metrics for a parameter set evaluated on training races."""
 
@@ -46,6 +70,53 @@ class PollingAverageEvaluator:
         if not training_races:
             raise ValueError("No training races provided")
 
+    def per_race(
+        self, params: dict[str, float], _engine: object | None = None
+    ) -> list[RacePrediction]:
+        """Per-race predictions and residuals for a parameter set.
+
+        Races whose polls cannot be matched to both candidates are skipped, the
+        same as in ``evaluate`` — the two share this code path so a residual
+        analysis and the training objective can never diverge.
+        """
+        from src.models.polling_average import PollingAverageEngine, PollingAverageParams
+
+        engine = _engine
+        if engine is None:
+            engine_params = PollingAverageParams(**{
+                k: v for k, v in params.items()
+                if k in PollingAverageParams.__dataclass_fields__
+            })
+            engine = PollingAverageEngine(params=engine_params)
+
+        out: list[RacePrediction] = []
+        for race in self.training_races:
+            # Determine choices - look for dem/rep candidate names or party labels
+            choices = _dem_choices(race) + _rep_choices(race)
+            result = engine.compute_average(race.polls, choices=choices if choices else None)
+            if not result.averages:
+                continue
+
+            # Raw poll percentages for each candidate.
+            pred_dem = _find_share(result.averages, race.dem_candidate, _DEM_LABELS)
+            pred_rep = _find_share(result.averages, race.rep_candidate, _REP_LABELS)
+            if pred_dem is None or pred_rep is None or pred_dem + pred_rep <= 0:
+                continue
+
+            # Two-party-normalize the prediction before comparing to the
+            # two-party actual. Raw poll shares carry undecided/third-party
+            # (typically 4-10pp), so differencing them against a two-party
+            # result bakes a systematic negative bias into the objective.
+            pred_dem_2p = pred_dem / (pred_dem + pred_rep) * 100.0
+            out.append(RacePrediction(
+                race=race,
+                pred_dem_2p=pred_dem_2p,
+                actual_dem_2p=race.dem_two_party_share,
+                error=pred_dem_2p - race.dem_two_party_share,
+                n_polls=result.num_polls,
+            ))
+        return out
+
     def evaluate(self, params: dict[str, float]) -> EvaluationResult:
         """Compute error metrics for the given parameter set.
 
@@ -68,39 +139,14 @@ class PollingAverageEvaluator:
         })
         engine = PollingAverageEngine(params=engine_params)
 
-        errors: list[float] = []
-        correct_winner: list[bool] = []
-
-        for race in self.training_races:
-            # Determine choices — look for dem/rep candidate names or party labels
-            dem_choices = _dem_choices(race)
-            rep_choices = _rep_choices(race)
-            choices = dem_choices + rep_choices
-
-            result = engine.compute_average(race.polls, choices=choices if choices else None)
-
-            if not result.averages:
-                continue
-
-            # Find predicted dem/rep shares (raw poll percentages)
-            pred_dem = _find_share(result.averages, race.dem_candidate, _DEM_LABELS)
-            pred_rep = _find_share(result.averages, race.rep_candidate, _REP_LABELS)
-            if pred_dem is None or pred_rep is None or pred_dem + pred_rep <= 0:
-                continue
-
-            # Two-party-normalize the prediction before comparing to the
-            # two-party actual. Raw poll shares carry undecided/third-party
-            # (typically 4–10pp), so differencing them against a two-party
-            # result bakes a systematic negative bias into the objective.
-            pred_dem_2p = pred_dem / (pred_dem + pred_rep) * 100.0
-
-            error = pred_dem_2p - race.dem_two_party_share
-            errors.append(error)
-
-            # Win prediction on the two-party share: a raw 48–44 lead is a
-            # predicted win, which the old `raw > 50` rule miscounted.
-            predicted_winner = "D" if pred_dem_2p > 50 else "R"
-            correct_winner.append(predicted_winner == race.winner_party)
+        predictions = self.per_race(params, _engine=engine)
+        errors = [p.error for p in predictions]
+        # Win prediction on the two-party share: a raw 48-44 lead is a
+        # predicted win, which the old `raw > 50` rule miscounted.
+        correct_winner = [
+            ("D" if p.pred_dem_2p > 50 else "R") == p.race.winner_party
+            for p in predictions
+        ]
 
         if not errors:
             return EvaluationResult(
