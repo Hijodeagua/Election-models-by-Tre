@@ -2287,8 +2287,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 21,
+      "num_polls": 22,
       "polls": [
+        {
+          "pollster": "Trafalgar Group (R)",
+          "rated": true,
+          "grade": "C+",
+          "quality": 1.048,
+          "start_date": "2026-09-14",
+          "end_date": "2026-09-16",
+          "sample_size": 1085,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 45.0,
+          "rep_pct": 42.0,
+          "margin": 3.0,
+          "partisan": false
+        },
         {
           "pollster": "Bowling Green State University/YouGov",
           "rated": false,
