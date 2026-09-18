@@ -233,8 +233,24 @@
     {
       "state": "Georgia",
       "abbr": "GA",
-      "num_polls": 13,
+      "num_polls": 14,
       "polls": [
+        {
+          "pollster": "Quantus Insights (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-14",
+          "end_date": "2026-09-16",
+          "sample_size": 645,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 48.0,
+          "rep_pct": 44.0,
+          "margin": 4.0,
+          "partisan": false
+        },
         {
           "pollster": "Rasmussen Reports (R)",
           "rated": false,
@@ -546,8 +562,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 30,
+      "num_polls": 31,
       "polls": [
+        {
+          "pollster": "InsiderAdvantage (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-16",
+          "end_date": "2026-09-17",
+          "sample_size": 1200,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 45.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Emerson College",
           "rated": true,
@@ -1155,8 +1187,24 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 31,
+      "num_polls": 32,
       "polls": [
+        {
+          "pollster": "InsiderAdvantage (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-16",
+          "end_date": "2026-09-17",
+          "sample_size": 1200,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 48.0,
+          "rep_pct": 43.0,
+          "margin": 5.0,
+          "partisan": false
+        },
         {
           "pollster": "Harper Polling (R)",
           "rated": false,
@@ -1922,8 +1970,24 @@
     {
       "state": "New Hampshire",
       "abbr": "NH",
-      "num_polls": 20,
+      "num_polls": 21,
       "polls": [
+        {
+          "pollster": "InsiderAdvantage (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-16",
+          "end_date": "2026-09-17",
+          "sample_size": 1200,
+          "population": "lv",
+          "dem_candidate": "Chris Pappas",
+          "rep_candidate": "Scott Brown",
+          "dem_pct": 48.0,
+          "rep_pct": null,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "co/efficient (R)",
           "rated": false,
@@ -2690,8 +2754,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 35,
+      "num_polls": 36,
       "polls": [
+        {
+          "pollster": "Trafalgar Group (R)",
+          "rated": true,
+          "grade": "C+",
+          "quality": 1.048,
+          "start_date": "2026-09-15",
+          "end_date": "2026-09-17",
+          "sample_size": 1079,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 46.0,
+          "rep_pct": 45.0,
+          "margin": 1.0,
+          "partisan": false
+        },
         {
           "pollster": "Emerson College",
           "rated": true,
