@@ -1155,8 +1155,24 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 30,
+      "num_polls": 31,
       "polls": [
+        {
+          "pollster": "Harper Polling (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-13",
+          "end_date": "2026-09-15",
+          "sample_size": 608,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 49.0,
+          "rep_pct": 34.0,
+          "margin": 15.0,
+          "partisan": false
+        },
         {
           "pollster": "The Trafalgar Group (R)",
           "rated": false,

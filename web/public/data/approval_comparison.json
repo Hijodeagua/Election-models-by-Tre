@@ -1941,13 +1941,6 @@
       "available": true,
       "series": [
         {
-          "as_of": "2026-01-20",
-          "approve": 41.6,
-          "disapprove": 54.72,
-          "net": -13.12,
-          "num_polls": 25
-        },
-        {
           "as_of": "2026-01-21",
           "approve": 41.76,
           "disapprove": 54.76,
@@ -3370,6 +3363,13 @@
         },
         {
           "as_of": "2026-09-17",
+          "approve": 37.43,
+          "disapprove": 59.29,
+          "net": -21.86,
+          "num_polls": 7
+        },
+        {
+          "as_of": "2026-09-18",
           "approve": 37.43,
           "disapprove": 59.29,
           "net": -21.86,
