@@ -25,10 +25,17 @@ env/
 .ipynb_checkpoints/
 
 # Data (keep structure, ignore large files)
+# Downloaded caches. The ** forms matter: data/raw/*.csv does NOT match
+# data/raw/mit_results/senate_results.csv, so a `git add -A` after a
+# download_training_data run committed 1.2MB of cached MEDSL results.
 data/raw/*.json
 data/raw/*.csv
+data/raw/**/*.json
+data/raw/**/*.csv
 data/processed/*.csv
 data/processed/*.parquet
+data/processed/**/*.csv
+data/processed/**/*.parquet
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !data/historical/.gitkeep
