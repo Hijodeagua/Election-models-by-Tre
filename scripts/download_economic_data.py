@@ -6,11 +6,13 @@ races rather than against the five cycles the poll archive covers. National
 series (mortgage rates, CPI, gas) take one value per election — useful for
 charts, not as features.
 
-Outputs:
-  data/raw/fred/<series>.csv          one cache file per series (vintage-suffixed)
-  data/processed/state_economics.csv  tidy long panel: state, concept, date, value
-  data/processed/state_economics_aligned.csv   with --election-date: one row per
-      state × concept as of that date, plus the 12-month change
+Outputs (vintage-suffixed, so backtest panels never overwrite each other):
+  data/raw/fred/<series>[@vintage].csv        one cache file per series
+  data/processed/state_economics[_<vintage>].csv
+      tidy long panel: state, concept, series_id, date, value
+  data/processed/state_economics_aligned_<election>[_vintage<date>].csv
+      with --election-date: one row per state × concept as of that date, plus
+      the 12-month change. --realtime defaults --election-date to the vintage.
 
 Run --probe first. FRED's state naming conventions (TXUR, TXSTHPI, …) do not
 hold for every state and concept, and FRED renames series; the probe tells you
@@ -57,12 +59,32 @@ from src.data.fred import (
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
 
-PANEL_PATH = PROJECT_ROOT / "data" / "processed" / "state_economics.csv"
-ALIGNED_PATH = PROJECT_ROOT / "data" / "processed" / "state_economics_aligned.csv"
+PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 
 
 def _parse_date(raw: str) -> date:
     return datetime.strptime(raw, "%Y-%m-%d").date()
+
+
+def panel_path(realtime: date | None) -> Path:
+    """Output path, suffixed by vintage.
+
+    Vintages must not share a filename: a backtest needs the 2018, 2020 and
+    2022 panels side by side, and an unsuffixed path means each run silently
+    overwrites the last (and the current-vintage panel).
+    """
+    stem = "state_economics"
+    if realtime:
+        stem += f"_{realtime.isoformat()}"
+    return PROCESSED_DIR / f"{stem}.csv"
+
+
+def aligned_path(realtime: date | None, cutoff: date) -> Path:
+    """Aligned-snapshot path, keyed by both vintage and election date."""
+    stem = f"state_economics_aligned_{cutoff.isoformat()}"
+    if realtime:
+        stem += f"_vintage{realtime.isoformat()}"
+    return PROCESSED_DIR / f"{stem}.csv"
 
 
 def main() -> None:
@@ -93,6 +115,13 @@ def main() -> None:
     args = parser.parse_args()
 
     realtime = _parse_date(args.realtime) if args.realtime else None
+    if realtime and not args.election_date:
+        args.election_date = args.realtime
+        logger.info(
+            "--election-date defaulted to the vintage date %s (that is the "
+            "backtest you want: values as published, aligned to that election)",
+            args.realtime,
+        )
     try:
         client = FredClient(realtime=realtime)
     except ValueError as exc:
@@ -123,9 +152,10 @@ def main() -> None:
 
     data, failures = client.fetch_panel(sorted(set(ids.values())), force=args.force)
 
-    PANEL_PATH.parent.mkdir(parents=True, exist_ok=True)
+    out_path = panel_path(realtime)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     rows = 0
-    with PANEL_PATH.open("w", newline="", encoding="utf-8") as fh:
+    with out_path.open("w", newline="", encoding="utf-8") as fh:
         writer = csv.writer(fh)
         writer.writerow(["state", "concept", "series_id", "date", "value"])
         for (abbr, concept), series_id in sorted(ids.items()):
@@ -140,7 +170,7 @@ def main() -> None:
     if realtime:
         print(f"  vintage        : {realtime}")
     print(f"  series fetched : {len(data)}/{len(set(ids.values()))}")
-    print(f"  rows written   : {rows:,} → {PANEL_PATH.relative_to(PROJECT_ROOT)}")
+    print(f"  rows written   : {rows:,} → {out_path.relative_to(PROJECT_ROOT)}")
 
     for concept in sorted({c for _, c in ids}):
         spec = STATE_CONCEPTS[concept]
@@ -164,10 +194,11 @@ def main() -> None:
 
     if args.election_date:
         cutoff = _parse_date(args.election_date)
-        written = _write_aligned(ids, data, cutoff)
+        target = aligned_path(realtime, cutoff)
+        written = _write_aligned(ids, data, cutoff, target)
         print(
             f"\n  aligned to {cutoff}: {written} rows → "
-            f"{ALIGNED_PATH.relative_to(PROJECT_ROOT)}"
+            f"{target.relative_to(PROJECT_ROOT)}"
         )
         print(
             "  NOTE: dates are observation dates, not publication dates. State "
@@ -207,12 +238,12 @@ def _diagnose(reasons: list[str], has_key: bool) -> str:
 
 
 def _write_aligned(
-    ids: dict[tuple[str, str], str], data: dict, cutoff: date
+    ids: dict[tuple[str, str], str], data: dict, cutoff: date, target: Path
 ) -> int:
     """One row per state × concept: level at the cutoff plus its 12-month change."""
-    ALIGNED_PATH.parent.mkdir(parents=True, exist_ok=True)
+    target.parent.mkdir(parents=True, exist_ok=True)
     written = 0
-    with ALIGNED_PATH.open("w", newline="", encoding="utf-8") as fh:
+    with target.open("w", newline="", encoding="utf-8") as fh:
         writer = csv.writer(fh)
         writer.writerow([
             "state", "concept", "series_id", "as_of_date", "value",

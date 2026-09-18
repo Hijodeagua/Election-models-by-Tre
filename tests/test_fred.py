@@ -219,3 +219,35 @@ class TestAlignment:
     def test_change_over_returns_none_when_nothing_precedes(self):
         now, prior = change_over(self.SERIES, date(2019, 1, 1))
         assert now is None and prior is None
+
+
+class TestOutputPaths:
+    """Vintage panels must not overwrite each other — a backtest needs 2018,
+    2020 and 2022 side by side."""
+
+    def test_current_vintage_has_the_plain_name(self):
+        from scripts.download_economic_data import aligned_path, panel_path
+
+        assert panel_path(None).name == "state_economics.csv"
+        assert (
+            aligned_path(None, date(2026, 11, 3)).name
+            == "state_economics_aligned_2026-11-03.csv"
+        )
+
+    def test_each_vintage_gets_its_own_file(self):
+        from scripts.download_economic_data import panel_path
+
+        names = {panel_path(d).name for d in (
+            None, date(2018, 11, 6), date(2020, 11, 3), date(2022, 11, 8)
+        )}
+        assert len(names) == 4
+        assert "state_economics_2022-11-08.csv" in names
+
+    def test_aligned_path_keys_on_vintage_and_election(self):
+        from scripts.download_economic_data import aligned_path
+
+        # Same election, different vintages: revised vs as-published.
+        current = aligned_path(None, date(2022, 11, 8))
+        vintage = aligned_path(date(2022, 11, 8), date(2022, 11, 8))
+        assert current != vintage
+        assert vintage.name.endswith("_vintage2022-11-08.csv")
