@@ -23,6 +23,12 @@ class Settings(BaseSettings):
     congress_gov_api_key: str = ""
     nyt_api_key: str = ""
 
+    # FRED / ALFRED (free key at https://fredaccount.stlouisfed.org/apikeys).
+    # Optional: without it the state economic pull falls back to FRED's keyless
+    # CSV export, which serves the current vintage only — no ALFRED vintages,
+    # so it must not be used for backtests.
+    fred_api_key: str = ""
+
     # Silver Bulletin model CSV download URLs (refresh_data.py --source silverb).
     # Empty by default: Silver Bulletin's model data is subscriber-only, with no
     # free public CSV, so the refresh is skipped unless real URLs are supplied
