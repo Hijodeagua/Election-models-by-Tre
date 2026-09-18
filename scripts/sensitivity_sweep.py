@@ -22,6 +22,10 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
+from scripts._console import enable_utf8_output
+
+enable_utf8_output()
+
 from scripts.export_json import (
     _approval_payload,
     _generic_ballot_payload,

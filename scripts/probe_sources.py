@@ -16,6 +16,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from scripts._console import enable_utf8_output
+
+enable_utf8_output()
+
 import httpx
 
 BROWSER_UA = (

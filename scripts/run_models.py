@@ -28,6 +28,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from scripts._console import enable_utf8_output
+
+enable_utf8_output()
+
 from config.settings import settings
 from src.data.base import Poll, PollType
 from src.data.csv_source import CsvFallbackSource, FallbackMeta

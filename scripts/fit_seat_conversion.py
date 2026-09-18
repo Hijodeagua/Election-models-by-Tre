@@ -31,6 +31,10 @@ import numpy as np
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
+from scripts._console import enable_utf8_output
+
+enable_utf8_output()
+
 HISTORY_PATH = PROJECT_ROOT / "config" / "house_national_history.json"
 OUTPUT_PATH = PROJECT_ROOT / "config" / "seat_conversion.json"
 

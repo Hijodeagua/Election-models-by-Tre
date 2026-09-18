@@ -27,8 +27,15 @@ from __future__ import annotations
 
 import argparse
 import logging
+import sys
 import tempfile
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from scripts._console import enable_utf8_output
+
+enable_utf8_output()
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
@@ -67,6 +74,12 @@ def main() -> None:
              "(use for seed-stability runs so production params stay put)",
     )
     parser.add_argument(
+        "--drop-small-cycles", type=int, default=0, metavar="N",
+        help="Exclude cycles with fewer than N races. The CV objective weights "
+             "every cycle equally, so a 3-race odd-year governor cycle otherwise "
+             "counts as much as a 54-race midterm.",
+    )
+    parser.add_argument(
         "--no-save", action="store_true",
         help="Score and report only — write the result to a temp file that is "
              "not part of the repo",
@@ -97,6 +110,20 @@ def main() -> None:
         raise SystemExit(1)
 
     logger.info(f"Loaded {len(training_races)} training races")
+
+    if args.drop_small_cycles:
+        from collections import Counter
+
+        per_cycle = Counter(r.year for r in training_races)
+        dropped = {y for y, n in per_cycle.items() if n < args.drop_small_cycles}
+        if dropped:
+            training_races = [r for r in training_races if r.year not in dropped]
+            logger.info(
+                "Dropped cycles with <%d races: %s — %d races remain",
+                args.drop_small_cycles,
+                sorted(dropped),
+                len(training_races),
+            )
 
     if args.no_cv:
         from src.training.optimizer import run_optimization
@@ -138,21 +165,25 @@ def main() -> None:
     print(f"  trials / seed    : {report.n_trials} / {report.seed}")
     verdict = "PASSED" if report.passed_gate else "FAILED"
     print(f"  gate             : {verdict} — {report.gate_reason}")
+
+    # Print the winner either way: on a failed gate these values are the whole
+    # diagnostic (what did the objective chase, and did it hit a wall doing it).
+    print("\n── Best Parameters ──────────────────────────────")
+    for k, v in best_params.items():
+        low, high = PARAM_SPACE.get(k, (float("-inf"), float("inf")))
+        pinned = report.at_bounds.get(k)
+        flag = f"   <- pinned at {pinned} of [{low:g}, {high:g}]" if pinned else ""
+        print(f"  {k}: {v:.4f}{flag}")
+    if report.at_bounds:
+        print(
+            "\n  WARNING: "
+            f"{len(report.at_bounds)} of {len(best_params)} parameters are pinned "
+            "against a search bound — those values are the edge of PARAM_SPACE, "
+            "not a fitted optimum. Widen src/training/optimizer.py:PARAM_SPACE "
+            "and re-run before treating them as fitted."
+        )
+
     if report.passed_gate:
-        print("\n── Best Parameters ──────────────────────────────")
-        for k, v in best_params.items():
-            low, high = PARAM_SPACE.get(k, (float("-inf"), float("inf")))
-            pinned = report.at_bounds.get(k)
-            flag = f"   ← pinned at {pinned} of [{low:g}, {high:g}]" if pinned else ""
-            print(f"  {k}: {v:.4f}{flag}")
-        if report.at_bounds:
-            print(
-                "\n  WARNING: "
-                f"{len(report.at_bounds)} of {len(best_params)} parameters are pinned "
-                "against a search bound — those values are the edge of PARAM_SPACE, "
-                "not a fitted optimum. Widen src/training/optimizer.py:PARAM_SPACE "
-                "and re-run before publishing them."
-            )
         target = save_path or Path("config/trained_params.json")
         print(f"\nSaved to {target} (with CV report).")
         print(
@@ -160,7 +191,15 @@ def main() -> None:
             f"{target} — see what it does to the published numbers before committing."
         )
     else:
-        print("\nGate failed — trained_params.json NOT written; defaults stay in production.")
+        print(
+            "\nGate failed — nothing written; the hand-set defaults stay in production.\n"
+            "  A failed gate is a result, not an error: the winner beat the defaults on "
+            "the selection cycles and lost on the untouched holdout, which is what\n"
+            "  overfitting looks like. Check whether a parameter is pinned above, and "
+            "whether the selection cycles are comparable in size (an odd-year\n"
+            "  governor-only cycle carries the same weight as a full midterm in the "
+            "per-cycle mean)."
+        )
         raise SystemExit(2)
 
 

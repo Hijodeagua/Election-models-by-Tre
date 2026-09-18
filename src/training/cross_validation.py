@@ -68,6 +68,9 @@ class CVReport:
     n_trials: int = 0
     seed: int = 0
     param_space: dict[str, list[float]] = field(default_factory=dict)
+    # cycle → races entering selection/holdout, so an unbalanced per-cycle mean
+    # is visible in the committed report.
+    cycle_sizes: dict[int, int] = field(default_factory=dict)
     # param name → "floor"/"ceiling" for winners pinned against a search bound.
     at_bounds: dict[str, str] = field(default_factory=dict)
 
@@ -184,6 +187,24 @@ def run_cv_optimization(
         holdout_cycle,
         len(by_cycle[holdout_cycle]),
     )
+    logger.info(
+        "Races per cycle: %s",
+        ", ".join(f"{c}={len(by_cycle[c])}" for c in sorted(by_cycle)),
+    )
+
+    # The objective is a mean over cycles, so every cycle counts the same
+    # whatever its size. An odd-year governor-only cycle with a handful of races
+    # then has as much say as a full midterm, and the search can win selection by
+    # fitting it — which shows up as a failed holdout gate.
+    sizes = [len(by_cycle[c]) for c in selection_cycles]
+    if sizes and min(sizes) < 0.25 * max(sizes):
+        small = [c for c in selection_cycles if len(by_cycle[c]) < 0.25 * max(sizes)]
+        logger.warning(
+            "Unbalanced selection cycles: %s carry <25%% of the largest cycle's races "
+            "but the same weight in the per-cycle mean. Consider "
+            "--drop-small-cycles to exclude them.",
+            small,
+        )
 
     def objective(trial: Any) -> float:
         params = {
@@ -221,6 +242,7 @@ def run_cv_optimization(
         n_trials=n_trials,
         seed=seed,
         param_space={k: [low, high] for k, (low, high) in PARAM_SPACE.items()},
+        cycle_sizes={c: len(rs) for c, rs in by_cycle.items()},
         at_bounds=params_at_bounds(best_params, PARAM_SPACE),
     )
 
