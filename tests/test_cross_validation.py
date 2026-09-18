@@ -7,8 +7,15 @@ from datetime import date
 import pytest
 
 from src.data.base import Poll, PollAnswer, PollType, Population
-from src.training.cross_validation import CVReport, run_cv_optimization, split_by_cycle
+from src.models.polling_average import PollingAverageParams
+from src.training.cross_validation import (
+    CVReport,
+    params_at_bounds,
+    run_cv_optimization,
+    split_by_cycle,
+)
 from src.training.data_loader import TrainingRace
+from src.training.optimizer import PARAM_SPACE
 
 
 def make_race(
@@ -114,6 +121,50 @@ class TestRunCVOptimization:
             assert "rolling-origin" in data["protocol"]
         else:
             assert not out.exists()
+
+
+class TestBoundaryDiagnostics:
+    """A winner pinned to a search bound is the box talking, not the data."""
+
+    # 5% tolerance: floor band is [5.0, 7.0], ceiling band is [0.725, 0.75].
+    SPACE = {"half_life": (5.0, 45.0), "exponent": (0.25, 0.75)}
+
+    def test_floor_and_ceiling_detected(self):
+        # The Sep 2026 winner's two pinned values, against their original bounds.
+        pinned = params_at_bounds(
+            {"half_life": 5.012, "exponent": 0.7391}, self.SPACE
+        )
+        assert pinned == {"half_life": "floor", "exponent": "ceiling"}
+
+    def test_interior_winner_is_clean(self):
+        assert params_at_bounds({"half_life": 22.0, "exponent": 0.5}, self.SPACE) == {}
+
+    def test_just_outside_the_band_is_not_pinned(self):
+        # 8.0 is 7.5% up a 40-wide range; 0.70 is 10% below the ceiling.
+        assert params_at_bounds({"half_life": 8.0, "exponent": 0.70}, self.SPACE) == {}
+
+    def test_unknown_params_ignored(self):
+        assert params_at_bounds({"not_searched": 99.0}, self.SPACE) == {}
+
+    def test_report_records_provenance_and_bounds(self):
+        pytest.importorskip("optuna")
+        races = make_cycles([2016, 2018, 2020, 2022])
+        _, report = run_cv_optimization(
+            races, n_trials=4, seed=7, save_path=_devnull()
+        )
+        assert report.n_trials == 4
+        assert report.seed == 7
+        assert set(report.param_space) == set(PARAM_SPACE)
+        # at_bounds is a subset of the searched parameters, whatever the winner.
+        assert set(report.at_bounds) <= set(PARAM_SPACE)
+
+    def test_hand_set_defaults_lie_inside_the_search_box(self):
+        """The gate compares trained params against the defaults, so the
+        defaults must be reachable by the search."""
+        defaults = PollingAverageParams()
+        for name, (low, high) in PARAM_SPACE.items():
+            value = getattr(defaults, name)
+            assert low <= value <= high, f"default {name}={value} outside [{low}, {high}]"
 
 
 def _devnull():

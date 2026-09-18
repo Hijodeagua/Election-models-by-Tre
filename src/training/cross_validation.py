@@ -40,6 +40,14 @@ TRAINED_PARAMS_PATH = (
 GATE_RMSE_TOLERANCE = 0.0
 GATE_WIN_ACCURACY_FLOOR = 0.75
 
+# A winner sitting within this fraction of a bound's range from either edge is
+# reporting the edge of the box, not an interior optimum. Recorded in the CV
+# report so a reviewer sees it without re-deriving it. 5% is calibrated on the
+# Sep 2026 run: half-life landed 0.03% above its floor and sample_size_exponent
+# 2.2% below its ceiling (both pinned), while pollster_quality_exponent sat 6.3%
+# above its floor — low in the range, but genuinely interior.
+BOUND_TOLERANCE = 0.05
+
 
 @dataclass
 class CVReport:
@@ -56,6 +64,12 @@ class CVReport:
     holdout_default: dict[str, float] = field(default_factory=dict)
     passed_gate: bool = False
     gate_reason: str = ""
+    # Run provenance — two runs are only comparable at equal budget and seed.
+    n_trials: int = 0
+    seed: int = 0
+    param_space: dict[str, list[float]] = field(default_factory=dict)
+    # param name → "floor"/"ceiling" for winners pinned against a search bound.
+    at_bounds: dict[str, str] = field(default_factory=dict)
 
 
 def split_by_cycle(races: list[TrainingRace]) -> dict[int, list[TrainingRace]]:
@@ -74,6 +88,30 @@ def _metrics(result: EvaluationResult) -> dict[str, float]:
         "win_accuracy": result.win_accuracy,
         "n_races": result.n_races,
     }
+
+
+def params_at_bounds(
+    params: dict[str, float],
+    space: dict[str, tuple[float, float]],
+    tolerance: float = BOUND_TOLERANCE,
+) -> dict[str, str]:
+    """Report which winning parameters are pinned against their search bounds.
+
+    Returns param name → ``"floor"`` or ``"ceiling"``. A non-empty result means
+    the search wanted to leave the box: widen PARAM_SPACE and re-run before
+    treating those values as fitted.
+    """
+    pinned: dict[str, str] = {}
+    for name, value in params.items():
+        if name not in space:
+            continue
+        low, high = space[name]
+        margin = (high - low) * tolerance
+        if value <= low + margin:
+            pinned[name] = "floor"
+        elif value >= high - margin:
+            pinned[name] = "ceiling"
+    return pinned
 
 
 def mean_cycle_rmse(
@@ -180,7 +218,17 @@ def run_cv_optimization(
         mean_selection_rmse=round(study.best_value, 3),
         holdout_trained=_metrics(holdout_trained),
         holdout_default=_metrics(holdout_default),
+        n_trials=n_trials,
+        seed=seed,
+        param_space={k: [low, high] for k, (low, high) in PARAM_SPACE.items()},
+        at_bounds=params_at_bounds(best_params, PARAM_SPACE),
     )
+
+    if report.at_bounds:
+        logger.warning(
+            "Winner pinned against search bounds: %s — widen PARAM_SPACE and re-run",
+            ", ".join(f"{k} at {v}" for k, v in sorted(report.at_bounds.items())),
+        )
 
     # Gate
     if holdout_trained.n_races == 0:

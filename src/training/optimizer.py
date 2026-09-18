@@ -39,14 +39,35 @@ class _NoOpMLflow:
         return contextlib.nullcontext()
 
 # Search space bounds for each parameter
+# Search bounds. These are deliberately wide: the first CV run (Sep 2026)
+# returned half-life 5.012 against a 5.0 floor, sample_size_exponent 0.739
+# against a 0.75 ceiling and pollster_quality_exponent 0.594 against a 0.5
+# floor — three of seven parameters pinned, which means the box was reporting
+# its own edges rather than the data's optimum. Widening costs only trials
+# (budget ~2000 for seven dimensions); it cannot loosen the holdout gate in
+# cross_validation.py, which still has to beat the hand-set defaults on a
+# cycle the search never saw.
+#
+# Two bounds are principled rather than generous:
+#   * sample_size_exponent 1.0 is inverse-variance weighting — a poll's
+#     information content *is* linear in n. The 1.25 ceiling is diagnostic
+#     headroom: pinning there means the objective is exploiting a handful of
+#     huge-n polls, not learning a weighting rule.
+#   * partisan_bias_penalty stops at 1.0 (no penalty). Above 1.0 would reward
+#     partisan sponsorship, which no defensible average does.
+#
+# The three population multipliers are only *relatively* identified: scaling
+# all three by a constant cancels in the normalized average (except for polls
+# with no population tag), so read them as ratios to each other, not levels.
+# They share one range for that reason.
 PARAM_SPACE: dict[str, tuple[float, float]] = {
-    "recency_half_life_days":    (5.0,  45.0),
-    "lv_weight_multiplier":      (1.0,   3.0),
-    "rv_weight_multiplier":      (0.5,   1.5),
-    "adults_weight_multiplier":  (0.2,   1.0),
-    "partisan_bias_penalty":     (0.1,   0.9),
-    "sample_size_exponent":      (0.25,  0.75),
-    "pollster_quality_exponent": (0.5,   2.0),
+    "recency_half_life_days":    (1.0,  60.0),   # 1 day ≈ last-poll-only; 60 ≈ whole cycle
+    "lv_weight_multiplier":      (0.25,  4.0),
+    "rv_weight_multiplier":      (0.25,  4.0),
+    "adults_weight_multiplier":  (0.05,  4.0),
+    "partisan_bias_penalty":     (0.02,  1.0),   # 0.02 ≈ exclude; 1.0 = no penalty
+    "sample_size_exponent":      (0.0,   1.25),  # 0 = ignore n; 1.0 = inverse-variance
+    "pollster_quality_exponent": (0.0,   3.0),   # 0 = ignore ratings
 }
 
 
