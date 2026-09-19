@@ -15,6 +15,10 @@ Two transports, because a key is optional:
 - **Keyless CSV** (no key): ``fred.stlouisfed.org/graph/fredgraph.csv``. Current
   vintage only. Fine for charts and exploration, not for a backtest.
 
+The key is never written to a log: it travels as a query parameter, so httpx
+error text quotes it, and ``redact()`` scrubs anything that becomes a message.
+This repository's Actions logs are public.
+
 Series IDs follow FRED's documented state naming conventions (``TXUR``,
 ``TXSTHPI``, …). A few states or concepts deviate, and FRED renames series
 occasionally, so nothing here assumes an ID is real: ``fetch_panel`` collects
@@ -28,6 +32,7 @@ import csv
 import io
 import json
 import logging
+import re
 import time
 from collections.abc import Iterable
 from dataclasses import dataclass
@@ -50,6 +55,11 @@ _MIN_REQUEST_INTERVAL = 0.55
 
 # FRED writes missing observations as a bare period.
 _MISSING = "."
+
+# The API key travels as a query parameter, so httpx error messages quote the
+# full URL — "Client error '400' for url '...&api_key=abc123...'". That text
+# reaches logs and SeriesFailure.reason, and this repo's CI logs are public.
+_REDACTED = "api_key=***"
 
 STATE_ABBRS = [
     "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI",
@@ -166,7 +176,14 @@ class FredClient:
             logger.debug("Cached %s", series_id)
             return self._parse_cache(cache_path.read_text())
 
-        rows = self._download(series_id)
+        try:
+            rows = self._download(series_id)
+        except Exception as exc:
+            scrubbed = redact(str(exc), self.api_key)
+            if scrubbed != str(exc):
+                # Re-raise without the key, keeping the original as the cause.
+                raise type(exc)(scrubbed) from exc
+            raise
         cache_path.write_text(self._to_cache(rows))
         logger.info(
             "Fetched %s: %d observations%s",
@@ -184,8 +201,9 @@ class FredClient:
             try:
                 data[series_id] = self.fetch_series(series_id, force=force)
             except Exception as exc:  # noqa: BLE001 — one bad ID must not end the pull
-                logger.warning("  %s failed: %s", series_id, exc)
-                failures.append(SeriesFailure(series_id, str(exc)))
+                reason = redact(str(exc), self.api_key)
+                logger.warning("  %s failed: %s", series_id, reason)
+                failures.append(SeriesFailure(series_id, reason))
         return data, failures
 
     def probe(self, series_ids: Iterable[str]) -> dict[str, str]:
@@ -200,7 +218,7 @@ class FredClient:
             try:
                 rows = self.fetch_series(series_id)
             except Exception as exc:  # noqa: BLE001 — probing is the point
-                results[series_id] = f"FAILED: {exc}"
+                results[series_id] = f"FAILED: {redact(str(exc), self.api_key)}"
                 continue
             dated = [o for o in rows if o.value is not None]
             if not dated:
@@ -305,6 +323,17 @@ class FredClient:
 
 
 # ── Helpers ───────────────────────────────────────────────────────────
+
+def redact(text: str, api_key: str = "") -> str:
+    """Strip a FRED key out of text bound for a log or an error message.
+
+    Removes the configured key wherever it appears, then any api_key= value in
+    a quoted URL, so a key from another source cannot slip through either.
+    """
+    if api_key:
+        text = text.replace(api_key, "***")
+    return re.sub(r"api_key=[^&\s'\"]+", _REDACTED, text)
+
 
 def _api_error(resp: httpx.Response) -> str:
     try:

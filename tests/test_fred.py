@@ -251,3 +251,51 @@ class TestOutputPaths:
         vintage = aligned_path(date(2022, 11, 8), date(2022, 11, 8))
         assert current != vintage
         assert vintage.name.endswith("_vintage2022-11-08.csv")
+
+
+class TestKeyRedaction:
+    """This repository's Actions logs are public, and the key rides in the URL."""
+
+    MSG = (
+        "Client error '400 Bad Request' for url "
+        "'https://api.stlouisfed.org/fred/series/observations"
+        "?series_id=TXUR&api_key=SECRET123&file_type=json'"
+    )
+
+    def test_redacts_the_configured_key(self):
+        from src.data.fred import redact
+
+        out = redact(self.MSG, "SECRET123")
+        assert "SECRET123" not in out
+        assert "api_key=***" in out
+        assert "series_id=TXUR" in out  # the useful part survives
+
+    def test_redacts_any_api_key_parameter_without_being_told_the_key(self):
+        from src.data.fred import redact
+
+        assert "SECRET123" not in redact(self.MSG)
+
+    def test_leaves_unrelated_text_alone(self):
+        from src.data.fred import redact
+
+        assert redact("no key here", "SECRET123") == "no key here"
+
+    @respx.mock
+    def test_panel_failures_never_carry_the_key(self, tmp_path):
+        respx.get(f"{API_BASE}/series/observations").mock(
+            side_effect=httpx.ConnectError(
+                "failed connecting to "
+                "api.stlouisfed.org/fred/series/observations?api_key=SECRET123"
+            )
+        )
+        _, failures = _client(tmp_path, api_key="SECRET123").fetch_panel(["TXUR"])
+        assert failures
+        assert all("SECRET123" not in f.reason for f in failures)
+
+    @respx.mock
+    def test_probe_failures_never_carry_the_key(self, tmp_path):
+        respx.get(f"{API_BASE}/series/observations").mock(
+            return_value=httpx.Response(400, text='{"error_message": "nope"}')
+        )
+        results = _client(tmp_path, api_key="SECRET123").probe(["TXUR"])
+        assert "SECRET123" not in results["TXUR"]
