@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-09-19",
+  "as_of": "2026-09-20",
   "num_simulations": 50000,
-  "dem_control_prob": 0.457,
-  "mean_dem_seats": 50.17,
+  "dem_control_prob": 0.4486,
+  "mean_dem_seats": 50.14,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 73,
-    "45": 308,
-    "46": 906,
-    "47": 2204,
-    "48": 4496,
-    "49": 8009,
-    "50": 11152,
-    "51": 11343,
-    "52": 8070,
-    "53": 3439
+    "45": 313,
+    "46": 921,
+    "47": 2236,
+    "48": 4579,
+    "49": 8145,
+    "50": 11303,
+    "51": 11335,
+    "52": 7819,
+    "53": 3276
   },
   "races": [
     {
@@ -25,14 +25,14 @@
       "margin": 6.799,
       "num_polls": 14,
       "dem_win_prob_polls": 0.8607,
-      "dem_win_prob_blended": 0.8818,
+      "dem_win_prob_blended": 0.8805,
       "market_dem_prob": {
-        "polymarket": 0.945
+        "polymarket": 0.94
       },
-      "dem_win_prob_sim": 0.8843,
-      "median_margin": 6.2,
-      "margin_p10": -0.51,
-      "margin_p90": 12.88,
+      "dem_win_prob_sim": 0.883,
+      "median_margin": 6.16,
+      "margin_p10": -0.55,
+      "margin_p90": 12.85,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/georgia-senate-election-winner"
       }
@@ -145,14 +145,14 @@
       "margin": 2.318,
       "num_polls": 36,
       "dem_win_prob_polls": 0.5883,
-      "dem_win_prob_blended": 0.4496,
+      "dem_win_prob_blended": 0.4487,
       "market_dem_prob": {
-        "polymarket": 0.0335
+        "polymarket": 0.03
       },
-      "dem_win_prob_sim": 0.4484,
-      "median_margin": -0.62,
-      "margin_p10": -7.26,
-      "margin_p90": 6.2,
+      "dem_win_prob_sim": 0.4476,
+      "median_margin": -0.64,
+      "margin_p10": -7.27,
+      "margin_p90": 6.19,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-texas-state-senate-in-2026"
       }
@@ -162,17 +162,17 @@
       "race": "Iowa Senate 2026",
       "dem_candidate": "Josh Turek",
       "rep_candidate": "Ashley Hinson",
-      "margin": 0.287,
-      "num_polls": 17,
-      "dem_win_prob_polls": 0.4214,
-      "dem_win_prob_blended": 0.4123,
+      "margin": -0.203,
+      "num_polls": 18,
+      "dem_win_prob_polls": 0.3824,
+      "dem_win_prob_blended": 0.3843,
       "market_dem_prob": {
-        "polymarket": 0.385
+        "polymarket": 0.39
       },
-      "dem_win_prob_sim": 0.4088,
-      "median_margin": -1.11,
-      "margin_p10": -7.79,
-      "margin_p90": 5.66,
+      "dem_win_prob_sim": 0.3813,
+      "median_margin": -1.46,
+      "margin_p10": -8.14,
+      "margin_p90": 5.3,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/iowa-senate-election-winner"
       }
@@ -212,8 +212,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.457,
-  "mean_dem_seats_with_vibes": 50.17,
+  "dem_control_prob_with_vibes": 0.4486,
+  "mean_dem_seats_with_vibes": 50.14,
   "national_environment": {
     "national_swing": 9.328,
     "available": true,
