@@ -2789,7 +2789,7 @@
           "partisan": false
         },
         {
-          "pollster": "SoCal Strategies (R)",
+          "pollster": "SoCal Strategies",
           "rated": false,
           "grade": null,
           "quality": null,
@@ -2837,10 +2837,10 @@
           "partisan": false
         },
         {
-          "pollster": "InsiderAdvantage (R)",
-          "rated": false,
-          "grade": null,
-          "quality": null,
+          "pollster": "InsiderAdvantage",
+          "rated": true,
+          "grade": "B-",
+          "quality": 1.108,
           "start_date": "2026-09-08",
           "end_date": "2026-09-09",
           "sample_size": 1200,
@@ -3405,7 +3405,7 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 18,
+      "num_polls": 19,
       "polls": [
         {
           "pollster": "Trafalgar Group (R)",
@@ -3437,6 +3437,22 @@
           "dem_pct": 42.0,
           "rep_pct": 46.0,
           "margin": -4.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Cygnal (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-09",
+          "end_date": "2026-09-11",
+          "sample_size": 500,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 43.0,
+          "rep_pct": 43.0,
+          "margin": 0.0,
           "partisan": false
         },
         {
