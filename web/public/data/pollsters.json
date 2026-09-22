@@ -562,8 +562,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 31,
+      "num_polls": 32,
       "polls": [
+        {
+          "pollster": "Suffolk University",
+          "rated": true,
+          "grade": "A-",
+          "quality": 1.708,
+          "start_date": "2026-09-16",
+          "end_date": "2026-09-20",
+          "sample_size": 500,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 40.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "InsiderAdvantage (R)",
           "rated": false,
@@ -2754,8 +2770,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 36,
+      "num_polls": 37,
       "polls": [
+        {
+          "pollster": "Texas Southern University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-15",
+          "end_date": "2026-09-19",
+          "sample_size": 1800,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 47.0,
+          "rep_pct": 46.0,
+          "margin": 1.0,
+          "partisan": false
+        },
         {
           "pollster": "Trafalgar Group (R)",
           "rated": true,
@@ -3405,8 +3437,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 19,
+      "num_polls": 20,
       "polls": [
+        {
+          "pollster": "Marist College",
+          "rated": true,
+          "grade": "A-",
+          "quality": 1.768,
+          "start_date": "2026-09-17",
+          "end_date": "2026-09-20",
+          "sample_size": 1050,
+          "population": "rv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 50.0,
+          "rep_pct": 42.0,
+          "margin": 8.0,
+          "partisan": false
+        },
         {
           "pollster": "Trafalgar Group (R)",
           "rated": true,
