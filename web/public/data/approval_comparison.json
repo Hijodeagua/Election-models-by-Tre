@@ -6,14 +6,6 @@
       "available": true,
       "series": [
         {
-          "as_of": "2026-01-24",
-          "approve": 41.8,
-          "disapprove": 54.8,
-          "net": -13.0,
-          "lo": 41.2,
-          "hi": 42.5
-        },
-        {
           "as_of": "2026-01-25",
           "approve": 41.8,
           "disapprove": 54.9,
@@ -1920,16 +1912,24 @@
         {
           "as_of": "2026-09-20",
           "approve": 37.7,
-          "disapprove": 59.1,
-          "net": -21.4,
+          "disapprove": 59.4,
+          "net": -21.7,
           "lo": 37.1,
           "hi": 38.6
         },
         {
           "as_of": "2026-09-21",
           "approve": 37.7,
-          "disapprove": 59.1,
-          "net": -21.4,
+          "disapprove": 59.4,
+          "net": -21.7,
+          "lo": 37.1,
+          "hi": 38.6
+        },
+        {
+          "as_of": "2026-09-22",
+          "approve": 37.7,
+          "disapprove": 59.4,
+          "net": -21.7,
           "lo": 37.1,
           "hi": 38.6
         }
@@ -1940,13 +1940,6 @@
       "description": "Unweighted 14-day trailing mean of VoteHub approval polls.",
       "available": true,
       "series": [
-        {
-          "as_of": "2026-01-24",
-          "approve": 41.8,
-          "disapprove": 55.36,
-          "net": -13.56,
-          "num_polls": 25
-        },
         {
           "as_of": "2026-01-25",
           "approve": 41.8,
@@ -3308,15 +3301,22 @@
         {
           "as_of": "2026-09-20",
           "approve": 37.17,
-          "disapprove": 60.0,
-          "net": -22.83,
+          "disapprove": 60.33,
+          "net": -23.17,
           "num_polls": 6
         },
         {
           "as_of": "2026-09-21",
           "approve": 37.17,
-          "disapprove": 60.0,
-          "net": -22.83,
+          "disapprove": 60.33,
+          "net": -23.17,
+          "num_polls": 6
+        },
+        {
+          "as_of": "2026-09-22",
+          "approve": 37.17,
+          "disapprove": 60.33,
+          "net": -23.17,
           "num_polls": 6
         }
       ]
