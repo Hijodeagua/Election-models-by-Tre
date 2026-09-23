@@ -1,20 +1,20 @@
 {
   "as_of": "2026-09-23",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4884,
-  "mean_dem_seats": 50.3,
+  "dem_control_prob": 0.4925,
+  "mean_dem_seats": 50.31,
   "median_dem_seats": 50.0,
   "seat_distribution": {
-    "44": 63,
+    "44": 64,
     "45": 252,
-    "46": 761,
-    "47": 1941,
-    "48": 4074,
-    "49": 7552,
-    "50": 10939,
-    "51": 11762,
-    "52": 8724,
-    "53": 3932
+    "46": 772,
+    "47": 1938,
+    "48": 4071,
+    "49": 7465,
+    "50": 10815,
+    "51": 11748,
+    "52": 8858,
+    "53": 4017
   },
   "races": [
     {
@@ -22,17 +22,17 @@
       "race": "Georgia Senate 2026",
       "dem_candidate": "Jon Ossoff",
       "rep_candidate": "Mike Collins",
-      "margin": 6.833,
+      "margin": 6.839,
       "num_polls": 14,
-      "dem_win_prob_polls": 0.862,
-      "dem_win_prob_blended": 0.8827,
+      "dem_win_prob_polls": 0.8622,
+      "dem_win_prob_blended": 0.8829,
       "market_dem_prob": {
         "polymarket": 0.945
       },
-      "dem_win_prob_sim": 0.8852,
+      "dem_win_prob_sim": 0.8854,
       "median_margin": 6.23,
       "margin_p10": -0.48,
-      "margin_p90": 12.91,
+      "margin_p90": 12.92,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/georgia-senate-election-winner"
       }
@@ -42,17 +42,17 @@
       "race": "Michigan Senate 2026",
       "dem_candidate": "Haley Stevens",
       "rep_candidate": "Mike Rogers",
-      "margin": 9.17,
+      "margin": 9.206,
       "num_polls": 32,
-      "dem_win_prob_polls": 0.9282,
-      "dem_win_prob_blended": 0.8849,
+      "dem_win_prob_polls": 0.9289,
+      "dem_win_prob_blended": 0.8755,
       "market_dem_prob": {
-        "polymarket": 0.755
+        "polymarket": 0.715
       },
-      "dem_win_prob_sim": 0.8854,
-      "median_margin": 6.25,
-      "margin_p10": -0.51,
-      "margin_p90": 13.04,
+      "dem_win_prob_sim": 0.8769,
+      "median_margin": 5.97,
+      "margin_p10": -0.8,
+      "margin_p90": 12.76,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/michigan-senate-election-winner"
       }
@@ -62,14 +62,14 @@
       "race": "North Carolina Senate 2026",
       "dem_candidate": "Roy Cooper",
       "rep_candidate": "Michael Whatley",
-      "margin": 8.165,
+      "margin": 8.168,
       "num_polls": 32,
-      "dem_win_prob_polls": 0.9047,
-      "dem_win_prob_blended": 0.9148,
+      "dem_win_prob_polls": 0.9048,
+      "dem_win_prob_blended": 0.9149,
       "market_dem_prob": {
         "polymarket": 0.945
       },
-      "dem_win_prob_sim": 0.9148,
+      "dem_win_prob_sim": 0.9149,
       "median_margin": 7.33,
       "margin_p10": 0.56,
       "margin_p90": 14.04,
@@ -82,17 +82,17 @@
       "race": "Maine Senate 2026",
       "dem_candidate": "Troy Jackson",
       "rep_candidate": "Susan Collins",
-      "margin": 5.365,
+      "margin": 5.373,
       "num_polls": 11,
-      "dem_win_prob_polls": 0.7957,
-      "dem_win_prob_blended": 0.7705,
+      "dem_win_prob_polls": 0.7961,
+      "dem_win_prob_blended": 0.7721,
       "market_dem_prob": {
-        "polymarket": 0.695
+        "polymarket": 0.7
       },
-      "dem_win_prob_sim": 0.7682,
-      "median_margin": 3.68,
-      "margin_p10": -3.1,
-      "margin_p90": 10.44,
+      "dem_win_prob_sim": 0.7698,
+      "median_margin": 3.7,
+      "margin_p10": -3.07,
+      "margin_p90": 10.47,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-maine-state-senate-in-2026"
       }
@@ -102,17 +102,17 @@
       "race": "New Hampshire Senate 2026",
       "dem_candidate": "Chris Pappas",
       "rep_candidate": "Scott Brown",
-      "margin": 13.47,
+      "margin": 13.506,
       "num_polls": 21,
-      "dem_win_prob_polls": 0.9779,
-      "dem_win_prob_blended": 0.9459,
+      "dem_win_prob_polls": 0.9781,
+      "dem_win_prob_blended": 0.9473,
       "market_dem_prob": {
-        "polymarket": 0.85
+        "polymarket": 0.855
       },
-      "dem_win_prob_sim": 0.946,
-      "median_margin": 8.96,
-      "margin_p10": 2.19,
-      "margin_p90": 15.72,
+      "dem_win_prob_sim": 0.9473,
+      "median_margin": 9.05,
+      "margin_p10": 2.28,
+      "margin_p90": 15.82,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/new-hampshire-senate-election-winner"
       }
@@ -122,17 +122,17 @@
       "race": "Ohio Senate 2026",
       "dem_candidate": "Sherrod Brown",
       "rep_candidate": "Jon Husted",
-      "margin": 3.326,
+      "margin": 3.331,
       "num_polls": 22,
-      "dem_win_prob_polls": 0.6661,
-      "dem_win_prob_blended": 0.6558,
+      "dem_win_prob_polls": 0.6665,
+      "dem_win_prob_blended": 0.6561,
       "market_dem_prob": {
         "polymarket": 0.625
       },
-      "dem_win_prob_sim": 0.6571,
+      "dem_win_prob_sim": 0.6574,
       "median_margin": 1.97,
       "margin_p10": -4.77,
-      "margin_p90": 8.71,
+      "margin_p90": 8.72,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/ohio-senate-election-winner"
       }
@@ -142,17 +142,17 @@
       "race": "Texas Senate 2026",
       "dem_candidate": "James Talarico",
       "rep_candidate": "Ken Paxton",
-      "margin": 2.064,
-      "num_polls": 37,
-      "dem_win_prob_polls": 0.5678,
-      "dem_win_prob_blended": 0.4333,
+      "margin": 2.353,
+      "num_polls": 38,
+      "dem_win_prob_polls": 0.5911,
+      "dem_win_prob_blended": 0.4515,
       "market_dem_prob": {
-        "polymarket": 0.03
+        "polymarket": 0.0325
       },
-      "dem_win_prob_sim": 0.4335,
-      "median_margin": -0.82,
-      "margin_p10": -7.46,
-      "margin_p90": 6.0,
+      "dem_win_prob_sim": 0.4503,
+      "median_margin": -0.6,
+      "margin_p10": -7.24,
+      "margin_p90": 6.22,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-texas-state-senate-in-2026"
       }
@@ -162,17 +162,17 @@
       "race": "Iowa Senate 2026",
       "dem_candidate": "Josh Turek",
       "rep_candidate": "Ashley Hinson",
-      "margin": 0.813,
+      "margin": 0.818,
       "num_polls": 20,
-      "dem_win_prob_polls": 0.4645,
-      "dem_win_prob_blended": 0.4721,
+      "dem_win_prob_polls": 0.4649,
+      "dem_win_prob_blended": 0.4699,
       "market_dem_prob": {
-        "polymarket": 0.495
+        "polymarket": 0.485
       },
-      "dem_win_prob_sim": 0.4683,
-      "median_margin": -0.37,
-      "margin_p10": -7.06,
-      "margin_p90": 6.39,
+      "dem_win_prob_sim": 0.4662,
+      "median_margin": -0.4,
+      "margin_p10": -7.08,
+      "margin_p90": 6.36,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/iowa-senate-election-winner"
       }
@@ -182,15 +182,15 @@
       "race": "Alaska Senate 2026",
       "dem_candidate": "Mary Peltola",
       "rep_candidate": "Dan Sullivan",
-      "margin": -0.873,
+      "margin": -0.846,
       "num_polls": 1,
-      "dem_win_prob_polls": 0.3316,
-      "dem_win_prob_blended": 0.3316,
+      "dem_win_prob_polls": 0.3336,
+      "dem_win_prob_blended": 0.3336,
       "market_dem_prob": {},
-      "dem_win_prob_sim": 0.3374,
-      "median_margin": -2.06,
-      "margin_p10": -8.85,
-      "margin_p90": 4.65,
+      "dem_win_prob_sim": 0.3389,
+      "median_margin": -2.03,
+      "margin_p10": -8.82,
+      "margin_p90": 4.68,
       "market_urls": {}
     }
   ],
@@ -212,16 +212,16 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4884,
-  "mean_dem_seats_with_vibes": 50.3,
+  "dem_control_prob_with_vibes": 0.4925,
+  "mean_dem_seats_with_vibes": 50.31,
   "national_environment": {
-    "national_swing": 9.52,
+    "national_swing": 9.556,
     "available": true,
     "president_party": "R",
-    "approval_net": -22.5,
+    "approval_net": -22.8,
     "generic_margin": 6.7,
-    "approval_implied_margin": 6.75,
-    "expected_national_margin": 6.72,
+    "approval_implied_margin": 6.84,
+    "expected_national_margin": 6.756,
     "house_baseline_2024": -2.8,
     "senate_responsiveness": 1.0
   }

@@ -2770,8 +2770,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 37,
+      "num_polls": 38,
       "polls": [
+        {
+          "pollster": "Marist University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-17",
+          "end_date": "2026-09-20",
+          "sample_size": 1139,
+          "population": "rv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 50.0,
+          "rep_pct": 44.0,
+          "margin": 6.0,
+          "partisan": false
+        },
         {
           "pollster": "Texas Southern University",
           "rated": false,
