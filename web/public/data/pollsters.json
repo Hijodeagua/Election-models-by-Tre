@@ -233,8 +233,24 @@
     {
       "state": "Georgia",
       "abbr": "GA",
-      "num_polls": 14,
+      "num_polls": 15,
       "polls": [
+        {
+          "pollster": "YouGov",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.618,
+          "start_date": "2026-09-15",
+          "end_date": "2026-09-18",
+          "sample_size": 3301,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 52.0,
+          "rep_pct": 42.0,
+          "margin": 10.0,
+          "partisan": false
+        },
         {
           "pollster": "Quantus Insights (R)",
           "rated": false,
@@ -1203,8 +1219,40 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 32,
+      "num_polls": 34,
       "polls": [
+        {
+          "pollster": "Quantus Insights (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-21",
+          "end_date": "2026-09-22",
+          "sample_size": 686,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 48.0,
+          "rep_pct": 43.0,
+          "margin": 5.0,
+          "partisan": false
+        },
+        {
+          "pollster": "YouGov",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.618,
+          "start_date": "2026-09-15",
+          "end_date": "2026-09-18",
+          "sample_size": 3742,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 53.0,
+          "rep_pct": 41.0,
+          "margin": 12.0,
+          "partisan": false
+        },
         {
           "pollster": "InsiderAdvantage (R)",
           "rated": false,
