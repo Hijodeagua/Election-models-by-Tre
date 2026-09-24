@@ -578,8 +578,40 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 32,
+      "num_polls": 34,
       "polls": [
+        {
+          "pollster": "co/efficient (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-21",
+          "end_date": "2026-09-23",
+          "sample_size": 843,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 45.0,
+          "margin": null,
+          "partisan": false
+        },
+        {
+          "pollster": "New York Times/Siena University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-15",
+          "end_date": "2026-09-22",
+          "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 44.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Suffolk University",
           "rated": true,
@@ -1850,8 +1882,24 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 11,
+      "num_polls": 12,
       "polls": [
+        {
+          "pollster": "New York Times/Siena University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-15",
+          "end_date": "2026-09-22",
+          "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 46.0,
+          "rep_pct": 49.0,
+          "margin": -3.0,
+          "partisan": false
+        },
         {
           "pollster": "Quantus Insights (R)",
           "rated": false,
@@ -2034,8 +2082,24 @@
     {
       "state": "New Hampshire",
       "abbr": "NH",
-      "num_polls": 21,
+      "num_polls": 22,
       "polls": [
+        {
+          "pollster": "New York Times/Siena University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-15",
+          "end_date": "2026-09-22",
+          "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Chris Pappas",
+          "rep_candidate": "Scott Brown",
+          "dem_pct": 50.0,
+          "rep_pct": null,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "InsiderAdvantage (R)",
           "rated": false,
