@@ -603,7 +603,7 @@
           "quality": null,
           "start_date": "2026-09-15",
           "end_date": "2026-09-22",
-          "sample_size": 600,
+          "sample_size": 605,
           "population": "lv",
           "dem_candidate": "Haley Stevens",
           "rep_candidate": "Mike Rogers",
@@ -2139,7 +2139,7 @@
           "quality": null,
           "start_date": "2026-09-15",
           "end_date": "2026-09-22",
-          "sample_size": 600,
+          "sample_size": 613,
           "population": "lv",
           "dem_candidate": "Chris Pappas",
           "rep_candidate": "Scott Brown",
@@ -2962,8 +2962,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 38,
+      "num_polls": 39,
       "polls": [
+        {
+          "pollster": "Texas Public Opinion Research",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-19",
+          "end_date": "2026-09-22",
+          "sample_size": 1007,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 49.0,
+          "rep_pct": 44.0,
+          "margin": 5.0,
+          "partisan": false
+        },
         {
           "pollster": "Marist University",
           "rated": false,

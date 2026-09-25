@@ -1,20 +1,20 @@
 {
   "as_of": "2026-09-25",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4832,
-  "mean_dem_seats": 50.29,
+  "dem_control_prob": 0.4888,
+  "mean_dem_seats": 50.32,
   "median_dem_seats": 50.0,
   "seat_distribution": {
-    "44": 58,
-    "45": 221,
-    "46": 705,
-    "47": 1844,
-    "48": 4092,
-    "49": 7861,
-    "50": 11061,
-    "51": 11689,
-    "52": 8620,
-    "53": 3849
+    "44": 56,
+    "45": 216,
+    "46": 680,
+    "47": 1789,
+    "48": 4010,
+    "49": 7744,
+    "50": 11064,
+    "51": 11734,
+    "52": 8759,
+    "53": 3948
   },
   "races": [
     {
@@ -85,14 +85,14 @@
       "margin": 4.733,
       "num_polls": 14,
       "dem_win_prob_polls": 0.7601,
-      "dem_win_prob_blended": 0.7838,
+      "dem_win_prob_blended": 0.7913,
       "market_dem_prob": {
-        "polymarket": 0.855
+        "polymarket": 0.885
       },
-      "dem_win_prob_sim": 0.7817,
-      "median_margin": 3.91,
-      "margin_p10": -2.86,
-      "margin_p90": 10.68,
+      "dem_win_prob_sim": 0.7898,
+      "median_margin": 4.05,
+      "margin_p10": -2.72,
+      "margin_p90": 10.82,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-maine-state-senate-in-2026"
       }
@@ -105,14 +105,14 @@
       "margin": 13.518,
       "num_polls": 23,
       "dem_win_prob_polls": 0.9782,
-      "dem_win_prob_blended": 0.9461,
+      "dem_win_prob_blended": 0.9499,
       "market_dem_prob": {
-        "polymarket": 0.85
+        "polymarket": 0.865
       },
-      "dem_win_prob_sim": 0.9462,
-      "median_margin": 8.97,
-      "margin_p10": 2.2,
-      "margin_p90": 15.74,
+      "dem_win_prob_sim": 0.9499,
+      "median_margin": 9.23,
+      "margin_p10": 2.46,
+      "margin_p90": 16.0,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/new-hampshire-senate-election-winner"
       }
@@ -125,14 +125,14 @@
       "margin": 2.469,
       "num_polls": 23,
       "dem_win_prob_polls": 0.6004,
-      "dem_win_prob_blended": 0.5965,
+      "dem_win_prob_blended": 0.594,
       "market_dem_prob": {
-        "polymarket": 0.585
+        "polymarket": 0.575
       },
-      "dem_win_prob_sim": 0.5983,
-      "median_margin": 1.2,
-      "margin_p10": -5.54,
-      "margin_p90": 7.95,
+      "dem_win_prob_sim": 0.5961,
+      "median_margin": 1.17,
+      "margin_p10": -5.57,
+      "margin_p90": 7.92,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/ohio-senate-election-winner"
       }
@@ -142,17 +142,17 @@
       "race": "Texas Senate 2026",
       "dem_candidate": "James Talarico",
       "rep_candidate": "Ken Paxton",
-      "margin": 2.354,
-      "num_polls": 38,
-      "dem_win_prob_polls": 0.5912,
-      "dem_win_prob_blended": 0.4522,
+      "margin": 2.641,
+      "num_polls": 39,
+      "dem_win_prob_polls": 0.614,
+      "dem_win_prob_blended": 0.4692,
       "market_dem_prob": {
         "polymarket": 0.035
       },
-      "dem_win_prob_sim": 0.4509,
-      "median_margin": -0.59,
-      "margin_p10": -7.23,
-      "margin_p90": 6.23,
+      "dem_win_prob_sim": 0.4681,
+      "median_margin": -0.39,
+      "margin_p10": -7.03,
+      "margin_p90": 6.44,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-texas-state-senate-in-2026"
       }
@@ -165,14 +165,14 @@
       "margin": 0.82,
       "num_polls": 20,
       "dem_win_prob_polls": 0.465,
-      "dem_win_prob_blended": 0.4625,
+      "dem_win_prob_blended": 0.46,
       "market_dem_prob": {
-        "polymarket": 0.455
+        "polymarket": 0.445
       },
-      "dem_win_prob_sim": 0.4583,
-      "median_margin": -0.49,
-      "margin_p10": -7.17,
-      "margin_p90": 6.27,
+      "dem_win_prob_sim": 0.4557,
+      "median_margin": -0.52,
+      "margin_p10": -7.2,
+      "margin_p90": 6.24,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/iowa-senate-election-winner"
       }
@@ -212,8 +212,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4832,
-  "mean_dem_seats_with_vibes": 50.29,
+  "dem_control_prob_with_vibes": 0.4888,
+  "mean_dem_seats_with_vibes": 50.32,
   "national_environment": {
     "national_swing": 9.568,
     "available": true,
