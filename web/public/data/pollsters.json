@@ -1251,7 +1251,7 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 34,
+      "num_polls": 35,
       "polls": [
         {
           "pollster": "Quantus Insights (R)",
@@ -1299,6 +1299,22 @@
           "dem_pct": 48.0,
           "rep_pct": 43.0,
           "margin": 5.0,
+          "partisan": false
+        },
+        {
+          "pollster": "High Point University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-09",
+          "end_date": "2026-09-16",
+          "sample_size": 706,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 50.0,
+          "rep_pct": 42.0,
+          "margin": 8.0,
           "partisan": false
         },
         {
@@ -1882,7 +1898,7 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 12,
+      "num_polls": 14,
       "polls": [
         {
           "pollster": "New York Times/Siena University",
@@ -1891,13 +1907,29 @@
           "quality": null,
           "start_date": "2026-09-15",
           "end_date": "2026-09-22",
-          "sample_size": 600,
+          "sample_size": 619,
           "population": "lv",
           "dem_candidate": "Troy Jackson",
           "rep_candidate": "Susan Collins",
           "dem_pct": 46.0,
           "rep_pct": 49.0,
           "margin": -3.0,
+          "partisan": false
+        },
+        {
+          "pollster": "University of New Hampshire",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-17",
+          "end_date": "2026-09-21",
+          "sample_size": 1312,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 51.0,
+          "rep_pct": 47.0,
+          "margin": 4.0,
           "partisan": false
         },
         {
@@ -1914,6 +1946,22 @@
           "dem_pct": 47.0,
           "rep_pct": 48.0,
           "margin": -1.0,
+          "partisan": false
+        },
+        {
+          "pollster": "University of Massachusetts/YouGov",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-28",
+          "end_date": "2026-09-14",
+          "sample_size": 650,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 48.0,
+          "rep_pct": 43.0,
+          "margin": 5.0,
           "partisan": false
         },
         {
@@ -2082,7 +2130,7 @@
     {
       "state": "New Hampshire",
       "abbr": "NH",
-      "num_polls": 22,
+      "num_polls": 23,
       "polls": [
         {
           "pollster": "New York Times/Siena University",
@@ -2092,6 +2140,22 @@
           "start_date": "2026-09-15",
           "end_date": "2026-09-22",
           "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Chris Pappas",
+          "rep_candidate": "Scott Brown",
+          "dem_pct": 50.0,
+          "rep_pct": null,
+          "margin": null,
+          "partisan": false
+        },
+        {
+          "pollster": "University of New Hampshire",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-17",
+          "end_date": "2026-09-21",
+          "sample_size": 1418,
           "population": "lv",
           "dem_candidate": "Chris Pappas",
           "rep_candidate": "Scott Brown",
@@ -2479,8 +2543,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 22,
+      "num_polls": 23,
       "polls": [
+        {
+          "pollster": "Quantus Insights (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-21",
+          "end_date": "2026-09-23",
+          "sample_size": 695,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 47.0,
+          "rep_pct": 47.0,
+          "margin": 0.0,
+          "partisan": false
+        },
         {
           "pollster": "Trafalgar Group (R)",
           "rated": true,
