@@ -610,7 +610,7 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 34,
+      "num_polls": 35,
       "polls": [
         {
           "pollster": "co/efficient (R)",
@@ -657,6 +657,22 @@
           "rep_candidate": "Mike Rogers",
           "dem_pct": null,
           "rep_pct": 40.0,
+          "margin": null,
+          "partisan": false
+        },
+        {
+          "pollster": "Torchlight Strategies (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-15",
+          "end_date": "2026-09-19",
+          "sample_size": 643,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 44.0,
           "margin": null,
           "partisan": false
         },
@@ -1283,7 +1299,7 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 35,
+      "num_polls": 36,
       "polls": [
         {
           "pollster": "Quantus Insights (R)",
@@ -1299,6 +1315,22 @@
           "dem_pct": 48.0,
           "rep_pct": 43.0,
           "margin": 5.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Opinion Diagnostics",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-17",
+          "end_date": "2026-09-20",
+          "sample_size": 857,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 51.0,
+          "rep_pct": 41.0,
+          "margin": 10.0,
           "partisan": false
         },
         {
@@ -3712,10 +3744,10 @@
       "num_polls": 20,
       "polls": [
         {
-          "pollster": "Marist College",
-          "rated": true,
-          "grade": "A-",
-          "quality": 1.768,
+          "pollster": "Marist University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
           "start_date": "2026-09-17",
           "end_date": "2026-09-20",
           "sample_size": 1050,
