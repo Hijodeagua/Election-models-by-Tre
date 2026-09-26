@@ -233,8 +233,40 @@
     {
       "state": "Georgia",
       "abbr": "GA",
-      "num_polls": 15,
+      "num_polls": 17,
       "polls": [
+        {
+          "pollster": "InsiderAdvantage (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-22",
+          "end_date": "2026-09-23",
+          "sample_size": 1200,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 50.0,
+          "rep_pct": 42.0,
+          "margin": 8.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Big Data Poll",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-21",
+          "end_date": "2026-09-23",
+          "sample_size": 678,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 52.0,
+          "rep_pct": 41.0,
+          "margin": 11.0,
+          "partisan": false
+        },
         {
           "pollster": "YouGov",
           "rated": true,
@@ -2543,7 +2575,7 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 23,
+      "num_polls": 24,
       "polls": [
         {
           "pollster": "Quantus Insights (R)",
@@ -2559,6 +2591,22 @@
           "dem_pct": 47.0,
           "rep_pct": 47.0,
           "margin": 0.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Rasmussen Reports (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-22",
+          "end_date": "2026-09-23",
+          "sample_size": 1115,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 46.0,
+          "rep_pct": 43.0,
+          "margin": 3.0,
           "partisan": false
         },
         {
@@ -2965,7 +3013,7 @@
       "num_polls": 39,
       "polls": [
         {
-          "pollster": "Texas Public Opinion Research",
+          "pollster": "Texas Public Opinion Research (D)",
           "rated": false,
           "grade": null,
           "quality": null,
