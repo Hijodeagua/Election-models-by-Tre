@@ -1,20 +1,20 @@
 {
   "as_of": "2026-09-27",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4789,
+  "dem_control_prob": 0.4797,
   "mean_dem_seats": 50.29,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 53,
-    "45": 215,
-    "46": 673,
-    "47": 1818,
-    "48": 4194,
-    "49": 7897,
-    "50": 11206,
-    "51": 11601,
-    "52": 8540,
-    "53": 3803
+    "45": 209,
+    "46": 666,
+    "47": 1810,
+    "48": 4168,
+    "49": 7891,
+    "50": 11217,
+    "51": 11613,
+    "52": 8563,
+    "53": 3810
   },
   "races": [
     {
@@ -85,14 +85,14 @@
       "margin": 4.17,
       "num_polls": 15,
       "dem_win_prob_polls": 0.7249,
-      "dem_win_prob_blended": 0.7649,
+      "dem_win_prob_blended": 0.7674,
       "market_dem_prob": {
-        "polymarket": 0.885
+        "polymarket": 0.895
       },
-      "dem_win_prob_sim": 0.7625,
-      "median_margin": 3.58,
-      "margin_p10": -3.19,
-      "margin_p90": 10.35,
+      "dem_win_prob_sim": 0.7652,
+      "median_margin": 3.62,
+      "margin_p10": -3.15,
+      "margin_p90": 10.39,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-maine-state-senate-in-2026"
       }
@@ -105,14 +105,14 @@
       "margin": 13.518,
       "num_polls": 24,
       "dem_win_prob_polls": 0.9782,
-      "dem_win_prob_blended": 0.9499,
+      "dem_win_prob_blended": 0.9511,
       "market_dem_prob": {
-        "polymarket": 0.865
+        "polymarket": 0.87
       },
-      "dem_win_prob_sim": 0.9499,
-      "median_margin": 9.23,
-      "margin_p10": 2.46,
-      "margin_p90": 16.0,
+      "dem_win_prob_sim": 0.9513,
+      "median_margin": 9.32,
+      "margin_p10": 2.55,
+      "margin_p90": 16.09,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/new-hampshire-senate-election-winner"
       }
@@ -145,11 +145,11 @@
       "margin": 2.641,
       "num_polls": 39,
       "dem_win_prob_polls": 0.614,
-      "dem_win_prob_blended": 0.4696,
+      "dem_win_prob_blended": 0.4699,
       "market_dem_prob": {
-        "polymarket": 0.0365
+        "polymarket": 0.0375
       },
-      "dem_win_prob_sim": 0.4684,
+      "dem_win_prob_sim": 0.4686,
       "median_margin": -0.38,
       "margin_p10": -7.02,
       "margin_p90": 6.44,
@@ -212,7 +212,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4789,
+  "dem_control_prob_with_vibes": 0.4797,
   "mean_dem_seats_with_vibes": 50.29,
   "national_environment": {
     "national_swing": 9.568,
