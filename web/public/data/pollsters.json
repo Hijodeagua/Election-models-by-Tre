@@ -252,7 +252,7 @@
           "partisan": false
         },
         {
-          "pollster": "Big Data Poll",
+          "pollster": "Big Data Poll (R)",
           "rated": false,
           "grade": null,
           "quality": null,
@@ -610,8 +610,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 35,
+      "num_polls": 36,
       "polls": [
+        {
+          "pollster": "Big Data Poll (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-22",
+          "end_date": "2026-09-24",
+          "sample_size": 678,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 42.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "co/efficient (R)",
           "rated": false,
@@ -1962,8 +1978,24 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 14,
+      "num_polls": 15,
       "polls": [
+        {
+          "pollster": "InsiderAdvantage (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-22",
+          "end_date": "2026-09-23",
+          "sample_size": 1200,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 46.0,
+          "rep_pct": 46.0,
+          "margin": 0.0,
+          "partisan": false
+        },
         {
           "pollster": "New York Times/Siena University",
           "rated": false,
@@ -2194,8 +2226,24 @@
     {
       "state": "New Hampshire",
       "abbr": "NH",
-      "num_polls": 23,
+      "num_polls": 24,
       "polls": [
+        {
+          "pollster": "Trafalgar Group (R)",
+          "rated": true,
+          "grade": "C+",
+          "quality": 1.048,
+          "start_date": "2026-09-23",
+          "end_date": "2026-09-25",
+          "sample_size": 1090,
+          "population": "lv",
+          "dem_candidate": "Chris Pappas",
+          "rep_candidate": "Scott Brown",
+          "dem_pct": 46.0,
+          "rep_pct": null,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "New York Times/Siena University",
           "rated": false,
@@ -3741,8 +3789,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 20,
+      "num_polls": 21,
       "polls": [
+        {
+          "pollster": "InsiderAdvantage (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-22",
+          "end_date": "2026-09-23",
+          "sample_size": 1200,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 47.0,
+          "rep_pct": 46.0,
+          "margin": 1.0,
+          "partisan": false
+        },
         {
           "pollster": "Marist University",
           "rated": false,
