@@ -3090,8 +3090,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 39,
+      "num_polls": 40,
       "polls": [
+        {
+          "pollster": "Big Data Poll",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-24",
+          "end_date": "2026-09-26",
+          "sample_size": 698,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 47.0,
+          "rep_pct": 45.0,
+          "margin": 2.0,
+          "partisan": false
+        },
         {
           "pollster": "Texas Public Opinion Research (D)",
           "rated": false,

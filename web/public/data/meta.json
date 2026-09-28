@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-27T15:06:22.164577+00:00",
+  "last_updated": "2026-09-28T00:24:55.872855+00:00",
   "data_tier": "tracker",
   "label": "A work in progress from the team at Policy y Peaches",
   "model_versions": {
@@ -10,16 +10,17 @@
     "state_space": "Jackman state-space (random-walk latent + house effects), published"
   },
   "poll_counts": {
-    "approval": 1842,
+    "approval": 1841,
     "generic_ballot": 403,
-    "senate": 213
+    "senate": 214
   },
   "last_poll_dates": {
     "approval": "2026-09-24",
     "generic_ballot": "2026-09-06",
-    "senate": "2026-09-24"
+    "senate": "2026-09-25"
   },
   "stale_feeds": [
+    "approval",
     "generic_ballot"
   ]
 }
