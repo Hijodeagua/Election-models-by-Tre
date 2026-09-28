@@ -1315,7 +1315,7 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 36,
+      "num_polls": 37,
       "polls": [
         {
           "pollster": "Quantus Insights (R)",
@@ -1331,6 +1331,22 @@
           "dem_pct": 48.0,
           "rep_pct": 43.0,
           "margin": 5.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Fabrizio Ward (R)/ Impact Research (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-17",
+          "end_date": "2026-09-20",
+          "sample_size": 1806,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 53.0,
+          "rep_pct": 42.0,
+          "margin": 11.0,
           "partisan": false
         },
         {
@@ -2233,13 +2249,13 @@
           "rated": true,
           "grade": "C+",
           "quality": 1.048,
-          "start_date": "2026-09-23",
-          "end_date": "2026-09-25",
-          "sample_size": 1090,
+          "start_date": "2026-09-26",
+          "end_date": "2026-09-27",
+          "sample_size": 1082,
           "population": "lv",
           "dem_candidate": "Chris Pappas",
           "rep_candidate": "Scott Brown",
-          "dem_pct": 46.0,
+          "dem_pct": 47.0,
           "rep_pct": null,
           "margin": null,
           "partisan": false
@@ -3090,10 +3106,10 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 40,
+      "num_polls": 41,
       "polls": [
         {
-          "pollster": "Big Data Poll",
+          "pollster": "Big Data",
           "rated": false,
           "grade": null,
           "quality": null,
@@ -3106,6 +3122,22 @@
           "dem_pct": 47.0,
           "rep_pct": 45.0,
           "margin": 2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Stratus Intelligence (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-22",
+          "end_date": "2026-09-24",
+          "sample_size": 856,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 48.0,
+          "rep_pct": 48.0,
+          "margin": 0.0,
           "partisan": false
         },
         {
