@@ -610,7 +610,7 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 36,
+      "num_polls": 37,
       "polls": [
         {
           "pollster": "Big Data Poll (R)",
@@ -641,6 +641,22 @@
           "rep_candidate": "Mike Rogers",
           "dem_pct": null,
           "rep_pct": 45.0,
+          "margin": null,
+          "partisan": false
+        },
+        {
+          "pollster": "GBAO (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-19",
+          "end_date": "2026-09-22",
+          "sample_size": 800,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 44.0,
           "margin": null,
           "partisan": false
         },
@@ -2671,8 +2687,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 24,
+      "num_polls": 25,
       "polls": [
+        {
+          "pollster": "Marist University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-24",
+          "end_date": "2026-09-27",
+          "sample_size": 1298,
+          "population": "rv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 51.0,
+          "rep_pct": 43.0,
+          "margin": 8.0,
+          "partisan": false
+        },
         {
           "pollster": "Rasmussen Reports (R)",
           "rated": false,
@@ -3109,7 +3141,7 @@
       "num_polls": 41,
       "polls": [
         {
-          "pollster": "Big Data",
+          "pollster": "Big Data Poll",
           "rated": false,
           "grade": null,
           "quality": null,
