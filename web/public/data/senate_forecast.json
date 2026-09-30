@@ -1,20 +1,20 @@
 {
   "as_of": "2026-09-30",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4774,
-  "mean_dem_seats": 50.29,
+  "dem_control_prob": 0.471,
+  "mean_dem_seats": 50.26,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 53,
-    "45": 205,
-    "46": 653,
-    "47": 1790,
-    "48": 4098,
-    "49": 7884,
-    "50": 11447,
-    "51": 11753,
-    "52": 8426,
-    "53": 3691
+    "45": 208,
+    "46": 662,
+    "47": 1813,
+    "48": 4179,
+    "49": 8012,
+    "50": 11521,
+    "51": 11692,
+    "52": 8277,
+    "53": 3583
   },
   "races": [
     {
@@ -43,7 +43,7 @@
       "dem_candidate": "Haley Stevens",
       "rep_candidate": "Mike Rogers",
       "margin": 9.266,
-      "num_polls": 37,
+      "num_polls": 39,
       "dem_win_prob_polls": 0.9301,
       "dem_win_prob_blended": 0.8788,
       "market_dem_prob": {
@@ -85,14 +85,14 @@
       "margin": 4.178,
       "num_polls": 15,
       "dem_win_prob_polls": 0.7254,
-      "dem_win_prob_blended": 0.7566,
+      "dem_win_prob_blended": 0.7553,
       "market_dem_prob": {
-        "polymarket": 0.85
+        "polymarket": 0.845
       },
-      "dem_win_prob_sim": 0.7547,
-      "median_margin": 3.44,
-      "margin_p10": -3.33,
-      "margin_p90": 10.21,
+      "dem_win_prob_sim": 0.7533,
+      "median_margin": 3.42,
+      "margin_p10": -3.35,
+      "margin_p90": 10.19,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-maine-state-senate-in-2026"
       }
@@ -122,17 +122,17 @@
       "race": "Ohio Senate 2026",
       "dem_candidate": "Sherrod Brown",
       "rep_candidate": "Jon Husted",
-      "margin": 3.236,
-      "num_polls": 26,
-      "dem_win_prob_polls": 0.6595,
-      "dem_win_prob_blended": 0.6434,
+      "margin": 3.162,
+      "num_polls": 27,
+      "dem_win_prob_polls": 0.654,
+      "dem_win_prob_blended": 0.6392,
       "market_dem_prob": {
         "polymarket": 0.595
       },
-      "dem_win_prob_sim": 0.6446,
-      "median_margin": 1.8,
-      "margin_p10": -4.94,
-      "margin_p90": 8.55,
+      "dem_win_prob_sim": 0.6401,
+      "median_margin": 1.75,
+      "margin_p10": -4.99,
+      "margin_p90": 8.49,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/ohio-senate-election-winner"
       }
@@ -145,14 +145,14 @@
       "margin": 1.734,
       "num_polls": 42,
       "dem_win_prob_polls": 0.5407,
-      "dem_win_prob_blended": 0.4156,
+      "dem_win_prob_blended": 0.4139,
       "market_dem_prob": {
-        "polymarket": 0.04
+        "polymarket": 0.0335
       },
-      "dem_win_prob_sim": 0.415,
-      "median_margin": -1.04,
-      "margin_p10": -7.68,
-      "margin_p90": 5.78,
+      "dem_win_prob_sim": 0.4135,
+      "median_margin": -1.06,
+      "margin_p10": -7.7,
+      "margin_p90": 5.76,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-texas-state-senate-in-2026"
       }
@@ -162,17 +162,17 @@
       "race": "Iowa Senate 2026",
       "dem_candidate": "Josh Turek",
       "rep_candidate": "Ashley Hinson",
-      "margin": 0.671,
-      "num_polls": 21,
-      "dem_win_prob_polls": 0.4528,
-      "dem_win_prob_blended": 0.4433,
+      "margin": 0.424,
+      "num_polls": 22,
+      "dem_win_prob_polls": 0.4325,
+      "dem_win_prob_blended": 0.4282,
       "market_dem_prob": {
         "polymarket": 0.415
       },
-      "dem_win_prob_sim": 0.4388,
-      "median_margin": -0.72,
-      "margin_p10": -7.41,
-      "margin_p90": 6.04,
+      "dem_win_prob_sim": 0.4244,
+      "median_margin": -0.91,
+      "margin_p10": -7.59,
+      "margin_p90": 5.85,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/iowa-senate-election-winner"
       }
@@ -212,8 +212,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4774,
-  "mean_dem_seats_with_vibes": 50.29,
+  "dem_control_prob_with_vibes": 0.471,
+  "mean_dem_seats_with_vibes": 50.26,
   "national_environment": {
     "national_swing": 9.616,
     "available": true,

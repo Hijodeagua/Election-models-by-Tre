@@ -610,8 +610,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 37,
+      "num_polls": 39,
       "polls": [
+        {
+          "pollster": "Marist University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-24",
+          "end_date": "2026-09-27",
+          "sample_size": 1235,
+          "population": "rv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 44.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Big Data Poll (R)",
           "rated": false,
@@ -673,6 +689,22 @@
           "rep_candidate": "Mike Rogers",
           "dem_pct": null,
           "rep_pct": 44.0,
+          "margin": null,
+          "partisan": false
+        },
+        {
+          "pollster": "Cygnal (R)/Beacon Research (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-18",
+          "end_date": "2026-09-21",
+          "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 40.0,
           "margin": null,
           "partisan": false
         },
@@ -2687,7 +2719,7 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 26,
+      "num_polls": 27,
       "polls": [
         {
           "pollster": "Big Data Poll (R)",
@@ -2719,6 +2751,22 @@
           "dem_pct": 51.0,
           "rep_pct": 43.0,
           "margin": 8.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Suffolk University",
+          "rated": true,
+          "grade": "A-",
+          "quality": 1.708,
+          "start_date": "2026-09-23",
+          "end_date": "2026-09-27",
+          "sample_size": 500,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 47.0,
+          "rep_pct": 44.0,
+          "margin": 3.0,
           "partisan": false
         },
         {
@@ -3901,8 +3949,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 21,
+      "num_polls": 22,
       "polls": [
+        {
+          "pollster": "Quantus Insights (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-28",
+          "end_date": "2026-09-29",
+          "sample_size": 738,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 46.0,
+          "rep_pct": 47.0,
+          "margin": -1.0,
+          "partisan": false
+        },
         {
           "pollster": "InsiderAdvantage (R)",
           "rated": false,
