@@ -2687,8 +2687,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 25,
+      "num_polls": 26,
       "polls": [
+        {
+          "pollster": "Big Data Poll (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-26",
+          "end_date": "2026-09-27",
+          "sample_size": 680,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 46.0,
+          "rep_pct": 43.0,
+          "margin": 3.0,
+          "partisan": false
+        },
         {
           "pollster": "Marist University",
           "rated": false,
@@ -3138,8 +3154,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 41,
+      "num_polls": 42,
       "polls": [
+        {
+          "pollster": "Pulse Decision Science (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-24",
+          "end_date": "2026-09-27",
+          "sample_size": 800,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 45.0,
+          "rep_pct": 48.0,
+          "margin": -3.0,
+          "partisan": false
+        },
         {
           "pollster": "Big Data Poll",
           "rated": false,
