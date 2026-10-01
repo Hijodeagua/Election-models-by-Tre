@@ -610,8 +610,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 39,
+      "num_polls": 40,
       "polls": [
+        {
+          "pollster": "Beacon Research (D)/ Shaw & Co. Research (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-24",
+          "end_date": "2026-09-28",
+          "sample_size": 1028,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 49.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Marist University",
           "rated": false,
@@ -2042,8 +2058,24 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 15,
+      "num_polls": 16,
       "polls": [
+        {
+          "pollster": "co/efficient (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-28",
+          "end_date": "2026-09-30",
+          "sample_size": 1240,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 46.0,
+          "rep_pct": 48.0,
+          "margin": -2.0,
+          "partisan": false
+        },
         {
           "pollster": "InsiderAdvantage (R)",
           "rated": false,
@@ -3202,8 +3234,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 42,
+      "num_polls": 43,
       "polls": [
+        {
+          "pollster": "Rasmussen Reports (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-28",
+          "end_date": "2026-09-29",
+          "sample_size": 1128,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 46.0,
+          "rep_pct": 45.0,
+          "margin": 1.0,
+          "partisan": false
+        },
         {
           "pollster": "Pulse Decision Science (R)",
           "rated": false,
