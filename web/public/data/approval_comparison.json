@@ -1903,34 +1903,34 @@
         },
         {
           "as_of": "2026-09-29",
-          "approve": 38.0,
-          "disapprove": 58.3,
-          "net": -20.3,
-          "lo": 37.2,
-          "hi": 40.0
+          "approve": 39.6,
+          "disapprove": 56.2,
+          "net": -16.6,
+          "lo": 38.8,
+          "hi": 40.6
         },
         {
           "as_of": "2026-09-30",
-          "approve": 37.1,
-          "disapprove": 60.3,
-          "net": -23.2,
-          "lo": 36.5,
-          "hi": 37.8
+          "approve": 39.6,
+          "disapprove": 56.2,
+          "net": -16.6,
+          "lo": 38.8,
+          "hi": 40.6
         },
         {
           "as_of": "2026-10-01",
-          "approve": 37.1,
-          "disapprove": 60.3,
-          "net": -23.2,
-          "lo": 36.5,
+          "approve": 37.0,
+          "disapprove": 60.4,
+          "net": -23.4,
+          "lo": 36.2,
           "hi": 37.8
         },
         {
           "as_of": "2026-10-02",
-          "approve": 37.1,
-          "disapprove": 60.3,
-          "net": -23.2,
-          "lo": 36.5,
+          "approve": 37.0,
+          "disapprove": 60.4,
+          "net": -23.4,
+          "lo": 36.2,
           "hi": 37.8
         }
       ]
@@ -3229,32 +3229,18 @@
           "num_polls": 1
         },
         {
-          "as_of": "2026-09-29",
-          "approve": 36.0,
-          "disapprove": 61.0,
-          "net": -25.0,
-          "num_polls": 1
-        },
-        {
-          "as_of": "2026-09-30",
-          "approve": 36.75,
-          "disapprove": 60.88,
-          "net": -24.12,
-          "num_polls": 8
-        },
-        {
           "as_of": "2026-10-01",
-          "approve": 36.75,
-          "disapprove": 60.88,
-          "net": -24.12,
-          "num_polls": 8
+          "approve": 36.57,
+          "disapprove": 61.0,
+          "net": -24.43,
+          "num_polls": 7
         },
         {
           "as_of": "2026-10-02",
-          "approve": 36.75,
-          "disapprove": 60.88,
-          "net": -24.12,
-          "num_polls": 8
+          "approve": 36.57,
+          "disapprove": 61.0,
+          "net": -24.43,
+          "num_polls": 7
         }
       ]
     },
