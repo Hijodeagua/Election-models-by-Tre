@@ -2106,8 +2106,24 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 18,
+      "num_polls": 19,
       "polls": [
+        {
+          "pollster": "Trafalgar Group (R)",
+          "rated": true,
+          "grade": "C+",
+          "quality": 1.048,
+          "start_date": "2026-09-29",
+          "end_date": "2026-10-01",
+          "sample_size": 1091,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 46.0,
+          "rep_pct": 46.0,
+          "margin": 0.0,
+          "partisan": false
+        },
         {
           "pollster": "Wedgewood Polls",
           "rated": false,
@@ -4109,8 +4125,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 23,
+      "num_polls": 24,
       "polls": [
+        {
+          "pollster": "Rasmussen Reports (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-28",
+          "end_date": "2026-09-30",
+          "sample_size": 1048,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 47.0,
+          "rep_pct": 43.0,
+          "margin": 4.0,
+          "partisan": false
+        },
         {
           "pollster": "Quantus Insights (R)",
           "rated": false,
