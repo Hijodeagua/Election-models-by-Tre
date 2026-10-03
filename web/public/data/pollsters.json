@@ -2106,7 +2106,7 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 19,
+      "num_polls": 20,
       "polls": [
         {
           "pollster": "Trafalgar Group (R)",
@@ -2138,6 +2138,22 @@
           "dem_pct": 52.0,
           "rep_pct": 48.0,
           "margin": 4.0,
+          "partisan": false
+        },
+        {
+          "pollster": "CBS News/YouGov",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.558,
+          "start_date": "2026-09-23",
+          "end_date": "2026-10-01",
+          "sample_size": 1136,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 50.0,
+          "rep_pct": 50.0,
+          "margin": 0.0,
           "partisan": false
         },
         {
@@ -2847,8 +2863,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 28,
+      "num_polls": 29,
       "polls": [
+        {
+          "pollster": "New York Times/Siena University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-22",
+          "end_date": "2026-10-01",
+          "sample_size": 616,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 49.0,
+          "rep_pct": 46.0,
+          "margin": 3.0,
+          "partisan": false
+        },
         {
           "pollster": "InsiderAdvantage (R)",
           "rated": false,
@@ -3346,13 +3378,29 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 44,
+      "num_polls": 45,
       "polls": [
         {
-          "pollster": "Rasmussen Reports",
-          "rated": true,
-          "grade": "B-",
-          "quality": 1.168,
+          "pollster": "New York Times/Siena University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-21",
+          "end_date": "2026-09-30",
+          "sample_size": 615,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 51.0,
+          "rep_pct": 45.0,
+          "margin": 6.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Rasmussen Reports (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
           "start_date": "2026-09-28",
           "end_date": "2026-09-29",
           "sample_size": 1128,
@@ -4125,8 +4173,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 24,
+      "num_polls": 25,
       "polls": [
+        {
+          "pollster": "New York Times/Siena University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-22",
+          "end_date": "2026-10-01",
+          "sample_size": 606,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 47.0,
+          "rep_pct": 48.0,
+          "margin": -1.0,
+          "partisan": false
+        },
         {
           "pollster": "Rasmussen Reports (R)",
           "rated": false,
