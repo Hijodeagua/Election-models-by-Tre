@@ -1,5 +1,5 @@
 {
-  "_comment": "2026 Senate cycle configuration for the control simulation. dem_safe_seats / rep_safe_seats count seats NOT in the competitive list (holdovers + safe 2026 races such as FL, NE, MT): of the 9 competitive races Democrats hold GA, MI, NH (3) and Republicans hold NC, ME, OH, TX, IA, AK (6), so dem_safe = 47-3 = 44 and rep_safe = 53-6 = 47. dem_majority_threshold is 51 because the sitting VP (R) breaks 50-50 ties. Fundamentals: each race carries the state's Dem-minus-Rep presidential margin in 2024 and 2020; the fundamentals prior blends them (pres_weight_recent on 2024) and is blended into the polling margin with weight blend_k/(blend_k+num_polls), so it anchors thinly-polled races and fades as polls accumulate. MI is primary-pending (Aug 4) - Stevens is a placeholder. wikipedia overrides the default article title (Ohio is a special election).",
+  "_comment": "2026 Senate cycle configuration for the control simulation. dem_safe_seats / rep_safe_seats count seats NOT in the competitive list (holdovers + safe 2026 races such as FL, NE, MT): of the 9 competitive races Democrats hold GA, MI, NH (3) and Republicans hold NC, ME, OH, TX, IA, AK (6), so dem_safe = 47-3 = 44 and rep_safe = 53-6 = 47. dem_majority_threshold is 51 because the sitting VP (R) breaks 50-50 ties. Fundamentals: each race carries the state's Dem-minus-Rep presidential margin in 2024 and 2020; the fundamentals prior blends them (pres_weight_recent on 2024) and is blended into the polling margin with weight blend_k/(blend_k+num_polls), so it anchors thinly-polled races and fades as polls accumulate. Candidate names are the general-election nominees (MI: El-Sayed won the Aug 4 primary; NH: Sununu is the Republican nominee) - the export falls back to each party's top-polled name when a configured name is missing from the polls. wikipedia overrides the default article title (Ohio is a special election).",
   "cycle": 2026,
   "dem_safe_seats": 44,
   "rep_safe_seats": 47,
@@ -9,8 +9,12 @@
     "blend_k": 3.0
   },
   "forecast": {
-    "_comment": "calibration_bias_weight scales the historically-fitted poll bias (~-2.5) before it is applied: 0 = ignore it (fundamentals already capture the red-state lean), 1 = apply in full, 0.5 = split the difference. Kept at 0.5 to avoid double-counting the same Dem-overstatement that the fundamentals blend also corrects.",
+    "_comment": "calibration_bias_weight scales the historically-fitted poll bias (~-2.5) before it is applied: 0 = ignore it (fundamentals already capture the red-state lean), 1 = apply in full, 0.5 = split the difference. Kept at 0.5 to avoid double-counting the same Dem-overstatement that the fundamentals blend also corrects. bias_cycle_type selects which calibration cycles the bias is averaged over: 'all' (pooled 2018-2024, -2.5, dominated by the 2020 presidential-year miss) or 'midterm' (2018+2022 only, -0.4). Polling error does not carry a predictable sign from cycle to cycle, and the two midterms in the calibration set show ~zero bias, so a midterm forecast uses the midterm-only figure.",
     "calibration_bias_weight": 0.5,
+    "bias_cycle_type": "midterm",
+    "election_date": "2026-11-03",
+    "campaign_drift_per_sqrt_day": 0.35,
+    "_drift_comment": "Extra national-error SD for campaign movement between today and election day: sigma_drift = campaign_drift_per_sqrt_day * sqrt(days_to_election), added in quadrature to the national sigma. 0.35/sqrt(day) gives ~1.9 pts a month out, ~1 pt a week out, and 0 on election day; polling averages have historically moved 2-3 pts over a final month. This is the only forward-looking term - the model is otherwise a nowcast.",
     "tail_dof": 5,
     "_tail_comment": "Student-t degrees of freedom for polling error (variance-matched to the calibrated sigmas; null = Gaussian). Backtest on the 98 calibration races: t(5) Brier 0.0591 / log-loss 0.1905 vs Gaussian 0.0602 / 0.1952 — fat tails score better on both, and t(5) is the standard middle in the literature. Recomputed monthly in forecast_calibration.json under tail_comparison."
   },
@@ -36,7 +40,7 @@
     {
       "state": "Michigan",
       "race": "Michigan Senate 2026",
-      "dem_candidate": "Haley Stevens",
+      "dem_candidate": "Abdul El-Sayed",
       "rep_candidate": "Mike Rogers",
       "abbr": "MI",
       "pres_2024": -1.4,
@@ -64,7 +68,7 @@
       "state": "New Hampshire",
       "race": "New Hampshire Senate 2026",
       "dem_candidate": "Chris Pappas",
-      "rep_candidate": "Scott Brown",
+      "rep_candidate": "John E. Sununu",
       "abbr": "NH",
       "pres_2024": 2.8,
       "pres_2020": 7.4

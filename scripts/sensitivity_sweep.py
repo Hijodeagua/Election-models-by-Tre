@@ -38,7 +38,7 @@ OUTPUT_PATH = PROJECT_ROOT / "config" / "sensitivity_analysis.json"
 SWEEPS: list[tuple[str, str, list[tuple[str, dict]]]] = [
     (
         "calibration_bias_weight",
-        "scales the fitted −2.5pp poll bias before applying (base 0.5)",
+        "scales the cycle-matched poll bias before applying (base 0.5)",
         [
             ("0.0", {"forecast": {"calibration_bias_weight": 0.0}}),
             ("0.25", {"forecast": {"calibration_bias_weight": 0.25}}),
@@ -95,6 +95,25 @@ SWEEPS: list[tuple[str, str, list[tuple[str, dict]]]] = [
             ("0.8/0.2", {"national_environment": {"generic_weight": 0.8, "approval_weight": 0.2}}),
             ("0.6/0.4*", {}),
             ("0.4/0.6", {"national_environment": {"generic_weight": 0.4, "approval_weight": 0.6}}),
+        ],
+    ),
+    (
+        "bias_cycle_type",
+        "which calibration cycles the poll bias is averaged over (base midterm)",
+        [
+            ("midterm*", {}),
+            ("all (pooled 2018-24)", {"forecast": {"bias_cycle_type": "all"}}),
+            ("presidential", {"forecast": {"bias_cycle_type": "presidential"}}),
+        ],
+    ),
+    (
+        "campaign_drift_per_sqrt_day",
+        "national-error SD added for movement to election day (base 0.35/sqrt(day))",
+        [
+            ("0 (pure nowcast)", {"forecast": {"campaign_drift_per_sqrt_day": 0.0}}),
+            ("0.2", {"forecast": {"campaign_drift_per_sqrt_day": 0.2}}),
+            ("0.35*", {}),
+            ("0.5", {"forecast": {"campaign_drift_per_sqrt_day": 0.5}}),
         ],
     ),
     (

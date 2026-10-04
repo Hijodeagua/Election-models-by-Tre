@@ -31,6 +31,8 @@ import sys
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
+import numpy as np
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
@@ -57,8 +59,18 @@ from src.models.generic_ballot import (
     GenericBallotModel,
     GenericBallotSnapshot,
 )
+from src.models.house_forecast import (
+    HouseForecastSimulator,
+    load_districts,
+    load_house_config,
+    two_party_margin,
+)
+from src.models.house_forecast import (
+    expected_national_margin as _house_expected_margin,
+)
 from src.models.senate import SenateModel
 from src.models.senate_simulation import (
+    DEFAULT_NATIONAL_SIGMA,
     RaceInput,
     SenateControlSimulator,
     load_cycle_config,
@@ -76,6 +88,7 @@ MODEL_VERSIONS = {
     "generic_ballot": "GenericBallotModel (weighted polling average, Phase 2)",
     "senate": "SenateModel (per-race polling average) + vibes/market overlays",
     "senate_control": "SenateControlSimulator (50,000-sim Monte Carlo NOWCAST)",
+    "house_control": "HouseForecastSimulator (435-district uniform swing + noise, 50,000 sims)",
     # Overwritten at runtime when --state-space runs (see main()).
     "state_space": "not run this refresh (pass --state-space)",
 }
@@ -476,6 +489,32 @@ def _resolve_nominee(
     return ranked[0] if ranked else configured
 
 
+# Answer labels that are not candidates and must never be picked as a nominee.
+_NON_CANDIDATE_LABELS = ("undecided", "other", "someone else", "none", "refused", "unsure")
+
+
+def _top_other_candidate(
+    candidates: dict[str, float], exclude: str | None, min_share: float = 20.0
+) -> str | None:
+    """Highest-polling name other than ``exclude`` — the fallback nominee for a
+    party when its configured name isn't in the polls *and* the polls carry no
+    party tags (the VoteHub/CSV path). Two-way head-to-heads make this safe:
+    once one side is identified, the other side is whoever is left. Guarded by
+    a minimum share so an "Undecided" row can't be promoted."""
+    ranked = sorted(
+        (
+            (name, pct)
+            for name, pct in candidates.items()
+            if name != exclude
+            and pct >= min_share
+            and not any(tok in name.lower() for tok in _NON_CANDIDATE_LABELS)
+        ),
+        key=lambda kv: kv[1],
+        reverse=True,
+    )
+    return ranked[0][0] if ranked else None
+
+
 def _senate_payload(polls: list[Poll]) -> dict:
     engine = _build_engine_from_polls(polls) if polls else None
     states = _detect_senate_states(polls) or _US_STATES
@@ -513,6 +552,16 @@ def _senate_payload(polls: list[Poll]) -> dict:
             rep_name = _resolve_nominee(
                 race.candidates, party_by_name, entry.get("rep_candidate"), "Republican"
             )
+            # Without party tags a stale configured name resolves to nothing and
+            # the race silently drops its polling margin (MI/NH ran on
+            # fundamentals alone for weeks in 2026). If exactly one side is
+            # identified, the other nominee is the top remaining name.
+            dem_found = _find_candidate_pct(race.candidates, dem_name) is not None
+            rep_found = _find_candidate_pct(race.candidates, rep_name) is not None
+            if dem_found and not rep_found:
+                rep_name = _top_other_candidate(race.candidates, dem_name) or rep_name
+            elif rep_found and not dem_found:
+                dem_name = _top_other_candidate(race.candidates, rep_name) or dem_name
             record["dem_candidate"] = dem_name
             record["rep_candidate"] = rep_name
             dem_margin = _dem_rep_margin(race.candidates, dem_name, rep_name)
@@ -557,6 +606,49 @@ def _load_forecast_calibration() -> dict:
     except Exception as exc:  # pragma: no cover - defensive
         logging.warning("could not read forecast_calibration.json: %s", exc)
         return {}
+
+
+def _calibration_bias(calib: dict, cycle_type: str = "all") -> tuple[float, int, list[int]]:
+    """Mean polling error (actual − poll, Dem−Rep points) from the calibration
+    rows, restricted to one kind of cycle.
+
+    ``cycle_type``: ``"all"`` uses the pooled fitted bias; ``"midterm"`` /
+    ``"presidential"`` average only the races from those cycles (midterm years
+    are ≡ 2 mod 4). Returns ``(bias, n_races, years_used)``. Falls back to the
+    pooled figure when no rows match.
+    """
+    rows = calib.get("rows") or []
+    if cycle_type == "midterm":
+        rows = [r for r in rows if r.get("year", 0) % 4 == 2]
+    elif cycle_type == "presidential":
+        rows = [r for r in rows if r.get("year", 0) % 4 == 0]
+    elif cycle_type != "all":
+        raise ValueError(f"unknown bias_cycle_type {cycle_type!r}")
+    if cycle_type != "all" and rows:
+        errors = [float(r["error"]) for r in rows if r.get("error") is not None]
+        if errors:
+            years = sorted({int(r["year"]) for r in rows})
+            return float(sum(errors) / len(errors)), len(errors), years
+    return float(calib.get("bias", 0.0)), int(calib.get("n_races", 0)), [
+        int(y) for y in calib.get("cycles", [])
+    ]
+
+
+def _days_to_election(election_date: str | None, as_of: date | None = None) -> int:
+    """Whole days from ``as_of`` (default today) to the configured election
+    date, floored at 0 so the drift term vanishes on and after election day."""
+    if not election_date:
+        return 0
+    as_of = as_of or date.today()
+    return max(0, (date.fromisoformat(election_date) - as_of).days)
+
+
+def _campaign_drift_sigma(per_sqrt_day: float | None, days: int) -> float:
+    """Extra national-error SD for campaign movement still to come:
+    ``per_sqrt_day · √days`` (a random walk in the national margin)."""
+    if not per_sqrt_day or days <= 0:
+        return 0.0
+    return float(per_sqrt_day) * float(np.sqrt(days))
 
 
 def _national_environment(
@@ -630,6 +722,7 @@ def _senate_forecast_payload(
     generic_margin: float | None = None,
     overrides: dict | None = None,
     quiet: bool = False,
+    as_of: date | None = None,
 ) -> dict:
     """50,000-simulation Senate-control Monte Carlo + market comparison.
 
@@ -705,8 +798,10 @@ def _senate_forecast_payload(
                 RaceInput(
                     state=entry["state"],
                     race=entry["race"],
-                    dem_candidate=entry["dem_candidate"],
-                    rep_candidate=entry["rep_candidate"],
+                    # The nominee the polls actually track (see _senate_payload),
+                    # falling back to the configured name when there are no polls.
+                    dem_candidate=rr.get("dem_candidate") or entry["dem_candidate"],
+                    rep_candidate=rr.get("rep_candidate") or entry["rep_candidate"],
                     margin=round(margin, 3) if margin is not None else None,
                     num_polls=n,
                     market_dem_prob=market_dem_prob,
@@ -717,21 +812,44 @@ def _senate_forecast_payload(
     inputs = _build_inputs(apply_vibes=False)
 
     calib = _load_forecast_calibration()
-    bias_weight = cycle.get("forecast", {}).get("calibration_bias_weight", 0.5)
+    fcfg = cycle.get("forecast", {})
+    bias_weight = fcfg.get("calibration_bias_weight", 0.5)
+    bias_cycle_type = fcfg.get("bias_cycle_type", "all")
+    days_left = _days_to_election(fcfg.get("election_date"), as_of)
+    drift_sigma = _campaign_drift_sigma(fcfg.get("campaign_drift_per_sqrt_day"), days_left)
     sim_kwargs: dict = {}
+    bias_info: dict = {
+        "cycle_type": bias_cycle_type,
+        "weight": bias_weight,
+        "raw_bias": None,
+        "n_races": 0,
+        "years": [],
+        "applied": 0.0,
+    }
     if calib.get("usable"):
-        applied_bias = round(calib.get("bias", 0.0) * bias_weight, 3)
+        raw_bias, n_bias, bias_years = _calibration_bias(calib, bias_cycle_type)
+        applied_bias = round(raw_bias * bias_weight, 3)
+        bias_info.update(
+            raw_bias=round(raw_bias, 3), n_races=n_bias, years=bias_years, applied=applied_bias
+        )
+        national_sigma = round(float(np.hypot(calib["national_sigma"], drift_sigma)), 3)
         sim_kwargs = {
-            "national_sigma": calib["national_sigma"],
+            "national_sigma": national_sigma,
             "race_sigma": calib["race_sigma"],
             "bias": applied_bias,
         }
         if not quiet:
             print(
-                f"  using calibrated error model (σ_nat={calib['national_sigma']}, "
-                f"σ_race={calib['race_sigma']}, bias={calib.get('bias', 0.0)}×{bias_weight}"
-                f"={applied_bias}, from {calib['n_races']} historical races)"
+                f"  using calibrated error model (σ_nat={calib['national_sigma']}"
+                f"{f' ⊕ drift {drift_sigma:.2f} = {national_sigma}' if drift_sigma else ''}, "
+                f"σ_race={calib['race_sigma']}, bias[{bias_cycle_type}, "
+                f"{n_bias} races {bias_years}]={raw_bias:.3f}×{bias_weight}={applied_bias}; "
+                f"{days_left} days to election)"
             )
+    elif drift_sigma:
+        sim_kwargs["national_sigma"] = round(
+            float(np.hypot(DEFAULT_NATIONAL_SIGMA, drift_sigma)), 3
+        )
     if "market_weight" in overrides:
         sim_kwargs["market_weight"] = overrides["market_weight"]
     tail_dof = cycle.get("forecast", {}).get("tail_dof")
@@ -753,6 +871,7 @@ def _senate_forecast_payload(
         inputs,
         num_simulations=NUM_SIMULATIONS,
         seed=SIMULATION_SEED,
+        as_of=as_of,
         market_control_dem_prob=market_control_dem_prob,
     )
     # Same simulation with the experimental NYT-vibes overlay applied, for
@@ -762,6 +881,7 @@ def _senate_forecast_payload(
         _build_inputs(apply_vibes=True),
         num_simulations=NUM_SIMULATIONS,
         seed=SIMULATION_SEED,
+        as_of=as_of,
     )
     payload = dataclasses.asdict(forecast)
     # JSON object keys must be strings.
@@ -786,6 +906,126 @@ def _senate_forecast_payload(
     # National midterm environment (presidential approval + generic ballot)
     # folded into the fundamentals prior, exposed for transparency in the UI.
     payload["national_environment"] = env
+    # Error-model provenance: which calibration cycles the bias came from and
+    # how much forward-looking campaign drift was added to the national sigma.
+    payload["bias_calibration"] = bias_info
+    payload["election_date"] = fcfg.get("election_date")
+    payload["days_to_election"] = days_left
+    payload["campaign_drift_sigma"] = round(drift_sigma, 3)
+    payload["polling_national_sigma"] = (
+        calib["national_sigma"] if calib.get("usable") else DEFAULT_NATIONAL_SIGMA
+    )
+    return payload
+
+
+def _house_forecast_payload(
+    gb_current,
+    approval_net: float | None,
+    overrides: dict | None = None,
+    quiet: bool = False,
+    as_of: date | None = None,
+) -> dict:
+    """435-district House-control simulation → house_forecast.json.
+
+    ``gb_current`` is the GenericBallotSnapshot (dem_pct / rep_pct); the model
+    works on its two-party margin. ``overrides`` deep-merge onto
+    config/house_2026.json for sensitivity sweeps.
+    """
+    cfg = load_house_config()
+    if overrides:
+        cfg = _deep_merge(cfg, overrides)
+    districts = load_districts(FALLBACK_DIR / cfg.get("districts_csv", "house_districts_2024.csv"))
+
+    gb_two_party = (
+        round(two_party_margin(gb_current.dem_pct, gb_current.rep_pct), 3)
+        if gb_current is not None
+        else None
+    )
+    env = _house_expected_margin(cfg, gb_two_party, approval_net)
+    if env["expected"] is None:
+        return {"available": False, "reason": "no generic-ballot or approval signal"}
+
+    ncfg = cfg.get("national_environment", {})
+    polling_sigma = float(ncfg.get("generic_ballot_sigma", 2.5))
+    days_left = _days_to_election(cfg.get("election_date"), as_of)
+    drift_sigma = _campaign_drift_sigma(cfg.get("campaign_drift_per_sqrt_day"), days_left)
+    national_sigma = float(np.hypot(polling_sigma, drift_sigma))
+    dcfg = cfg.get("district_error", {})
+
+    simulator = HouseForecastSimulator(
+        baseline_margin=float(cfg["baseline"]["two_party_margin"]),
+        national_sigma=national_sigma,
+        district_sigma=float(dcfg.get("district_sigma", 6.5)),
+        tail_dof=ncfg.get("national_tail_dof", 5),
+        dem_majority_threshold=int(cfg.get("dem_majority_threshold", 218)),
+        total_seats=int(cfg.get("total_seats", 435)),
+        redistricting=cfg.get("redistricting", {}).get("states", []),
+    )
+    forecast = simulator.simulate(
+        districts,
+        expected_national_margin=env["expected"],
+        num_simulations=NUM_SIMULATIONS,
+        seed=SIMULATION_SEED,
+        as_of=as_of,
+        curve_margins=cfg.get("seats_votes_curve_margins"),
+        generic_ballot_two_party=gb_two_party,
+        approval_implied_margin=env["approval_implied"],
+        generic_ballot_bias=env.get("bias", 0.0),
+        polling_sigma=polling_sigma,
+        campaign_drift_sigma=drift_sigma,
+        days_to_election=days_left,
+    )
+    if not quiet:
+        print(
+            f"  house: generic two-party {gb_two_party:+.2f}, approval-implied "
+            f"{env['approval_implied']:+.2f} → expected national {env['expected']:+.2f} "
+            f"(bias {env.get('bias', 0.0):+.1f}); swing {forecast.national_swing:+.2f}; "
+            f"σ_nat={polling_sigma} ⊕ drift {drift_sigma:.2f} = {national_sigma:.2f}, "
+            f"σ_district={simulator.district_sigma}; redistricting net "
+            f"{simulator.redistricting_shift_mean:+.0f} seats → P(D majority)="
+            f"{forecast.dem_majority_prob:.3f}, mean {forecast.mean_dem_seats:.1f} seats"
+        )
+
+    payload = dataclasses.asdict(forecast)
+    payload["seat_distribution"] = {str(k): v for k, v in forecast.seat_distribution.items()}
+    payload["available"] = True
+    payload["maturity"] = "forecast-lite"
+    payload["label"] = (
+        "Where the House stands today — the generic ballot and presidential approval "
+        "swung uniformly across all 435 districts, with correlated national error and "
+        "district-level noise. A work in progress from Policy y Peaches."
+    )
+    payload["raw_national_margin"] = env["raw"]
+    payload["generic_ballot_raw_margin"] = (
+        round(gb_current.margin, 2) if gb_current is not None else None
+    )
+    payload["approval_net"] = approval_net
+    payload["num_districts"] = len(districts)
+    payload["num_competitive"] = len(forecast.competitive)
+    payload["election_date"] = cfg.get("election_date")
+    # The full per-district list is ~435 rows; keep it (the page renders the
+    # competitive subset and a per-state rollup) but drop the duplicate copy
+    # the competitive list would otherwise carry.
+    payload["competitive"] = [f.label for f in forecast.competitive]
+    seats_by_party_2024 = {
+        "D": sum(1 for d in districts if d.winner_2024 == "D"),
+        "R": sum(1 for d in districts if d.winner_2024 == "R"),
+    }
+    payload["seats_2024"] = seats_by_party_2024
+    # Districts in states redrawn since 2024 are simulated on their *old* lines
+    # (the state's net effect enters via the redistricting shift), so their
+    # per-district numbers are flagged rather than presented as live seats.
+    redrawn = sorted({r["state"] for r in simulator.redistricting})
+    payload["redrawn_states"] = redrawn
+    for d in payload["districts"]:
+        d["redrawn"] = d["state"] in redrawn
+    # Expected flips: 2024 R seats now favoured D, and vice versa.
+    payload["expected_flips"] = {
+        "r_to_d": round(sum(f.dem_win_prob for f in forecast.districts if f.winner_2024 == "R"), 1),
+        "d_to_r": round(
+            sum(1.0 - f.dem_win_prob for f in forecast.districts if f.winner_2024 == "D"), 1
+        ),
+    }
     return payload
 
 
@@ -1031,6 +1271,10 @@ def main() -> None:
     _write("senate.json", senate_payload)
     _write("senate_forecast.json", forecast_payload)
     _write("pollsters.json", _pollsters_payload(senate_polls))
+
+    # House control: uniform swing of the national environment over 435
+    # districts (config/house_2026.json + data/fallback/house_districts_2024.csv).
+    _write("house_forecast.json", _house_forecast_payload(gb_current, approval_net))
 
     def _latest_poll(polls: list[Poll]) -> str | None:
         dates = [p.midpoint_date for p in polls if p.midpoint_date]

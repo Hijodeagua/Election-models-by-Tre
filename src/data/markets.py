@@ -177,6 +177,19 @@ def _with_complement(odds: MarketOdds) -> list[MarketOdds]:
 # polls had at 90%+.
 NON_WINNER_EVENT_TOKENS = ("margin", "vote share", "spread", "by how much")
 
+# Events about a *state legislature* chamber ("Which party will win the Texas
+# State Senate?") satisfy a naive ("texas", "senate") title filter and once fed
+# a 4% "Talarico wins" price into the U.S. Senate blend. Slugs are hyphenated,
+# so they are normalised to spaces before matching.
+NON_FEDERAL_EVENT_TOKENS = (
+    "state senate",
+    "state house",
+    "state legislature",
+    "legislature",
+    "general assembly",
+    "state assembly",
+)
+
 
 class PolymarketClient:
     """Read-only Gamma API client. No key required.
@@ -205,13 +218,19 @@ class PolymarketClient:
         race: str,
         required_tokens: tuple[str, ...] = (),
         as_of: date | None = None,
+        dem_candidate: str | None = None,
+        rep_candidate: str | None = None,
     ) -> list[MarketOdds]:
         """Search active events for ``query`` and extract party probabilities.
 
         ``required_tokens`` (lower-cased) must all appear in the event title —
         e.g. ``("arizona", "senate")`` — to avoid picking up unrelated markets.
+        Events about a state legislature chamber are rejected (see
+        :data:`NON_FEDERAL_EVENT_TOKENS`). ``dem_candidate`` / ``rep_candidate``
+        let candidate-named outcomes ("Talarico" / "Paxton") resolve to a party.
         """
         as_of = as_of or date.today()
+        candidate_party = _candidate_party_map(dem_candidate, rep_candidate)
         try:
             payload = self._get(
                 "/public-search",
@@ -227,11 +246,17 @@ class PolymarketClient:
             slug = str(event.get("slug", ""))
             if not all(tok in title.lower() for tok in required_tokens):
                 continue
-            if any(tok in f"{title} {slug}".lower() for tok in NON_WINNER_EVENT_TOKENS):
+            haystack = f"{title} {slug.replace('-', ' ')}".lower()
+            if any(tok in haystack for tok in NON_WINNER_EVENT_TOKENS):
                 logger.info("polymarket: skipping non-winner event %r for %s", title, race)
                 continue
+            if any(tok in haystack for tok in NON_FEDERAL_EVENT_TOKENS):
+                logger.info(
+                    "polymarket: skipping state-legislature event %r for %s", title, race
+                )
+                continue
             url = f"https://polymarket.com/event/{slug}" if slug else None
-            party_probs = self._winner_probs(event)
+            party_probs = self._winner_probs(event, candidate_party)
             if party_probs is None:
                 continue
             odds = [
@@ -251,7 +276,9 @@ class PolymarketClient:
         return []
 
     @staticmethod
-    def _winner_probs(event: dict[str, Any]) -> dict[str, float] | None:
+    def _winner_probs(
+        event: dict[str, Any], candidate_party: dict[str, str] | None = None
+    ) -> dict[str, float] | None:
         """Extract per-party win probabilities, or None if the event isn't a
         winner market.
 
@@ -260,6 +287,10 @@ class PolymarketClient:
         bucket sub-markets, so a repeated party means the prices are bucket
         probabilities and the whole event must be rejected. As a final guard,
         a two-party result must sum to ≈1 like real winner odds do.
+
+        Outcomes may be party labels, Yes/No legs whose question names the
+        party, or candidate names — the last resolve through
+        ``candidate_party`` (surname → party) when it is supplied.
         """
         party_probs: dict[str, float] = {}
         for market in event.get("markets") or []:
@@ -276,6 +307,10 @@ class PolymarketClient:
                 party = _party_from_text(str(outcome)) or (
                     _party_from_text(question) if str(outcome) == "Yes" else None
                 )
+                if party is None and str(outcome) not in ("Yes", "No"):
+                    party = _party_from_candidate(candidate_party, str(outcome))
+                if party is None and str(outcome) == "Yes":
+                    party = _party_from_candidate(candidate_party, question)
                 if party is None:
                     continue
                 if party in party_probs:

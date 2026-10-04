@@ -216,6 +216,8 @@ def _refresh_markets(dry_run: bool = False) -> None:
         pm = polymarket.fetch_markets(
             f"{state} Senate 2026", race=race,
             required_tokens=(state.lower(), "senate"),
+            dem_candidate=entry.get("dem_candidate"),
+            rep_candidate=entry.get("rep_candidate"),
         )
         ks = (
             kalshi.fetch_race_odds(

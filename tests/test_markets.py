@@ -366,3 +366,123 @@ class TestJsonList:
         assert _json_list("not json") == []
         assert _json_list(None) == []
         assert _json_list('{"a": 1}') == []
+
+
+class TestPolymarketFederalFilter:
+    def test_state_legislature_event_skipped(self, monkeypatch):
+        # Regression: the ("texas", "senate") title filter matched the Texas
+        # *State* Senate market and fed a 4% Dem price into the U.S. Senate
+        # blend. Legislature events must be skipped even when ranked first.
+        payload = {
+            "events": [
+                {
+                    "title": "Which party will win the Texas State Senate in 2026?",
+                    "slug": "which-party-will-win-the-texas-state-senate-in-2026",
+                    "markets": [
+                        {
+                            "question": "Texas State Senate control",
+                            "outcomes": '["Democrat", "Republican"]',
+                            "outcomePrices": '["0.04", "0.96"]',
+                        }
+                    ],
+                },
+                {
+                    "title": "Texas Senate Election Winner 2026",
+                    "slug": "texas-senate-election-winner",
+                    "markets": [
+                        {
+                            "question": "Texas Senate winner",
+                            "outcomes": '["Democrat", "Republican"]',
+                            "outcomePrices": '["0.45", "0.55"]',
+                        }
+                    ],
+                },
+            ]
+        }
+        client = PolymarketClient()
+        monkeypatch.setattr(client, "_get", lambda *a, **k: payload)
+        odds = client.fetch_markets("q", race="r", required_tokens=("texas", "senate"))
+        assert [(o.outcome, o.probability) for o in odds] == [
+            ("Democrat", 0.45),
+            ("Republican", 0.55),
+        ]
+
+    def test_slug_only_legislature_marker_is_caught(self, monkeypatch):
+        payload = {
+            "events": [
+                {
+                    "title": "Maine Senate 2026",
+                    "slug": "which-party-will-win-the-maine-state-senate-in-2026",
+                    "markets": [
+                        {
+                            "question": "x",
+                            "outcomes": '["Democrat", "Republican"]',
+                            "outcomePrices": '["0.84", "0.16"]',
+                        }
+                    ],
+                }
+            ]
+        }
+        client = PolymarketClient()
+        monkeypatch.setattr(client, "_get", lambda *a, **k: payload)
+        assert client.fetch_markets("q", race="r", required_tokens=("maine",)) == []
+
+    def test_candidate_name_outcomes_resolve_with_configured_names(self, monkeypatch):
+        payload = {
+            "events": [
+                {
+                    "title": "Texas Senate Election Winner 2026",
+                    "slug": "tx",
+                    "markets": [
+                        {
+                            "question": "Who wins?",
+                            "outcomes": '["James Talarico", "Ken Paxton"]',
+                            "outcomePrices": '["0.44", "0.56"]',
+                        }
+                    ],
+                }
+            ]
+        }
+        client = PolymarketClient()
+        monkeypatch.setattr(client, "_get", lambda *a, **k: payload)
+        odds = client.fetch_markets(
+            "q", race="r", required_tokens=("texas",),
+            dem_candidate="James Talarico", rep_candidate="Ken Paxton",
+        )
+        assert [(o.outcome, o.probability) for o in odds] == [
+            ("Democrat", 0.44),
+            ("Republican", 0.56),
+        ]
+
+    def test_candidate_yes_no_legs(self, monkeypatch):
+        # One Yes/No market per candidate (the other common Polymarket shape).
+        payload = {
+            "events": [
+                {
+                    "title": "Texas Senate Election Winner 2026",
+                    "slug": "tx",
+                    "markets": [
+                        {
+                            "question": "Will James Talarico win the Texas Senate race?",
+                            "outcomes": '["Yes", "No"]',
+                            "outcomePrices": '["0.44", "0.56"]',
+                        },
+                        {
+                            "question": "Will Ken Paxton win the Texas Senate race?",
+                            "outcomes": '["Yes", "No"]',
+                            "outcomePrices": '["0.55", "0.45"]',
+                        },
+                    ],
+                }
+            ]
+        }
+        client = PolymarketClient()
+        monkeypatch.setattr(client, "_get", lambda *a, **k: payload)
+        odds = client.fetch_markets(
+            "q", race="r", required_tokens=("texas",),
+            dem_candidate="James Talarico", rep_candidate="Ken Paxton",
+        )
+        assert [(o.outcome, o.probability) for o in odds] == [
+            ("Democrat", 0.44),
+            ("Republican", 0.55),
+        ]

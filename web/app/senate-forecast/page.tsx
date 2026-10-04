@@ -173,11 +173,39 @@ export default function SenateForecastPage() {
           <li>
             Each race&rsquo;s <Link href="/senate" className="text-peach underline">polling
             average</Link> margin is converted to a win probability using a fat-tailed
-            Student-t error model: a national error (σ = {forecast.national_sigma}) shared by
-            every race plus an independent per-race error (σ = {forecast.race_sigma}), sized
-            to historical Senate polling misses. A shared tail shock allows unusually large
-            misses to move several races together.
+            Student-t error model: a national error (σ = {forecast.national_sigma}
+            {forecast.campaign_drift_sigma ? (
+              <>
+                : {forecast.polling_national_sigma} from historical polling misses plus{' '}
+                {forecast.campaign_drift_sigma.toFixed(2)} for campaign movement over the{' '}
+                {forecast.days_to_election} days to election day
+              </>
+            ) : null}
+            ) shared by every race plus an independent per-race error (σ ={' '}
+            {forecast.race_sigma}), sized to historical Senate polling misses. A shared tail
+            shock allows unusually large misses to move several races together.
           </li>
+          {forecast.bias_calibration && (
+            <li>
+              Systematic polling bias is taken from the{' '}
+              {forecast.bias_calibration.cycle_type === 'midterm'
+                ? 'midterm cycles only'
+                : forecast.bias_calibration.cycle_type === 'presidential'
+                  ? 'presidential cycles only'
+                  : 'pooled'}{' '}
+              ({forecast.bias_calibration.years.join(', ')};{' '}
+              {forecast.bias_calibration.n_races} races) in the calibration set:{' '}
+              {forecast.bias_calibration.raw_bias != null
+                ? `${forecast.bias_calibration.raw_bias > 0 ? '+' : ''}${forecast.bias_calibration.raw_bias.toFixed(2)}`
+                : '—'}{' '}
+              pts, applied at {(forecast.bias_calibration.weight * 100).toFixed(0)}% weight ={' '}
+              {forecast.bias_calibration.applied > 0 ? '+' : ''}
+              {forecast.bias_calibration.applied.toFixed(2)} pts on every Dem−Rep margin.
+              Polling error has no predictable direction from one cycle to the next, so
+              the pooled 2018–2024 figure (dominated by the 2020 miss) is not applied to
+              a midterm.
+            </li>
+          )}
           {forecast.national_environment?.available && (
             <li>
               The national midterm climate — the president&rsquo;s approval and the

@@ -209,6 +209,20 @@ export interface SenateForecastData {
   market_control_urls?: Record<string, string>;
   maturity: string;
   label: string;
+  bias_calibration?: BiasCalibration;
+  election_date?: string | null;
+  days_to_election?: number;
+  campaign_drift_sigma?: number;
+  polling_national_sigma?: number;
+}
+
+export interface BiasCalibration {
+  cycle_type: string;
+  weight: number;
+  raw_bias: number | null;
+  n_races: number;
+  years: number[];
+  applied: number;
 }
 
 export interface NationalEnvironment {
@@ -221,6 +235,76 @@ export interface NationalEnvironment {
   expected_national_margin?: number;
   house_baseline_2024?: number;
   senate_responsiveness?: number;
+}
+
+export interface HouseDistrictForecast {
+  label: string;
+  state: string;
+  district: string;
+  margin_2024: number;
+  winner_2024: string;
+  expected_margin: number;
+  dem_win_prob: number;
+  margin_p10: number;
+  margin_p90: number;
+  redrawn?: boolean;
+}
+
+export interface RedistrictingEntry {
+  state: string;
+  dem_seat_shift: number;
+  sd: number;
+  include?: boolean;
+  note?: string;
+}
+
+export interface SeatsVotesPoint {
+  margin: number;
+  dem_seats: number;
+}
+
+export interface HouseForecastData {
+  available: boolean;
+  reason?: string;
+  as_of: string;
+  num_simulations: number;
+  dem_majority_prob: number;
+  mean_dem_seats: number;
+  median_dem_seats: number;
+  seats_p10: number;
+  seats_p90: number;
+  seat_distribution: Record<string, number>;
+  dem_majority_threshold: number;
+  total_seats: number;
+  expected_national_margin: number;
+  raw_national_margin: number | null;
+  generic_ballot_two_party: number | null;
+  generic_ballot_raw_margin: number | null;
+  approval_implied_margin: number | null;
+  approval_net: number | null;
+  generic_ballot_bias: number;
+  baseline_margin: number;
+  national_swing: number;
+  national_sigma: number;
+  polling_sigma: number;
+  campaign_drift_sigma: number;
+  days_to_election: number;
+  election_date?: string;
+  district_sigma: number;
+  tail_dof: number | null;
+  redistricting_shift_mean: number;
+  redistricting_states: RedistrictingEntry[];
+  redrawn_states?: string[];
+  districts: HouseDistrictForecast[];
+  competitive: string[];
+  num_competitive: number;
+  num_districts: number;
+  seats_by_margin: SeatsVotesPoint[];
+  tipping_point_margin: number | null;
+  seats_2024: { D: number; R: number };
+  expected_flips: { r_to_d: number; d_to_r: number };
+  maturity: string;
+  label: string;
 }
 
 export interface Meta {
@@ -261,6 +345,11 @@ export function getApprovalComparison(): ApprovalComparisonData {
 
 export function getSenateForecast(): SenateForecastData | null {
   return read<SenateForecastData | null>('senate_forecast.json', null);
+}
+
+export function getHouseForecast(): HouseForecastData | null {
+  const data = read<HouseForecastData | null>('house_forecast.json', null);
+  return data && data.available ? data : null;
 }
 
 export function getPollsters(): PollstersData {
