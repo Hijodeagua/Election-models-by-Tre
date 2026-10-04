@@ -741,6 +741,14 @@ def _senate_forecast_payload(
     fund_cfg = cycle.get("fundamentals", {})
     w_recent = fund_cfg.get("pres_weight_recent", 0.75)
     blend_k = fund_cfg.get("blend_k", 3.0)
+    w_2022 = fund_cfg.get("statewide_2022_weight", 0.0)
+    incumbency_adv = fund_cfg.get("incumbency_advantage", 0.0)
+    appointed_factor = fund_cfg.get("appointed_incumbent_factor", 0.5)
+    exp_win = fund_cfg.get("experience_per_statewide_win", 0.0)
+    exp_loss = fund_cfg.get("experience_per_statewide_loss", 0.0)
+    exp_cap = fund_cfg.get("experience_cap", 3.0)
+    midterm_penalty = fund_cfg.get("midterm_penalty", 0.0)
+    pres_party = cycle.get("national_environment", {}).get("president_party", "R").upper()
 
     env = _national_environment(
         cycle.get("national_environment", {}), approval_net, generic_margin
@@ -754,19 +762,89 @@ def _senate_forecast_payload(
             f"{env.get('house_baseline_2024')})"
         )
 
-    def _fundamentals_margin(entry: dict) -> float | None:
-        """Dem−Rep fundamentals prior: blend of the state's 2024 & 2020
-        presidential margins (2024 weighted ``pres_weight_recent``), shifted by
-        the current national midterm swing (approval + generic ballot)."""
+    def _fundamentals(entry: dict) -> dict:
+        """Dem−Rep fundamentals prior and every component behind it.
+
+        lean        = blend of 2024/2020 presidential margin and the 2022
+                      statewide result (``statewide_2022_weight``)
+        swing       = national midterm environment (approval + generic ballot)
+        incumbency  = ±incumbency_advantage for the incumbent's party (halved
+                      for an appointed incumbent)
+        experience  = (wins·per_win + losses·per_loss) for the Democrat minus
+                      the same for the Republican, capped at ±experience_cap;
+                      an incumbent's wins for this seat are excluded (that is
+                      the incumbency term)
+        midterm     = president's-party penalty (default 0: the generic ballot
+                      already carries the midterm climate)
+        prior       = lean + swing + incumbency + experience + midterm
+        """
+        feats = entry.get("features", {}) or {}
         p24, p20 = entry.get("pres_2024"), entry.get("pres_2020")
-        if p24 is None and p20 is None:
-            base = entry.get("lean_margin")
-            return None if base is None else base + national_swing
-        if p20 is None:
-            return p24 + national_swing
-        if p24 is None:
-            return p20 + national_swing
-        return w_recent * p24 + (1.0 - w_recent) * p20 + national_swing
+        sw22 = (feats.get("statewide_2022") or {})
+        m22 = sw22.get("margin")
+
+        pres_parts = [(w_recent, p24), (1.0 - w_recent, p20)]
+        pres_parts = [(w, v) for w, v in pres_parts if v is not None]
+        pres_lean = (
+            sum(w * v for w, v in pres_parts) / sum(w for w, _ in pres_parts)
+            if pres_parts
+            else entry.get("lean_margin")
+        )
+        if pres_lean is None and m22 is None:
+            return {"available": False}
+        if pres_lean is None:
+            lean = m22
+        elif m22 is None or w_2022 <= 0:
+            lean = pres_lean
+        else:
+            lean = (1.0 - w_2022) * pres_lean + w_2022 * m22
+
+        inc_party = feats.get("incumbent_party")
+        inc_sign = 1.0 if inc_party == "D" else -1.0 if inc_party == "R" else 0.0
+        inc_factor = appointed_factor if feats.get("incumbent_appointed") else 1.0
+        incumbency = inc_sign * incumbency_adv * inc_factor
+
+        def _exp(side: dict) -> float:
+            return side.get("statewide_wins", 0) * exp_win + side.get(
+                "statewide_losses", 0
+            ) * exp_loss
+
+        dem_f, rep_f = feats.get("dem", {}) or {}, feats.get("rep", {}) or {}
+        exp_raw = _exp(dem_f) - _exp(rep_f)
+        experience = float(np.clip(exp_raw, -exp_cap, exp_cap))
+
+        midterm = 0.0
+        if midterm_penalty and cycle.get("cycle", 0) % 4 == 2:
+            midterm = midterm_penalty if pres_party == "R" else -midterm_penalty
+
+        prior = lean + national_swing + incumbency + experience + midterm
+        return {
+            "available": True,
+            "pres_2024": p24,
+            "pres_2020": p20,
+            "pres_weight_recent": w_recent,
+            "statewide_2022": sw22 or None,
+            "statewide_2022_weight": w_2022,
+            "lean": round(lean, 3),
+            "national_swing": round(national_swing, 3),
+            "incumbent_party": inc_party,
+            "incumbent_terms": feats.get("incumbent_terms"),
+            "incumbent_appointed": bool(feats.get("incumbent_appointed", False)),
+            "incumbency_advantage": incumbency_adv,
+            "incumbency_effect": round(incumbency, 3),
+            "dem_statewide_wins": dem_f.get("statewide_wins", 0),
+            "dem_statewide_losses": dem_f.get("statewide_losses", 0),
+            "rep_statewide_wins": rep_f.get("statewide_wins", 0),
+            "rep_statewide_losses": rep_f.get("statewide_losses", 0),
+            "experience_raw": round(exp_raw, 3),
+            "experience_effect": round(experience, 3),
+            "midterm_penalty_effect": round(midterm, 3),
+            "prior": round(prior, 3),
+        }
+
+    def _fundamentals_margin(entry: dict) -> float | None:
+        f = _fundamentals(entry)
+        return f["prior"] if f.get("available") else None
 
     def _build_inputs(apply_vibes: bool) -> list[RaceInput]:
         out: list[RaceInput] = []
@@ -779,17 +857,25 @@ def _senate_forecast_payload(
                 if "Democrat" in outcomes
             }
             poll_margin = rr.get("dem_margin")
-            fund = _fundamentals_margin(entry)
+            fund_detail = _fundamentals(entry)
+            fund = fund_detail["prior"] if fund_detail.get("available") else None
             n = rr.get("num_polls", 0)
             # Blend polls with fundamentals; fundamentals weight = k/(k+n) so it
             # anchors thin-poll races and fades as polls accumulate.
             if poll_margin is None:
-                margin = fund
+                margin, w = fund, 1.0
             elif fund is None:
-                margin = poll_margin
+                margin, w = poll_margin, 0.0
             else:
                 w = blend_k / (blend_k + n)
                 margin = (1.0 - w) * poll_margin + w * fund
+            fund_detail.update(
+                poll_margin=poll_margin,
+                num_polls=n,
+                fundamentals_weight=round(w, 3),
+                blend_k=blend_k,
+                final_margin=round(margin, 3) if margin is not None else None,
+            )
             if apply_vibes and margin is not None:
                 vibes = rr.get("vibes") or {}
                 if vibes.get("available"):
@@ -805,6 +891,7 @@ def _senate_forecast_payload(
                     margin=round(margin, 3) if margin is not None else None,
                     num_polls=n,
                     market_dem_prob=market_dem_prob,
+                    fundamentals=fund_detail,
                 )
             )
         return out
@@ -901,6 +988,18 @@ def _senate_forecast_payload(
     # variant of the chamber forecast, for comparison.
     payload["fundamentals_weight_recent"] = w_recent
     payload["fundamentals_blend_k"] = blend_k
+    # Fundamentals coefficients actually applied this run (see config comment).
+    payload["fundamentals_coefficients"] = {
+        "pres_weight_recent": w_recent,
+        "statewide_2022_weight": w_2022,
+        "blend_k": blend_k,
+        "incumbency_advantage": incumbency_adv,
+        "appointed_incumbent_factor": appointed_factor,
+        "experience_per_statewide_win": exp_win,
+        "experience_per_statewide_loss": exp_loss,
+        "experience_cap": exp_cap,
+        "midterm_penalty": midterm_penalty,
+    }
     payload["dem_control_prob_with_vibes"] = vibes_forecast.dem_control_prob
     payload["mean_dem_seats_with_vibes"] = vibes_forecast.mean_dem_seats
     # National midterm environment (presidential approval + generic ballot)
@@ -934,7 +1033,11 @@ def _house_forecast_payload(
     cfg = load_house_config()
     if overrides:
         cfg = _deep_merge(cfg, overrides)
-    districts = load_districts(FALLBACK_DIR / cfg.get("districts_csv", "house_districts_2024.csv"))
+    lean_cfg = cfg.get("district_lean", {})
+    districts = load_districts(
+        FALLBACK_DIR / cfg.get("districts_csv", "house_districts_2024.csv"),
+        open_seats=lean_cfg.get("open_seats", {}).get("districts", []),
+    )
 
     gb_two_party = (
         round(two_party_margin(gb_current.dem_pct, gb_current.rep_pct), 3)
@@ -960,6 +1063,9 @@ def _house_forecast_payload(
         dem_majority_threshold=int(cfg.get("dem_majority_threshold", 218)),
         total_seats=int(cfg.get("total_seats", 435)),
         redistricting=cfg.get("redistricting", {}).get("states", []),
+        lean_weight_2024=float(lean_cfg.get("weight_2024", 1.0)),
+        lean_weight_2022=float(lean_cfg.get("weight_2022", 0.0)),
+        incumbency_advantage=float(lean_cfg.get("incumbency_advantage", 0.0)),
     )
     forecast = simulator.simulate(
         districts,
@@ -981,7 +1087,9 @@ def _house_forecast_payload(
             f"{env['approval_implied']:+.2f} → expected national {env['expected']:+.2f} "
             f"(bias {env.get('bias', 0.0):+.1f}); swing {forecast.national_swing:+.2f}; "
             f"σ_nat={polling_sigma} ⊕ drift {drift_sigma:.2f} = {national_sigma:.2f}, "
-            f"σ_district={simulator.district_sigma}; redistricting net "
+            f"σ_district={simulator.district_sigma}; lean {simulator.lean_weight_2024:.2f}×2024 "
+            f"+ {simulator.lean_weight_2022:.2f}×2022, {forecast.num_open_seats} open seats "
+            f"(−{simulator.incumbency_advantage} pts); redistricting net "
             f"{simulator.redistricting_shift_mean:+.0f} seats → P(D majority)="
             f"{forecast.dem_majority_prob:.3f}, mean {forecast.mean_dem_seats:.1f} seats"
         )

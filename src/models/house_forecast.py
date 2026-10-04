@@ -53,6 +53,11 @@ class DistrictInput:
     winner_2024: str  # "D" | "R" | "I"
     contested: bool = True
     imputed_from: str = ""
+    # 2022 two-party margin on the same lines (None if uncontested / redrawn).
+    margin_2022: float | None = None
+    # True when the 2024 winner is not on the 2026 ballot.
+    open_seat: bool = False
+    open_seat_reason: str = ""
 
     @property
     def label(self) -> str:
@@ -71,6 +76,15 @@ class DistrictForecast:
     dem_win_prob: float
     margin_p10: float
     margin_p90: float
+    # Feature values behind expected_margin (all Dem−Rep points):
+    # lean = w24·margin_2024 + w22·margin_2022, then incumbency_adjust (open
+    # seats lose the incumbent party's advantage), then the national swing.
+    margin_2022: float | None = None
+    lean: float = 0.0
+    open_seat: bool = False
+    open_seat_reason: str = ""
+    incumbent_party: str = ""
+    incumbency_adjust: float = 0.0
 
 
 @dataclass
@@ -105,6 +119,11 @@ class HouseForecast:
     competitive: list[DistrictForecast] = field(default_factory=list)
     seats_by_margin: list[dict[str, float]] = field(default_factory=list)
     tipping_point_margin: float | None = None
+    # District-lean coefficients actually applied.
+    lean_weight_2024: float = 1.0
+    lean_weight_2022: float = 0.0
+    incumbency_advantage: float = 0.0
+    num_open_seats: int = 0
 
 
 def load_house_config(path: Path | None = None) -> dict[str, Any]:
@@ -112,22 +131,36 @@ def load_house_config(path: Path | None = None) -> dict[str, Any]:
         return json.load(fh)
 
 
-def load_districts(path: Path | None = None) -> list[DistrictInput]:
-    """Read the district baseline CSV written by scripts/build_house_districts.py."""
+def load_districts(
+    path: Path | None = None, open_seats: list[dict[str, Any]] | None = None
+) -> list[DistrictInput]:
+    """Read the district baseline CSV written by scripts/build_house_districts.py.
+
+    ``open_seats`` (from config: ``[{"label": "ME-2", "reason": ...}, ...]``)
+    flags districts whose 2024 winner is not running in 2026.
+    """
     path = path or FALLBACK_DIR / "house_districts_2024.csv"
+    open_by_label = {o["label"].upper(): o.get("reason", "") for o in (open_seats or [])}
     out: list[DistrictInput] = []
     with path.open(encoding="utf-8") as fh:
         for row in csv.DictReader(fh):
-            out.append(
-                DistrictInput(
-                    state=row["state"],
-                    district=row["district"],
-                    margin_2024=float(row["margin"]),
-                    winner_2024=row.get("winner_party") or "",
-                    contested=(row.get("contested", "true").lower() == "true"),
-                    imputed_from=row.get("imputed_from", "") or "",
-                )
+            m22 = row.get("margin_2022", "")
+            d = DistrictInput(
+                state=row["state"],
+                district=row["district"],
+                margin_2024=float(row["margin"]),
+                winner_2024=row.get("winner_party") or "",
+                contested=(row.get("contested", "true").lower() == "true"),
+                imputed_from=row.get("imputed_from", "") or "",
+                margin_2022=float(m22) if m22 not in ("", None) else None,
             )
+            if d.label.upper() in open_by_label:
+                d.open_seat = True
+                d.open_seat_reason = open_by_label[d.label.upper()]
+            out.append(d)
+    unknown = set(open_by_label) - {d.label.upper() for d in out}
+    if unknown:
+        raise ValueError(f"open_seats labels not found in district file: {sorted(unknown)}")
     return out
 
 
@@ -160,9 +193,17 @@ class HouseForecastSimulator:
         dem_majority_threshold: int = 218,
         total_seats: int = 435,
         redistricting: list[dict[str, Any]] | None = None,
+        lean_weight_2024: float = 1.0,
+        lean_weight_2022: float = 0.0,
+        incumbency_advantage: float = 0.0,
     ) -> None:
         if national_sigma < 0 or district_sigma < 0:
             raise ValueError("sigmas must be non-negative")
+        if lean_weight_2024 <= 0 or lean_weight_2022 < 0:
+            raise ValueError("lean weights must be positive (2024) / non-negative (2022)")
+        self.lean_weight_2024 = lean_weight_2024
+        self.lean_weight_2022 = lean_weight_2022
+        self.incumbency_advantage = incumbency_advantage
         self.baseline_margin = baseline_margin
         self.national_sigma = national_sigma
         self.district_sigma = district_sigma
@@ -172,6 +213,30 @@ class HouseForecastSimulator:
         self.redistricting = [r for r in (redistricting or []) if r.get("include", True)]
 
     # ── Helpers ─────────────────────────────────────────────────────────────
+
+    def district_lean(self, d: DistrictInput) -> tuple[float, float]:
+        """(lean, incumbency_adjust) for one district before the national swing.
+
+        lean blends the 2024 and 2022 two-party margins (2024 alone when 2022
+        is unavailable). An open seat loses ``incumbency_advantage`` points for
+        the 2024 winner's party, since both margins embed that incumbent's
+        personal advantage.
+        """
+        if d.margin_2022 is None or self.lean_weight_2022 <= 0:
+            lean = d.margin_2024
+        else:
+            w24, w22 = self.lean_weight_2024, self.lean_weight_2022
+            lean = (w24 * d.margin_2024 + w22 * d.margin_2022) / (w24 + w22)
+        adjust = 0.0
+        if d.open_seat and self.incumbency_advantage:
+            if d.winner_2024 == "D":
+                adjust = -self.incumbency_advantage
+            elif d.winner_2024 == "R":
+                adjust = self.incumbency_advantage
+        return float(lean), float(adjust)
+
+    def _base_margins(self, districts: list[DistrictInput]) -> np.ndarray:
+        return np.array([sum(self.district_lean(d)) for d in districts])
 
     @property
     def redistricting_shift_mean(self) -> float:
@@ -199,7 +264,7 @@ class HouseForecastSimulator:
         ``national_margin`` (district noise only) plus the redistricting mean —
         the seats-votes curve of the current map."""
         swing = national_margin - self.baseline_margin
-        margins = np.array([d.margin_2024 for d in districts]) + swing
+        margins = self._base_margins(districts) + swing
         scale = _t_scale(self.district_sigma, self.tail_dof) if self.district_sigma else None
         if scale is None:
             wins = (margins > 0).astype(float)
@@ -228,7 +293,7 @@ class HouseForecastSimulator:
         rng = np.random.default_rng(seed)
         as_of = as_of or date.today()
 
-        base = np.array([d.margin_2024 for d in districts])
+        base = self._base_margins(districts)
         swing = expected_national_margin - self.baseline_margin
         national = self._draw_t(rng, self.national_sigma, (num_simulations, 1))
         district = self._draw_t(rng, self.district_sigma, (num_simulations, base.size))
@@ -252,6 +317,7 @@ class HouseForecastSimulator:
         p90 = np.percentile(sim_margins, 90, axis=0)
         forecasts: list[DistrictForecast] = []
         for j, d in enumerate(districts):
+            lean, adjust = self.district_lean(d)
             forecasts.append(
                 DistrictForecast(
                     label=d.label,
@@ -263,6 +329,12 @@ class HouseForecastSimulator:
                     dem_win_prob=round(float(win_share[j]), 4),
                     margin_p10=round(float(p10[j]), 2),
                     margin_p90=round(float(p90[j]), 2),
+                    margin_2022=None if d.margin_2022 is None else round(d.margin_2022, 2),
+                    lean=round(lean, 2),
+                    open_seat=d.open_seat,
+                    open_seat_reason=d.open_seat_reason,
+                    incumbent_party="" if d.open_seat else d.winner_2024,
+                    incumbency_adjust=round(adjust, 2),
                 )
             )
         competitive = sorted(
@@ -307,6 +379,10 @@ class HouseForecastSimulator:
             competitive=competitive,
             seats_by_margin=curve,
             tipping_point_margin=tipping,
+            lean_weight_2024=self.lean_weight_2024,
+            lean_weight_2022=self.lean_weight_2022,
+            incumbency_advantage=self.incumbency_advantage,
+            num_open_seats=sum(1 for d in districts if d.open_seat),
         )
 
     def _tipping_point(self, districts: list[DistrictInput]) -> float | None:

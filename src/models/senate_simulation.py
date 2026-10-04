@@ -66,6 +66,10 @@ class RaceInput:
     num_polls: int = 0
     # Market-implied P(Dem win) per source, e.g. {"polymarket": 0.47}.
     market_dem_prob: dict[str, float] = field(default_factory=dict)
+    # Inputs behind ``margin``: every fundamentals component (lean, swing,
+    # incumbency, experience), the raw polling margin and the blend weight.
+    # Carried through to the output so the values used are inspectable.
+    fundamentals: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -91,6 +95,8 @@ class RaceForecast:
     # Binned distribution of the simulated Dem−Rep margin: a list of
     # {"mid": bin_center, "pct": fraction_of_sims}. Powers the per-race histogram.
     margin_hist: list[dict] = field(default_factory=list)
+    # Feature values behind the margin (see RaceInput.fundamentals).
+    fundamentals: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -259,6 +265,7 @@ class SenateControlSimulator:
                     dem_win_prob_polls=p_polls,
                     dem_win_prob_blended=round(p_blend, 4) if p_blend is not None else None,
                     market_dem_prob=dict(race.market_dem_prob),
+                    fundamentals=dict(race.fundamentals),
                 )
             )
             if p_blend is not None:

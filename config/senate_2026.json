@@ -1,12 +1,21 @@
 {
-  "_comment": "2026 Senate cycle configuration for the control simulation. dem_safe_seats / rep_safe_seats count seats NOT in the competitive list (holdovers + safe 2026 races such as FL, NE, MT): of the 9 competitive races Democrats hold GA, MI, NH (3) and Republicans hold NC, ME, OH, TX, IA, AK (6), so dem_safe = 47-3 = 44 and rep_safe = 53-6 = 47. dem_majority_threshold is 51 because the sitting VP (R) breaks 50-50 ties. Fundamentals: each race carries the state's Dem-minus-Rep presidential margin in 2024 and 2020; the fundamentals prior blends them (pres_weight_recent on 2024) and is blended into the polling margin with weight blend_k/(blend_k+num_polls), so it anchors thinly-polled races and fades as polls accumulate. Candidate names are the general-election nominees (MI: El-Sayed won the Aug 4 primary; NH: Sununu is the Republican nominee) - the export falls back to each party's top-polled name when a configured name is missing from the polls. wikipedia overrides the default article title (Ohio is a special election).",
+  "_comment": "2026 Senate cycle configuration for the control simulation. dem_safe_seats / rep_safe_seats count seats NOT in the competitive list (holdovers + safe 2026 races such as FL, NE, MT): of the 9 competitive races Democrats hold GA, MI, NH (3) and Republicans hold NC, ME, OH, TX, IA, AK (6), so dem_safe = 47-3 = 44 and rep_safe = 53-6 = 47. dem_majority_threshold is 51 because the sitting VP (R) breaks 50-50 ties. Fundamentals: each race carries the state's Dem-minus-Rep presidential margin in 2024 and 2020; the fundamentals prior blends them (pres_weight_recent on 2024) and is blended into the polling margin with weight blend_k/(blend_k+num_polls), so it anchors thinly-polled races and fades as polls accumulate. Candidate names are the general-election nominees (MI: El-Sayed won the Aug 4 primary; NH: Sununu is the Republican nominee) - the export falls back to each party's top-polled name when a configured name is missing from the polls. wikipedia overrides the default article title (Ohio is a special election). Each race's features block carries the incumbency and candidate-experience inputs to the fundamentals prior; statewide_wins for an incumbent exclude wins for this seat (those are the incumbency term).",
   "cycle": 2026,
   "dem_safe_seats": 44,
   "rep_safe_seats": 47,
   "dem_majority_threshold": 51,
   "fundamentals": {
+    "_comment": "Fundamentals prior for each race, Dem-minus-Rep points. prior = lean + national_swing + incumbency_effect + experience_effect (+ midterm_penalty, default off). lean = (1-statewide_2022_weight) * [pres_weight_recent*pres_2024 + (1-pres_weight_recent)*pres_2020] + statewide_2022_weight*statewide_2022.margin. national_swing comes from the national_environment block (approval + generic ballot). The prior is blended with the polling margin at weight blend_k/(blend_k+num_polls). Coefficients are hand-set from the literature and from src/models/candidate_quality.py (whose incumbency_dem=3.0 is in vote-share terms, i.e. ~6 margin points; Senate incumbency advantage has shrunk to roughly 2-4 margin points since 2016, so 3.0 margin points is used). Every component value is exported per race (fundamentals block in senate_forecast.json) so the inputs are inspectable, not just the result.",
     "pres_weight_recent": 0.75,
-    "blend_k": 3.0
+    "statewide_2022_weight": 0.2,
+    "blend_k": 3.0,
+    "incumbency_advantage": 3.0,
+    "appointed_incumbent_factor": 0.5,
+    "experience_per_statewide_win": 0.75,
+    "experience_per_statewide_loss": -0.5,
+    "experience_cap": 3.0,
+    "midterm_penalty": 0.0,
+    "_midterm_comment": "President's-party midterm penalty in margin points (candidate_quality.py uses 2.5 vote-share points = 5 margin). Default 0 here because the generic ballot in national_environment already measures this cycle's midterm climate; turning it on double-counts. Exposed so it can be switched on for a fundamentals-only view."
   },
   "forecast": {
     "_comment": "calibration_bias_weight scales the historically-fitted poll bias (~-2.5) before it is applied: 0 = ignore it (fundamentals already capture the red-state lean), 1 = apply in full, 0.5 = split the difference. Kept at 0.5 to avoid double-counting the same Dem-overstatement that the fundamentals blend also corrects. bias_cycle_type selects which calibration cycles the bias is averaged over: 'all' (pooled 2018-2024, -2.5, dominated by the 2020 presidential-year miss) or 'midterm' (2018+2022 only, -0.4). Polling error does not carry a predictable sign from cycle to cycle, and the two midterms in the calibration set show ~zero bias, so a midterm forecast uses the midterm-only figure.",
@@ -35,7 +44,29 @@
       "rep_candidate": "Mike Collins",
       "abbr": "GA",
       "pres_2024": -2.2,
-      "pres_2020": 0.2
+      "pres_2020": 0.2,
+      "features": {
+        "incumbent_party": "D",
+        "incumbent_terms": 1,
+        "incumbent_appointed": false,
+        "dem": {
+          "name": "Jon Ossoff",
+          "statewide_wins": 0,
+          "statewide_losses": 0,
+          "note": "Incumbent (2020 runoff win counted via incumbency, not experience)."
+        },
+        "rep": {
+          "name": "Mike Collins",
+          "statewide_wins": 0,
+          "statewide_losses": 0,
+          "note": "U.S. House member; no statewide run."
+        },
+        "statewide_2022": {
+          "office": "U.S. Senate (runoff)",
+          "margin": 2.8
+        },
+        "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
+      }
     },
     {
       "state": "Michigan",
@@ -44,7 +75,29 @@
       "rep_candidate": "Mike Rogers",
       "abbr": "MI",
       "pres_2024": -1.4,
-      "pres_2020": 2.8
+      "pres_2020": 2.8,
+      "features": {
+        "incumbent_party": null,
+        "incumbent_terms": 0,
+        "incumbent_appointed": false,
+        "dem": {
+          "name": "Abdul El-Sayed",
+          "statewide_wins": 0,
+          "statewide_losses": 0,
+          "note": "Lost 2018 gubernatorial primary; no statewide general election."
+        },
+        "rep": {
+          "name": "Mike Rogers",
+          "statewide_wins": 0,
+          "statewide_losses": 1,
+          "note": "Lost 2024 Senate race by 0.3."
+        },
+        "statewide_2022": {
+          "office": "Governor",
+          "margin": 10.6
+        },
+        "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
+      }
     },
     {
       "state": "North Carolina",
@@ -53,7 +106,29 @@
       "rep_candidate": "Michael Whatley",
       "abbr": "NC",
       "pres_2024": -3.3,
-      "pres_2020": -1.3
+      "pres_2020": -1.3,
+      "features": {
+        "incumbent_party": null,
+        "incumbent_terms": 0,
+        "incumbent_appointed": false,
+        "dem": {
+          "name": "Roy Cooper",
+          "statewide_wins": 6,
+          "statewide_losses": 0,
+          "note": "AG 2000/04/08/12, Governor 2016/20."
+        },
+        "rep": {
+          "name": "Michael Whatley",
+          "statewide_wins": 0,
+          "statewide_losses": 0,
+          "note": "Party chair; no statewide run."
+        },
+        "statewide_2022": {
+          "office": "U.S. Senate",
+          "margin": -3.2
+        },
+        "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
+      }
     },
     {
       "state": "Maine",
@@ -62,7 +137,29 @@
       "rep_candidate": "Susan Collins",
       "abbr": "ME",
       "pres_2024": 6.9,
-      "pres_2020": 9.1
+      "pres_2020": 9.1,
+      "features": {
+        "incumbent_party": "R",
+        "incumbent_terms": 5,
+        "incumbent_appointed": false,
+        "dem": {
+          "name": "Troy Jackson",
+          "statewide_wins": 0,
+          "statewide_losses": 0,
+          "note": "State Senate president; no statewide run."
+        },
+        "rep": {
+          "name": "Susan Collins",
+          "statewide_wins": 0,
+          "statewide_losses": 1,
+          "note": "Incumbent since 1996 (incumbency term); lost 1994 governor race."
+        },
+        "statewide_2022": {
+          "office": "Governor",
+          "margin": 13.1
+        },
+        "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
+      }
     },
     {
       "state": "New Hampshire",
@@ -71,7 +168,29 @@
       "rep_candidate": "John E. Sununu",
       "abbr": "NH",
       "pres_2024": 2.8,
-      "pres_2020": 7.4
+      "pres_2020": 7.4,
+      "features": {
+        "incumbent_party": null,
+        "incumbent_terms": 0,
+        "incumbent_appointed": false,
+        "dem": {
+          "name": "Chris Pappas",
+          "statewide_wins": 0,
+          "statewide_losses": 0,
+          "note": "U.S. House; Executive Council is a district seat."
+        },
+        "rep": {
+          "name": "John E. Sununu",
+          "statewide_wins": 1,
+          "statewide_losses": 1,
+          "note": "Won Senate 2002, lost 2008."
+        },
+        "statewide_2022": {
+          "office": "U.S. Senate",
+          "margin": 9.1
+        },
+        "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
+      }
     },
     {
       "state": "Ohio",
@@ -81,7 +200,29 @@
       "abbr": "OH",
       "pres_2024": -11.2,
       "pres_2020": -8.0,
-      "wikipedia": "2026 United States Senate special election in Ohio"
+      "wikipedia": "2026 United States Senate special election in Ohio",
+      "features": {
+        "incumbent_party": "R",
+        "incumbent_terms": 0,
+        "incumbent_appointed": true,
+        "dem": {
+          "name": "Sherrod Brown",
+          "statewide_wins": 5,
+          "statewide_losses": 2,
+          "note": "SoS 1982/86, Senate 2006/12/18; lost SoS 1990, Senate 2024."
+        },
+        "rep": {
+          "name": "Jon Husted",
+          "statewide_wins": 4,
+          "statewide_losses": 0,
+          "note": "Appointed Jan 2025; SoS 2010/14, Lt. Gov 2018/22 (other-office wins)."
+        },
+        "statewide_2022": {
+          "office": "U.S. Senate",
+          "margin": -6.1
+        },
+        "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
+      }
     },
     {
       "state": "Texas",
@@ -90,7 +231,29 @@
       "rep_candidate": "Ken Paxton",
       "abbr": "TX",
       "pres_2024": -13.6,
-      "pres_2020": -5.6
+      "pres_2020": -5.6,
+      "features": {
+        "incumbent_party": null,
+        "incumbent_terms": 0,
+        "incumbent_appointed": false,
+        "dem": {
+          "name": "James Talarico",
+          "statewide_wins": 0,
+          "statewide_losses": 0,
+          "note": "State representative."
+        },
+        "rep": {
+          "name": "Ken Paxton",
+          "statewide_wins": 3,
+          "statewide_losses": 0,
+          "note": "AG 2014/18/22. Seat is open (Cornyn lost the primary)."
+        },
+        "statewide_2022": {
+          "office": "Governor",
+          "margin": -10.9
+        },
+        "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
+      }
     },
     {
       "state": "Iowa",
@@ -99,7 +262,29 @@
       "rep_candidate": "Ashley Hinson",
       "abbr": "IA",
       "pres_2024": -13.2,
-      "pres_2020": -8.2
+      "pres_2020": -8.2,
+      "features": {
+        "incumbent_party": null,
+        "incumbent_terms": 0,
+        "incumbent_appointed": false,
+        "dem": {
+          "name": "Josh Turek",
+          "statewide_wins": 0,
+          "statewide_losses": 0,
+          "note": "State representative."
+        },
+        "rep": {
+          "name": "Ashley Hinson",
+          "statewide_wins": 0,
+          "statewide_losses": 0,
+          "note": "U.S. House; no statewide run."
+        },
+        "statewide_2022": {
+          "office": "U.S. Senate",
+          "margin": -12.2
+        },
+        "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
+      }
     },
     {
       "state": "Alaska",
@@ -108,7 +293,29 @@
       "rep_candidate": "Dan Sullivan",
       "abbr": "AK",
       "pres_2024": -13.1,
-      "pres_2020": -10.1
+      "pres_2020": -10.1,
+      "features": {
+        "incumbent_party": "R",
+        "incumbent_terms": 2,
+        "incumbent_appointed": false,
+        "dem": {
+          "name": "Mary Peltola",
+          "statewide_wins": 2,
+          "statewide_losses": 1,
+          "note": "At-large U.S. House 2022 special + general (statewide); lost 2024."
+        },
+        "rep": {
+          "name": "Dan Sullivan",
+          "statewide_wins": 0,
+          "statewide_losses": 0,
+          "note": "Incumbent since 2014 (counted via incumbency)."
+        },
+        "statewide_2022": {
+          "office": "U.S. House at-large (RCV final)",
+          "margin": 10.0
+        },
+        "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
+      }
     }
   ]
 }

@@ -115,6 +115,47 @@ export interface ApprovalComparisonData {
   sources: Record<string, ComparisonSource>;
 }
 
+export interface RaceFundamentals {
+  available: boolean;
+  pres_2024?: number | null;
+  pres_2020?: number | null;
+  pres_weight_recent?: number;
+  statewide_2022?: { office: string; margin: number } | null;
+  statewide_2022_weight?: number;
+  lean?: number;
+  national_swing?: number;
+  incumbent_party?: string | null;
+  incumbent_terms?: number | null;
+  incumbent_appointed?: boolean;
+  incumbency_advantage?: number;
+  incumbency_effect?: number;
+  dem_statewide_wins?: number;
+  dem_statewide_losses?: number;
+  rep_statewide_wins?: number;
+  rep_statewide_losses?: number;
+  experience_raw?: number;
+  experience_effect?: number;
+  midterm_penalty_effect?: number;
+  prior?: number;
+  poll_margin?: number | null;
+  num_polls?: number;
+  fundamentals_weight?: number;
+  blend_k?: number;
+  final_margin?: number | null;
+}
+
+export interface FundamentalsCoefficients {
+  pres_weight_recent: number;
+  statewide_2022_weight: number;
+  blend_k: number;
+  incumbency_advantage: number;
+  appointed_incumbent_factor: number;
+  experience_per_statewide_win: number;
+  experience_per_statewide_loss: number;
+  experience_cap: number;
+  midterm_penalty: number;
+}
+
 export interface RaceForecast {
   state: string;
   race: string;
@@ -130,6 +171,7 @@ export interface RaceForecast {
   margin_p10?: number | null;
   margin_p90?: number | null;
   market_urls?: Record<string, string>;
+  fundamentals?: RaceFundamentals;
 }
 
 export interface PollsterEmpirical {
@@ -210,6 +252,7 @@ export interface SenateForecastData {
   maturity: string;
   label: string;
   bias_calibration?: BiasCalibration;
+  fundamentals_coefficients?: FundamentalsCoefficients;
   election_date?: string | null;
   days_to_election?: number;
   campaign_drift_sigma?: number;
@@ -248,6 +291,12 @@ export interface HouseDistrictForecast {
   margin_p10: number;
   margin_p90: number;
   redrawn?: boolean;
+  margin_2022?: number | null;
+  lean?: number;
+  open_seat?: boolean;
+  open_seat_reason?: string;
+  incumbent_party?: string;
+  incumbency_adjust?: number;
 }
 
 export interface RedistrictingEntry {
@@ -303,6 +352,10 @@ export interface HouseForecastData {
   tipping_point_margin: number | null;
   seats_2024: { D: number; R: number };
   expected_flips: { r_to_d: number; d_to_r: number };
+  lean_weight_2024?: number;
+  lean_weight_2022?: number;
+  incumbency_advantage?: number;
+  num_open_seats?: number;
   maturity: string;
   label: string;
 }

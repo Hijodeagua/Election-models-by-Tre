@@ -2,7 +2,11 @@ import Link from 'next/link';
 import LastUpdated from '@/app/components/LastUpdated';
 import SeatDistributionChart from '@/app/components/SeatDistributionChart';
 import { EmptyState, PageHead, Panel, StatCard } from '@/app/components/ui';
-import { getSenateForecast, type NationalEnvironment } from '@/app/lib/data';
+import {
+  getSenateForecast,
+  type NationalEnvironment,
+  type SenateForecastData,
+} from '@/app/lib/data';
 
 const MARKET_LABELS: Record<string, string> = {
   polymarket: 'Polymarket',
@@ -167,6 +171,8 @@ export default function SenateForecastPage() {
         </table>
       </div>
 
+      <FundamentalsPanel forecast={forecast} />
+
       <div className="mt-8 rounded-xl border border-cream-300 bg-cream-100 p-5 text-sm text-cocoa-700">
         <h3 className="font-display text-lg text-ink">How the simulation works</h3>
         <ul className="mt-2 list-disc space-y-1 pl-5">
@@ -245,6 +251,92 @@ export default function SenateForecastPage() {
 
       <LastUpdated />
     </div>
+  );
+}
+
+// Every input behind each race's margin: the structural lean (2024/2020
+// presidential, 2022 statewide), the national swing, incumbency, candidate
+// experience, the polling average and the blend weight. Actual values, not
+// just the result, so the prior can be audited race by race.
+function FundamentalsPanel({ forecast }: { forecast: SenateForecastData }) {
+  const coefs = forecast.fundamentals_coefficients;
+  const rows = forecast.races.filter((r) => r.fundamentals?.available);
+  if (rows.length === 0) return null;
+  const m = (v: number | null | undefined, d = 1) =>
+    v == null ? '—' : Math.abs(v) < 0.05 ? 'Even' : `${v > 0 ? 'D' : 'R'}+${Math.abs(v).toFixed(d)}`;
+  const signed = (v: number | null | undefined, d = 1) =>
+    v == null ? '—' : `${v > 0 ? '+' : ''}${v.toFixed(d)}`;
+  return (
+    <Panel title="Fundamentals inputs — the actual values behind each race" className="mt-4">
+      <p className="mb-3 text-xs text-cocoa-400">
+        Prior = lean + national swing + incumbency + experience. Lean ={' '}
+        {coefs ? (coefs.pres_weight_recent * (1 - coefs.statewide_2022_weight)).toFixed(2) : '—'}
+        ×2024 pres + {coefs ? ((1 - coefs.pres_weight_recent) * (1 - coefs.statewide_2022_weight)).toFixed(2) : '—'}
+        ×2020 pres + {coefs ? coefs.statewide_2022_weight.toFixed(2) : '—'}×2022 statewide result.
+        Incumbency ±{coefs?.incumbency_advantage ?? '—'} pts (×{coefs?.appointed_incumbent_factor ?? '—'} if appointed);
+        experience {signed(coefs?.experience_per_statewide_win, 2)} per prior statewide win,{' '}
+        {signed(coefs?.experience_per_statewide_loss, 2)} per loss, net capped at ±{coefs?.experience_cap ?? '—'}.
+        The prior is blended with the polling average at weight k/(k+n), k = {coefs?.blend_k ?? '—'}.
+      </p>
+      <div className="overflow-x-auto">
+        <table className="w-full text-xs">
+          <thead>
+            <tr className="border-b border-cream-300 text-left uppercase tracking-wide text-cocoa-400">
+              <th className="px-2 py-2">Race</th>
+              <th className="px-2 py-2 text-right">Pres &rsquo;24</th>
+              <th className="px-2 py-2 text-right">Pres &rsquo;20</th>
+              <th className="px-2 py-2 text-right">2022 statewide</th>
+              <th className="px-2 py-2 text-right">Lean</th>
+              <th className="px-2 py-2 text-right">Swing</th>
+              <th className="px-2 py-2 text-right">Incumbent</th>
+              <th className="px-2 py-2 text-right">Experience (W–L)</th>
+              <th className="px-2 py-2 text-right">Prior</th>
+              <th className="px-2 py-2 text-right">Polls (n)</th>
+              <th className="px-2 py-2 text-right">Prior wt</th>
+              <th className="px-2 py-2 text-right">Final</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => {
+              const f = r.fundamentals!;
+              const inc =
+                f.incumbent_party
+                  ? `${f.incumbent_party}${f.incumbent_appointed ? ' (appt.)' : f.incumbent_terms ? ` ×${f.incumbent_terms}` : ''} ${signed(f.incumbency_effect)}`
+                  : 'open';
+              const exp = `D ${f.dem_statewide_wins ?? 0}–${f.dem_statewide_losses ?? 0} / R ${f.rep_statewide_wins ?? 0}–${f.rep_statewide_losses ?? 0} ${signed(f.experience_effect, 2)}`;
+              return (
+                <tr key={r.state} className="border-b border-cream-100 last:border-0">
+                  <td className="px-2 py-2 font-medium text-cocoa-700">{r.state}</td>
+                  <td className="px-2 py-2 text-right text-cocoa-500">{m(f.pres_2024)}</td>
+                  <td className="px-2 py-2 text-right text-cocoa-500">{m(f.pres_2020)}</td>
+                  <td className="px-2 py-2 text-right text-cocoa-500" title={f.statewide_2022?.office}>
+                    {f.statewide_2022 ? `${m(f.statewide_2022.margin)} (${f.statewide_2022.office})` : '—'}
+                  </td>
+                  <td className="px-2 py-2 text-right text-cocoa-700">{m(f.lean)}</td>
+                  <td className="px-2 py-2 text-right text-cocoa-500">{signed(f.national_swing)}</td>
+                  <td className="px-2 py-2 text-right text-cocoa-500">{inc}</td>
+                  <td className="px-2 py-2 text-right text-cocoa-500">{exp}</td>
+                  <td className="px-2 py-2 text-right font-semibold text-cocoa-700">{m(f.prior)}</td>
+                  <td className="px-2 py-2 text-right text-cocoa-500">
+                    {f.poll_margin != null ? `${m(f.poll_margin)} (${f.num_polls})` : '—'}
+                  </td>
+                  <td className="px-2 py-2 text-right text-cocoa-500">
+                    {f.fundamentals_weight != null ? `${(f.fundamentals_weight * 100).toFixed(0)}%` : '—'}
+                  </td>
+                  <td className="px-2 py-2 text-right font-semibold text-ink">{m(f.final_margin)}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <p className="mt-2 text-xs text-cocoa-400">
+        Incumbency and experience entries are hand-entered from public records in{' '}
+        <code>config/senate_2026.json</code>; an incumbent&rsquo;s wins for this seat count as
+        incumbency, not experience. Presidential approval and the generic ballot enter through
+        the swing column. Coefficients are hand-set (see the methodology page), not fitted.
+      </p>
+    </Panel>
   );
 }
 

@@ -10,8 +10,8 @@ A Python-based election modeling and forecasting system that ingests polling dat
 - **Presidential approval tracking** — daily averages with confidence intervals
 - **Generic ballot model** — congressional preference tracking with historical seat projection
 - **Senate race models** — individual race polling averages, with an experimental NYT "vibes" media-sentiment overlay
-- **Senate control simulation** — 50,000-run Monte Carlo with correlated, fat-tailed national error (cycle-matched bias, campaign-drift widening), blended with prediction-market odds
-- **House control forecast** — all 435 districts swung uniformly from their 2024 result with correlated national and independent district error, mid-decade redistricting as a configured seat shift (`config/house_2026.json`)
+- **Senate control simulation** — 50,000-run Monte Carlo with correlated, fat-tailed national error (cycle-matched bias, campaign-drift widening), a fundamentals prior (2024/2020 presidential lean, 2022 statewide result, incumbency, candidate experience, approval + generic-ballot swing) blended with polls, and prediction-market odds; every input value is exported per race
+- **House control forecast** — all 435 districts from a 2024/2022 lean with open-seat incumbency loss, swung uniformly by the national environment with correlated national and independent district error, mid-decade redistricting as a configured seat shift (`config/house_2026.json`); every input value is exported per district
 - **Prediction-market integration** — Polymarket and Kalshi implied odds per race and for chamber control (offline CSV fallback)
 - **Model comparison** — our approval average side-by-side with raw VoteHub averages and 50+1 (when available)
 - **Web tracker** — deployable Next.js front end (`web/`) that reads static JSON exported from the Python pipeline

@@ -121,9 +121,13 @@ export default function HouseForecastPage() {
         <p className="mb-3 text-xs text-cocoa-400">
           Expected flips: {forecast.expected_flips.r_to_d.toFixed(1)} Republican-held seats to
           Democrats, {forecast.expected_flips.d_to_r.toFixed(1)} Democratic-held seats to
-          Republicans. Districts marked ↻ are in states redrawn since 2024 — their numbers
-          are on the old lines and the state&rsquo;s net effect is applied separately (see
-          below).
+          Republicans. Lean = {forecast.lean_weight_2024?.toFixed(2) ?? '1.00'}×2024 +{' '}
+          {forecast.lean_weight_2022?.toFixed(2) ?? '0.00'}×2022 two-party margin (2024 alone
+          where 2022 is unavailable); an open seat loses the departing incumbent&rsquo;s{' '}
+          {forecast.incumbency_advantage ?? 0}-pt advantage ({forecast.num_open_seats ?? 0} open
+          seats configured). Expected margin = lean + incumbency adjustment + national swing.
+          Districts marked ↻ are in states redrawn since 2024 — their numbers are on the old
+          lines and the state&rsquo;s net effect is applied separately (see below).
         </p>
         <div className="grid gap-2 sm:hidden">
           {competitive.map((d) => (
@@ -140,8 +144,9 @@ export default function HouseForecastPage() {
                 </span>
               </div>
               <div className="mt-0.5 text-xs text-cocoa-400">
-                2024: {fmtMargin(d.margin_2024)} ({d.winner_2024}) · today:{' '}
-                {fmtMargin(d.expected_margin)}
+                2024: {fmtMargin(d.margin_2024)} ({d.winner_2024})
+                {d.margin_2022 != null ? ` · 2022: ${fmtMargin(d.margin_2022)}` : ''}
+                {d.open_seat ? ' · open seat' : ''} · today: {fmtMargin(d.expected_margin)}
               </div>
             </div>
           ))}
@@ -152,6 +157,9 @@ export default function HouseForecastPage() {
               <tr className="border-b border-cream-300 text-left text-xs uppercase tracking-wide text-cocoa-400">
                 <th className="px-3 py-2">District</th>
                 <th className="px-3 py-2 text-right">2024 result</th>
+                <th className="px-3 py-2 text-right">2022 result</th>
+                <th className="px-3 py-2 text-right">Lean</th>
+                <th className="px-3 py-2 text-right">Incumbent</th>
                 <th className="px-3 py-2 text-right">Expected 2026 margin</th>
                 <th className="px-3 py-2 text-right">80% range</th>
                 <th className="px-3 py-2 text-right">P(D win)</th>
@@ -176,6 +184,23 @@ export default function HouseForecastPage() {
                     <span className={d.winner_2024 === 'D' ? 'text-dem' : 'text-rep'}>
                       ({d.winner_2024})
                     </span>
+                  </td>
+                  <td className="px-3 py-2 text-right text-cocoa-500">
+                    {d.margin_2022 != null ? fmtMargin(d.margin_2022) : '—'}
+                  </td>
+                  <td className="px-3 py-2 text-right text-cocoa-500">
+                    {d.lean != null ? fmtMargin(d.lean) : '—'}
+                  </td>
+                  <td className="px-3 py-2 text-right text-cocoa-500">
+                    {d.open_seat ? (
+                      <span title={d.open_seat_reason}>
+                        open ({d.incumbency_adjust != null && d.incumbency_adjust !== 0
+                          ? `${d.incumbency_adjust > 0 ? '+' : ''}${d.incumbency_adjust.toFixed(1)}`
+                          : '0'})
+                      </span>
+                    ) : (
+                      d.incumbent_party || '—'
+                    )}
                   </td>
                   <td className="px-3 py-2 text-right text-cocoa-700">
                     {fmtMargin(d.expected_margin)}
@@ -235,8 +260,11 @@ export default function HouseForecastPage() {
         <h3 className="font-display text-lg text-ink">How the simulation works</h3>
         <ul className="mt-2 list-disc space-y-1 pl-5">
           <li>
-            Every district starts from its 2024 two-party result (uncontested seats take
-            their 2022 margin or a safe placeholder).
+            Every district starts from a structural lean blending its 2024 and 2022 two-party
+            results (uncontested seats take the other cycle&rsquo;s margin or a safe
+            placeholder; states redrawn for 2024 use 2024 alone). Seats whose incumbent is not
+            running lose that incumbent&rsquo;s advantage. All of these values are in the
+            table above and in <code>house_forecast.json</code>.
           </li>
           <li>
             The expected national margin blends the{' '}

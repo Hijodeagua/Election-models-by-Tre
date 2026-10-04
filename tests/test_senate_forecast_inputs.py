@@ -91,3 +91,54 @@ class TestCampaignDrift:
         assert _campaign_drift_sigma(None, 30) == 0.0
         assert _campaign_drift_sigma(0.35, 16) == pytest.approx(1.4)
         assert _campaign_drift_sigma(0.35, 30) == pytest.approx(0.35 * 30**0.5)
+
+
+class TestFundamentalsPrior:
+    """End-to-end through the production path on the committed config, so the
+    exported feature values are what the config says they should be."""
+
+    @pytest.fixture(scope="class")
+    def payload(self):
+        from scripts.export_json import _senate_forecast_payload
+
+        # No polls → every race runs on fundamentals alone (weight 1.0).
+        return _senate_forecast_payload({"races": []}, approval_net=-20.0,
+                                        generic_margin=5.0, quiet=True)
+
+    def _race(self, payload, state):
+        return next(r for r in payload["races"] if r["state"] == state)
+
+    def test_components_sum_to_prior_and_prior_is_the_margin(self, payload):
+        for r in payload["races"]:
+            f = r["fundamentals"]
+            parts = (f["lean"] + f["national_swing"] + f["incumbency_effect"]
+                     + f["experience_effect"] + f["midterm_penalty_effect"])
+            assert f["prior"] == pytest.approx(parts, abs=0.002)
+            assert f["fundamentals_weight"] == 1.0
+            assert r["margin"] == pytest.approx(f["prior"], abs=0.002)
+
+    def test_incumbency_signs(self, payload):
+        coefs = payload["fundamentals_coefficients"]
+        adv = coefs["incumbency_advantage"]
+        assert self._race(payload, "Maine")["fundamentals"]["incumbency_effect"] == -adv
+        assert self._race(payload, "Georgia")["fundamentals"]["incumbency_effect"] == adv
+        assert self._race(payload, "Michigan")["fundamentals"]["incumbency_effect"] == 0.0
+        # Appointed incumbent (Husted) gets the reduced advantage.
+        oh = self._race(payload, "Ohio")["fundamentals"]
+        assert oh["incumbent_appointed"] is True
+        assert oh["incumbency_effect"] == pytest.approx(-adv * coefs["appointed_incumbent_factor"])
+
+    def test_experience_is_capped_and_signed(self, payload):
+        coefs = payload["fundamentals_coefficients"]
+        nc = self._race(payload, "North Carolina")["fundamentals"]  # Cooper: 6 statewide wins
+        assert nc["experience_raw"] == pytest.approx(6 * coefs["experience_per_statewide_win"])
+        assert nc["experience_effect"] == coefs["experience_cap"]
+        tx = self._race(payload, "Texas")["fundamentals"]  # Paxton: 3 wins, Talarico: 0
+        assert tx["experience_effect"] == pytest.approx(-3 * coefs["experience_per_statewide_win"])
+
+    def test_lean_blends_presidential_and_2022(self, payload):
+        f = self._race(payload, "Ohio")["fundamentals"]
+        w, w22 = f["pres_weight_recent"], f["statewide_2022_weight"]
+        pres = w * f["pres_2024"] + (1 - w) * f["pres_2020"]
+        expected = (1 - w22) * pres + w22 * f["statewide_2022"]["margin"]
+        assert f["lean"] == pytest.approx(expected, abs=0.002)

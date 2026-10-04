@@ -1,5 +1,5 @@
 {
-  "_comment": "2026 House forecast configuration (src/models/house_forecast.py). A uniform-swing-plus-noise district model: every district starts from its 2024 two-party margin (data/fallback/house_districts_2024.csv), the national environment moves all 435 by the same swing, correlated national error and independent district error are layered on top, and seats are counted against the 218 majority line. Dem-minus-Rep conventions throughout.",
+  "_comment": "2026 House forecast configuration (src/models/house_forecast.py). A uniform-swing-plus-noise district model: every district starts from its 2024 two-party margin (data/fallback/house_districts_2024.csv), the national environment moves all 435 by the same swing, correlated national error and independent district error are layered on top, and seats are counted against the 218 majority line. Dem-minus-Rep conventions throughout. district_lean documents the 2024/2022 blend, incumbency and open-seat handling.",
   "cycle": 2026,
   "election_date": "2026-11-03",
   "total_seats": 435,
@@ -35,16 +35,213 @@
   "redistricting": {
     "_comment": "Mid-decade redraws since 2024 change which seats exist, which the 2024-district baseline cannot see. Each entry is the expected net change in Democratic seats versus the 2024 map, drawn per simulation as Normal(dem_seat_shift, sd) and added to the seat total. VERIFY BEFORE PUBLISHING: entries with include=true reflect maps enacted in 2025 as understood when this file was written; include=false entries were unresolved or unknown at that time and are listed so they are not forgotten. A deterministic seat shift is an approximation: in a strong Democratic year a Republican gerrymander yields fewer of its intended seats, which is not modelled.",
     "states": [
-      {"state": "TX", "dem_seat_shift": -5, "sd": 1.5, "include": true, "note": "2025 legislature map drawn to add five Republican seats; in use for 2026."},
-      {"state": "CA", "dem_seat_shift": 5, "sd": 1.5, "include": true, "note": "Proposition 50 (Nov 2025) map drawn to add five Democratic seats."},
-      {"state": "MO", "dem_seat_shift": -1, "sd": 0.5, "include": true, "note": "2025 map splits the Kansas City seat."},
-      {"state": "NC", "dem_seat_shift": -1, "sd": 0.5, "include": true, "note": "2025 map targets the 1st district."},
-      {"state": "OH", "dem_seat_shift": -1, "sd": 1.0, "include": true, "note": "2025 commission map; shifts one or two Democratic-held seats toward Republicans."},
-      {"state": "UT", "dem_seat_shift": 1, "sd": 0.5, "include": true, "note": "Court-ordered 2025 map with a Salt Lake-based Democratic-leaning seat."},
-      {"state": "FL", "dem_seat_shift": 0, "sd": 0.0, "include": false, "note": "2026 redraw discussed; outcome not confirmed when written - set shift and include=true once known."},
-      {"state": "VA", "dem_seat_shift": 0, "sd": 0.0, "include": false, "note": "Democratic redistricting amendment/referendum; outcome not confirmed when written."},
-      {"state": "LA", "dem_seat_shift": 0, "sd": 0.0, "include": false, "note": "Depends on Louisiana v. Callais; not confirmed when written."}
+      {
+        "state": "TX",
+        "dem_seat_shift": -5,
+        "sd": 1.5,
+        "include": true,
+        "note": "2025 legislature map drawn to add five Republican seats; in use for 2026."
+      },
+      {
+        "state": "CA",
+        "dem_seat_shift": 5,
+        "sd": 1.5,
+        "include": true,
+        "note": "Proposition 50 (Nov 2025) map drawn to add five Democratic seats."
+      },
+      {
+        "state": "MO",
+        "dem_seat_shift": -1,
+        "sd": 0.5,
+        "include": true,
+        "note": "2025 map splits the Kansas City seat."
+      },
+      {
+        "state": "NC",
+        "dem_seat_shift": -1,
+        "sd": 0.5,
+        "include": true,
+        "note": "2025 map targets the 1st district."
+      },
+      {
+        "state": "OH",
+        "dem_seat_shift": -1,
+        "sd": 1.0,
+        "include": true,
+        "note": "2025 commission map; shifts one or two Democratic-held seats toward Republicans."
+      },
+      {
+        "state": "UT",
+        "dem_seat_shift": 1,
+        "sd": 0.5,
+        "include": true,
+        "note": "Court-ordered 2025 map with a Salt Lake-based Democratic-leaning seat."
+      },
+      {
+        "state": "FL",
+        "dem_seat_shift": 0,
+        "sd": 0.0,
+        "include": false,
+        "note": "2026 redraw discussed; outcome not confirmed when written - set shift and include=true once known."
+      },
+      {
+        "state": "VA",
+        "dem_seat_shift": 0,
+        "sd": 0.0,
+        "include": false,
+        "note": "Democratic redistricting amendment/referendum; outcome not confirmed when written."
+      },
+      {
+        "state": "LA",
+        "dem_seat_shift": 0,
+        "sd": 0.0,
+        "include": false,
+        "note": "Depends on Louisiana v. Callais; not confirmed when written."
+      }
     ]
   },
-  "seats_votes_curve_margins": [-6, -4, -2, 0, 2, 4, 6, 8, 10, 12]
+  "seats_votes_curve_margins": [
+    -6,
+    -4,
+    -2,
+    0,
+    2,
+    4,
+    6,
+    8,
+    10,
+    12
+  ],
+  "district_lean": {
+    "_comment": "Each district's structural lean before the national swing: weight_2024 * 2024 two-party margin + weight_2022 * 2022 two-party margin (renormalised to 2024 alone where 2022 is missing: uncontested, or a state redrawn for 2024). Both margins embed the incumbent's advantage, so an open seat (incumbent not running) loses incumbency_advantage points toward the other party. Every value - margin_2024, margin_2022, lean, open-seat flag, incumbency adjustment, expected margin - is exported per district.",
+    "weight_2024": 0.75,
+    "weight_2022": 0.25,
+    "incumbency_advantage": 2.5,
+    "_incumbency_comment": "House incumbency advantage in margin points (Jacobson-style estimates have fallen to roughly 2-3 points since 2016). Applied only as the loss of that advantage in open seats; a running incumbent's advantage is already inside the 2024/2022 margins.",
+    "open_seats": {
+      "_comment": "Districts whose 2024 winner is not on the 2026 ballot (retiring, running for another office, resigned/vacant). VERIFY BEFORE PUBLISHING - hand-entered Oct 2026; the competitive ones (ME-2, NE-2, MI-10, AZ-1, MN-2, NH-1, IA-2) matter most. A district in a redrawn state is still flagged but its per-district number is already approximate.",
+      "districts": [
+        {
+          "label": "ME-2",
+          "reason": "Golden (D) retiring"
+        },
+        {
+          "label": "NE-2",
+          "reason": "Bacon (R) retiring"
+        },
+        {
+          "label": "MI-10",
+          "reason": "James (R) running for governor"
+        },
+        {
+          "label": "AZ-1",
+          "reason": "Schweikert (R) running for governor"
+        },
+        {
+          "label": "MN-2",
+          "reason": "Craig (D) running for Senate"
+        },
+        {
+          "label": "NH-1",
+          "reason": "Pappas (D) running for Senate"
+        },
+        {
+          "label": "IA-2",
+          "reason": "Hinson (R) running for Senate"
+        },
+        {
+          "label": "MI-11",
+          "reason": "Stevens (D) ran for Senate"
+        },
+        {
+          "label": "GA-10",
+          "reason": "Collins (R) running for Senate"
+        },
+        {
+          "label": "GA-1",
+          "reason": "Carter (R) ran for Senate"
+        },
+        {
+          "label": "KY-6",
+          "reason": "Barr (R) running for Senate"
+        },
+        {
+          "label": "TX-38",
+          "reason": "Hunt (R) ran for Senate"
+        },
+        {
+          "label": "IL-8",
+          "reason": "Krishnamoorthi (D) running for Senate"
+        },
+        {
+          "label": "IL-2",
+          "reason": "Kelly (D) ran for Senate"
+        },
+        {
+          "label": "IL-9",
+          "reason": "Schakowsky (D) retiring"
+        },
+        {
+          "label": "IL-7",
+          "reason": "Davis (D) retiring"
+        },
+        {
+          "label": "NY-7",
+          "reason": "Velazquez (D) retiring"
+        },
+        {
+          "label": "NY-12",
+          "reason": "Nadler (D) retiring"
+        },
+        {
+          "label": "NY-21",
+          "reason": "Stefanik (R) running for governor"
+        },
+        {
+          "label": "NJ-11",
+          "reason": "Sherrill (D) elected governor; seat vacant"
+        },
+        {
+          "label": "CA-11",
+          "reason": "Pelosi (D) retiring"
+        },
+        {
+          "label": "IA-4",
+          "reason": "Feenstra (R) running for governor"
+        },
+        {
+          "label": "FL-19",
+          "reason": "Donalds (R) running for governor"
+        },
+        {
+          "label": "SD-1",
+          "reason": "Johnson (R) running for governor"
+        },
+        {
+          "label": "SC-1",
+          "reason": "Mace (R) running for governor"
+        },
+        {
+          "label": "SC-5",
+          "reason": "Norman (R) running for governor"
+        },
+        {
+          "label": "WI-7",
+          "reason": "Tiffany (R) running for governor"
+        },
+        {
+          "label": "TX-19",
+          "reason": "Arrington (R) retiring"
+        },
+        {
+          "label": "TX-8",
+          "reason": "Luttrell (R) retiring"
+        },
+        {
+          "label": "TX-10",
+          "reason": "McCaul (R) retiring"
+        }
+      ]
+    }
+  }
 }

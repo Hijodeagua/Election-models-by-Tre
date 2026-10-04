@@ -226,3 +226,81 @@ seat count is ~3 seats per national point; the probability is driven almost
 entirely by how far the national margin sits from the ~even-vote tipping
 point and how wide the national error is. District-level noise barely matters
 for the chamber call because it averages out over 435 seats.
+
+## Update: fundamentals features now used (and their actual values)
+
+The first pass left incumbency, candidate record and the 2022 results out.
+They are now in both forecasts, built on the feature set in
+`src/models/candidate_quality.py` (lean, generic ballot, incumbency,
+approval × president's party, midterm), with every input value exported
+rather than only the blended result.
+
+### Senate prior: `prior = lean + swing + incumbency + experience (+ midterm)`
+
+| Term | Definition | Coefficient (config `fundamentals`) |
+|---|---|---|
+| lean | 0.8 × (0.75·pres 2024 + 0.25·pres 2020) + 0.2 × 2022 statewide result | `pres_weight_recent` 0.75, `statewide_2022_weight` 0.2 |
+| swing | national environment: 0.6·generic ballot + 0.4·(0.3 × net approval, flipped to the out-party), minus the 2024 House baseline | unchanged |
+| incumbency | ±3.0 for the incumbent's party; ×0.5 if appointed | `incumbency_advantage` 3.0 (candidate_quality.py's 3.0 is vote-share, ≈6 margin) |
+| experience | (0.75·wins − 0.5·losses) for D minus the same for R, capped ±3; an incumbent's wins for this seat are excluded | `experience_per_statewide_win`, `_loss`, `experience_cap` |
+| midterm | president's-party penalty | `midterm_penalty` 0 (generic ballot already carries it; switchable) |
+| blend | final = (1−w)·polls + w·prior, w = 3/(3+n) | `blend_k` 3 |
+
+Actual values used on 2026-10-04 (Dem−Rep points):
+
+| Race | Pres '24 | Pres '20 | 2022 statewide | Lean | Swing | Incumbent | Experience D W–L / R W–L | Prior | Polls (n) | Prior wt | Final | P(D) |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Georgia | −2.2 | +0.2 | +2.8 (Sen runoff) | −0.7 | +9.2 | D ×1 **+3.0** | 0–0 / 0–0 → 0 | +11.5 | +8.5 (17) | 15% | **+8.9** | 0.94 |
+| Michigan | −1.4 | +2.8 | +10.6 (Gov) | +1.8 | +9.2 | open | 0–0 / 0–1 → +0.5 | +11.5 | +2.9 (41) | 7% | **+3.5** | 0.73 |
+| North Carolina | −3.3 | −1.3 | −3.2 (Sen) | −2.9 | +9.2 | open | 6–0 / 0–0 → +3.0 (cap) | +9.3 | +9.7 (39) | 7% | **+9.7** | 0.95 |
+| Maine | +6.9 | +9.1 | +13.1 (Gov) | +8.6 | +9.2 | R ×5 **−3.0** | 0–0 / 0–1 → +0.5 | +15.3 | +1.1 (20) | 13% | **+2.9** | 0.70 |
+| New Hampshire | +2.8 | +7.4 | +9.1 (Sen) | +5.0 | +9.2 | open | 0–0 / 1–1 → −0.25 | +13.9 | +5.7 (24) | 11% | **+6.6** | 0.88 |
+| Ohio | −11.2 | −8.0 | −6.1 (Sen) | −9.5 | +9.2 | R appointed **−1.5** | 5–2 / 4–0 → −0.25 | −2.1 | +3.1 (29) | 9% | **+2.6** | 0.66 |
+| Texas | −13.6 | −5.6 | −10.9 (Gov) | −11.5 | +9.2 | open (Cornyn lost primary) | 0–0 / 3–0 → −2.25 | −4.5 | +2.1 (45) | 6% | **+1.7** | 0.61 |
+| Iowa | −13.2 | −8.2 | −12.2 (Sen) | −12.0 | +9.2 | open | 0–0 / 0–0 → 0 | −2.8 | +1.2 (25) | 11% | **+0.8** | 0.52 |
+| Alaska | −13.1 | −10.1 | +10.0 (House AL, RCV) | −7.9 | +9.2 | R ×2 **−3.0** | 2–1 / 0–0 → +1.0 | −0.7 | +5.0 (1) | 75% | **+0.7** | 0.54 |
+
+Headline: **P(Dem control) 53% → 56%**, mean 50.4 → 50.6 seats. The 2022
+results and Cooper's record push Democrats up; Collins', Sullivan's and
+Husted's incumbency and Paxton's record push them down. Alaska moves most
+(40% → 54%) because its single poll leaves the prior at 75% weight and the
+2022 column is Peltola's own at-large win — that is the one 2022 entry worth
+arguing about, and it is visible on the page.
+
+Importance of the new knobs (sensitivity sweep, P(control)):
+
+| Knob | Grid → P(control) | Spread |
+|---|---|---|
+| `statewide_2022_weight` | 0 → 0.50, 0.2* → 0.56, 0.4 → 0.62 | 0.12 |
+| `midterm_penalty` | 0* → 0.56, 2.5 → 0.61, 5 → 0.66 | 0.09 |
+| `incumbency_advantage` | 0 → 0.61, 3* → 0.56, 6 → 0.52 | 0.09 |
+| `experience_per_statewide_win` | 0 → 0.55, 0.75* → 0.56, 1.5 → 0.58 | 0.03 |
+
+They now rank third to fifth of all knobs, behind `bias_cycle_type` (0.19)
+and `senate_responsiveness` (0.18). Everything in this block is hand-set:
+the fit of these coefficients on historical races is the next job, and the
+training loader (`src/training/`) has the race/result data for it but no
+incumbency or candidate-record columns yet.
+
+### House: lean = 0.75·margin 2024 + 0.25·margin 2022, open seats lose the incumbent's 2.5 pts
+
+`data/fallback/house_districts_2024.csv` now carries the 2022 two-party
+margin for 337 districts (blank where uncontested or the state was redrawn
+for 2024). `config/house_2026.json › district_lean` lists 30 open seats
+(hand-entered, flagged verify). Per district the export carries
+`margin_2024`, `margin_2022`, `lean`, `open_seat`, `open_seat_reason`,
+`incumbent_party`, `incumbency_adjust`, `expected_margin`, `dem_win_prob`.
+
+Competitive open seats as used:
+
+| District | 2024 | 2022 | Lean | Open-seat adj. | Expected | P(D) |
+|---|---|---|---|---|---|---|
+| ME-2 | D+0.7 | D+6.1 | D+2.1 | −2.5 (Golden retiring) | D+7.4 | 0.88 |
+| NE-2 | R+1.9 | R+2.7 | R+2.1 | +2.5 (Bacon retiring) | D+8.3 | 0.90 |
+| MI-10 | R+6.4 | R+0.5 | R+4.9 | +2.5 (James → Gov) | D+5.5 | 0.81 |
+| AZ-1 | R+3.8 | R+0.9 | R+3.1 | +2.5 (Schweikert → Gov) | D+7.3 | 0.87 |
+| IA-2 | R+15.8 | R+8.3 | R+13.9 | +2.5 (Hinson → Sen) | R+3.5 | 0.28 |
+
+Headline: **P(Dem House majority) 95.8% → 96.6%**, mean 233.5 → 234.6 seats.
+Small, as expected: open seats and the 2022 blend move individual districts
+by 2–5 points but the chamber call is set by the national margin.

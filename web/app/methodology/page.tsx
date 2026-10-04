@@ -97,7 +97,13 @@ export default function MethodologyPage() {
           simulations of the key races with correlated national polling error,
           optionally blending Polymarket/Kalshi implied odds at a tunable weight.
           It shows where the chamber stands today given current polling and market
-          prices. The error model is fitted to 98 Senate races from 2018–2024;
+          prices. Each race&rsquo;s polling average is blended with a fundamentals
+          prior — the state&rsquo;s 2024 and 2020 presidential margins and its 2022
+          statewide result, the national swing from presidential approval and the
+          generic ballot, an incumbency term, and a candidate-experience term from
+          prior statewide wins and losses — at a weight that fades as polls
+          accumulate; every one of those input values is published on the
+          forecast page. The error model is fitted to 98 Senate races from 2018–2024;
           because polling error has no predictable sign from cycle to cycle, the
           systematic-bias term uses only the midterm cycles in that set (which show
           essentially none), and a small campaign-drift term widens the national
@@ -105,7 +111,8 @@ export default function MethodologyPage() {
         </li>
         <li>
           <strong>House control simulation</strong> — all 435 districts start from
-          their 2024 two-party result; the expected national environment (two-party
+          a lean blending their 2024 and 2022 two-party results, less the departing
+          incumbent&rsquo;s advantage in open seats; the expected national environment (two-party
           generic ballot plus the approval-implied margin, adjusted for the
           generic ballot&rsquo;s historical lean) is applied as a uniform swing;
           one correlated national error and an independent per-district error

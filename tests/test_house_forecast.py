@@ -166,3 +166,57 @@ def test_full_pipeline_on_committed_data_is_sane():
     wave = sim.simulate(districts, expected_national_margin=6.0, num_simulations=4000, seed=0)
     assert wave.mean_dem_seats > neutral.mean_dem_seats + 15
     assert wave.dem_majority_prob > 0.8
+
+
+class TestDistrictLean:
+    def test_blends_2022_when_available(self):
+        sim = _sim(lean_weight_2024=0.75, lean_weight_2022=0.25, incumbency_advantage=2.5)
+        d = DistrictInput("XX", "District 1", margin_2024=4.0, winner_2024="D", margin_2022=8.0)
+        lean, adjust = sim.district_lean(d)
+        assert lean == pytest.approx(5.0)
+        assert adjust == 0.0
+
+    def test_falls_back_to_2024_without_2022(self):
+        sim = _sim(lean_weight_2024=0.75, lean_weight_2022=0.25)
+        d = DistrictInput("XX", "District 1", margin_2024=4.0, winner_2024="D", margin_2022=None)
+        assert sim.district_lean(d)[0] == pytest.approx(4.0)
+
+    def test_open_seat_loses_incumbent_advantage(self):
+        sim = _sim(incumbency_advantage=2.5)
+        d_open = DistrictInput("XX", "District 1", margin_2024=4.0, winner_2024="D", open_seat=True)
+        r_open = DistrictInput("XX", "District 2", margin_2024=-4.0, winner_2024="R", open_seat=True)
+        assert sim.district_lean(d_open)[1] == -2.5
+        assert sim.district_lean(r_open)[1] == 2.5
+        held = DistrictInput("XX", "District 3", margin_2024=4.0, winner_2024="D")
+        assert sim.district_lean(held)[1] == 0.0
+
+    def test_open_seat_lowers_win_probability_in_simulation(self):
+        sim = _sim(incumbency_advantage=2.5)
+        held = [DistrictInput("XX", "District 1", margin_2024=1.0, winner_2024="D")]
+        open_ = [DistrictInput("XX", "District 1", margin_2024=1.0, winner_2024="D", open_seat=True)]
+        p_held = sim.simulate(held, -2.4, num_simulations=20000, seed=5).districts[0].dem_win_prob
+        p_open = sim.simulate(open_, -2.4, num_simulations=20000, seed=5).districts[0].dem_win_prob
+        assert p_open < p_held - 0.05
+
+    def test_feature_values_are_exported_per_district(self):
+        sim = _sim(lean_weight_2024=0.75, lean_weight_2022=0.25, incumbency_advantage=2.5)
+        d = DistrictInput("XX", "District 1", 4.0, "D", margin_2022=8.0, open_seat=True,
+                          open_seat_reason="retiring")
+        fc = sim.simulate([d], -2.4, num_simulations=100, seed=0).districts[0]
+        assert fc.margin_2022 == 8.0 and fc.lean == 5.0 and fc.incumbency_adjust == -2.5
+        assert fc.open_seat and fc.open_seat_reason == "retiring" and fc.incumbent_party == ""
+        assert fc.expected_margin == pytest.approx(5.0 - 2.5 + 0.0, abs=0.01)
+
+    def test_committed_open_seats_all_resolve_and_2022_margins_load(self):
+        cfg = load_house_config()
+        districts = load_districts(open_seats=cfg["district_lean"]["open_seats"]["districts"])
+        assert sum(1 for d in districts if d.open_seat) == len(
+            cfg["district_lean"]["open_seats"]["districts"]
+        )
+        assert sum(1 for d in districts if d.margin_2022 is not None) > 300
+        # Redrawn-for-2024 states carry no 2022 margin.
+        assert all(d.margin_2022 is None for d in districts if d.state in {"NC", "NY", "GA"})
+
+    def test_unknown_open_seat_label_is_an_error(self):
+        with pytest.raises(ValueError):
+            load_districts(open_seats=[{"label": "ZZ-99"}])

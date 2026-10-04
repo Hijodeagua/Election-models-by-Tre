@@ -98,6 +98,45 @@ SWEEPS: list[tuple[str, str, list[tuple[str, dict]]]] = [
         ],
     ),
     (
+        "incumbency_advantage",
+        "Senate incumbency advantage in the fundamentals prior, margin pts (base 3.0)",
+        [
+            ("0", {"fundamentals": {"incumbency_advantage": 0.0}}),
+            ("1.5", {"fundamentals": {"incumbency_advantage": 1.5}}),
+            ("3.0*", {}),
+            ("4.5", {"fundamentals": {"incumbency_advantage": 4.5}}),
+            ("6.0 (candidate_quality.py default)", {"fundamentals": {"incumbency_advantage": 6.0}}),
+        ],
+    ),
+    (
+        "experience_per_statewide_win",
+        "candidate experience: pts per prior statewide win (base 0.75; losses at -0.5)",
+        [
+            ("0 (off)", {"fundamentals": {"experience_per_statewide_win": 0.0,
+                                          "experience_per_statewide_loss": 0.0}}),
+            ("0.75*", {}),
+            ("1.5", {"fundamentals": {"experience_per_statewide_win": 1.5}}),
+        ],
+    ),
+    (
+        "statewide_2022_weight",
+        "weight on the state's 2022 statewide result in the lean (base 0.2)",
+        [
+            ("0", {"fundamentals": {"statewide_2022_weight": 0.0}}),
+            ("0.2*", {}),
+            ("0.4", {"fundamentals": {"statewide_2022_weight": 0.4}}),
+        ],
+    ),
+    (
+        "midterm_penalty",
+        "explicit president's-party midterm penalty on top of the generic ballot (base 0)",
+        [
+            ("0*", {}),
+            ("2.5", {"fundamentals": {"midterm_penalty": 2.5}}),
+            ("5 (candidate_quality.py default)", {"fundamentals": {"midterm_penalty": 5.0}}),
+        ],
+    ),
+    (
         "bias_cycle_type",
         "which calibration cycles the poll bias is averaged over (base midterm)",
         [

@@ -69,8 +69,11 @@ REDRAWN_BETWEEN = {
 
 OUTPUT_COLUMNS = [
     "state", "district", "dem_pct", "rep_pct", "margin", "winner_party",
-    "contested", "imputed_from", "source_cycle",
+    "contested", "imputed_from", "source_cycle", "margin_2022",
 ]
+# States whose districts were redrawn between 2022 and 2024, so the 2022
+# result is not the same seat and is left blank.
+REDRAWN_2024 = {"NC", "AL", "LA", "NY", "GA"}
 
 
 def _fetch(source: str | None) -> str:
@@ -164,6 +167,10 @@ def build(rows: list[dict]) -> list[dict]:
                 margin = max(margin, UNCONTESTED_CAP / 2)
             elif rec["winner_party"] == "R":
                 margin = min(margin, -UNCONTESTED_CAP / 2)
+        prev = prior.get(key)
+        margin_2022 = ""
+        if prev and prev["contested"] and key[0] not in REDRAWN_2024:
+            margin_2022 = round(two_party_margin(prev["dem_pct"], prev["rep_pct"]), 2)
         out.append(
             {
                 "state": key[0],
@@ -175,6 +182,7 @@ def build(rows: list[dict]) -> list[dict]:
                 "contested": "true" if rec["contested"] else "false",
                 "imputed_from": imputed_from,
                 "source_cycle": BASE_CYCLE,
+                "margin_2022": margin_2022,
             }
         )
     return out
