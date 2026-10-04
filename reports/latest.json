@@ -1,381 +1,615 @@
 {
  "as_of": "2026-10-04",
- "built": "2026-10-04T04:30:24",
+ "built": "2026-10-04T05:00:21",
  "senate": {
   "num_simulations": 500000,
-  "dem_control_prob": 0.6103,
-  "mean_dem_seats": 50.76,
+  "dem_control_prob": 0.5849,
+  "mean_dem_seats": 50.6,
   "seat_distribution": {
-   "44": 1694,
-   "45": 4483,
-   "46": 10082,
-   "47": 20314,
-   "48": 35030,
-   "49": 52965,
-   "50": 70300,
-   "51": 87938,
-   "52": 103585,
-   "53": 113609
+   "44": 1748,
+   "45": 4784,
+   "46": 10265,
+   "47": 21005,
+   "48": 36356,
+   "49": 56025,
+   "50": 77390,
+   "51": 98956,
+   "52": 114602,
+   "53": 78869
   },
   "races": [
    {
     "state": "Georgia",
-    "margin": 9.625,
+    "margin": 9.628,
     "p_polls": 0.9461,
-    "p_blended": 0.9526,
-    "p_sim": 0.9522,
-    "leverage": 0.5696,
-    "tipping": 0.1735,
+    "p_sim": 0.9459,
+    "leverage": 0.5542,
+    "tipping": 0.1954,
     "fundamentals": {
      "available": true,
      "pres_2024": -2.2,
      "pres_2020": 0.2,
-     "pres_weight_recent": 0.75,
-     "statewide_2022": {
-      "office": "U.S. Senate (runoff)",
+     "last_senate": {
+      "year": 2022,
+      "race": "Warnock (D) v Walker (R), runoff",
       "margin": 2.8
      },
-     "statewide_2022_weight": 0.2,
+     "lean_weights": {
+      "pres_2024": 1.0,
+      "pres_2020_shift": 0.2,
+      "last_senate_shift": 0.2
+     },
+     "pres_2020_shift_effect": 0.48,
+     "last_senate_shift_effect": 1.0,
      "lean": -0.72,
      "national_swing": 9.184,
      "incumbent_party": "D",
-     "incumbent_terms": 1,
+     "incumbent_years": 5.8,
      "incumbent_appointed": false,
      "incumbency_advantage": 3.0,
      "incumbency_effect": 3.0,
+     "tenure_category": "0-5",
+     "tenure_effect": 0.0,
+     "dem_office_years": 0,
+     "rep_office_years": 3.8,
+     "dem_office_category": "incumbent",
+     "rep_office_category": "1-6",
+     "office_years_effect": -0.25,
      "dem_statewide_wins": 0,
      "dem_statewide_losses": 0,
      "rep_statewide_wins": 0,
      "rep_statewide_losses": 0,
      "experience_raw": 0.0,
      "experience_effect": 0.0,
+     "economy": {
+      "president_party": "R",
+      "cpi_yoy": 3.4,
+      "inflation_effect": 0.27,
+      "gas_deviation": null,
+      "gas_effect": 0.0,
+      "unemployment_deviation": null,
+      "unemployment_effect": 0.0,
+      "available": [
+       "inflation"
+      ],
+      "total": 0.27
+     },
+     "economy_effect": 0.27,
      "midterm_penalty_effect": 0.0,
-     "prior": 11.464,
+     "prior": 11.484,
      "poll_margin": 9.3,
      "num_polls": 17,
      "fundamentals_weight": 0.15,
      "blend_k": 3.0,
-     "final_margin": 9.625
+     "final_margin": 9.628
     }
    },
    {
     "state": "Michigan",
-    "margin": 4.233,
-    "p_polls": 0.779,
-    "p_blended": 0.7655,
-    "p_sim": 0.7649,
-    "leverage": 0.5573,
-    "tipping": 0.1476,
+    "margin": 4.06,
+    "p_polls": 0.7697,
+    "p_sim": 0.7689,
+    "leverage": 0.5643,
+    "tipping": 0.1727,
     "fundamentals": {
      "available": true,
      "pres_2024": -1.4,
      "pres_2020": 2.8,
-     "pres_weight_recent": 0.75,
-     "statewide_2022": {
-      "office": "Governor",
-      "margin": 10.6
+     "last_senate": {
+      "year": 2024,
+      "race": "Slotkin (D) v Rogers (R)",
+      "margin": 0.3
      },
-     "statewide_2022_weight": 0.2,
-     "lean": 1.84,
+     "lean_weights": {
+      "pres_2024": 1.0,
+      "pres_2020_shift": 0.2,
+      "last_senate_shift": 0.2
+     },
+     "pres_2020_shift_effect": 0.84,
+     "last_senate_shift_effect": 0.34,
+     "lean": -0.22,
      "national_swing": 9.184,
      "incumbent_party": null,
-     "incumbent_terms": 0,
+     "incumbent_years": 0,
      "incumbent_appointed": false,
      "incumbency_advantage": 3.0,
      "incumbency_effect": 0.0,
+     "tenure_category": "none",
+     "tenure_effect": 0.0,
+     "dem_office_years": 0,
+     "rep_office_years": 14,
+     "dem_office_category": "0",
+     "rep_office_category": "7-15",
+     "office_years_effect": -0.75,
      "dem_statewide_wins": 0,
      "dem_statewide_losses": 0,
      "rep_statewide_wins": 0,
      "rep_statewide_losses": 1,
      "experience_raw": 0.5,
      "experience_effect": 0.5,
+     "economy": {
+      "president_party": "R",
+      "cpi_yoy": 3.4,
+      "inflation_effect": 0.27,
+      "gas_deviation": null,
+      "gas_effect": 0.0,
+      "unemployment_deviation": null,
+      "unemployment_effect": 0.0,
+      "available": [
+       "inflation"
+      ],
+      "total": 0.27
+     },
+     "economy_effect": 0.27,
      "midterm_penalty_effect": 0.0,
-     "prior": 11.524,
+     "prior": 8.984,
      "poll_margin": 3.7,
      "num_polls": 41,
      "fundamentals_weight": 0.068,
      "blend_k": 3.0,
-     "final_margin": 4.233
+     "final_margin": 4.06
     }
    },
    {
     "state": "North Carolina",
-    "margin": 9.857,
-    "p_polls": 0.9493,
-    "p_blended": 0.9525,
-    "p_sim": 0.9529,
-    "leverage": 0.5671,
-    "tipping": 0.1735,
+    "margin": 9.948,
+    "p_polls": 0.9505,
+    "p_sim": 0.951,
+    "leverage": 0.5521,
+    "tipping": 0.1957,
     "fundamentals": {
      "available": true,
      "pres_2024": -3.3,
      "pres_2020": -1.3,
-     "pres_weight_recent": 0.75,
-     "statewide_2022": {
-      "office": "U.S. Senate",
+     "last_senate": {
+      "year": 2022,
+      "race": "Beasley (D) v Budd (R)",
       "margin": -3.2
      },
-     "statewide_2022_weight": 0.2,
+     "lean_weights": {
+      "pres_2024": 1.0,
+      "pres_2020_shift": 0.2,
+      "last_senate_shift": 0.2
+     },
+     "pres_2020_shift_effect": 0.4,
+     "last_senate_shift_effect": 0.02,
      "lean": -2.88,
      "national_swing": 9.184,
      "incumbent_party": null,
-     "incumbent_terms": 0,
+     "incumbent_years": 0,
      "incumbent_appointed": false,
      "incumbency_advantage": 3.0,
      "incumbency_effect": 0.0,
+     "tenure_category": "none",
+     "tenure_effect": 0.0,
+     "dem_office_years": 38,
+     "rep_office_years": 0,
+     "dem_office_category": "16+",
+     "rep_office_category": "0",
+     "office_years_effect": 1.0,
      "dem_statewide_wins": 6,
      "dem_statewide_losses": 0,
      "rep_statewide_wins": 0,
      "rep_statewide_losses": 0,
      "experience_raw": 4.5,
      "experience_effect": 3.0,
+     "economy": {
+      "president_party": "R",
+      "cpi_yoy": 3.4,
+      "inflation_effect": 0.27,
+      "gas_deviation": null,
+      "gas_effect": 0.0,
+      "unemployment_deviation": null,
+      "unemployment_effect": 0.0,
+      "available": [
+       "inflation"
+      ],
+      "total": 0.27
+     },
+     "economy_effect": 0.27,
      "midterm_penalty_effect": 0.0,
-     "prior": 9.304,
+     "prior": 10.574,
      "poll_margin": 9.9,
      "num_polls": 39,
      "fundamentals_weight": 0.071,
      "blend_k": 3.0,
-     "final_margin": 9.857
+     "final_margin": 9.948
     }
    },
    {
     "state": "Maine",
-    "margin": 3.643,
-    "p_polls": 0.7459,
-    "p_blended": 0.7459,
-    "p_sim": 0.7467,
-    "leverage": 0.5017,
-    "tipping": 0.1394,
+    "margin": 3.243,
+    "p_polls": 0.7215,
+    "p_sim": 0.7222,
+    "leverage": 0.511,
+    "tipping": 0.1557,
     "fundamentals": {
      "available": true,
      "pres_2024": 6.9,
      "pres_2020": 9.1,
-     "pres_weight_recent": 0.75,
-     "statewide_2022": {
-      "office": "Governor",
-      "margin": 13.1
+     "last_senate": {
+      "year": 2020,
+      "race": "Gideon (D) v Collins (R)",
+      "margin": -8.6
      },
-     "statewide_2022_weight": 0.2,
-     "lean": 8.58,
+     "lean_weights": {
+      "pres_2024": 1.0,
+      "pres_2020_shift": 0.2,
+      "last_senate_shift": 0.2
+     },
+     "pres_2020_shift_effect": 0.44,
+     "last_senate_shift_effect": -3.1,
+     "lean": 4.24,
      "national_swing": 9.184,
      "incumbent_party": "R",
-     "incumbent_terms": 5,
+     "incumbent_years": 29.8,
      "incumbent_appointed": false,
      "incumbency_advantage": 3.0,
      "incumbency_effect": -3.0,
+     "tenure_category": "18+",
+     "tenure_effect": -0.0,
+     "dem_office_years": 16,
+     "rep_office_years": 0,
+     "dem_office_category": "16+",
+     "rep_office_category": "incumbent",
+     "office_years_effect": 1.0,
      "dem_statewide_wins": 0,
      "dem_statewide_losses": 0,
      "rep_statewide_wins": 0,
      "rep_statewide_losses": 1,
      "experience_raw": 0.5,
      "experience_effect": 0.5,
+     "economy": {
+      "president_party": "R",
+      "cpi_yoy": 3.4,
+      "inflation_effect": 0.27,
+      "gas_deviation": null,
+      "gas_effect": 0.0,
+      "unemployment_deviation": null,
+      "unemployment_effect": 0.0,
+      "available": [
+       "inflation"
+      ],
+      "total": 0.27
+     },
+     "economy_effect": 0.27,
      "midterm_penalty_effect": 0.0,
-     "prior": 15.264,
+     "prior": 12.194,
      "poll_margin": 1.9,
      "num_polls": 20,
      "fundamentals_weight": 0.13,
      "blend_k": 3.0,
-     "final_margin": 3.643
+     "final_margin": 3.243
     }
    },
    {
     "state": "New Hampshire",
-    "margin": 7.768,
-    "p_polls": 0.9114,
-    "p_blended": 0.9023,
-    "p_sim": 0.9022,
-    "leverage": 0.5463,
-    "tipping": 0.1679,
+    "margin": 7.826,
+    "p_polls": 0.9127,
+    "p_sim": 0.9128,
+    "leverage": 0.5418,
+    "tipping": 0.1921,
     "fundamentals": {
      "available": true,
      "pres_2024": 2.8,
      "pres_2020": 7.4,
-     "pres_weight_recent": 0.75,
-     "statewide_2022": {
-      "office": "U.S. Senate",
+     "last_senate": {
+      "year": 2022,
+      "race": "Hassan (D) v Bolduc (R)",
       "margin": 9.1
      },
-     "statewide_2022_weight": 0.2,
+     "lean_weights": {
+      "pres_2024": 1.0,
+      "pres_2020_shift": 0.2,
+      "last_senate_shift": 0.2
+     },
+     "pres_2020_shift_effect": 0.92,
+     "last_senate_shift_effect": 1.26,
      "lean": 4.98,
      "national_swing": 9.184,
      "incumbent_party": null,
-     "incumbent_terms": 0,
+     "incumbent_years": 0,
      "incumbent_appointed": false,
      "incumbency_advantage": 3.0,
      "incumbency_effect": 0.0,
+     "tenure_category": "none",
+     "tenure_effect": 0.0,
+     "dem_office_years": 17.8,
+     "rep_office_years": 12,
+     "dem_office_category": "16+",
+     "rep_office_category": "7-15",
+     "office_years_effect": 0.25,
      "dem_statewide_wins": 0,
      "dem_statewide_losses": 0,
      "rep_statewide_wins": 1,
      "rep_statewide_losses": 1,
      "experience_raw": -0.25,
      "experience_effect": -0.25,
+     "economy": {
+      "president_party": "R",
+      "cpi_yoy": 3.4,
+      "inflation_effect": 0.27,
+      "gas_deviation": null,
+      "gas_effect": 0.0,
+      "unemployment_deviation": null,
+      "unemployment_effect": 0.0,
+      "available": [
+       "inflation"
+      ],
+      "total": 0.27
+     },
+     "economy_effect": 0.27,
      "midterm_penalty_effect": 0.0,
-     "prior": 13.914,
+     "prior": 14.434,
      "poll_margin": 7.0,
      "num_polls": 24,
      "fundamentals_weight": 0.111,
      "blend_k": 3.0,
-     "final_margin": 7.768
+     "final_margin": 7.826
     }
    },
    {
     "state": "Ohio",
-    "margin": 3.428,
-    "p_polls": 0.7329,
-    "p_blended": 0.7009,
-    "p_sim": 0.7005,
-    "leverage": 0.5891,
-    "tipping": 0.1354,
+    "margin": 3.594,
+    "p_polls": 0.7429,
+    "p_sim": 0.7425,
+    "leverage": 0.5985,
+    "tipping": 0.1701,
     "fundamentals": {
      "available": true,
      "pres_2024": -11.2,
      "pres_2020": -8.0,
-     "pres_weight_recent": 0.75,
-     "statewide_2022": {
-      "office": "U.S. Senate",
-      "margin": -6.1
+     "last_senate": {
+      "year": 2024,
+      "race": "Brown (D) v Moreno (R)",
+      "margin": -3.6
      },
-     "statewide_2022_weight": 0.2,
-     "lean": -9.54,
+     "lean_weights": {
+      "pres_2024": 1.0,
+      "pres_2020_shift": 0.2,
+      "last_senate_shift": 0.2
+     },
+     "pres_2020_shift_effect": 0.64,
+     "last_senate_shift_effect": 1.52,
+     "lean": -9.04,
      "national_swing": 9.184,
      "incumbent_party": "R",
-     "incumbent_terms": 0,
+     "incumbent_years": 1.7,
      "incumbent_appointed": true,
      "incumbency_advantage": 3.0,
      "incumbency_effect": -1.5,
+     "tenure_category": "0-5",
+     "tenure_effect": -0.0,
+     "dem_office_years": 48,
+     "rep_office_years": 0,
+     "dem_office_category": "16+",
+     "rep_office_category": "incumbent",
+     "office_years_effect": 1.0,
      "dem_statewide_wins": 5,
      "dem_statewide_losses": 2,
      "rep_statewide_wins": 4,
      "rep_statewide_losses": 0,
      "experience_raw": -0.25,
      "experience_effect": -0.25,
+     "economy": {
+      "president_party": "R",
+      "cpi_yoy": 3.4,
+      "inflation_effect": 0.27,
+      "gas_deviation": null,
+      "gas_effect": 0.0,
+      "unemployment_deviation": null,
+      "unemployment_effect": 0.0,
+      "available": [
+       "inflation"
+      ],
+      "total": 0.27
+     },
+     "economy_effect": 0.27,
      "midterm_penalty_effect": 0.0,
-     "prior": -2.106,
+     "prior": -0.336,
      "poll_margin": 4.0,
      "num_polls": 29,
      "fundamentals_weight": 0.094,
      "blend_k": 3.0,
-     "final_margin": 3.428
+     "final_margin": 3.594
     }
    },
    {
     "state": "Texas",
-    "margin": 2.061,
-    "p_polls": 0.6413,
-    "p_blended": 0.6413,
-    "p_sim": 0.6415,
-    "leverage": 0.5496,
-    "tipping": 0.116,
+    "margin": 2.092,
+    "p_polls": 0.6435,
+    "p_sim": 0.6437,
+    "leverage": 0.5658,
+    "tipping": 0.1378,
     "fundamentals": {
      "available": true,
      "pres_2024": -13.6,
      "pres_2020": -5.6,
-     "pres_weight_recent": 0.75,
-     "statewide_2022": {
-      "office": "Governor",
-      "margin": -10.9
+     "last_senate": {
+      "year": 2024,
+      "race": "Allred (D) v Cruz (R)",
+      "margin": -8.5
      },
-     "statewide_2022_weight": 0.2,
-     "lean": -11.46,
+     "lean_weights": {
+      "pres_2024": 1.0,
+      "pres_2020_shift": 0.2,
+      "last_senate_shift": 0.2
+     },
+     "pres_2020_shift_effect": 1.6,
+     "last_senate_shift_effect": 1.02,
+     "lean": -10.98,
      "national_swing": 9.184,
      "incumbent_party": null,
-     "incumbent_terms": 0,
+     "incumbent_years": 0,
      "incumbent_appointed": false,
      "incumbency_advantage": 3.0,
      "incumbency_effect": 0.0,
+     "tenure_category": "none",
+     "tenure_effect": 0.0,
+     "dem_office_years": 7.8,
+     "rep_office_years": 23.8,
+     "dem_office_category": "7-15",
+     "rep_office_category": "16+",
+     "office_years_effect": -0.25,
      "dem_statewide_wins": 0,
      "dem_statewide_losses": 0,
      "rep_statewide_wins": 3,
      "rep_statewide_losses": 0,
      "experience_raw": -2.25,
      "experience_effect": -2.25,
+     "economy": {
+      "president_party": "R",
+      "cpi_yoy": 3.4,
+      "inflation_effect": 0.27,
+      "gas_deviation": null,
+      "gas_effect": 0.0,
+      "unemployment_deviation": null,
+      "unemployment_effect": 0.0,
+      "available": [
+       "inflation"
+      ],
+      "total": 0.27
+     },
+     "economy_effect": 0.27,
      "midterm_penalty_effect": 0.0,
-     "prior": -4.526,
+     "prior": -4.026,
      "poll_margin": 2.5,
      "num_polls": 45,
      "fundamentals_weight": 0.062,
      "blend_k": 3.0,
-     "final_margin": 2.061
+     "final_margin": 2.092
     }
    },
    {
     "state": "Iowa",
-    "margin": 1.484,
-    "p_polls": 0.5985,
-    "p_blended": 0.5576,
-    "p_sim": 0.5571,
-    "leverage": 0.5567,
-    "tipping": 0.0922,
+    "margin": 1.459,
+    "p_polls": 0.5966,
+    "p_sim": 0.5957,
+    "leverage": 0.5925,
+    "tipping": 0.1261,
     "fundamentals": {
      "available": true,
      "pres_2024": -13.2,
      "pres_2020": -8.2,
-     "pres_weight_recent": 0.75,
-     "statewide_2022": {
-      "office": "U.S. Senate",
+     "last_senate": {
+      "year": 2022,
+      "race": "Franken (D) v Grassley (R)",
       "margin": -12.2
      },
-     "statewide_2022_weight": 0.2,
+     "lean_weights": {
+      "pres_2024": 1.0,
+      "pres_2020_shift": 0.2,
+      "last_senate_shift": 0.2
+     },
+     "pres_2020_shift_effect": 1.0,
+     "last_senate_shift_effect": 0.2,
      "lean": -12.0,
      "national_swing": 9.184,
      "incumbent_party": null,
-     "incumbent_terms": 0,
+     "incumbent_years": 0,
      "incumbent_appointed": false,
      "incumbency_advantage": 3.0,
      "incumbency_effect": 0.0,
+     "tenure_category": "none",
+     "tenure_effect": 0.0,
+     "dem_office_years": 3.8,
+     "rep_office_years": 9.8,
+     "dem_office_category": "1-6",
+     "rep_office_category": "7-15",
+     "office_years_effect": -0.5,
      "dem_statewide_wins": 0,
      "dem_statewide_losses": 0,
      "rep_statewide_wins": 0,
      "rep_statewide_losses": 0,
      "experience_raw": 0.0,
      "experience_effect": 0.0,
+     "economy": {
+      "president_party": "R",
+      "cpi_yoy": 3.4,
+      "inflation_effect": 0.27,
+      "gas_deviation": null,
+      "gas_effect": 0.0,
+      "unemployment_deviation": null,
+      "unemployment_effect": 0.0,
+      "available": [
+       "inflation"
+      ],
+      "total": 0.27
+     },
+     "economy_effect": 0.27,
      "midterm_penalty_effect": 0.0,
-     "prior": -2.816,
+     "prior": -3.046,
      "poll_margin": 2.0,
      "num_polls": 25,
      "fundamentals_weight": 0.107,
      "blend_k": 3.0,
-     "final_margin": 1.484
+     "final_margin": 1.459
     }
    },
    {
     "state": "Alaska",
-    "margin": 0.728,
-    "p_polls": 0.5401,
-    "p_blended": 0.5401,
-    "p_sim": 0.5401,
-    "leverage": 0.5121,
-    "tipping": 0.0856,
+    "margin": -2.287,
+    "p_polls": 0.3123,
+    "p_sim": 0.3124,
+    "leverage": 0.4403,
+    "tipping": 0.0397,
     "fundamentals": {
      "available": true,
      "pres_2024": -13.1,
      "pres_2020": -10.1,
-     "pres_weight_recent": 0.75,
-     "statewide_2022": {
-      "office": "U.S. House at-large (RCV final)",
-      "margin": 10.0
+     "last_senate": {
+      "year": 2020,
+      "race": "Gross (I, Dem-endorsed) v Sullivan (R); 2022 final was R v R",
+      "margin": -12.7
      },
-     "statewide_2022_weight": 0.2,
-     "lean": -7.88,
+     "lean_weights": {
+      "pres_2024": 1.0,
+      "pres_2020_shift": 0.2,
+      "last_senate_shift": 0.2
+     },
+     "pres_2020_shift_effect": 0.6,
+     "last_senate_shift_effect": 0.08,
+     "lean": -12.42,
      "national_swing": 9.184,
      "incumbent_party": "R",
-     "incumbent_terms": 2,
+     "incumbent_years": 11.8,
      "incumbent_appointed": false,
      "incumbency_advantage": 3.0,
      "incumbency_effect": -3.0,
+     "tenure_category": "6-17",
+     "tenure_effect": -0.5,
+     "dem_office_years": 12.3,
+     "rep_office_years": 0,
+     "dem_office_category": "7-15",
+     "rep_office_category": "incumbent",
+     "office_years_effect": 0.75,
      "dem_statewide_wins": 2,
      "dem_statewide_losses": 1,
      "rep_statewide_wins": 0,
      "rep_statewide_losses": 0,
      "experience_raw": 1.0,
      "experience_effect": 1.0,
+     "economy": {
+      "president_party": "R",
+      "cpi_yoy": 3.4,
+      "inflation_effect": 0.27,
+      "gas_deviation": null,
+      "gas_effect": 0.0,
+      "unemployment_deviation": null,
+      "unemployment_effect": 0.0,
+      "available": [
+       "inflation"
+      ],
+      "total": 0.27
+     },
+     "economy_effect": 0.27,
      "midterm_penalty_effect": 0.0,
-     "prior": -0.696,
+     "prior": -4.716,
      "poll_margin": 5.0,
      "num_polls": 1,
      "fundamentals_weight": 0.75,
      "blend_k": 3.0,
-     "final_margin": 0.728
+     "final_margin": -2.287
     }
    }
   ],
@@ -483,101 +717,91 @@
   "knob_importance": [
    {
     "knob": "bias_cycle_type",
-    "spread": 0.1776
+    "spread": 0.2041
    },
    {
     "knob": "senate_responsiveness",
-    "spread": 0.1601
-   },
-   {
-    "knob": "statewide_2022_weight",
-    "spread": 0.1082
+    "spread": 0.1503
    },
    {
     "knob": "tail_dof",
-    "spread": 0.0873
+    "spread": 0.0989
    },
    {
     "knob": "midterm_penalty",
-    "spread": 0.0858
+    "spread": 0.0895
    },
    {
     "knob": "incumbency_advantage",
-    "spread": 0.0817
+    "spread": 0.0631
    },
    {
     "knob": "market_weight",
-    "spread": 0.0407
+    "spread": 0.0457
    },
    {
     "knob": "calibration_bias_weight",
-    "spread": 0.0371
-   },
-   {
-    "knob": "experience_per_statewide_win",
-    "spread": 0.029
-   },
-   {
-    "knob": "pres_weight_recent",
-    "spread": 0.0264
+    "spread": 0.0432
    },
    {
     "knob": "blend_k",
-    "spread": 0.0158
+    "spread": 0.0278
+   },
+   {
+    "knob": "pres_2020_shift_weight",
+    "spread": 0.0227
+   },
+   {
+    "knob": "experience_per_statewide_win",
+    "spread": 0.0194
+   },
+   {
+    "knob": "office_years_schedule",
+    "spread": 0.0142
+   },
+   {
+    "knob": "inflation_coef",
+    "spread": 0.0142
    },
    {
     "knob": "campaign_drift_per_sqrt_day",
-    "spread": 0.0149
+    "spread": 0.012
    },
    {
     "knob": "generic/approval weights",
-    "spread": 0.0086
+    "spread": 0.0073
+   },
+   {
+    "knob": "last_senate_shift_weight",
+    "spread": 0.0009
    }
   ]
  },
  "house": {
   "num_simulations": 200000,
-  "dem_majority_prob": 0.9444,
-  "mean_dem_seats": 234.52,
-  "seats_p10": 222.0,
-  "seats_p90": 248.0,
-  "tipping_point_margin": -0.22,
+  "dem_majority_prob": 0.953,
+  "mean_dem_seats": 235.63,
+  "seats_p10": 223.0,
+  "seats_p90": 249.0,
+  "tipping_point_margin": -0.32,
   "importance": [
    {
     "feature": "National margin (generic ballot level)",
     "key": "expected_national_margin",
     "grid": [
      [
-      3.4800000000000004,
-      0.8651,
-      228.71
+      3.75,
+      0.8851,
+      229.77
      ],
      [
-      7.48,
-      0.9791,
-      240.52
+      7.75,
+      0.9831,
+      241.75
      ]
     ],
-    "spread": 0.114,
-    "seat_spread": 11.81
-   },
-   {
-    "feature": "Generic-ballot bias",
-    "key": "national_environment.generic_ballot_bias",
-    "grid": [
-     [
-      0.0,
-      0.9657,
-      237.49
-     ],
-     [
-      -2.0,
-      0.9126,
-      231.61
-     ]
-    ],
-    "spread": 0.0531,
-    "seat_spread": 5.88
+    "spread": 0.098,
+    "seat_spread": 11.98
    },
    {
     "feature": "Campaign drift /\u221aday",
@@ -585,17 +809,35 @@
     "grid": [
      [
       0.0,
-      0.9581,
-      234.47
+      0.9653,
+      235.56
      ],
      [
       0.6,
-      0.9086,
-      234.7
+      0.9199,
+      235.88
      ]
     ],
-    "spread": 0.0495,
-    "seat_spread": 0.23
+    "spread": 0.0454,
+    "seat_spread": 0.32
+   },
+   {
+    "feature": "Generic-ballot bias",
+    "key": "national_environment.generic_ballot_bias",
+    "grid": [
+     [
+      0.0,
+      0.971,
+      238.65
+     ],
+     [
+      -2.0,
+      0.9266,
+      232.69
+     ]
+    ],
+    "spread": 0.0444,
+    "seat_spread": 5.96
    },
    {
     "feature": "Generic-ballot \u03c3",
@@ -603,17 +845,17 @@
     "grid": [
      [
       1.5,
-      0.9656,
-      234.43
+      0.9717,
+      235.52
      ],
      [
       3.5,
-      0.9167,
-      234.67
+      0.9281,
+      235.82
      ]
     ],
-    "spread": 0.0489,
-    "seat_spread": 0.24
+    "spread": 0.0436,
+    "seat_spread": 0.3
    },
    {
     "feature": "District \u03c3",
@@ -621,17 +863,17 @@
     "grid": [
      [
       4.5,
-      0.964,
-      234.1
+      0.9702,
+      234.99
      ],
      [
       8.5,
-      0.9234,
-      235.04
+      0.9348,
+      236.27
      ]
     ],
-    "spread": 0.0406,
-    "seat_spread": 0.94
+    "spread": 0.0354,
+    "seat_spread": 1.28
    },
    {
     "feature": "Similarity share",
@@ -639,17 +881,17 @@
     "grid": [
      [
       0.0,
-      0.9644,
-      234.57
+      0.9709,
+      235.67
      ],
      [
       0.7,
-      0.9304,
-      234.56
+      0.942,
+      235.67
      ]
     ],
-    "spread": 0.034,
-    "seat_spread": 0.01
+    "spread": 0.0289,
+    "seat_spread": 0.0
    },
    {
     "feature": "Redistricting (none)",
@@ -657,12 +899,12 @@
     "grid": [
      [
       [],
-      0.9612,
-      236.53
+      0.9681,
+      237.63
      ]
     ],
-    "spread": 0.0168,
-    "seat_spread": 2.01
+    "spread": 0.0151,
+    "seat_spread": 2.0
    },
    {
     "feature": "National tails (Gaussian)",
@@ -670,12 +912,12 @@
     "grid": [
      [
       null,
-      0.9319,
-      234.62
+      0.9435,
+      235.85
      ]
     ],
-    "spread": 0.0125,
-    "seat_spread": 0.1
+    "spread": 0.0095,
+    "seat_spread": 0.22
    },
    {
     "feature": "2022 lean weight",
@@ -683,17 +925,17 @@
     "grid": [
      [
       0.0,
-      0.9373,
-      233.94
+      0.9471,
+      235.09
      ],
      [
       0.5,
-      0.9479,
-      234.87
+      0.9561,
+      235.97
      ]
     ],
-    "spread": 0.0106,
-    "seat_spread": 0.93
+    "spread": 0.009,
+    "seat_spread": 0.88
    },
    {
     "feature": "Incumbency advantage (open seats)",
@@ -701,109 +943,127 @@
     "grid": [
      [
       0.0,
-      0.9415,
-      234.07
+      0.9502,
+      235.18
      ],
      [
       5.0,
-      0.9478,
-      234.98
+      0.9557,
+      236.11
      ]
     ],
-    "spread": 0.0063,
-    "seat_spread": 0.91
+    "spread": 0.0055,
+    "seat_spread": 0.93
+   },
+   {
+    "feature": "State trend weight (2020\u21922024)",
+    "key": "state_fundamentals.state_trend_weight",
+    "grid": [
+     [
+      0.0,
+      0.9512,
+      235.33
+     ],
+     [
+      0.5,
+      0.9566,
+      236.19
+     ]
+    ],
+    "spread": 0.0054,
+    "seat_spread": 0.86
    }
   ],
   "by_state": {
    "AK": {
     "d24": 0,
     "r24": 1,
-    "exp": 0.902,
+    "exp": 0.9202,
     "n": 1,
     "open": 0,
     "shift": 0.0,
-    "change": 0.902
+    "change": 0.9202
    },
    "AL": {
     "d24": 2,
     "r24": 5,
-    "exp": 1.9885,
+    "exp": 1.9899,
     "n": 7,
     "open": 0,
     "shift": 0.0,
-    "change": -0.011500000000000066
+    "change": -0.010099999999999998
    },
    "AR": {
     "d24": 0,
     "r24": 4,
-    "exp": 0.0455,
+    "exp": 0.0565,
     "n": 4,
     "open": 0,
     "shift": 0.0,
-    "change": 0.0455
+    "change": 0.0565
    },
    "AZ": {
     "d24": 3,
     "r24": 6,
-    "exp": 5.362400000000001,
+    "exp": 5.421199999999999,
     "n": 9,
     "open": 1,
     "shift": 0.0,
-    "change": 2.362400000000001
+    "change": 2.421199999999999
    },
    "CA": {
     "d24": 43,
     "r24": 9,
-    "exp": 44.57709999999998,
+    "exp": 44.450799999999994,
     "n": 52,
     "open": 1,
     "shift": 5,
-    "change": 6.57709999999998
+    "change": 6.450799999999994
    },
    "CO": {
     "d24": 4,
     "r24": 4,
-    "exp": 5.8689,
+    "exp": 6.0047999999999995,
     "n": 8,
     "open": 0,
     "shift": 0.0,
-    "change": 1.8689
+    "change": 2.0047999999999995
    },
    "CT": {
     "d24": 5,
     "r24": 0,
-    "exp": 4.9603,
+    "exp": 4.9635,
     "n": 5,
     "open": 0,
     "shift": 0.0,
-    "change": -0.039699999999999847
+    "change": -0.0365000000000002
    },
    "DE": {
     "d24": 1,
     "r24": 0,
-    "exp": 0.996,
+    "exp": 0.9965,
     "n": 1,
     "open": 0,
     "shift": 0.0,
-    "change": -0.0040000000000000036
+    "change": -0.0034999999999999476
    },
    "FL": {
     "d24": 8,
     "r24": 20,
-    "exp": 9.003800000000002,
+    "exp": 8.900000000000002,
     "n": 28,
     "open": 1,
     "shift": 0.0,
-    "change": 1.0038000000000018
+    "change": 0.9000000000000021
    },
    "GA": {
     "d24": 5,
     "r24": 9,
-    "exp": 5.0927,
+    "exp": 5.119400000000002,
     "n": 14,
     "open": 2,
     "shift": 0.0,
-    "change": 0.09269999999999978
+    "change": 0.1194000000000024
    },
    "HI": {
     "d24": 2,
@@ -817,119 +1077,119 @@
    "IA": {
     "d24": 0,
     "r24": 4,
-    "exp": 1.8972,
+    "exp": 1.9607000000000003,
     "n": 4,
     "open": 2,
     "shift": 0.0,
-    "change": 1.8972
+    "change": 1.9607000000000003
    },
    "ID": {
     "d24": 0,
     "r24": 2,
-    "exp": 0.0038,
+    "exp": 0.004,
     "n": 2,
     "open": 0,
     "shift": 0.0,
-    "change": 0.0038
+    "change": 0.004
    },
    "IL": {
     "d24": 14,
     "r24": 3,
-    "exp": 13.9359,
+    "exp": 13.9398,
     "n": 17,
     "open": 4,
     "shift": 0.0,
-    "change": -0.06409999999999982
+    "change": -0.06020000000000003
    },
    "IN": {
     "d24": 2,
     "r24": 7,
-    "exp": 2.0357000000000003,
+    "exp": 2.0504000000000002,
     "n": 9,
     "open": 0,
     "shift": 0.0,
-    "change": 0.03570000000000029
+    "change": 0.05040000000000022
    },
    "KS": {
     "d24": 1,
     "r24": 3,
-    "exp": 1.0557,
+    "exp": 1.0772000000000002,
     "n": 4,
     "open": 0,
     "shift": 0.0,
-    "change": 0.05570000000000008
+    "change": 0.07720000000000016
    },
    "KY": {
     "d24": 1,
     "r24": 5,
-    "exp": 1.0161,
+    "exp": 1.0181,
     "n": 6,
     "open": 1,
     "shift": 0.0,
-    "change": 0.016100000000000003
+    "change": 0.018100000000000005
    },
    "LA": {
     "d24": 2,
     "r24": 4,
-    "exp": 2.0018,
+    "exp": 2.0021999999999998,
     "n": 6,
     "open": 0,
     "shift": 0.0,
-    "change": 0.0017999999999998018
+    "change": 0.0021999999999997577
    },
    "MA": {
     "d24": 9,
     "r24": 0,
-    "exp": 8.993,
+    "exp": 8.9925,
     "n": 9,
     "open": 0,
     "shift": 0.0,
-    "change": -0.006999999999999673
+    "change": -0.007500000000000284
    },
    "MD": {
     "d24": 7,
     "r24": 1,
-    "exp": 7.0174,
+    "exp": 7.0266,
     "n": 8,
     "open": 0,
     "shift": 0.0,
-    "change": 0.017400000000000304
+    "change": 0.02660000000000018
    },
    "ME": {
     "d24": 2,
     "r24": 0,
-    "exp": 1.8738000000000001,
+    "exp": 1.9003999999999999,
     "n": 2,
     "open": 1,
     "shift": 0.0,
-    "change": -0.12619999999999987
+    "change": -0.09960000000000013
    },
    "MI": {
     "d24": 6,
     "r24": 7,
-    "exp": 7.9058,
+    "exp": 7.9924,
     "n": 13,
     "open": 2,
     "shift": 0.0,
-    "change": 1.9058000000000002
+    "change": 1.9924
    },
    "MN": {
     "d24": 4,
     "r24": 4,
-    "exp": 4.225100000000001,
+    "exp": 4.281499999999999,
     "n": 8,
     "open": 1,
     "shift": 0.0,
-    "change": 0.2251000000000012
+    "change": 0.2814999999999994
    },
    "MO": {
     "d24": 2,
     "r24": 6,
-    "exp": 2.2468,
+    "exp": 2.2927,
     "n": 8,
     "open": 0,
     "shift": -1,
-    "change": -0.7532000000000001
+    "change": -0.7073
    },
    "MS": {
     "d24": 1,
@@ -943,20 +1203,20 @@
    "MT": {
     "d24": 0,
     "r24": 2,
-    "exp": 0.5742999999999999,
+    "exp": 0.6228,
     "n": 2,
     "open": 0,
     "shift": 0.0,
-    "change": 0.5742999999999999
+    "change": 0.6228
    },
    "NC": {
     "d24": 4,
     "r24": 10,
-    "exp": 4.640000000000001,
+    "exp": 4.8536,
     "n": 14,
     "open": 0,
     "shift": -1,
-    "change": -0.35999999999999943
+    "change": -0.14639999999999986
    },
    "ND": {
     "d24": 0,
@@ -970,155 +1230,155 @@
    "NE": {
     "d24": 0,
     "r24": 3,
-    "exp": 0.9496,
+    "exp": 0.9917,
     "n": 3,
     "open": 1,
     "shift": 0.0,
-    "change": 0.9496
+    "change": 0.9917
    },
    "NH": {
     "d24": 2,
     "r24": 0,
-    "exp": 1.9502000000000002,
+    "exp": 1.9564,
     "n": 2,
     "open": 1,
     "shift": 0.0,
-    "change": -0.049799999999999844
+    "change": -0.04360000000000008
    },
    "NJ": {
     "d24": 9,
     "r24": 3,
-    "exp": 9.7091,
+    "exp": 9.662700000000001,
     "n": 12,
     "open": 1,
     "shift": 0.0,
-    "change": 0.7090999999999994
+    "change": 0.662700000000001
    },
    "NM": {
     "d24": 3,
     "r24": 0,
-    "exp": 2.9359,
+    "exp": 2.9432,
     "n": 3,
     "open": 0,
     "shift": 0.0,
-    "change": -0.06409999999999982
+    "change": -0.05679999999999996
    },
    "NV": {
     "d24": 3,
     "r24": 1,
-    "exp": 2.9291,
+    "exp": 2.9389000000000003,
     "n": 4,
     "open": 0,
     "shift": 0.0,
-    "change": -0.07089999999999996
+    "change": -0.06109999999999971
    },
    "NY": {
     "d24": 19,
     "r24": 7,
-    "exp": 19.815099999999997,
+    "exp": 19.6953,
     "n": 26,
     "open": 3,
     "shift": 0.0,
-    "change": 0.8150999999999975
+    "change": 0.6952999999999996
    },
    "OH": {
     "d24": 5,
     "r24": 10,
-    "exp": 5.2734,
+    "exp": 5.370800000000001,
     "n": 15,
     "open": 0,
     "shift": -1,
-    "change": -0.7266000000000004
+    "change": -0.6291999999999991
    },
    "OK": {
     "d24": 0,
     "r24": 5,
-    "exp": 0.0377,
+    "exp": 0.0504,
     "n": 5,
     "open": 0,
     "shift": 0.0,
-    "change": 0.0377
+    "change": 0.0504
    },
    "OR": {
     "d24": 5,
     "r24": 1,
-    "exp": 4.882000000000001,
+    "exp": 4.9109,
     "n": 6,
     "open": 0,
     "shift": 0.0,
-    "change": -0.11799999999999944
+    "change": -0.08910000000000018
    },
    "PA": {
     "d24": 7,
     "r24": 10,
-    "exp": 9.785200000000001,
+    "exp": 9.928499999999998,
     "n": 17,
     "open": 0,
     "shift": 0.0,
-    "change": 2.7852000000000015
+    "change": 2.928499999999998
    },
    "RI": {
     "d24": 2,
     "r24": 0,
-    "exp": 1.994,
+    "exp": 1.9942000000000002,
     "n": 2,
     "open": 0,
     "shift": 0.0,
-    "change": -0.006000000000000005
+    "change": -0.005799999999999805
    },
    "SC": {
     "d24": 1,
     "r24": 6,
-    "exp": 1.2675999999999998,
+    "exp": 1.2805,
     "n": 7,
     "open": 2,
     "shift": 0.0,
-    "change": 0.26759999999999984
+    "change": 0.28049999999999997
    },
    "SD": {
     "d24": 0,
     "r24": 1,
-    "exp": 0.0006,
+    "exp": 0.0007,
     "n": 1,
     "open": 1,
     "shift": 0.0,
-    "change": 0.0006
+    "change": 0.0007
    },
    "TN": {
     "d24": 1,
     "r24": 8,
-    "exp": 1.1156,
+    "exp": 1.1192,
     "n": 9,
     "open": 0,
     "shift": 0.0,
-    "change": 0.11559999999999993
+    "change": 0.11919999999999997
    },
    "TX": {
     "d24": 13,
     "r24": 25,
-    "exp": 13.328100000000001,
+    "exp": 13.315499999999998,
     "n": 38,
     "open": 4,
     "shift": -5,
-    "change": -4.671899999999999
+    "change": -4.684500000000002
    },
    "UT": {
     "d24": 0,
     "r24": 4,
-    "exp": 0.016800000000000002,
+    "exp": 0.0219,
     "n": 4,
     "open": 0,
     "shift": 1,
-    "change": 1.0168
+    "change": 1.0219
    },
    "VA": {
     "d24": 6,
     "r24": 5,
-    "exp": 7.0054,
+    "exp": 7.0943000000000005,
     "n": 11,
     "open": 0,
     "shift": 0.0,
-    "change": 1.0053999999999998
+    "change": 1.0943000000000005
    },
    "VT": {
     "d24": 1,
@@ -1132,40 +1392,40 @@
    "WA": {
     "d24": 8,
     "r24": 2,
-    "exp": 7.955499999999999,
+    "exp": 7.990500000000001,
     "n": 10,
     "open": 0,
     "shift": 0.0,
-    "change": -0.044500000000001094
+    "change": -0.009499999999999176
    },
    "WI": {
     "d24": 2,
     "r24": 6,
-    "exp": 3.3332,
+    "exp": 3.5099,
     "n": 8,
     "open": 1,
     "shift": 0.0,
-    "change": 1.3332000000000002
+    "change": 1.5099
    },
    "WV": {
     "d24": 0,
     "r24": 2,
-    "exp": 0.0016,
+    "exp": 0.0018999999999999998,
     "n": 2,
     "open": 0,
     "shift": 0.0,
-    "change": 0.0016
+    "change": 0.0018999999999999998
    },
    "WY": {
     "d24": 0,
     "r24": 1,
-    "exp": 0.0002,
+    "exp": 0.0003,
     "n": 1,
     "open": 0,
     "shift": 0.0,
-    "change": 0.0002
+    "change": 0.0003
    }
   },
-  "num_competitive": 50
+  "num_competitive": 47
  }
 }

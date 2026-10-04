@@ -50,6 +50,9 @@ jobs:
           pip install pymc || echo "pymc install failed — state-space will be skipped"
 
       - name: Refresh source data
+        env:
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
         # refresh_data.py pulls fresh polls into data/fallback/ for offline use.
         # Best-effort: a network/source hiccup must not block the JSON export,
         # which falls back to the committed CSVs.

@@ -58,22 +58,11 @@ SWEEPS: list[tuple[str, str, list[tuple[str, dict]]]] = [
         ],
     ),
     (
-        "pres_weight_recent",
-        "weight on 2024 vs 2020 presidential lean (base 0.75)",
-        [
-            ("0.5", {"fundamentals": {"pres_weight_recent": 0.5}}),
-            ("0.75*", {}),
-            ("1.0", {"fundamentals": {"pres_weight_recent": 1.0}}),
-        ],
-    ),
-    (
         "market_weight",
-        "weight on prediction-market odds in the blend (base 0.25)",
+        "weight on prediction-market odds in the blend (base 0 = polls + fundamentals only)",
         [
-            ("0.0", {"market_weight": 0.0}),
-            ("0.125", {"market_weight": 0.125}),
-            ("0.25*", {}),
-            ("0.375", {"market_weight": 0.375}),
+            ("0*", {}),
+            ("0.25", {"market_weight": 0.25}),
             ("0.5", {"market_weight": 0.5}),
         ],
     ),
@@ -119,12 +108,54 @@ SWEEPS: list[tuple[str, str, list[tuple[str, dict]]]] = [
         ],
     ),
     (
-        "statewide_2022_weight",
-        "weight on the state's 2022 statewide result in the lean (base 0.2)",
+        "pres_2020_shift_weight",
+        "how far the lean moves toward the 2020 presidential margin (base 0.2)",
         [
-            ("0", {"fundamentals": {"statewide_2022_weight": 0.0}}),
+            ("0", {"fundamentals": {"pres_2020_shift_weight": 0.0}}),
             ("0.2*", {}),
-            ("0.4", {"fundamentals": {"statewide_2022_weight": 0.4}}),
+            ("0.4", {"fundamentals": {"pres_2020_shift_weight": 0.4}}),
+        ],
+    ),
+    (
+        "last_senate_shift_weight",
+        "how far the lean moves toward the state's last Senate result (base 0.2)",
+        [
+            ("0", {"fundamentals": {"last_senate_shift_weight": 0.0}}),
+            ("0.2*", {}),
+            ("0.4", {"fundamentals": {"last_senate_shift_weight": 0.4}}),
+        ],
+    ),
+    (
+        "office_years_schedule",
+        "candidate years-in-office categorical bonus (base 0 / .25 / .75 / 1.0)",
+        [
+            (
+                "off",
+                {
+                    "fundamentals": {
+                        "office_years_schedule": {"0": 0, "1-6": 0, "7-15": 0, "16+": 0}
+                    }
+                },
+            ),
+            ("base*", {}),
+            (
+                "doubled",
+                {
+                    "fundamentals": {
+                        "office_years_schedule": {"0": 0, "1-6": 0.5, "7-15": 1.5, "16+": 2.0}
+                    }
+                },
+            ),
+        ],
+    ),
+    (
+        "inflation_coef",
+        "pts off the president's party per point of CPI above 2.5% (base -0.3)",
+        [
+            ("0 (off)", {"economy": {"inflation_coef": 0.0}}),
+            ("-0.3*", {}),
+            ("-0.6", {"economy": {"inflation_coef": -0.6}}),
+            ("-1.0", {"economy": {"inflation_coef": -1.0}}),
         ],
     ),
     (

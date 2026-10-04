@@ -22,6 +22,10 @@ class Settings(BaseSettings):
     fiftyplusone_api_key: str = ""
     congress_gov_api_key: str = ""
     nyt_api_key: str = ""
+    # Economic fundamentals (src/data/economic.py). EIA is free but keyed;
+    # BLS v1 works keyless (a key raises the rate limit).
+    eia_api_key: str = ""
+    bls_api_key: str = ""
 
     # Silver Bulletin model CSV download URLs (refresh_data.py --source silverb).
     # Empty by default: Silver Bulletin's model data is subscriber-only, with no

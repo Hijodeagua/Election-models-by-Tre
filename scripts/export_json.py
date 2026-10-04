@@ -42,8 +42,10 @@ from scripts.run_models import (
     _build_engine_from_polls,
     _detect_senate_states,
 )
+from src.analysis.fundamentals import economic_components, schedule_lookup
 from src.data.base import Poll, PollType
 from src.data.csv_source import CsvFallbackSource
+from src.data.economic import load_economic_csv, snapshot_from_rows
 from src.data.fiftyplusone import FiftyPlusOneApprovalCsvLoader
 from src.data.markets import (
     SENATE_CONTROL_RACE,
@@ -63,6 +65,7 @@ from src.models.house_forecast import (
     HouseForecastSimulator,
     load_districts,
     load_house_config,
+    load_state_presidential,
     two_party_margin,
 )
 from src.models.house_forecast import (
@@ -724,6 +727,12 @@ def _load_forecast_calibration() -> dict:
         return {}
 
 
+def _load_economy():
+    """EconomicSnapshot from data/fallback/economic.csv (None if absent)."""
+    rows = load_economic_csv(FALLBACK_DIR / "economic.csv")
+    return snapshot_from_rows(rows) if rows else None
+
+
 def _senate_similarity(entries: list[dict], cfg: dict) -> np.ndarray | None:
     """Race-by-race similarity K (unit diagonal) from region and 2024 lean:
     ``K_ij = w·[same region] + (1−w)·exp(−|lean_i − lean_j| / scale)``."""
@@ -871,16 +880,21 @@ def _senate_forecast_payload(
     races_by_state = {r["state"]: r for r in senate_payload["races"]}
 
     fund_cfg = cycle.get("fundamentals", {})
-    w_recent = fund_cfg.get("pres_weight_recent", 0.75)
     blend_k = fund_cfg.get("blend_k", 3.0)
-    w_2022 = fund_cfg.get("statewide_2022_weight", 0.0)
+    w_p24 = fund_cfg.get("pres_2024_weight", 1.0)
+    w_p20 = fund_cfg.get("pres_2020_shift_weight", 0.0)
+    w_last = fund_cfg.get("last_senate_shift_weight", 0.0)
     incumbency_adv = fund_cfg.get("incumbency_advantage", 0.0)
     appointed_factor = fund_cfg.get("appointed_incumbent_factor", 0.5)
+    tenure_schedule = fund_cfg.get("incumbent_tenure_schedule", {}) or {}
+    office_schedule = fund_cfg.get("office_years_schedule", {}) or {}
     exp_win = fund_cfg.get("experience_per_statewide_win", 0.0)
     exp_loss = fund_cfg.get("experience_per_statewide_loss", 0.0)
     exp_cap = fund_cfg.get("experience_cap", 3.0)
     midterm_penalty = fund_cfg.get("midterm_penalty", 0.0)
     pres_party = cycle.get("national_environment", {}).get("president_party", "R").upper()
+    econ_cfg = cycle.get("economy", {}) or {}
+    economy = _load_economy()
 
     env = _national_environment(
         cycle.get("national_environment", {}), approval_net, generic_margin
@@ -897,79 +911,109 @@ def _senate_forecast_payload(
     def _fundamentals(entry: dict) -> dict:
         """Dem−Rep fundamentals prior and every component behind it.
 
-        lean        = blend of 2024/2020 presidential margin and the 2022
-                      statewide result (``statewide_2022_weight``)
-        swing       = national midterm environment (approval + generic ballot)
-        incumbency  = ±incumbency_advantage for the incumbent's party (halved
-                      for an appointed incumbent)
-        experience  = (wins·per_win + losses·per_loss) for the Democrat minus
-                      the same for the Republican, capped at ±experience_cap;
-                      an incumbent's wins for this seat are excluded (that is
-                      the incumbency term)
-        midterm     = president's-party penalty (default 0: the generic ballot
-                      already carries the midterm climate)
-        prior       = lean + swing + incumbency + experience + midterm
+        lean         = pres_2024 + w20·(pres_2020 − pres_2024)
+                       + wlast·(last Senate race − pres_2024)
+        swing        = national midterm environment (approval + generic ballot)
+        incumbency   = ±incumbency_advantage for the incumbent's party (binary;
+                       × appointed factor when appointed)
+        tenure       = incumbent's years in this seat, categorical schedule
+        office_years = each non-incumbent candidate's years in elected office,
+                       categorical schedule, net D − R
+        record       = prior statewide general-election wins/losses, net D − R,
+                       capped (an incumbent's wins for this seat are excluded)
+        economy      = inflation (national) + state gas-price and
+                       unemployment deviations, signed against the president
+        midterm      = president's-party penalty (default 0)
+        prior        = lean + swing + incumbency + tenure + office_years
+                       + record + economy + midterm
         """
         feats = entry.get("features", {}) or {}
         p24, p20 = entry.get("pres_2024"), entry.get("pres_2020")
-        sw22 = (feats.get("statewide_2022") or {})
-        m22 = sw22.get("margin")
-
-        pres_parts = [(w_recent, p24), (1.0 - w_recent, p20)]
-        pres_parts = [(w, v) for w, v in pres_parts if v is not None]
-        pres_lean = (
-            sum(w * v for w, v in pres_parts) / sum(w for w, _ in pres_parts)
-            if pres_parts
-            else entry.get("lean_margin")
-        )
-        if pres_lean is None and m22 is None:
-            return {"available": False}
-        if pres_lean is None:
-            lean = m22
-        elif m22 is None or w_2022 <= 0:
-            lean = pres_lean
+        last = feats.get("last_senate") or {}
+        last_margin = last.get("margin")
+        shift_20 = shift_last = 0.0
+        if p24 is None:
+            base = p20 if p20 is not None else last_margin
+            if base is None:
+                return {"available": False}
+            lean = float(base)
         else:
-            lean = (1.0 - w_2022) * pres_lean + w_2022 * m22
+            shift_20 = w_p20 * (p20 - p24) if p20 is not None else 0.0
+            shift_last = w_last * (last_margin - p24) if last_margin is not None else 0.0
+            lean = w_p24 * p24 + shift_20 + shift_last
 
         inc_party = feats.get("incumbent_party")
         inc_sign = 1.0 if inc_party == "D" else -1.0 if inc_party == "R" else 0.0
         inc_factor = appointed_factor if feats.get("incumbent_appointed") else 1.0
         incumbency = inc_sign * incumbency_adv * inc_factor
+        tenure_cat, tenure_val = (
+            schedule_lookup(tenure_schedule, feats.get("incumbent_years"))
+            if inc_party
+            else ("none", 0.0)
+        )
+        tenure = inc_sign * tenure_val
+
+        dem_f, rep_f = feats.get("dem", {}) or {}, feats.get("rep", {}) or {}
+        dem_cat, dem_oy = (
+            ("incumbent", 0.0) if inc_party == "D"
+            else schedule_lookup(office_schedule, dem_f.get("office_years"))
+        )
+        rep_cat, rep_oy = (
+            ("incumbent", 0.0) if inc_party == "R"
+            else schedule_lookup(office_schedule, rep_f.get("office_years"))
+        )
+        office_years = dem_oy - rep_oy
 
         def _exp(side: dict) -> float:
             return side.get("statewide_wins", 0) * exp_win + side.get(
                 "statewide_losses", 0
             ) * exp_loss
 
-        dem_f, rep_f = feats.get("dem", {}) or {}, feats.get("rep", {}) or {}
         exp_raw = _exp(dem_f) - _exp(rep_f)
         experience = float(np.clip(exp_raw, -exp_cap, exp_cap))
+
+        econ = economic_components(economy, econ_cfg, pres_party, entry.get("abbr"))
 
         midterm = 0.0
         if midterm_penalty and cycle.get("cycle", 0) % 4 == 2:
             midterm = midterm_penalty if pres_party == "R" else -midterm_penalty
 
-        prior = lean + national_swing + incumbency + experience + midterm
+        prior = (
+            lean + national_swing + incumbency + tenure + office_years + experience
+            + econ["total"] + midterm
+        )
         return {
             "available": True,
             "pres_2024": p24,
             "pres_2020": p20,
-            "pres_weight_recent": w_recent,
-            "statewide_2022": sw22 or None,
-            "statewide_2022_weight": w_2022,
+            "last_senate": last or None,
+            "lean_weights": {
+                "pres_2024": w_p24, "pres_2020_shift": w_p20, "last_senate_shift": w_last,
+            },
+            "pres_2020_shift_effect": round(shift_20, 3),
+            "last_senate_shift_effect": round(shift_last, 3),
             "lean": round(lean, 3),
             "national_swing": round(national_swing, 3),
             "incumbent_party": inc_party,
-            "incumbent_terms": feats.get("incumbent_terms"),
+            "incumbent_years": feats.get("incumbent_years"),
             "incumbent_appointed": bool(feats.get("incumbent_appointed", False)),
             "incumbency_advantage": incumbency_adv,
             "incumbency_effect": round(incumbency, 3),
+            "tenure_category": tenure_cat,
+            "tenure_effect": round(tenure, 3),
+            "dem_office_years": dem_f.get("office_years"),
+            "rep_office_years": rep_f.get("office_years"),
+            "dem_office_category": dem_cat,
+            "rep_office_category": rep_cat,
+            "office_years_effect": round(office_years, 3),
             "dem_statewide_wins": dem_f.get("statewide_wins", 0),
             "dem_statewide_losses": dem_f.get("statewide_losses", 0),
             "rep_statewide_wins": rep_f.get("statewide_wins", 0),
             "rep_statewide_losses": rep_f.get("statewide_losses", 0),
             "experience_raw": round(exp_raw, 3),
             "experience_effect": round(experience, 3),
+            "economy": econ,
+            "economy_effect": econ["total"],
             "midterm_penalty_effect": round(midterm, 3),
             "prior": round(prior, 3),
         }
@@ -1069,6 +1113,8 @@ def _senate_forecast_payload(
         sim_kwargs["national_sigma"] = round(
             float(np.hypot(DEFAULT_NATIONAL_SIGMA, drift_sigma)), 3
         )
+    if "market_weight" in fcfg:
+        sim_kwargs["market_weight"] = float(fcfg["market_weight"])
     if "market_weight" in overrides:
         sim_kwargs["market_weight"] = overrides["market_weight"]
     tail_dof = cycle.get("forecast", {}).get("tail_dof")
@@ -1125,20 +1171,28 @@ def _senate_forecast_payload(
     )
     # Fundamentals blend (2024 + 2020 presidential lean) and the NYT-vibes
     # variant of the chamber forecast, for comparison.
-    payload["fundamentals_weight_recent"] = w_recent
     payload["fundamentals_blend_k"] = blend_k
     # Fundamentals coefficients actually applied this run (see config comment).
     payload["fundamentals_coefficients"] = {
-        "pres_weight_recent": w_recent,
-        "statewide_2022_weight": w_2022,
+        "pres_2024_weight": w_p24,
+        "pres_2020_shift_weight": w_p20,
+        "last_senate_shift_weight": w_last,
         "blend_k": blend_k,
         "incumbency_advantage": incumbency_adv,
         "appointed_incumbent_factor": appointed_factor,
+        "incumbent_tenure_schedule": {
+            k: v for k, v in tenure_schedule.items() if not k.startswith("_")
+        },
+        "office_years_schedule": {
+            k: v for k, v in office_schedule.items() if not k.startswith("_")
+        },
         "experience_per_statewide_win": exp_win,
         "experience_per_statewide_loss": exp_loss,
         "experience_cap": exp_cap,
         "midterm_penalty": midterm_penalty,
+        "economy": {k: v for k, v in econ_cfg.items() if not k.startswith("_")},
     }
+    payload["economy"] = economy.to_dict() if economy is not None else {"available": False}
     payload["dem_control_prob_with_vibes"] = vibes_forecast.dem_control_prob
     payload["mean_dem_seats_with_vibes"] = vibes_forecast.mean_dem_seats
     # National midterm environment (presidential approval + generic ballot)
@@ -1186,9 +1240,28 @@ def _house_forecast_payload(
         cfg = _deep_merge(cfg, overrides)
     lean_cfg = cfg.get("district_lean", {})
     corr_cfg = cfg.get("correlation", {}) or {}
+    sf_cfg = cfg.get("state_fundamentals", {}) or {}
+    econ_cfg = cfg.get("economy", {}) or {}
+    pres_party = econ_cfg.get(
+        "president_party", cfg.get("national_environment", {}).get("president_party", "R")
+    )
+    economy = _load_economy()
+    state_pres = load_state_presidential(
+        FALLBACK_DIR / sf_cfg.get("csv", "state_presidential.csv")
+    )
+    # Per-state economic adjustment (gas + unemployment deviations); the
+    # national inflation term enters the expected national margin instead.
+    state_adjust: dict = {}
+    for st in state_pres:
+        comp = economic_components(economy, econ_cfg, pres_party, st)
+        state_adjust[st] = (comp["gas_effect"] + comp["unemployment_effect"], comp)
+    nat = next(iter(state_pres.values()), {}) if state_pres else {}
+    national_trend = float(nat.get("national_2024", 0.0)) - float(nat.get("national_2020", 0.0))
     districts = load_districts(
         FALLBACK_DIR / cfg.get("districts_csv", "house_districts_2024.csv"),
         open_seats=lean_cfg.get("open_seats", {}).get("districts", []),
+        state_pres=state_pres,
+        state_adjust=state_adjust,
     )
 
     gb_two_party = (
@@ -1196,7 +1269,8 @@ def _house_forecast_payload(
         if gb_current is not None
         else None
     )
-    env = _house_expected_margin(cfg, gb_two_party, approval_net)
+    nat_econ = economic_components(economy, econ_cfg, pres_party, None)
+    env = _house_expected_margin(cfg, gb_two_party, approval_net, economy=nat_econ)
     if env["expected"] is None:
         return {"available": False, "reason": "no generic-ballot or approval signal"}
 
@@ -1222,6 +1296,8 @@ def _house_forecast_payload(
         similarity_weights=corr_cfg.get("weights"),
         lean_scale=float(corr_cfg.get("lean_scale", 10.0)),
         regions=corr_cfg.get("regions"),
+        state_trend_weight=float(sf_cfg.get("state_trend_weight", 0.0)),
+        national_trend=national_trend,
     )
     forecast = simulator.simulate(
         districts,
@@ -1241,7 +1317,8 @@ def _house_forecast_payload(
         print(
             f"  house: generic two-party {gb_two_party:+.2f}, approval-implied "
             f"{env['approval_implied']:+.2f} → expected national {env['expected']:+.2f} "
-            f"(bias {env.get('bias', 0.0):+.1f}); swing {forecast.national_swing:+.2f}; "
+            f"(bias {env.get('bias', 0.0):+.1f}, inflation {nat_econ['inflation_effect']:+.2f}); "
+            f"swing {forecast.national_swing:+.2f}; "
             f"σ_nat={polling_sigma} ⊕ drift {drift_sigma:.2f} = {national_sigma:.2f}, "
             f"σ_district={simulator.district_sigma}; lean {simulator.lean_weight_2024:.2f}×2024 "
             f"+ {simulator.lean_weight_2022:.2f}×2022, {forecast.num_open_seats} open seats "
@@ -1260,6 +1337,15 @@ def _house_forecast_payload(
         "district-level noise. A work in progress from Policy y Peaches."
     )
     payload["raw_national_margin"] = env["raw"]
+    payload["economy"] = {
+        "snapshot": economy.to_dict() if economy is not None else {"available": False},
+        "coefficients": {k: v for k, v in econ_cfg.items() if not k.startswith("_")},
+        "national": nat_econ,
+    }
+    payload["state_trend"] = {
+        "weight": float(sf_cfg.get("state_trend_weight", 0.0)),
+        "national_trend_2020_to_2024": national_trend,
+    }
     payload["generic_ballot_raw_margin"] = (
         round(gb_current.margin, 2) if gb_current is not None else None
     )

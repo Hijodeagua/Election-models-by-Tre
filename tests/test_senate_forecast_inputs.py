@@ -112,33 +112,62 @@ class TestFundamentalsPrior:
         for r in payload["races"]:
             f = r["fundamentals"]
             parts = (f["lean"] + f["national_swing"] + f["incumbency_effect"]
-                     + f["experience_effect"] + f["midterm_penalty_effect"])
-            assert f["prior"] == pytest.approx(parts, abs=0.002)
+                     + f["tenure_effect"] + f["office_years_effect"] + f["experience_effect"]
+                     + f["economy_effect"] + f["midterm_penalty_effect"])
+            assert f["prior"] == pytest.approx(parts, abs=0.003)
             assert f["fundamentals_weight"] == 1.0
-            assert r["margin"] == pytest.approx(f["prior"], abs=0.002)
+            assert r["margin"] == pytest.approx(f["prior"], abs=0.003)
 
-    def test_incumbency_signs(self, payload):
+    def test_lean_is_2024_plus_partial_shifts(self, payload):
+        f = self._race(payload, "Ohio")["fundamentals"]
+        w = f["lean_weights"]
+        expected = (w["pres_2024"] * f["pres_2024"]
+                    + w["pres_2020_shift"] * (f["pres_2020"] - f["pres_2024"])
+                    + w["last_senate_shift"] * (f["last_senate"]["margin"] - f["pres_2024"]))
+        assert f["lean"] == pytest.approx(expected, abs=0.003)
+        assert f["last_senate"]["year"] == 2024
+
+    def test_incumbency_is_binary_and_signed(self, payload):
         coefs = payload["fundamentals_coefficients"]
         adv = coefs["incumbency_advantage"]
         assert self._race(payload, "Maine")["fundamentals"]["incumbency_effect"] == -adv
         assert self._race(payload, "Georgia")["fundamentals"]["incumbency_effect"] == adv
         assert self._race(payload, "Michigan")["fundamentals"]["incumbency_effect"] == 0.0
-        # Appointed incumbent (Husted) gets the reduced advantage.
         oh = self._race(payload, "Ohio")["fundamentals"]
         assert oh["incumbent_appointed"] is True
         assert oh["incumbency_effect"] == pytest.approx(-adv * coefs["appointed_incumbent_factor"])
 
-    def test_experience_is_capped_and_signed(self, payload):
+    def test_tenure_and_office_years_are_categorical(self, payload):
         coefs = payload["fundamentals_coefficients"]
-        nc = self._race(payload, "North Carolina")["fundamentals"]  # Cooper: 6 statewide wins
+        ak = self._race(payload, "Alaska")["fundamentals"]  # Sullivan 11.8 yrs → 6-17
+        assert ak["tenure_category"] == "6-17"
+        assert ak["tenure_effect"] == pytest.approx(-coefs["incumbent_tenure_schedule"]["6-17"])
+        me = self._race(payload, "Maine")["fundamentals"]  # Collins 29.8 yrs → 18+
+        assert me["tenure_category"] == "18+"
+        nc = self._race(payload, "North Carolina")["fundamentals"]  # Cooper 38 yrs, Whatley 0
+        assert nc["dem_office_category"] == "16+" and nc["rep_office_category"] == "0"
+        assert nc["office_years_effect"] == pytest.approx(coefs["office_years_schedule"]["16+"])
+        ga = self._race(payload, "Georgia")["fundamentals"]  # incumbent D: no office-years term
+        assert ga["dem_office_category"] == "incumbent"
+
+    def test_statewide_record_is_capped_and_signed(self, payload):
+        coefs = payload["fundamentals_coefficients"]
+        nc = self._race(payload, "North Carolina")["fundamentals"]
         assert nc["experience_raw"] == pytest.approx(6 * coefs["experience_per_statewide_win"])
         assert nc["experience_effect"] == coefs["experience_cap"]
-        tx = self._race(payload, "Texas")["fundamentals"]  # Paxton: 3 wins, Talarico: 0
+        tx = self._race(payload, "Texas")["fundamentals"]
         assert tx["experience_effect"] == pytest.approx(-3 * coefs["experience_per_statewide_win"])
 
-    def test_lean_blends_presidential_and_2022(self, payload):
-        f = self._race(payload, "Ohio")["fundamentals"]
-        w, w22 = f["pres_weight_recent"], f["statewide_2022_weight"]
-        pres = w * f["pres_2024"] + (1 - w) * f["pres_2020"]
-        expected = (1 - w22) * pres + w22 * f["statewide_2022"]["margin"]
-        assert f["lean"] == pytest.approx(expected, abs=0.002)
+    def test_economy_uses_committed_cpi_and_reports_missing_series(self, payload):
+        f = self._race(payload, "Iowa")["fundamentals"]
+        econ = f["economy"]
+        assert econ["cpi_yoy"] is not None and "inflation" in econ["available"]
+        coefs = payload["fundamentals_coefficients"]["economy"]
+        pres_effect = (econ["cpi_yoy"] - coefs["inflation_baseline"]) * coefs["inflation_coef"]
+        assert econ["inflation_effect"] == pytest.approx(-pres_effect, abs=0.002)  # R president
+        assert "gas" not in econ["available"] and econ["gas_effect"] == 0.0
+
+    def test_market_weight_from_config(self, payload):
+        from src.models.senate_simulation import load_cycle_config
+
+        assert payload["market_weight"] == load_cycle_config()["forecast"]["market_weight"]

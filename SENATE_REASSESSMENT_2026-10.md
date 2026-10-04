@@ -341,3 +341,60 @@ race-by-race correlation matrix is exported and drawn in the report
 a three-page under-the-hood view (overview with features, importances and
 maps; House breakdown; Senate breakdown) from 500,000 Senate and 200,000
 House correlated simulations. The daily refresh rebuilds it.
+
+## Update: the plain fundamentals feature set, economic data, and the report
+
+The feature set is now the one a reader can be walked through. Every term
+is a number with a hand-set coefficient, exported per race / per district,
+and listed with its value on the report's overview page.
+
+### Senate — `prior = lean + swing + incumbency + tenure + office years + record + economy`
+
+| Feature | How it enters | Value / coefficient |
+|---|---|---|
+| Race polling average | weighted by pollster grade and recency; each pollster's calibrated house effect applied; blended with the prior at weight k/(k+n) | k = 3 |
+| 2024 presidential margin | the base of the lean, full weight | 1.0 |
+| 2020 presidential margin | moves the lean part-way toward how 2020 differed | 0.2 × (2020 − 2024) |
+| Last Senate race in the state | moves the lean part-way toward how it differed | 0.2 × (last − 2024) |
+| Generic ballot | national swing | 0.6 of swing |
+| Net presidential approval | national swing | 0.4 of swing, × 0.3 per point |
+| Incumbency (binary) | ± for the incumbent's party | 3.0 (× 0.5 appointed) |
+| Years in office, incumbent (categorical) | 0–5: 0 · 6–17: +0.5 · 18+: 0 | toward the incumbent |
+| Years in office, challengers (categorical) | 0: 0 · 1–6: +0.25 · 7–15: +0.75 · 16+: +1.0 | net D − R |
+| Candidate statewide record | +0.75 per win, −0.5 per loss, capped ±3 | net D − R |
+| Inflation (CPI YoY) | (CPI − 2.5) × −0.3 on the president's party | CPI 3.4% (Aug 2026) → +0.27 for Democrats |
+| State gas price vs national | −1.0 per $1 above national, on the president's party | pending EIA fetch |
+| State unemployment vs national | −0.3 per point above national | pending BLS fetch |
+
+Prediction markets are no longer in the blend (`forecast.market_weight` 0);
+they are still fetched and shown on the site for comparison. The 2022
+"statewide result" term was replaced by the last Senate race in the state.
+
+### House
+
+Each district now carries an incumbent flag (2024 winner on the ballot, or
+open), the state's 2024 and 2020 presidential margins (a state-trend term:
+0.2 × how much more the state moved 2020→2024 than the country did), and
+the state economic deviations; national inflation enters the expected
+national margin the same way as for the Senate.
+
+### Economic data
+
+`src/data/economic.py` + `data/fallback/economic.csv`. CPI is live now
+(keyless mirror of BLS CPI-U; 3.4% year-over-year as of August 2026). Gas
+prices need `EIA_API_KEY` (free) and state unemployment comes from the BLS
+public API; both are fetched by `scripts/refresh_data.py --source economic`
+and the daily workflow passes the keys from repository secrets. Until the
+first keyed fetch, those two terms contribute 0 and the report says so.
+
+### Headline after this change
+
+| | Before | After |
+|---|---|---|
+| P(Dem Senate control) | 61% (with market blend) | **58%** (polls + fundamentals only) |
+| P(Dem House majority) | 94% | **95%** (inflation adds +0.27 to the national margin) |
+
+The Senate move is mostly Alaska (54% → 31%): with the 2024 presidential
+margin at full weight and the last Senate race at R+12.7, Peltola's prior
+is R+4.7 and her one March poll carries only 25% of the blend. A fresh
+Alaska poll is the single most valuable data point the model is missing.

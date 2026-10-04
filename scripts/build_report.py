@@ -42,6 +42,7 @@ from src.models.house_forecast import (  # noqa: E402
     HouseForecastSimulator,
     load_districts,
     load_house_config,
+    load_state_presidential,
 )
 from src.models.senate_simulation import (  # noqa: E402
     RaceInput,
@@ -418,7 +419,16 @@ def run_house(hf: dict, cfg: dict, n_sims: int, seed: int, overrides: dict | Non
     lean = cfg.get("district_lean", {})
     corr = cfg.get("correlation", {}) or {}
     ncfg = cfg.get("national_environment", {})
-    districts = load_districts(open_seats=lean.get("open_seats", {}).get("districts", []))
+    sf_cfg = cfg.get("state_fundamentals", {}) or {}
+    state_pres = load_state_presidential()
+    nat = next(iter(state_pres.values()), {}) if state_pres else {}
+    national_trend = float(nat.get("national_2024", 0.0)) - float(nat.get("national_2020", 0.0))
+    econ_by_state = {d["state"]: d.get("econ_adjust", 0.0) for d in hf.get("districts", [])}
+    districts = load_districts(
+        open_seats=lean.get("open_seats", {}).get("districts", []),
+        state_pres=state_pres,
+        state_adjust={st: (v, {}) for st, v in econ_by_state.items()},
+    )
     polling_sigma = float(ncfg.get("generic_ballot_sigma", 2.5))
     drift = float(hf.get("campaign_drift_sigma", 0.0)) if cfg.get("campaign_drift_per_sqrt_day") else 0.0
     if "campaign_drift_per_sqrt_day" in (overrides or {}):
@@ -438,10 +448,13 @@ def run_house(hf: dict, cfg: dict, n_sims: int, seed: int, overrides: dict | Non
         similarity_weights=corr.get("weights"),
         lean_scale=float(corr.get("lean_scale", 10.0)),
         regions=corr.get("regions"),
+        state_trend_weight=float(sf_cfg.get("state_trend_weight", 0.0)),
+        national_trend=national_trend,
     )
     expected = hf["expected_national_margin"]
     if "national_environment.generic_ballot_bias" in (overrides or {}):
-        expected = hf["raw_national_margin"] + overrides["national_environment.generic_ballot_bias"]
+        expected = (hf["raw_national_margin"] + overrides["national_environment.generic_ballot_bias"]
+                    + hf.get("economy", {}).get("national", {}).get("inflation_effect", 0.0))
     if "expected_national_margin" in (overrides or {}):
         expected = overrides["expected_national_margin"]
     fc = sim.simulate(districts, expected, num_simulations=n_sims, seed=seed,
@@ -461,6 +474,7 @@ def house_importance(hf: dict, cfg: dict, n_sims: int, seed: int, base_p: float,
         ("Similarity share", "correlation.similarity_share", [0.0, 0.7]),
         ("Incumbency advantage (open seats)", "district_lean.incumbency_advantage", [0.0, 5.0]),
         ("2022 lean weight", "district_lean.weight_2022", [0.0, 0.5]),
+        ("State trend weight (2020→2024)", "state_fundamentals.state_trend_weight", [0.0, 0.5]),
         ("National tails (Gaussian)", "national_environment.national_tail_dof", [None]),
     ]
     rows = []
@@ -564,6 +578,7 @@ def build(args) -> Path:
         sen_fill[ab] = prob_color(p)
         sen_lbl[ab] = f"{ab} {pct(p)}"
         sen_tip[ab] = f"{r.state}: {r.dem_candidate} (D) v {r.rep_candidate} (R) — P(D) {pct(p)}, margin {m(r.margin)}"
+        _ = sen_tip
     house_fill, house_lbl, house_tip = {}, {}, {}
     for st, s in by_state.items():
         house_fill[st] = delta_color(s["change"], 3.0)
@@ -578,6 +593,7 @@ def build(args) -> Path:
     coefs = sf.get("fundamentals_coefficients", {})
     ne = sf.get("national_environment", {})
     bc = sf.get("bias_calibration", {})
+    econ_snap = sf.get("economy", {}) or {}
 
     # ── pages
     stale = meta.get("stale_feeds", [])
@@ -586,28 +602,43 @@ def build(args) -> Path:
         gut.append(f"Stale feeds: {', '.join(stale)} (newest poll {', '.join(f'{k} {v}' for k, v in meta.get('last_poll_dates', {}).items())}).")
     gut.append("Hand-entered, unverified: Senate incumbency/record features, House open-seat list, redistricting seat shifts (config files flag each).")
     gut.append("Hand-set coefficients: incumbency, experience, 2022 weight, generic-ballot bias/σ, district σ, similarity shares.")
-    gut.append(f"Market odds present for {sum(1 for r in sfc.races if r.market_dem_prob)} of {len(sfc.races)} Senate races (Texas/Maine dropped after the state-legislature mix-up).")
+    gut.append(f"Prediction markets: weight {sf['market_weight']} in the Senate blend (polls + fundamentals only).")
+    missing = [k for k, v in (("gas prices", econ_snap.get("states_with_gas")), ("state unemployment", econ_snap.get("states_with_unemployment"))) if not v]
+    if missing:
+        gut.append("Economic series not yet fetched: " + ", ".join(missing) + " (run scripts/refresh_data.py --source economic with EIA_API_KEY set); those terms contribute 0 until then. CPI is live.")
     gut.append(f"House-effect correction applied to {sum(v['polls_adjusted'] for v in sf.get('house_effects', {}).values())} of {sum(v['polls_total'] for v in sf.get('house_effects', {}).values())} Senate polls (pollsters with a 2018–24 record).")
 
+    econ_c = coefs.get("economy", {})
+    sched = lambda d: ", ".join(f"{k}: {v:+g}" for k, v in (d or {}).items())  # noqa: E731
     senate_features = [
-        ("Race polling average (house-effect corrected, quality/recency weighted)", "weight 1−k/(k+n), k=%s" % coefs.get("blend_k"), "polls"),
-        ("2024 presidential margin", f"{coefs.get('pres_weight_recent')}×(1−{coefs.get('statewide_2022_weight')}) of lean", "fundamentals"),
-        ("2020 presidential margin", f"{round(1 - coefs.get('pres_weight_recent', 0.75), 2)}×(1−{coefs.get('statewide_2022_weight')}) of lean", "fundamentals"),
-        ("2022 statewide result", f"{coefs.get('statewide_2022_weight')} of lean", "fundamentals"),
-        ("Generic ballot (national swing)", f"{ne.get('generic_margin')} → weight {cycle['national_environment']['generic_weight']}", "environment"),
-        ("Net presidential approval (national swing)", f"{ne.get('approval_net')} × {cycle['national_environment']['approval_to_margin_coef']} → weight {cycle['national_environment']['approval_weight']}", "environment"),
-        ("Incumbency", f"±{coefs.get('incumbency_advantage')} pts (×{coefs.get('appointed_incumbent_factor')} appointed)", "candidate"),
+        ("Race polling average (weighted by pollster grade + recency, corrected by each pollster's calibrated house effect)", "weight 1−k/(k+n), k=%s" % coefs.get("blend_k"), "polls"),
+        ("2024 presidential margin", f"full weight ({coefs.get('pres_2024_weight')})", "lean"),
+        ("2020 presidential margin", f"{coefs.get('pres_2020_shift_weight')} of how 2020 differed from 2024", "lean"),
+        ("Last Senate race in the state", f"{coefs.get('last_senate_shift_weight')} of how it differed from 2024", "lean"),
+        ("Generic ballot", f"{ne.get('generic_margin')} → weight {cycle['national_environment']['generic_weight']} of national swing", "environment"),
+        ("Net presidential approval", f"{ne.get('approval_net')} × {cycle['national_environment']['approval_to_margin_coef']} → weight {cycle['national_environment']['approval_weight']} of national swing", "environment"),
+        ("Incumbency (binary)", f"±{coefs.get('incumbency_advantage')} pts (×{coefs.get('appointed_incumbent_factor')} appointed)", "candidate"),
+        ("Years in office — incumbent (categorical)", sched(coefs.get("incumbent_tenure_schedule")), "candidate"),
+        ("Years in office — challengers (categorical)", sched(coefs.get("office_years_schedule")), "candidate"),
         ("Candidate experience (statewide W–L)", f"{coefs.get('experience_per_statewide_win')}/win, {coefs.get('experience_per_statewide_loss')}/loss, cap ±{coefs.get('experience_cap')}", "candidate"),
-        ("Prediction markets", f"weight {sf['market_weight']}", "markets"),
+        ("Inflation (CPI year-over-year)", f"CPI {econ_snap.get('cpi_yoy', '—')}% ({econ_snap.get('as_of', '')}); ({'CPI'} − {econ_c.get('inflation_baseline')}) × {econ_c.get('inflation_coef')} on the president's party", "economy"),
+        ("State gas price vs national", f"{econ_c.get('gas_deviation_coef')} per $1 above national — {'available' if econ_snap.get('states_with_gas') else 'pending EIA fetch (EIA_API_KEY)'}", "economy"),
+        ("State unemployment vs national", f"{econ_c.get('unemployment_deviation_coef')} per point above national — {'available' if econ_snap.get('states_with_unemployment') else 'pending BLS fetch'}", "economy"),
         ("Systematic poll bias", f"{bc.get('cycle_type')} cycles: {bc.get('raw_bias')} × {bc.get('weight')} = {bc.get('applied')}", "error model"),
         ("National error σ", f"{sf.get('polling_national_sigma')} ⊕ drift {sf.get('campaign_drift_sigma')} = {sf['national_sigma']}", "error model"),
         ("Race error σ / similarity share", f"{sf['race_sigma']} / {sf.get('similarity_share')} (region {sf.get('correlation', {}).get('region_weight')}, lean scale {sf.get('correlation', {}).get('lean_scale')})", "error model"),
         ("Tails", f"Student-t({sf.get('tail_dof')})", "error model"),
     ]
+    h_econ = hf.get("economy", {}).get("coefficients", {})
+    h_snap = hf.get("economy", {}).get("snapshot", {})
     house_features = [
         ("2024 two-party margin (district)", f"weight {hfc.lean_weight_2024}", "lean"),
         ("2022 two-party margin (district)", f"weight {hfc.lean_weight_2022}", "lean"),
-        ("Open seat (incumbent not running)", f"−{hfc.incumbency_advantage} pts to departing party; {hfc.num_open_seats} seats", "candidate"),
+        ("Incumbent flag", f"2024 winner on the ballot: {hfc.total_seats - hfc.num_open_seats} seats; open: {hfc.num_open_seats} (−{hfc.incumbency_advantage} pts to the departing party)", "candidate"),
+        ("State 2024 presidential margin", "exported per district; drives the state trend term", "state"),
+        ("State 2020 presidential margin", f"state trend = {hfc.state_trend_weight} × [(state '24 − '20) − national ({hfc.national_trend:+.1f})]", "state"),
+        ("Inflation (CPI year-over-year)", f"CPI {h_snap.get('cpi_yoy', '—')}%; ({'CPI'} − {h_econ.get('inflation_baseline')}) × {h_econ.get('inflation_coef')} on the national margin", "economy"),
+        ("State gas price / unemployment vs national", f"{h_econ.get('gas_deviation_coef')} per $1, {h_econ.get('unemployment_deviation_coef')} per point — {'available' if h_snap.get('states_with_gas') else 'pending EIA/BLS fetch'}", "economy"),
         ("Generic ballot (two-party)", f"{m(hf.get('generic_ballot_two_party'))}, weight {hcfg['national_environment']['generic_weight']}", "environment"),
         ("Approval-implied margin", f"{m(hf.get('approval_implied_margin'))}, weight {hcfg['national_environment']['approval_weight']}", "environment"),
         ("Generic-ballot bias", f"{hf['generic_ballot_bias']} pts", "error model"),
@@ -626,10 +657,9 @@ def build(args) -> Path:
 
     overview = f"""
 <div class="tiles">
-{tile("P(Democratic Senate control)", pct(sfc.dem_control_prob), f"mean {sfc.mean_dem_seats:.2f} D seats · Polymarket {pct(sf.get('market_control_dem_prob', {}).get('polymarket'))}", "dem" if sfc.dem_control_prob >= .5 else "rep")}
+{tile("P(Democratic Senate control)", pct(sfc.dem_control_prob), f"mean {sfc.mean_dem_seats:.2f} D seats · need {sf['dem_majority_threshold']}", "dem" if sfc.dem_control_prob >= .5 else "rep")}
 {tile("P(Democratic House majority)", pct(hfc.dem_majority_prob), f"mean {hfc.mean_dem_seats:.1f} seats · 80% {hfc.seats_p10:.0f}–{hfc.seats_p90:.0f}", "dem" if hfc.dem_majority_prob >= .5 else "rep")}
-{tile("National environment", m(hf['expected_national_margin']), f"GB two-party {m(hf.get('generic_ballot_two_party'))} · approval {ne.get('approval_net')} · after {hf['generic_ballot_bias']} bias")}
-{tile("Simulations", f"{args.senate_sims // 1000}k / {args.house_sims // 1000}k", f"Senate / House · seed {args.seed} · {hf['days_to_election']} days to election")}
+{tile("National environment", m(hf['expected_national_margin']), f"GB two-party {m(hf.get('generic_ballot_two_party'))} · net approval {ne.get('approval_net')} · CPI {econ_snap.get('cpi_yoy', '—')}%")}
 </div>
 <div class="grid2">
  <div class="panel"><h3>Senate — P(D) by race</h3>{svg_map(paths, sen_fill, sen_lbl, "Senate P(D)", [(prob_color(0.1), "R favoured"), (prob_color(0.5), "toss-up"), (prob_color(0.9), "D favoured")], sen_tip)}
@@ -651,7 +681,9 @@ def build(args) -> Path:
     comp = sorted([d for d in hfc.districts if 0.1 <= d.dem_win_prob <= 0.9], key=lambda d: abs(d.dem_win_prob - 0.5))
     comp_rows = [[
         f"{esc(d.label)}{' ↻' if d.state in redraw else ''}", m(d.margin_2024) + f" ({d.winner_2024})", m(d.margin_2022) if d.margin_2022 is not None else "—",
-        m(d.lean), (f"open ({sgn(d.incumbency_adjust)})" if d.open_seat else d.incumbent_party or "—"), m(d.expected_margin),
+        m(d.lean), (f"open ({sgn(d.incumbency_adjust)})" if d.open_seat else f"{d.incumbent_party} ✓"),
+        f"{m(d.state_pres_2024)} / {m(d.state_pres_2020)}", sgn(d.state_trend_adjust, 2), sgn(d.econ_adjust, 2),
+        m(d.expected_margin),
         f"{m(d.margin_p10)}…{m(d.margin_p90)}", f'<span class="{"dem" if d.dem_win_prob >= .5 else "rep"}"><b>{pct(d.dem_win_prob)}</b></span>'
     ] for d in comp]
     state_rows = [[esc(st), str(s["n"]), str(s["d24"]), f"{s['exp']:.1f}", sgn(s["shift"], 0) if s["shift"] else "—", f'<b class="{"dem" if s["change"] >= 0 else "rep"}">{s["change"]:+.1f}</b>', str(s["open"]), "↻" if st in redraw else ""]
@@ -674,13 +706,14 @@ def build(args) -> Path:
 <div class="panel"><h3>National environment inputs</h3><div class="kv">
 <b>Generic ballot (raw / two-party)</b><span>{m(hf.get('generic_ballot_raw_margin'))} / {m(hf.get('generic_ballot_two_party'))} (weight {hcfg['national_environment']['generic_weight']})</span>
 <b>Net approval → implied margin</b><span>{hf.get('approval_net')} × {hcfg['national_environment']['approval_to_margin_coef']} = {m(hf.get('approval_implied_margin'))} (weight {hcfg['national_environment']['approval_weight']})</span>
-<b>Blend, then bias</b><span>{m(hf.get('raw_national_margin'))} + ({hf['generic_ballot_bias']}) = <b>{m(hf['expected_national_margin'])}</b></span>
+<b>Blend, bias, inflation</b><span>{m(hf.get('raw_national_margin'))} + ({hf['generic_ballot_bias']}) + ({hf.get('economy', {}).get('national', {}).get('inflation_effect', 0):+.2f} inflation) = <b>{m(hf['expected_national_margin'])}</b></span>
+<b>State terms</b><span>trend {hfc.state_trend_weight} × [(state '24 − '20) − national {hfc.national_trend:+.1f}]; state gas/unemployment deviations × ({h_econ.get('gas_deviation_coef')}, {h_econ.get('unemployment_deviation_coef')}) — {'live' if h_snap.get('states_with_gas') else 'pending fetch (0 for now)'}</span>
 <b>National error</b><span>σ = {hf['polling_sigma']} (historical generic-ballot miss) ⊕ {hf['campaign_drift_sigma']:.2f} drift ({hf['days_to_election']} days) = {hf['national_sigma']:.2f}, t({hf.get('tail_dof')})</span>
 <b>District error</b><span>σ = {hf['district_sigma']} per district; {hfc.similarity_share:.0%} of it shared via same-state/region/lean similarity (weights {hfc.similarity_weights}, lean scale {hfc.lean_scale})</span>
 <b>District lean</b><span>{hfc.lean_weight_2024}×2024 + {hfc.lean_weight_2022}×2022 two-party margin; open seats −{hfc.incumbency_advantage} for the departing party ({hfc.num_open_seats} flagged)</span>
 </div></div>
 <div class="panel"><h3>Closest {len(comp)} districts (P(D) 10–90%) — every input value</h3>
-{table([("District", False), ("2024", True), ("2022", True), ("Lean", True), ("Incumbent", True), ("Expected", True), ("80% range", True), ("P(D)", True)], comp_rows, "↻ = state redrawn since 2024: the district row is on the old lines; the state's net effect enters through the redistricting shift.")}</div>
+{table([("District", False), ("2024", True), ("2022", True), ("Lean", True), ("Incumbent", True), ("State pres '24 / '20", True), ("State trend", True), ("Economy", True), ("Expected", True), ("80% range", True), ("P(D)", True)], comp_rows, "Expected = lean + incumbency adjustment + state trend + state economy + national swing. ↻ = state redrawn since 2024: the district row is on the old lines; the state's net effect enters through the redistricting shift.")}</div>
 <div class="grid2">
  <div class="panel"><h3>Per-state rollup</h3>{table([("State", False), ("Seats", True), ("D 2024", True), ("Expected D", True), ("Redistrict", True), ("Change", True), ("Open", True), ("", False)], state_rows)}</div>
  <div><div class="panel"><h3>Open seats used ({len(open_rows)})</h3>{table([("District", False), ("Reason", False), ("Lean", True), ("Expected", True), ("P(D)", True)], open_rows, "Hand-entered Oct 2026 — verify.")}</div>
@@ -698,18 +731,23 @@ def build(args) -> Path:
         hrow = he.get(r.state) or {}
         orows.append([
             f"<b>{esc(r.state)}</b>", f"<b>{m(r.margin)}</b>", svg_margin_hist(hist_by_state.get(r.state, [])),
-            pct(r.dem_win_prob_polls), ", ".join(f"{k} {pct(v)}" for k, v in r.market_dem_prob.items()) or "—",
-            pct(r.dem_win_prob_blended),
+            pct(r.dem_win_prob_polls),
             f'<span class="{"dem" if (r.dem_win_prob_sim or 0) >= .5 else "rep"}"><b>{pct(r.dem_win_prob_sim)}</b></span>',
             f"{m(r.median_margin)} ({m(r.margin_p10)}…{m(r.margin_p90)})",
             f"{sen['leverage'][i]:.2f}", pct(sen["tipping"][i]),
         ])
+        ls = f.get("last_senate") or {}
+        ec = f.get("economy") or {}
         srows.append([
             f"<b>{esc(r.state)}</b><br><span class='note'>{esc(r.dem_candidate)} v {esc(r.rep_candidate)}</span>",
-            f"{m(f.get('pres_2024'))} / {m(f.get('pres_2020'))}", (m(f['statewide_2022']['margin']) + f"<br><span class='note'>{esc(f['statewide_2022']['office'])}</span>") if f.get('statewide_2022') else "—",
-            m(f.get("lean")), sgn(f.get("national_swing")),
-            (f"{f.get('incumbent_party')}{' appt.' if f.get('incumbent_appointed') else ''} {sgn(f.get('incumbency_effect'))}" if f.get("incumbent_party") else "open"),
+            f"{m(f.get('pres_2024'))} / {m(f.get('pres_2020'))}",
+            (f"{m(ls.get('margin'))} ({ls.get('year')})<br><span class='note'>{esc(ls.get('race', ''))}</span>") if ls else "—",
+            f"{m(f.get('lean'))}<br><span class='note'>{sgn(f.get('pres_2020_shift_effect'), 2)} '20, {sgn(f.get('last_senate_shift_effect'), 2)} last</span>",
+            sgn(f.get("national_swing")),
+            (f"{f.get('incumbent_party')} · {f.get('incumbent_years')}y{' appt.' if f.get('incumbent_appointed') else ''}<br>{sgn(f.get('incumbency_effect'))} + tenure {sgn(f.get('tenure_effect'), 2)}" if f.get("incumbent_party") else "open"),
+            f"{f.get('dem_office_years', 0)} / {f.get('rep_office_years', 0)}<br>{sgn(f.get('office_years_effect'), 2)}",
             f"{f.get('dem_statewide_wins', 0)}–{f.get('dem_statewide_losses', 0)} / {f.get('rep_statewide_wins', 0)}–{f.get('rep_statewide_losses', 0)}<br>{sgn(f.get('experience_effect'), 2)}",
+            f"{sgn(f.get('economy_effect'), 2)}<br><span class='note'>{', '.join(ec.get('available', [])) or 'none'}</span>",
             f"<b>{m(f.get('prior'))}</b>",
             (f"{m(f.get('poll_margin'))} ({f.get('num_polls')})" + (f"<br><span class='note'>raw {m(f.get('poll_margin') - hrow.get('adjustment', 0) if f.get('poll_margin') is not None and hrow.get('adjustment') is not None else None)}, HE {sgn(hrow.get('adjustment'))} on {hrow.get('polls_adjusted')}/{hrow.get('polls_total')}</span>" if hrow else "")) if f.get("poll_margin") is not None else "—",
             pct(f.get("fundamentals_weight")), f"<b>{m(r.margin)}</b>",
@@ -720,16 +758,16 @@ def build(args) -> Path:
 <div class="tiles">
 {tile("P(D control)", pct(sfc.dem_control_prob), f"{args.senate_sims:,} simulations; need {sf['dem_majority_threshold']} (VP is R)", "dem" if sfc.dem_control_prob >= .5 else "rep")}
 {tile("Mean / median D seats", f"{sfc.mean_dem_seats:.2f} / {sfc.median_dem_seats:.0f}", f"{sf['dem_safe_seats']} safe D + {len(sfc.races)} simulated races")}
-{tile("Polymarket, D control", pct(sf.get('market_control_dem_prob', {}).get('polymarket')), "chamber market, for comparison")}
-{tile("Error model", f"σ {sf['national_sigma']} / {sf['race_sigma']}", f"national ⊕ drift / race; bias {sf.get('bias')}; t({sf.get('tail_dof')}); similarity share {sf.get('similarity_share')}")}
+{tile("Economy", f"CPI {econ_snap.get('cpi_yoy', '—')}%", f"as of {econ_snap.get('as_of', '—')}; gas/unemployment {'live' if econ_snap.get('states_with_gas') else 'pending'}")}
+{tile("Error model", f"σ {sf['national_sigma']} / {sf['race_sigma']}", f"national ⊕ drift / race; bias {sf.get('bias')}; t({sf.get('tail_dof')}); similarity {sf.get('similarity_share')}")}
 {tile("National swing", sgn(ne.get('national_swing')), f"approval {ne.get('approval_net')} → {sgn(ne.get('approval_implied_margin'))}; GB {sgn(ne.get('generic_margin'))}; vs 2024 House {ne.get('house_baseline_2024')}")}
 </div>
 <div class="panel"><h3>Inputs — every race, every value used</h3>
-{table([("Race", False), ("Pres '24 / '20", True), ("2022 statewide", True), ("Lean", True), ("Swing", True), ("Incumbent", True), ("Record D / R", True), ("Prior", True), ("Polls (n)", True), ("Prior wt", True), ("Final margin", True)], srows,
-"Prior = lean + swing + incumbency + experience. Final = (1−w)·polls + w·prior, w = k/(k+n). HE = house-effect correction from the pollster-grade analysis (relative mean error, shrunk, capped ±%s), applied to each matched poll before averaging; 'raw' is the uncorrected average." % cycle.get('polls', {}).get('house_effect_cap'))}</div>
+{table([("Race", False), ("Pres '24 / '20", True), ("Last Senate race", True), ("Lean", True), ("Swing", True), ("Incumbent (yrs)", True), ("Office yrs D / R", True), ("Record D / R", True), ("Economy", True), ("Prior", True), ("Polls (n)", True), ("Prior wt", True), ("Final margin", True)], srows,
+"Lean = 2024 presidential margin + %s × (2020 − 2024) + %s × (last Senate − 2024). Prior = lean + swing + incumbency + tenure + office years + record + economy. Final = (1−w)·polls + w·prior, w = k/(k+n). HE = house-effect correction from the pollster-grade analysis (relative mean error, shrunk, capped ±%s), applied to each matched poll before averaging; 'raw' is the uncorrected average." % (coefs.get('pres_2020_shift_weight'), coefs.get('last_senate_shift_weight'), cycle.get('polls', {}).get('house_effect_cap')))}</div>
 <div class="panel"><h3>Outcomes — {args.senate_sims:,} correlated simulations</h3>
-{table([("Race", False), ("Final margin", True), ("Simulated margin", False), ("P(D) polls", True), ("Market", True), ("P(D) blended", True), ("P(D) sim", True), ("Median (80% range)", True), ("Leverage", True), ("Tipping", True)], orows,
-"Leverage = P(control | D wins race) − P(control | D loses race). Tipping = share of simulations in which this race is exactly the 51st Democratic seat. Blended = (1−market weight)·polls + market weight·market where a winner market exists.")}</div>
+{table([("Race", False), ("Final margin", True), ("Simulated margin", False), ("P(D) analytic", True), ("P(D) sim", True), ("Median (80% range)", True), ("Leverage", True), ("Tipping", True)], orows,
+"Leverage = P(control | D wins race) − P(control | D loses race). Tipping = share of simulations in which this race is exactly the 51st Democratic seat.")}</div>
 <div class="grid2">
  <div class="panel"><h3>Seat distribution</h3>{svg_histogram(dict((str(k), v) for k, v in sfc.seat_distribution.items()), sf['dem_majority_threshold'], sfc.num_simulations)}</div>
  <div class="panel"><h3>Implied correlation of total error between races</h3>{svg_corr([abbr_by_state[n] for n in names], sfc.error_correlation)}
@@ -742,7 +780,8 @@ def build(args) -> Path:
 <b>Bias used</b><span>{bc.get('cycle_type')} cycles {bc.get('years')} ({bc.get('n_races')} races): {bc.get('raw_bias')} × weight {bc.get('weight')} = <b>{bc.get('applied')}</b> pts on every margin</span>
 <b>Sigmas</b><span>national {sf.get('polling_national_sigma')} ⊕ drift {sf.get('campaign_drift_sigma')} ({sf.get('days_to_election')} days × {cycle['forecast'].get('campaign_drift_per_sqrt_day')}/√day) = {sf['national_sigma']}; race {sf['race_sigma']}</span>
 <b>Tails</b><span>t({sf.get('tail_dof')}) — backtest Brier {calib['tail_comparison']['t5']['brier']} vs Gaussian {calib['tail_comparison']['gaussian']['brier']}</span>
-<b>Market blend</b><span>weight {sf['market_weight']} on Polymarket/Kalshi where a winner market exists</span>
+<b>Market blend</b><span>weight {sf['market_weight']} — polls + fundamentals only</span>
+<b>Economy</b><span>CPI {econ_snap.get('cpi_yoy', '—')}% ({econ_snap.get('as_of', '—')}, {esc(econ_snap.get('sources', {}).get('cpi_yoy', ''))}); gas prices and state unemployment {'live' if econ_snap.get('states_with_gas') else 'pending the keyed EIA / BLS fetch'}; coefficients {esc(coefs.get('economy'))}</span>
 </div></div>
 """
 
@@ -766,7 +805,7 @@ def build(args) -> Path:
         "senate": {"num_simulations": args.senate_sims, "dem_control_prob": sfc.dem_control_prob,
                    "mean_dem_seats": sfc.mean_dem_seats, "seat_distribution": sfc.seat_distribution,
                    "races": [{"state": r.state, "margin": r.margin, "p_polls": r.dem_win_prob_polls,
-                              "p_blended": r.dem_win_prob_blended, "p_sim": r.dem_win_prob_sim,
+                              "p_sim": r.dem_win_prob_sim,
                               "leverage": round(sen["leverage"][i], 4), "tipping": round(sen["tipping"][i], 4),
                               "fundamentals": r.fundamentals} for i, r in enumerate(sfc.races)],
                    "error_correlation": sfc.error_correlation, "knob_importance": [

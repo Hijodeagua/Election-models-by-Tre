@@ -115,26 +115,48 @@ export interface ApprovalComparisonData {
   sources: Record<string, ComparisonSource>;
 }
 
+export interface RaceEconomy {
+  president_party?: string;
+  cpi_yoy?: number | null;
+  inflation_effect?: number;
+  gas_deviation?: number | null;
+  gas_effect?: number;
+  unemployment_deviation?: number | null;
+  unemployment_effect?: number;
+  available?: string[];
+  total?: number;
+}
+
 export interface RaceFundamentals {
   available: boolean;
   pres_2024?: number | null;
   pres_2020?: number | null;
-  pres_weight_recent?: number;
-  statewide_2022?: { office: string; margin: number } | null;
-  statewide_2022_weight?: number;
+  last_senate?: { year: number; race: string; margin: number } | null;
+  lean_weights?: { pres_2024: number; pres_2020_shift: number; last_senate_shift: number };
+  pres_2020_shift_effect?: number;
+  last_senate_shift_effect?: number;
   lean?: number;
   national_swing?: number;
   incumbent_party?: string | null;
-  incumbent_terms?: number | null;
+  incumbent_years?: number | null;
   incumbent_appointed?: boolean;
   incumbency_advantage?: number;
   incumbency_effect?: number;
+  tenure_category?: string;
+  tenure_effect?: number;
+  dem_office_years?: number | null;
+  rep_office_years?: number | null;
+  dem_office_category?: string;
+  rep_office_category?: string;
+  office_years_effect?: number;
   dem_statewide_wins?: number;
   dem_statewide_losses?: number;
   rep_statewide_wins?: number;
   rep_statewide_losses?: number;
   experience_raw?: number;
   experience_effect?: number;
+  economy?: RaceEconomy;
+  economy_effect?: number;
   midterm_penalty_effect?: number;
   prior?: number;
   poll_margin?: number | null;
@@ -145,15 +167,19 @@ export interface RaceFundamentals {
 }
 
 export interface FundamentalsCoefficients {
-  pres_weight_recent: number;
-  statewide_2022_weight: number;
+  pres_2024_weight: number;
+  pres_2020_shift_weight: number;
+  last_senate_shift_weight: number;
   blend_k: number;
   incumbency_advantage: number;
   appointed_incumbent_factor: number;
+  incumbent_tenure_schedule: Record<string, number>;
+  office_years_schedule: Record<string, number>;
   experience_per_statewide_win: number;
   experience_per_statewide_loss: number;
   experience_cap: number;
   midterm_penalty: number;
+  economy: Record<string, number>;
 }
 
 export interface RaceForecast {
@@ -295,8 +321,13 @@ export interface HouseDistrictForecast {
   lean?: number;
   open_seat?: boolean;
   open_seat_reason?: string;
+  incumbent?: boolean;
   incumbent_party?: string;
   incumbency_adjust?: number;
+  state_pres_2024?: number | null;
+  state_pres_2020?: number | null;
+  state_trend_adjust?: number;
+  econ_adjust?: number;
 }
 
 export interface RedistrictingEntry {

@@ -31,6 +31,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from config.settings import settings
 from src.data.base import Poll, PollType
+from src.data.economic import STATE_FIPS as _STATE_FIPS_ALL
 from src.data.rcp import RCPClient
 from src.data.votehub import VoteHubClient
 from src.data.wikipedia_senate import WikipediaSenateSource
@@ -253,6 +254,40 @@ def _refresh_markets(dry_run: bool = False) -> None:
 
 
 
+def _refresh_economic(dry_run: bool = False) -> None:
+    """Refresh data/fallback/economic.csv: CPI (keyless mirror), EIA gas
+    prices (needs EIA_API_KEY) and BLS state unemployment for every state in
+    either chamber's config. Each source is best-effort; rows that fail keep
+    their previous snapshot value."""
+    from src.data.economic import (
+        fetch_cpi,
+        fetch_gas_prices,
+        fetch_unemployment,
+        load_economic_csv,
+        write_economic_csv,
+    )
+
+    logger.info("=== Economic fundamentals (CPI / EIA gas / BLS unemployment) ===")
+    dest = FALLBACK_DIR / "economic.csv"
+    if dry_run:
+        logger.info("  (dry run — would refresh %s)", dest)
+        return
+    states = sorted(_STATE_FIPS_ALL)
+    fresh = fetch_cpi() + fetch_gas_prices(settings.eia_api_key, states) + fetch_unemployment(
+        states, settings.bls_api_key
+    )
+    logger.info("  fetched %d rows", len(fresh))
+    if not fresh:
+        logger.warning("  nothing fetched — keeping existing economic.csv")
+        return
+    existing = load_economic_csv(dest)
+    keyed = {(r.series, r.state): r for r in existing}
+    for r in fresh:
+        keyed[(r.series, r.state)] = r
+    write_economic_csv(sorted(keyed.values(), key=lambda r: (r.series, r.state)), dest)
+    logger.info("  → %s (%d rows)", dest.name, len(keyed))
+
+
 def _refresh_wikipedia_senate(dry_run: bool = False) -> None:
     """Scrape per-race Senate polls from Wikipedia → votehub_senate.csv.
 
@@ -300,7 +335,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Refresh all polling data sources.")
     parser.add_argument(
         "--source",
-        choices=["votehub", "rcp", "markets", "wikipedia", "all"],
+        choices=["votehub", "rcp", "markets", "wikipedia", "economic", "all"],
         default="all",
         help="Which source to refresh (default: all).",
     )
@@ -322,6 +357,8 @@ def main() -> None:
         _refresh_wikipedia_senate(dry_run=args.dry_run)
     if args.source in ("all", "rcp"):
         _refresh_rcp(dry_run=args.dry_run)
+    if args.source in ("all", "economic"):
+        _refresh_economic(dry_run=args.dry_run)
     if args.source in ("all", "markets"):
         _refresh_markets(dry_run=args.dry_run)
 

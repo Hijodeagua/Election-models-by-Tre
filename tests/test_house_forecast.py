@@ -258,3 +258,30 @@ class TestDistrictSimilarity:
         assert (corr.seats_p90 - corr.seats_p10) >= (base.seats_p90 - base.seats_p10)
         assert corr.similarity_share == 0.6
         assert np.isfinite(corr.mean_dem_seats)
+
+
+class TestStateFundamentals:
+    def test_state_presidential_file_covers_every_state(self):
+        from src.models.house_forecast import load_state_presidential
+
+        sp = load_state_presidential()
+        assert len(sp) == 51 and sp["TX"]["pres_2024"] < 0 < sp["CA"]["pres_2024"]
+        assert sp["GA"]["national_2024"] == -1.5
+
+    def test_state_trend_and_econ_adjust_enter_expected_margin(self):
+        sim = _sim(state_trend_weight=0.2, national_trend=-6.0)
+        d = DistrictInput("TX", "District 15", -14.0, "R", state_pres_2024=-13.6,
+                          state_pres_2020=-5.6, state_adjust=-0.3)
+        # TX moved R by 8.0 vs national 6.0 → +(-2.0)*0.2 = -0.4 ; econ -0.3
+        assert sim.state_trend_adjust(d) == pytest.approx(-0.4)
+        assert sim.district_base(d) == pytest.approx(-14.0 - 0.4 - 0.3)
+        fc = sim.simulate([d], -2.4, num_simulations=50, seed=0).districts[0]
+        assert fc.state_trend_adjust == -0.4 and fc.econ_adjust == -0.3
+        assert fc.incumbent is True and fc.incumbent_party == "R"
+        assert fc.state_pres_2024 == -13.6
+
+    def test_expected_national_margin_includes_inflation(self):
+        cfg = {"national_environment": {"president_party": "R", "generic_weight": 1.0,
+                                        "approval_weight": 0.0, "generic_ballot_bias": 0.0}}
+        out = expected_national_margin(cfg, 5.0, None, economy={"inflation_effect": 0.27})
+        assert out["expected"] == pytest.approx(5.27)

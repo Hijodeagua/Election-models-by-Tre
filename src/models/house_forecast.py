@@ -58,6 +58,12 @@ class DistrictInput:
     # True when the 2024 winner is not on the 2026 ballot.
     open_seat: bool = False
     open_seat_reason: str = ""
+    # State-level presidential margins (Dem−Rep) and any state-level
+    # adjustment (economy) supplied by the pipeline.
+    state_pres_2024: float | None = None
+    state_pres_2020: float | None = None
+    state_adjust: float = 0.0
+    state_adjust_detail: dict[str, Any] = field(default_factory=dict)
 
     @property
     def label(self) -> str:
@@ -83,8 +89,14 @@ class DistrictForecast:
     lean: float = 0.0
     open_seat: bool = False
     open_seat_reason: str = ""
+    incumbent: bool = True
     incumbent_party: str = ""
     incumbency_adjust: float = 0.0
+    state_pres_2024: float | None = None
+    state_pres_2020: float | None = None
+    state_trend_adjust: float = 0.0
+    econ_adjust: float = 0.0
+    econ_detail: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -128,6 +140,8 @@ class HouseForecast:
     similarity_share: float = 0.0
     similarity_weights: dict[str, float] = field(default_factory=dict)
     lean_scale: float = 0.0
+    state_trend_weight: float = 0.0
+    national_trend: float = 0.0
 
 
 def load_house_config(path: Path | None = None) -> dict[str, Any]:
@@ -135,8 +149,26 @@ def load_house_config(path: Path | None = None) -> dict[str, Any]:
         return json.load(fh)
 
 
+def load_state_presidential(path: Path | None = None) -> dict[str, dict[str, float]]:
+    """{abbr: {"pres_2020": …, "pres_2024": …, "national_2020": …, "national_2024": …}}."""
+    path = path or FALLBACK_DIR / "state_presidential.csv"
+    out: dict[str, dict[str, float]] = {}
+    if not path.exists():
+        return out
+    with path.open(encoding="utf-8") as fh:
+        for row in csv.DictReader(fh):
+            keys = ("pres_2020", "pres_2024", "national_2020", "national_2024")
+            out[row["state"].upper()] = {
+                k: float(row[k]) for k in keys if row.get(k) not in (None, "")
+            }
+    return out
+
+
 def load_districts(
-    path: Path | None = None, open_seats: list[dict[str, Any]] | None = None
+    path: Path | None = None,
+    open_seats: list[dict[str, Any]] | None = None,
+    state_pres: dict[str, dict[str, float]] | None = None,
+    state_adjust: dict[str, tuple[float, dict[str, Any]]] | None = None,
 ) -> list[DistrictInput]:
     """Read the district baseline CSV written by scripts/build_house_districts.py.
 
@@ -161,6 +193,13 @@ def load_districts(
             if d.label.upper() in open_by_label:
                 d.open_seat = True
                 d.open_seat_reason = open_by_label[d.label.upper()]
+            sp = (state_pres or {}).get(d.state.upper())
+            if sp:
+                d.state_pres_2024 = sp.get("pres_2024")
+                d.state_pres_2020 = sp.get("pres_2020")
+            sa = (state_adjust or {}).get(d.state.upper())
+            if sa:
+                d.state_adjust, d.state_adjust_detail = float(sa[0]), dict(sa[1])
             out.append(d)
     unknown = set(open_by_label) - {d.label.upper() for d in out}
     if unknown:
@@ -204,6 +243,8 @@ class HouseForecastSimulator:
         similarity_weights: dict[str, float] | None = None,
         lean_scale: float = 10.0,
         regions: dict[str, str] | None = None,
+        state_trend_weight: float = 0.0,
+        national_trend: float = 0.0,
     ) -> None:
         if national_sigma < 0 or district_sigma < 0:
             raise ValueError("sigmas must be non-negative")
@@ -220,6 +261,9 @@ class HouseForecastSimulator:
         self.similarity_weights = similarity_weights or {"state": 0.5, "region": 0.2, "lean": 0.3}
         self.lean_scale = lean_scale
         self.regions = regions or {}
+        # State momentum: weight × [(state 2024 − state 2020) − national shift].
+        self.state_trend_weight = state_trend_weight
+        self.national_trend = national_trend
         self.baseline_margin = baseline_margin
         self.national_sigma = national_sigma
         self.district_sigma = district_sigma
@@ -251,8 +295,22 @@ class HouseForecastSimulator:
                 adjust = self.incumbency_advantage
         return float(lean), float(adjust)
 
+    def state_trend_adjust(self, d: DistrictInput) -> float:
+        """State momentum term: how much more the state moved 2020→2024 than
+        the country did, times ``state_trend_weight``."""
+        if not self.state_trend_weight or d.state_pres_2024 is None or d.state_pres_2020 is None:
+            return 0.0
+        shift = (d.state_pres_2024 - d.state_pres_2020) - self.national_trend
+        return float(self.state_trend_weight * shift)
+
+    def district_base(self, d: DistrictInput) -> float:
+        """Expected margin before the national swing: lean + incumbency
+        adjustment + state trend + state (economic) adjustment."""
+        lean, adjust = self.district_lean(d)
+        return lean + adjust + self.state_trend_adjust(d) + d.state_adjust
+
     def _base_margins(self, districts: list[DistrictInput]) -> np.ndarray:
-        return np.array([sum(self.district_lean(d)) for d in districts])
+        return np.array([self.district_base(d) for d in districts])
 
     def similarity_matrix(self, districts: list[DistrictInput]) -> np.ndarray:
         """Unit-diagonal similarity K between districts: a weighted mix of
@@ -405,8 +463,14 @@ class HouseForecastSimulator:
                     lean=round(lean, 2),
                     open_seat=d.open_seat,
                     open_seat_reason=d.open_seat_reason,
+                    incumbent=not d.open_seat,
                     incumbent_party="" if d.open_seat else d.winner_2024,
                     incumbency_adjust=round(adjust, 2),
+                    state_pres_2024=d.state_pres_2024,
+                    state_pres_2020=d.state_pres_2020,
+                    state_trend_adjust=round(self.state_trend_adjust(d), 2),
+                    econ_adjust=round(d.state_adjust, 2),
+                    econ_detail=dict(d.state_adjust_detail),
                 )
             )
         competitive = sorted(
@@ -458,6 +522,8 @@ class HouseForecastSimulator:
             similarity_share=self.similarity_share,
             similarity_weights=dict(self.similarity_weights),
             lean_scale=self.lean_scale,
+            state_trend_weight=self.state_trend_weight,
+            national_trend=self.national_trend,
         )
 
     def _tipping_point(self, districts: list[DistrictInput]) -> float | None:
@@ -479,10 +545,12 @@ def expected_national_margin(
     cfg: dict[str, Any],
     generic_two_party: float | None,
     approval_net: float | None,
-) -> dict[str, float | None]:
+    economy: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """Blend the two-party generic ballot and approval-implied margin per the
-    config weights (re-normalised over the signals present) and add the
-    historical generic-ballot bias. Returns the components for transparency."""
+    config weights (re-normalised over the signals present), add the
+    historical generic-ballot bias and the national (inflation) economic
+    effect. Returns the components for transparency."""
     env = cfg.get("national_environment", {})
     pres_party = env.get("president_party", "R").upper()
     coef = env.get("approval_to_margin_coef", 0.3)
@@ -500,9 +568,11 @@ def expected_national_margin(
     wsum = sum(w for w, _ in parts) or 1.0
     raw = sum(w * v for w, v in parts) / wsum
     bias = env.get("generic_ballot_bias", 0.0)
+    econ_effect = float((economy or {}).get("inflation_effect", 0.0))
     return {
-        "expected": round(raw + bias, 3),
+        "expected": round(raw + bias + econ_effect, 3),
         "raw": round(raw, 3),
         "approval_implied": None if appr_term is None else round(appr_term, 3),
         "bias": bias,
+        "economy": economy or {},
     }

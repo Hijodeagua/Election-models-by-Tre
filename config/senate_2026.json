@@ -5,17 +5,31 @@
   "rep_safe_seats": 47,
   "dem_majority_threshold": 51,
   "fundamentals": {
-    "_comment": "Fundamentals prior for each race, Dem-minus-Rep points. prior = lean + national_swing + incumbency_effect + experience_effect (+ midterm_penalty, default off). lean = (1-statewide_2022_weight) * [pres_weight_recent*pres_2024 + (1-pres_weight_recent)*pres_2020] + statewide_2022_weight*statewide_2022.margin. national_swing comes from the national_environment block (approval + generic ballot). The prior is blended with the polling margin at weight blend_k/(blend_k+num_polls). Coefficients are hand-set from the literature and from src/models/candidate_quality.py (whose incumbency_dem=3.0 is in vote-share terms, i.e. ~6 margin points; Senate incumbency advantage has shrunk to roughly 2-4 margin points since 2016, so 3.0 margin points is used). Every component value is exported per race (fundamentals block in senate_forecast.json) so the inputs are inspectable, not just the result.",
-    "pres_weight_recent": 0.75,
-    "statewide_2022_weight": 0.2,
+    "_comment": "Fundamentals prior, Dem-minus-Rep points, written to be explained in plain language: prior = lean + national swing + incumbency + incumbent tenure + candidate office years + candidate statewide record + economy. LEAN starts from the state's 2024 presidential margin at full weight (pres_2024_weight 1.0) and moves it part-way toward how 2020 differed (pres_2020_shift_weight) and how the state's last Senate race differed (last_senate_shift_weight): lean = pres_2024 + w20*(pres_2020 - pres_2024) + wlast*(last_senate - pres_2024). SWING comes from national_environment (generic ballot + approval). INCUMBENCY is binary: +/-incumbency_advantage for the incumbent's party, times appointed_incumbent_factor if appointed. INCUMBENT TENURE is categorical on years in this seat (incumbent_tenure_schedule, toward the incumbent). CANDIDATE OFFICE YEARS is categorical on years in any elected office (office_years_schedule, for non-incumbent candidates; net D minus R). STATEWIDE RECORD is prior statewide general-election wins/losses (experience_per_statewide_win/_loss, capped). ECONOMY is in the economy block. Every value is exported per race. All coefficients are hand-set (see candidate_quality.py for the original vote-share versions) and swept in scripts/sensitivity_sweep.py.",
+    "pres_2024_weight": 1.0,
+    "pres_2020_shift_weight": 0.2,
+    "last_senate_shift_weight": 0.2,
     "blend_k": 3.0,
     "incumbency_advantage": 3.0,
     "appointed_incumbent_factor": 0.5,
+    "incumbent_tenure_schedule": {
+      "_comment": "years in this Senate seat -> extra pts toward the incumbent",
+      "0-5": 0.0,
+      "6-17": 0.5,
+      "18+": 0.0
+    },
+    "office_years_schedule": {
+      "_comment": "years in any elected office, non-incumbent candidates -> pts toward that candidate's party",
+      "0": 0.0,
+      "1-6": 0.25,
+      "7-15": 0.75,
+      "16+": 1.0
+    },
     "experience_per_statewide_win": 0.75,
     "experience_per_statewide_loss": -0.5,
     "experience_cap": 3.0,
     "midterm_penalty": 0.0,
-    "_midterm_comment": "President's-party midterm penalty in margin points (candidate_quality.py uses 2.5 vote-share points = 5 margin). Default 0 here because the generic ballot in national_environment already measures this cycle's midterm climate; turning it on double-counts. Exposed so it can be switched on for a fundamentals-only view."
+    "_midterm_comment": "President's-party midterm penalty in margin points. 0 because the generic ballot already measures this cycle's climate; exposed so it can be switched on for a fundamentals-only view."
   },
   "forecast": {
     "_comment": "calibration_bias_weight scales the historically-fitted poll bias (~-2.5) before it is applied: 0 = ignore it (fundamentals already capture the red-state lean), 1 = apply in full, 0.5 = split the difference. Kept at 0.5 to avoid double-counting the same Dem-overstatement that the fundamentals blend also corrects. bias_cycle_type selects which calibration cycles the bias is averaged over: 'all' (pooled 2018-2024, -2.5, dominated by the 2020 presidential-year miss) or 'midterm' (2018+2022 only, -0.4). Polling error does not carry a predictable sign from cycle to cycle, and the two midterms in the calibration set show ~zero bias, so a midterm forecast uses the midterm-only figure.",
@@ -25,7 +39,9 @@
     "campaign_drift_per_sqrt_day": 0.35,
     "_drift_comment": "Extra national-error SD for campaign movement between today and election day: sigma_drift = campaign_drift_per_sqrt_day * sqrt(days_to_election), added in quadrature to the national sigma. 0.35/sqrt(day) gives ~1.9 pts a month out, ~1 pt a week out, and 0 on election day; polling averages have historically moved 2-3 pts over a final month. This is the only forward-looking term - the model is otherwise a nowcast.",
     "tail_dof": 5,
-    "_tail_comment": "Student-t degrees of freedom for polling error (variance-matched to the calibrated sigmas; null = Gaussian). Backtest on the 98 calibration races: t(5) Brier 0.0591 / log-loss 0.1905 vs Gaussian 0.0602 / 0.1952 — fat tails score better on both, and t(5) is the standard middle in the literature. Recomputed monthly in forecast_calibration.json under tail_comparison."
+    "_tail_comment": "Student-t degrees of freedom for polling error (variance-matched to the calibrated sigmas; null = Gaussian). Backtest on the 98 calibration races: t(5) Brier 0.0591 / log-loss 0.1905 vs Gaussian 0.0602 / 0.1952 — fat tails score better on both, and t(5) is the standard middle in the literature. Recomputed monthly in forecast_calibration.json under tail_comparison.",
+    "market_weight": 0.0,
+    "_market_comment": "Weight on prediction-market odds in each race's blend. 0 = polls + fundamentals only (the published forecast); market prices are still fetched and shown for comparison."
   },
   "national_environment": {
     "_comment": "The midterm climate, applied as a uniform swing on top of each state's presidential lean (so the fundamentals prior reflects today, not 2024). Expected national Dem-minus-Rep margin = generic_weight*generic_ballot + approval_weight*(approval-implied margin for the out-party); the swing is that minus the 2024 House baseline. president_party is the in-party that pays the midterm penalty. approval_to_margin_coef converts the president's net approval to their party's national margin. senate_responsiveness scales how much of the national swing reaches Senate races. It only moves the fundamentals prior — polled races already price the climate in, so this mainly lifts thinly-polled seats.",
@@ -53,19 +69,24 @@
           "name": "Jon Ossoff",
           "statewide_wins": 0,
           "statewide_losses": 0,
-          "note": "Incumbent (2020 runoff win counted via incumbency, not experience)."
+          "note": "Incumbent (2020 runoff win counted via incumbency, not experience).",
+          "office_years": 0
         },
         "rep": {
           "name": "Mike Collins",
           "statewide_wins": 0,
           "statewide_losses": 0,
-          "note": "U.S. House member; no statewide run."
+          "note": "U.S. House member; no statewide run.",
+          "office_years": 3.8
         },
-        "statewide_2022": {
-          "office": "U.S. Senate (runoff)",
+        "_verify": "Hand-entered Oct 2026 from public records (incumbency, years in office, statewide record, last Senate race); verify before publishing.",
+        "last_senate": {
+          "year": 2022,
+          "race": "Warnock (D) v Walker (R), runoff",
           "margin": 2.8
         },
-        "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
+        "incumbent_years": 5.8,
+        "office_years_note": "Ossoff since Jan 2021; Collins U.S. House since Jan 2023"
       },
       "region": "South"
     },
@@ -85,19 +106,24 @@
           "name": "Abdul El-Sayed",
           "statewide_wins": 0,
           "statewide_losses": 0,
-          "note": "Lost 2018 gubernatorial primary; no statewide general election."
+          "note": "Lost 2018 gubernatorial primary; no statewide general election.",
+          "office_years": 0
         },
         "rep": {
           "name": "Mike Rogers",
           "statewide_wins": 0,
           "statewide_losses": 1,
-          "note": "Lost 2024 Senate race by 0.3."
+          "note": "Lost 2024 Senate race by 0.3.",
+          "office_years": 14
         },
-        "statewide_2022": {
-          "office": "Governor",
-          "margin": 10.6
+        "_verify": "Hand-entered Oct 2026 from public records (incumbency, years in office, statewide record, last Senate race); verify before publishing.",
+        "last_senate": {
+          "year": 2024,
+          "race": "Slotkin (D) v Rogers (R)",
+          "margin": 0.3
         },
-        "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
+        "incumbent_years": 0,
+        "office_years_note": "El-Sayed never elected; Rogers U.S. House 2001-2015"
       },
       "region": "Midwest"
     },
@@ -117,19 +143,24 @@
           "name": "Roy Cooper",
           "statewide_wins": 6,
           "statewide_losses": 0,
-          "note": "AG 2000/04/08/12, Governor 2016/20."
+          "note": "AG 2000/04/08/12, Governor 2016/20.",
+          "office_years": 38
         },
         "rep": {
           "name": "Michael Whatley",
           "statewide_wins": 0,
           "statewide_losses": 0,
-          "note": "Party chair; no statewide run."
+          "note": "Party chair; no statewide run.",
+          "office_years": 0
         },
-        "statewide_2022": {
-          "office": "U.S. Senate",
+        "_verify": "Hand-entered Oct 2026 from public records (incumbency, years in office, statewide record, last Senate race); verify before publishing.",
+        "last_senate": {
+          "year": 2022,
+          "race": "Beasley (D) v Budd (R)",
           "margin": -3.2
         },
-        "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
+        "incumbent_years": 0,
+        "office_years_note": "Cooper: legislature 1987-2001, AG 2001-17, Governor 2017-25; Whatley none"
       },
       "region": "South"
     },
@@ -149,19 +180,24 @@
           "name": "Troy Jackson",
           "statewide_wins": 0,
           "statewide_losses": 0,
-          "note": "State Senate president; no statewide run."
+          "note": "State Senate president; no statewide run.",
+          "office_years": 16
         },
         "rep": {
           "name": "Susan Collins",
           "statewide_wins": 0,
           "statewide_losses": 1,
-          "note": "Incumbent since 1996 (incumbency term); lost 1994 governor race."
+          "note": "Incumbent since 1996 (incumbency term); lost 1994 governor race.",
+          "office_years": 0
         },
-        "statewide_2022": {
-          "office": "Governor",
-          "margin": 13.1
+        "_verify": "Hand-entered Oct 2026 from public records (incumbency, years in office, statewide record, last Senate race); verify before publishing.",
+        "last_senate": {
+          "year": 2020,
+          "race": "Gideon (D) v Collins (R)",
+          "margin": -8.6
         },
-        "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
+        "incumbent_years": 29.8,
+        "office_years_note": "Collins since Jan 1997; Jackson Maine House/Senate 2003-11, 2014-22"
       },
       "region": "Northeast"
     },
@@ -181,19 +217,24 @@
           "name": "Chris Pappas",
           "statewide_wins": 0,
           "statewide_losses": 0,
-          "note": "U.S. House; Executive Council is a district seat."
+          "note": "U.S. House; Executive Council is a district seat.",
+          "office_years": 17.8
         },
         "rep": {
           "name": "John E. Sununu",
           "statewide_wins": 1,
           "statewide_losses": 1,
-          "note": "Won Senate 2002, lost 2008."
+          "note": "Won Senate 2002, lost 2008.",
+          "office_years": 12
         },
-        "statewide_2022": {
-          "office": "U.S. Senate",
+        "_verify": "Hand-entered Oct 2026 from public records (incumbency, years in office, statewide record, last Senate race); verify before publishing.",
+        "last_senate": {
+          "year": 2022,
+          "race": "Hassan (D) v Bolduc (R)",
           "margin": 9.1
         },
-        "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
+        "incumbent_years": 0,
+        "office_years_note": "Pappas NH House 2003-07, Exec Council 2013-19, U.S. House 2019-; Sununu U.S. House 1997-2003, Senate 2003-09"
       },
       "region": "Northeast"
     },
@@ -214,19 +255,24 @@
           "name": "Sherrod Brown",
           "statewide_wins": 5,
           "statewide_losses": 2,
-          "note": "SoS 1982/86, Senate 2006/12/18; lost SoS 1990, Senate 2024."
+          "note": "SoS 1982/86, Senate 2006/12/18; lost SoS 1990, Senate 2024.",
+          "office_years": 48
         },
         "rep": {
           "name": "Jon Husted",
           "statewide_wins": 4,
           "statewide_losses": 0,
-          "note": "Appointed Jan 2025; SoS 2010/14, Lt. Gov 2018/22 (other-office wins)."
+          "note": "Appointed Jan 2025; SoS 2010/14, Lt. Gov 2018/22 (other-office wins).",
+          "office_years": 0
         },
-        "statewide_2022": {
-          "office": "U.S. Senate",
-          "margin": -6.1
+        "_verify": "Hand-entered Oct 2026 from public records (incumbency, years in office, statewide record, last Senate race); verify before publishing.",
+        "last_senate": {
+          "year": 2024,
+          "race": "Brown (D) v Moreno (R)",
+          "margin": -3.6
         },
-        "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
+        "incumbent_years": 1.7,
+        "office_years_note": "Husted appointed Jan 2025 (prior offices counted in statewide record); Brown 1975-2025"
       },
       "region": "Midwest"
     },
@@ -246,19 +292,24 @@
           "name": "James Talarico",
           "statewide_wins": 0,
           "statewide_losses": 0,
-          "note": "State representative."
+          "note": "State representative.",
+          "office_years": 7.8
         },
         "rep": {
           "name": "Ken Paxton",
           "statewide_wins": 3,
           "statewide_losses": 0,
-          "note": "AG 2014/18/22. Seat is open (Cornyn lost the primary)."
+          "note": "AG 2014/18/22. Seat is open (Cornyn lost the primary).",
+          "office_years": 23.8
         },
-        "statewide_2022": {
-          "office": "Governor",
-          "margin": -10.9
+        "_verify": "Hand-entered Oct 2026 from public records (incumbency, years in office, statewide record, last Senate race); verify before publishing.",
+        "last_senate": {
+          "year": 2024,
+          "race": "Allred (D) v Cruz (R)",
+          "margin": -8.5
         },
-        "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
+        "incumbent_years": 0,
+        "office_years_note": "Talarico TX House since 2019; Paxton TX House 2003-13, Senate 2013-15, AG 2015-"
       },
       "region": "South"
     },
@@ -278,19 +329,24 @@
           "name": "Josh Turek",
           "statewide_wins": 0,
           "statewide_losses": 0,
-          "note": "State representative."
+          "note": "State representative.",
+          "office_years": 3.8
         },
         "rep": {
           "name": "Ashley Hinson",
           "statewide_wins": 0,
           "statewide_losses": 0,
-          "note": "U.S. House; no statewide run."
+          "note": "U.S. House; no statewide run.",
+          "office_years": 9.8
         },
-        "statewide_2022": {
-          "office": "U.S. Senate",
+        "_verify": "Hand-entered Oct 2026 from public records (incumbency, years in office, statewide record, last Senate race); verify before publishing.",
+        "last_senate": {
+          "year": 2022,
+          "race": "Franken (D) v Grassley (R)",
           "margin": -12.2
         },
-        "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
+        "incumbent_years": 0,
+        "office_years_note": "Turek IA House since 2023; Hinson IA House 2017-21, U.S. House 2021-"
       },
       "region": "Midwest"
     },
@@ -310,19 +366,24 @@
           "name": "Mary Peltola",
           "statewide_wins": 2,
           "statewide_losses": 1,
-          "note": "At-large U.S. House 2022 special + general (statewide); lost 2024."
+          "note": "At-large U.S. House 2022 special + general (statewide); lost 2024.",
+          "office_years": 12.3
         },
         "rep": {
           "name": "Dan Sullivan",
           "statewide_wins": 0,
           "statewide_losses": 0,
-          "note": "Incumbent since 2014 (counted via incumbency)."
+          "note": "Incumbent since 2014 (counted via incumbency).",
+          "office_years": 0
         },
-        "statewide_2022": {
-          "office": "U.S. House at-large (RCV final)",
-          "margin": 10.0
+        "_verify": "Hand-entered Oct 2026 from public records (incumbency, years in office, statewide record, last Senate race); verify before publishing.",
+        "last_senate": {
+          "year": 2020,
+          "race": "Gross (I, Dem-endorsed) v Sullivan (R); 2022 final was R v R",
+          "margin": -12.7
         },
-        "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
+        "incumbent_years": 11.8,
+        "office_years_note": "Sullivan since Jan 2015; Peltola AK House 1999-2009, U.S. House 2022-25"
       },
       "region": "West"
     }
@@ -338,5 +399,12 @@
     "similarity_share": 0.35,
     "region_weight": 0.4,
     "lean_scale": 8.0
+  },
+  "economy": {
+    "_comment": "Economic fundamentals (data/fallback/economic.csv via src/data/economic.py), signed against the president's party. inflation: (CPI year-over-year % - inflation_baseline) * inflation_coef, national, applied to every race (kept small because approval already reflects it). gas: (state gas price - national) * gas_deviation_coef, per state. unemployment: (state rate - national) * unemployment_deviation_coef, per state. A missing series contributes 0 and is reported as unavailable.",
+    "inflation_baseline": 2.5,
+    "inflation_coef": -0.3,
+    "gas_deviation_coef": -1.0,
+    "unemployment_deviation_coef": -0.3
   }
 }

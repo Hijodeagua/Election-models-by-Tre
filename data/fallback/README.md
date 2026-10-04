@@ -15,6 +15,8 @@ fixtures.
 | `nyt_vibes.csv` | Cached output of the NYT media-sentiment ("vibes") pipeline. The committed file is a **neutral placeholder** (zero adjustment for every candidate) until the pipeline runs with `NYT_API_KEY` set. | vibes pipeline (manual; needs key) |
 | `fiftyplusone_approval.csv` | Optional cached 50+1 approval series (`modeldate,approve,disapprove`, ISO dates). Not committed — the site shows the 50+1 toggle as "no data yet" until it exists. | manual (paid API) |
 | `house_districts_2024.csv` | One row per congressional district: 2024 two-party Dem−Rep margin, winner, whether the margin was imputed (uncontested seat → 2022 margin or a safe placeholder), and the 2022 two-party margin on the same lines (blank if uncontested or the state was redrawn for 2024). Input to the House forecast. | `scripts/build_house_districts.py` (manual; downloads the 538 results archive) |
+| `state_presidential.csv` | Dem−Rep presidential margin by state, 2020 and 2024, plus the national margins. Hand-entered from certified results (verify). Input to the House state-trend term and exported per district. | manual |
+| `economic.csv` | Economic fundamentals snapshot: `cpi_yoy` / `cpi_index` (US), `gas_price` and `unemployment` (US and per state). CPI comes from the keyless `datasets/cpi-us` mirror; gas prices need `EIA_API_KEY`; state unemployment comes from the BLS public API. Missing series contribute 0 to the forecasts and are flagged. | cron (`--source economic`) |
 | `approval.csv`, `generic_ballot.csv`, `senate.csv` | Tiny hand-curated poll sets used as a last-resort fallback and for smoke tests | never (fixtures) |
 
 Pipelines prefer the large live-source exports and only fall back to the

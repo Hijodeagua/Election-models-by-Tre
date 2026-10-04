@@ -242,7 +242,8 @@
           "reason": "McCaul (R) retiring"
         }
       ]
-    }
+    },
+    "_incumbent_comment": "incumbent flag per district: the 2024 winner's party when they are on the 2026 ballot, 'open' otherwise (open_seats list)."
   },
   "correlation": {
     "_comment": "Similarity-structured district error: similarity_share of the district-level variance is shared between districts that vote alike. K = (state*same_state + region*same_region + lean*exp(-|lean_i-lean_j|/lean_scale)) / (state+region+lean), unit diagonal. Per-district variance is unchanged (so district_sigma keeps its calibration); seat totals get fatter tails because a miss in one Rust Belt R+3 seat tends to show up in the others. regions are Census regions.",
@@ -305,5 +306,18 @@
       "OR": "West",
       "WA": "West"
     }
+  },
+  "state_fundamentals": {
+    "_comment": "State-level inputs for every district (data/fallback/state_presidential.csv). state_trend_weight * [(state pres 2024 - state pres 2020) - (national 2024 - national 2020)] is added to each district's expected margin: a state that moved toward one party between 2020 and 2024 by more than the country did is assumed to carry part of that momentum. The state's 2024 and 2020 presidential margins are exported per district either way.",
+    "csv": "state_presidential.csv",
+    "state_trend_weight": 0.2
+  },
+  "economy": {
+    "_comment": "Same economic terms as the Senate config, signed against the president's party: national inflation enters the expected national margin; state gas-price and unemployment deviations enter each district's expected margin.",
+    "inflation_baseline": 2.5,
+    "inflation_coef": -0.3,
+    "gas_deviation_coef": -1.0,
+    "unemployment_deviation_coef": -0.3,
+    "president_party": "R"
   }
 }
