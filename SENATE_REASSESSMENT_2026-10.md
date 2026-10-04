@@ -148,3 +148,81 @@ before anything is published.
   `web/app/components/SeatsVotesChart.tsx`
 * Tests: `tests/test_markets.py` (+4), `tests/test_senate_forecast_inputs.py`,
   `tests/test_house_forecast.py`
+
+## Features and importances (both forecasts)
+
+### Where candidate names and incumbency enter
+
+Candidate names are **identifiers, not features**. In the Senate pipeline they
+are used only to (1) match poll answers to the Democratic/Republican side when
+computing a race's Dem−Rep margin, (2) match Wikipedia poll-table columns, and
+(3) resolve candidate-named market outcomes to a party. A wrong name therefore
+changes *which* numbers are read, never how they are weighted (the MI/NH bug
+above). In the House model names are not used at all; `winner_2024` labels
+the seat for flip counts.
+
+**Incumbency is not a feature in either forecast.** The Senate fundamentals
+prior is state presidential lean (2024 ×0.75 + 2020 ×0.25) plus the national
+swing; the House baseline is the district's 2024 margin, which embeds the 2024
+incumbent's advantage but does not know whether that incumbent is running
+again. `src/models/candidate_quality.py` has an incumbency/WAR model with
+hand-set coefficients (±3 pts) but it is not wired into either forecast and
+has never been fit.
+
+### Senate — importance of each input (P(Dem control), today)
+
+Per-race leverage = P(control | Dem wins race) − P(control | Dem loses race);
+P(tipping) = share of simulations in which the race is the 51st seat.
+
+| Race | P(D) | Leverage | P(tipping) |
+|---|---|---|---|
+| Iowa | 0.52 | 0.49 | **0.17** |
+| Texas | 0.62 | 0.51 | **0.16** |
+| Ohio | 0.67 | 0.51 | 0.15 |
+| Alaska | 0.40 | 0.46 | 0.15 |
+| Maine | 0.71 | 0.51 | 0.14 |
+| Michigan | 0.73 | 0.51 | 0.13 |
+| New Hampshire | 0.88 | 0.49 | 0.06 |
+| Georgia | 0.94 | 0.49 | 0.03 |
+| North Carolina | 0.95 | 0.49 | 0.02 |
+
+Leverage is ~0.5 everywhere because Democrats need 7 of 9: every race is
+pivotal when lost. The tipping-point column is the useful ranking — the
+forecast is decided in Iowa, Texas, Ohio, Alaska and Maine.
+
+Component ablations (baseline 0.532):
+
+| Change | P(control) |
+|---|---|
+| bias pooled 2018–24 (−1.24) instead of midterm (−0.22) | 0.431 |
+| bias 0 | 0.553 |
+| race σ 4.0 / 6.5 (base 5.14) | 0.570 / 0.488 |
+| Gaussian tails (base t5) | 0.500 |
+| no market blend / market weight 0.5 | 0.542 / 0.522 |
+| independent races (σ_nat → 0) | 0.546 |
+| no campaign drift | 0.534 |
+
+Ranked: bias cycle choice ≫ race-level σ ≈ tail shape > market weight >
+correlation structure > drift. From the knob sweep, `senate_responsiveness`
+(how much national swing reaches thin-poll races) is the other large one
+(0.45–0.63 across 0.5–1.5).
+
+### House — importance of each input (P(Dem majority) 0.958, 233.5 seats)
+
+| Change | P(majority) | Mean seats |
+|---|---|---|
+| generic ballot two-party D+2 / D+4 / D+8 / D+10 (base D+6.3) | 0.77 / 0.89 / 0.97 / 0.99 | 224 / 228 / 236 / 241 |
+| generic-ballot bias 0 / −2 / −3 (base −1) | 0.975 / 0.927 / 0.877 | 236.5 / 230.6 / 227.6 |
+| generic-ballot σ 1.5 / 3.5 / 5.0 (base 2.5) | 0.980 / 0.926 / 0.873 | — |
+| redistricting none / net −5 (+FL −3) / net −6 (CA fails) | 0.973 / 0.925 / 0.878 | 235.5 / 230.5 / 227.5 |
+| campaign drift 0 / 0.6 (base 0.3) | 0.973 / 0.915 | — |
+| approval weight 0 / 0.5 (base 0.25) | 0.953 / 0.962 | 232.9 / 234.2 |
+| district σ 4.5 / 8.5 (base 6.5) | 0.967 / 0.951 | — |
+| Gaussian national tails | 0.946 | — |
+
+Ranked: level of the generic ballot ≫ generic-ballot bias ≈ national σ ≈
+redistricting assumptions > drift > tails > approval weight > district σ. The
+seat count is ~3 seats per national point; the probability is driven almost
+entirely by how far the national margin sits from the ~even-vote tipping
+point and how wide the national error is. District-level noise barely matters
+for the chamber call because it averages out over 435 seats.
