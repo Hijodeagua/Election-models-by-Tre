@@ -186,7 +186,9 @@ class TestDistrictLean:
         d_open = DistrictInput(
             "XX", "District 1", margin_2024=4.0, winner_2024="D", open_seat=True
         )
-        r_open = DistrictInput("XX", "District 2", margin_2024=-4.0, winner_2024="R", open_seat=True)
+        r_open = DistrictInput(
+            "XX", "District 2", margin_2024=-4.0, winner_2024="R", open_seat=True
+        )
         assert sim.district_lean(d_open)[1] == -2.5
         assert sim.district_lean(r_open)[1] == 2.5
         held = DistrictInput("XX", "District 3", margin_2024=4.0, winner_2024="D")
