@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-10-04T00:28:43.871257+00:00",
+  "last_updated": "2026-10-04T02:42:57.763162+00:00",
   "data_tier": "tracker",
   "label": "A work in progress from the team at Policy y Peaches",
   "model_versions": {
@@ -7,7 +7,8 @@
     "generic_ballot": "GenericBallotModel (weighted polling average, Phase 2)",
     "senate": "SenateModel (per-race polling average) + vibes/market overlays",
     "senate_control": "SenateControlSimulator (50,000-sim Monte Carlo NOWCAST)",
-    "state_space": "Jackman state-space (random-walk latent + house effects), published"
+    "house_control": "HouseForecastSimulator (435-district uniform swing + noise, 50,000 sims)",
+    "state_space": "not run this refresh (pass --state-space)"
   },
   "poll_counts": {
     "approval": 1843,

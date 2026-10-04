@@ -10,7 +10,8 @@ A Python-based election modeling and forecasting system that ingests polling dat
 - **Presidential approval tracking** — daily averages with confidence intervals
 - **Generic ballot model** — congressional preference tracking with historical seat projection
 - **Senate race models** — individual race polling averages, with an experimental NYT "vibes" media-sentiment overlay
-- **Senate control simulation** — 1,000-run Monte Carlo nowcast with correlated national error, blended with prediction-market odds
+- **Senate control simulation** — 50,000-run Monte Carlo with correlated, fat-tailed national error (cycle-matched bias, campaign-drift widening), blended with prediction-market odds
+- **House control forecast** — all 435 districts swung uniformly from their 2024 result with correlated national and independent district error, mid-decade redistricting as a configured seat shift (`config/house_2026.json`)
 - **Prediction-market integration** — Polymarket and Kalshi implied odds per race and for chamber control (offline CSV fallback)
 - **Model comparison** — our approval average side-by-side with raw VoteHub averages and 50+1 (when available)
 - **Web tracker** — deployable Next.js front end (`web/`) that reads static JSON exported from the Python pipeline
@@ -76,6 +77,7 @@ All fallback data lives in `data/fallback/` and is committed to the repo — no 
 | `silverb_approval.csv` | Silver Bulletin snapshot (CLI benchmark only — not on the site) | daily |
 | `silverb_generic_ballot.csv` | Silver Bulletin snapshot (CLI benchmark only) | daily |
 | `approval.csv` / `generic_ballot.csv` / `senate.csv` | Hand-curated samples | 5 each |
+| `house_districts_2024.csv` | 2024 two-party margin for all 435 House districts (built by `scripts/build_house_districts.py` from the 538 results archive) | 435 rows |
 
 ### Expected output (weighted average, offline)
 
@@ -101,8 +103,8 @@ House effects (40 pollsters with |δ|>1.5pp):
 
 A deployable Next.js 14 (App Router) static site that presents the trackers —
 presidential approval (with a toggleable multi-model comparison chart), generic
-ballot, Senate race cards (vibes toggle + market-odds chips), a Senate-control
-simulation page, and a methodology page. It reads the static JSON files in
+ballot, Senate race cards (vibes toggle + market-odds chips), Senate-control and
+House-control simulation pages, and a methodology page. It reads the static JSON files in
 `web/public/data/`, which are produced by the Python pipeline; it runs no
 Python server itself.
 
@@ -119,12 +121,14 @@ npm run build      # production build (static, prerendered)
 
 The approval, generic-ballot, and race-level Senate pages are **trackers**: they
 show weighted polling averages and confidence bands rather than election-day
-predictions. The separate Senate Forecast page is a **nowcast** of where chamber
-control stands today. It runs 50,000 simulations using race polling,
-fundamentals, correlated polling error, fat-tailed uncertainty, and a transparent
-prediction-market blend. It is not an election-day forecast and does not model
-future campaign movement. The site is served under the `/election` base path
-(see `web/next.config.mjs`).
+predictions. The separate Senate Forecast page simulates chamber control today:
+50,000 simulations using race polling, fundamentals, correlated polling error,
+fat-tailed uncertainty, a transparent prediction-market blend, and a small
+campaign-drift term for the days left before the election. The House Forecast
+page does the same for the House from the national environment and 2024
+district results. See `SENATE_REASSESSMENT_2026-10.md` for the October 2026
+review of the Senate error model. The site is served under the `/election` base
+path (see `web/next.config.mjs`).
 
 ### Automated refresh
 
@@ -153,7 +157,9 @@ election-oracle/
 │   │   ├── approval.py      # Presidential approval model
 │   │   ├── generic_ballot.py   # Generic ballot + seat projection
 │   │   ├── senate.py        # Senate race models
-│   │   ├── house.py         # House race models
+│   │   ├── senate_simulation.py  # Senate-control Monte Carlo
+│   │   ├── house_forecast.py     # House-control district simulation
+│   │   ├── house.py         # House race models (stub)
 │   │   ├── governor.py      # Governor race models
 │   │   └── presidential.py  # 2028 primary tracker
 │   ├── analysis/            # Analytical utilities

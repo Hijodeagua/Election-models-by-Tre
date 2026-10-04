@@ -1,0 +1,50 @@
+{
+  "_comment": "2026 House forecast configuration (src/models/house_forecast.py). A uniform-swing-plus-noise district model: every district starts from its 2024 two-party margin (data/fallback/house_districts_2024.csv), the national environment moves all 435 by the same swing, correlated national error and independent district error are layered on top, and seats are counted against the 218 majority line. Dem-minus-Rep conventions throughout.",
+  "cycle": 2026,
+  "election_date": "2026-11-03",
+  "total_seats": 435,
+  "dem_majority_threshold": 218,
+  "districts_csv": "house_districts_2024.csv",
+  "baseline": {
+    "_comment": "National two-party Dem-minus-Rep House margin in the baseline cycle (2024: 48.8% D two-party => -2.4). The swing applied to every district is expected_2026_margin - baseline_margin.",
+    "cycle": 2024,
+    "two_party_margin": -2.4
+  },
+  "national_environment": {
+    "_comment": "Expected 2026 national two-party House margin = generic_weight * two-party generic ballot + approval_weight * approval-implied out-party margin (same approval_to_margin_coef as the Senate config), then plus generic_ballot_bias. generic_ballot_bias is the historical mean of (actual House margin - final generic-ballot average); the polling average has run roughly a point too Democratic on average since 2006 (range about -4 to +3 pts). generic_ballot_sigma is the SD of that error. Both are literature/approximate values pending a fit on archived generic-ballot averages (same caveat as config/seat_conversion.json); the sensitivity is about 3.5-4 seats per point.",
+    "president_party": "R",
+    "generic_weight": 0.75,
+    "approval_weight": 0.25,
+    "approval_to_margin_coef": 0.3,
+    "generic_ballot_bias": -1.0,
+    "generic_ballot_sigma": 2.5,
+    "national_tail_dof": 5
+  },
+  "district_error": {
+    "_comment": "Independent per-district deviation from the uniform swing, Student-t with district_tail_dof. Evidence from scripts/build_house_districts.py (SD of district margin change net of the national mean, contested districts, same map): 2022->2024 4.5 pts; 2018->2020 5.9; 2016->2018 (wave midterm, many open seats) 8.5. A midterm with a large swing sits toward the upper end; 6.5 is used. Candidate quality, retirements and district polling are not modelled yet, which is what this term stands in for.",
+    "district_sigma": 6.5,
+    "district_tail_dof": 5,
+    "evidence": {
+      "2022_to_2024": 4.48,
+      "2018_to_2020": 5.93,
+      "2016_to_2018": 8.53
+    }
+  },
+  "campaign_drift_per_sqrt_day": 0.3,
+  "_drift_comment": "Extra national SD for movement between today and election day, added in quadrature: 0.3 * sqrt(days_to_election) (~1.6 pts a month out, 0 on election day). Slightly below the Senate figure because the generic ballot is a single national series that moves less than any one race.",
+  "redistricting": {
+    "_comment": "Mid-decade redraws since 2024 change which seats exist, which the 2024-district baseline cannot see. Each entry is the expected net change in Democratic seats versus the 2024 map, drawn per simulation as Normal(dem_seat_shift, sd) and added to the seat total. VERIFY BEFORE PUBLISHING: entries with include=true reflect maps enacted in 2025 as understood when this file was written; include=false entries were unresolved or unknown at that time and are listed so they are not forgotten. A deterministic seat shift is an approximation: in a strong Democratic year a Republican gerrymander yields fewer of its intended seats, which is not modelled.",
+    "states": [
+      {"state": "TX", "dem_seat_shift": -5, "sd": 1.5, "include": true, "note": "2025 legislature map drawn to add five Republican seats; in use for 2026."},
+      {"state": "CA", "dem_seat_shift": 5, "sd": 1.5, "include": true, "note": "Proposition 50 (Nov 2025) map drawn to add five Democratic seats."},
+      {"state": "MO", "dem_seat_shift": -1, "sd": 0.5, "include": true, "note": "2025 map splits the Kansas City seat."},
+      {"state": "NC", "dem_seat_shift": -1, "sd": 0.5, "include": true, "note": "2025 map targets the 1st district."},
+      {"state": "OH", "dem_seat_shift": -1, "sd": 1.0, "include": true, "note": "2025 commission map; shifts one or two Democratic-held seats toward Republicans."},
+      {"state": "UT", "dem_seat_shift": 1, "sd": 0.5, "include": true, "note": "Court-ordered 2025 map with a Salt Lake-based Democratic-leaning seat."},
+      {"state": "FL", "dem_seat_shift": 0, "sd": 0.0, "include": false, "note": "2026 redraw discussed; outcome not confirmed when written - set shift and include=true once known."},
+      {"state": "VA", "dem_seat_shift": 0, "sd": 0.0, "include": false, "note": "Democratic redistricting amendment/referendum; outcome not confirmed when written."},
+      {"state": "LA", "dem_seat_shift": 0, "sd": 0.0, "include": false, "note": "Depends on Louisiana v. Callais; not confirmed when written."}
+    ]
+  },
+  "seats_votes_curve_margins": [-6, -4, -2, 0, 2, 4, 6, 8, 10, 12]
+}

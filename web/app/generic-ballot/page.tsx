@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import LastUpdated from '@/app/components/LastUpdated';
 import DataFreshnessBanner from '@/app/components/DataFreshnessBanner';
 import MarginChart from '@/app/components/MarginChart';
@@ -54,6 +55,10 @@ export default function GenericBallotPage() {
                 current.estimated_dem_seats_hi != null && (
                   <> (80% range: D {current.estimated_dem_seats_lo}–{current.estimated_dem_seats_hi})</>
                 )}
+              . For the district-level simulation of House control, see the{' '}
+              <Link href="/house-forecast" className="text-peach underline">
+                House Forecast
+              </Link>
               .
             </p>
           )}

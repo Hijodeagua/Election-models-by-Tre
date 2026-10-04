@@ -53,9 +53,9 @@ export default function MethodologyPage() {
         A work in progress from the team at Policy y Peaches. Its foundation is a
         set of weighted polling averages — polls are weighted by a hybrid
         pollster-quality score and recency, as of the date stamped on each page.
-        On top of that foundation, the Senate Forecast page runs a probabilistic
-        simulation of chamber control and compares the result against
-        prediction-market prices. The shaded bands on the charts are confidence
+        On top of that foundation, the Senate and House Forecast pages run
+        probabilistic simulations of chamber control; the Senate page also
+        compares its result against prediction-market prices. The shaded bands on the charts are confidence
         intervals around the polling average.
       </P>
 
@@ -97,7 +97,23 @@ export default function MethodologyPage() {
           simulations of the key races with correlated national polling error,
           optionally blending Polymarket/Kalshi implied odds at a tunable weight.
           It shows where the chamber stands today given current polling and market
-          prices.
+          prices. The error model is fitted to 98 Senate races from 2018–2024;
+          because polling error has no predictable sign from cycle to cycle, the
+          systematic-bias term uses only the midterm cycles in that set (which show
+          essentially none), and a small campaign-drift term widens the national
+          error for the days left before the election.
+        </li>
+        <li>
+          <strong>House control simulation</strong> — all 435 districts start from
+          their 2024 two-party result; the expected national environment (two-party
+          generic ballot plus the approval-implied margin, adjusted for the
+          generic ballot&rsquo;s historical lean) is applied as a uniform swing;
+          one correlated national error and an independent per-district error
+          (sized to how far districts have strayed from the national swing in
+          recent cycles) are drawn per simulation; seats are counted against 218.
+          Mid-decade redistricting since 2024 enters as a configured net seat shift
+          per state rather than as redrawn district lines. No district polling or
+          candidate-quality terms yet.
         </li>
       </ul>
 
