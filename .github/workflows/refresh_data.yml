@@ -68,6 +68,13 @@ jobs:
         # if the fit fails, so this cannot take the trackers down.
         run: python scripts/export_json.py --state-space
 
+      - name: Build under-the-hood report
+        # Three-page HTML gut-check (reports/latest.html): larger correlated
+        # Monte Carlo runs of both chambers with every input value and the
+        # feature importances. Best-effort — never blocks the data refresh.
+        continue-on-error: true
+        run: python scripts/build_report.py --senate-sims 500000 --house-sims 200000
+
       - name: Check feed freshness
         # Warn (never fail) when a feed's newest poll is older than 3 days —
         # publishing yesterday's data beats publishing nothing, but going
@@ -101,7 +108,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add web/public/data/*.json data/fallback/*.csv || true
+          git add web/public/data/*.json data/fallback/*.csv reports/latest.html reports/latest.json || true
           if [ -n "$(git status --porcelain)" ]; then
             timestamp=$(date -u +'%Y-%m-%d %H:%M UTC')
             git commit -m "Refresh tracker data: $timestamp"

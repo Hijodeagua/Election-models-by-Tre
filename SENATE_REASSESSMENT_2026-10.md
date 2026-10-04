@@ -304,3 +304,40 @@ Competitive open seats as used:
 Headline: **P(Dem House majority) 95.8% → 96.6%**, mean 233.5 → 234.6 seats.
 Small, as expected: open seats and the 2022 blend move individual districts
 by 2–5 points but the chamber call is set by the national margin.
+
+## Update: pollster house effects, similar-state correlation, and the report
+
+**Did the pollster-grade analysis feed the polls?** Half of it did. The
+Silver Bulletin PPM grades have always *weighted* each poll in the average.
+The empirical per-pollster track record from our own calibration
+(`forecast_calibration.json › pollster_bias`, mean actual−poll error per
+pollster over 98 Senate races) was only displayed on the Pollsters page; it
+never *corrected* a poll. It does now (`config/senate_2026.json › polls`):
+
+    relative house effect = (pollster mean error − pooled mean) × n/(n+10), capped ±2.5
+    applied to each matched poll's Dem−Rep margin before the race average
+
+Coverage is partial: 106 of 241 live Senate polls come from pollsters with a
+2018–24 record (Quantus, Big Data Poll, Beacon/Shaw and most university polls
+have none). Because the matched pollsters are mostly the Republican-aligned
+ones (Trafalgar, Rasmussen, InsiderAdvantage, co/efficient), whose relative
+errors are positive, the corrections run +0.2 to +1.3 pts toward Democrats
+by race. Raw and corrected margins are both exported.
+
+**Similar states vote alike.** Both simulators now carry a Silver-style
+similarity structure on top of the national error: 35% of Senate race
+variance (40% of House district variance) is shared through same-region and
+lean-proximity kernels (same-state too, for districts). Per-race variance is
+unchanged, so the calibrated sigmas keep their meaning; the implied
+race-by-race correlation matrix is exported and drawn in the report
+(Ohio–Iowa 0.52, Maine–New Hampshire 0.50, Georgia–Maine 0.36).
+
+| | Before | After house effects + correlation |
+|---|---|---|
+| P(Dem Senate control) | 56% | **61%** (500k sims: 61%) |
+| P(Dem House majority) | 96.6% | **94.4%** (fatter tails from correlated districts; mean seats unchanged at 234.5) |
+
+**Report.** `python scripts/build_report.py` writes `reports/latest.html`,
+a three-page under-the-hood view (overview with features, importances and
+maps; House breakdown; Senate breakdown) from 500,000 Senate and 200,000
+House correlated simulations. The daily refresh rebuilds it.

@@ -183,7 +183,9 @@ class TestDistrictLean:
 
     def test_open_seat_loses_incumbent_advantage(self):
         sim = _sim(incumbency_advantage=2.5)
-        d_open = DistrictInput("XX", "District 1", margin_2024=4.0, winner_2024="D", open_seat=True)
+        d_open = DistrictInput(
+            "XX", "District 1", margin_2024=4.0, winner_2024="D", open_seat=True
+        )
         r_open = DistrictInput("XX", "District 2", margin_2024=-4.0, winner_2024="R", open_seat=True)
         assert sim.district_lean(d_open)[1] == -2.5
         assert sim.district_lean(r_open)[1] == 2.5
@@ -193,7 +195,9 @@ class TestDistrictLean:
     def test_open_seat_lowers_win_probability_in_simulation(self):
         sim = _sim(incumbency_advantage=2.5)
         held = [DistrictInput("XX", "District 1", margin_2024=1.0, winner_2024="D")]
-        open_ = [DistrictInput("XX", "District 1", margin_2024=1.0, winner_2024="D", open_seat=True)]
+        open_ = [
+            DistrictInput("XX", "District 1", margin_2024=1.0, winner_2024="D", open_seat=True)
+        ]
         p_held = sim.simulate(held, -2.4, num_simulations=20000, seed=5).districts[0].dem_win_prob
         p_open = sim.simulate(open_, -2.4, num_simulations=20000, seed=5).districts[0].dem_win_prob
         assert p_open < p_held - 0.05
@@ -220,3 +224,35 @@ class TestDistrictLean:
     def test_unknown_open_seat_label_is_an_error(self):
         with pytest.raises(ValueError):
             load_districts(open_seats=[{"label": "ZZ-99"}])
+
+
+class TestDistrictSimilarity:
+    def test_similarity_matrix_is_unit_diagonal_psd_and_ordered(self):
+        import numpy as np
+
+        ds = [
+            DistrictInput("OH", "District 1", -2.0, "R"),
+            DistrictInput("OH", "District 9", -1.0, "R"),
+            DistrictInput("CA", "District 13", 0.0, "D"),
+            DistrictInput("CA", "District 45", 30.0, "D"),
+        ]
+        sim = _sim(similarity_share=0.4, regions={"OH": "Midwest", "CA": "West"})
+        k = sim.similarity_matrix(ds)
+        assert np.allclose(np.diag(k), 1.0)
+        assert np.all(np.linalg.eigvalsh(k) > -1e-9)
+        assert k[0, 1] > k[0, 2] > k[0, 3]  # same state+lean > lean only > neither
+
+    def test_similarity_keeps_marginals_and_widens_seats(self):
+        import numpy as np
+
+        ds = [DistrictInput("OH", f"District {i}", m, "D" if m > 0 else "R")
+              for i, m in enumerate([-3, -2, -1, 0, 1, 2, 3])]
+        base = _sim(dem_majority_threshold=4).simulate(ds, -2.4, num_simulations=30000, seed=1)
+        corr = _sim(dem_majority_threshold=4, similarity_share=0.6).simulate(
+            ds, -2.4, num_simulations=30000, seed=1
+        )
+        for a, b in zip(base.districts, corr.districts, strict=True):
+            assert b.dem_win_prob == pytest.approx(a.dem_win_prob, abs=0.02)
+        assert (corr.seats_p90 - corr.seats_p10) >= (base.seats_p90 - base.seats_p10)
+        assert corr.similarity_share == 0.6
+        assert np.isfinite(corr.mean_dem_seats)

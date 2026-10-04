@@ -240,3 +240,36 @@ class TestStudentTTails:
         assert sim.tail_dof is None
         fc = sim.simulate([], num_simulations=10)
         assert fc.tail_dof is None
+
+
+class TestSimilarityStructure:
+    def test_marginals_unchanged_but_joint_wins_rise(self):
+        import numpy as np
+
+        races = [_race(s, margin=1.0) for s in ("OH", "IA", "MI", "GA", "NC")]
+        k = np.full((5, 5), 0.0)
+        k[:3, :3] = 1.0  # OH/IA/MI vote alike
+        np.fill_diagonal(k, 1.0)
+        base = _simulator().simulate(races, num_simulations=40000, seed=7)
+        corr = _simulator().simulate(
+            races, num_simulations=40000, seed=7, similarity=k, similarity_share=0.6
+        )
+        for a, b in zip(base.races, corr.races, strict=True):
+            assert b.dem_win_prob_sim == pytest.approx(a.dem_win_prob_sim, abs=0.015)
+        # Similar states move together: the seat distribution gets fatter tails.
+        import numpy as _np
+
+        def _var(fc):
+            seats = _np.array([int(s) for s in fc.seat_distribution])
+            n = _np.array(list(fc.seat_distribution.values()), dtype=float)
+            m = (seats * n).sum() / n.sum()
+            return ((seats - m) ** 2 * n).sum() / n.sum()
+
+        assert _var(corr) > _var(base) * 1.1
+        c = _np.array(corr.error_correlation)
+        assert c[0, 1] > c[0, 3] + 0.1  # OH–IA more correlated than OH–GA
+        assert base.error_correlation[0][1] == pytest.approx(base.error_correlation[0][3])
+
+    def test_invalid_share_rejected(self):
+        with pytest.raises(ValueError):
+            _simulator().simulate([_race()], num_simulations=10, similarity_share=1.0)

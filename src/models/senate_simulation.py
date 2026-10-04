@@ -20,6 +20,13 @@ Method
 4. Simulate ``num_simulations`` elections (default 50000): one national error
    draw per simulation, one idiosyncratic draw per race, count Dem seats
    against the safe-seat baseline from ``config/senate_2026.json``.
+5. Optionally, part of the race-level error is *similarity-structured*: races
+   in states that vote alike (same region, similar presidential lean) share a
+   component, so a miss in Ohio tends to show up in Iowa and Michigan too, as
+   in Silver-style models. ``similarity`` is a PSD matrix with unit diagonal
+   and ``similarity_share`` the fraction of race variance it carries; the
+   per-race marginal variance is unchanged, so the calibrated sigmas keep
+   their meaning.
 """
 
 from __future__ import annotations
@@ -122,6 +129,11 @@ class SenateControlForecast:
     tail_dof: float | None = None
     # Chamber-control odds straight from the markets, for comparison.
     market_control_dem_prob: dict[str, float] = field(default_factory=dict)
+    # Similarity structure actually applied (share of race variance that is
+    # shared between similar states) and the implied race-by-race correlation
+    # of the total error, for inspection.
+    similarity_share: float = 0.0
+    error_correlation: list[list[float]] = field(default_factory=list)
 
 
 def load_cycle_config(path: Path | None = None) -> dict[str, Any]:
@@ -210,6 +222,33 @@ class SenateControlSimulator:
             return p_polls
         return (1.0 - self.market_weight) * p_polls + self.market_weight * p_market
 
+    def _race_errors(
+        self,
+        rng: np.random.Generator,
+        n_sims: int,
+        n_races: int,
+        race_index: list[int],
+        similarity: np.ndarray | None,
+        share: float,
+    ) -> np.ndarray:
+        """Race-level error draws: independent, or partly similarity-structured.
+
+        With a similarity matrix K (indexed like the *input* race list; rows
+        for races without a usable margin are dropped via ``race_index``) the
+        covariance is ``σ_r²·[share·K + (1−share)·I]`` — unit diagonal, so each
+        race keeps variance σ_r².
+        """
+        if similarity is None or share <= 0.0 or n_races == 0:
+            return rng.normal(0.0, self.race_sigma, size=(n_sims, n_races))
+        k = np.asarray(similarity, dtype=float)[np.ix_(race_index, race_index)]
+        cov = share * k + (1.0 - share) * np.eye(n_races)
+        try:
+            chol = np.linalg.cholesky(cov)
+        except np.linalg.LinAlgError:  # not PSD: shrink toward identity
+            chol = np.linalg.cholesky(0.5 * cov + 0.5 * np.eye(n_races))
+        z = rng.standard_normal(size=(n_sims, n_races))
+        return (z @ chol.T) * self.race_sigma
+
     def _effective_margin(self, prob: float) -> float:
         """Margin whose marginal win probability equals ``prob``.
 
@@ -235,10 +274,19 @@ class SenateControlSimulator:
         seed: int | None = None,
         as_of: date | None = None,
         market_control_dem_prob: dict[str, float] | None = None,
+        similarity: np.ndarray | None = None,
+        similarity_share: float = 0.0,
     ) -> SenateControlForecast:
-        """Run the Monte Carlo simulation and aggregate seat outcomes."""
+        """Run the Monte Carlo simulation and aggregate seat outcomes.
+
+        ``similarity`` (n_races × n_races, unit diagonal, PSD) and
+        ``similarity_share`` ∈ [0, 1) split the race-level variance into a
+        correlated part ``share·σ_race²·K`` and an independent remainder.
+        """
         if num_simulations < 1:
             raise ValueError("num_simulations must be >= 1")
+        if not 0.0 <= similarity_share < 1.0:
+            raise ValueError("similarity_share must be in [0, 1)")
         rng = np.random.default_rng(seed)
         as_of = as_of or date.today()
 
@@ -275,8 +323,9 @@ class SenateControlSimulator:
         margins = np.array(effective_margins)
         if margins.size > 0:
             national = rng.normal(0.0, self.national_sigma, size=(num_simulations, 1))
-            idiosyncratic = rng.normal(
-                0.0, self.race_sigma, size=(num_simulations, margins.size)
+            idiosyncratic = self._race_errors(
+                rng, num_simulations, margins.size, margin_to_forecast, similarity,
+                similarity_share,
             )
             error = national + idiosyncratic
             if self.tail_dof is not None:
@@ -315,6 +364,7 @@ class SenateControlSimulator:
         else:
             dem_seats = np.full(num_simulations, self.dem_safe_seats)
 
+        self.last_dem_wins = dem_wins if margins.size > 0 else None
         dem_control = dem_seats >= self.dem_majority_threshold
         unique_seats, seat_counts = np.unique(dem_seats, return_counts=True)
         counts = {int(s): int(c) for s, c in zip(unique_seats, seat_counts, strict=True)}
@@ -336,4 +386,29 @@ class SenateControlSimulator:
             bias=self.bias,
             tail_dof=self.tail_dof,
             market_control_dem_prob=market_control_dem_prob or {},
+            similarity_share=similarity_share,
+            error_correlation=self._error_correlation(
+                margins.size, margin_to_forecast, similarity, similarity_share
+            ),
         )
+
+    def _error_correlation(
+        self,
+        n_races: int,
+        race_index: list[int],
+        similarity: np.ndarray | None,
+        share: float,
+    ) -> list[list[float]]:
+        """Implied correlation matrix of total (national + race) error."""
+        if n_races == 0:
+            return []
+        k = (
+            np.asarray(similarity, dtype=float)[np.ix_(race_index, race_index)]
+            if similarity is not None and share > 0
+            else np.eye(n_races)
+        )
+        race_cov = self.race_sigma**2 * (share * k + (1.0 - share) * np.eye(n_races))
+        cov = race_cov + self.national_sigma**2
+        sd = np.sqrt(np.diag(cov))
+        corr = cov / np.outer(sd, sd)
+        return [[round(float(v), 3) for v in row] for row in corr]

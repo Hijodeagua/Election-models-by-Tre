@@ -124,6 +124,10 @@ class HouseForecast:
     lean_weight_2022: float = 0.0
     incumbency_advantage: float = 0.0
     num_open_seats: int = 0
+    # Similarity structure applied to the district error.
+    similarity_share: float = 0.0
+    similarity_weights: dict[str, float] = field(default_factory=dict)
+    lean_scale: float = 0.0
 
 
 def load_house_config(path: Path | None = None) -> dict[str, Any]:
@@ -196,14 +200,26 @@ class HouseForecastSimulator:
         lean_weight_2024: float = 1.0,
         lean_weight_2022: float = 0.0,
         incumbency_advantage: float = 0.0,
+        similarity_share: float = 0.0,
+        similarity_weights: dict[str, float] | None = None,
+        lean_scale: float = 10.0,
+        regions: dict[str, str] | None = None,
     ) -> None:
         if national_sigma < 0 or district_sigma < 0:
             raise ValueError("sigmas must be non-negative")
         if lean_weight_2024 <= 0 or lean_weight_2022 < 0:
             raise ValueError("lean weights must be positive (2024) / non-negative (2022)")
+        if not 0.0 <= similarity_share < 1.0:
+            raise ValueError("similarity_share must be in [0, 1)")
         self.lean_weight_2024 = lean_weight_2024
         self.lean_weight_2022 = lean_weight_2022
         self.incumbency_advantage = incumbency_advantage
+        # Similarity-structured district error (Silver-style): districts in the
+        # same state / region / with similar lean share part of their error.
+        self.similarity_share = similarity_share
+        self.similarity_weights = similarity_weights or {"state": 0.5, "region": 0.2, "lean": 0.3}
+        self.lean_scale = lean_scale
+        self.regions = regions or {}
         self.baseline_margin = baseline_margin
         self.national_sigma = national_sigma
         self.district_sigma = district_sigma
@@ -237,6 +253,48 @@ class HouseForecastSimulator:
 
     def _base_margins(self, districts: list[DistrictInput]) -> np.ndarray:
         return np.array([sum(self.district_lean(d)) for d in districts])
+
+    def similarity_matrix(self, districts: list[DistrictInput]) -> np.ndarray:
+        """Unit-diagonal similarity K between districts: a weighted mix of
+        same-state, same-region and lean-proximity (``exp(−|Δlean|/scale)``)
+        kernels, each PSD, so K is PSD."""
+        n = len(districts)
+        w = self.similarity_weights
+        wsum = sum(w.values()) or 1.0
+        states = np.array([d.state for d in districts])
+        regions = np.array([self.regions.get(d.state, d.state) for d in districts])
+        lean = np.array([self.district_lean(d)[0] for d in districts])
+        k = np.zeros((n, n))
+        if w.get("state", 0) > 0:
+            k += w["state"] * (states[:, None] == states[None, :])
+        if w.get("region", 0) > 0:
+            k += w["region"] * (regions[:, None] == regions[None, :])
+        if w.get("lean", 0) > 0:
+            k += w["lean"] * np.exp(-np.abs(lean[:, None] - lean[None, :]) / self.lean_scale)
+        k /= wsum
+        np.fill_diagonal(k, 1.0)
+        return k
+
+    def _district_chol(self, districts: list[DistrictInput]) -> np.ndarray | None:
+        """Cholesky factor of the unit-variance district error correlation
+        ``share·K + (1−share)·I`` (None when no similarity structure)."""
+        if self.similarity_share <= 0.0:
+            return None
+        k = self.similarity_matrix(districts)
+        cov = self.similarity_share * k + (1.0 - self.similarity_share) * np.eye(len(districts))
+        try:
+            return np.linalg.cholesky(cov)
+        except np.linalg.LinAlgError:
+            return np.linalg.cholesky(0.5 * cov + 0.5 * np.eye(len(districts)))
+
+    def _t_mix(self, rng: np.random.Generator, n: int) -> np.ndarray:
+        """Shared per-simulation scale that turns Gaussian draws into a
+        variance-matched multivariate t (one shock hits every district)."""
+        if self.tail_dof is None:
+            return np.ones((n, 1))
+        nu = self.tail_dof
+        w = rng.chisquare(nu, size=(n, 1))
+        return np.sqrt(nu / w) * np.sqrt((nu - 2.0) / nu)
 
     @property
     def redistricting_shift_mean(self) -> float:
@@ -296,9 +354,23 @@ class HouseForecastSimulator:
         base = self._base_margins(districts)
         swing = expected_national_margin - self.baseline_margin
         national = self._draw_t(rng, self.national_sigma, (num_simulations, 1))
-        district = self._draw_t(rng, self.district_sigma, (num_simulations, base.size))
+        chol = self._district_chol(districts)
+        if chol is None:
+            district = self._draw_t(rng, self.district_sigma, (num_simulations, base.size))
+        else:
+            # Correlated district error: z ~ N(0, share·K + (1−share)·I), one
+            # shared t-scale per simulation, times σ_district. Drawn in chunks
+            # to bound memory at 435 districts × many simulations.
+            district = np.empty((num_simulations, base.size))
+            step = 20000
+            for start in range(0, num_simulations, step):
+                stop = min(start + step, num_simulations)
+                z = rng.standard_normal(size=(stop - start, base.size))
+                district[start:stop] = (z @ chol.T) * self._t_mix(rng, stop - start)
+            district *= self.district_sigma
         sim_margins = base[None, :] + swing + national + district
         dem_wins = sim_margins > 0.0
+        self.last_dem_wins = dem_wins
         seats = dem_wins.sum(axis=1).astype(float)
 
         # Redistricting: net Dem seat shift per state, drawn each simulation.
@@ -383,6 +455,9 @@ class HouseForecastSimulator:
             lean_weight_2022=self.lean_weight_2022,
             incumbency_advantage=self.incumbency_advantage,
             num_open_seats=sum(1 for d in districts if d.open_seat),
+            similarity_share=self.similarity_share,
+            similarity_weights=dict(self.similarity_weights),
+            lean_scale=self.lean_scale,
         )
 
     def _tipping_point(self, districts: list[DistrictInput]) -> float | None:

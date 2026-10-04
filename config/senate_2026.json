@@ -66,7 +66,8 @@
           "margin": 2.8
         },
         "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
-      }
+      },
+      "region": "South"
     },
     {
       "state": "Michigan",
@@ -97,7 +98,8 @@
           "margin": 10.6
         },
         "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
-      }
+      },
+      "region": "Midwest"
     },
     {
       "state": "North Carolina",
@@ -128,7 +130,8 @@
           "margin": -3.2
         },
         "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
-      }
+      },
+      "region": "South"
     },
     {
       "state": "Maine",
@@ -159,7 +162,8 @@
           "margin": 13.1
         },
         "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
-      }
+      },
+      "region": "Northeast"
     },
     {
       "state": "New Hampshire",
@@ -190,7 +194,8 @@
           "margin": 9.1
         },
         "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
-      }
+      },
+      "region": "Northeast"
     },
     {
       "state": "Ohio",
@@ -222,7 +227,8 @@
           "margin": -6.1
         },
         "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
-      }
+      },
+      "region": "Midwest"
     },
     {
       "state": "Texas",
@@ -253,7 +259,8 @@
           "margin": -10.9
         },
         "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
-      }
+      },
+      "region": "South"
     },
     {
       "state": "Iowa",
@@ -284,7 +291,8 @@
           "margin": -12.2
         },
         "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
-      }
+      },
+      "region": "Midwest"
     },
     {
       "state": "Alaska",
@@ -315,7 +323,20 @@
           "margin": 10.0
         },
         "_verify": "Hand-entered Oct 2026 from public records; verify before publishing."
-      }
+      },
+      "region": "West"
     }
-  ]
+  ],
+  "polls": {
+    "_comment": "House-effect correction from our own pollster-grade analysis (config/forecast_calibration.json: mean actual-minus-poll error per pollster over 2018-2024 Senate races, n>=5 polls). A pollster's relative house effect = its mean error minus the pooled mean (so the cycle-wide miss is not double-counted), shrunk by n/(n+shrink_k) and capped at +/-cap, then ADDED to each of its polls' Dem-minus-Rep margin before the race average. Pollsters with no historical record are left unadjusted; the share of a race's polls that were adjusted is exported. Pollster-quality grades (Silver Bulletin PPM) weight the polls separately in the averaging engine.",
+    "house_effect_correction": true,
+    "house_effect_shrink_k": 10.0,
+    "house_effect_cap": 2.5
+  },
+  "correlation": {
+    "_comment": "Similarity-structured race error (Silver-style): similarity_share of the race-level variance is shared between states that vote alike, K_ij = region_weight*same_region + (1-region_weight)*exp(-|pres_2024_i - pres_2024_j|/lean_scale). Per-race variance is unchanged; the implied race-by-race correlation matrix is exported (error_correlation).",
+    "similarity_share": 0.35,
+    "region_weight": 0.4,
+    "lean_scale": 8.0
+  }
 }

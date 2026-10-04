@@ -137,6 +137,20 @@ source CSVs, runs `scripts/export_json.py`, and commits the updated JSON. The
 data refresh is offline-resilient — if a source is unreachable, the export falls
 back to the committed CSVs in `data/fallback/`.
 
+## Under-the-hood report (`reports/`)
+
+`python scripts/build_report.py` re-runs both chamber simulations at scale
+(500,000 Senate / 200,000 House correlated simulations) from the production
+inputs and writes a self-contained three-page HTML gut-check —
+`reports/forecast_report_<date>.html` and `reports/latest.html` — plus a JSON
+summary. Page 1: headline numbers, every feature each model uses with its
+coefficient and measured importance, Senate and House maps. Page 2: House
+breakdown (seat distribution, seats-votes curve, closest districts with all
+inputs, per-state rollup, open seats, redistricting, importance). Page 3:
+Senate breakdown (every race's inputs and outcomes, leverage and tipping-point
+shares, error-correlation matrix, pollster house effects, knob sensitivity).
+The daily refresh workflow rebuilds `reports/latest.html`.
+
 ## Project Structure
 
 ```

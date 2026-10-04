@@ -515,6 +515,93 @@ def _top_other_candidate(
     return ranked[0][0] if ranked else None
 
 
+def _house_effect_table(calib: dict, shrink_k: float = 10.0, cap: float = 2.5) -> dict[str, dict]:
+    """Relative house effect per pollster from the calibration's pollster_bias.
+
+    effect = clip((mean_error − pooled_bias) · n/(n+k), −cap, cap), in Dem−Rep
+    points of *actual − poll*: positive means the pollster has understated
+    Democrats, so its polls are shifted toward Democrats. Keyed by canonical
+    pollster name; each value carries the inputs for transparency.
+    """
+    from src.data.pollster_ratings import _canonical
+
+    pooled = float(calib.get("bias", 0.0))
+    out: dict[str, dict] = {}
+    for row in calib.get("pollster_bias", []):
+        n = int(row.get("n_polls", 0))
+        if n <= 0:
+            continue
+        raw = float(row["mean_error"]) - pooled
+        shrunk = raw * n / (n + shrink_k)
+        effect = float(np.clip(shrunk, -cap, cap))
+        out[_canonical(row["pollster"])] = {
+            "pollster": row["pollster"],
+            "n_polls": n,
+            "mean_error": float(row["mean_error"]),
+            "relative_error": round(raw, 3),
+            "effect": round(effect, 3),
+        }
+    return out
+
+
+def _match_house_effect(pollster: str, table: dict[str, dict]) -> dict | None:
+    """Find a pollster's house-effect row by canonical name, tolerating the
+    sponsor/partner decorations the live feeds add ("Elon University/YouGov",
+    "Rasmussen Reports (R)")."""
+    from src.data.pollster_ratings import _canonical
+
+    if not pollster:
+        return None
+    name = _canonical(pollster).lower()
+    if name in table:
+        return table[name]
+    for key, row in table.items():
+        k = key.lower()
+        if len(k) >= 5 and (k in name or name in k):
+            return row
+    return None
+
+
+def _apply_house_effects(
+    polls: list[Poll],
+    dem_name: str | None,
+    rep_name: str | None,
+    table: dict[str, dict],
+) -> tuple[list[Poll], dict]:
+    """Return copies of ``polls`` with each matched pollster's house effect
+    added to its Dem−Rep margin (half to each side), plus a coverage summary."""
+    adjusted: list[Poll] = []
+    n_adj, total_shift = 0, 0.0
+    for poll in polls:
+        row = _match_house_effect(poll.pollster, table)
+        if row is None or not row["effect"] or not dem_name or not rep_name:
+            adjusted.append(poll)
+            continue
+        half = row["effect"] / 2.0
+        new_answers = []
+        touched = False
+        for a in poll.answers:
+            if _find_candidate_pct({a.choice: a.pct}, dem_name) is not None:
+                new_answers.append(dataclasses.replace(a, pct=a.pct + half))
+                touched = True
+            elif _find_candidate_pct({a.choice: a.pct}, rep_name) is not None:
+                new_answers.append(dataclasses.replace(a, pct=a.pct - half))
+                touched = True
+            else:
+                new_answers.append(a)
+        if touched:
+            n_adj += 1
+            total_shift += row["effect"]
+            adjusted.append(dataclasses.replace(poll, answers=new_answers))
+        else:
+            adjusted.append(poll)
+    return adjusted, {
+        "polls_adjusted": n_adj,
+        "polls_total": len(polls),
+        "mean_effect_applied": round(total_shift / n_adj, 3) if n_adj else 0.0,
+    }
+
+
 def _senate_payload(polls: list[Poll]) -> dict:
     engine = _build_engine_from_polls(polls) if polls else None
     states = _detect_senate_states(polls) or _US_STATES
@@ -525,6 +612,14 @@ def _senate_payload(polls: list[Poll]) -> dict:
 
     cycle = load_cycle_config()
     config_by_state = {entry["state"]: entry for entry in cycle["competitive_races"]}
+    poll_cfg = cycle.get("polls", {})
+    house_effects: dict[str, dict] = {}
+    if poll_cfg.get("house_effect_correction"):
+        house_effects = _house_effect_table(
+            _load_forecast_calibration(),
+            shrink_k=poll_cfg.get("house_effect_shrink_k", 10.0),
+            cap=poll_cfg.get("house_effect_cap", 2.5),
+        )
     market_odds = MarketOddsCsvSource(FALLBACK_DIR).load()
     vibes_model = VibesAdjustedSenateModel(VibesCsvSource(FALLBACK_DIR).load())
 
@@ -564,7 +659,28 @@ def _senate_payload(polls: list[Poll]) -> dict:
                 dem_name = _top_other_candidate(race.candidates, rep_name) or dem_name
             record["dem_candidate"] = dem_name
             record["rep_candidate"] = rep_name
-            dem_margin = _dem_rep_margin(race.candidates, dem_name, rep_name)
+            raw_margin = _dem_rep_margin(race.candidates, dem_name, rep_name)
+            record["raw_dem_margin"] = raw_margin
+            dem_margin = raw_margin
+            if house_effects:
+                # Re-average this race on house-effect-corrected polls.
+                state_polls = [p for p in polls if race.state.lower() in p.subject.lower()]
+                corrected, coverage = _apply_house_effects(
+                    state_polls, dem_name, rep_name, house_effects
+                )
+                if coverage["polls_adjusted"]:
+                    corrected_race = model.race_average(corrected, race.state)
+                    record["candidates"] = corrected_race.candidates
+                    record["margin"] = corrected_race.margin
+                    dem_margin = _dem_rep_margin(corrected_race.candidates, dem_name, rep_name)
+                record["house_effect"] = {
+                    **coverage,
+                    "adjustment": (
+                        round(dem_margin - raw_margin, 2)
+                        if dem_margin is not None and raw_margin is not None
+                        else None
+                    ),
+                }
             record["dem_margin"] = dem_margin
             record["dem_win_prob"] = (
                 round(prob_simulator.win_prob_from_margin(dem_margin), 4)
@@ -606,6 +722,22 @@ def _load_forecast_calibration() -> dict:
     except Exception as exc:  # pragma: no cover - defensive
         logging.warning("could not read forecast_calibration.json: %s", exc)
         return {}
+
+
+def _senate_similarity(entries: list[dict], cfg: dict) -> np.ndarray | None:
+    """Race-by-race similarity K (unit diagonal) from region and 2024 lean:
+    ``K_ij = w·[same region] + (1−w)·exp(−|lean_i − lean_j| / scale)``."""
+    if not cfg or float(cfg.get("similarity_share", 0.0)) <= 0.0:
+        return None
+    w = float(cfg.get("region_weight", 0.4))
+    scale = float(cfg.get("lean_scale", 8.0))
+    regions = np.array([e.get("region", e.get("abbr", "")) for e in entries])
+    lean = np.array([float(e.get("pres_2024") or 0.0) for e in entries])
+    k = w * (regions[:, None] == regions[None, :]) + (1.0 - w) * np.exp(
+        -np.abs(lean[:, None] - lean[None, :]) / scale
+    )
+    np.fill_diagonal(k, 1.0)
+    return k
 
 
 def _calibration_bias(calib: dict, cycle_type: str = "all") -> tuple[float, int, list[int]]:
@@ -954,12 +1086,17 @@ def _senate_forecast_payload(
         for source, outcomes in control_odds.items()
         if "Democrat" in outcomes
     }
+    corr_cfg = cycle.get("correlation", {}) or {}
+    similarity = _senate_similarity(cycle["competitive_races"], corr_cfg)
+    sim_share = float(corr_cfg.get("similarity_share", 0.0))
     forecast = simulator.simulate(
         inputs,
         num_simulations=NUM_SIMULATIONS,
         seed=SIMULATION_SEED,
         as_of=as_of,
         market_control_dem_prob=market_control_dem_prob,
+        similarity=similarity,
+        similarity_share=sim_share,
     )
     # Same simulation with the experimental NYT-vibes overlay applied, for
     # side-by-side comparison. (Vibes data is a neutral placeholder until the
@@ -969,6 +1106,8 @@ def _senate_forecast_payload(
         num_simulations=NUM_SIMULATIONS,
         seed=SIMULATION_SEED,
         as_of=as_of,
+        similarity=similarity,
+        similarity_share=sim_share,
     )
     payload = dataclasses.asdict(forecast)
     # JSON object keys must be strings.
@@ -1008,6 +1147,18 @@ def _senate_forecast_payload(
     # Error-model provenance: which calibration cycles the bias came from and
     # how much forward-looking campaign drift was added to the national sigma.
     payload["bias_calibration"] = bias_info
+    payload["correlation"] = {
+        "similarity_share": sim_share,
+        "region_weight": corr_cfg.get("region_weight"),
+        "lean_scale": corr_cfg.get("lean_scale"),
+        "regions": {e["state"]: e.get("region") for e in cycle["competitive_races"]},
+    }
+    # House-effect correction summary per race (from senate.json records).
+    payload["house_effects"] = {
+        s: r.get("house_effect")
+        for s, r in races_by_state.items()
+        if r.get("house_effect") is not None
+    }
     payload["election_date"] = fcfg.get("election_date")
     payload["days_to_election"] = days_left
     payload["campaign_drift_sigma"] = round(drift_sigma, 3)
@@ -1034,6 +1185,7 @@ def _house_forecast_payload(
     if overrides:
         cfg = _deep_merge(cfg, overrides)
     lean_cfg = cfg.get("district_lean", {})
+    corr_cfg = cfg.get("correlation", {}) or {}
     districts = load_districts(
         FALLBACK_DIR / cfg.get("districts_csv", "house_districts_2024.csv"),
         open_seats=lean_cfg.get("open_seats", {}).get("districts", []),
@@ -1066,6 +1218,10 @@ def _house_forecast_payload(
         lean_weight_2024=float(lean_cfg.get("weight_2024", 1.0)),
         lean_weight_2022=float(lean_cfg.get("weight_2022", 0.0)),
         incumbency_advantage=float(lean_cfg.get("incumbency_advantage", 0.0)),
+        similarity_share=float(corr_cfg.get("similarity_share", 0.0)),
+        similarity_weights=corr_cfg.get("weights"),
+        lean_scale=float(corr_cfg.get("lean_scale", 10.0)),
+        regions=corr_cfg.get("regions"),
     )
     forecast = simulator.simulate(
         districts,
