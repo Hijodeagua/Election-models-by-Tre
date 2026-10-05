@@ -2122,7 +2122,7 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 20,
+      "num_polls": 21,
       "polls": [
         {
           "pollster": "Trafalgar Group (R)",
@@ -2186,6 +2186,22 @@
           "dem_pct": 46.0,
           "rep_pct": 48.0,
           "margin": -2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Maine People's Resource Center",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-25",
+          "end_date": "2026-09-29",
+          "sample_size": 684,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 49.0,
+          "rep_pct": 47.0,
+          "margin": 2.0,
           "partisan": false
         },
         {
