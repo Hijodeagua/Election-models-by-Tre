@@ -233,8 +233,24 @@
     {
       "state": "Georgia",
       "abbr": "GA",
-      "num_polls": 17,
+      "num_polls": 18,
       "polls": [
+        {
+          "pollster": "Wedgewood Polls",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-02",
+          "end_date": "2026-10-03",
+          "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 55.0,
+          "rep_pct": 45.0,
+          "margin": 10.0,
+          "partisan": false
+        },
         {
           "pollster": "InsiderAdvantage (R)",
           "rated": false,
