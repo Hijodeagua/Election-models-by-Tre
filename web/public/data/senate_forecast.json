@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-10-05",
+  "as_of": "2026-10-06",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4701,
+  "dem_control_prob": 0.47,
   "mean_dem_seats": 50.26,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 44,
-    "45": 201,
-    "46": 638,
-    "47": 1819,
-    "48": 4440,
-    "49": 8098,
-    "50": 11255,
-    "51": 11479,
-    "52": 8241,
-    "53": 3785
+    "45": 202,
+    "46": 640,
+    "47": 1828,
+    "48": 4439,
+    "49": 8109,
+    "50": 11239,
+    "51": 11478,
+    "52": 8237,
+    "53": 3784
   },
   "races": [
     {
@@ -25,14 +25,14 @@
       "margin": 8.712,
       "num_polls": 18,
       "dem_win_prob_polls": 0.9183,
-      "dem_win_prob_blended": 0.9305,
+      "dem_win_prob_blended": 0.9291,
       "market_dem_prob": {
-        "polymarket": 0.967
+        "polymarket": 0.9615
       },
-      "dem_win_prob_sim": 0.9327,
-      "median_margin": 8.09,
-      "margin_p10": 1.38,
-      "margin_p90": 14.78,
+      "dem_win_prob_sim": 0.9315,
+      "median_margin": 8.02,
+      "margin_p10": 1.31,
+      "margin_p90": 14.71,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/georgia-senate-election-winner"
       }
@@ -212,7 +212,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4701,
+  "dem_control_prob_with_vibes": 0.47,
   "mean_dem_seats_with_vibes": 50.26,
   "national_environment": {
     "national_swing": 9.784,
