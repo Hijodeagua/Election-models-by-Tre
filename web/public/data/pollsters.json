@@ -626,8 +626,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 41,
+      "num_polls": 42,
       "polls": [
+        {
+          "pollster": "Mitchell Research & Communications",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-01",
+          "end_date": "2026-10-01",
+          "sample_size": 682,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 41.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Trafalgar Group (R)",
           "rated": true,
@@ -2122,8 +2138,24 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 21,
+      "num_polls": 22,
       "polls": [
+        {
+          "pollster": "Marist University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-01",
+          "end_date": "2026-10-04",
+          "sample_size": 1505,
+          "population": "rv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 51.0,
+          "rep_pct": 47.0,
+          "margin": 4.0,
+          "partisan": false
+        },
         {
           "pollster": "Trafalgar Group (R)",
           "rated": true,
