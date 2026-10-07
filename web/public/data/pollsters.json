@@ -626,8 +626,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 42,
+      "num_polls": 43,
       "polls": [
+        {
+          "pollster": "YouGov",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.618,
+          "start_date": "2026-09-22",
+          "end_date": "2026-10-04",
+          "sample_size": 3949,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 48.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Mitchell Research & Communications",
           "rated": false,
@@ -2498,8 +2514,40 @@
     {
       "state": "New Hampshire",
       "abbr": "NH",
-      "num_polls": 24,
+      "num_polls": 26,
       "polls": [
+        {
+          "pollster": "YouGov",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.618,
+          "start_date": "2026-09-28",
+          "end_date": "2026-10-05",
+          "sample_size": 1520,
+          "population": "lv",
+          "dem_candidate": "Chris Pappas",
+          "rep_candidate": "Scott Brown",
+          "dem_pct": 51.0,
+          "rep_pct": null,
+          "margin": null,
+          "partisan": false
+        },
+        {
+          "pollster": "Saint Anselm College",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-28",
+          "end_date": "2026-09-29",
+          "sample_size": 1042,
+          "population": "lv",
+          "dem_candidate": "Chris Pappas",
+          "rep_candidate": "Scott Brown",
+          "dem_pct": 51.0,
+          "rep_pct": null,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Trafalgar Group (R)",
           "rated": true,
@@ -2927,7 +2975,7 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 29,
+      "num_polls": 30,
       "polls": [
         {
           "pollster": "New York Times/Siena University",
@@ -2943,6 +2991,22 @@
           "dem_pct": 49.0,
           "rep_pct": 46.0,
           "margin": 3.0,
+          "partisan": false
+        },
+        {
+          "pollster": "YouGov",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.618,
+          "start_date": "2026-09-18",
+          "end_date": "2026-09-30",
+          "sample_size": 3780,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 49.0,
+          "rep_pct": 45.0,
+          "margin": 4.0,
           "partisan": false
         },
         {
@@ -3442,8 +3506,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 45,
+      "num_polls": 46,
       "polls": [
+        {
+          "pollster": "YouGov",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.618,
+          "start_date": "2026-09-28",
+          "end_date": "2026-10-05",
+          "sample_size": 3625,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 50.0,
+          "rep_pct": 44.0,
+          "margin": 6.0,
+          "partisan": false
+        },
         {
           "pollster": "New York Times/Siena University",
           "rated": false,
