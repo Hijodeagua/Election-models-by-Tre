@@ -626,8 +626,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 43,
+      "num_polls": 44,
       "polls": [
+        {
+          "pollster": "Quantus Insights (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-05",
+          "end_date": "2026-10-06",
+          "sample_size": 762,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 47.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "YouGov",
           "rated": true,
@@ -4317,8 +4333,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 25,
+      "num_polls": 26,
       "polls": [
+        {
+          "pollster": "Suffolk University",
+          "rated": true,
+          "grade": "A-",
+          "quality": 1.708,
+          "start_date": "2026-10-01",
+          "end_date": "2026-10-04",
+          "sample_size": 500,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 48.0,
+          "rep_pct": 44.0,
+          "margin": 4.0,
+          "partisan": false
+        },
         {
           "pollster": "New York Times/Siena University",
           "rated": false,
