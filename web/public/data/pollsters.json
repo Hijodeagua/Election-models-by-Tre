@@ -626,7 +626,7 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 44,
+      "num_polls": 45,
       "polls": [
         {
           "pollster": "Quantus Insights (R)",
@@ -721,6 +721,22 @@
           "rep_candidate": "Mike Rogers",
           "dem_pct": null,
           "rep_pct": 44.0,
+          "margin": null,
+          "partisan": false
+        },
+        {
+          "pollster": "Guidant Polling & Strategy",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-20",
+          "end_date": "2026-09-27",
+          "sample_size": 800,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 43.0,
           "margin": null,
           "partisan": false
         },
@@ -2991,8 +3007,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 30,
+      "num_polls": 31,
       "polls": [
+        {
+          "pollster": "SSRS",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-29",
+          "end_date": "2026-10-05",
+          "sample_size": 760,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 49.0,
+          "rep_pct": 43.0,
+          "margin": 6.0,
+          "partisan": false
+        },
         {
           "pollster": "New York Times/Siena University",
           "rated": false,
@@ -3522,7 +3554,7 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 46,
+      "num_polls": 48,
       "polls": [
         {
           "pollster": "YouGov",
@@ -3586,6 +3618,38 @@
           "dem_pct": 51.0,
           "rep_pct": 49.0,
           "margin": 2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Guidant Polling & Strategy",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-20",
+          "end_date": "2026-09-28",
+          "sample_size": 800,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 47.0,
+          "rep_pct": 44.0,
+          "margin": 3.0,
+          "partisan": false
+        },
+        {
+          "pollster": "UMass Lowell/YouGov",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-18",
+          "end_date": "2026-09-28",
+          "sample_size": 850,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 45.0,
+          "rep_pct": 45.0,
+          "margin": 0.0,
           "partisan": false
         },
         {
@@ -4333,8 +4397,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 26,
+      "num_polls": 27,
       "polls": [
+        {
+          "pollster": "SSRS",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-29",
+          "end_date": "2026-10-05",
+          "sample_size": 801,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 43.0,
+          "rep_pct": 45.0,
+          "margin": -2.0,
+          "partisan": false
+        },
         {
           "pollster": "Suffolk University",
           "rated": true,

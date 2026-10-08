@@ -1,20 +1,20 @@
 {
   "as_of": "2026-10-08",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4985,
-  "mean_dem_seats": 50.36,
+  "dem_control_prob": 0.4932,
+  "mean_dem_seats": 50.34,
   "median_dem_seats": 50.0,
   "seat_distribution": {
-    "44": 40,
+    "44": 41,
     "45": 184,
-    "46": 602,
-    "47": 1684,
-    "48": 4101,
-    "49": 7587,
-    "50": 10879,
-    "51": 11673,
-    "52": 8979,
-    "53": 4271
+    "46": 615,
+    "47": 1697,
+    "48": 4143,
+    "49": 7590,
+    "50": 11070,
+    "51": 11683,
+    "52": 8866,
+    "53": 4111
   },
   "races": [
     {
@@ -43,16 +43,16 @@
       "dem_candidate": "Haley Stevens",
       "rep_candidate": "Mike Rogers",
       "margin": 9.434,
-      "num_polls": 44,
+      "num_polls": 45,
       "dem_win_prob_polls": 0.9334,
-      "dem_win_prob_blended": 0.8813,
+      "dem_win_prob_blended": 0.8788,
       "market_dem_prob": {
-        "polymarket": 0.725
+        "polymarket": 0.715
       },
-      "dem_win_prob_sim": 0.8822,
-      "median_margin": 6.14,
-      "margin_p10": -0.62,
-      "margin_p90": 12.93,
+      "dem_win_prob_sim": 0.88,
+      "median_margin": 6.06,
+      "margin_p10": -0.7,
+      "margin_p90": 12.85,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/michigan-senate-election-winner"
       }
@@ -85,14 +85,14 @@
       "margin": 3.3,
       "num_polls": 22,
       "dem_win_prob_polls": 0.6642,
-      "dem_win_prob_blended": 0.7044,
+      "dem_win_prob_blended": 0.7069,
       "market_dem_prob": {
-        "polymarket": 0.825
+        "polymarket": 0.835
       },
-      "dem_win_prob_sim": 0.7035,
-      "median_margin": 2.63,
-      "margin_p10": -4.14,
-      "margin_p90": 9.4,
+      "dem_win_prob_sim": 0.7067,
+      "median_margin": 2.67,
+      "margin_p10": -4.1,
+      "margin_p90": 9.44,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-maine-state-senate-in-2026"
       }
@@ -122,17 +122,17 @@
       "race": "Ohio Senate 2026",
       "dem_candidate": "Sherrod Brown",
       "rep_candidate": "Jon Husted",
-      "margin": 2.944,
-      "num_polls": 30,
-      "dem_win_prob_polls": 0.6375,
-      "dem_win_prob_blended": 0.6319,
+      "margin": 3.228,
+      "num_polls": 31,
+      "dem_win_prob_polls": 0.6589,
+      "dem_win_prob_blended": 0.6479,
       "market_dem_prob": {
         "polymarket": 0.615
       },
-      "dem_win_prob_sim": 0.6333,
-      "median_margin": 1.65,
-      "margin_p10": -5.09,
-      "margin_p90": 8.4,
+      "dem_win_prob_sim": 0.649,
+      "median_margin": 1.86,
+      "margin_p10": -4.88,
+      "margin_p90": 8.61,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/ohio-senate-election-winner"
       }
@@ -142,17 +142,17 @@
       "race": "Texas Senate 2026",
       "dem_candidate": "James Talarico",
       "rep_candidate": "Ken Paxton",
-      "margin": 2.705,
-      "num_polls": 46,
-      "dem_win_prob_polls": 0.619,
-      "dem_win_prob_blended": 0.4816,
+      "margin": 2.528,
+      "num_polls": 48,
+      "dem_win_prob_polls": 0.6051,
+      "dem_win_prob_blended": 0.4717,
       "market_dem_prob": {
-        "polymarket": 0.0695
+        "polymarket": 0.0715
       },
-      "dem_win_prob_sim": 0.4805,
-      "median_margin": -0.24,
-      "margin_p10": -6.88,
-      "margin_p90": 6.59,
+      "dem_win_prob_sim": 0.4709,
+      "median_margin": -0.36,
+      "margin_p10": -7.0,
+      "margin_p90": 6.47,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-texas-state-senate-in-2026"
       }
@@ -162,17 +162,17 @@
       "race": "Iowa Senate 2026",
       "dem_candidate": "Josh Turek",
       "rep_candidate": "Ashley Hinson",
-      "margin": 1.121,
-      "num_polls": 26,
-      "dem_win_prob_polls": 0.49,
-      "dem_win_prob_blended": 0.4812,
+      "margin": 0.773,
+      "num_polls": 27,
+      "dem_win_prob_polls": 0.4612,
+      "dem_win_prob_blended": 0.4571,
       "market_dem_prob": {
-        "polymarket": 0.455
+        "polymarket": 0.445
       },
-      "dem_win_prob_sim": 0.4776,
-      "median_margin": -0.26,
-      "margin_p10": -6.95,
-      "margin_p90": 6.5,
+      "dem_win_prob_sim": 0.4529,
+      "median_margin": -0.56,
+      "margin_p10": -7.24,
+      "margin_p90": 6.21,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/iowa-senate-election-winner"
       }
@@ -212,8 +212,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4985,
-  "mean_dem_seats_with_vibes": 50.36,
+  "dem_control_prob_with_vibes": 0.4932,
+  "mean_dem_seats_with_vibes": 50.34,
   "national_environment": {
     "national_swing": 9.784,
     "available": true,
