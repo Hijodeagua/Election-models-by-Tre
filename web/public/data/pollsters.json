@@ -2202,8 +2202,24 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 22,
+      "num_polls": 23,
       "polls": [
+        {
+          "pollster": "The Washington Post/SSPG",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-30",
+          "end_date": "2026-10-05",
+          "sample_size": 800,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 50.0,
+          "rep_pct": 46.0,
+          "margin": 4.0,
+          "partisan": false
+        },
         {
           "pollster": "Marist University",
           "rated": false,
@@ -4429,8 +4445,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 27,
+      "num_polls": 28,
       "polls": [
+        {
+          "pollster": "Emerson College",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.468,
+          "start_date": "2026-10-05",
+          "end_date": "2026-10-06",
+          "sample_size": 650,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 45.0,
+          "rep_pct": 47.0,
+          "margin": -2.0,
+          "partisan": false
+        },
         {
           "pollster": "SSRS",
           "rated": false,
