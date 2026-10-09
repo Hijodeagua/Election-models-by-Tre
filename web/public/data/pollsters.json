@@ -1475,8 +1475,24 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 39,
+      "num_polls": 40,
       "polls": [
+        {
+          "pollster": "East Carolina University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-30",
+          "end_date": "2026-10-03",
+          "sample_size": 810,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 50.0,
+          "rep_pct": 43.0,
+          "margin": 7.0,
+          "partisan": false
+        },
         {
           "pollster": "Big Data Poll",
           "rated": false,
@@ -3007,8 +3023,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 31,
+      "num_polls": 32,
       "polls": [
+        {
+          "pollster": "co/efficient (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-05",
+          "end_date": "2026-10-06",
+          "sample_size": 925,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 45.0,
+          "rep_pct": 46.0,
+          "margin": -1.0,
+          "partisan": false
+        },
         {
           "pollster": "SSRS",
           "rated": false,
