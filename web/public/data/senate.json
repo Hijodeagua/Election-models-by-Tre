@@ -177,7 +177,7 @@
       "market_odds": {
         "polymarket": {
           "Democrat": 0.9615,
-          "Republican": 0.0415
+          "Republican": 0.037
         }
       },
       "market_urls": {
@@ -656,7 +656,7 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.685,
+          "Democrat": 0.675,
           "Republican": 0.325
         }
       },
@@ -664,10 +664,10 @@
         "polymarket": "https://polymarket.com/event/michigan-senate-election-winner"
       },
       "forecast": {
-        "dem_win_prob": 0.8808,
-        "median_margin": 6.08,
-        "margin_p10": -0.68,
-        "margin_p90": 12.87,
+        "dem_win_prob": 0.8784,
+        "median_margin": 6.01,
+        "margin_p10": -0.75,
+        "margin_p90": 12.8,
         "num_simulations": 50000,
         "margin_hist": [
           {
@@ -688,15 +688,15 @@
           },
           {
             "mid": -21.0,
-            "pct": 0.00024
+            "pct": 0.00026
           },
           {
             "mid": -19.0,
-            "pct": 0.00048
+            "pct": 0.00046
           },
           {
             "mid": -17.0,
-            "pct": 0.0007
+            "pct": 0.00072
           },
           {
             "mid": -15.0,
@@ -704,71 +704,71 @@
           },
           {
             "mid": -13.0,
-            "pct": 0.00192
+            "pct": 0.002
           },
           {
             "mid": -11.0,
-            "pct": 0.00324
+            "pct": 0.00326
           },
           {
             "mid": -9.0,
-            "pct": 0.00558
+            "pct": 0.0056
           },
           {
             "mid": -7.0,
-            "pct": 0.00936
+            "pct": 0.00964
           },
           {
             "mid": -5.0,
-            "pct": 0.01586
+            "pct": 0.01634
           },
           {
             "mid": -3.0,
-            "pct": 0.02846
+            "pct": 0.02934
           },
           {
             "mid": -1.0,
-            "pct": 0.0514
+            "pct": 0.05204
           },
           {
             "mid": 1.0,
-            "pct": 0.08702
+            "pct": 0.08836
           },
           {
             "mid": 3.0,
-            "pct": 0.12674
+            "pct": 0.12842
           },
           {
             "mid": 5.0,
-            "pct": 0.1597
+            "pct": 0.16098
           },
           {
             "mid": 7.0,
-            "pct": 0.16118
+            "pct": 0.15956
           },
           {
             "mid": 9.0,
-            "pct": 0.13018
+            "pct": 0.1293
           },
           {
             "mid": 11.0,
-            "pct": 0.08948
+            "pct": 0.08756
           },
           {
             "mid": 13.0,
-            "pct": 0.05308
+            "pct": 0.05238
           },
           {
             "mid": 15.0,
-            "pct": 0.03206
+            "pct": 0.03128
           },
           {
             "mid": 17.0,
-            "pct": 0.01734
+            "pct": 0.01718
           },
           {
             "mid": 19.0,
-            "pct": 0.00934
+            "pct": 0.00884
           },
           {
             "mid": 21.0,
@@ -776,15 +776,15 @@
           },
           {
             "mid": 23.0,
-            "pct": 0.00332
+            "pct": 0.00318
           },
           {
             "mid": 25.0,
-            "pct": 0.0022
+            "pct": 0.00228
           },
           {
             "mid": 27.0,
-            "pct": 0.00102
+            "pct": 0.00092
           },
           {
             "mid": 29.0,
@@ -976,7 +976,7 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.9635,
+          "Democrat": 0.9625,
           "Republican": 0.036
         }
       },
@@ -984,10 +984,10 @@
         "polymarket": "https://polymarket.com/event/north-carolina-senate-election-winner"
       },
       "forecast": {
-        "dem_win_prob": 0.9384,
-        "median_margin": 8.49,
-        "margin_p10": 1.73,
-        "margin_p90": 15.2,
+        "dem_win_prob": 0.9383,
+        "median_margin": 8.48,
+        "margin_p10": 1.71,
+        "margin_p90": 15.19,
         "num_simulations": 50000,
         "margin_hist": [
           {
@@ -1024,11 +1024,11 @@
           },
           {
             "mid": -13.0,
-            "pct": 0.00094
+            "pct": 0.00096
           },
           {
             "mid": -11.0,
-            "pct": 0.00174
+            "pct": 0.00176
           },
           {
             "mid": -9.0,
@@ -1036,79 +1036,79 @@
           },
           {
             "mid": -7.0,
-            "pct": 0.0048
+            "pct": 0.00484
           },
           {
             "mid": -5.0,
-            "pct": 0.00776
+            "pct": 0.00778
           },
           {
             "mid": -3.0,
-            "pct": 0.01492
+            "pct": 0.0149
           },
           {
             "mid": -1.0,
-            "pct": 0.02646
+            "pct": 0.0265
           },
           {
             "mid": 1.0,
-            "pct": 0.04618
+            "pct": 0.04652
           },
           {
             "mid": 3.0,
-            "pct": 0.07898
+            "pct": 0.07928
           },
           {
             "mid": 5.0,
-            "pct": 0.11778
+            "pct": 0.11796
           },
           {
             "mid": 7.0,
-            "pct": 0.1548
+            "pct": 0.15498
           },
           {
             "mid": 9.0,
-            "pct": 0.16508
+            "pct": 0.1653
           },
           {
             "mid": 11.0,
-            "pct": 0.1394
+            "pct": 0.13882
           },
           {
             "mid": 13.0,
-            "pct": 0.09662
+            "pct": 0.09646
           },
           {
             "mid": 15.0,
-            "pct": 0.05938
+            "pct": 0.05904
           },
           {
             "mid": 17.0,
-            "pct": 0.03332
+            "pct": 0.03318
           },
           {
             "mid": 19.0,
-            "pct": 0.0197
+            "pct": 0.01964
           },
           {
             "mid": 21.0,
-            "pct": 0.01052
+            "pct": 0.01054
           },
           {
             "mid": 23.0,
-            "pct": 0.00646
+            "pct": 0.0064
           },
           {
             "mid": 25.0,
-            "pct": 0.00324
+            "pct": 0.00322
           },
           {
             "mid": 27.0,
-            "pct": 0.00266
+            "pct": 0.00268
           },
           {
             "mid": 29.0,
-            "pct": 0.00428
+            "pct": 0.00426
           }
         ]
       }
@@ -1137,7 +1137,7 @@
       "market_odds": {
         "polymarket": {
           "Democrat": 0.615,
-          "Republican": 0.395
+          "Republican": 0.385
         }
       },
       "market_urls": {
@@ -1297,7 +1297,7 @@
       "market_odds": {
         "polymarket": {
           "Democrat": 0.067,
-          "Republican": 0.913
+          "Republican": 0.9285
         }
       },
       "market_urls": {
