@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-10-11",
+  "as_of": "2026-10-12",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4968,
+  "dem_control_prob": 0.4976,
   "mean_dem_seats": 50.36,
   "median_dem_seats": 50.0,
   "seat_distribution": {
-    "44": 40,
-    "45": 190,
-    "46": 588,
-    "47": 1671,
-    "48": 4088,
-    "49": 7653,
-    "50": 10932,
-    "51": 11573,
-    "52": 8975,
-    "53": 4290
+    "44": 39,
+    "45": 188,
+    "46": 582,
+    "47": 1653,
+    "48": 4063,
+    "49": 7657,
+    "50": 10937,
+    "51": 11582,
+    "52": 8996,
+    "53": 4303
   },
   "races": [
     {
@@ -25,14 +25,14 @@
       "margin": 8.803,
       "num_polls": 18,
       "dem_win_prob_polls": 0.9204,
-      "dem_win_prob_blended": 0.9307,
+      "dem_win_prob_blended": 0.9308,
       "market_dem_prob": {
-        "polymarket": 0.9615
+        "polymarket": 0.962
       },
-      "dem_win_prob_sim": 0.9329,
+      "dem_win_prob_sim": 0.933,
       "median_margin": 8.1,
       "margin_p10": 1.39,
-      "margin_p90": 14.78,
+      "margin_p90": 14.79,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/georgia-senate-election-winner"
       }
@@ -43,16 +43,16 @@
       "dem_candidate": "Haley Stevens",
       "rep_candidate": "Mike Rogers",
       "margin": 10.07,
-      "num_polls": 47,
+      "num_polls": 48,
       "dem_win_prob_polls": 0.9443,
-      "dem_win_prob_blended": 0.8769,
+      "dem_win_prob_blended": 0.8819,
       "market_dem_prob": {
-        "polymarket": 0.675
+        "polymarket": 0.695
       },
-      "dem_win_prob_sim": 0.8784,
-      "median_margin": 6.01,
-      "margin_p10": -0.75,
-      "margin_p90": 12.8,
+      "dem_win_prob_sim": 0.8828,
+      "median_margin": 6.16,
+      "margin_p10": -0.6,
+      "margin_p90": 12.95,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/michigan-senate-election-winner"
       }
@@ -65,13 +65,13 @@
       "margin": 9.276,
       "num_polls": 40,
       "dem_win_prob_polls": 0.9303,
-      "dem_win_prob_blended": 0.9384,
+      "dem_win_prob_blended": 0.9385,
       "market_dem_prob": {
-        "polymarket": 0.9625
+        "polymarket": 0.963
       },
-      "dem_win_prob_sim": 0.9383,
-      "median_margin": 8.48,
-      "margin_p10": 1.71,
+      "dem_win_prob_sim": 0.9384,
+      "median_margin": 8.49,
+      "margin_p10": 1.72,
       "margin_p90": 15.19,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/north-carolina-senate-election-winner"
@@ -212,7 +212,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4968,
+  "dem_control_prob_with_vibes": 0.4976,
   "mean_dem_seats_with_vibes": 50.36,
   "national_environment": {
     "national_swing": 10.42,
