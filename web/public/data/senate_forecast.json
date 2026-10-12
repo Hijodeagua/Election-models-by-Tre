@@ -1,20 +1,20 @@
 {
   "as_of": "2026-10-12",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4976,
+  "dem_control_prob": 0.4984,
   "mean_dem_seats": 50.36,
   "median_dem_seats": 50.0,
   "seat_distribution": {
-    "44": 39,
-    "45": 188,
-    "46": 582,
-    "47": 1653,
-    "48": 4063,
-    "49": 7657,
-    "50": 10937,
-    "51": 11582,
+    "44": 46,
+    "45": 194,
+    "46": 597,
+    "47": 1679,
+    "48": 4039,
+    "49": 7599,
+    "50": 10924,
+    "51": 11609,
     "52": 8996,
-    "53": 4303
+    "53": 4317
   },
   "races": [
     {
@@ -22,17 +22,17 @@
       "race": "Georgia Senate 2026",
       "dem_candidate": "Jon Ossoff",
       "rep_candidate": "Mike Collins",
-      "margin": 8.803,
-      "num_polls": 18,
-      "dem_win_prob_polls": 0.9204,
-      "dem_win_prob_blended": 0.9308,
+      "margin": 8.63,
+      "num_polls": 19,
+      "dem_win_prob_polls": 0.9164,
+      "dem_win_prob_blended": 0.9278,
       "market_dem_prob": {
         "polymarket": 0.962
       },
-      "dem_win_prob_sim": 0.933,
-      "median_margin": 8.1,
-      "margin_p10": 1.39,
-      "margin_p90": 14.79,
+      "dem_win_prob_sim": 0.9302,
+      "median_margin": 7.95,
+      "margin_p10": 1.24,
+      "margin_p90": 14.64,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/georgia-senate-election-winner"
       }
@@ -45,14 +45,14 @@
       "margin": 10.07,
       "num_polls": 48,
       "dem_win_prob_polls": 0.9443,
-      "dem_win_prob_blended": 0.8819,
+      "dem_win_prob_blended": 0.8844,
       "market_dem_prob": {
-        "polymarket": 0.695
+        "polymarket": 0.705
       },
-      "dem_win_prob_sim": 0.8828,
-      "median_margin": 6.16,
-      "margin_p10": -0.6,
-      "margin_p90": 12.95,
+      "dem_win_prob_sim": 0.8849,
+      "median_margin": 6.24,
+      "margin_p10": -0.53,
+      "margin_p90": 13.03,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/michigan-senate-election-winner"
       }
@@ -62,17 +62,17 @@
       "race": "North Carolina Senate 2026",
       "dem_candidate": "Roy Cooper",
       "rep_candidate": "Michael Whatley",
-      "margin": 9.276,
-      "num_polls": 40,
-      "dem_win_prob_polls": 0.9303,
-      "dem_win_prob_blended": 0.9385,
+      "margin": 8.999,
+      "num_polls": 41,
+      "dem_win_prob_polls": 0.9247,
+      "dem_win_prob_blended": 0.9334,
       "market_dem_prob": {
-        "polymarket": 0.963
+        "polymarket": 0.9595
       },
-      "dem_win_prob_sim": 0.9384,
-      "median_margin": 8.49,
-      "margin_p10": 1.72,
-      "margin_p90": 15.19,
+      "dem_win_prob_sim": 0.9334,
+      "median_margin": 8.2,
+      "margin_p10": 1.43,
+      "margin_p90": 14.91,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/north-carolina-senate-election-winner"
       }
@@ -85,14 +85,14 @@
       "margin": 3.497,
       "num_polls": 24,
       "dem_win_prob_polls": 0.6786,
-      "dem_win_prob_blended": 0.7252,
+      "dem_win_prob_blended": 0.7327,
       "market_dem_prob": {
-        "polymarket": 0.865
+        "polymarket": 0.895
       },
-      "dem_win_prob_sim": 0.7245,
-      "median_margin": 2.94,
-      "margin_p10": -3.83,
-      "margin_p90": 9.71,
+      "dem_win_prob_sim": 0.7318,
+      "median_margin": 3.06,
+      "margin_p10": -3.71,
+      "margin_p90": 9.82,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-maine-state-senate-in-2026"
       }
@@ -105,14 +105,14 @@
       "margin": 14.37,
       "num_polls": 26,
       "dem_win_prob_polls": 0.9825,
-      "dem_win_prob_blended": 0.9606,
+      "dem_win_prob_blended": 0.9581,
       "market_dem_prob": {
-        "polymarket": 0.895
+        "polymarket": 0.885
       },
-      "dem_win_prob_sim": 0.9609,
-      "median_margin": 10.1,
-      "margin_p10": 3.33,
-      "margin_p90": 16.87,
+      "dem_win_prob_sim": 0.9584,
+      "median_margin": 9.87,
+      "margin_p10": 3.11,
+      "margin_p90": 16.64,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/new-hampshire-senate-election-winner"
       }
@@ -145,11 +145,11 @@
       "margin": 2.665,
       "num_polls": 49,
       "dem_win_prob_polls": 0.6159,
-      "dem_win_prob_blended": 0.4787,
+      "dem_win_prob_blended": 0.4788,
       "market_dem_prob": {
-        "polymarket": 0.067
+        "polymarket": 0.0675
       },
-      "dem_win_prob_sim": 0.4777,
+      "dem_win_prob_sim": 0.4778,
       "median_margin": -0.27,
       "margin_p10": -6.91,
       "margin_p90": 6.55,
@@ -212,7 +212,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4976,
+  "dem_control_prob_with_vibes": 0.4984,
   "mean_dem_seats_with_vibes": 50.36,
   "national_environment": {
     "national_swing": 10.42,
