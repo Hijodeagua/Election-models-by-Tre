@@ -1,20 +1,20 @@
 {
   "as_of": "2026-10-13",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4988,
-  "mean_dem_seats": 50.37,
-  "median_dem_seats": 50.0,
+  "dem_control_prob": 0.5018,
+  "mean_dem_seats": 50.38,
+  "median_dem_seats": 51.0,
   "seat_distribution": {
-    "44": 46,
-    "45": 193,
-    "46": 599,
-    "47": 1674,
-    "48": 4026,
-    "49": 7596,
-    "50": 10927,
-    "51": 11616,
-    "52": 9003,
-    "53": 4320
+    "44": 39,
+    "45": 189,
+    "46": 577,
+    "47": 1636,
+    "48": 3984,
+    "49": 7586,
+    "50": 10898,
+    "51": 11659,
+    "52": 9077,
+    "53": 4355
   },
   "races": [
     {
@@ -25,14 +25,14 @@
       "margin": 8.63,
       "num_polls": 19,
       "dem_win_prob_polls": 0.9164,
-      "dem_win_prob_blended": 0.9274,
+      "dem_win_prob_blended": 0.9277,
       "market_dem_prob": {
-        "polymarket": 0.9605
+        "polymarket": 0.9615
       },
-      "dem_win_prob_sim": 0.9299,
-      "median_margin": 7.94,
-      "margin_p10": 1.23,
-      "margin_p90": 14.62,
+      "dem_win_prob_sim": 0.9301,
+      "median_margin": 7.95,
+      "margin_p10": 1.24,
+      "margin_p90": 14.63,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/georgia-senate-election-winner"
       }
@@ -62,17 +62,17 @@
       "race": "North Carolina Senate 2026",
       "dem_candidate": "Roy Cooper",
       "rep_candidate": "Michael Whatley",
-      "margin": 8.999,
-      "num_polls": 41,
-      "dem_win_prob_polls": 0.9247,
-      "dem_win_prob_blended": 0.9336,
+      "margin": 9.658,
+      "num_polls": 43,
+      "dem_win_prob_polls": 0.9374,
+      "dem_win_prob_blended": 0.9419,
       "market_dem_prob": {
-        "polymarket": 0.9605
+        "polymarket": 0.9555
       },
-      "dem_win_prob_sim": 0.9337,
-      "median_margin": 8.21,
-      "margin_p10": 1.45,
-      "margin_p90": 14.92,
+      "dem_win_prob_sim": 0.9417,
+      "median_margin": 8.69,
+      "margin_p10": 1.92,
+      "margin_p90": 15.4,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/north-carolina-senate-election-winner"
       }
@@ -142,17 +142,17 @@
       "race": "Texas Senate 2026",
       "dem_candidate": "James Talarico",
       "rep_candidate": "Ken Paxton",
-      "margin": 2.665,
-      "num_polls": 49,
-      "dem_win_prob_polls": 0.6159,
-      "dem_win_prob_blended": 0.4788,
+      "margin": 2.763,
+      "num_polls": 50,
+      "dem_win_prob_polls": 0.6235,
+      "dem_win_prob_blended": 0.484,
       "market_dem_prob": {
-        "polymarket": 0.0675
+        "polymarket": 0.0655
       },
-      "dem_win_prob_sim": 0.4778,
-      "median_margin": -0.27,
-      "margin_p10": -6.91,
-      "margin_p90": 6.55,
+      "dem_win_prob_sim": 0.4828,
+      "median_margin": -0.21,
+      "margin_p10": -6.85,
+      "margin_p90": 6.61,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-texas-state-senate-in-2026"
       }
@@ -212,8 +212,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4988,
-  "mean_dem_seats_with_vibes": 50.37,
+  "dem_control_prob_with_vibes": 0.5018,
+  "mean_dem_seats_with_vibes": 50.38,
   "national_environment": {
     "national_swing": 10.42,
     "available": true,
