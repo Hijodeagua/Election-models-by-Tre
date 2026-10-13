@@ -27,6 +27,12 @@ from __future__ import annotations
 
 import argparse
 import logging
+import sys
+from pathlib import Path
+
+# Run as `python scripts/train_parameters.py`, so the repo root is not on
+# sys.path and `from src...` fails; every other script in scripts/ does this.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
