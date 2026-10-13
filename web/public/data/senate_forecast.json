@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-10-12",
+  "as_of": "2026-10-13",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4984,
-  "mean_dem_seats": 50.36,
+  "dem_control_prob": 0.4988,
+  "mean_dem_seats": 50.37,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 46,
-    "45": 194,
-    "46": 597,
-    "47": 1679,
-    "48": 4039,
-    "49": 7599,
-    "50": 10924,
-    "51": 11609,
-    "52": 8996,
-    "53": 4317
+    "45": 193,
+    "46": 599,
+    "47": 1674,
+    "48": 4026,
+    "49": 7596,
+    "50": 10927,
+    "51": 11616,
+    "52": 9003,
+    "53": 4320
   },
   "races": [
     {
@@ -25,14 +25,14 @@
       "margin": 8.63,
       "num_polls": 19,
       "dem_win_prob_polls": 0.9164,
-      "dem_win_prob_blended": 0.9278,
+      "dem_win_prob_blended": 0.9274,
       "market_dem_prob": {
-        "polymarket": 0.962
+        "polymarket": 0.9605
       },
-      "dem_win_prob_sim": 0.9302,
-      "median_margin": 7.95,
-      "margin_p10": 1.24,
-      "margin_p90": 14.64,
+      "dem_win_prob_sim": 0.9299,
+      "median_margin": 7.94,
+      "margin_p10": 1.23,
+      "margin_p90": 14.62,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/georgia-senate-election-winner"
       }
@@ -65,14 +65,14 @@
       "margin": 8.999,
       "num_polls": 41,
       "dem_win_prob_polls": 0.9247,
-      "dem_win_prob_blended": 0.9334,
+      "dem_win_prob_blended": 0.9336,
       "market_dem_prob": {
-        "polymarket": 0.9595
+        "polymarket": 0.9605
       },
-      "dem_win_prob_sim": 0.9334,
-      "median_margin": 8.2,
-      "margin_p10": 1.43,
-      "margin_p90": 14.91,
+      "dem_win_prob_sim": 0.9337,
+      "median_margin": 8.21,
+      "margin_p10": 1.45,
+      "margin_p90": 14.92,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/north-carolina-senate-election-winner"
       }
@@ -85,14 +85,14 @@
       "margin": 3.497,
       "num_polls": 24,
       "dem_win_prob_polls": 0.6786,
-      "dem_win_prob_blended": 0.7327,
+      "dem_win_prob_blended": 0.7339,
       "market_dem_prob": {
-        "polymarket": 0.895
+        "polymarket": 0.9
       },
-      "dem_win_prob_sim": 0.7318,
-      "median_margin": 3.06,
-      "margin_p10": -3.71,
-      "margin_p90": 9.82,
+      "dem_win_prob_sim": 0.7332,
+      "median_margin": 3.08,
+      "margin_p10": -3.7,
+      "margin_p90": 9.84,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-maine-state-senate-in-2026"
       }
@@ -212,8 +212,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4984,
-  "mean_dem_seats_with_vibes": 50.36,
+  "dem_control_prob_with_vibes": 0.4988,
+  "mean_dem_seats_with_vibes": 50.37,
   "national_environment": {
     "national_swing": 10.42,
     "available": true,
