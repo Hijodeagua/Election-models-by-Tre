@@ -3746,8 +3746,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 53,
+      "num_polls": 54,
       "polls": [
+        {
+          "pollster": "ActiVote",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-30",
+          "end_date": "2026-10-14",
+          "sample_size": 400,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 52.0,
+          "rep_pct": 48.0,
+          "margin": 4.0,
+          "partisan": false
+        },
         {
           "pollster": "Quantus Insights",
           "rated": false,
@@ -4669,7 +4685,7 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 29,
+      "num_polls": 30,
       "polls": [
         {
           "pollster": "YouGov",
@@ -4685,6 +4701,22 @@
           "dem_pct": 47.0,
           "rep_pct": 46.0,
           "margin": 1.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Marist University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-08",
+          "end_date": "2026-10-11",
+          "sample_size": null,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 48.0,
+          "rep_pct": 45.0,
+          "margin": 3.0,
           "partisan": false
         },
         {
