@@ -642,8 +642,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 49,
+      "num_polls": 51,
       "polls": [
+        {
+          "pollster": "Rasmussen Reports (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-12",
+          "end_date": "2026-10-14",
+          "sample_size": 798,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 44.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "InsiderAdvantage (R)",
           "rated": false,
@@ -677,7 +693,7 @@
           "partisan": false
         },
         {
-          "pollster": "The Tyson Group",
+          "pollster": "The Tyson Group (R)",
           "rated": false,
           "grade": null,
           "quality": null,
@@ -785,6 +801,22 @@
           "rep_candidate": "Mike Rogers",
           "dem_pct": null,
           "rep_pct": 49.0,
+          "margin": null,
+          "partisan": false
+        },
+        {
+          "pollster": "The Tyson Group (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-24",
+          "end_date": "2026-09-27",
+          "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 43.0,
           "margin": null,
           "partisan": false
         },
