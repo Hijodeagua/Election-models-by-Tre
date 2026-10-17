@@ -2786,8 +2786,24 @@
     {
       "state": "New Hampshire",
       "abbr": "NH",
-      "num_polls": 26,
+      "num_polls": 27,
       "polls": [
+        {
+          "pollster": "National Public Affairs (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-08",
+          "end_date": "2026-10-12",
+          "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Chris Pappas",
+          "rep_candidate": "Scott Brown",
+          "dem_pct": 50.0,
+          "rep_pct": null,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "YouGov",
           "rated": true,
