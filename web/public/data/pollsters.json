@@ -4797,8 +4797,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 30,
+      "num_polls": 31,
       "polls": [
+        {
+          "pollster": "Trafalgar Group (R)",
+          "rated": true,
+          "grade": "C+",
+          "quality": 1.048,
+          "start_date": "2026-10-13",
+          "end_date": "2026-10-15",
+          "sample_size": 1094,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 44.0,
+          "rep_pct": 46.0,
+          "margin": -2.0,
+          "partisan": false
+        },
         {
           "pollster": "YouGov",
           "rated": true,
