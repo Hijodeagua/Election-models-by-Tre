@@ -3858,7 +3858,7 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 56,
+      "num_polls": 57,
       "polls": [
         {
           "pollster": "CBS News/YouGov",
@@ -3890,6 +3890,22 @@
           "dem_pct": 48.0,
           "rep_pct": 49.0,
           "margin": -1.0,
+          "partisan": false
+        },
+        {
+          "pollster": "University of Houston",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-10",
+          "end_date": "2026-10-14",
+          "sample_size": 2000,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 48.0,
+          "rep_pct": 46.0,
+          "margin": 2.0,
           "partisan": false
         },
         {
@@ -4829,7 +4845,7 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 31,
+      "num_polls": 32,
       "polls": [
         {
           "pollster": "Trafalgar Group (R)",
@@ -4845,6 +4861,22 @@
           "dem_pct": 44.0,
           "rep_pct": 46.0,
           "margin": -2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "NPA Polling",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-08",
+          "end_date": "2026-10-12",
+          "sample_size": 678,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 44.0,
+          "rep_pct": 47.0,
+          "margin": -3.0,
           "partisan": false
         },
         {

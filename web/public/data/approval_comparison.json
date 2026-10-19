@@ -6,14 +6,6 @@
       "available": true,
       "series": [
         {
-          "as_of": "2026-02-20",
-          "approve": 41.3,
-          "disapprove": 55.9,
-          "net": -14.6,
-          "lo": 40.7,
-          "hi": 42.0
-        },
-        {
           "as_of": "2026-02-21",
           "approve": 41.3,
           "disapprove": 55.9,
@@ -1927,6 +1919,14 @@
         },
         {
           "as_of": "2026-10-18",
+          "approve": 35.7,
+          "disapprove": 62.0,
+          "net": -26.3,
+          "lo": 34.1,
+          "hi": 37.7
+        },
+        {
+          "as_of": "2026-10-19",
           "approve": 35.7,
           "disapprove": 62.0,
           "net": -26.3,
