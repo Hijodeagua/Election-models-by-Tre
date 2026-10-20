@@ -233,8 +233,24 @@
     {
       "state": "Georgia",
       "abbr": "GA",
-      "num_polls": 19,
+      "num_polls": 20,
       "polls": [
+        {
+          "pollster": "Quantus Insights (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-15",
+          "end_date": "2026-10-17",
+          "sample_size": 755,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 52.0,
+          "rep_pct": 45.0,
+          "margin": 7.0,
+          "partisan": false
+        },
         {
           "pollster": "Trafalgar Group (R)",
           "rated": true,
@@ -3263,7 +3279,7 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 34,
+      "num_polls": 35,
       "polls": [
         {
           "pollster": "ActiVote",
@@ -3279,6 +3295,22 @@
           "dem_pct": 50.0,
           "rep_pct": 50.0,
           "margin": 0.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Rasmussen Reports (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-12",
+          "end_date": "2026-10-14",
+          "sample_size": 901,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 47.0,
+          "rep_pct": 49.0,
+          "margin": -2.0,
           "partisan": false
         },
         {
@@ -4845,8 +4877,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 32,
+      "num_polls": 33,
       "polls": [
+        {
+          "pollster": "co/efficient (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-15",
+          "end_date": "2026-10-19",
+          "sample_size": 863,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 45.0,
+          "rep_pct": 48.0,
+          "margin": -3.0,
+          "partisan": false
+        },
         {
           "pollster": "Trafalgar Group (R)",
           "rated": true,
