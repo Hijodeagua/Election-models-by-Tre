@@ -3279,8 +3279,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 35,
+      "num_polls": 36,
       "polls": [
+        {
+          "pollster": "Marist University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-15",
+          "end_date": "2026-10-18",
+          "sample_size": null,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 48.0,
+          "rep_pct": 44.0,
+          "margin": 4.0,
+          "partisan": false
+        },
         {
           "pollster": "ActiVote",
           "rated": false,
