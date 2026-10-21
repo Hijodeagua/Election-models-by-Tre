@@ -233,7 +233,7 @@
     {
       "state": "Georgia",
       "abbr": "GA",
-      "num_polls": 20,
+      "num_polls": 19,
       "polls": [
         {
           "pollster": "Quantus Insights (R)",
@@ -265,22 +265,6 @@
           "dem_pct": 51.0,
           "rep_pct": 43.0,
           "margin": 8.0,
-          "partisan": false
-        },
-        {
-          "pollster": "Wedgewood Polls",
-          "rated": false,
-          "grade": null,
-          "quality": null,
-          "start_date": "2026-10-02",
-          "end_date": "2026-10-03",
-          "sample_size": 600,
-          "population": "lv",
-          "dem_candidate": "Jon Ossoff",
-          "rep_candidate": "Mike Collins",
-          "dem_pct": 55.0,
-          "rep_pct": 45.0,
-          "margin": 10.0,
           "partisan": false
         },
         {
@@ -658,7 +642,7 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 51,
+      "num_polls": 50,
       "polls": [
         {
           "pollster": "Rasmussen Reports (R)",
@@ -689,22 +673,6 @@
           "rep_candidate": "Mike Rogers",
           "dem_pct": null,
           "rep_pct": 46.0,
-          "margin": null,
-          "partisan": false
-        },
-        {
-          "pollster": "Wedgewood Polls",
-          "rated": false,
-          "grade": null,
-          "quality": null,
-          "start_date": "2026-10-08",
-          "end_date": "2026-10-09",
-          "sample_size": 607,
-          "population": "lv",
-          "dem_candidate": "Haley Stevens",
-          "rep_candidate": "Mike Rogers",
-          "dem_pct": null,
-          "rep_pct": 47.0,
           "margin": null,
           "partisan": false
         },
@@ -1603,7 +1571,7 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 43,
+      "num_polls": 44,
       "polls": [
         {
           "pollster": "SurveyUSA",
@@ -1635,6 +1603,22 @@
           "dem_pct": 49.0,
           "rep_pct": 41.0,
           "margin": 8.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Elon University/YouGov",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-29",
+          "end_date": "2026-10-08",
+          "sample_size": 561,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 52.0,
+          "rep_pct": 39.0,
+          "margin": 13.0,
           "partisan": false
         },
         {
@@ -2378,7 +2362,7 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 26,
+      "num_polls": 24,
       "polls": [
         {
           "pollster": "InsiderAdvantage (R)",
@@ -2474,22 +2458,6 @@
           "dem_pct": 46.0,
           "rep_pct": 46.0,
           "margin": 0.0,
-          "partisan": false
-        },
-        {
-          "pollster": "Wedgewood Polls",
-          "rated": false,
-          "grade": null,
-          "quality": null,
-          "start_date": "2026-09-27",
-          "end_date": "2026-10-01",
-          "sample_size": 400,
-          "population": "lv",
-          "dem_candidate": "Troy Jackson",
-          "rep_candidate": "Susan Collins",
-          "dem_pct": 52.0,
-          "rep_pct": 48.0,
-          "margin": 4.0,
           "partisan": false
         },
         {
@@ -2777,22 +2745,6 @@
           "rep_candidate": "Susan Collins",
           "dem_pct": 49.0,
           "rep_pct": 44.0,
-          "margin": 5.0,
-          "partisan": false
-        },
-        {
-          "pollster": "Wedgewood Polls (D)",
-          "rated": false,
-          "grade": null,
-          "quality": null,
-          "start_date": "2026-07-04",
-          "end_date": "2026-07-06",
-          "sample_size": 405,
-          "population": "lv",
-          "dem_candidate": "Troy Jackson",
-          "rep_candidate": "Susan Collins",
-          "dem_pct": 48.0,
-          "rep_pct": 43.0,
           "margin": 5.0,
           "partisan": false
         }
@@ -3279,7 +3231,7 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 36,
+      "num_polls": 35,
       "polls": [
         {
           "pollster": "Marist University",
@@ -3567,22 +3519,6 @@
           "dem_pct": 52.0,
           "rep_pct": 46.0,
           "margin": 6.0,
-          "partisan": false
-        },
-        {
-          "pollster": "Wedgewood Polls",
-          "rated": false,
-          "grade": null,
-          "quality": null,
-          "start_date": "2026-08-11",
-          "end_date": "2026-08-13",
-          "sample_size": 800,
-          "population": "lv",
-          "dem_candidate": "Sherrod Brown",
-          "rep_candidate": "Jon Husted",
-          "dem_pct": 48.0,
-          "rep_pct": 44.0,
-          "margin": 4.0,
           "partisan": false
         },
         {
@@ -3906,7 +3842,7 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 57,
+      "num_polls": 56,
       "polls": [
         {
           "pollster": "CBS News/YouGov",
@@ -3925,10 +3861,10 @@
           "partisan": false
         },
         {
-          "pollster": "InsiderAdvantage (R)",
-          "rated": false,
-          "grade": null,
-          "quality": null,
+          "pollster": "InsiderAdvantage",
+          "rated": true,
+          "grade": "B-",
+          "quality": 1.108,
           "start_date": "2026-10-13",
           "end_date": "2026-10-14",
           "sample_size": 1200,
@@ -4437,22 +4373,6 @@
           "partisan": false
         },
         {
-          "pollster": "Wedgewood Polls",
-          "rated": false,
-          "grade": null,
-          "quality": null,
-          "start_date": "2026-07-30",
-          "end_date": "2026-07-31",
-          "sample_size": 800,
-          "population": "lv",
-          "dem_candidate": "James Talarico",
-          "rep_candidate": "Ken Paxton",
-          "dem_pct": 48.0,
-          "rep_pct": 46.0,
-          "margin": 2.0,
-          "partisan": false
-        },
-        {
           "pollster": "YouGov Blue (D)",
           "rated": false,
           "grade": null,
@@ -4893,7 +4813,7 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 33,
+      "num_polls": 32,
       "polls": [
         {
           "pollster": "co/efficient (R)",
@@ -5229,22 +5149,6 @@
           "dem_pct": 46.0,
           "rep_pct": 42.0,
           "margin": 4.0,
-          "partisan": false
-        },
-        {
-          "pollster": "Wedgewood Polls",
-          "rated": false,
-          "grade": null,
-          "quality": null,
-          "start_date": "2026-08-27",
-          "end_date": "2026-08-29",
-          "sample_size": 600,
-          "population": "lv",
-          "dem_candidate": "Josh Turek",
-          "rep_candidate": "Ashley Hinson",
-          "dem_pct": 48.0,
-          "rep_pct": 50.0,
-          "margin": -2.0,
           "partisan": false
         },
         {
