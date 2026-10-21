@@ -233,8 +233,24 @@
     {
       "state": "Georgia",
       "abbr": "GA",
-      "num_polls": 19,
+      "num_polls": 20,
       "polls": [
+        {
+          "pollster": "ActiVote",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-06",
+          "end_date": "2026-10-20",
+          "sample_size": 400,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 54.0,
+          "rep_pct": 46.0,
+          "margin": 8.0,
+          "partisan": false
+        },
         {
           "pollster": "Quantus Insights (R)",
           "rated": false,
@@ -642,8 +658,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 50,
+      "num_polls": 51,
       "polls": [
+        {
+          "pollster": "Marist University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-15",
+          "end_date": "2026-10-18",
+          "sample_size": null,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 48.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Rasmussen Reports (R)",
           "rated": false,
@@ -1571,8 +1603,24 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 44,
+      "num_polls": 45,
       "polls": [
+        {
+          "pollster": "ActiVote",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-08",
+          "end_date": "2026-10-20",
+          "sample_size": 400,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 57.0,
+          "rep_pct": 43.0,
+          "margin": 14.0,
+          "partisan": false
+        },
         {
           "pollster": "SurveyUSA",
           "rated": true,

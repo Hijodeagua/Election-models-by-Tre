@@ -1919,19 +1919,19 @@
         },
         {
           "as_of": "2026-10-20",
-          "approve": 35.8,
-          "disapprove": 62.0,
-          "net": -26.2,
-          "lo": 34.3,
-          "hi": 37.6
+          "approve": 34.3,
+          "disapprove": 63.5,
+          "net": -29.2,
+          "lo": 31.4,
+          "hi": 42.0
         },
         {
           "as_of": "2026-10-21",
-          "approve": 35.8,
+          "approve": 35.4,
           "disapprove": 62.0,
-          "net": -26.2,
-          "lo": 34.3,
-          "hi": 37.6
+          "net": -26.6,
+          "lo": 34.0,
+          "hi": 37.0
         }
       ]
     },
@@ -3194,17 +3194,10 @@
           "num_polls": 2
         },
         {
-          "as_of": "2026-10-20",
-          "approve": 36.43,
-          "disapprove": 61.29,
-          "net": -24.86,
-          "num_polls": 7
-        },
-        {
           "as_of": "2026-10-21",
-          "approve": 36.43,
-          "disapprove": 61.29,
-          "net": -24.86,
+          "approve": 35.86,
+          "disapprove": 61.43,
+          "net": -25.57,
           "num_polls": 7
         }
       ]
