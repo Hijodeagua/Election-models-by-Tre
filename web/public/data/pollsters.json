@@ -3279,8 +3279,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 35,
+      "num_polls": 37,
       "polls": [
+        {
+          "pollster": "Beacon Research (D)/ Shaw & Co. Research (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-15",
+          "end_date": "2026-10-19",
+          "sample_size": 1592,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 52.0,
+          "rep_pct": 47.0,
+          "margin": 5.0,
+          "partisan": false
+        },
         {
           "pollster": "Marist University",
           "rated": false,
@@ -3327,6 +3343,22 @@
           "dem_pct": 47.0,
           "rep_pct": 49.0,
           "margin": -2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "GS Strategy Group (R)/New River Strategies (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-09",
+          "end_date": "2026-10-13",
+          "sample_size": 959,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 49.0,
+          "rep_pct": 43.0,
+          "margin": 6.0,
           "partisan": false
         },
         {
@@ -3890,8 +3922,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 56,
+      "num_polls": 58,
       "polls": [
+        {
+          "pollster": "Beacon Research (D)/ Shaw & Co. Research (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-15",
+          "end_date": "2026-10-19",
+          "sample_size": 1398,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 49.0,
+          "rep_pct": 49.0,
+          "margin": 0.0,
+          "partisan": false
+        },
         {
           "pollster": "CBS News/YouGov",
           "rated": true,
@@ -3954,6 +4002,22 @@
           "dem_pct": 52.0,
           "rep_pct": 48.0,
           "margin": 4.0,
+          "partisan": false
+        },
+        {
+          "pollster": "GS Strategy Group (R)/ New River Strategies (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-09",
+          "end_date": "2026-10-13",
+          "sample_size": 934,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 49.0,
+          "rep_pct": 44.0,
+          "margin": 5.0,
           "partisan": false
         },
         {
@@ -4861,7 +4925,7 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 32,
+      "num_polls": 33,
       "polls": [
         {
           "pollster": "co/efficient (R)",
@@ -4893,6 +4957,22 @@
           "dem_pct": 44.0,
           "rep_pct": 46.0,
           "margin": -2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "GS Strategy Group (R)/New River Strategies (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-09",
+          "end_date": "2026-10-13",
+          "sample_size": 602,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 46.0,
+          "rep_pct": 44.0,
+          "margin": 2.0,
           "partisan": false
         },
         {
