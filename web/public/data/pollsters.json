@@ -233,7 +233,7 @@
     {
       "state": "Georgia",
       "abbr": "GA",
-      "num_polls": 20,
+      "num_polls": 21,
       "polls": [
         {
           "pollster": "ActiVote",
@@ -265,6 +265,22 @@
           "dem_pct": 52.0,
           "rep_pct": 45.0,
           "margin": 7.0,
+          "partisan": false
+        },
+        {
+          "pollster": "University of Georgia School of Public and International Affairs",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-07",
+          "end_date": "2026-10-15",
+          "sample_size": 1000,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 48.0,
+          "rep_pct": 40.0,
+          "margin": 8.0,
           "partisan": false
         },
         {
@@ -3922,8 +3938,40 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 58,
+      "num_polls": 60,
       "polls": [
+        {
+          "pollster": "ActiVote",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-17",
+          "end_date": "2026-10-21",
+          "sample_size": 400,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 51.0,
+          "rep_pct": 49.0,
+          "margin": 2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Emerson College",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.468,
+          "start_date": "2026-10-17",
+          "end_date": "2026-10-19",
+          "sample_size": 1000,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 49.0,
+          "rep_pct": 48.0,
+          "margin": 1.0,
+          "partisan": false
+        },
         {
           "pollster": "Beacon Research (D)/ Shaw & Co. Research (R)",
           "rated": false,
@@ -4960,7 +5008,7 @@
           "partisan": false
         },
         {
-          "pollster": "GS Strategy Group (R)/New River Strategies (D)",
+          "pollster": "GS Strategy Group (R)/ New River Strategies (D)",
           "rated": false,
           "grade": null,
           "quality": null,
