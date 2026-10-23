@@ -1619,7 +1619,7 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 45,
+      "num_polls": 46,
       "polls": [
         {
           "pollster": "ActiVote",
@@ -1747,6 +1747,22 @@
           "dem_pct": 48.0,
           "rep_pct": 43.0,
           "margin": 5.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Harper Polling (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-09-18",
+          "end_date": "2026-09-20",
+          "sample_size": 608,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 49.0,
+          "rep_pct": 39.0,
+          "margin": 10.0,
           "partisan": false
         },
         {
@@ -3330,7 +3346,7 @@
       "num_polls": 38,
       "polls": [
         {
-          "pollster": "Versalight/VoteHub",
+          "pollster": "Verasight/VoteHub",
           "rated": false,
           "grade": null,
           "quality": null,
@@ -3986,7 +4002,7 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 60,
+      "num_polls": 61,
       "polls": [
         {
           "pollster": "ActiVote",
@@ -4002,6 +4018,22 @@
           "dem_pct": 51.0,
           "rep_pct": 49.0,
           "margin": 2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Verasight/VoteHub",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-01",
+          "end_date": "2026-10-20",
+          "sample_size": 509,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 48.0,
+          "rep_pct": 45.0,
+          "margin": 3.0,
           "partisan": false
         },
         {
