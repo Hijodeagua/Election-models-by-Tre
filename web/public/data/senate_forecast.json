@@ -1,20 +1,20 @@
 {
   "as_of": "2026-10-24",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4817,
+  "dem_control_prob": 0.4807,
   "mean_dem_seats": 50.31,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 33,
-    "45": 176,
-    "46": 584,
-    "47": 1666,
-    "48": 4125,
-    "49": 7949,
-    "50": 11381,
-    "51": 11679,
-    "52": 8557,
-    "53": 3850
+    "45": 178,
+    "46": 587,
+    "47": 1676,
+    "48": 4147,
+    "49": 7960,
+    "50": 11386,
+    "51": 11645,
+    "52": 8544,
+    "53": 3844
   },
   "races": [
     {
@@ -43,16 +43,16 @@
       "dem_candidate": "Haley Stevens",
       "rep_candidate": "Mike Rogers",
       "margin": 10.034,
-      "num_polls": 51,
+      "num_polls": 52,
       "dem_win_prob_polls": 0.9437,
-      "dem_win_prob_blended": 0.8865,
+      "dem_win_prob_blended": 0.884,
       "market_dem_prob": {
-        "polymarket": 0.715
+        "polymarket": 0.705
       },
-      "dem_win_prob_sim": 0.8871,
-      "median_margin": 6.3,
-      "margin_p10": -0.46,
-      "margin_p90": 13.09,
+      "dem_win_prob_sim": 0.8845,
+      "median_margin": 6.22,
+      "margin_p10": -0.54,
+      "margin_p90": 13.01,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/michigan-senate-election-winner"
       }
@@ -125,14 +125,14 @@
       "margin": 3.063,
       "num_polls": 39,
       "dem_win_prob_polls": 0.6465,
-      "dem_win_prob_blended": 0.6586,
+      "dem_win_prob_blended": 0.6574,
       "market_dem_prob": {
-        "polymarket": 0.695
+        "polymarket": 0.69
       },
-      "dem_win_prob_sim": 0.6597,
-      "median_margin": 2.01,
-      "margin_p10": -4.74,
-      "margin_p90": 8.75,
+      "dem_win_prob_sim": 0.6586,
+      "median_margin": 1.99,
+      "margin_p10": -4.75,
+      "margin_p90": 8.74,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/ohio-senate-election-winner"
       }
@@ -212,7 +212,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4817,
+  "dem_control_prob_with_vibes": 0.4807,
   "mean_dem_seats_with_vibes": 50.31,
   "national_environment": {
     "national_swing": 10.384,

@@ -674,8 +674,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 51,
+      "num_polls": 52,
       "polls": [
+        {
+          "pollster": "InsiderAdvantage (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-21",
+          "end_date": "2026-10-22",
+          "sample_size": 1200,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 46.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Marist University",
           "rated": false,
