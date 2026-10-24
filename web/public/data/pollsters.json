@@ -3343,8 +3343,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 38,
+      "num_polls": 39,
       "polls": [
+        {
+          "pollster": "InsiderAdvantage (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-21",
+          "end_date": "2026-10-22",
+          "sample_size": 1200,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 47.0,
+          "rep_pct": 44.0,
+          "margin": 3.0,
+          "partisan": false
+        },
         {
           "pollster": "Verasight/VoteHub",
           "rated": false,
@@ -4002,8 +4018,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 61,
+      "num_polls": 64,
       "polls": [
+        {
+          "pollster": "Rasmussen Reports",
+          "rated": true,
+          "grade": "B-",
+          "quality": 1.168,
+          "start_date": "2026-10-20",
+          "end_date": "2026-10-21",
+          "sample_size": 965,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 45.0,
+          "rep_pct": 45.0,
+          "margin": 0.0,
+          "partisan": false
+        },
         {
           "pollster": "ActiVote",
           "rated": false,
@@ -4066,6 +4098,38 @@
           "dem_pct": 49.0,
           "rep_pct": 49.0,
           "margin": 0.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Texas Public Opinion Research (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-15",
+          "end_date": "2026-10-18",
+          "sample_size": 969,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 51.0,
+          "rep_pct": 47.0,
+          "margin": 4.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Pollfinity Research",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-15",
+          "end_date": "2026-10-18",
+          "sample_size": 278,
+          "population": "rv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 48.0,
+          "rep_pct": 43.0,
+          "margin": 5.0,
           "partisan": false
         },
         {
@@ -5053,8 +5117,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 33,
+      "num_polls": 34,
       "polls": [
+        {
+          "pollster": "InsiderAdvantage (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-21",
+          "end_date": "2026-10-22",
+          "sample_size": 1200,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 45.0,
+          "rep_pct": 47.0,
+          "margin": -2.0,
+          "partisan": false
+        },
         {
           "pollster": "co/efficient (R)",
           "rated": false,

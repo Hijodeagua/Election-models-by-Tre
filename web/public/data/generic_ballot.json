@@ -1,6 +1,6 @@
 {
   "current": {
-    "as_of": "2026-10-23",
+    "as_of": "2026-10-24",
     "dem_pct": 49.0,
     "rep_pct": 41.7,
     "margin": 7.3,
@@ -13,19 +13,6 @@
     "ci_rep": null
   },
   "trend": [
-    {
-      "as_of": "2026-02-25",
-      "dem_pct": 46.6,
-      "rep_pct": 42.0,
-      "margin": 4.6,
-      "num_polls": 255,
-      "estimated_dem_seats": 226,
-      "estimated_rep_seats": 209,
-      "estimated_dem_seats_lo": 215,
-      "estimated_dem_seats_hi": 237,
-      "ci_dem": null,
-      "ci_rep": null
-    },
     {
       "as_of": "2026-02-26",
       "dem_pct": 46.9,
@@ -3145,13 +3132,26 @@
       "estimated_dem_seats_hi": 245,
       "ci_dem": null,
       "ci_rep": null
+    },
+    {
+      "as_of": "2026-10-24",
+      "dem_pct": 49.0,
+      "rep_pct": 41.7,
+      "margin": 7.3,
+      "num_polls": 406,
+      "estimated_dem_seats": 234,
+      "estimated_rep_seats": 201,
+      "estimated_dem_seats_lo": 223,
+      "estimated_dem_seats_hi": 245,
+      "ci_dem": null,
+      "ci_rep": null
     }
   ],
   "num_polls": 406,
   "state_space": {
     "available": true,
     "model": "Jackman state-space: random-walk latent + additive house effects (Phase 3)",
-    "as_of": "2026-10-23",
+    "as_of": "2026-10-24",
     "current": {
       "dem": 48.1,
       "dem_lo": 46.7,
