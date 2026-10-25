@@ -1,20 +1,20 @@
 {
   "as_of": "2026-10-25",
   "num_simulations": 50000,
-  "dem_control_prob": 0.4805,
-  "mean_dem_seats": 50.31,
+  "dem_control_prob": 0.4789,
+  "mean_dem_seats": 50.3,
   "median_dem_seats": 50.0,
   "seat_distribution": {
     "44": 33,
-    "45": 175,
-    "46": 584,
-    "47": 1669,
-    "48": 4165,
-    "49": 7954,
-    "50": 11396,
-    "51": 11658,
-    "52": 8536,
-    "53": 3830
+    "45": 177,
+    "46": 588,
+    "47": 1671,
+    "48": 4212,
+    "49": 7990,
+    "50": 11385,
+    "51": 11646,
+    "52": 8495,
+    "53": 3803
   },
   "races": [
     {
@@ -25,14 +25,14 @@
       "margin": 8.098,
       "num_polls": 21,
       "dem_win_prob_polls": 0.9029,
-      "dem_win_prob_blended": 0.9177,
+      "dem_win_prob_blended": 0.9159,
       "market_dem_prob": {
-        "polymarket": 0.962
+        "polymarket": 0.955
       },
-      "dem_win_prob_sim": 0.9208,
-      "median_margin": 7.49,
-      "margin_p10": 0.78,
-      "margin_p90": 14.18,
+      "dem_win_prob_sim": 0.9188,
+      "median_margin": 7.41,
+      "margin_p10": 0.7,
+      "margin_p90": 14.1,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/georgia-senate-election-winner"
       }
@@ -45,14 +45,14 @@
       "margin": 10.034,
       "num_polls": 52,
       "dem_win_prob_polls": 0.9437,
-      "dem_win_prob_blended": 0.8865,
+      "dem_win_prob_blended": 0.8878,
       "market_dem_prob": {
-        "polymarket": 0.715
+        "polymarket": 0.72
       },
-      "dem_win_prob_sim": 0.8871,
-      "median_margin": 6.3,
-      "margin_p10": -0.46,
-      "margin_p90": 13.09,
+      "dem_win_prob_sim": 0.8883,
+      "median_margin": 6.34,
+      "margin_p10": -0.42,
+      "margin_p90": 13.13,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/michigan-senate-election-winner"
       }
@@ -65,14 +65,14 @@
       "margin": 10.325,
       "num_polls": 47,
       "dem_win_prob_polls": 0.9481,
-      "dem_win_prob_blended": 0.9527,
+      "dem_win_prob_blended": 0.9532,
       "market_dem_prob": {
-        "polymarket": 0.9665
+        "polymarket": 0.9685
       },
-      "dem_win_prob_sim": 0.9524,
-      "median_margin": 9.42,
-      "margin_p10": 2.66,
-      "margin_p90": 16.13,
+      "dem_win_prob_sim": 0.9528,
+      "median_margin": 9.46,
+      "margin_p10": 2.69,
+      "margin_p90": 16.17,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/north-carolina-senate-election-winner"
       }
@@ -85,14 +85,14 @@
       "margin": 3.072,
       "num_polls": 25,
       "dem_win_prob_polls": 0.6472,
-      "dem_win_prob_blended": 0.7192,
+      "dem_win_prob_blended": 0.7179,
       "market_dem_prob": {
-        "polymarket": 0.935
+        "polymarket": 0.93
       },
-      "dem_win_prob_sim": 0.7185,
-      "median_margin": 2.85,
-      "margin_p10": -3.92,
-      "margin_p90": 9.62,
+      "dem_win_prob_sim": 0.7173,
+      "median_margin": 2.83,
+      "margin_p10": -3.94,
+      "margin_p90": 9.6,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-maine-state-senate-in-2026"
       }
@@ -125,14 +125,14 @@
       "margin": 3.063,
       "num_polls": 39,
       "dem_win_prob_polls": 0.6465,
-      "dem_win_prob_blended": 0.6536,
+      "dem_win_prob_blended": 0.6511,
       "market_dem_prob": {
-        "polymarket": 0.675
+        "polymarket": 0.665
       },
-      "dem_win_prob_sim": 0.6548,
-      "median_margin": 1.94,
-      "margin_p10": -4.8,
-      "margin_p90": 8.69,
+      "dem_win_prob_sim": 0.6525,
+      "median_margin": 1.91,
+      "margin_p10": -4.84,
+      "margin_p90": 8.65,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/ohio-senate-election-winner"
       }
@@ -145,12 +145,12 @@
       "margin": 2.047,
       "num_polls": 64,
       "dem_win_prob_polls": 0.5664,
-      "dem_win_prob_blended": 0.4352,
+      "dem_win_prob_blended": 0.4348,
       "market_dem_prob": {
-        "polymarket": 0.0415
+        "polymarket": 0.04
       },
-      "dem_win_prob_sim": 0.4349,
-      "median_margin": -0.8,
+      "dem_win_prob_sim": 0.4344,
+      "median_margin": -0.81,
       "margin_p10": -7.44,
       "margin_p90": 6.02,
       "market_urls": {
@@ -165,14 +165,14 @@
       "margin": -0.219,
       "num_polls": 34,
       "dem_win_prob_polls": 0.3812,
-      "dem_win_prob_blended": 0.3921,
+      "dem_win_prob_blended": 0.3896,
       "market_dem_prob": {
-        "polymarket": 0.425
+        "polymarket": 0.415
       },
-      "dem_win_prob_sim": 0.3886,
-      "median_margin": -1.36,
-      "margin_p10": -8.04,
-      "margin_p90": 5.4,
+      "dem_win_prob_sim": 0.3863,
+      "median_margin": -1.39,
+      "margin_p10": -8.07,
+      "margin_p90": 5.37,
       "market_urls": {
         "polymarket": "https://polymarket.com/event/iowa-senate-election-winner"
       }
@@ -212,8 +212,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.4805,
-  "mean_dem_seats_with_vibes": 50.31,
+  "dem_control_prob_with_vibes": 0.4789,
+  "mean_dem_seats_with_vibes": 50.3,
   "national_environment": {
     "national_swing": 10.384,
     "available": true,
