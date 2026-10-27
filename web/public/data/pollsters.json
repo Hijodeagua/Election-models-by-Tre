@@ -674,10 +674,10 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 53,
+      "num_polls": 55,
       "polls": [
         {
-          "pollster": "RedBox Research",
+          "pollster": "RedBox Research (D)",
           "rated": false,
           "grade": null,
           "quality": null,
@@ -700,6 +700,38 @@
           "start_date": "2026-10-21",
           "end_date": "2026-10-22",
           "sample_size": 1200,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 46.0,
+          "margin": null,
+          "partisan": false
+        },
+        {
+          "pollster": "Glengariff Group",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-19",
+          "end_date": "2026-10-22",
+          "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 45.0,
+          "margin": null,
+          "partisan": false
+        },
+        {
+          "pollster": "Michigan State University/YouGov",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-02",
+          "end_date": "2026-10-19",
+          "sample_size": 836,
           "population": "lv",
           "dem_candidate": "Haley Stevens",
           "rep_candidate": "Mike Rogers",
@@ -1651,8 +1683,24 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 46,
+      "num_polls": 47,
       "polls": [
+        {
+          "pollster": "Quantus Insights (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-24",
+          "end_date": "2026-10-25",
+          "sample_size": 722,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 51.0,
+          "rep_pct": 43.0,
+          "margin": 8.0,
+          "partisan": false
+        },
         {
           "pollster": "Harper Polling (R)",
           "rated": false,
@@ -2474,8 +2522,24 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 26,
+      "num_polls": 27,
       "polls": [
+        {
+          "pollster": "Marist University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-22",
+          "end_date": "2026-10-25",
+          "sample_size": null,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 49.0,
+          "rep_pct": 47.0,
+          "margin": 2.0,
+          "partisan": false
+        },
         {
           "pollster": "Trafalgar Group (R)",
           "rated": true,
@@ -2898,8 +2962,24 @@
     {
       "state": "New Hampshire",
       "abbr": "NH",
-      "num_polls": 28,
+      "num_polls": 30,
       "polls": [
+        {
+          "pollster": "Rasmussen Reports (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-20",
+          "end_date": "2026-10-23",
+          "sample_size": 970,
+          "population": "lv",
+          "dem_candidate": "Chris Pappas",
+          "rep_candidate": "Scott Brown",
+          "dem_pct": 50.0,
+          "rep_pct": null,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Saint Anselm College",
           "rated": false,
@@ -2944,6 +3024,22 @@
           "dem_candidate": "Chris Pappas",
           "rep_candidate": "Scott Brown",
           "dem_pct": 51.0,
+          "rep_pct": null,
+          "margin": null,
+          "partisan": false
+        },
+        {
+          "pollster": "Rasmussen Reports (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-02",
+          "end_date": "2026-10-04",
+          "sample_size": 979,
+          "population": "lv",
+          "dem_candidate": "Chris Pappas",
+          "rep_candidate": "Scott Brown",
+          "dem_pct": 49.0,
           "rep_pct": null,
           "margin": null,
           "partisan": false
@@ -3391,8 +3487,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 39,
+      "num_polls": 40,
       "polls": [
+        {
+          "pollster": "RedBox Research (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-20",
+          "end_date": "2026-10-23",
+          "sample_size": 2998,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 47.0,
+          "rep_pct": 44.0,
+          "margin": 3.0,
+          "partisan": false
+        },
         {
           "pollster": "InsiderAdvantage (R)",
           "rated": false,
@@ -4066,7 +4178,7 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 64,
+      "num_polls": 65,
       "polls": [
         {
           "pollster": "Rasmussen Reports",
@@ -4098,6 +4210,22 @@
           "dem_pct": 51.0,
           "rep_pct": 49.0,
           "margin": 2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Univision/YouGov",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-13",
+          "end_date": "2026-10-21",
+          "sample_size": 1000,
+          "population": "rv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 50.0,
+          "rep_pct": 45.0,
+          "margin": 5.0,
           "partisan": false
         },
         {
