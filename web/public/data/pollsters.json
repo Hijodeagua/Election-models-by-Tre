@@ -3519,8 +3519,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 41,
+      "num_polls": 42,
       "polls": [
+        {
+          "pollster": "Suffolk University",
+          "rated": true,
+          "grade": "A-",
+          "quality": 1.708,
+          "start_date": "2026-10-21",
+          "end_date": "2026-10-26",
+          "sample_size": 500,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 47.0,
+          "rep_pct": 44.0,
+          "margin": 3.0,
+          "partisan": false
+        },
         {
           "pollster": "RedBox Research (D)",
           "rated": false,
