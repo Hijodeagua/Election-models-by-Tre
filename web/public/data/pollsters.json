@@ -233,8 +233,24 @@
     {
       "state": "Georgia",
       "abbr": "GA",
-      "num_polls": 21,
+      "num_polls": 22,
       "polls": [
+        {
+          "pollster": "Echelon Insights (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-16",
+          "end_date": "2026-10-23",
+          "sample_size": 508,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 55.0,
+          "rep_pct": 40.0,
+          "margin": 15.0,
+          "partisan": false
+        },
         {
           "pollster": "ActiVote",
           "rated": false,
@@ -2522,7 +2538,7 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 27,
+      "num_polls": 28,
       "polls": [
         {
           "pollster": "Marist University",
@@ -2554,6 +2570,22 @@
           "dem_pct": 47.0,
           "rep_pct": 47.0,
           "margin": 0.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Echelon Insights (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-16",
+          "end_date": "2026-10-23",
+          "sample_size": 413,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 51.0,
+          "rep_pct": 44.0,
+          "margin": 7.0,
           "partisan": false
         },
         {
@@ -3487,7 +3519,7 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 40,
+      "num_polls": 41,
       "polls": [
         {
           "pollster": "RedBox Research (D)",
@@ -3503,6 +3535,22 @@
           "dem_pct": 47.0,
           "rep_pct": 44.0,
           "margin": 3.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Echelon Insights (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-16",
+          "end_date": "2026-10-23",
+          "sample_size": 508,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 47.0,
+          "rep_pct": 47.0,
+          "margin": 0.0,
           "partisan": false
         },
         {
@@ -5293,8 +5341,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 34,
+      "num_polls": 35,
       "polls": [
+        {
+          "pollster": "Echelon Insights (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-16",
+          "end_date": "2026-10-23",
+          "sample_size": 403,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 45.0,
+          "rep_pct": 43.0,
+          "margin": 2.0,
+          "partisan": false
+        },
         {
           "pollster": "InsiderAdvantage (R)",
           "rated": false,
