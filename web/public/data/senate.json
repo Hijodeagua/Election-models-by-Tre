@@ -2,7 +2,7 @@
   "races": [
     {
       "state": "Alaska",
-      "as_of": "2026-10-28",
+      "as_of": "2026-10-29",
       "candidates": {
         "Mary Peltola": 46.0,
         "Dan Sullivan": 41.0
@@ -155,7 +155,7 @@
     },
     {
       "state": "Georgia",
-      "as_of": "2026-10-28",
+      "as_of": "2026-10-29",
       "candidates": {
         "Jon Ossoff": 51.5,
         "Mike Collins": 42.5
@@ -176,18 +176,18 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.9595,
-          "Republican": 0.0395
+          "Democrat": 0.964,
+          "Republican": 0.0365
         }
       },
       "market_urls": {
         "polymarket": "https://polymarket.com/event/georgia-senate-election-winner"
       },
       "forecast": {
-        "dem_win_prob": 0.9352,
-        "median_margin": 8.22,
-        "margin_p10": 1.51,
-        "margin_p90": 14.9,
+        "dem_win_prob": 0.9365,
+        "median_margin": 8.28,
+        "margin_p10": 1.57,
+        "margin_p90": 14.96,
         "num_simulations": 50000,
         "margin_hist": [
           {
@@ -204,11 +204,11 @@
           },
           {
             "mid": -23.0,
-            "pct": 0.00012
+            "pct": 0.0001
           },
           {
             "mid": -21.0,
-            "pct": 0.00016
+            "pct": 0.00018
           },
           {
             "mid": -19.0,
@@ -216,83 +216,83 @@
           },
           {
             "mid": -17.0,
-            "pct": 0.00062
+            "pct": 0.0006
           },
           {
             "mid": -15.0,
-            "pct": 0.00074
+            "pct": 0.00076
           },
           {
             "mid": -13.0,
-            "pct": 0.00108
+            "pct": 0.00102
           },
           {
             "mid": -11.0,
-            "pct": 0.00176
+            "pct": 0.0018
           },
           {
             "mid": -9.0,
-            "pct": 0.00306
+            "pct": 0.00304
           },
           {
             "mid": -7.0,
-            "pct": 0.00486
+            "pct": 0.00464
           },
           {
             "mid": -5.0,
-            "pct": 0.00872
+            "pct": 0.0087
           },
           {
             "mid": -3.0,
-            "pct": 0.01538
+            "pct": 0.01492
           },
           {
             "mid": -1.0,
-            "pct": 0.02768
+            "pct": 0.02718
           },
           {
             "mid": 1.0,
-            "pct": 0.05036
+            "pct": 0.04944
           },
           {
             "mid": 3.0,
-            "pct": 0.0828
+            "pct": 0.08194
           },
           {
             "mid": 5.0,
-            "pct": 0.1274
+            "pct": 0.12622
           },
           {
             "mid": 7.0,
-            "pct": 0.1564
+            "pct": 0.15568
           },
           {
             "mid": 9.0,
-            "pct": 0.16032
+            "pct": 0.1607
           },
           {
             "mid": 11.0,
-            "pct": 0.13444
+            "pct": 0.1357
           },
           {
             "mid": 13.0,
-            "pct": 0.09364
+            "pct": 0.09474
           },
           {
             "mid": 15.0,
-            "pct": 0.05582
+            "pct": 0.05682
           },
           {
             "mid": 17.0,
-            "pct": 0.03266
+            "pct": 0.03308
           },
           {
             "mid": 19.0,
-            "pct": 0.01756
+            "pct": 0.01774
           },
           {
             "mid": 21.0,
-            "pct": 0.00982
+            "pct": 0.01024
           },
           {
             "mid": 23.0,
@@ -300,11 +300,11 @@
           },
           {
             "mid": 25.0,
-            "pct": 0.0029
+            "pct": 0.00298
           },
           {
             "mid": 27.0,
-            "pct": 0.00172
+            "pct": 0.0018
           },
           {
             "mid": 29.0,
@@ -315,7 +315,7 @@
     },
     {
       "state": "Iowa",
-      "as_of": "2026-10-28",
+      "as_of": "2026-10-29",
       "candidates": {
         "Josh Turek": 45.7,
         "Ashley Hinson": 45.6
@@ -336,27 +336,27 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.435,
-          "Republican": 0.565
+          "Democrat": 0.445,
+          "Republican": 0.555
         }
       },
       "market_urls": {
         "polymarket": "https://polymarket.com/event/iowa-senate-election-winner"
       },
       "forecast": {
-        "dem_win_prob": 0.4018,
-        "median_margin": -1.19,
-        "margin_p10": -7.87,
-        "margin_p90": 5.57,
+        "dem_win_prob": 0.4042,
+        "median_margin": -1.16,
+        "margin_p10": -7.84,
+        "margin_p90": 5.6,
         "num_simulations": 50000,
         "margin_hist": [
           {
             "mid": -29.0,
-            "pct": 0.0011
+            "pct": 0.00108
           },
           {
             "mid": -27.0,
-            "pct": 0.00044
+            "pct": 0.00046
           },
           {
             "mid": -25.0,
@@ -364,11 +364,11 @@
           },
           {
             "mid": -23.0,
-            "pct": 0.00094
+            "pct": 0.00092
           },
           {
             "mid": -21.0,
-            "pct": 0.00124
+            "pct": 0.0012
           },
           {
             "mid": -19.0,
@@ -376,7 +376,7 @@
           },
           {
             "mid": -17.0,
-            "pct": 0.0042
+            "pct": 0.00416
           },
           {
             "mid": -15.0,
@@ -384,67 +384,67 @@
           },
           {
             "mid": -13.0,
-            "pct": 0.01302
+            "pct": 0.0128
           },
           {
             "mid": -11.0,
-            "pct": 0.0235
+            "pct": 0.02336
           },
           {
             "mid": -9.0,
-            "pct": 0.04114
+            "pct": 0.04084
           },
           {
             "mid": -7.0,
-            "pct": 0.07292
+            "pct": 0.07208
           },
           {
             "mid": -5.0,
-            "pct": 0.1121
+            "pct": 0.11116
           },
           {
             "mid": -3.0,
-            "pct": 0.15222
+            "pct": 0.15244
           },
           {
             "mid": -1.0,
-            "pct": 0.16466
+            "pct": 0.16452
           },
           {
             "mid": 1.0,
-            "pct": 0.14388
+            "pct": 0.1444
           },
           {
             "mid": 3.0,
-            "pct": 0.10346
+            "pct": 0.10434
           },
           {
             "mid": 5.0,
-            "pct": 0.06628
+            "pct": 0.06652
           },
           {
             "mid": 7.0,
-            "pct": 0.03888
+            "pct": 0.03942
           },
           {
             "mid": 9.0,
-            "pct": 0.02034
+            "pct": 0.02044
           },
           {
             "mid": 11.0,
-            "pct": 0.01118
+            "pct": 0.01128
           },
           {
             "mid": 13.0,
-            "pct": 0.00728
+            "pct": 0.00722
           },
           {
             "mid": 15.0,
-            "pct": 0.00372
+            "pct": 0.00384
           },
           {
             "mid": 17.0,
-            "pct": 0.00242
+            "pct": 0.00244
           },
           {
             "mid": 19.0,
@@ -452,11 +452,11 @@
           },
           {
             "mid": 21.0,
-            "pct": 0.00102
+            "pct": 0.001
           },
           {
             "mid": 23.0,
-            "pct": 0.00046
+            "pct": 0.00048
           },
           {
             "mid": 25.0,
@@ -464,18 +464,18 @@
           },
           {
             "mid": 27.0,
-            "pct": 0.00014
+            "pct": 0.00012
           },
           {
             "mid": 29.0,
-            "pct": 0.00094
+            "pct": 0.00096
           }
         ]
       }
     },
     {
       "state": "Maine",
-      "as_of": "2026-10-28",
+      "as_of": "2026-10-29",
       "candidates": {
         "Troy Jackson": 48.6,
         "Susan Collins": 47.0
@@ -635,13 +635,13 @@
     },
     {
       "state": "Michigan",
-      "as_of": "2026-10-28",
+      "as_of": "2026-10-29",
       "candidates": {
-        "Abdul El-Sayed": 47.9,
-        "Mike Rogers": 45.1
+        "Abdul El-Sayed": 48.1,
+        "Mike Rogers": 45.0
       },
-      "margin": 2.8,
-      "num_polls": 55,
+      "margin": 3.1,
+      "num_polls": 56,
       "rating": null,
       "dem_candidate": "Haley Stevens",
       "rep_candidate": "Mike Rogers",
@@ -656,23 +656,23 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.695,
-          "Republican": 0.305
+          "Democrat": 0.705,
+          "Republican": 0.295
         }
       },
       "market_urls": {
         "polymarket": "https://polymarket.com/event/michigan-senate-election-winner"
       },
       "forecast": {
-        "dem_win_prob": 0.8825,
-        "median_margin": 6.15,
-        "margin_p10": -0.62,
-        "margin_p90": 12.94,
+        "dem_win_prob": 0.8845,
+        "median_margin": 6.22,
+        "margin_p10": -0.54,
+        "margin_p90": 13.01,
         "num_simulations": 50000,
         "margin_hist": [
           {
             "mid": -29.0,
-            "pct": 0.00044
+            "pct": 0.00042
           },
           {
             "mid": -27.0,
@@ -684,118 +684,118 @@
           },
           {
             "mid": -23.0,
-            "pct": 0.00014
+            "pct": 0.00012
           },
           {
             "mid": -21.0,
-            "pct": 0.0002
+            "pct": 0.00018
           },
           {
             "mid": -19.0,
-            "pct": 0.00052
+            "pct": 0.00048
           },
           {
             "mid": -17.0,
-            "pct": 0.00068
+            "pct": 0.00078
           },
           {
             "mid": -15.0,
-            "pct": 0.00108
+            "pct": 0.00102
           },
           {
             "mid": -13.0,
-            "pct": 0.00196
+            "pct": 0.00194
           },
           {
             "mid": -11.0,
-            "pct": 0.0032
+            "pct": 0.00316
           },
           {
             "mid": -9.0,
-            "pct": 0.00554
+            "pct": 0.00532
           },
           {
             "mid": -7.0,
-            "pct": 0.00904
+            "pct": 0.00892
           },
           {
             "mid": -5.0,
-            "pct": 0.01558
+            "pct": 0.01522
           },
           {
             "mid": -3.0,
-            "pct": 0.02822
+            "pct": 0.0275
           },
           {
             "mid": -1.0,
-            "pct": 0.05068
+            "pct": 0.05024
           },
           {
             "mid": 1.0,
-            "pct": 0.08466
+            "pct": 0.0833
           },
           {
             "mid": 3.0,
-            "pct": 0.12532
+            "pct": 0.12322
           },
           {
             "mid": 5.0,
-            "pct": 0.1592
+            "pct": 0.1588
           },
           {
             "mid": 7.0,
-            "pct": 0.16266
+            "pct": 0.16264
           },
           {
             "mid": 9.0,
-            "pct": 0.13126
+            "pct": 0.1327
           },
           {
             "mid": 11.0,
-            "pct": 0.09076
+            "pct": 0.0929
           },
           {
             "mid": 13.0,
-            "pct": 0.054
+            "pct": 0.05498
           },
           {
             "mid": 15.0,
-            "pct": 0.0326
+            "pct": 0.0329
           },
           {
             "mid": 17.0,
-            "pct": 0.01772
+            "pct": 0.01816
           },
           {
             "mid": 19.0,
-            "pct": 0.00954
+            "pct": 0.00982
           },
           {
             "mid": 21.0,
-            "pct": 0.00604
+            "pct": 0.00614
           },
           {
             "mid": 23.0,
-            "pct": 0.00326
+            "pct": 0.0033
           },
           {
             "mid": 25.0,
-            "pct": 0.00222
+            "pct": 0.0023
           },
           {
             "mid": 27.0,
-            "pct": 0.00106
+            "pct": 0.0011
           },
           {
             "mid": 29.0,
-            "pct": 0.00224
+            "pct": 0.00226
           }
         ]
       }
     },
     {
       "state": "New Hampshire",
-      "as_of": "2026-10-28",
+      "as_of": "2026-10-29",
       "candidates": {
         "Chris Pappas": 49.4,
         "John E. Sununu": 43.1
@@ -816,23 +816,23 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.9,
-          "Republican": 0.105
+          "Democrat": 0.915,
+          "Republican": 0.085
         }
       },
       "market_urls": {
         "polymarket": "https://polymarket.com/event/new-hampshire-senate-election-winner"
       },
       "forecast": {
-        "dem_win_prob": 0.9622,
-        "median_margin": 10.2,
-        "margin_p10": 3.43,
-        "margin_p90": 16.97,
+        "dem_win_prob": 0.9659,
+        "median_margin": 10.58,
+        "margin_p10": 3.81,
+        "margin_p90": 17.35,
         "num_simulations": 50000,
         "margin_hist": [
           {
             "mid": -29.0,
-            "pct": 0.0002
+            "pct": 0.00018
           },
           {
             "mid": -27.0,
@@ -844,7 +844,7 @@
           },
           {
             "mid": -23.0,
-            "pct": 6e-05
+            "pct": 8e-05
           },
           {
             "mid": -21.0,
@@ -852,110 +852,110 @@
           },
           {
             "mid": -19.0,
-            "pct": 0.00022
+            "pct": 0.00018
           },
           {
             "mid": -17.0,
-            "pct": 0.00054
-          },
-          {
-            "mid": -15.0,
             "pct": 0.00042
           },
           {
+            "mid": -15.0,
+            "pct": 0.00046
+          },
+          {
             "mid": -13.0,
-            "pct": 0.00056
+            "pct": 0.00052
           },
           {
             "mid": -11.0,
-            "pct": 0.00124
+            "pct": 0.00116
           },
           {
             "mid": -9.0,
-            "pct": 0.00134
+            "pct": 0.00132
           },
           {
             "mid": -7.0,
-            "pct": 0.00284
+            "pct": 0.00246
           },
           {
             "mid": -5.0,
-            "pct": 0.00562
+            "pct": 0.00472
           },
           {
             "mid": -3.0,
-            "pct": 0.00848
+            "pct": 0.00808
           },
           {
             "mid": -1.0,
-            "pct": 0.01606
+            "pct": 0.01424
           },
           {
             "mid": 1.0,
-            "pct": 0.02848
+            "pct": 0.02546
           },
           {
             "mid": 3.0,
-            "pct": 0.05158
+            "pct": 0.0466
           },
           {
             "mid": 5.0,
-            "pct": 0.08148
+            "pct": 0.07544
           },
           {
             "mid": 7.0,
-            "pct": 0.1255
+            "pct": 0.11762
           },
           {
             "mid": 9.0,
-            "pct": 0.15818
+            "pct": 0.15312
           },
           {
             "mid": 11.0,
-            "pct": 0.1624
+            "pct": 0.16374
           },
           {
             "mid": 13.0,
-            "pct": 0.1332
+            "pct": 0.14036
           },
           {
             "mid": 15.0,
-            "pct": 0.09124
+            "pct": 0.09982
           },
           {
             "mid": 17.0,
-            "pct": 0.05522
+            "pct": 0.06084
           },
           {
             "mid": 19.0,
-            "pct": 0.03172
+            "pct": 0.03504
           },
           {
             "mid": 21.0,
-            "pct": 0.01804
+            "pct": 0.0202
           },
           {
             "mid": 23.0,
-            "pct": 0.00992
+            "pct": 0.01094
           },
           {
             "mid": 25.0,
-            "pct": 0.00582
+            "pct": 0.00624
           },
           {
             "mid": 27.0,
-            "pct": 0.00322
+            "pct": 0.00394
           },
           {
             "mid": 29.0,
-            "pct": 0.00618
+            "pct": 0.00658
           }
         ]
       }
     },
     {
       "state": "North Carolina",
-      "as_of": "2026-10-28",
+      "as_of": "2026-10-29",
       "candidates": {
         "Roy Cooper": 50.8,
         "Michael Whatley": 40.8
@@ -976,18 +976,18 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.9685,
-          "Republican": 0.028
+          "Democrat": 0.976,
+          "Republican": 0.025
         }
       },
       "market_urls": {
         "polymarket": "https://polymarket.com/event/north-carolina-senate-election-winner"
       },
       "forecast": {
-        "dem_win_prob": 0.9471,
-        "median_margin": 9.07,
-        "margin_p10": 2.3,
-        "margin_p90": 15.77,
+        "dem_win_prob": 0.9491,
+        "median_margin": 9.2,
+        "margin_p10": 2.43,
+        "margin_p90": 15.9,
         "num_simulations": 50000,
         "margin_hist": [
           {
@@ -1000,27 +1000,27 @@
           },
           {
             "mid": -25.0,
-            "pct": 0.00012
+            "pct": 0.0001
           },
           {
             "mid": -23.0,
-            "pct": 8e-05
+            "pct": 0.0001
           },
           {
             "mid": -21.0,
-            "pct": 0.00016
+            "pct": 0.00014
           },
           {
             "mid": -19.0,
-            "pct": 0.0002
+            "pct": 0.00022
           },
           {
             "mid": -17.0,
-            "pct": 0.00032
+            "pct": 0.0003
           },
           {
             "mid": -15.0,
-            "pct": 0.00066
+            "pct": 0.00064
           },
           {
             "mid": -13.0,
@@ -1028,94 +1028,94 @@
           },
           {
             "mid": -11.0,
-            "pct": 0.00138
+            "pct": 0.0013
           },
           {
             "mid": -9.0,
-            "pct": 0.00262
+            "pct": 0.0025
           },
           {
             "mid": -7.0,
-            "pct": 0.00414
+            "pct": 0.00418
           },
           {
             "mid": -5.0,
-            "pct": 0.007
+            "pct": 0.00662
           },
           {
             "mid": -3.0,
-            "pct": 0.01196
+            "pct": 0.01144
           },
           {
             "mid": -1.0,
-            "pct": 0.02318
+            "pct": 0.0223
           },
           {
             "mid": 1.0,
-            "pct": 0.03914
+            "pct": 0.0378
           },
           {
             "mid": 3.0,
-            "pct": 0.06806
+            "pct": 0.06568
           },
           {
             "mid": 5.0,
-            "pct": 0.10738
+            "pct": 0.10496
           },
           {
             "mid": 7.0,
-            "pct": 0.14614
+            "pct": 0.14356
           },
           {
             "mid": 9.0,
-            "pct": 0.16404
+            "pct": 0.16418
           },
           {
             "mid": 11.0,
-            "pct": 0.1507
+            "pct": 0.15172
           },
           {
             "mid": 13.0,
-            "pct": 0.10738
+            "pct": 0.1111
           },
           {
             "mid": 15.0,
-            "pct": 0.06994
+            "pct": 0.07236
           },
           {
             "mid": 17.0,
-            "pct": 0.04048
+            "pct": 0.04174
           },
           {
             "mid": 19.0,
-            "pct": 0.02226
+            "pct": 0.02322
           },
           {
             "mid": 21.0,
-            "pct": 0.01242
+            "pct": 0.01298
           },
           {
             "mid": 23.0,
-            "pct": 0.00776
+            "pct": 0.0079
           },
           {
             "mid": 25.0,
-            "pct": 0.00382
+            "pct": 0.00408
           },
           {
             "mid": 27.0,
-            "pct": 0.00264
+            "pct": 0.00262
           },
           {
             "mid": 29.0,
-            "pct": 0.00496
+            "pct": 0.0052
           }
         ]
       }
     },
     {
       "state": "Ohio",
-      "as_of": "2026-10-28",
+      "as_of": "2026-10-29",
       "candidates": {
         "Sherrod Brown": 47.8,
         "Jon Husted": 44.8
@@ -1275,24 +1275,24 @@
     },
     {
       "state": "Texas",
-      "as_of": "2026-10-28",
+      "as_of": "2026-10-29",
       "candidates": {
-        "James Talarico": 48.6,
-        "Ken Paxton": 46.2
+        "James Talarico": 48.7,
+        "Ken Paxton": 46.1
       },
-      "margin": 2.4,
-      "num_polls": 65,
+      "margin": 2.6,
+      "num_polls": 66,
       "rating": null,
       "dem_candidate": "James Talarico",
       "rep_candidate": "Ken Paxton",
-      "dem_margin": 2.4,
-      "dem_win_prob": 0.6714,
+      "dem_margin": 2.6,
+      "dem_win_prob": 0.6846,
       "vibes": {
         "available": false,
         "adjustment": 0.0,
         "dem_effect": 0.0,
         "rep_effect": 0.0,
-        "adjusted_dem_margin": 2.4
+        "adjusted_dem_margin": 2.6
       },
       "market_odds": {
         "polymarket": {
@@ -1304,35 +1304,35 @@
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-texas-state-senate-in-2026"
       },
       "forecast": {
-        "dem_win_prob": 0.4495,
-        "median_margin": -0.61,
-        "margin_p10": -7.25,
-        "margin_p90": 6.21,
+        "dem_win_prob": 0.4604,
+        "median_margin": -0.47,
+        "margin_p10": -7.11,
+        "margin_p90": 6.35,
         "num_simulations": 50000,
         "margin_hist": [
           {
             "mid": -29.0,
-            "pct": 0.00094
+            "pct": 0.0009
           },
           {
             "mid": -27.0,
-            "pct": 0.0003
+            "pct": 0.00032
           },
           {
             "mid": -25.0,
-            "pct": 0.00068
+            "pct": 0.00066
           },
           {
             "mid": -23.0,
-            "pct": 0.00082
+            "pct": 0.00076
           },
           {
             "mid": -21.0,
-            "pct": 0.00158
+            "pct": 0.00156
           },
           {
             "mid": -19.0,
-            "pct": 0.00202
+            "pct": 0.00194
           },
           {
             "mid": -17.0,
@@ -1340,83 +1340,83 @@
           },
           {
             "mid": -15.0,
-            "pct": 0.00624
+            "pct": 0.00604
           },
           {
             "mid": -13.0,
-            "pct": 0.01038
+            "pct": 0.00962
           },
           {
             "mid": -11.0,
-            "pct": 0.0201
+            "pct": 0.0191
           },
           {
             "mid": -9.0,
-            "pct": 0.03434
+            "pct": 0.03378
           },
           {
             "mid": -7.0,
-            "pct": 0.06268
+            "pct": 0.05972
           },
           {
             "mid": -5.0,
-            "pct": 0.10032
+            "pct": 0.09736
           },
           {
             "mid": -3.0,
-            "pct": 0.1431
+            "pct": 0.14078
           },
           {
             "mid": -1.0,
-            "pct": 0.16366
+            "pct": 0.16374
           },
           {
             "mid": 1.0,
-            "pct": 0.15048
+            "pct": 0.15118
           },
           {
             "mid": 3.0,
-            "pct": 0.11632
+            "pct": 0.11938
           },
           {
             "mid": 5.0,
-            "pct": 0.07702
+            "pct": 0.0801
           },
           {
             "mid": 7.0,
-            "pct": 0.04516
+            "pct": 0.04706
           },
           {
             "mid": 9.0,
-            "pct": 0.02516
+            "pct": 0.0259
           },
           {
             "mid": 11.0,
-            "pct": 0.01476
+            "pct": 0.0154
           },
           {
             "mid": 13.0,
-            "pct": 0.00824
+            "pct": 0.00868
           },
           {
             "mid": 15.0,
-            "pct": 0.00506
+            "pct": 0.00514
           },
           {
             "mid": 17.0,
-            "pct": 0.00256
+            "pct": 0.00254
           },
           {
             "mid": 19.0,
-            "pct": 0.00166
+            "pct": 0.00192
           },
           {
             "mid": 21.0,
-            "pct": 0.00072
+            "pct": 0.00062
           },
           {
             "mid": 23.0,
-            "pct": 0.00076
+            "pct": 0.00082
           },
           {
             "mid": 25.0,
@@ -1424,7 +1424,7 @@
           },
           {
             "mid": 27.0,
-            "pct": 0.00038
+            "pct": 0.00042
           },
           {
             "mid": 29.0,

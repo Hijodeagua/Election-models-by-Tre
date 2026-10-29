@@ -690,8 +690,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 55,
+      "num_polls": 56,
       "polls": [
+        {
+          "pollster": "Mitchell Research & Communications",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-26",
+          "end_date": "2026-10-27",
+          "sample_size": 636,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 44.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "RedBox Research (D)",
           "rated": false,
@@ -4242,8 +4258,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 65,
+      "num_polls": 66,
       "polls": [
+        {
+          "pollster": "YouGov Blue (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-21",
+          "end_date": "2026-10-26",
+          "sample_size": 1000,
+          "population": "rv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 51.0,
+          "rep_pct": 43.0,
+          "margin": 8.0,
+          "partisan": false
+        },
         {
           "pollster": "Rasmussen Reports",
           "rated": true,
