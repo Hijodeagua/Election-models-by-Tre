@@ -690,7 +690,7 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 56,
+      "num_polls": 57,
       "polls": [
         {
           "pollster": "Mitchell Research & Communications",
@@ -705,6 +705,22 @@
           "rep_candidate": "Mike Rogers",
           "dem_pct": null,
           "rep_pct": 44.0,
+          "margin": null,
+          "partisan": false
+        },
+        {
+          "pollster": "SSRS",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-20",
+          "end_date": "2026-10-27",
+          "sample_size": 768,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 42.0,
           "margin": null,
           "partisan": false
         },
@@ -1715,7 +1731,7 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 47,
+      "num_polls": 48,
       "polls": [
         {
           "pollster": "Quantus Insights (R)",
@@ -1762,6 +1778,22 @@
           "rep_candidate": "Michael Whatley",
           "dem_pct": 57.0,
           "rep_pct": 43.0,
+          "margin": 14.0,
+          "partisan": false
+        },
+        {
+          "pollster": "High Point University/YouGov",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-01",
+          "end_date": "2026-10-20",
+          "sample_size": 620,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 54.0,
+          "rep_pct": 40.0,
           "margin": 14.0,
           "partisan": false
         },
@@ -2554,8 +2586,24 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 28,
+      "num_polls": 29,
       "polls": [
+        {
+          "pollster": "SSRS",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-20",
+          "end_date": "2026-10-26",
+          "sample_size": 783,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 49.0,
+          "rep_pct": 45.0,
+          "margin": 4.0,
+          "partisan": false
+        },
         {
           "pollster": "Marist University",
           "rated": false,
@@ -3535,7 +3583,7 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 42,
+      "num_polls": 43,
       "polls": [
         {
           "pollster": "Suffolk University",
@@ -3682,7 +3730,7 @@
           "partisan": false
         },
         {
-          "pollster": "GS Strategy Group (R)/New River Strategies (D)",
+          "pollster": "GS Strategy Group (R)/ New River Strategies (D)",
           "rated": false,
           "grade": null,
           "quality": null,
@@ -3919,6 +3967,22 @@
           "dem_pct": 47.0,
           "rep_pct": 42.0,
           "margin": 5.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Concord Public Opinion Partners (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-08-29",
+          "end_date": "2026-08-31",
+          "sample_size": 504,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 50.0,
+          "rep_pct": 40.0,
+          "margin": 10.0,
           "partisan": false
         },
         {
@@ -4258,8 +4322,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 66,
+      "num_polls": 69,
       "polls": [
+        {
+          "pollster": "SSRS",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-20",
+          "end_date": "2026-10-27",
+          "sample_size": 923,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 49.0,
+          "rep_pct": 43.0,
+          "margin": 6.0,
+          "partisan": false
+        },
         {
           "pollster": "YouGov Blue (D)",
           "rated": false,
@@ -4274,6 +4354,22 @@
           "dem_pct": 51.0,
           "rep_pct": 43.0,
           "margin": 8.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Texas Southern University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-21",
+          "end_date": "2026-10-25",
+          "sample_size": 2000,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 49.0,
+          "rep_pct": 47.0,
+          "margin": 2.0,
           "partisan": false
         },
         {
@@ -4418,6 +4514,22 @@
           "dem_pct": 51.0,
           "rep_pct": 49.0,
           "margin": 2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Cor Strategies (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-10",
+          "end_date": "2026-10-15",
+          "sample_size": 1409,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 44.0,
+          "rep_pct": 40.0,
+          "margin": 4.0,
           "partisan": false
         },
         {
