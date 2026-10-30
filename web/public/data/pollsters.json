@@ -690,8 +690,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 57,
+      "num_polls": 59,
       "polls": [
+        {
+          "pollster": "Upswing Research (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-24",
+          "end_date": "2026-10-28",
+          "sample_size": 505,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 45.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Mitchell Research & Communications",
           "rated": false,
@@ -737,6 +753,22 @@
           "rep_candidate": "Mike Rogers",
           "dem_pct": null,
           "rep_pct": 44.0,
+          "margin": null,
+          "partisan": false
+        },
+        {
+          "pollster": "Michigan State University/Verasight",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-08",
+          "end_date": "2026-10-23",
+          "sample_size": 1383,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 43.0,
           "margin": null,
           "partisan": false
         },
@@ -4322,8 +4354,40 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 69,
+      "num_polls": 71,
       "polls": [
+        {
+          "pollster": "ActiVote",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-22",
+          "end_date": "2026-10-28",
+          "sample_size": 400,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 52.0,
+          "rep_pct": 48.0,
+          "margin": 4.0,
+          "partisan": false
+        },
+        {
+          "pollster": "A2 Insights",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-23",
+          "end_date": "2026-10-27",
+          "sample_size": 631,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 50.0,
+          "rep_pct": 47.0,
+          "margin": 3.0,
+          "partisan": false
+        },
         {
           "pollster": "SSRS",
           "rated": false,
@@ -5501,8 +5565,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 35,
+      "num_polls": 36,
       "polls": [
+        {
+          "pollster": "co/efficient (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-28",
+          "end_date": "2026-10-28",
+          "sample_size": 1020,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 46.0,
+          "rep_pct": 48.0,
+          "margin": -2.0,
+          "partisan": false
+        },
         {
           "pollster": "Echelon Insights (R)",
           "rated": false,
