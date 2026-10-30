@@ -4354,8 +4354,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 71,
+      "num_polls": 72,
       "polls": [
+        {
+          "pollster": "Quantus Insights",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-26",
+          "end_date": "2026-10-28",
+          "sample_size": 1221,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 48.0,
+          "rep_pct": 49.0,
+          "margin": -1.0,
+          "partisan": false
+        },
         {
           "pollster": "ActiVote",
           "rated": false,
