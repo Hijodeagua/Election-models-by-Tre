@@ -690,8 +690,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 59,
+      "num_polls": 60,
       "polls": [
+        {
+          "pollster": "Rasmussen Reports (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-28",
+          "end_date": "2026-10-29",
+          "sample_size": 745,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 44.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Upswing Research (D)",
           "rated": false,
