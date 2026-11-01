@@ -223,6 +223,57 @@ export interface NationalEnvironment {
   senate_responsiveness?: number;
 }
 
+// Per-state context for /predictions, written by scripts/export_state_features.py.
+export interface SenateContest {
+  cycle: number;
+  special: boolean;
+  seat: string;
+  stage: string;
+  winner: string;
+  winner_party: string;
+  runner_up: string | null;
+  runner_up_party: string | null;
+  margin: number;
+  winner_pct: number;
+}
+
+export interface StateUnemployment {
+  rate: number;
+  period: string;
+  year_ago: number | null;
+}
+
+export interface MarginDistribution {
+  source: 'simulation' | 'fundamentals_prior';
+  hist: MarginHistBin[];
+  dem_win_prob: number | null;
+  median: number | null;
+  p10: number | null;
+  p90: number | null;
+  num_simulations: number | null;
+}
+
+export interface StateFeatures {
+  state: string;
+  pres_2024: number | null;
+  pres_2020: number | null;
+  pres_lean: number | null;
+  fundamentals_prior: number | null;
+  senate_history: SenateContest[];
+  unemployment: StateUnemployment | null;
+  distribution: MarginDistribution | null;
+}
+
+export interface StateFeaturesData {
+  as_of: string;
+  national_swing: number;
+  pres_weight_recent: number;
+  total_sigma: number;
+  tail_dof: number | null;
+  sources: Record<string, string | null>;
+  states: Record<string, StateFeatures>;
+}
+
 export interface Meta {
   last_updated: string;
   data_tier: string;
@@ -281,4 +332,8 @@ export function getMeta(): Meta {
     poll_counts: {},
     last_poll_dates: {},
   });
+}
+
+export function getStateFeatures(): StateFeaturesData | null {
+  return read<StateFeaturesData | null>('state_features.json', null);
 }

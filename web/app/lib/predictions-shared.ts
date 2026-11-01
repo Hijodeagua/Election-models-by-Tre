@@ -1,6 +1,8 @@
 // Types and pure helpers for Tre's Senate picks. Safe to import from client
 // components — the file reader lives in predictions.ts (server only).
 
+import type { StateFeatures } from '@/app/lib/data';
+
 export type Party = 'D' | 'R' | 'I';
 
 export interface PredictionRace {
@@ -37,6 +39,7 @@ export interface ModelView {
 
 export interface PredictionRaceView extends PredictionRace {
   model: ModelView | null;
+  features: StateFeatures | null;
 }
 
 // Convert a pick + winner's margin into the signed Dem − Rep convention the

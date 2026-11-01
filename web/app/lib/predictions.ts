@@ -4,7 +4,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { getSenate } from '@/app/lib/data';
+import { getSenate, getStateFeatures } from '@/app/lib/data';
 import type { PredictionsFile, PredictionRaceView } from '@/app/lib/predictions-shared';
 
 export * from '@/app/lib/predictions-shared';
@@ -23,11 +23,14 @@ export function getPredictions(): PredictionsFile {
 export function getPredictionViews(): PredictionRaceView[] {
   const { races } = getPredictions();
   const model = new Map(getSenate().races.map((r) => [r.state, r]));
+  const features = getStateFeatures()?.states ?? {};
   return races.map((race) => {
     const m = model.get(race.state);
-    if (!m || m.dem_candidate == null) return { ...race, model: null };
+    const f = features[race.abbr] ?? null;
+    if (!m || m.dem_candidate == null) return { ...race, model: null, features: f };
     return {
       ...race,
+      features: f,
       model: {
         dem_candidate: m.dem_candidate ?? null,
         rep_candidate: m.rep_candidate ?? null,

@@ -6,6 +6,8 @@ import { marginBucket, toDemMargin, type MarginBucket } from '@/app/lib/predicti
 import { US_MAP_VIEWBOX, US_STATES, US_STATE_BORDERS } from '@/app/lib/us-states-paths';
 import { fmtMargin, fmtProb } from '@/app/lib/format';
 import { Panel, StatCard } from '@/app/components/ui';
+import MarginDistributionChart from '@/app/components/MarginDistribution';
+import type { SenateContest } from '@/app/lib/data';
 
 // ---------------------------------------------------------------------------
 // Colour: a diverging ramp off the site's D/R tokens. Lean steps are light
@@ -336,10 +338,14 @@ export default function PredictionsBoard({
           {hov && hover && (
             <div
               role="tooltip"
-              className="pointer-events-none absolute z-10 w-max max-w-[240px] rounded-lg border border-cream-300 bg-white px-3 py-2 text-xs shadow-md"
+              className="pointer-events-none absolute z-10 w-[250px] rounded-lg border border-cream-300 bg-white px-3 py-2 text-xs shadow-md"
               style={{
-                left: Math.min(hover.x + 14, (wrapRef.current?.clientWidth ?? 400) - 250),
-                top: hover.y + 14,
+                left: Math.max(0, Math.min(hover.x + 14, (wrapRef.current?.clientWidth ?? 400) - 260)),
+                // Flip above the pointer in the lower half so the card never
+                // runs off the bottom of the map.
+                ...(hover.y > (wrapRef.current?.clientHeight ?? 600) / 2
+                  ? { bottom: (wrapRef.current?.clientHeight ?? 600) - hover.y + 14 }
+                  : { top: hover.y + 14 }),
               }}
             >
               <div className="font-display text-sm text-ink">{hov.state}</div>
@@ -361,12 +367,7 @@ export default function PredictionsBoard({
                   <span className="text-cocoa-400">No pick yet</span>
                 )}
               </div>
-              {hov.model?.median_margin != null && (
-                <div className="mt-0.5 text-cocoa-400">
-                  Model: {fmtMargin(hov.model.median_margin)}
-                  {hov.model.dem_win_prob != null && ` · ${fmtProb(hov.model.dem_win_prob)} D`}
-                </div>
-              )}
+              <TooltipFacts race={hov} />
             </div>
           )}
         </div>
@@ -704,13 +705,219 @@ function RaceDetail({
           </dl>
         ) : (
           <p className="mt-1 text-sm text-cocoa-400">
-            This race isn&rsquo;t in the polling model yet, so there&rsquo;s nothing to compare
-            against.
+            This race isn&rsquo;t polled enough for the simulation, so the distribution below
+            is the model&rsquo;s fundamentals-only prior.
           </p>
+        )}
+      </div>
+
+      <div className="sm:col-span-2">
+        <StateContext race={race} pickMargin={mine} />
+      </div>
+    </div>
+  );
+}
+
+// Three quick facts under the hover card: where the state sits, what it did
+// last time, and what the distribution says.
+function TooltipFacts({ race }: { race: Effective }) {
+  const f = race.features;
+  const dist = f?.distribution ?? null;
+  const last = f?.senate_history?.[0];
+  const mine = toDemMargin(race.pick, race.margin);
+  return (
+    <div className="mt-1.5 border-t border-cream-100 pt-1.5 text-[11px] text-cocoa-500">
+      {dist && (
+        <>
+          <MarginDistributionChart dist={dist} pickMargin={mine} compact />
+          <div className="mt-0.5 flex justify-between">
+            <span>
+              {dist.source === 'simulation' ? 'Model' : 'Prior'}{' '}
+              <strong className="text-cocoa-700">{fmtMargin(dist.median)}</strong>
+            </span>
+            {dist.dem_win_prob != null && (
+              <span>
+                P(D) <strong className="text-cocoa-700">{fmtProb(dist.dem_win_prob)}</strong>
+              </span>
+            )}
+          </div>
+        </>
+      )}
+      {f?.pres_2024 != null && (
+        <div className="mt-0.5">
+          Pres. 2024 <strong className="text-cocoa-700">{fmtMargin(f.pres_2024)}</strong>
+          {f.pres_2020 != null && (
+            <>
+              {' '}· 2020 <strong className="text-cocoa-700">{fmtMargin(f.pres_2020)}</strong>
+            </>
+          )}
+        </div>
+      )}
+      {last && (
+        <div className="mt-0.5 truncate">
+          Last Senate: <strong className="text-cocoa-700">{shortName(last.winner)}</strong> (
+          {last.winner_party}) +{last.margin.toFixed(1)}, {last.cycle}
+        </div>
+      )}
+      {f?.unemployment && (
+        <div className="mt-0.5">
+          Unemployment <strong className="text-cocoa-700">{f.unemployment.rate.toFixed(1)}%</strong>{' '}
+          <span className="text-cocoa-400">({f.unemployment.period})</span>
+        </div>
+      )}
+      <div className="mt-1 text-cocoa-400">Click for the full picture</div>
+    </div>
+  );
+}
+
+function shortName(name: string): string {
+  // "Raphael Warnock" → "Warnock"; strips suffixes like "Jr." and middle initials.
+  const parts = name.replace(/,?\s+(Jr\.|Sr\.|II|III|IV)$/i, '').split(/\s+/);
+  return parts[parts.length - 1];
+}
+
+const PARTY_INK: Record<string, string> = {
+  D: 'text-dem',
+  R: 'text-rep',
+  I: 'text-stamp',
+  O: 'text-cocoa-500',
+};
+
+// The per-state "vitals": full distribution, structural lean, the model's
+// prior, recent Senate contests, and the labour market when the pipeline
+// could fetch it.
+function StateContext({ race, pickMargin }: { race: Effective; pickMargin: number | null }) {
+  const f = race.features;
+  if (!f) {
+    return (
+      <p className="mt-2 text-xs text-cocoa-400">
+        State context not exported yet — run scripts/export_state_features.py.
+      </p>
+    );
+  }
+  const dist = f.distribution;
+  const unemp = f.unemployment;
+  const unempDelta =
+    unemp && unemp.year_ago != null ? Number((unemp.rate - unemp.year_ago).toFixed(1)) : null;
+
+  return (
+    <div className="mt-2 grid gap-5 border-t border-cream-100 pt-4 sm:grid-cols-5">
+      <div className="sm:col-span-3">
+        <div className="text-[11px] font-bold uppercase tracking-[0.1em] text-cocoa-400">
+          Who wins — margin distribution
+        </div>
+        {dist ? (
+          <>
+            <div className="mt-2">
+              <MarginDistributionChart dist={dist} pickMargin={pickMargin} />
+            </div>
+            <p className="mt-2 text-xs text-cocoa-400">
+              {dist.source === 'simulation' ? (
+                <>
+                  From {dist.num_simulations?.toLocaleString() ?? 'the'} simulations of this race:
+                  polling average, fundamentals and correlated national error.
+                  {dist.dem_win_prob != null && (
+                    <>
+                      {' '}
+                      Democrat wins in <strong className="text-cocoa-700">{fmtProb(dist.dem_win_prob)}</strong>.
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  Not polled enough to simulate, so this is the model&rsquo;s fundamentals-only prior:
+                  the state&rsquo;s presidential lean shifted by the national environment, with the
+                  calibrated error spread.
+                  {dist.dem_win_prob != null && (
+                    <>
+                      {' '}
+                      Democrat wins in <strong className="text-cocoa-700">{fmtProb(dist.dem_win_prob)}</strong>.
+                    </>
+                  )}
+                </>
+              )}
+            </p>
+          </>
+        ) : (
+          <p className="mt-2 text-xs text-cocoa-400">No distribution available.</p>
+        )}
+      </div>
+
+      <div className="sm:col-span-2">
+        <div className="text-[11px] font-bold uppercase tracking-[0.1em] text-cocoa-400">
+          State vitals
+        </div>
+        <dl className="mt-1 grid grid-cols-[1fr_auto] gap-x-4 gap-y-1.5 text-sm">
+          <dt className="text-cocoa-400">Presidential 2024</dt>
+          <dd className={`text-right font-medium ${marginInk(f.pres_2024)}`}>{fmtMargin(f.pres_2024)}</dd>
+          <dt className="text-cocoa-400">Presidential 2020</dt>
+          <dd className={`text-right font-medium ${marginInk(f.pres_2020)}`}>{fmtMargin(f.pres_2020)}</dd>
+          <dt className="text-cocoa-400" title="Model's structural lean: 2024 weighted 75%, 2020 25%">
+            Blended lean
+          </dt>
+          <dd className={`text-right font-medium ${marginInk(f.pres_lean)}`}>{fmtMargin(f.pres_lean)}</dd>
+          <dt className="text-cocoa-400" title="Lean plus this year's national swing toward the out-party">
+            Fundamentals prior
+          </dt>
+          <dd className={`text-right font-medium ${marginInk(f.fundamentals_prior)}`}>
+            {fmtMargin(f.fundamentals_prior)}
+          </dd>
+          {unemp && (
+            <>
+              <dt className="text-cocoa-400">Unemployment ({unemp.period})</dt>
+              <dd className="text-right font-medium text-cocoa-700">
+                {unemp.rate.toFixed(1)}%
+                {unempDelta != null && (
+                  <span className="ml-1 text-xs text-cocoa-400">
+                    {unempDelta > 0 ? '+' : ''}
+                    {unempDelta.toFixed(1)} y/y
+                  </span>
+                )}
+              </dd>
+            </>
+          )}
+        </dl>
+
+        {f.senate_history.length > 0 && (
+          <>
+            <div className="mt-4 text-[11px] font-bold uppercase tracking-[0.1em] text-cocoa-400">
+              Recent Senate results here
+            </div>
+            <ul className="mt-1 space-y-1 text-sm">
+              {f.senate_history.map((c) => (
+                <HistoryRow key={`${c.cycle}-${c.special}`} c={c} />
+              ))}
+            </ul>
+          </>
         )}
       </div>
     </div>
   );
+}
+
+function HistoryRow({ c }: { c: SenateContest }) {
+  return (
+    <li className="flex items-baseline justify-between gap-2">
+      <span className="truncate text-cocoa-700">
+        <span className="text-cocoa-400">{c.cycle}{c.special ? ' sp.' : ''}</span>{' '}
+        <strong className={PARTY_INK[c.winner_party] ?? ''}>{shortName(c.winner)}</strong>
+        {c.runner_up && (
+          <span className="text-cocoa-400">
+            {' '}
+            over {shortName(c.runner_up)} ({c.runner_up_party})
+          </span>
+        )}
+      </span>
+      <span className={`shrink-0 font-medium ${PARTY_INK[c.winner_party] ?? ''}`}>
+        {c.winner_party}+{c.margin.toFixed(1)}
+      </span>
+    </li>
+  );
+}
+
+function marginInk(m: number | null | undefined): string {
+  if (m == null || Math.abs(m) < 0.05) return 'text-cocoa-700';
+  return m > 0 ? 'text-dem' : 'text-rep';
 }
 
 function describeDelta(delta: number): string {
