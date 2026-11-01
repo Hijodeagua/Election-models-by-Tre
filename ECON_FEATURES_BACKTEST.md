@@ -54,21 +54,57 @@ degrees of freedom).
 Results live in `config/econ_features_backtest.json`. Unit tests for the
 statistics are in `tests/test_backtest_econ_features.py`.
 
-## Results so far (lean only; unemployment pending)
+## Results
+
+Full run (BLS panel fetched by the workflow, all 98 races):
 
 | Model | Held-out RMSE | Brier | Log-loss | Win accuracy |
 |---|---|---|---|---|
 | M0 constant bias | 6.14 | 0.0681 | 0.2111 | 0.90 |
-| M1 + lean | **5.46** | **0.0537** | **0.1696** | 0.91 |
+| M1 + lean | 5.46 | 0.0537 | 0.1696 | 0.91 |
+| M2 + Δunemp | 5.37 | 0.0452 | 0.1519 | 0.93 |
+| M3 + rel. unemp | **5.30** | **0.0427** | **0.1479** | 0.95 |
 
-In-sample, the lean coefficient is **+0.16 points of poll error per point of
-presidential margin** (standard error 0.026, t = 6.2). Read it this way: in a
-state Trump carried by 20, the polls have understated the Republican by about
-3 points *more* than the constant bias assumes; in a state Harris carried by
-10 they have understated the Democrat by about 1.6 points relative to it. With
-lean in the model, the constant shrinks from −2.5 to −1.9.
+Taken at face value, every added feature helps. Two things say not to take it
+at face value.
 
-By cycle, held-out RMSE:
+**The unemployment sign is backwards.** `Δunemp` is signed so that a positive
+coefficient means rising unemployment moved votes *away* from the
+president's party, as retrospective voting predicts. The fitted coefficient
+is **−0.98** (t = −3.5): where unemployment rose most under the president,
+the president's party *beat* its polls by more. That is not economic voting;
+it is something else wearing its clothes.
+
+**That something else is 2020.** September unemployment rose in every state
+that year, by 0.2 to 8.7 points (mean +3.5), against changes of under a point
+in 2018, 2022 and 2024. Within 2020, Δunemp was a Republican president's
+feature, and 2020 was also the cycle in which polls overstated Democrats by
+6.5 points on average. So Δunemp is largely a proxy for "this race was in
+2020", and the cross-state spread of the pandemic shock happened to line up
+with the cross-state spread of that year's polling miss. The robustness refit
+without 2020 (72 races) settles it:
+
+| Model (no 2020) | Held-out RMSE | Brier | Log-loss |
+|---|---|---|---|
+| M0 constant bias | 5.70 | 0.0541 | 0.1805 |
+| M1 + lean | 5.66 | **0.0467** | **0.1567** |
+| M2 + Δunemp | 8.23 | 0.1041 | 0.3209 |
+| M3 + rel. unemp | 8.37 | 0.1057 | 0.3380 |
+
+Without 2020 the unemployment models are *much worse* out of sample, and
+the Δunemp coefficient falls to −0.71 with t = −0.9. `rel_unemp` (state minus
+national rate) has the theoretically right sign in both fits, +0.80, but
+never clears t = 2 and adds nothing once Δunemp is gone.
+
+**Lean survives.** Without 2020 the lean coefficient is +0.14 (t = 4.3) and
+it still improves held-out Brier and log-loss, though the RMSE gain shrinks
+to almost nothing. In-sample on all four cycles it is **+0.16 points of
+poll error per point of presidential margin** (t = 6.2): in a state Trump
+carried by 20, polls have understated the Republican by about 3 points more
+than the constant bias assumes. With lean in the model the constant shrinks
+from −2.5 to −1.9.
+
+By cycle, held-out RMSE for the lean model against the constant:
 
 | Cycle | M0 | M1 |
 |---|---|---|
@@ -79,19 +115,8 @@ By cycle, held-out RMSE:
 
 Three of four cycles improve substantially. 2024 gets worse: polls that year
 were unusually accurate and a model trained on 2018–2022 over-corrected. That
-is the right kind of failure to know about before trusting the feature, and a
-reason to apply any lean term at reduced weight, as the model already does
-with the constant bias.
-
-**Unemployment models (M2, M3) have not run.** The BLS API is not reachable
-from the development container. Launch the *Economic-features backtest*
-workflow in GitHub Actions on this branch; it fetches the September
-unemployment panel, saves it to `data/historical/state_unemployment_sep.json`,
-re-runs the script and commits the refreshed JSON here. Then compare M2/M3
-against the M0/M1 rows marked *(unemp subset)* in the output. Their
-coefficients are signed so a positive value means the economy moved votes in
-the direction the theory predicts; the bar for adoption should be a held-out
-Brier improvement over M1, not just a significant t-statistic.
+is a reason to apply any lean term at reduced weight, as the model already
+does with the constant bias.
 
 ## Caveats
 
@@ -118,8 +143,10 @@ Brier improvement over M1, not just a significant t-statistic.
 2. **National macro features (EconVitals-style): no.** Not identifiable with
    four cycles, and already represented through approval and the generic
    ballot.
-3. **A lean-dependent bias: promising, worth a proper trial next cycle.**
-   Run the workflow to settle the unemployment question, then re-score
-   against the real blended baseline. If it still wins on held-out Brier, fold
-   `lean × 0.16` into the bias term at the same half weight the constant gets
-   today, and let the next calibration run refit it.
+3. **State unemployment: no.** The apparent gain is a 2020 artefact with the
+   wrong sign; without that cycle it hurts badly. Do not add it.
+4. **A lean-dependent bias: promising, worth a proper trial next cycle.**
+   Re-score it against the real blended baseline (see caveats). If it still
+   wins on held-out Brier, fold `lean × 0.16` into the bias term at the same
+   half weight the constant gets today, and let the next calibration run
+   refit it.

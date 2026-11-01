@@ -371,6 +371,25 @@ def main() -> int:
             }
         )
 
+    # Robustness: 2020's pandemic spike makes Δunemp nearly a cycle dummy
+    # (every state rose 0.2–8.7 points). Refit everything without 2020 so a
+    # feature that only "works" because of that one cycle shows itself.
+    robustness = None
+    if panel:
+        keep = arr["year"] != 2020
+        keep &= ~np.isnan(arr["d_unemp"])
+        sub = {k: v[keep] for k, v in arr.items()}
+        robustness = {
+            "excluded_cycle": 2020,
+            "n_races": int(keep.sum()),
+            "models": [
+                fit_model("M0 constant bias", [], sub, meta),
+                fit_model("M1 + lean", ["lean"], sub, meta),
+                fit_model("M2 + Δunemp", ["lean", "d_unemp"], sub, meta),
+                fit_model("M3 + rel. unemp", ["lean", "d_unemp", "rel_unemp"], sub, meta),
+            ],
+        }
+
     out = {
         "generated": date.today().isoformat(),
         "question": (
@@ -386,6 +405,7 @@ def main() -> int:
         "baseline_loco": base,
         "models": models,
         "verdicts": verdicts,
+        "robustness_without_2020": robustness,
         "reading_guide": (
             "Negative rmse/brier/log_loss changes mean the richer model predicted the "
             "held-out cycle better than a constant bias. Coefficients are on the poll "
@@ -413,6 +433,14 @@ def main() -> int:
             f"{sc['log_loss']:7.4f} {sc['win_accuracy']:5.2f}"
         )
         print(f"{line}   {coefs}")
+    if robustness:
+        print(f"\nWithout 2020 ({robustness['n_races']} races):")
+        for m in robustness["models"]:
+            sc = m["loco"]
+            print(
+                f"{m['name']:36s} {sc['rmse']:6.2f} {sc['brier']:7.4f} "
+                f"{sc['log_loss']:7.4f} {sc['win_accuracy']:5.2f}"
+            )
     return 0
 
 

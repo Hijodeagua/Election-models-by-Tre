@@ -252,5 +252,142 @@
    "log_loss_change": -0.0632
   }
  ],
+ "robustness_without_2020": {
+  "excluded_cycle": 2020,
+  "n_races": 72,
+  "models": [
+   {
+    "name": "M0 constant bias",
+    "features": [],
+    "in_sample": {
+     "intercept": {
+      "coef": -1.042,
+      "se": 0.666,
+      "t": -1.57
+     }
+    },
+    "loco": {
+     "rmse": 5.703,
+     "mae": 4.159,
+     "brier": 0.0541,
+     "log_loss": 0.1805,
+     "win_accuracy": 0.917,
+     "by_cycle_rmse": {
+      "2018": 6.74,
+      "2022": 6.05,
+      "2024": 4.13
+     }
+    }
+   },
+   {
+    "name": "M1 + lean",
+    "features": [
+     "lean"
+    ],
+    "in_sample": {
+     "intercept": {
+      "coef": -0.886,
+      "se": 0.597,
+      "t": -1.48
+     },
+     "lean": {
+      "coef": 0.136,
+      "se": 0.032,
+      "t": 4.32
+     }
+    },
+    "loco": {
+     "rmse": 5.664,
+     "mae": 4.074,
+     "brier": 0.0467,
+     "log_loss": 0.1567,
+     "win_accuracy": 0.917,
+     "by_cycle_rmse": {
+      "2018": 6.11,
+      "2022": 5.03,
+      "2024": 5.85
+     }
+    }
+   },
+   {
+    "name": "M2 + \u0394unemp",
+    "features": [
+     "lean",
+     "d_unemp"
+    ],
+    "in_sample": {
+     "intercept": {
+      "coef": -0.872,
+      "se": 0.598,
+      "t": -1.46
+     },
+     "lean": {
+      "coef": 0.139,
+      "se": 0.032,
+      "t": 4.38
+     },
+     "d_unemp": {
+      "coef": -0.713,
+      "se": 0.777,
+      "t": -0.92
+     }
+    },
+    "loco": {
+     "rmse": 8.231,
+     "mae": 6.253,
+     "brier": 0.1041,
+     "log_loss": 0.3209,
+     "win_accuracy": 0.847,
+     "by_cycle_rmse": {
+      "2018": 6.2,
+      "2022": 10.55,
+      "2024": 7.08
+     }
+    }
+   },
+   {
+    "name": "M3 + rel. unemp",
+    "features": [
+     "lean",
+     "d_unemp",
+     "rel_unemp"
+    ],
+    "in_sample": {
+     "intercept": {
+      "coef": -0.963,
+      "se": 0.605,
+      "t": -1.59
+     },
+     "lean": {
+      "coef": 0.145,
+      "se": 0.032,
+      "t": 4.49
+     },
+     "d_unemp": {
+      "coef": -0.687,
+      "se": 0.778,
+      "t": -0.88
+     },
+     "rel_unemp": {
+      "coef": 0.826,
+      "se": 0.837,
+      "t": 0.99
+     }
+    },
+    "loco": {
+     "rmse": 8.365,
+     "mae": 6.36,
+     "brier": 0.1057,
+     "log_loss": 0.338,
+     "win_accuracy": 0.833,
+     "by_cycle_rmse": {
+      "2018": 6.15,
+      "2022": 10.89,
+      "2024": 7.05
+     }
+    }
+   }
+  ]
+ },
  "reading_guide": "Negative rmse/brier/log_loss changes mean the richer model predicted the held-out cycle better than a constant bias. Coefficients are on the poll error (actual \u2212 poll, Dem \u2212 Rep points): lean is per point of prior presidential margin; d_unemp and rel_unemp are per percentage point of unemployment, signed so a positive coefficient means the economy moved votes toward the party the theory predicts."
 }
