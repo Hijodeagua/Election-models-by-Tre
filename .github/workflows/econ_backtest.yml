@@ -1,0 +1,48 @@
+name: Economic-features backtest
+
+# On-demand research run. Fetches state unemployment from BLS (reachable from
+# Actions, not from every dev box), re-runs scripts/backtest_econ_features.py
+# and commits the refreshed results to the branch it was launched from, so the
+# numbers can be reviewed in the PR. It never touches the live forecast.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: econ-backtest-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install numpy
+
+      - name: Run backtest
+        run: python scripts/backtest_econ_features.py
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add config/econ_features_backtest.json data/historical/state_unemployment_sep.json || true
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Econ-features backtest: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          else
+            echo "No changes to commit."
+          fi

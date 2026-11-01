@@ -1,0 +1,97 @@
+{
+ "generated": "2026-11-01",
+ "question": "Does modelling the poll-error bias with structural/economic features beat a constant, out of sample?",
+ "n_races": 98,
+ "cycles": [
+  2018,
+  2020,
+  2022,
+  2024
+ ],
+ "sigma": 5.904,
+ "tail_dof": 5,
+ "lean_source": {
+  "2016": "county returns 2016 summed by state",
+  "2020": "county returns 2020 summed by state"
+ },
+ "unemployment": "skipped \u2014 BLS unreachable; run the econ-backtest workflow (GitHub Actions can reach api.bls.gov)",
+ "baseline_loco": {
+  "rmse": 6.142,
+  "mae": 4.708,
+  "brier": 0.0681,
+  "log_loss": 0.2111,
+  "win_accuracy": 0.898,
+  "by_cycle_rmse": {
+   "2018": 7.34,
+   "2020": 6.6,
+   "2022": 6.4,
+   "2024": 3.77
+  }
+ },
+ "models": [
+  {
+   "name": "M0 constant bias",
+   "features": [],
+   "in_sample": {
+    "intercept": {
+     "coef": -2.485,
+     "se": 0.58,
+     "t": -4.29
+    }
+   },
+   "loco": {
+    "rmse": 6.142,
+    "mae": 4.708,
+    "brier": 0.0681,
+    "log_loss": 0.2111,
+    "win_accuracy": 0.898,
+    "by_cycle_rmse": {
+     "2018": 7.34,
+     "2020": 6.6,
+     "2022": 6.4,
+     "2024": 3.77
+    }
+   }
+  },
+  {
+   "name": "M1 + lean",
+   "features": [
+    "lean"
+   ],
+   "in_sample": {
+    "intercept": {
+     "coef": -1.904,
+     "se": 0.502,
+     "t": -3.8
+    },
+    "lean": {
+     "coef": 0.16,
+     "se": 0.026,
+     "t": 6.18
+    }
+   },
+   "loco": {
+    "rmse": 5.457,
+    "mae": 4.183,
+    "brier": 0.0537,
+    "log_loss": 0.1696,
+    "win_accuracy": 0.908,
+    "by_cycle_rmse": {
+     "2018": 6.66,
+     "2020": 4.95,
+     "2022": 4.83,
+     "2024": 5.37
+    }
+   }
+  }
+ ],
+ "verdicts": [
+  {
+   "model": "M1 + lean",
+   "rmse_change": -0.685,
+   "brier_change": -0.0144,
+   "log_loss_change": -0.0415
+  }
+ ],
+ "reading_guide": "Negative rmse/brier/log_loss changes mean the richer model predicted the held-out cycle better than a constant bias. Coefficients are on the poll error (actual \u2212 poll, Dem \u2212 Rep points): lean is per point of prior presidential margin; d_unemp and rel_unemp are per percentage point of unemployment, signed so a positive coefficient means the economy moved votes toward the party the theory predicts."
+}
