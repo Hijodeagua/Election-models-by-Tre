@@ -68,6 +68,13 @@ jobs:
         # if the fit fails, so this cannot take the trackers down.
         run: python scripts/export_json.py --state-space
 
+      - name: Export state context for the predictions map
+        # Historical lean, recent Senate results, the fundamentals-prior
+        # distribution and (if BLS answers) state unemployment. Best-effort:
+        # the page falls back to the last committed state_features.json.
+        continue-on-error: true
+        run: python scripts/export_state_features.py
+
       - name: Check feed freshness
         # Warn (never fail) when a feed's newest poll is older than 3 days —
         # publishing yesterday's data beats publishing nothing, but going
