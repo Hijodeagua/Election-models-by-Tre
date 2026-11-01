@@ -122,7 +122,12 @@ def senate_history(abbr: str, rows: list[dict]) -> list[dict]:
     out = []
     for (cycle, special), rs in contests.items():
         stages = {r["stage"] for r in rs}
-        stage = "runoff" if "runoff" in stages else "general" if "general" in stages else "jungle primary"
+        if "runoff" in stages:
+            stage = "runoff"
+        elif "general" in stages:
+            stage = "general"
+        else:
+            stage = "jungle primary"
         rs = [r for r in rs if r["stage"] == stage]
         rounds = sorted({r["ranked_choice_round"] for r in rs}, key=lambda x: int(x or 0))
         rs = [r for r in rs if r["ranked_choice_round"] == rounds[-1]]
@@ -228,7 +233,12 @@ def bls_unemployment(abbrs: list[str]) -> dict[str, dict]:
                 continue
             latest = data[0]
             year_ago = next(
-                (d for d in data if d["period"] == latest["period"] and int(d["year"]) == int(latest["year"]) - 1),
+                (
+                    d
+                    for d in data
+                    if d["period"] == latest["period"]
+                    and int(d["year"]) == int(latest["year"]) - 1
+                ),
                 None,
             )
             out[abbr] = {
@@ -239,12 +249,16 @@ def bls_unemployment(abbrs: list[str]) -> dict[str, dict]:
     return out
 
 
+def read_json(path: Path, fallback: dict) -> dict:
+    return json.loads(path.read_text()) if path.exists() else fallback
+
+
 # --------------------------------------------------------------------------
 def main() -> int:
     board = json.loads(BOARD.read_text())["races"]
     cycle_cfg = json.loads(CYCLE_CFG.read_text())
-    senate = json.loads((WEB_DATA / "senate.json").read_text()) if (WEB_DATA / "senate.json").exists() else {"races": []}
-    forecast = json.loads((WEB_DATA / "senate_forecast.json").read_text()) if (WEB_DATA / "senate_forecast.json").exists() else {}
+    senate = read_json(WEB_DATA / "senate.json", {"races": []})
+    forecast = read_json(WEB_DATA / "senate_forecast.json", {})
 
     env = forecast.get("national_environment") or {}
     swing = float(env.get("national_swing") or 0.0) * float(env.get("senate_responsiveness") or 1.0)
@@ -256,7 +270,8 @@ def main() -> int:
 
     pres24 = presidential_margins(2024)
     pres20 = presidential_margins(2020)
-    senate_rows = list(csv.DictReader(io.StringIO(fetch_text(SENATE_URL, "senate_results_538.csv"))))
+    senate_text = fetch_text(SENATE_URL, "senate_results_538.csv")
+    senate_rows = list(csv.DictReader(io.StringIO(senate_text)))
     model = {r["state"]: r for r in senate.get("races", [])}
 
     abbrs = [r["abbr"] for r in board]
@@ -319,9 +334,15 @@ def main() -> int:
         "total_sigma": round(total_sigma, 3),
         "tail_dof": dof,
         "sources": {
-            "presidential": "County returns (tonmcg/US_County_Level_Election_Results_08-24), summed by state",
+            "presidential": (
+                "County returns (tonmcg/US_County_Level_Election_Results_08-24), summed by state"
+            ),
             "senate": "FiveThirtyEight election-results (state-level, 2016–2024)",
-            "unemployment": "BLS Local Area Unemployment Statistics, seasonally adjusted" if unemployment else None,
+            "unemployment": (
+                "BLS Local Area Unemployment Statistics, seasonally adjusted"
+                if unemployment
+                else None
+            ),
         },
         "states": states,
     }
