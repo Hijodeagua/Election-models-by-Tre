@@ -161,7 +161,9 @@ def bls_september_panel(abbrs: list[str], years: list[int]) -> dict | None:
         body = json.dumps(
             {"seriesid": ids[i : i + 25], "startyear": str(start), "endyear": str(end)}
         ).encode()
-        req = urllib.request.Request(BLS_URL, data=body, headers={"Content-Type": "application/json"})
+        req = urllib.request.Request(
+            BLS_URL, data=body, headers={"Content-Type": "application/json"}
+        )
         try:
             with urllib.request.urlopen(req, timeout=30) as resp:
                 payload = json.load(resp)
@@ -183,7 +185,9 @@ def bls_september_panel(abbrs: list[str], years: list[int]) -> dict | None:
         return None
     panel = {
         "fetched": date.today().isoformat(),
-        "source": "BLS LAUS (LASST…03, seasonally adjusted) and CPS LNS14000000, September values",
+        "source": (
+            "BLS LAUS (LASST…03, seasonally adjusted) and CPS LNS14000000, September values"
+        ),
         "states": {a: {str(y): v for y, v in sorted(m.items())} for a, m in states.items()},
         "us": {str(y): v for y, v in sorted(us.items())},
     }
@@ -196,14 +200,14 @@ def bls_september_panel(abbrs: list[str], years: list[int]) -> dict | None:
 # --------------------------------------------------------------------------
 # Statistics
 # --------------------------------------------------------------------------
-def ols(X: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+def ols(design: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     """Coefficients and classical standard errors."""
-    beta, *_ = np.linalg.lstsq(X, y, rcond=None)
-    resid = y - X @ beta
-    n, k = X.shape
+    beta, *_ = np.linalg.lstsq(design, y, rcond=None)
+    resid = y - design @ beta
+    n, k = design.shape
     dof = max(n - k, 1)
     sigma2 = float(resid @ resid) / dof
-    cov = sigma2 * np.linalg.pinv(X.T @ X)
+    cov = sigma2 * np.linalg.pinv(design.T @ design)
     return beta, np.sqrt(np.diag(cov))
 
 
@@ -225,15 +229,20 @@ def win_prob(margin: np.ndarray, sigma: float, dof: float | None) -> np.ndarray:
 
 
 def loco_scores(
-    X: np.ndarray, y: np.ndarray, poll: np.ndarray, won: np.ndarray, years: np.ndarray,
-    sigma: float, dof: float | None,
+    design: np.ndarray,
+    y: np.ndarray,
+    poll: np.ndarray,
+    won: np.ndarray,
+    years: np.ndarray,
+    sigma: float,
+    dof: float | None,
 ) -> dict:
     """Leave-one-cycle-out: pooled held-out residuals and probability scores."""
     pred = np.zeros_like(y)
     for yr in np.unique(years):
         train, test = years != yr, years == yr
-        beta, _ = ols(X[train], y[train])
-        pred[test] = X[test] @ beta
+        beta, _ = ols(design[train], y[train])
+        pred[test] = design[test] @ beta
     resid = y - pred
     p = np.clip(win_prob(poll + pred, sigma, dof), 1e-6, 1 - 1e-6)
     return {
@@ -250,19 +259,29 @@ def loco_scores(
 
 
 def fit_model(name: str, cols: list[str], frame: dict, meta: dict) -> dict:
-    X = np.column_stack([np.ones(len(frame["error"]))] + [frame[c] for c in cols])
-    beta, se = ols(X, frame["error"])
+    design = np.column_stack([np.ones(len(frame["error"]))] + [frame[c] for c in cols])
+    beta, se = ols(design, frame["error"])
     names = ["intercept"] + cols
     in_sample = {
-        n: {"coef": round(float(b), 3), "se": round(float(s), 3), "t": round(float(b / s), 2) if s > 0 else None}
-        for n, b, s in zip(names, beta, se)
+        n: {
+            "coef": round(float(b), 3),
+            "se": round(float(s), 3),
+            "t": round(float(b / s), 2) if s > 0 else None,
+        }
+        for n, b, s in zip(names, beta, se, strict=True)
     }
     return {
         "name": name,
         "features": cols,
         "in_sample": in_sample,
         "loco": loco_scores(
-            X, frame["error"], frame["poll"], frame["won"], frame["year"], meta["sigma"], meta["dof"]
+            design,
+            frame["error"],
+            frame["poll"],
+            frame["won"],
+            frame["year"],
+            meta["sigma"],
+            meta["dof"],
         ),
     }
 
@@ -312,12 +331,17 @@ def main() -> int:
         fit_model("M0 constant bias", [], arr, meta),
         fit_model("M1 + lean", ["lean"], arr, meta),
     ]
-    unemp_status = "skipped — BLS unreachable; run the econ-backtest workflow (GitHub Actions can reach api.bls.gov)"
+    unemp_status = (
+        "skipped — BLS unreachable; run the econ-backtest workflow "
+        "(GitHub Actions can reach api.bls.gov)"
+    )
     if panel:
         ok = ~np.isnan(arr["d_unemp"])
         sub = {k: v[ok] for k, v in arr.items()}
         n_ok = int(ok.sum())
-        unemp_status = f"ran on {n_ok} of {len(ok)} races with a September unemployment pair"
+        unemp_status = (
+            f"ran on {n_ok} of {len(ok)} races with a September unemployment pair"
+        )
         # Refit the nested models on the same subset so the comparison is fair.
         models_u = [
             fit_model("M0 constant bias (unemp subset)", [], sub, meta),
@@ -330,9 +354,14 @@ def main() -> int:
     base = models[0]["loco"]
     verdicts = []
     for m in models[1:]:
-        ref = models[0]["loco"] if "subset" not in m["name"] else next(
-            x["loco"] for x in models if x["name"].startswith("M0") and "subset" in x["name"]
-        )
+        if "subset" in m["name"]:
+            ref = next(
+                x["loco"]
+                for x in models
+                if x["name"].startswith("M0") and "subset" in x["name"]
+            )
+        else:
+            ref = models[0]["loco"]
         verdicts.append(
             {
                 "model": m["name"],
@@ -344,7 +373,10 @@ def main() -> int:
 
     out = {
         "generated": date.today().isoformat(),
-        "question": "Does modelling the poll-error bias with structural/economic features beat a constant, out of sample?",
+        "question": (
+            "Does modelling the poll-error bias with structural/economic features "
+            "beat a constant, out of sample?"
+        ),
         "n_races": int(len(arr["error"])),
         "cycles": years,
         "sigma": sigma,
@@ -355,11 +387,12 @@ def main() -> int:
         "models": models,
         "verdicts": verdicts,
         "reading_guide": (
-            "Negative rmse/brier/log_loss changes mean the richer model predicted the held-out cycle "
-            "better than a constant bias. Coefficients are on the poll error (actual − poll, Dem − Rep "
-            "points): lean is per point of prior presidential margin; d_unemp and rel_unemp are per "
-            "percentage point of unemployment, signed so a positive coefficient means the economy "
-            "moved votes toward the party the theory predicts."
+            "Negative rmse/brier/log_loss changes mean the richer model predicted the "
+            "held-out cycle better than a constant bias. Coefficients are on the poll "
+            "error (actual − poll, Dem − Rep points): lean is per point of prior "
+            "presidential margin; d_unemp and rel_unemp are per percentage point of "
+            "unemployment, signed so a positive coefficient means the economy moved "
+            "votes toward the party the theory predicts."
         ),
     }
     OUT.write_text(json.dumps(out, indent=1) + "\n")
@@ -368,13 +401,18 @@ def main() -> int:
     # Console summary
     print(f"\nEconomic-features backtest — {out['n_races']} Senate races, cycles {years}")
     print(f"Unemployment: {unemp_status}\n")
-    print(f"{'model':36s} {'RMSE':>6s} {'Brier':>7s} {'LogL':>7s} {'acc':>5s}   in-sample coefficients")
+    header = f"{'model':36s} {'RMSE':>6s} {'Brier':>7s} {'LogL':>7s} {'acc':>5s}"
+    print(f"{header}   in-sample coefficients")
     for m in models:
-        l = m["loco"]
+        sc = m["loco"]
         coefs = ", ".join(
             f"{k}={v['coef']:+.2f} (t={v['t']})" for k, v in m["in_sample"].items()
         )
-        print(f"{m['name']:36s} {l['rmse']:6.2f} {l['brier']:7.4f} {l['log_loss']:7.4f} {l['win_accuracy']:5.2f}   {coefs}")
+        line = (
+            f"{m['name']:36s} {sc['rmse']:6.2f} {sc['brier']:7.4f} "
+            f"{sc['log_loss']:7.4f} {sc['win_accuracy']:5.2f}"
+        )
+        print(f"{line}   {coefs}")
     return 0
 
 

@@ -12,8 +12,8 @@ def test_ols_recovers_known_coefficients():
     rng = np.random.default_rng(0)
     x = rng.normal(size=500)
     y = 1.5 - 2.0 * x + rng.normal(scale=0.01, size=500)
-    X = np.column_stack([np.ones_like(x), x])
-    beta, se = bt.ols(X, y)
+    design = np.column_stack([np.ones_like(x), x])
+    beta, se = bt.ols(design, y)
     assert beta == pytest.approx([1.5, -2.0], abs=0.01)
     assert (se > 0).all() and (se < 0.01).all()
 
@@ -41,9 +41,11 @@ def test_loco_never_sees_the_held_out_cycle():
     # is 6, not 0. That only happens if LOCO really holds the cycle out.
     years = np.array([2018] * 10 + [2020] * 10, dtype=float)
     err = np.where(years == 2018, 3.0, -3.0)
-    X = np.ones((20, 1))
-    scores = bt.loco_scores(X, err, poll=np.zeros(20), won=(err > 0).astype(float),
-                            years=years, sigma=5.9, dof=5)
+    design = np.ones((20, 1))
+    scores = bt.loco_scores(
+        design, err, poll=np.zeros(20), won=(err > 0).astype(float),
+        years=years, sigma=5.9, dof=5,
+    )
     assert scores["rmse"] == pytest.approx(6.0)
     assert scores["win_accuracy"] == 0.0
 
