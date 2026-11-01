@@ -7,6 +7,14 @@ name: Economic-features backtest
 
 on:
   workflow_dispatch:
+  # Manual dispatch only registers once the file reaches the default branch,
+  # so while this lives on a research branch a push to it starts the run.
+  # The workflow's own results commit uses GITHUB_TOKEN and cannot re-trigger.
+  push:
+    branches: ["claude/econ-features-backtest"]
+    paths:
+      - "scripts/backtest_econ_features.py"
+      - ".github/workflows/econ_backtest.yml"
 
 permissions:
   contents: write
