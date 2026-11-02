@@ -16,6 +16,8 @@ import {
   boardSummary,
   fmtNet,
   fmtWinnerMargin,
+  senateTotal,
+  stateFill,
 } from '@/app/lib/predictions-map';
 import ShareDialog from '@/app/components/ShareDialog';
 
@@ -122,6 +124,7 @@ export default function PredictionsBoard({
 
   // Summary numbers
   const { picks, flipsToD, flipsToR, uncalled, net: netFlips, indFlips } = boardSummary(effective);
+  const total = senateTotal(effective);
 
   const sel = selected ? byAbbr.get(selected) ?? null : null;
   const hov = hover ? byAbbr.get(hover.abbr) ?? null : null;
@@ -163,6 +166,25 @@ export default function PredictionsBoard({
           tone="peach"
           sub={uncalled === 0 ? 'every race has a guess' : 'hatched on the map'}
         />
+      </div>
+
+      <div className="mt-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 rounded-xl border border-cream-300 bg-white px-4 py-3">
+        <div className="font-display text-xl text-ink sm:text-2xl">
+          Senate after these guesses:{' '}
+          <span className="text-dem">{total.D} D</span>,{' '}
+          <span className="text-rep">{total.R} R</span>
+          {total.I > 0 && (
+            <>
+              , <span className="text-stamp">{total.I} I</span>
+            </>
+          )}
+          {total.uncalled > 0 && (
+            <span className="text-cocoa-400">, {total.uncalled} still to call</span>
+          )}
+        </div>
+        <div className="text-[11px] text-cocoa-400">
+          34 D and 31 R seats not up, plus 9 safe D and 9 safe R holds, plus the board
+        </div>
       </div>
 
       <Panel className="mt-4">
@@ -211,10 +233,16 @@ export default function PredictionsBoard({
               </pattern>
             </defs>
 
-            {/* Non-race states: quiet background */}
+            {/* States off the board: safe holds in their party's safe shade
+                (unlabelled), everything else as "no 2026 race". */}
             {Object.entries(US_STATES).map(([abbr, s]) =>
               byAbbr.has(abbr) ? null : (
-                <path key={abbr} d={s.d} fill={FILL_NOT_RACE} stroke="none" />
+                <path
+                  key={abbr}
+                  d={s.d}
+                  fill={stateFill(abbr, undefined, marginBucket, '').fill}
+                  stroke="none"
+                />
               ),
             )}
 
@@ -225,8 +253,7 @@ export default function PredictionsBoard({
             {effective.map((r) => {
               const s = US_STATES[r.abbr];
               if (!s) return null;
-              const fill =
-                r.pick == null ? 'url(#no-pick-hatch)' : FILL[r.pick][marginBucket(r.margin)];
+              const fill = stateFill(r.abbr, r, marginBucket, 'url(#no-pick-hatch)').fill;
               const isSel = selected === r.abbr;
               const isHov = hover?.abbr === r.abbr;
               return (
@@ -349,8 +376,8 @@ export default function PredictionsBoard({
 
         <p className="mt-2 text-xs text-cocoa-400">
           Click or tab to a state for the full matchup. Shading deepens with the predicted
-          margin: under 3 points lean, 3–8 likely, 8+ safe. Grey states have no Senate race
-          this cycle.
+          margin: under 3 points lean, 3–8 likely, 8+ safe. Unlabelled dark states are the
+          safe holds not on the board; grey states have no Senate race this cycle.
         </p>
       </Panel>
 
@@ -952,7 +979,11 @@ function Legend() {
         {sw(FILL.I.likely)} <span className="font-semibold text-stamp">I</span>
       </span>
       <span className="flex items-center gap-1">{sw(FILL_NO_PICK, true)} no guess yet</span>
-      <span className="flex items-center gap-1">{sw(FILL_NOT_RACE)} no race</span>
+      <span className="flex items-center gap-1">
+        {sw(FILL.D.safe)}
+        {sw(FILL.R.safe)} safe hold, not on the board
+      </span>
+      <span className="flex items-center gap-1">{sw(FILL_NOT_RACE)} no 2026 race</span>
     </div>
   );
 }

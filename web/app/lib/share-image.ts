@@ -11,7 +11,10 @@ import {
   LABEL_ADJUST,
   boardSummary,
   fmtNet,
+  fmtSenateTotal,
   fmtWinnerMargin,
+  senateTotal,
+  stateFill,
 } from '@/app/lib/predictions-map';
 import { marginBucket, toDemMargin, type Party, type PredictionRaceView } from '@/app/lib/predictions-shared';
 import { US_MAP_VIEWBOX, US_STATES, US_STATE_BORDERS } from '@/app/lib/us-states-paths';
@@ -125,22 +128,26 @@ function legend(x: number, y: number): string {
   }
   parts.push(text(cx + 4, y, 'D', { size: 16, fill: C.dem, weight: 700 }));
   parts.push(text(cx + 20, y, 'safe · likely · lean', { size: 16, fill: C.cocoa500 }));
-  cx += 196;
+  cx += 178;
   for (const f of [FILL.R.lean, FILL.R.likely, FILL.R.safe]) {
     parts.push(sw(cx, f));
     cx += 24;
   }
   parts.push(text(cx + 4, y, 'R', { size: 16, fill: C.rep, weight: 700 }));
   parts.push(text(cx + 20, y, 'lean · likely · safe', { size: 16, fill: C.cocoa500 }));
-  cx += 196;
+  cx += 178;
   parts.push(sw(cx, FILL.I.likely));
   parts.push(text(cx + 26, y, 'I', { size: 16, fill: C.stamp, weight: 700 }));
-  cx += 52;
+  cx += 48;
   parts.push(sw(cx, FILL_NO_PICK, true));
   parts.push(text(cx + 26, y, 'no guess yet', { size: 16, fill: C.cocoa500 }));
-  cx += 140;
+  cx += 132;
+  parts.push(sw(cx, FILL.D.safe));
+  parts.push(sw(cx + 24, FILL.R.safe));
+  parts.push(text(cx + 50, y, 'safe hold', { size: 16, fill: C.cocoa500 }));
+  cx += 132;
   parts.push(sw(cx, FILL_NOT_RACE));
-  parts.push(text(cx + 26, y, 'no race', { size: 16, fill: C.cocoa500 }));
+  parts.push(text(cx + 26, y, 'no 2026 race', { size: 16, fill: C.cocoa500 }));
   return parts.join('');
 }
 
@@ -148,13 +155,13 @@ function mapLayer(races: PredictionRaceView[]): string {
   const byAbbr = new Map(races.map((r) => [r.abbr, r]));
   const out: string[] = [];
   for (const [abbr, s] of Object.entries(US_STATES)) {
-    if (!byAbbr.has(abbr)) out.push(`<path d="${s.d}" fill="${FILL_NOT_RACE}"/>`);
+    if (!byAbbr.has(abbr)) out.push(`<path d="${s.d}" fill="${stateFill(abbr, undefined, marginBucket, '').fill}"/>`);
   }
   out.push(`<path d="${US_STATE_BORDERS}" fill="none" stroke="#ffffff" stroke-width="1"/>`);
   for (const r of races) {
     const s = US_STATES[r.abbr];
     if (!s) continue;
-    const fill = r.pick == null ? 'url(#share-hatch)' : FILL[r.pick][marginBucket(r.margin)];
+    const fill = stateFill(r.abbr, r, marginBucket, 'url(#share-hatch)').fill;
     out.push(`<path d="${s.d}" fill="${fill}" stroke="#ffffff" stroke-width="1" stroke-linejoin="round"/>`);
   }
   for (const r of races) {
@@ -180,6 +187,16 @@ function mapLayer(races: PredictionRaceView[]): string {
     );
   }
   return out.join('');
+}
+
+// One <text> with coloured tspans so the counts carry party colour.
+function senateTotalText(x: number, y: number, t: ReturnType<typeof senateTotal>, size: number): string {
+  const span = (body: string, fill: string, weight = 700) =>
+    `<tspan fill="${fill}" font-weight="${weight}">${esc(body)}</tspan>`;
+  const bits = [span('Senate after these guesses: ', C.ink, 400), span(`${t.D} D`, C.dem), span(', ', C.ink, 400), span(`${t.R} R`, C.rep)];
+  if (t.I) bits.push(span(', ', C.ink, 400), span(`${t.I} I`, C.stamp));
+  if (t.uncalled) bits.push(span(`, ${t.uncalled} still to call`, C.cocoa400, 400));
+  return `<text x="${x}" y="${y}" font-family="${SERIF}" font-size="${size}">${bits.join('')}</text>`;
 }
 
 const HATCH = `<defs><pattern id="share-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="${FILL_NO_PICK}"/><line x1="0" y1="0" x2="0" y2="6" stroke="#b9a99f" stroke-width="1.5"/></pattern></defs>`;
@@ -209,7 +226,15 @@ export function buildMapSvg(races: PredictionRaceView[], asOf: string): ShareIma
       sum.uncalled === 0 ? 'every race has a guess' : 'hatched on the map'),
   ].join('');
 
-  const panelY = cardsY + cardH + 24;
+  const total = senateTotal(races);
+  const totalY = cardsY + cardH + 20;
+  const totalH = 64;
+  const totalStrip = [
+    `<rect x="48" y="${totalY}" width="${W - 96}" height="${totalH}" rx="14" fill="${C.panel}" stroke="${C.line}" stroke-width="2"/>`,
+    senateTotalText(72, totalY + 42, total, 28),
+    text(W - 72, totalY + 40, 'not-up seats + safe holds + the board', { size: 15, fill: C.cocoa400, anchor: 'end' }),
+  ].join('');
+  const panelY = totalY + totalH + 20;
   const [, , vbW, vbH] = US_MAP_VIEWBOX.split(' ').map(Number);
   const mapW = W - 96 - 48;
   const mapH = Math.round((mapW * vbH) / vbW);
@@ -225,6 +250,7 @@ export function buildMapSvg(races: PredictionRaceView[], asOf: string): ShareIma
     `<rect width="${W}" height="${H}" fill="${C.bg}"/>`,
     header('2026 Senate map', asOf),
     cards,
+    totalStrip,
     `<rect x="48" y="${panelY}" width="${W - 96}" height="${panelH}" rx="18" fill="${C.panel}" stroke="${C.line}" stroke-width="2"/>`,
     legend(72, legendY),
     `<svg x="72" y="${mapY}" width="${mapW}" height="${mapH}" viewBox="${US_MAP_VIEWBOX}">${mapLayer(races)}</svg>`,
@@ -252,7 +278,7 @@ export function buildTableSvg(races: PredictionRaceView[], asOf: string): ShareI
   const W = SHARE_WIDTH;
   const sum = boardSummary(races);
   const rowH = 46;
-  const headY = 196;
+  const headY = 236;
   const firstRowY = headY + 22;
   const tableBottom = firstRowY + rowH * races.length;
   const footY = tableBottom + 76;
@@ -311,7 +337,8 @@ export function buildTableSvg(races: PredictionRaceView[], asOf: string): ShareI
     `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`,
     `<rect width="${W}" height="${H}" fill="${C.bg}"/>`,
     header('2026 Senate guesses', asOf),
-    text(48, 150, summary, { size: 20, fill: C.cocoa700, weight: 600 }),
+    senateTotalText(48, 154, senateTotal(races), 26),
+    text(48, 188, `Board: ${summary}`, { size: 18, fill: C.cocoa500 }),
     `<rect x="48" y="${headY - 24}" width="${W - 96}" height="${tableBottom - headY + 32}" rx="16" fill="${C.panel}" stroke="${C.line}" stroke-width="2"/>`,
     text(col.state, headY + 6, 'STATE', { size: 13, fill: C.cocoa400, weight: 700, spacing: 1 }),
     text(col.held, headY + 6, 'HELD', { size: 13, fill: C.cocoa400, weight: 700, spacing: 1 }),
@@ -331,7 +358,8 @@ export function buildShareText(races: PredictionRaceView[], asOf: string): strin
   const sum = boardSummary(races);
   const lines = [
     `Hijodeagua's 2026 Senate guesses${asOf ? ` (as of ${fmtAsOf(asOf)})` : ''}`,
-    `${sum.picks.D} D · ${sum.picks.R} R${sum.picks.I ? ` · ${sum.picks.I} I` : ''} · net ${fmtNet(sum.net)}`,
+    fmtSenateTotal(senateTotal(races)),
+    `Board: ${sum.picks.D} D · ${sum.picks.R} R${sum.picks.I ? ` · ${sum.picks.I} I` : ''} · net ${fmtNet(sum.net)}`,
     '',
     ...races.map((r) => `${r.abbr}  ${r.pick ? fmtWinnerMargin(r.pick, r.margin) : '—'}`),
     '',

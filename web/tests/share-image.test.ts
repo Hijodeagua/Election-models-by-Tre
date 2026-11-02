@@ -1,7 +1,19 @@
 import { describe, expect, it } from 'vitest';
-import { boardSummary, fmtNet } from '@/app/lib/predictions-map';
 import type { PredictionRaceView } from '@/app/lib/predictions-shared';
 import { buildMapSvg, buildShareText, buildTableSvg, esc, fmtAsOf, matchupLine } from '@/app/lib/share-image';
+import { readFileSync } from 'node:fs';
+import {
+  FILL,
+  FILL_NOT_RACE,
+  NOT_UP,
+  SAFE_HOLDS,
+  boardSummary,
+  fmtNet,
+  fmtSenateTotal,
+  senateTotal,
+  stateFill,
+} from '@/app/lib/predictions-map';
+import { marginBucket } from '@/app/lib/predictions-shared';
 
 function race(p: Partial<PredictionRaceView> & { abbr: string; state: string }): PredictionRaceView {
   return {
@@ -108,5 +120,78 @@ describe('share images', () => {
     expect(t).toContain('ME  R+2.0');
     expect(t).toContain('AK  —');
     expect(t.trim().endsWith('https://whosyurgoat.app/election/predictions')).toBe(true);
+  });
+});
+
+
+const config = JSON.parse(readFileSync(new URL('../../config/senate_2026.json', import.meta.url), 'utf-8')) as {
+  dem_safe_seats: number;
+  rep_safe_seats: number;
+  competitive_races: { abbr: string; held_by: string }[];
+};
+const board = JSON.parse(readFileSync(new URL('../content/predictions.json', import.meta.url), 'utf-8')) as {
+  races: { abbr: string; held_by: 'D' | 'R' | 'I' }[];
+};
+
+// The board as in Hijodeagua's screenshot: 10 D, 7 R.
+const SCREENSHOT: Record<string, 'D' | 'R'> = {
+  MN: 'D', MI: 'D', OH: 'D', KS: 'D', TX: 'D', NC: 'D', SC: 'D', GA: 'D', NH: 'D', AK: 'D',
+  MT: 'R', NE: 'R', IA: 'R', MS: 'R', LA: 'R', FL: 'R', ME: 'R',
+};
+
+describe('safe holds and the Senate total', () => {
+  it('matches the cycle config: the 18 races off the board, their parties, and the not-up seats', () => {
+    const boardAbbrs = new Set(board.races.map((r) => r.abbr));
+    const offBoard = config.competitive_races.filter((r) => !boardAbbrs.has(r.abbr));
+    expect(Object.keys(SAFE_HOLDS).sort()).toEqual(offBoard.map((r) => r.abbr).sort());
+    for (const r of offBoard) expect(SAFE_HOLDS[r.abbr]).toBe(r.held_by);
+    expect(NOT_UP).toEqual({ D: config.dem_safe_seats, R: config.rep_safe_seats });
+    expect(NOT_UP.D + NOT_UP.R + config.competitive_races.length).toBe(100);
+    expect(board.races).toHaveLength(17);
+  });
+
+  it('colours safe holds as safe and only no-race states as "no race"', () => {
+    expect(stateFill('CO', undefined, marginBucket, 'h')).toEqual({ kind: 'safe', fill: FILL.D.safe });
+    expect(stateFill('VA', undefined, marginBucket, 'h').fill).toBe(FILL.D.safe);
+    expect(stateFill('AL', undefined, marginBucket, 'h')).toEqual({ kind: 'safe', fill: FILL.R.safe });
+    expect(stateFill('WY', undefined, marginBucket, 'h').fill).toBe(FILL.R.safe);
+    for (const none of ['CA', 'NY', 'AZ', 'PA', 'WI', 'ND', 'UT']) {
+      expect(stateFill(none, undefined, marginBucket, 'h')).toEqual({ kind: 'none', fill: FILL_NOT_RACE });
+    }
+    expect(stateFill('ME', { pick: 'R', margin: 2 }, marginBucket, 'h').fill).toBe(FILL.R.lean);
+    expect(stateFill('ME', { pick: null, margin: null }, marginBucket, 'h').fill).toBe('h');
+  });
+
+  it('reads 53 D, 47 R for the screenshot board', () => {
+    const races = board.races.map((r) => ({ held_by: r.held_by, pick: SCREENSHOT[r.abbr] }));
+    expect(senateTotal(races)).toEqual({ D: 53, R: 47, I: 0, uncalled: 0 });
+    expect(fmtSenateTotal(senateTotal(races))).toBe('Senate after these guesses: 53 D, 47 R');
+  });
+
+  it('counts independents separately and flags uncalled races', () => {
+    const t = senateTotal([
+      { held_by: 'R', pick: 'I' },
+      { held_by: 'R', pick: 'D' },
+      { held_by: 'R', pick: null },
+    ]);
+    expect(t).toEqual({ D: 44, R: 40, I: 1, uncalled: 1 });
+    expect(fmtSenateTotal(t)).toBe('Senate after these guesses: 44 D, 40 R, 1 I, 1 still to call');
+  });
+
+  it('puts the safe holds, the legend and the total in the share images and text', () => {
+    const races = RACES;
+    const map = buildMapSvg(races, '2026-11-02').svg;
+    expect(map).toContain(`fill="${FILL.D.safe}"`);
+    expect(map).toContain(`fill="${FILL.R.safe}"`);
+    expect(map).toContain('safe hold');
+    expect(map).toContain('no 2026 race');
+    expect(map).toContain('Senate after these guesses: ');
+    expect(map).toMatch(/>45 D<\/tspan>/); // 34 + 9 + NC, NH
+    expect(map).toMatch(/>41 R<\/tspan>/); // 31 + 9 + ME
+    const table = buildTableSvg(races, '2026-11-02').svg;
+    expect(table).toContain('Senate after these guesses: ');
+    expect(buildShareText(races, '2026-11-02').split('\n')[1]).toBe(
+      'Senate after these guesses: 45 D, 41 R, 1 I, 1 still to call',
+    );
   });
 });

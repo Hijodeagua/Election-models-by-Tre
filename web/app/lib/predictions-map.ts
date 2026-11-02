@@ -65,3 +65,65 @@ export function boardSummary(races: Pick<PredictionRace, 'pick' | 'held_by'>[]):
 export function fmtNet(net: number): string {
   return net === 0 ? '±0' : net > 0 ? `D+${net}` : `R+${-net}`;
 }
+
+// ---------------------------------------------------------------------------
+// The other 18 races of 2026 (not on the board) are safe holds, and 65 seats
+// are not up this cycle. Together with the 17 board races that makes 100.
+// Kept in step with config/senate_2026.json by tests/share-image.test.ts.
+// ---------------------------------------------------------------------------
+export const SAFE_HOLDS: Readonly<Record<string, 'D' | 'R'>> = {
+  CO: 'D', DE: 'D', IL: 'D', MA: 'D', NJ: 'D', NM: 'D', OR: 'D', RI: 'D', VA: 'D',
+  AL: 'R', AR: 'R', ID: 'R', KY: 'R', OK: 'R', SD: 'R', TN: 'R', WV: 'R', WY: 'R',
+};
+
+// Seats not up in 2026. King and Sanders caucus with Democrats and count as D.
+export const NOT_UP: Readonly<Record<'D' | 'R', number>> = { D: 34, R: 31 };
+
+export type StateFillKind = 'race' | 'safe' | 'none';
+
+// Fill for any state: a board race by its guess (hatched when uncalled),
+// a safe hold by its party's safe shade, anything else as "no 2026 race".
+export function stateFill(
+  abbr: string,
+  race: Pick<PredictionRace, 'pick' | 'margin'> | undefined,
+  marginBucketOf: (m: number | null) => MarginBucket,
+  hatch: string,
+): { kind: StateFillKind; fill: string } {
+  if (race) {
+    return { kind: 'race', fill: race.pick == null ? hatch : FILL[race.pick][marginBucketOf(race.margin)] };
+  }
+  const safe = SAFE_HOLDS[abbr];
+  if (safe) return { kind: 'safe', fill: FILL[safe].safe };
+  return { kind: 'none', fill: FILL_NOT_RACE };
+}
+
+export interface SenateTotal {
+  D: number;
+  R: number;
+  I: number;
+  uncalled: number;
+}
+
+export function senateTotal(races: Pick<PredictionRace, 'pick' | 'held_by'>[]): SenateTotal {
+  const { picks, uncalled } = boardSummary(races);
+  const safeD = Object.values(SAFE_HOLDS).filter((p) => p === 'D').length;
+  const safeR = Object.values(SAFE_HOLDS).filter((p) => p === 'R').length;
+  return {
+    D: NOT_UP.D + safeD + picks.D,
+    R: NOT_UP.R + safeR + picks.R,
+    I: picks.I,
+    uncalled,
+  };
+}
+
+// "53 D, 47 R" (+ ", 1 I" when an independent is guessed, + ", 2 still to call").
+export function fmtSenateCounts(t: SenateTotal): string {
+  const parts = [`${t.D} D`, `${t.R} R`];
+  if (t.I) parts.push(`${t.I} I`);
+  if (t.uncalled) parts.push(`${t.uncalled} still to call`);
+  return parts.join(', ');
+}
+
+export function fmtSenateTotal(t: SenateTotal): string {
+  return `Senate after these guesses: ${fmtSenateCounts(t)}`;
+}
