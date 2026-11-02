@@ -251,6 +251,9 @@ export interface MarginDistribution {
   p10: number | null;
   p90: number | null;
   num_simulations: number | null;
+  // Present for simulated races that had no senate.json card: 0 means the
+  // Monte Carlo ran on the fundamentals prior alone.
+  num_polls?: number;
 }
 
 export interface StateFeatures {

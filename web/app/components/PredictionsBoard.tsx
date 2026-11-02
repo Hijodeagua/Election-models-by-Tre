@@ -812,7 +812,19 @@ function StateContext({ race, pickMargin }: { race: Effective; pickMargin: numbe
               <MarginDistributionChart dist={dist} pickMargin={pickMargin} />
             </div>
             <p className="mt-2 text-xs text-cocoa-400">
-              {dist.source === 'simulation' ? (
+              {dist.source === 'simulation' && dist.num_polls === 0 ? (
+                <>
+                  From {dist.num_simulations?.toLocaleString() ?? 'the'} simulations of this race.
+                  No polls yet, so it runs on the fundamentals prior alone (presidential lean plus
+                  this year&rsquo;s national swing) with the calibrated error and any market odds.
+                  {dist.dem_win_prob != null && (
+                    <>
+                      {' '}
+                      Democrat wins in <strong className="text-cocoa-700">{fmtProb(dist.dem_win_prob)}</strong>.
+                    </>
+                  )}
+                </>
+              ) : dist.source === 'simulation' ? (
                 <>
                   From {dist.num_simulations?.toLocaleString() ?? 'the'} simulations of this race:
                   polling average, fundamentals and correlated national error.

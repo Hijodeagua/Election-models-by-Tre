@@ -10,7 +10,7 @@ A Python-based election modeling and forecasting system that ingests polling dat
 - **Presidential approval tracking** — daily averages with confidence intervals
 - **Generic ballot model** — congressional preference tracking with historical seat projection
 - **Senate race models** — individual race polling averages, with an experimental NYT "vibes" media-sentiment overlay
-- **Senate control simulation** — 1,000-run Monte Carlo nowcast with correlated national error, blended with prediction-market odds
+- **Senate control simulation** — 50,000-run Monte Carlo nowcast over all 35 seats on the 2026 ballot (polled races on their averages, the rest on the fundamentals prior), with correlated national error, fat tails, and prediction-market blending
 - **Prediction-market integration** — Polymarket and Kalshi implied odds per race and for chamber control (offline CSV fallback)
 - **Model comparison** — our approval average side-by-side with raw VoteHub averages and 50+1 (when available)
 - **Web tracker** — deployable Next.js front end (`web/`) that reads static JSON exported from the Python pipeline

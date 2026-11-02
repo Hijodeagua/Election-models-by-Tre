@@ -13,7 +13,11 @@ heavy dependencies.
 Outputs (web/public/data/):
     approval.json        — current reading + daily trend series with CI bands
     generic_ballot.json  — D/R margin, current reading + daily trend series
-    senate.json          — per-race SenateRaceSnapshots
+    senate.json          — per-race SenateRaceSnapshots (polled races)
+    senate_forecast.json — Senate-control simulation over every 2026 race
+    senate_race_distributions.json — margin histograms for simulated races
+                           that have no polls (read by export_state_features)
+    pollsters.json       — pollster grades + polls by state
     meta.json            — last_updated, data tier, model versions
 
 Usage:
@@ -705,8 +709,14 @@ def _senate_forecast_payload(
                 RaceInput(
                     state=entry["state"],
                     race=entry["race"],
-                    dem_candidate=entry["dem_candidate"],
-                    rep_candidate=entry["rep_candidate"],
+                    # Prefer the nominee resolved from polling (handles null
+                    # config names and stale placeholders), then the config.
+                    dem_candidate=rr.get("dem_candidate")
+                    or entry.get("dem_candidate")
+                    or "Democratic nominee",
+                    rep_candidate=rr.get("rep_candidate")
+                    or entry.get("rep_candidate")
+                    or "Republican nominee",
                     margin=round(margin, 3) if margin is not None else None,
                     num_polls=n,
                     market_dem_prob=market_dem_prob,
@@ -789,12 +799,16 @@ def _senate_forecast_payload(
     return payload
 
 
-def _attach_race_forecasts(senate_payload: dict, forecast_payload: dict) -> None:
+def _attach_race_forecasts(senate_payload: dict, forecast_payload: dict) -> dict:
     """Fold each race's simulation summary onto its battleground-card record.
 
     The margin histogram is *moved* (popped) rather than copied: senate.json is
     where the chart reads it, and leaving a second copy in senate_forecast.json
     would ship the same ~8 KB to every visitor twice.
+
+    Returns the histograms of races that have no senate.json record (no polls
+    yet), keyed by state, so they can be written to a small side file for the
+    predictions map instead of bloating senate_forecast.json.
     """
     fc_by_state = {r["state"]: r for r in forecast_payload.get("races", [])}
     n_sims = forecast_payload.get("num_simulations")
@@ -814,10 +828,14 @@ def _attach_race_forecasts(senate_payload: dict, forecast_payload: dict) -> None
             "num_simulations": n_sims,
             "margin_hist": fc.pop("margin_hist", []),
         }
-    # Any histogram left on a race senate.json doesn't render is still dead
-    # weight in senate_forecast.json — drop those too.
-    for fc in fc_by_state.values():
-        fc.pop("margin_hist", None)
+    # Any histogram left on a race senate.json doesn't render is dead weight
+    # in senate_forecast.json — move those to the side file instead.
+    leftovers: dict[str, list] = {}
+    for state, fc in fc_by_state.items():
+        hist = fc.pop("margin_hist", None)
+        if hist:
+            leftovers[state] = hist
+    return leftovers
 
 
 # ── Pollster grades + polls-by-state tab ─────────────────────────────────────────
@@ -1027,9 +1045,15 @@ def main() -> None:
 
     # Fold each race's simulation summary (win share + median margin) back onto
     # the battleground cards so /senate reads the forecast, not just the polls.
-    _attach_race_forecasts(senate_payload, forecast_payload)
+    unpolled_hists = _attach_race_forecasts(senate_payload, forecast_payload)
     _write("senate.json", senate_payload)
     _write("senate_forecast.json", forecast_payload)
+    # Histograms for simulated races that have no polls (so no senate.json
+    # card). Read server-side by scripts/export_state_features.py only.
+    _write(
+        "senate_race_distributions.json",
+        {"as_of": forecast_payload.get("as_of"), "races": unpolled_hists},
+    )
     _write("pollsters.json", _pollsters_payload(senate_polls))
 
     def _latest_poll(polls: list[Poll]) -> str | None:

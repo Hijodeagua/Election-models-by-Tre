@@ -1,110 +1,389 @@
 {
-  "_comment": "2026 Senate cycle configuration for the control simulation. dem_safe_seats / rep_safe_seats count seats NOT in the competitive list (holdovers + safe 2026 races such as FL, NE, MT): of the 9 competitive races Democrats hold GA, MI, NH (3) and Republicans hold NC, ME, OH, TX, IA, AK (6), so dem_safe = 47-3 = 44 and rep_safe = 53-6 = 47. dem_majority_threshold is 51 because the sitting VP (R) breaks 50-50 ties. Fundamentals: each race carries the state's Dem-minus-Rep presidential margin in 2024 and 2020; the fundamentals prior blends them (pres_weight_recent on 2024) and is blended into the polling margin with weight blend_k/(blend_k+num_polls), so it anchors thinly-polled races and fades as polls accumulate. MI is primary-pending (Aug 4) - Stevens is a placeholder. wikipedia overrides the default article title (Ohio is a special election).",
-  "cycle": 2026,
-  "dem_safe_seats": 44,
-  "rep_safe_seats": 47,
-  "dem_majority_threshold": 51,
-  "fundamentals": {
-    "pres_weight_recent": 0.75,
-    "blend_k": 3.0
+ "_comment": "2026 Senate cycle configuration for the control simulation. Every seat on the 2026 ballot is simulated: the 33 Class II seats plus the Ohio and Florida specials (35 races). dem_safe_seats / rep_safe_seats are therefore the holdovers only: Democrats (with the two independents who caucus with them) hold 47 seats of which 13 are up, so dem_safe = 34; Republicans hold 53 of which 22 are up, so rep_safe = 31. dem_majority_threshold is 51 because the sitting VP (R) breaks 50-50 ties. Fundamentals: each race carries the state's Dem-minus-Rep presidential margin in 2024 and 2020; the fundamentals prior blends them (pres_weight_recent on 2024), adds the national swing, and is blended into the polling margin with weight blend_k/(blend_k+num_polls), so a race with no polls runs on the prior alone and the prior fades as polls accumulate. A null dem_candidate / rep_candidate means the nominee was not settled when this was written: the Wikipedia scraper then tracks that party's most-polled candidate and the export uses the resolved name. held_by is the party defending the seat (used for safe-seat arithmetic and the predictions board). wikipedia overrides the default article title (Ohio and Florida are special elections).",
+ "cycle": 2026,
+ "dem_safe_seats": 34,
+ "rep_safe_seats": 31,
+ "dem_majority_threshold": 51,
+ "fundamentals": {
+  "pres_weight_recent": 0.75,
+  "blend_k": 3.0
+ },
+ "forecast": {
+  "_comment": "calibration_bias_weight scales the historically-fitted poll bias (~-2.5) before it is applied: 0 = ignore it (fundamentals already capture the red-state lean), 1 = apply in full, 0.5 = split the difference. Kept at 0.5 to avoid double-counting the same Dem-overstatement that the fundamentals blend also corrects.",
+  "calibration_bias_weight": 0.5,
+  "tail_dof": 5,
+  "_tail_comment": "Student-t degrees of freedom for polling error (variance-matched to the calibrated sigmas; null = Gaussian). Backtest on the 98 calibration races: t(5) Brier 0.0591 / log-loss 0.1905 vs Gaussian 0.0602 / 0.1952 — fat tails score better on both, and t(5) is the standard middle in the literature. Recomputed monthly in forecast_calibration.json under tail_comparison."
+ },
+ "national_environment": {
+  "_comment": "The midterm climate, applied as a uniform swing on top of each state's presidential lean (so the fundamentals prior reflects today, not 2024). Expected national Dem-minus-Rep margin = generic_weight*generic_ballot + approval_weight*(approval-implied margin for the out-party); the swing is that minus the 2024 House baseline. president_party is the in-party that pays the midterm penalty. approval_to_margin_coef converts the president's net approval to their party's national margin. senate_responsiveness scales how much of the national swing reaches Senate races. It only moves the fundamentals prior — polled races already price the climate in, so this mainly lifts thinly-polled seats.",
+  "president_party": "R",
+  "house_baseline_2024": -2.8,
+  "generic_weight": 0.6,
+  "approval_weight": 0.4,
+  "approval_to_margin_coef": 0.3,
+  "senate_responsiveness": 1.0
+ },
+ "competitive_races": [
+  {
+   "state": "Georgia",
+   "race": "Georgia Senate 2026",
+   "dem_candidate": "Jon Ossoff",
+   "rep_candidate": "Mike Collins",
+   "abbr": "GA",
+   "pres_2024": -2.2,
+   "pres_2020": 0.2,
+   "held_by": "D"
   },
-  "forecast": {
-    "_comment": "calibration_bias_weight scales the historically-fitted poll bias (~-2.5) before it is applied: 0 = ignore it (fundamentals already capture the red-state lean), 1 = apply in full, 0.5 = split the difference. Kept at 0.5 to avoid double-counting the same Dem-overstatement that the fundamentals blend also corrects.",
-    "calibration_bias_weight": 0.5,
-    "tail_dof": 5,
-    "_tail_comment": "Student-t degrees of freedom for polling error (variance-matched to the calibrated sigmas; null = Gaussian). Backtest on the 98 calibration races: t(5) Brier 0.0591 / log-loss 0.1905 vs Gaussian 0.0602 / 0.1952 — fat tails score better on both, and t(5) is the standard middle in the literature. Recomputed monthly in forecast_calibration.json under tail_comparison."
+  {
+   "state": "Michigan",
+   "race": "Michigan Senate 2026",
+   "dem_candidate": "Haley Stevens",
+   "rep_candidate": "Mike Rogers",
+   "abbr": "MI",
+   "pres_2024": -1.4,
+   "pres_2020": 2.8,
+   "held_by": "D"
   },
-  "national_environment": {
-    "_comment": "The midterm climate, applied as a uniform swing on top of each state's presidential lean (so the fundamentals prior reflects today, not 2024). Expected national Dem-minus-Rep margin = generic_weight*generic_ballot + approval_weight*(approval-implied margin for the out-party); the swing is that minus the 2024 House baseline. president_party is the in-party that pays the midterm penalty. approval_to_margin_coef converts the president's net approval to their party's national margin. senate_responsiveness scales how much of the national swing reaches Senate races. It only moves the fundamentals prior — polled races already price the climate in, so this mainly lifts thinly-polled seats.",
-    "president_party": "R",
-    "house_baseline_2024": -2.8,
-    "generic_weight": 0.6,
-    "approval_weight": 0.4,
-    "approval_to_margin_coef": 0.3,
-    "senate_responsiveness": 1.0
+  {
+   "state": "North Carolina",
+   "race": "North Carolina Senate 2026",
+   "dem_candidate": "Roy Cooper",
+   "rep_candidate": "Michael Whatley",
+   "abbr": "NC",
+   "pres_2024": -3.3,
+   "pres_2020": -1.3,
+   "held_by": "R"
   },
-  "competitive_races": [
-    {
-      "state": "Georgia",
-      "race": "Georgia Senate 2026",
-      "dem_candidate": "Jon Ossoff",
-      "rep_candidate": "Mike Collins",
-      "abbr": "GA",
-      "pres_2024": -2.2,
-      "pres_2020": 0.2
-    },
-    {
-      "state": "Michigan",
-      "race": "Michigan Senate 2026",
-      "dem_candidate": "Haley Stevens",
-      "rep_candidate": "Mike Rogers",
-      "abbr": "MI",
-      "pres_2024": -1.4,
-      "pres_2020": 2.8
-    },
-    {
-      "state": "North Carolina",
-      "race": "North Carolina Senate 2026",
-      "dem_candidate": "Roy Cooper",
-      "rep_candidate": "Michael Whatley",
-      "abbr": "NC",
-      "pres_2024": -3.3,
-      "pres_2020": -1.3
-    },
-    {
-      "state": "Maine",
-      "race": "Maine Senate 2026",
-      "dem_candidate": "Troy Jackson",
-      "rep_candidate": "Susan Collins",
-      "abbr": "ME",
-      "pres_2024": 6.9,
-      "pres_2020": 9.1
-    },
-    {
-      "state": "New Hampshire",
-      "race": "New Hampshire Senate 2026",
-      "dem_candidate": "Chris Pappas",
-      "rep_candidate": "Scott Brown",
-      "abbr": "NH",
-      "pres_2024": 2.8,
-      "pres_2020": 7.4
-    },
-    {
-      "state": "Ohio",
-      "race": "Ohio Senate 2026",
-      "dem_candidate": "Sherrod Brown",
-      "rep_candidate": "Jon Husted",
-      "abbr": "OH",
-      "pres_2024": -11.2,
-      "pres_2020": -8.0,
-      "wikipedia": "2026 United States Senate special election in Ohio"
-    },
-    {
-      "state": "Texas",
-      "race": "Texas Senate 2026",
-      "dem_candidate": "James Talarico",
-      "rep_candidate": "Ken Paxton",
-      "abbr": "TX",
-      "pres_2024": -13.6,
-      "pres_2020": -5.6
-    },
-    {
-      "state": "Iowa",
-      "race": "Iowa Senate 2026",
-      "dem_candidate": "Josh Turek",
-      "rep_candidate": "Ashley Hinson",
-      "abbr": "IA",
-      "pres_2024": -13.2,
-      "pres_2020": -8.2
-    },
-    {
-      "state": "Alaska",
-      "race": "Alaska Senate 2026",
-      "dem_candidate": "Mary Peltola",
-      "rep_candidate": "Dan Sullivan",
-      "abbr": "AK",
-      "pres_2024": -13.1,
-      "pres_2020": -10.1
-    }
-  ]
+  {
+   "state": "Maine",
+   "race": "Maine Senate 2026",
+   "dem_candidate": "Troy Jackson",
+   "rep_candidate": "Susan Collins",
+   "abbr": "ME",
+   "pres_2024": 6.9,
+   "pres_2020": 9.1,
+   "held_by": "R"
+  },
+  {
+   "state": "New Hampshire",
+   "race": "New Hampshire Senate 2026",
+   "dem_candidate": "Chris Pappas",
+   "rep_candidate": "Scott Brown",
+   "abbr": "NH",
+   "pres_2024": 2.8,
+   "pres_2020": 7.4,
+   "held_by": "D"
+  },
+  {
+   "state": "Ohio",
+   "race": "Ohio Senate 2026",
+   "dem_candidate": "Sherrod Brown",
+   "rep_candidate": "Jon Husted",
+   "abbr": "OH",
+   "pres_2024": -11.2,
+   "pres_2020": -8.0,
+   "wikipedia": "2026 United States Senate special election in Ohio",
+   "held_by": "R"
+  },
+  {
+   "state": "Texas",
+   "race": "Texas Senate 2026",
+   "dem_candidate": "James Talarico",
+   "rep_candidate": "Ken Paxton",
+   "abbr": "TX",
+   "pres_2024": -13.6,
+   "pres_2020": -5.6,
+   "held_by": "R"
+  },
+  {
+   "state": "Iowa",
+   "race": "Iowa Senate 2026",
+   "dem_candidate": "Josh Turek",
+   "rep_candidate": "Ashley Hinson",
+   "abbr": "IA",
+   "pres_2024": -13.2,
+   "pres_2020": -8.2,
+   "held_by": "R"
+  },
+  {
+   "state": "Alaska",
+   "race": "Alaska Senate 2026",
+   "dem_candidate": "Mary Peltola",
+   "rep_candidate": "Dan Sullivan",
+   "abbr": "AK",
+   "pres_2024": -13.1,
+   "pres_2020": -10.1,
+   "held_by": "R"
+  },
+  {
+   "state": "Alabama",
+   "race": "Alabama Senate 2026",
+   "dem_candidate": null,
+   "rep_candidate": null,
+   "abbr": "AL",
+   "pres_2024": -30.6,
+   "pres_2020": -25.5,
+   "held_by": "R",
+   "_note": "Open seat (Tuberville running for governor); nominees auto-picked from polling."
+  },
+  {
+   "state": "Arkansas",
+   "race": "Arkansas Senate 2026",
+   "dem_candidate": null,
+   "rep_candidate": "Tom Cotton",
+   "abbr": "AR",
+   "pres_2024": -30.6,
+   "pres_2020": -27.6,
+   "held_by": "R"
+  },
+  {
+   "state": "Colorado",
+   "race": "Colorado Senate 2026",
+   "dem_candidate": "John Hickenlooper",
+   "rep_candidate": null,
+   "abbr": "CO",
+   "pres_2024": 11.0,
+   "pres_2020": 13.5,
+   "held_by": "D"
+  },
+  {
+   "state": "Delaware",
+   "race": "Delaware Senate 2026",
+   "dem_candidate": "Chris Coons",
+   "rep_candidate": null,
+   "abbr": "DE",
+   "pres_2024": 14.7,
+   "pres_2020": 19.0,
+   "held_by": "D"
+  },
+  {
+   "state": "Florida",
+   "race": "Florida Senate 2026",
+   "dem_candidate": null,
+   "rep_candidate": "Ashley Moody",
+   "abbr": "FL",
+   "pres_2024": -13.1,
+   "pres_2020": -3.4,
+   "held_by": "R",
+   "wikipedia": "2026 United States Senate special election in Florida",
+   "_note": "Special election for the remainder of Marco Rubio's term."
+  },
+  {
+   "state": "Idaho",
+   "race": "Idaho Senate 2026",
+   "dem_candidate": null,
+   "rep_candidate": "Jim Risch",
+   "abbr": "ID",
+   "pres_2024": -36.5,
+   "pres_2020": -30.8,
+   "held_by": "R"
+  },
+  {
+   "state": "Illinois",
+   "race": "Illinois Senate 2026",
+   "dem_candidate": null,
+   "rep_candidate": null,
+   "abbr": "IL",
+   "pres_2024": 11.0,
+   "pres_2020": 17.0,
+   "held_by": "D",
+   "_note": "Open seat (Durbin retiring); nominees auto-picked from polling."
+  },
+  {
+   "state": "Kansas",
+   "race": "Kansas Senate 2026",
+   "dem_candidate": null,
+   "rep_candidate": "Roger Marshall",
+   "abbr": "KS",
+   "pres_2024": -16.1,
+   "pres_2020": -14.8,
+   "held_by": "R"
+  },
+  {
+   "state": "Kentucky",
+   "race": "Kentucky Senate 2026",
+   "dem_candidate": null,
+   "rep_candidate": null,
+   "abbr": "KY",
+   "pres_2024": -30.6,
+   "pres_2020": -25.9,
+   "held_by": "R",
+   "_note": "Open seat (McConnell retiring); nominees auto-picked from polling."
+  },
+  {
+   "state": "Louisiana",
+   "race": "Louisiana Senate 2026",
+   "dem_candidate": null,
+   "rep_candidate": null,
+   "abbr": "LA",
+   "pres_2024": -22.0,
+   "pres_2020": -18.6,
+   "held_by": "R",
+   "_note": "Cassidy faced a closed party primary; nominees auto-picked from polling."
+  },
+  {
+   "state": "Massachusetts",
+   "race": "Massachusetts Senate 2026",
+   "dem_candidate": "Ed Markey",
+   "rep_candidate": null,
+   "abbr": "MA",
+   "pres_2024": 25.3,
+   "pres_2020": 33.5,
+   "held_by": "D",
+   "_note": "Markey has a September primary; name is a placeholder until then."
+  },
+  {
+   "state": "Minnesota",
+   "race": "Minnesota Senate 2026",
+   "dem_candidate": null,
+   "rep_candidate": null,
+   "abbr": "MN",
+   "pres_2024": 4.3,
+   "pres_2020": 7.1,
+   "held_by": "D",
+   "_note": "Open seat (Smith retiring); nominees auto-picked from polling."
+  },
+  {
+   "state": "Mississippi",
+   "race": "Mississippi Senate 2026",
+   "dem_candidate": "Scott Colom",
+   "rep_candidate": "Cindy Hyde-Smith",
+   "abbr": "MS",
+   "pres_2024": -22.9,
+   "pres_2020": -16.5,
+   "held_by": "R"
+  },
+  {
+   "state": "Montana",
+   "race": "Montana Senate 2026",
+   "dem_candidate": null,
+   "rep_candidate": "Steve Daines",
+   "abbr": "MT",
+   "pres_2024": -19.9,
+   "pres_2020": -16.3,
+   "held_by": "R"
+  },
+  {
+   "state": "Nebraska",
+   "race": "Nebraska Senate 2026",
+   "dem_candidate": "Dan Osborn",
+   "rep_candidate": "Pete Ricketts",
+   "abbr": "NE",
+   "pres_2024": -20.6,
+   "pres_2020": -19.1,
+   "held_by": "R",
+   "_note": "Osborn is an independent with no Democratic nominee of note; he occupies the Dem column so the race has a two-way margin. A win is counted as a Dem seat for control, which overstates certainty about whom he would caucus with."
+  },
+  {
+   "state": "New Jersey",
+   "race": "New Jersey Senate 2026",
+   "dem_candidate": "Cory Booker",
+   "rep_candidate": null,
+   "abbr": "NJ",
+   "pres_2024": 5.9,
+   "pres_2020": 15.9,
+   "held_by": "D"
+  },
+  {
+   "state": "New Mexico",
+   "race": "New Mexico Senate 2026",
+   "dem_candidate": "Ben Ray Luján",
+   "rep_candidate": null,
+   "abbr": "NM",
+   "pres_2024": 6.0,
+   "pres_2020": 10.8,
+   "held_by": "D"
+  },
+  {
+   "state": "Oklahoma",
+   "race": "Oklahoma Senate 2026",
+   "dem_candidate": null,
+   "rep_candidate": "Markwayne Mullin",
+   "abbr": "OK",
+   "pres_2024": -34.3,
+   "pres_2020": -33.1,
+   "held_by": "R"
+  },
+  {
+   "state": "Oregon",
+   "race": "Oregon Senate 2026",
+   "dem_candidate": "Jeff Merkley",
+   "rep_candidate": null,
+   "abbr": "OR",
+   "pres_2024": 14.4,
+   "pres_2020": 16.1,
+   "held_by": "D"
+  },
+  {
+   "state": "Rhode Island",
+   "race": "Rhode Island Senate 2026",
+   "dem_candidate": "Jack Reed",
+   "rep_candidate": null,
+   "abbr": "RI",
+   "pres_2024": 13.9,
+   "pres_2020": 20.6,
+   "held_by": "D"
+  },
+  {
+   "state": "South Carolina",
+   "race": "South Carolina Senate 2026",
+   "dem_candidate": "Annie Andrews",
+   "rep_candidate": "Lindsey Graham",
+   "abbr": "SC",
+   "pres_2024": -17.9,
+   "pres_2020": -11.7,
+   "held_by": "R"
+  },
+  {
+   "state": "South Dakota",
+   "race": "South Dakota Senate 2026",
+   "dem_candidate": null,
+   "rep_candidate": "Mike Rounds",
+   "abbr": "SD",
+   "pres_2024": -29.2,
+   "pres_2020": -26.2,
+   "held_by": "R"
+  },
+  {
+   "state": "Tennessee",
+   "race": "Tennessee Senate 2026",
+   "dem_candidate": null,
+   "rep_candidate": "Bill Hagerty",
+   "abbr": "TN",
+   "pres_2024": -29.7,
+   "pres_2020": -23.2,
+   "held_by": "R"
+  },
+  {
+   "state": "Virginia",
+   "race": "Virginia Senate 2026",
+   "dem_candidate": "Mark Warner",
+   "rep_candidate": null,
+   "abbr": "VA",
+   "pres_2024": 5.8,
+   "pres_2020": 10.1,
+   "held_by": "D"
+  },
+  {
+   "state": "West Virginia",
+   "race": "West Virginia Senate 2026",
+   "dem_candidate": null,
+   "rep_candidate": "Shelley Moore Capito",
+   "abbr": "WV",
+   "pres_2024": -41.9,
+   "pres_2020": -38.9,
+   "held_by": "R"
+  },
+  {
+   "state": "Wyoming",
+   "race": "Wyoming Senate 2026",
+   "dem_candidate": null,
+   "rep_candidate": null,
+   "abbr": "WY",
+   "pres_2024": -46.2,
+   "pres_2020": -43.4,
+   "held_by": "R",
+   "_note": "Open seat (Lummis retiring); nominees auto-picked from polling."
+  }
+ ]
 }
