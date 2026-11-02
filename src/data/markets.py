@@ -175,7 +175,14 @@ def _with_complement(odds: MarketOdds) -> list[MarketOdds]:
 # probabilities. Search results routinely rank them above the winner market,
 # which once poisoned the Senate blend with 3–7% "win odds" in races the
 # polls had at 90%+.
-NON_WINNER_EVENT_TOKENS = ("margin", "vote share", "spread", "by how much")
+NON_WINNER_EVENT_TOKENS = (
+    "margin", "vote share", "spread", "by how much",
+    # State-legislature control markets share the word "senate" with the
+    # U.S. Senate race ("Which party will win the Texas State Senate in
+    # 2026?") and briefly fed Texas, Maine and Minnesota the wrong odds.
+    "state senate", "state-senate", "state house", "state-house", "legislature",
+    "state assembly", "state-assembly",
+)
 
 
 class PolymarketClient:
@@ -206,6 +213,7 @@ class PolymarketClient:
         required_tokens: tuple[str, ...] = (),
         as_of: date | None = None,
         excluded_tokens: tuple[str, ...] = (),
+        independent_candidate: str | None = None,
     ) -> list[MarketOdds]:
         """Search active events for ``query`` and extract party probabilities.
 
@@ -237,7 +245,7 @@ class PolymarketClient:
                 logger.info("polymarket: skipping non-winner event %r for %s", title, race)
                 continue
             url = f"https://polymarket.com/event/{slug}" if slug else None
-            party_probs = self._winner_probs(event)
+            party_probs = self._winner_probs(event, independent_candidate=independent_candidate)
             if party_probs is None:
                 continue
             odds = [
@@ -257,7 +265,9 @@ class PolymarketClient:
         return []
 
     @staticmethod
-    def _winner_probs(event: dict[str, Any]) -> dict[str, float] | None:
+    def _winner_probs(
+        event: dict[str, Any], independent_candidate: str | None = None
+    ) -> dict[str, float] | None:
         """Extract per-party win probabilities, or None if the event isn't a
         winner market.
 
@@ -265,8 +275,15 @@ class PolymarketClient:
         (margin-of-victory and similar) price the same party across many
         bucket sub-markets, so a repeated party means the prices are bucket
         probabilities and the whole event must be rejected. As a final guard,
-        a two-party result must sum to ≈1 like real winner odds do.
+        the priced outcomes must sum to ≈1 like real winner odds do.
+
+        Three-way races (Nebraska: Osborn runs as an independent) price an
+        "Independent"/"Other" leg or the candidate by name; pass
+        ``independent_candidate`` so that leg is kept as "Independent".
         """
+        ind_surname = ""
+        if independent_candidate:
+            ind_surname = independent_candidate.split()[-1].lower()
         party_probs: dict[str, float] = {}
         for market in event.get("markets") or []:
             outcomes = _json_list(market.get("outcomes"))
@@ -279,9 +296,14 @@ class PolymarketClient:
                     continue
                 # "Democrat"/"Republican" outcome labels, or Yes/No
                 # markets whose question names the party.
-                party = _party_from_text(str(outcome)) or (
-                    _party_from_text(question) if str(outcome) == "Yes" else None
+                label = str(outcome)
+                party = _party_from_text(label) or (
+                    _party_from_text(question) if label == "Yes" else None
                 )
+                if party is None:
+                    low = f"{label} {question if label == 'Yes' else ''}".lower()
+                    if "independent" in low or (ind_surname and ind_surname in low):
+                        party = "Independent"
                 if party is None:
                     continue
                 if party in party_probs:
@@ -293,7 +315,7 @@ class PolymarketClient:
                 party_probs[party] = prob
         if not party_probs:
             return None
-        if len(party_probs) == 2 and not 0.85 <= sum(party_probs.values()) <= 1.15:
+        if len(party_probs) >= 2 and not 0.85 <= sum(party_probs.values()) <= 1.15:
             logger.info(
                 "polymarket: %r party prices sum to %.3f, not a winner market",
                 event.get("title"), sum(party_probs.values()),

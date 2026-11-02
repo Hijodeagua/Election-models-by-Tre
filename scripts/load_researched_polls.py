@@ -9,7 +9,8 @@ race and pollster with the same field dates or an end date within 7 days
 UNCONFIRMED are written with the flag and excluded from averages.
 
 Usage:
-    python scripts/load_researched_polls.py path/to/senate_polls_2026.csv
+    python scripts/load_researched_polls.py            # data/research/senate_polls_2026.csv
+    python scripts/load_researched_polls.py other.csv
 """
 
 from __future__ import annotations
@@ -85,11 +86,12 @@ def convert(sheet_path: Path) -> tuple[str, list[str]]:
     return buf.getvalue(), notes
 
 
+DEFAULT_SHEET = ROOT / "data" / "research" / "senate_polls_2026.csv"
+
+
 def main(argv: list[str]) -> int:
-    if len(argv) < 2:
-        print(__doc__)
-        return 2
-    text, notes = convert(Path(argv[1]))
+    sheet = Path(argv[1]) if len(argv) > 1 else DEFAULT_SHEET
+    text, notes = convert(sheet)
     OUT.write_text(text, encoding="utf-8")
     for line in notes:
         print(f"[researched] {line}")

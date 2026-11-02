@@ -71,17 +71,6 @@
       "pollster": "Pollstergraph",
       "action": "drop",
       "reason": "aggregator renormalization of the Sep 30 Lake Research poll, not a poll"
-    },
-    {
-      "id": "co-lake-swapped",
-      "subject": "Colorado Senate 2026",
-      "pollster": "Lake Research Partners",
-      "end_date": "2026-09-30",
-      "tolerance_days": 1,
-      "action": "set_toplines",
-      "dem_pct": 56,
-      "rep_pct": 42,
-      "reason": "senate_polls_2026.csv lists Hickenlooper 42 / Baisley 56 (R+14); the published poll and the sheet's own note (Pollstergraph 56.5-41.3) have Hickenlooper 56 / Baisley 42. Treated as a transcription swap — flagged for TW."
     }
   ]
 }

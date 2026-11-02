@@ -1,37 +1,38 @@
 {
   "as_of": "2026-11-02",
   "num_simulations": 50000,
-  "dem_control_prob": 0.6438,
-  "mean_dem_seats": 51.33,
-  "median_dem_seats": 51.0,
+  "dem_control_prob": 0.669,
+  "mean_dem_seats": 51.5,
+  "median_dem_seats": 52.0,
   "seat_distribution": {
-    "37": 2,
+    "37": 3,
     "38": 4,
-    "39": 8,
-    "40": 12,
-    "41": 19,
-    "42": 42,
-    "43": 81,
-    "44": 185,
-    "45": 424,
-    "46": 928,
-    "47": 1734,
-    "48": 3208,
-    "49": 4671,
-    "50": 6492,
-    "51": 7898,
-    "52": 7885,
-    "53": 6710,
-    "54": 4717,
-    "55": 2778,
-    "56": 1301,
-    "57": 538,
-    "58": 246,
-    "59": 63,
-    "60": 32,
-    "61": 11,
+    "39": 14,
+    "40": 14,
+    "41": 27,
+    "42": 62,
+    "43": 110,
+    "44": 207,
+    "45": 430,
+    "46": 917,
+    "47": 1690,
+    "48": 2858,
+    "49": 4306,
+    "50": 5909,
+    "51": 7441,
+    "52": 7895,
+    "53": 7136,
+    "54": 5266,
+    "55": 3119,
+    "56": 1480,
+    "57": 620,
+    "58": 279,
+    "59": 118,
+    "60": 57,
+    "61": 23,
     "62": 6,
-    "63": 5
+    "63": 5,
+    "64": 4
   },
   "races": [
     {
@@ -60,6 +61,8 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": "Al Bartell (I) and Allen Buckley (L)",
+      "consensus": null,
+      "treatment": null,
       "badge": null
     },
     {
@@ -88,6 +91,8 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": null,
+      "consensus": null,
+      "treatment": null,
       "badge": null
     },
     {
@@ -116,6 +121,8 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": "Shannon Bray (L)",
+      "consensus": null,
+      "treatment": null,
       "badge": null
     },
     {
@@ -126,24 +133,22 @@
       "margin": 4.231,
       "num_polls": 33,
       "dem_win_prob_polls": 0.7289,
-      "dem_win_prob_blended": 0.7791,
-      "market_dem_prob": {
-        "polymarket": 0.93
-      },
-      "dem_win_prob_sim": 0.7811,
-      "median_margin": 3.87,
-      "margin_p10": -2.88,
-      "margin_p90": 10.53,
+      "dem_win_prob_blended": 0.7289,
+      "market_dem_prob": {},
+      "dem_win_prob_sim": 0.7308,
+      "median_margin": 3.04,
+      "margin_p10": -3.71,
+      "margin_p90": 9.7,
       "challenger_party": "D",
-      "market_urls": {
-        "polymarket": "https://polymarket.com/event/which-party-will-win-the-maine-state-senate-in-2026"
-      },
+      "market_urls": {},
       "held_by": "R",
       "seat_status": "incumbent Susan Collins",
       "open_seat": false,
       "format_note": "ranked-choice general",
       "third_candidate": null,
       "other_notable": "Phillip Rench (I)",
+      "consensus": null,
+      "treatment": null,
       "badge": null
     },
     {
@@ -172,6 +177,8 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": "Edmond LaPlante (Constitution)",
+      "consensus": null,
+      "treatment": null,
       "badge": null
     },
     {
@@ -200,6 +207,8 @@
       "format_note": "special election",
       "third_candidate": null,
       "other_notable": "Greg Levy (I) and William Redpath (L)",
+      "consensus": null,
+      "treatment": null,
       "badge": null
     },
     {
@@ -210,24 +219,22 @@
       "margin": 2.691,
       "num_polls": 79,
       "dem_win_prob_polls": 0.6179,
-      "dem_win_prob_blended": 0.4719,
-      "market_dem_prob": {
-        "polymarket": 0.034
-      },
-      "dem_win_prob_sim": 0.4711,
-      "median_margin": -0.34,
-      "margin_p10": -7.07,
-      "margin_p90": 6.47,
+      "dem_win_prob_blended": 0.6179,
+      "market_dem_prob": {},
+      "dem_win_prob_sim": 0.6181,
+      "median_margin": 1.45,
+      "margin_p10": -5.28,
+      "margin_p90": 8.26,
       "challenger_party": "D",
-      "market_urls": {
-        "polymarket": "https://polymarket.com/event/which-party-will-win-the-texas-state-senate-in-2026"
-      },
+      "market_urls": {},
       "held_by": "R",
       "seat_status": "incumbent John Cornyn LOST renomination (May 26 runoff)",
       "open_seat": true,
       "format_note": null,
       "third_candidate": null,
       "other_notable": "Ted Brown (L)",
+      "consensus": null,
+      "treatment": null,
       "badge": null
     },
     {
@@ -256,6 +263,8 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": "Thomas Laehn (L)",
+      "consensus": null,
+      "treatment": null,
       "badge": null
     },
     {
@@ -266,20 +275,40 @@
       "margin": 1.045,
       "num_polls": 9,
       "dem_win_prob_polls": 0.4837,
-      "dem_win_prob_blended": 0.4837,
-      "market_dem_prob": {},
-      "dem_win_prob_sim": 0.4852,
-      "median_margin": -0.19,
-      "margin_p10": -6.87,
-      "margin_p90": 6.51,
+      "dem_win_prob_blended": 0.5452,
+      "market_dem_prob": {
+        "polymarket": 0.74,
+        "kalshi": 0.72
+      },
+      "dem_win_prob_sim": 0.5453,
+      "median_margin": 0.55,
+      "margin_p10": -6.13,
+      "margin_p90": 7.26,
       "challenger_party": "D",
-      "market_urls": {},
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/alaska-senate-election-winner",
+        "kalshi": "https://kalshi.com/markets/senateak"
+      },
       "held_by": "R",
       "seat_status": "incumbent Dan Sullivan",
       "open_seat": false,
       "format_note": "ranked-choice general with four candidates",
       "third_candidate": null,
       "other_notable": "Daniel J. Sullivan Jr. (unrelated) and Gerald Heikes (R) also on RCV ballot",
+      "consensus": {
+        "treatment": "POLLED",
+        "pick": "Mary Peltola (D)",
+        "suggested_p_dem": null,
+        "cook": "Toss Up (10/30)",
+        "sabato": "Leans D (10/6, reaffirmed 10/27)",
+        "inside_elections": "Toss-up (IE page)",
+        "ddhq_p_dem": 0.605,
+        "kalshi_p_dem": 0.72,
+        "polymarket_p_dem": 0.74,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": "Model D+0.2 is less D than poll avg; every nonpartisan or D poll has Peltola +1 to +3; only Rasmussen has Sullivan ahead"
+      },
+      "treatment": "POLLED",
       "badge": null
     },
     {
@@ -308,6 +337,20 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": "Craig Jelks (I)",
+      "consensus": {
+        "treatment": "POLLED",
+        "pick": "Barry Moore (R)",
+        "suggested_p_dem": null,
+        "cook": "Solid R (10/30)",
+        "sabato": "Safe R (via Wikipedia)",
+        "inside_elections": "Solid R (IE page)",
+        "ddhq_p_dem": 0.05,
+        "kalshi_p_dem": 0.031,
+        "polymarket_p_dem": 0.018,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": null
+      },
+      "treatment": "POLLED",
       "badge": null
     },
     {
@@ -336,6 +379,20 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": "Jeff Wadlin (L)",
+      "consensus": {
+        "treatment": "POLLED",
+        "pick": "Tom Cotton (R)",
+        "suggested_p_dem": null,
+        "cook": "Solid R (10/30)",
+        "sabato": "Safe R (via 270toWin Oct 27)",
+        "inside_elections": "Solid R (IE page)",
+        "ddhq_p_dem": 0.04,
+        "kalshi_p_dem": 0.05,
+        "polymarket_p_dem": 0.043,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": null
+      },
+      "treatment": "POLLED",
       "badge": null
     },
     {
@@ -343,17 +400,17 @@
       "race": "Colorado Senate 2026",
       "dem_candidate": "John Hickenlooper",
       "rep_candidate": "Mark Baisley",
-      "margin": 20.79,
+      "margin": null,
       "num_polls": 1,
-      "dem_win_prob_polls": 0.996,
-      "dem_win_prob_blended": 0.9953,
+      "dem_win_prob_polls": null,
+      "dem_win_prob_blended": 0.99,
       "market_dem_prob": {
-        "polymarket": 0.993
+        "consensus": 0.99
       },
-      "dem_win_prob_sim": 0.9951,
-      "median_margin": 18.74,
-      "margin_p10": 12.0,
-      "margin_p90": 25.55,
+      "dem_win_prob_sim": 0.9894,
+      "median_margin": 15.41,
+      "margin_p10": 8.67,
+      "margin_p90": 22.23,
       "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/colorado-senate-election-winner"
@@ -364,24 +421,40 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": "Bob Chew (Forward) plus 3 minor",
-      "badge": null
+      "consensus": {
+        "treatment": "CONSENSUS_SAFE",
+        "pick": "John Hickenlooper (D)",
+        "suggested_p_dem": 0.99,
+        "cook": "Solid D (10/30)",
+        "sabato": "Safe D (3/4, stale)",
+        "inside_elections": "Solid D (IE page)",
+        "ddhq_p_dem": 0.97,
+        "kalshi_p_dem": 0.989,
+        "polymarket_p_dem": 0.996,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": "Only poll is D-aligned and dated Sep 30 (out of window)"
+      },
+      "treatment": "CONSENSUS_SAFE",
+      "model_margin_secondary": 14.0,
+      "consensus_pick": "John Hickenlooper (D)",
+      "badge": "No public polls in window; consensus safe pick (Cook, Sabato, Inside Elections, DDHQ, Kalshi, Polymarket agree)"
     },
     {
       "state": "Delaware",
       "race": "Delaware Senate 2026",
       "dem_candidate": "Chris Coons",
       "rep_candidate": "Michael Katz",
-      "margin": 27.203,
+      "margin": null,
       "num_polls": 0,
-      "dem_win_prob_polls": 0.9988,
-      "dem_win_prob_blended": 0.9967,
+      "dem_win_prob_polls": null,
+      "dem_win_prob_blended": 0.99,
       "market_dem_prob": {
-        "polymarket": 0.9905
+        "consensus": 0.99
       },
-      "dem_win_prob_sim": 0.9966,
-      "median_margin": 20.48,
-      "margin_p10": 13.65,
-      "margin_p90": 27.22,
+      "dem_win_prob_sim": 0.9899,
+      "median_margin": 15.39,
+      "margin_p10": 8.55,
+      "margin_p90": 22.12,
       "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/delaware-senate-election-winner"
@@ -392,7 +465,23 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": null,
-      "badge": null
+      "consensus": {
+        "treatment": "CONSENSUS_SAFE",
+        "pick": "Chris Coons (D)",
+        "suggested_p_dem": 0.99,
+        "cook": "Solid D (10/30)",
+        "sabato": "Safe D (10/29, via Wikipedia)",
+        "inside_elections": "Solid D (10/29, via Wikipedia)",
+        "ddhq_p_dem": 0.99,
+        "kalshi_p_dem": 0.99,
+        "polymarket_p_dem": 0.988,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": null
+      },
+      "treatment": "CONSENSUS_SAFE",
+      "model_margin_secondary": null,
+      "consensus_pick": "Chris Coons (D)",
+      "badge": "No public polls in window; consensus safe pick (Cook, Sabato, Inside Elections, DDHQ, Kalshi, Polymarket agree)"
     },
     {
       "state": "Florida",
@@ -420,6 +509,20 @@
       "format_note": "special election",
       "third_candidate": null,
       "other_notable": "Neil Gillespie (I)",
+      "consensus": {
+        "treatment": "POLLED",
+        "pick": "Ashley Moody (R)",
+        "suggested_p_dem": null,
+        "cook": "Likely R (10/30, from Solid R)",
+        "sabato": "Likely R (10/27, from Safe R)",
+        "inside_elections": "Likely R (IE page)",
+        "ddhq_p_dem": 0.245,
+        "kalshi_p_dem": 0.12,
+        "polymarket_p_dem": 0.09,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": "Model R+3.0 is more D than every in-window poll (R+4 to R+11); P(D)=17% looks generous vs markets 9-12%"
+      },
+      "treatment": "POLLED",
       "badge": null
     },
     {
@@ -430,14 +533,14 @@
       "margin": -13.14,
       "num_polls": 8,
       "dem_win_prob_polls": 0.0128,
-      "dem_win_prob_blended": 0.0187,
+      "dem_win_prob_blended": 0.0274,
       "market_dem_prob": {
         "polymarket": 0.0365
       },
-      "dem_win_prob_sim": 0.0184,
-      "median_margin": -12.87,
-      "margin_p10": -19.53,
-      "margin_p90": -6.18,
+      "dem_win_prob_sim": 0.0276,
+      "median_margin": -11.42,
+      "margin_p10": -18.09,
+      "margin_p90": -4.73,
       "challenger_party": "I",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/idaho-senate-election-winner"
@@ -448,7 +551,21 @@
       "format_note": "no Democrat on ballot",
       "third_candidate": null,
       "other_notable": "Todd Achilles (I) is main challenger; Natalie Fleming (I); Matt Loesby (L)",
-      "badge": null
+      "consensus": {
+        "treatment": "POLLED_PARTISAN_ONLY",
+        "pick": "Jim Risch (R)",
+        "suggested_p_dem": 0.036,
+        "cook": "Solid R (10/30)",
+        "sabato": "Safe R (via Wikipedia)",
+        "inside_elections": "Solid R (IE page)",
+        "ddhq_p_dem": 0.02,
+        "kalshi_p_dem": 0.05,
+        "polymarket_p_dem": 0.038,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": "Relabel Achilles as (I). Both in-window polls are campaign internals 19 points apart"
+      },
+      "treatment": "POLLED_PARTISAN_ONLY",
+      "badge": "In-window polls are partisan-sponsored only; P(D) blended 50/50 with the consensus"
     },
     {
       "state": "Illinois",
@@ -476,6 +593,20 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": "Whitfield Harrington Jr. (American Center)",
+      "consensus": {
+        "treatment": "POLLED",
+        "pick": "Juliana Stratton (D)",
+        "suggested_p_dem": null,
+        "cook": "Solid D (10/30)",
+        "sabato": "Safe D (via Wikipedia)",
+        "inside_elections": "Solid D (IE page)",
+        "ddhq_p_dem": 0.96,
+        "kalshi_p_dem": 0.976,
+        "polymarket_p_dem": 0.992,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": null
+      },
+      "treatment": "POLLED",
       "badge": null
     },
     {
@@ -504,6 +635,8 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": "David C. Graham (L)",
+      "consensus": null,
+      "treatment": null,
       "badge": null
     },
     {
@@ -511,17 +644,17 @@
       "race": "Kentucky Senate 2026",
       "dem_candidate": "Charles Booker",
       "rep_candidate": "Andy Barr",
-      "margin": -14.398,
+      "margin": null,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.0094,
-      "dem_win_prob_blended": 0.0126,
+      "dem_win_prob_polls": null,
+      "dem_win_prob_blended": 0.01,
       "market_dem_prob": {
-        "polymarket": 0.022
+        "consensus": 0.01
       },
-      "dem_win_prob_sim": 0.0125,
-      "median_margin": -14.47,
-      "margin_p10": -21.2,
-      "margin_p90": -7.68,
+      "dem_win_prob_sim": 0.0103,
+      "median_margin": -15.42,
+      "margin_p10": -22.14,
+      "margin_p90": -8.62,
       "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/kentucky-senate-election-winner"
@@ -532,7 +665,23 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": null,
-      "badge": null
+      "consensus": {
+        "treatment": "CONSENSUS_SAFE",
+        "pick": "Andy Barr (R)",
+        "suggested_p_dem": 0.01,
+        "cook": "Solid R (10/30)",
+        "sabato": "Safe R (9/22)",
+        "inside_elections": "Solid R (IE page)",
+        "ddhq_p_dem": 0.05,
+        "kalshi_p_dem": 0.047,
+        "polymarket_p_dem": 0.018,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": null
+      },
+      "treatment": "CONSENSUS_SAFE",
+      "model_margin_secondary": -9.0,
+      "consensus_pick": "Andy Barr (R)",
+      "badge": "No public polls in window; consensus safe pick (Cook, Sabato, Inside Elections, DDHQ, Kalshi, Polymarket agree)"
     },
     {
       "state": "Louisiana",
@@ -542,14 +691,14 @@
       "margin": -5.111,
       "num_polls": 3,
       "dem_win_prob_polls": 0.1118,
-      "dem_win_prob_blended": 0.1101,
+      "dem_win_prob_blended": 0.1125,
       "market_dem_prob": {
         "polymarket": 0.105
       },
-      "dem_win_prob_sim": 0.1119,
-      "median_margin": -6.4,
-      "margin_p10": -13.11,
-      "margin_p90": 0.4,
+      "dem_win_prob_sim": 0.1139,
+      "median_margin": -6.32,
+      "margin_p10": -13.03,
+      "margin_p90": 0.48,
       "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/louisiana-senate-election-winner"
@@ -560,7 +709,21 @@
       "format_note": "first closed-party-primary cycle; Nov 3 general is plurality with no December Senate runoff",
       "third_candidate": null,
       "other_notable": null,
-      "badge": null
+      "consensus": {
+        "treatment": "POLLED_PARTISAN_ONLY",
+        "pick": "Julia Letlow (R)",
+        "suggested_p_dem": 0.115,
+        "cook": "Solid R (10/30)",
+        "sabato": "Likely R (10/29, from Safe R)",
+        "inside_elections": "Likely R (10/29, from Solid R)",
+        "ddhq_p_dem": 0.135,
+        "kalshi_p_dem": 0.11,
+        "polymarket_p_dem": 0.1,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": "Fix Hart margin to tie. Only poll is a Davis internal; raters moved to Likely R on Oct 29; markets 88-91% Letlow"
+      },
+      "treatment": "POLLED_PARTISAN_ONLY",
+      "badge": "In-window polls are partisan-sponsored only; P(D) blended 50/50 with the consensus"
     },
     {
       "state": "Massachusetts",
@@ -588,6 +751,8 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": "Shiva Ayyadurai (I)",
+      "consensus": null,
+      "treatment": null,
       "badge": null
     },
     {
@@ -598,24 +763,22 @@
       "margin": 7.07,
       "num_polls": 24,
       "dem_win_prob_polls": 0.8707,
-      "dem_win_prob_blended": 0.873,
-      "market_dem_prob": {
-        "polymarket": 0.88
-      },
-      "dem_win_prob_sim": 0.8709,
-      "median_margin": 5.91,
-      "margin_p10": -0.91,
-      "margin_p90": 12.68,
+      "dem_win_prob_blended": 0.8707,
+      "market_dem_prob": {},
+      "dem_win_prob_sim": 0.8682,
+      "median_margin": 5.85,
+      "margin_p10": -0.98,
+      "margin_p90": 12.62,
       "challenger_party": "D",
-      "market_urls": {
-        "polymarket": "https://polymarket.com/event/which-party-will-win-the-minnesota-state-senate-in-2026"
-      },
+      "market_urls": {},
       "held_by": "D",
       "seat_status": "open (Tina Smith retiring)",
       "open_seat": true,
       "format_note": null,
       "third_candidate": null,
       "other_notable": "Marisa Simonetti (I) and Rebecca Whiting (L)",
+      "consensus": null,
+      "treatment": null,
       "badge": null
     },
     {
@@ -626,14 +789,14 @@
       "margin": -6.002,
       "num_polls": 4,
       "dem_win_prob_polls": 0.087,
-      "dem_win_prob_blended": 0.094,
+      "dem_win_prob_blended": 0.103,
       "market_dem_prob": {
         "polymarket": 0.115
       },
-      "dem_win_prob_sim": 0.0939,
-      "median_margin": -6.93,
-      "margin_p10": -13.7,
-      "margin_p90": -0.22,
+      "dem_win_prob_sim": 0.1033,
+      "median_margin": -6.61,
+      "margin_p10": -13.37,
+      "margin_p90": 0.1,
       "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/mississippi-senate-election-winner"
@@ -644,7 +807,21 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": "Ty Pinkins (I; 2024 D nominee; polling about 6%)",
-      "badge": null
+      "consensus": {
+        "treatment": "POLLED_PARTISAN_ONLY",
+        "pick": "Cindy Hyde-Smith (R)",
+        "suggested_p_dem": 0.112,
+        "cook": "Likely R (10/20, from Solid R)",
+        "sabato": "Likely R (10/14, from Safe R)",
+        "inside_elections": "Likely R (10/29, from Solid R)",
+        "ddhq_p_dem": 0.095,
+        "kalshi_p_dem": 0.12,
+        "polymarket_p_dem": 0.12,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": "Fix pollster label (Change Research, not Impact Research). Drop Wedgewood (fabricated)"
+      },
+      "treatment": "POLLED_PARTISAN_ONLY",
+      "badge": "In-window polls are partisan-sponsored only; P(D) blended 50/50 with the consensus"
     },
     {
       "state": "Montana",
@@ -672,6 +849,8 @@
       "format_note": "three-way D/R/I race",
       "third_candidate": "Alani Bankhead (D)",
       "other_notable": "Seth Bodnar (I; former Univ. of Montana president; Tester-backed; top fundraiser); Kyle Austin (L)",
+      "consensus": null,
+      "treatment": null,
       "badge": "three-way race; polls exclude Bodnar"
     },
     {
@@ -696,6 +875,8 @@
       "format_note": "no Democrat on ballot; effectively Osborn (I) v Ricketts (R)",
       "third_candidate": null,
       "other_notable": "Dan Osborn (nonpartisan; Democratic-endorsed; main challenger); minor: Mike Marvin; Chuck Conboy; Robin Richards",
+      "consensus": null,
+      "treatment": null,
       "badge": null
     },
     {
@@ -703,17 +884,17 @@
       "race": "New Jersey Senate 2026",
       "dem_candidate": "Cory Booker",
       "rep_candidate": "Justin Murphy",
-      "margin": 19.828,
+      "margin": null,
       "num_polls": 0,
-      "dem_win_prob_polls": 0.9952,
-      "dem_win_prob_blended": 0.9946,
+      "dem_win_prob_polls": null,
+      "dem_win_prob_blended": 0.99,
       "market_dem_prob": {
-        "polymarket": 0.993
+        "consensus": 0.99
       },
-      "dem_win_prob_sim": 0.995,
-      "median_margin": 18.14,
-      "margin_p10": 11.37,
-      "margin_p90": 24.9,
+      "dem_win_prob_sim": 0.9902,
+      "median_margin": 15.43,
+      "margin_p10": 8.66,
+      "margin_p90": 22.19,
       "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/new-jersey-senate-election-winner"
@@ -724,7 +905,23 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": "Veronica Fernandez (slogan line) and Joanne Kuniansky (SWP)",
-      "badge": null
+      "consensus": {
+        "treatment": "CONSENSUS_SAFE",
+        "pick": "Cory Booker (D)",
+        "suggested_p_dem": 0.99,
+        "cook": "Solid D (10/30)",
+        "sabato": "Safe D (Sep, via Wikipedia)",
+        "inside_elections": "Solid D (IE page)",
+        "ddhq_p_dem": 0.96,
+        "kalshi_p_dem": 0.979,
+        "polymarket_p_dem": 0.991,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": "Drop the StimSight poll if loaded; it is NJ-07 only"
+      },
+      "treatment": "CONSENSUS_SAFE",
+      "model_margin_secondary": null,
+      "consensus_pick": "Cory Booker (D)",
+      "badge": "No public polls in window; consensus safe pick (Cook, Sabato, Inside Elections, DDHQ, Kalshi, Polymarket agree)"
     },
     {
       "state": "New Mexico",
@@ -752,6 +949,20 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": "Rhett Trappman (L) and Bob Perls (Forward) (ballot status unconfirmed)",
+      "consensus": {
+        "treatment": "POLLED",
+        "pick": "Ben Ray Lujan (D)",
+        "suggested_p_dem": null,
+        "cook": "Solid D (10/30)",
+        "sabato": "Safe D (10/29)",
+        "inside_elections": "Solid D (10/29)",
+        "ddhq_p_dem": 0.96,
+        "kalshi_p_dem": 0.986,
+        "polymarket_p_dem": 0.992,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": null
+      },
+      "treatment": "POLLED",
       "badge": null
     },
     {
@@ -759,17 +970,17 @@
       "race": "Oklahoma Senate 2026",
       "dem_candidate": "N'Kiyla Jasmine Thomas",
       "rep_candidate": "Kevin Hern",
-      "margin": -22.929,
+      "margin": null,
       "num_polls": 1,
-      "dem_win_prob_polls": 0.0016,
-      "dem_win_prob_blended": 0.0026,
+      "dem_win_prob_polls": null,
+      "dem_win_prob_blended": 0.01,
       "market_dem_prob": {
-        "polymarket": 0.0055
+        "consensus": 0.01
       },
-      "dem_win_prob_sim": 0.0027,
-      "median_margin": -21.65,
-      "margin_p10": -28.39,
-      "margin_p90": -14.86,
+      "dem_win_prob_sim": 0.0107,
+      "median_margin": -15.39,
+      "margin_p10": -22.12,
+      "margin_p90": -8.59,
       "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/oklahoma-senate-election-winner"
@@ -780,24 +991,40 @@
       "format_note": "not a separate special",
       "third_candidate": null,
       "other_notable": "Sevier White (L); Ron Meinhardt (I); Curtis Stinnett (I)",
-      "badge": null
+      "consensus": {
+        "treatment": "CONSENSUS_SAFE",
+        "pick": "Kevin Hern (R)",
+        "suggested_p_dem": 0.01,
+        "cook": "Solid R (10/30)",
+        "sabato": "Safe R (via PoliAgg)",
+        "inside_elections": "Solid R (last change 4/23)",
+        "ddhq_p_dem": 0.01,
+        "kalshi_p_dem": 0.03,
+        "polymarket_p_dem": 0.009,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": null
+      },
+      "treatment": "CONSENSUS_SAFE",
+      "model_margin_secondary": -24.0,
+      "consensus_pick": "Kevin Hern (R)",
+      "badge": "No public polls in window; consensus safe pick (Cook, Sabato, Inside Elections, DDHQ, Kalshi, Polymarket agree)"
     },
     {
       "state": "Oregon",
       "race": "Oregon Senate 2026",
       "dem_candidate": "Jeff Merkley",
       "rep_candidate": "David Brock Smith",
-      "margin": 26.253,
+      "margin": null,
       "num_polls": 0,
-      "dem_win_prob_polls": 0.9986,
-      "dem_win_prob_blended": 0.9962,
+      "dem_win_prob_polls": null,
+      "dem_win_prob_blended": 0.99,
       "market_dem_prob": {
-        "polymarket": 0.989
+        "consensus": 0.99
       },
-      "dem_win_prob_sim": 0.9961,
-      "median_margin": 19.73,
-      "margin_p10": 13.01,
-      "margin_p90": 26.5,
+      "dem_win_prob_sim": 0.9894,
+      "median_margin": 15.38,
+      "margin_p10": 8.66,
+      "margin_p90": 22.14,
       "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/oregon-senate-election-winner"
@@ -808,7 +1035,23 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": "Gary Lyndon Dye (L) and Chris Henry (Progressive/Pacific Green)",
-      "badge": null
+      "consensus": {
+        "treatment": "CONSENSUS_SAFE",
+        "pick": "Jeff Merkley (D)",
+        "suggested_p_dem": 0.99,
+        "cook": "Solid D (10/30)",
+        "sabato": "Safe D (stale, via 270toWin Oct 27)",
+        "inside_elections": "Solid D (via 270toWin Oct 15)",
+        "ddhq_p_dem": 0.99,
+        "kalshi_p_dem": 0.992,
+        "polymarket_p_dem": 0.989,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": null
+      },
+      "treatment": "CONSENSUS_SAFE",
+      "model_margin_secondary": null,
+      "consensus_pick": "Jeff Merkley (D)",
+      "badge": "No public polls in window; consensus safe pick (Cook, Sabato, Inside Elections, DDHQ, Kalshi, Polymarket agree)"
     },
     {
       "state": "Rhode Island",
@@ -836,6 +1079,20 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": "Michael Bahry (I)",
+      "consensus": {
+        "treatment": "POLLED",
+        "pick": "Jack Reed (D)",
+        "suggested_p_dem": null,
+        "cook": "Solid D (10/30)",
+        "sabato": "Safe D (via 270toWin Oct 27)",
+        "inside_elections": "Solid D (via 270toWin)",
+        "ddhq_p_dem": 0.99,
+        "kalshi_p_dem": 0.996,
+        "polymarket_p_dem": 0.992,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": "Fill in matchup. Exclude the UNH 63-32 entry until it appears on scholars.unh.edu"
+      },
+      "treatment": "POLLED",
       "badge": null
     },
     {
@@ -864,6 +1121,20 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": "Kasie Whitener (L) and Mark Hackett (Constitution)",
+      "consensus": {
+        "treatment": "POLLED",
+        "pick": "Darline Graham (Nordone) (R)",
+        "suggested_p_dem": null,
+        "cook": "Lean R (10/30)",
+        "sabato": "Leans R (10/27, from Likely R)",
+        "inside_elections": "Tilt R (10/29, from Lean R)",
+        "ddhq_p_dem": 0.38,
+        "kalshi_p_dem": 0.28,
+        "polymarket_p_dem": 0.26,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": "Model R+3.7 is more R than poll avg and newest nonpartisan polls (NYT/Siena R+0.7, Targoz R+1); markets 72-75% Graham"
+      },
+      "treatment": "POLLED",
       "badge": null
     },
     {
@@ -892,6 +1163,20 @@
       "format_note": "no Democrat on ballot; two-way I v R",
       "third_candidate": null,
       "other_notable": "Brian Bengs (I; 2022 D nominee; sole challenger)",
+      "consensus": {
+        "treatment": "POLLED",
+        "pick": "Mike Rounds (R)",
+        "suggested_p_dem": null,
+        "cook": "Solid R (10/30)",
+        "sabato": "Safe R (via Wikipedia)",
+        "inside_elections": "Solid R (10/29)",
+        "ddhq_p_dem": 0.05,
+        "kalshi_p_dem": 0.06,
+        "polymarket_p_dem": 0.057,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": "Relabel Bengs as (I). Weight Emerson and Mason-Dixon over the two D-aligned Concord polls"
+      },
+      "treatment": "POLLED",
       "badge": null
     },
     {
@@ -899,17 +1184,17 @@
       "race": "Tennessee Senate 2026",
       "dem_candidate": "Marquita Bradshaw",
       "rep_candidate": "Bill Hagerty",
-      "margin": -17.485,
+      "margin": null,
       "num_polls": 1,
-      "dem_win_prob_polls": 0.0047,
-      "dem_win_prob_blended": 0.0082,
+      "dem_win_prob_polls": null,
+      "dem_win_prob_blended": 0.01,
       "market_dem_prob": {
-        "polymarket": 0.0185
+        "consensus": 0.01
       },
-      "dem_win_prob_sim": 0.0077,
-      "median_margin": -16.24,
-      "margin_p10": -23.07,
-      "margin_p90": -9.55,
+      "dem_win_prob_sim": 0.0096,
+      "median_margin": -15.37,
+      "margin_p10": -22.2,
+      "margin_p90": -8.68,
       "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/tennessee-senate-election-winner"
@@ -920,48 +1205,85 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": "eight independents incl. Tharon Chandler and Andrew Gerena",
-      "badge": null
+      "consensus": {
+        "treatment": "CONSENSUS_SAFE",
+        "pick": "Bill Hagerty (R)",
+        "suggested_p_dem": 0.01,
+        "cook": "Solid R (10/30)",
+        "sabato": "Safe R (10/29)",
+        "inside_elections": "Solid R (10/29)",
+        "ddhq_p_dem": 0.03,
+        "kalshi_p_dem": 0.038,
+        "polymarket_p_dem": 0.021,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": null
+      },
+      "treatment": "CONSENSUS_SAFE",
+      "model_margin_secondary": -20.0,
+      "consensus_pick": "Bill Hagerty (R)",
+      "badge": "No public polls in window; consensus safe pick (Cook, Sabato, Inside Elections, DDHQ, Kalshi, Polymarket agree)"
     },
     {
       "state": "Virginia",
       "race": "Virginia Senate 2026",
       "dem_candidate": "Mark Warner",
       "rep_candidate": "Bert Mizusawa",
-      "margin": 18.502,
+      "margin": null,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.9935,
-      "dem_win_prob_blended": 0.9935,
-      "market_dem_prob": {},
-      "dem_win_prob_sim": 0.9933,
-      "median_margin": 17.28,
-      "margin_p10": 10.44,
-      "margin_p90": 24.03,
+      "dem_win_prob_polls": null,
+      "dem_win_prob_blended": 0.99,
+      "market_dem_prob": {
+        "consensus": 0.99
+      },
+      "dem_win_prob_sim": 0.9902,
+      "median_margin": 15.41,
+      "margin_p10": 8.57,
+      "margin_p90": 22.16,
       "challenger_party": "D",
-      "market_urls": {},
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/virginia-senate-election-winner",
+        "kalshi": "https://kalshi.com/markets/senateva"
+      },
       "held_by": "D",
       "seat_status": "incumbent Mark Warner",
       "open_seat": false,
       "format_note": null,
       "third_candidate": null,
       "other_notable": null,
-      "badge": null
+      "consensus": {
+        "treatment": "CONSENSUS_SAFE",
+        "pick": "Mark Warner (D)",
+        "suggested_p_dem": 0.99,
+        "cook": "Solid D (10/30)",
+        "sabato": "Safe D (via PoliAgg)",
+        "inside_elections": "Solid D (via PoliAgg)",
+        "ddhq_p_dem": 0.96,
+        "kalshi_p_dem": 0.99,
+        "polymarket_p_dem": 0.99,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": null
+      },
+      "treatment": "CONSENSUS_SAFE",
+      "model_margin_secondary": 18.8,
+      "consensus_pick": "Mark Warner (D)",
+      "badge": "No public polls in window; consensus safe pick (Cook, Sabato, Inside Elections, DDHQ, Kalshi, Polymarket agree)"
     },
     {
       "state": "West Virginia",
       "race": "West Virginia Senate 2026",
       "dem_candidate": "Rachel Fetty Anderson",
       "rep_candidate": "Shelley Moore Capito",
-      "margin": -29.722,
+      "margin": null,
       "num_polls": 0,
-      "dem_win_prob_polls": 0.0005,
-      "dem_win_prob_blended": 0.0035,
+      "dem_win_prob_polls": null,
+      "dem_win_prob_blended": 0.01,
       "market_dem_prob": {
-        "polymarket": 0.0125
+        "consensus": 0.01
       },
-      "dem_win_prob_sim": 0.004,
-      "median_margin": -20.11,
-      "margin_p10": -26.88,
-      "margin_p90": -13.3,
+      "dem_win_prob_sim": 0.0112,
+      "median_margin": -15.39,
+      "margin_p10": -22.16,
+      "margin_p90": -8.58,
       "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/west-virginia-senate-election-winner"
@@ -972,24 +1294,40 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": "S. Marshall Wilson (Constitution)",
-      "badge": null
+      "consensus": {
+        "treatment": "CONSENSUS_SAFE",
+        "pick": "Shelley Moore Capito (R)",
+        "suggested_p_dem": 0.01,
+        "cook": "Solid R (10/30)",
+        "sabato": "Safe R (via PoliAgg Oct 14-27)",
+        "inside_elections": "Solid R (via PoliAgg)",
+        "ddhq_p_dem": 0.005,
+        "kalshi_p_dem": 0.011,
+        "polymarket_p_dem": 0.017,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": null
+      },
+      "treatment": "CONSENSUS_SAFE",
+      "model_margin_secondary": null,
+      "consensus_pick": "Shelley Moore Capito (R)",
+      "badge": "No public polls in window; consensus safe pick (Cook, Sabato, Inside Elections, DDHQ, Kalshi, Polymarket agree)"
     },
     {
       "state": "Wyoming",
       "race": "Wyoming Senate 2026",
       "dem_candidate": "James W. Byrd",
       "rep_candidate": "Harriet Hageman",
-      "margin": -34.072,
+      "margin": null,
       "num_polls": 0,
-      "dem_win_prob_polls": 0.0003,
-      "dem_win_prob_blended": 0.0013,
+      "dem_win_prob_polls": null,
+      "dem_win_prob_blended": 0.01,
       "market_dem_prob": {
-        "polymarket": 0.0045
+        "consensus": 0.01
       },
-      "dem_win_prob_sim": 0.0012,
-      "median_margin": -25.24,
-      "margin_p10": -31.97,
-      "margin_p90": -18.42,
+      "dem_win_prob_sim": 0.0105,
+      "median_margin": -15.41,
+      "margin_p10": -22.14,
+      "margin_p90": -8.59,
       "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/wyoming-senate-election-winner"
@@ -1000,7 +1338,23 @@
       "format_note": null,
       "third_candidate": null,
       "other_notable": null,
-      "badge": null
+      "consensus": {
+        "treatment": "CONSENSUS_SAFE",
+        "pick": "Harriet Hageman (R)",
+        "suggested_p_dem": 0.01,
+        "cook": "Solid R (10/30)",
+        "sabato": "Safe R (via PoliAgg)",
+        "inside_elections": "Solid R (via PoliAgg)",
+        "ddhq_p_dem": 0.005,
+        "kalshi_p_dem": 0.016,
+        "polymarket_p_dem": 0.008,
+        "snapshot": "Nov 1\u20132, 2026",
+        "note": null
+      },
+      "treatment": "CONSENSUS_SAFE",
+      "model_margin_secondary": null,
+      "consensus_pick": "Harriet Hageman (R)",
+      "badge": "No public polls in window; consensus safe pick (Cook, Sabato, Inside Elections, DDHQ, Kalshi, Polymarket agree)"
     }
   ],
   "dem_safe_seats": 34,
@@ -1014,7 +1368,7 @@
   "market_control_dem_prob": {
     "polymarket": 0.715
   },
-  "mean_ind_seats": 0.36,
+  "mean_ind_seats": 0.37,
   "ind_races": [
     "Idaho",
     "Montana",
@@ -1028,8 +1382,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.6438,
-  "mean_dem_seats_with_vibes": 51.33,
+  "dem_control_prob_with_vibes": 0.669,
+  "mean_dem_seats_with_vibes": 51.5,
   "national_environment": {
     "national_swing": 11.428,
     "available": true,

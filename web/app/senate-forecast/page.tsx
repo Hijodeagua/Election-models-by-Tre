@@ -144,9 +144,15 @@ export default function SenateForecastPage() {
               />
               <MobileDatum
                 label="Kalshi"
-                value={formatProbability(race.market_dem_prob.kalshi)}
+                value={formatProbability(race.market_dem_prob.kalshi ?? race.consensus?.kalshi_p_dem)}
                 href={race.market_urls?.kalshi}
               />
+              {race.consensus && (
+                <MobileDatum
+                  label="Ratings"
+                  value={`${shortRating(race.consensus.cook)} · ${shortRating(race.consensus.sabato)} · ${shortRating(race.consensus.inside_elections)}`}
+                />
+              )}
             </dl>
           </div>
         ))}
@@ -162,6 +168,7 @@ export default function SenateForecastPage() {
               <th className="px-4 py-3 text-right">P(D) blended</th>
               <th className="px-4 py-3 text-right">Polymarket</th>
               <th className="px-4 py-3 text-right">Kalshi</th>
+              <th className="px-4 py-3">Ratings</th>
             </tr>
           </thead>
           <tbody>
@@ -190,17 +197,37 @@ export default function SenateForecastPage() {
                   )}
                 </td>
                 <td className="px-4 py-3 text-right text-cocoa-700">
-                  {race.margin != null
-                    ? `${race.margin > 0 ? 'D' : 'R'} +${Math.abs(race.margin).toFixed(1)}`
-                    : '—'}
+                  {race.margin != null ? (
+                    `${race.margin > 0 ? 'D' : 'R'} +${Math.abs(race.margin).toFixed(1)}`
+                  ) : race.treatment === 'CONSENSUS_SAFE' ? (
+                    <span className="text-cocoa-400" title={`model margin kept aside: ${formatRaceMargin(race.model_margin_secondary ?? null)}`}>
+                      consensus
+                    </span>
+                  ) : (
+                    '—'
+                  )}
                 </td>
                 <Prob value={race.dem_win_prob_polls} />
                 <Prob value={race.dem_win_prob_blended} bold />
                 <Prob
-                  value={race.market_dem_prob.polymarket ?? null}
+                  value={race.market_dem_prob.polymarket ?? race.consensus?.polymarket_p_dem ?? null}
                   href={race.market_urls?.polymarket}
+                  snapshot={race.market_dem_prob.polymarket == null && race.consensus?.polymarket_p_dem != null}
                 />
-                <Prob value={race.market_dem_prob.kalshi ?? null} href={race.market_urls?.kalshi} />
+                <Prob
+                  value={race.market_dem_prob.kalshi ?? race.consensus?.kalshi_p_dem ?? null}
+                  href={race.market_urls?.kalshi}
+                  snapshot={race.market_dem_prob.kalshi == null && race.consensus?.kalshi_p_dem != null}
+                />
+                <td className="px-4 py-3 text-xs text-cocoa-500">
+                  {race.consensus ? (
+                    <span title={`Cook: ${race.consensus.cook ?? '—'} · Sabato: ${race.consensus.sabato ?? '—'} · Inside Elections: ${race.consensus.inside_elections ?? '—'} · DDHQ P(D) ${race.consensus.ddhq_p_dem != null ? Math.round(race.consensus.ddhq_p_dem * 100) + '%' : '—'}`}>
+                      {shortRating(race.consensus.cook)} · {shortRating(race.consensus.sabato)} · {shortRating(race.consensus.inside_elections)}
+                    </span>
+                  ) : (
+                    <span className="text-cocoa-300">—</span>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -210,7 +237,9 @@ export default function SenateForecastPage() {
       <p className="mt-2 text-xs text-cocoa-400">
         * For races marked (I) — no Democrat on the ballot — the margin and probabilities
         describe the independent challenger, not a Democrat. Hover a matchup for format notes
-        (ranked choice, specials, open seats).
+        (ranked choice, specials, open seats). † Market price from the Nov 1–2 research
+        snapshot where the live feed has no market yet. Ratings are Cook · Sabato · Inside
+        Elections for the 22 researched races; hover for the full text.
       </p>
 
       <div className="mt-8 rounded-xl border border-cream-300 bg-cream-100 p-5 text-sm text-cocoa-700">
@@ -340,8 +369,18 @@ function ComparisonChip({
   );
 }
 
-function Prob({ value, bold, href }: { value: number | null; bold?: boolean; href?: string }) {
-  const text = value != null ? `${(value * 100).toFixed(0)}%` : '—';
+function Prob({
+  value,
+  bold,
+  href,
+  snapshot = false,
+}: {
+  value: number | null;
+  bold?: boolean;
+  href?: string;
+  snapshot?: boolean;
+}) {
+  const text = value != null ? `${(value * 100).toFixed(0)}%${snapshot ? '†' : ''}` : '—';
   return (
     <td
       className={`px-4 py-3 text-right ${bold ? 'font-semibold text-ink' : 'text-cocoa-500'}`}
@@ -419,3 +458,11 @@ type RaceForecastLike = {
   format_note?: string | null;
   other_notable?: string | null;
 };
+
+function shortRating(r: string | null | undefined): string {
+  if (!r) return '—';
+  const m = r.match(/^(Solid|Safe|Likely|Leans?|Lean|Tilt|Toss[- ]?[Uu]p)\s*([DR])?/);
+  if (!m) return r.split(' (')[0];
+  const word = m[1].replace(/^Leans$/, 'Lean').replace(/Toss[- ]?[Uu]p/, 'Toss-up');
+  return `${word}${m[2] ? ' ' + m[2] : ''}`;
+}

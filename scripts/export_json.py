@@ -937,10 +937,13 @@ def _senate_forecast_payload(
                 out[source] = outcomes["Democrat"]
         return out
 
+    consensus = _load_consensus()
+
     def _build_inputs(apply_vibes: bool) -> list[RaceInput]:
         out: list[RaceInput] = []
         for entry in cycle["competitive_races"]:
             rr = races_by_state.get(entry["state"], {})
+            cons = consensus.get(entry.get("abbr"), {})
             per_source = odds_for_race(market_odds, entry["race"])
             market_dem_prob = _market_challenger_prob(
                 per_source, entry.get("challenger_party", "D")
@@ -967,10 +970,25 @@ def _senate_forecast_payload(
                 vibes = rr.get("vibes") or {}
                 if vibes.get("available"):
                     margin = margin + vibes.get("adjustment", 0.0)
+            # Consensus treatments (22 researched races only):
+            #  CONSENSUS_SAFE  → skip the poll model; the race enters the
+            #                    simulation at the rater/market consensus
+            #                    probability (99 or 1).
+            #  POLLED_PARTISAN_ONLY → model as usual, then blend 50/50 with
+            #                    the suggested consensus probability.
+            prior_prob, prior_weight = None, 0.0
+            treatment = cons.get("treatment")
+            if treatment == "CONSENSUS_SAFE" and cons.get("suggested_pD_pct"):
+                margin = None
+                market_dem_prob = {"consensus": float(cons["suggested_pD_pct"]) / 100.0}
+            elif treatment == "POLLED_PARTISAN_ONLY" and cons.get("suggested_pD_pct"):
+                prior_prob, prior_weight = float(cons["suggested_pD_pct"]) / 100.0, 0.5
             out.append(
                 RaceInput(
                     state=entry["state"],
                     race=entry["race"],
+                    prior_prob=prior_prob,
+                    prior_weight=prior_weight,
                     # Prefer the nominee resolved from polling (handles null
                     # config names and stale placeholders), then the config.
                     dem_candidate=rr.get("dem_candidate")
@@ -1059,6 +1077,29 @@ def _senate_forecast_payload(
         # A market-only race shows its badge only while it is still unpolled.
         if badge and e.get("market_only_when_unpolled") and race_dict.get("num_polls", 0) > 0:
             badge = None
+        cons = consensus.get(e.get("abbr"), {})
+        treatment = cons.get("treatment")
+        race_dict["consensus"] = _consensus_view(cons) if cons else None
+        race_dict["treatment"] = treatment
+        if treatment == "CONSENSUS_SAFE":
+            # Poll avg blank; the blended model margin survives in a
+            # secondary field for comparison.
+            race_dict["model_margin_secondary"] = (races_by_state.get(e["state"]) or {}).get(
+                "dem_margin"
+            )
+            race_dict["margin"] = None
+            race_dict["consensus_pick"] = cons.get("consensus_pick")
+            badge = (
+                "No public polls in window; consensus safe pick (Cook, Sabato, Inside "
+                "Elections, DDHQ, Kalshi, Polymarket agree)"
+            )
+        elif treatment == "POLLED_PARTISAN_ONLY":
+            badge = (
+                "In-window polls are partisan-sponsored only; "
+                "P(D) blended 50/50 with the consensus"
+            )
+        elif badge is None and race_dict.get("num_polls", 0) == 0:
+            badge = "Polls need refresh after nominee change"
         race_dict["badge"] = badge
     payload["market_control_urls"] = urls_for_race(market_odds, SENATE_CONTROL_RACE)
     payload["maturity"] = "nowcast"
@@ -1076,6 +1117,44 @@ def _senate_forecast_payload(
     # folded into the fundamentals prior, exposed for transparency in the UI.
     payload["national_environment"] = env
     return payload
+
+
+CONSENSUS_SHEET = PROJECT_ROOT / "data" / "research" / "senate_race_consensus_2026.csv"
+CONSENSUS_SNAPSHOT = "Nov 1–2, 2026"
+
+
+def _load_consensus() -> dict[str, dict]:
+    """Per-state rows of the rater/market consensus sheet (22 researched
+    races). Missing file → no treatments applied."""
+    if not CONSENSUS_SHEET.exists():
+        return {}
+    import csv as _csv
+
+    with CONSENSUS_SHEET.open(encoding="utf-8") as fh:
+        return {row["state"]: row for row in _csv.DictReader(fh) if row.get("state")}
+
+
+def _pct(v: str | None) -> float | None:
+    try:
+        return round(float(v) / 100.0, 4) if v not in (None, "") else None
+    except ValueError:
+        return None
+
+
+def _consensus_view(row: dict) -> dict:
+    return {
+        "treatment": row.get("treatment"),
+        "pick": row.get("consensus_pick"),
+        "suggested_p_dem": _pct(row.get("suggested_pD_pct")),
+        "cook": row.get("cook"),
+        "sabato": row.get("sabato"),
+        "inside_elections": row.get("inside_elections"),
+        "ddhq_p_dem": _pct(row.get("ddhq_pD_pct")),
+        "kalshi_p_dem": _pct(row.get("kalshi_pD_pct")),
+        "polymarket_p_dem": _pct(row.get("polymarket_pD_pct")),
+        "snapshot": CONSENSUS_SNAPSHOT,
+        "note": row.get("model_vs_polls_note") or None,
+    }
 
 
 def _attach_race_forecasts(senate_payload: dict, forecast_payload: dict) -> dict:

@@ -224,6 +224,9 @@ def _refresh_markets(dry_run: bool = False) -> None:
             f"{state} Senate 2026", race=race,
             required_tokens=(state.lower(), "senate"),
             excluded_tokens=_MARKET_TITLE_EXCLUSIONS.get(state, ()),
+            independent_candidate=(
+                entry.get("dem_candidate") if entry.get("challenger_party") == "I" else None
+            ),
         )
         ks = (
             kalshi.fetch_race_odds(

@@ -144,6 +144,23 @@ export interface RaceForecast {
   other_notable?: string | null;
   // Display caveat, e.g. "three-way race; polls exclude Bodnar".
   badge?: string | null;
+  // Rater/market consensus for the 22 researched races (snapshot Nov 1–2).
+  treatment?: 'CONSENSUS_SAFE' | 'POLLED_PARTISAN_ONLY' | 'POLLED' | null;
+  consensus_pick?: string | null;
+  model_margin_secondary?: number | null;
+  consensus?: {
+    treatment: string | null;
+    pick: string | null;
+    suggested_p_dem: number | null;
+    cook: string | null;
+    sabato: string | null;
+    inside_elections: string | null;
+    ddhq_p_dem: number | null;
+    kalshi_p_dem: number | null;
+    polymarket_p_dem: number | null;
+    snapshot: string;
+    note: string | null;
+  } | null;
 }
 
 export interface PollsterEmpirical {

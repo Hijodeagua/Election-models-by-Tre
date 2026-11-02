@@ -71,6 +71,11 @@ class RaceInput:
     # probability then describe the independent, and a win is tallied as an
     # independent seat rather than a Democratic one.
     challenger_party: str = "D"
+    # Optional external probability blended into the race's own at
+    # prior_weight (e.g. the rater/market consensus for a race whose only
+    # in-window polls are partisan-sponsored).
+    prior_prob: float | None = None
+    prior_weight: float = 0.0
 
 
 @dataclass
@@ -207,12 +212,19 @@ class SenateControlSimulator:
         p_market = float(np.mean(market_probs)) if market_probs else None
 
         if p_polls is None and p_market is None:
-            return None
-        if p_polls is None:
-            return p_market
-        if p_market is None or self.market_weight == 0.0:
-            return p_polls
-        return (1.0 - self.market_weight) * p_polls + self.market_weight * p_market
+            own = None
+        elif p_polls is None:
+            own = p_market
+        elif p_market is None or self.market_weight == 0.0:
+            own = p_polls
+        else:
+            own = (1.0 - self.market_weight) * p_polls + self.market_weight * p_market
+        if race.prior_prob is not None and race.prior_weight > 0.0:
+            if own is None:
+                return race.prior_prob
+            w = min(max(race.prior_weight, 0.0), 1.0)
+            return (1.0 - w) * own + w * race.prior_prob
+        return own
 
     def _effective_margin(self, prob: float) -> float:
         """Margin whose marginal win probability equals ``prob``.
