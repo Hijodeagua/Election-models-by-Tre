@@ -205,11 +205,14 @@ class PolymarketClient:
         race: str,
         required_tokens: tuple[str, ...] = (),
         as_of: date | None = None,
+        excluded_tokens: tuple[str, ...] = (),
     ) -> list[MarketOdds]:
         """Search active events for ``query`` and extract party probabilities.
 
         ``required_tokens`` (lower-cased) must all appear in the event title —
         e.g. ``("arizona", "senate")`` — to avoid picking up unrelated markets.
+        ``excluded_tokens`` reject a title outright, for states whose name is a
+        substring of another's ("virginia" vs "west virginia").
         """
         as_of = as_of or date.today()
         try:
@@ -226,6 +229,9 @@ class PolymarketClient:
             title = str(event.get("title", ""))
             slug = str(event.get("slug", ""))
             if not all(tok in title.lower() for tok in required_tokens):
+                continue
+            if any(tok in title.lower() for tok in excluded_tokens):
+                logger.info("polymarket: skipping excluded event %r for %s", title, race)
                 continue
             if any(tok in f"{title} {slug}".lower() for tok in NON_WINNER_EVENT_TOKENS):
                 logger.info("polymarket: skipping non-winner event %r for %s", title, race)

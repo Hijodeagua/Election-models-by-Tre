@@ -46,6 +46,11 @@ _VH_COLUMNS = [
     "Date Range", "Grade", "Pollster", "Subject", "Sponsor", "Sample Size",
     "Sample Type", "Population", "Weight",
     "Leading Result", "Leading %", "Trailing Result", "Trailing %", "Spread",
+    # Party tags for head-to-head answers (Senate round-trip). Appended last so
+    # older readers keyed by position are unaffected; VoteHubCsvLoader reads
+    # them only when a Result name is present, so generic-ballot files that use
+    # "Leading Party" as the choice itself still load unchanged.
+    "Leading Party", "Trailing Party",
 ]
 # Note: "Subject" was added (Fix 4). VoteHubCsvLoader falls back to a default
 # subject when the column is absent, so existing committed CSVs without it
@@ -90,6 +95,8 @@ def _polls_to_votehub_csv(polls: list[Poll]) -> str:
             trailing.choice if trailing else "",
             f"{trailing.pct:.0f}%" if trailing and trailing.pct is not None else "",
             spread,
+            (leading.party or "") if leading else "",
+            (trailing.party or "") if trailing else "",
         ])
     return buf.getvalue()
 
@@ -216,6 +223,7 @@ def _refresh_markets(dry_run: bool = False) -> None:
         pm = polymarket.fetch_markets(
             f"{state} Senate 2026", race=race,
             required_tokens=(state.lower(), "senate"),
+            excluded_tokens=_MARKET_TITLE_EXCLUSIONS.get(state, ()),
         )
         ks = (
             kalshi.fetch_race_odds(
@@ -249,6 +257,16 @@ def _refresh_markets(dry_run: bool = False) -> None:
         else:
             logger.warning("  no market data fetched — keeping existing market_odds.csv")
 
+
+
+# State names that contain another state's name: a substring match on
+# "virginia" also hits "West Virginia Senate Election Winner" (which is how
+# Virginia briefly carried West Virginia's 1% Dem odds), and "kansas" hits
+# Arkansas. Titles with these tokens are skipped for the shorter-named state.
+_MARKET_TITLE_EXCLUSIONS: dict[str, tuple[str, ...]] = {
+    "Virginia": ("west virginia",),
+    "Kansas": ("arkansas",),
+}
 
 
 def _refresh_wikipedia_senate(dry_run: bool = False) -> None:
