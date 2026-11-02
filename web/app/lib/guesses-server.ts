@@ -1,6 +1,7 @@
 // Server-only glue for the public-guesses API: the Upstash client from env,
 // the request IP, and the board's allowed picks from predictions.json.
 
+import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 import { Redis } from '@upstash/redis';
 import { allowedPicksFor, type AllowedPicks } from '@/app/lib/guesses-shared';
 import {
@@ -84,20 +85,48 @@ export function clientIp(req: Request): string {
 
 export function bearerToken(req: Request): string | null {
   const h = req.headers.get('authorization') ?? '';
-  const m = /^Bearer\s+([A-Za-z0-9]+)$/.exec(h);
+  const m = /^Bearer\s+(\S+)$/.exec(h);
   return m ? m[1] : null;
+}
+
+export type AdminCheck = 'ok' | 'unconfigured' | 'denied';
+
+// Compare the presented bearer token with ADMIN_TOKEN in constant time.
+export function checkAdmin(req: Request): AdminCheck {
+  const expected = process.env.ADMIN_TOKEN;
+  if (!expected) return 'unconfigured';
+  const presented = bearerToken(req);
+  if (!presented) return 'denied';
+  const a = createHash('sha256').update(presented).digest();
+  const b = createHash('sha256').update(expected).digest();
+  return timingSafeEqual(a, b) ? 'ok' : 'denied';
+}
+
+// Which client address each candidate header carries, as short keyed hashes,
+// so a probe from two networks can tell whether the hub proxy collapses them
+// into one rate-limit bucket without exposing anyone's IP.
+export function clientKeyDiagnostics(req: Request): string {
+  const secret =
+    process.env.ADMIN_TOKEN ?? process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN ?? 'local';
+  const h = (v: string | null | undefined) =>
+    v ? createHmac('sha256', secret).update(v).digest('hex').slice(0, 10) : '-';
+  const xff = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
+  const xvff = req.headers.get('x-vercel-forwarded-for')?.split(',')[0]?.trim();
+  const xri = req.headers.get('x-real-ip')?.trim();
+  return `used=${h(clientIp(req))};xff=${h(xff)};xvff=${h(xvff)};xri=${h(xri)}`;
 }
 
 export function boardAllowedPicks(): AllowedPicks {
   return allowedPicksFor(getPredictions().races);
 }
 
-export function json(body: unknown, status = 200): Response {
+export function json(body: unknown, status = 200, extra: Record<string, string> = {}): Response {
   return new Response(JSON.stringify(body), {
     status,
     headers: {
       'content-type': 'application/json; charset=utf-8',
       'cache-control': 'no-store',
+      ...extra,
     },
   });
 }

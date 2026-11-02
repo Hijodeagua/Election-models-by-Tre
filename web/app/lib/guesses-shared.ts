@@ -43,8 +43,9 @@ export interface GuessesPayload {
   entries: GuessEntry[];
 }
 
-// Which parties a guesser may pick in each board race. Independents are only
-// offered where one is actually on the ballot (Nebraska, Montana).
+// Which parties a guesser may pick in each board race. Independents are
+// offered wherever the board lists an ind_candidate (currently Nebraska,
+// Montana and Mississippi).
 export type AllowedPicks = Record<string, Party[]>;
 
 export function allowedPicksFor(
@@ -68,6 +69,13 @@ export function normalizeName(raw: unknown): string | null {
 // Case-insensitive key so "Tre" and "tre" cannot both be claimed.
 export function nameKey(name: string): string {
   return name.toLocaleLowerCase('en-US');
+}
+
+// Names nobody can claim, so a guesser's column can't pass for the site's own.
+export const RESERVED_NAMES: ReadonlySet<string> = new Set(['hijodeagua', 'tre', 'model']);
+
+export function isReservedName(name: string): boolean {
+  return RESERVED_NAMES.has(nameKey(name));
 }
 
 export type Validation =

@@ -22,7 +22,7 @@ function toGuessRaces(races: PredictionRaceView[]): GuessRace[] {
 }
 
 export const metadata = {
-  title: "Hijodeagua's Guesses — Election Oracle",
+  title: "Hijodeagua's Guesses | Election Oracle",
   description:
     'A map of the 2026 Senate races with hand-made calls and margins, side by side with the polling model.',
 };

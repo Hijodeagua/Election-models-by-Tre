@@ -6,6 +6,7 @@ import {
   LOCK_AT_MS,
   allowedPicksFor,
   isLocked,
+  isReservedName,
   modelGuess,
   normalizeName,
   validateSubmission,
@@ -14,7 +15,7 @@ import {
 import { MemoryRedis, createGuessStore, type GuessStore } from '@/app/lib/guesses-store';
 import { setGuessStoreForTests } from '@/app/lib/guesses-server';
 import { GET, POST } from '@/app/api/guesses/route';
-import { PUT } from '@/app/api/guesses/[id]/route';
+import { DELETE, PUT } from '@/app/api/guesses/[id]/route';
 
 const ALLOWED: AllowedPicks = {
   ME: ['D', 'R'],
@@ -33,7 +34,7 @@ function makeStore(opts: { max?: number } = {}): GuessStore {
   });
 }
 
-const GOOD = { name: 'Tre', guesses: { ME: { pick: 'D', margin: 3 }, TX: { pick: 'R', margin: null } } };
+const GOOD = { name: 'Pat', guesses: { ME: { pick: 'D', margin: 3 }, TX: { pick: 'R', margin: null } } };
 
 beforeEach(() => {
   nowMs = LOCK_AT_MS - 3_600_000;
@@ -50,14 +51,14 @@ describe('validation', () => {
   });
 
   it('accepts a good submission and rounds margins to one decimal', () => {
-    const v = validateSubmission({ name: 'Tre', guesses: { ME: { pick: 'D', margin: 3.26 } } }, ALLOWED);
+    const v = validateSubmission({ name: 'Pat', guesses: { ME: { pick: 'D', margin: 3.26 } } }, ALLOWED);
     expect(v.ok).toBe(true);
     if (v.ok) expect(v.guesses.ME).toEqual({ pick: 'D', margin: 3.3 });
   });
 
   it('rejects unknown races, disallowed independents, bad picks and margins', () => {
     const bad = (guesses: unknown) => {
-      const v = validateSubmission({ name: 'Tre', guesses }, ALLOWED);
+      const v = validateSubmission({ name: 'Pat', guesses }, ALLOWED);
       expect(v.ok).toBe(false);
       return v.ok ? '' : v.error;
     };
@@ -112,7 +113,7 @@ describe('submit', () => {
     const body = res.body as { id: string; token: string; entry: { name: string } };
     expect(body.id).toMatch(/^[a-f0-9]{16}$/);
     expect(body.token).toMatch(/^[a-f0-9]{48}$/);
-    expect(body.entry.name).toBe('Tre');
+    expect(body.entry.name).toBe('Pat');
 
     const list = await store.list();
     expect(list.locked).toBe(false);
@@ -124,7 +125,7 @@ describe('submit', () => {
   it('rejects a second claim on the same name, case-insensitively', async () => {
     const store = makeStore();
     expect((await store.submit(GOOD, '1.1.1.1', ALLOWED)).status).toBe(201);
-    const dup = await store.submit({ ...GOOD, name: 'tre' }, '2.2.2.2', ALLOWED);
+    const dup = await store.submit({ ...GOOD, name: 'pat' }, '2.2.2.2', ALLOWED);
     expect(dup.status).toBe(409);
     expect((await store.list()).entries).toHaveLength(1);
   });
@@ -166,7 +167,7 @@ describe('edit', () => {
     expect(res.status).toBe(200);
     const [entry] = (await store.list()).entries;
     expect(entry.guesses).toEqual({ ME: { pick: 'R', margin: 1 } });
-    expect(entry.name).toBe('Tre');
+    expect(entry.name).toBe('Pat');
     expect(entry.updated_at > entry.created_at).toBe(true);
   });
 
@@ -184,17 +185,70 @@ describe('edit', () => {
       (await store.update(id, token, { name: 'sam', guesses: GOOD.guesses }, '1.1.1.1', ALLOWED)).status,
     ).toBe(409);
     expect(
-      (await store.update(id, token, { name: 'Tre W', guesses: GOOD.guesses }, '1.1.1.1', ALLOWED)).status,
+      (await store.update(id, token, { name: 'Pat W', guesses: GOOD.guesses }, '1.1.1.1', ALLOWED)).status,
     ).toBe(200);
     // The old name is free again.
-    expect((await store.submit({ ...GOOD, name: 'Tre' }, '3.3.3.3', ALLOWED)).status).toBe(201);
-    expect((await store.list()).entries.map((e) => e.name).sort()).toEqual(['Sam', 'Tre', 'Tre W']);
+    expect((await store.submit({ ...GOOD, name: 'Pat' }, '3.3.3.3', ALLOWED)).status).toBe(201);
+    expect((await store.list()).entries.map((e) => e.name).sort()).toEqual(['Pat', 'Pat W', 'Sam']);
   });
 
   it('validates the edited guesses', async () => {
     const { store, id, token } = await seeded();
     expect((await store.update(id, token, { guesses: {} }, 'ip', ALLOWED)).status).toBe(400);
     expect((await store.update(id, token, { guesses: { ME: { pick: 'I' } } }, 'ip', ALLOWED)).status).toBe(400);
+  });
+});
+
+describe('reserved names', () => {
+  it('reserves hijodeagua, tre and model, case-insensitively', () => {
+    for (const n of ['hijodeagua', 'Hijodeagua', 'HIJODEAGUA', 'tre', 'Tre', 'TRE', 'model', 'Model']) {
+      expect(isReservedName(n)).toBe(true);
+    }
+    for (const n of ['Tre W', 'Treasure', 'models', 'hijo']) expect(isReservedName(n)).toBe(false);
+  });
+
+  it('returns 409 for a reserved name on submit and stores nothing', async () => {
+    const store = makeStore();
+    for (const name of ['Hijodeagua', 'tre', '  MODEL  ']) {
+      const res = await store.submit({ ...GOOD, name }, 'ip', ALLOWED);
+      expect(res.status).toBe(409);
+      expect((res.body as { error: string }).error).toMatch(/reserved/);
+    }
+    expect((await store.list()).entries).toHaveLength(0);
+  });
+
+  it('returns 409 when renaming to a reserved name', async () => {
+    const store = makeStore();
+    const res = await store.submit({ ...GOOD, name: 'Sam' }, 'ip', ALLOWED);
+    const { id, token } = res.body as { id: string; token: string };
+    const rename = await store.update(id, token, { name: 'Model', guesses: GOOD.guesses }, 'ip', ALLOWED);
+    expect(rename.status).toBe(409);
+    expect((await store.list()).entries[0].name).toBe('Sam');
+  });
+});
+
+describe('admin hide', () => {
+  it('removes the entry and frees its name', async () => {
+    const store = makeStore();
+    const res = await store.submit({ ...GOOD, name: 'Spammer' }, 'ip', ALLOWED);
+    const { id } = res.body as { id: string };
+    expect((await store.remove(id)).status).toBe(200);
+    expect((await store.list()).entries).toHaveLength(0);
+    expect((await store.remove(id)).status).toBe(404);
+    // The name can be claimed again.
+    expect((await store.submit({ ...GOOD, name: 'spammer' }, 'ip2', ALLOWED)).status).toBe(201);
+  });
+
+  it('does not free a name that now belongs to someone else', async () => {
+    const store = makeStore();
+    const a = (await store.submit({ ...GOOD, name: 'Alex' }, 'ip', ALLOWED)).body as { id: string; token: string };
+    // Alex renames, then someone else takes "Alex"; hiding the renamed entry
+    // must not release the other person's name.
+    expect((await store.update(a.id, a.token, { name: 'Alexis', guesses: GOOD.guesses }, 'ip', ALLOWED)).status).toBe(200);
+    expect((await store.submit({ ...GOOD, name: 'Alex' }, 'ip2', ALLOWED)).status).toBe(201);
+    expect((await store.remove(a.id)).status).toBe(200);
+    expect((await store.submit({ ...GOOD, name: 'alex' }, 'ip3', ALLOWED)).status).toBe(409);
+    expect((await store.submit({ ...GOOD, name: 'Alexis' }, 'ip3', ALLOWED)).status).toBe(201);
   });
 });
 
@@ -238,7 +292,7 @@ describe('HTTP handlers', () => {
   });
 
   it('GET returns the payload with no-store caching', async () => {
-    const res = await GET();
+    const res = await GET(new Request(url));
     expect(res.status).toBe(200);
     expect(res.headers.get('cache-control')).toBe('no-store');
     const body = await res.json();
@@ -262,7 +316,7 @@ describe('HTTP handlers', () => {
     );
     expect(edited.status).toBe(200);
 
-    const list = (await (await GET()).json()) as { entries: { name: string; guesses: unknown }[] };
+    const list = (await (await GET(new Request(url))).json()) as { entries: { name: string; guesses: unknown }[] };
     expect(list.entries).toHaveLength(1);
     expect(list.entries[0].name).toBe('Route Tester');
     expect(list.entries[0].guesses).toEqual({ ME: { pick: 'R', margin: 1 } });
@@ -275,9 +329,52 @@ describe('HTTP handlers', () => {
     expect(badId.status).toBe(404);
 
     setGuessStoreForTests(null);
-    const get = await GET();
+    const get = await GET(new Request(url));
     expect(((await get.json()) as { configured: boolean }).configured).toBe(false);
     expect((await POST(jsonReq('POST', GOOD))).status).toBe(503);
+  });
+
+  it('DELETE requires ADMIN_TOKEN, then hides the entry and frees its name', async () => {
+    const created = await POST(jsonReq('POST', { name: 'Hide Me', guesses: { ME: { pick: 'D', margin: 1 } } }));
+    const { id, token } = (await created.json()) as { id: string; token: string };
+    const del = (auth?: string) =>
+      DELETE(
+        new Request(`${url}/${id}`, { method: 'DELETE', headers: auth ? { authorization: `Bearer ${auth}` } : {} }),
+        { params: { id } },
+      );
+
+    const prev = process.env.ADMIN_TOKEN;
+    try {
+      delete process.env.ADMIN_TOKEN;
+      expect((await del('anything')).status).toBe(503);
+
+      process.env.ADMIN_TOKEN = 'admin-secret_123';
+      expect((await del()).status).toBe(403);
+      expect((await del(token)).status).toBe(403); // an edit token is not an admin token
+      expect((await del('wrong')).status).toBe(403);
+
+      const ok = await del('admin-secret_123');
+      expect(ok.status).toBe(200);
+      expect(await ok.json()).toEqual({ id, removed: true });
+
+      const list = (await (await GET(new Request(url))).json()) as { entries: unknown[] };
+      expect(list.entries).toHaveLength(0);
+      expect((await del('admin-secret_123')).status).toBe(404);
+      // Name is free again.
+      expect((await POST(jsonReq('POST', { name: 'hide me', guesses: { ME: { pick: 'R' } } }))).status).toBe(201);
+    } finally {
+      if (prev === undefined) delete process.env.ADMIN_TOKEN;
+      else process.env.ADMIN_TOKEN = prev;
+    }
+  });
+
+  it('GET reports hashed client keys, never the raw address', async () => {
+    const res = await GET(new Request(url, { headers: { 'x-forwarded-for': '203.0.113.7, 10.0.0.1' } }));
+    const keys = res.headers.get('x-guesses-client-keys') ?? '';
+    expect(keys).toMatch(/^used=[a-f0-9]{10};xff=[a-f0-9]{10};xvff=-;xri=-$/);
+    expect(keys).not.toContain('203.0.113.7');
+    const other = await GET(new Request(url, { headers: { 'x-forwarded-for': '198.51.100.9' } }));
+    expect(other.headers.get('x-guesses-client-keys')).not.toBe(keys);
   });
 
   it('enforces the lock through the handlers', async () => {

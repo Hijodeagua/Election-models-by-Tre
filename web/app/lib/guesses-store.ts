@@ -12,6 +12,7 @@ import { createHash, randomBytes, timingSafeEqual } from 'node:crypto';
 import {
   LOCK_AT_ISO,
   isLocked,
+  isReservedName,
   nameKey,
   normalizeName,
   validateGuesses,
@@ -58,6 +59,13 @@ export interface GuessStore {
   list(): Promise<GuessesPayload>;
   submit(body: unknown, ip: string, allowed: AllowedPicks): Promise<StoreResult>;
   update(id: string, token: string | null, body: unknown, ip: string, allowed: AllowedPicks): Promise<StoreResult>;
+  // Admin hide: deletes the entry and frees its display name. The caller
+  // (the DELETE route) is responsible for checking the admin token.
+  remove(id: string): Promise<StoreResult>;
+}
+
+function reservedError(name: string): StoreResult {
+  return { status: 409, body: { error: `“${name}” is reserved — pick another display name` } };
 }
 
 function sha256(s: string): string {
@@ -122,6 +130,7 @@ export function createGuessStore(redis: RedisLike, opts: StoreOptions = {}): Gue
     }
     const v = validateSubmission(body, allowed);
     if (!v.ok) return { status: 400, body: { error: v.error } };
+    if (isReservedName(v.name)) return reservedError(v.name);
     if ((await redis.hlen(KEYS.entries)) >= maxEntries) {
       return { status: 507, body: { error: 'The board is full' } };
     }
@@ -174,6 +183,7 @@ export function createGuessStore(redis: RedisLike, opts: StoreOptions = {}): Gue
       const cleaned = normalizeName(name);
       if (!cleaned) return { status: 400, body: { error: 'display name must be 1–30 characters' } };
       if (nameKey(cleaned) !== nameKey(existing.name)) {
+        if (isReservedName(cleaned)) return reservedError(cleaned);
         const claimed = await redis.hsetnx(KEYS.names, nameKey(cleaned), id);
         if (!claimed) {
           return { status: 409, body: { error: `“${cleaned}” is taken — pick another display name` } };
@@ -193,7 +203,17 @@ export function createGuessStore(redis: RedisLike, opts: StoreOptions = {}): Gue
     return { status: 200, body: { id, entry: publicView(stored) } };
   }
 
-  return { list, submit, update };
+  async function remove(id: string): Promise<StoreResult> {
+    const existing = await readEntry(id);
+    if (!existing) return { status: 404, body: { error: 'No such entry' } };
+    await redis.hdel(KEYS.entries, id);
+    // Free the name only if it still points at this entry.
+    const key = nameKey(existing.name);
+    if ((await redis.hget(KEYS.names, key)) === id) await redis.hdel(KEYS.names, key);
+    return { status: 200, body: { id, removed: true } };
+  }
+
+  return { list, submit, update, remove };
 }
 
 // In-memory RedisLike for tests and local development without Upstash.

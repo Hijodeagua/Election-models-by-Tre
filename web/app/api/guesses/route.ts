@@ -1,10 +1,12 @@
-// GET  /election/api/guesses  → everyone's guesses + lock state
+// GET  /election/api/guesses  → everyone's guesses + lock state (plus an
+//      x-guesses-client-keys header of hashed client addresses, for proxy checks)
 // POST /election/api/guesses  → create an entry; returns its edit token once
 
 import { LOCK_AT_ISO, isLocked, type GuessesPayload } from '@/app/lib/guesses-shared';
 import {
   boardAllowedPicks,
   clientIp,
+  clientKeyDiagnostics,
   getGuessStore,
   json,
   readJson,
@@ -13,7 +15,8 @@ import {
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
-export async function GET(): Promise<Response> {
+export async function GET(req: Request): Promise<Response> {
+  const diag = { 'x-guesses-client-keys': clientKeyDiagnostics(req) };
   const store = getGuessStore();
   if (!store) {
     const empty: GuessesPayload = {
@@ -22,9 +25,9 @@ export async function GET(): Promise<Response> {
       locked: isLocked(),
       entries: [],
     };
-    return json(empty);
+    return json(empty, 200, diag);
   }
-  return json(await store.list());
+  return json(await store.list(), 200, diag);
 }
 
 export async function POST(req: Request): Promise<Response> {

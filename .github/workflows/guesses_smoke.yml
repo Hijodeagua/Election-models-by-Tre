@@ -1,0 +1,156 @@
+name: Guesses API smoke test
+
+# Manual post-deploy check for the public-guesses API, run from GitHub-hosted
+# runners so the requests come from networks other than the developer's.
+#
+# 1. probe-a / probe-b: two separate runners GET the API through the hub
+#    (whosyurgoat.app) and directly, and record `configured` plus the
+#    x-guesses-client-keys header (keyed hashes of each client-IP header).
+#    If the runners have different public IPs but the same `used=` key, the
+#    hub proxy collapses everyone into one rate-limit bucket.
+# 2. burn / check (only when the probes saw distinct buckets): one runner sends
+#    11 invalid POSTs (400s that still count against the limit, nothing is
+#    stored) and should get 429 on the 11th; a second runner then sends one
+#    and should still get 400. Skipped when the bucket is shared, so the test
+#    never locks real visitors out.
+
+on:
+  workflow_dispatch:
+    inputs:
+      hub:
+        description: Hub origin (the public site)
+        default: https://whosyurgoat.app
+      direct:
+        description: Election project origin (bypasses the hub)
+        default: https://election-models-by-tre.vercel.app
+
+permissions:
+  contents: read
+
+jobs:
+  probe-a:
+    runs-on: ubuntu-latest
+    outputs:
+      ip: ${{ steps.p.outputs.ip }}
+      used: ${{ steps.p.outputs.used }}
+      configured: ${{ steps.p.outputs.configured }}
+    steps:
+      - id: p
+        name: Probe
+        env:
+          HUB: ${{ inputs.hub }}
+          DIRECT: ${{ inputs.direct }}
+        run: |
+          set -u
+          ip=$(curl -s -m 10 https://api.ipify.org || echo unknown)
+          echo "public ip (this runner): $ip"
+          for origin in "$HUB" "$DIRECT"; do
+            url="$origin/election/api/guesses"
+            code=$(curl -s -m 20 -D h.txt -o b.json -w '%{http_code}' "$url" || echo 000)
+            keys=$(grep -i '^x-guesses-client-keys:' h.txt | cut -d' ' -f2- | tr -d '\r')
+            conf=$(python3 -c 'import json;print(json.load(open("b.json")).get("configured"))' 2>/dev/null || echo "?")
+            n=$(python3 -c 'import json;print(len(json.load(open("b.json")).get("entries",[])))' 2>/dev/null || echo "?")
+            echo "GET $url -> $code configured=$conf entries=$n keys=$keys"
+            if [ "$origin" = "$HUB" ]; then
+              echo "configured=$conf" >> "$GITHUB_OUTPUT"
+              echo "used=$(echo "$keys" | sed -n 's/.*used=\([^;]*\).*/\1/p')" >> "$GITHUB_OUTPUT"
+            fi
+          done
+          echo "ip=$ip" >> "$GITHUB_OUTPUT"
+
+  probe-b:
+    runs-on: ubuntu-latest
+    outputs:
+      ip: ${{ steps.p.outputs.ip }}
+      used: ${{ steps.p.outputs.used }}
+      configured: ${{ steps.p.outputs.configured }}
+    steps:
+      - id: p
+        name: Probe
+        env:
+          HUB: ${{ inputs.hub }}
+          DIRECT: ${{ inputs.direct }}
+        run: |
+          set -u
+          ip=$(curl -s -m 10 https://api.ipify.org || echo unknown)
+          echo "public ip (this runner): $ip"
+          for origin in "$HUB" "$DIRECT"; do
+            url="$origin/election/api/guesses"
+            code=$(curl -s -m 20 -D h.txt -o b.json -w '%{http_code}' "$url" || echo 000)
+            keys=$(grep -i '^x-guesses-client-keys:' h.txt | cut -d' ' -f2- | tr -d '\r')
+            conf=$(python3 -c 'import json;print(json.load(open("b.json")).get("configured"))' 2>/dev/null || echo "?")
+            n=$(python3 -c 'import json;print(len(json.load(open("b.json")).get("entries",[])))' 2>/dev/null || echo "?")
+            echo "GET $url -> $code configured=$conf entries=$n keys=$keys"
+            if [ "$origin" = "$HUB" ]; then
+              echo "configured=$conf" >> "$GITHUB_OUTPUT"
+              echo "used=$(echo "$keys" | sed -n 's/.*used=\([^;]*\).*/\1/p')" >> "$GITHUB_OUTPUT"
+            fi
+          done
+          echo "ip=$ip" >> "$GITHUB_OUTPUT"
+
+
+  verdict:
+    needs: [probe-a, probe-b]
+    runs-on: ubuntu-latest
+    outputs:
+      distinct: ${{ steps.v.outputs.distinct }}
+    steps:
+      - id: v
+        name: Compare buckets
+        env:
+          IP_A: ${{ needs.probe-a.outputs.ip }}
+          IP_B: ${{ needs.probe-b.outputs.ip }}
+          USED_A: ${{ needs.probe-a.outputs.used }}
+          USED_B: ${{ needs.probe-b.outputs.used }}
+          CONF_A: ${{ needs.probe-a.outputs.configured }}
+          CONF_B: ${{ needs.probe-b.outputs.configured }}
+        run: |
+          echo "configured via hub: A=$CONF_A B=$CONF_B"
+          echo "public IPs differ: $([ "$IP_A" != "$IP_B" ] && echo yes || echo no)"
+          echo "rate-limit key A=$USED_A B=$USED_B"
+          if [ "$IP_A" = "$IP_B" ]; then
+            echo "VERDICT: inconclusive (both runners share a public IP)"; echo "distinct=false" >> "$GITHUB_OUTPUT"
+          elif [ -n "$USED_A" ] && [ "$USED_A" = "$USED_B" ]; then
+            echo "VERDICT: SHARED bucket - different networks map to one rate-limit key"; echo "distinct=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "VERDICT: separate buckets"; echo "distinct=true" >> "$GITHUB_OUTPUT"
+          fi
+          [ "$CONF_A" = "True" ] || { echo "::error::GET via hub did not return configured:true"; exit 1; }
+
+  burn:
+    needs: verdict
+    if: needs.verdict.outputs.distinct == 'true'
+    runs-on: ubuntu-latest
+    outputs:
+      ip: ${{ steps.b.outputs.ip }}
+    steps:
+      - id: b
+        name: Eleven invalid POSTs from one network
+        env:
+          HUB: ${{ inputs.hub }}
+        run: |
+          ip=$(curl -s -m 10 https://api.ipify.org || echo unknown); echo "ip=$ip" >> "$GITHUB_OUTPUT"
+          codes=""
+          for i in $(seq 1 11); do
+            c=$(curl -s -m 20 -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' -d '{}' "$HUB/election/api/guesses")
+            codes="$codes $c"
+          done
+          echo "status codes:$codes"
+          last=$(echo $codes | awk '{print $NF}')
+          [ "$last" = "429" ] || { echo "::error::11th write was $last, expected 429"; exit 1; }
+
+  check:
+    needs: burn
+    runs-on: ubuntu-latest
+    steps:
+      - name: One invalid POST from a second network
+        env:
+          HUB: ${{ inputs.hub }}
+          BURN_IP: ${{ needs.burn.outputs.ip }}
+        run: |
+          ip=$(curl -s -m 10 https://api.ipify.org || echo unknown)
+          c=$(curl -s -m 20 -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' -d '{}' "$HUB/election/api/guesses")
+          echo "second network differs from burner: $([ "$ip" != "$BURN_IP" ] && echo yes || echo no); status=$c"
+          if [ "$ip" = "$BURN_IP" ]; then echo "inconclusive: same public IP"; exit 0; fi
+          [ "$c" = "400" ] || { echo "::error::second network got $c - buckets are shared"; exit 1; }
+          echo "VERDICT: rate limit is per network"
