@@ -54,6 +54,7 @@ from src.data.markets import (
     odds_for_race,
     urls_for_race,
 )
+from src.data.names import names_match, pollsters_match
 from src.data.votehub_csv import VoteHubCsvLoader
 from src.data.wikipedia_senate import is_aggregate_pollster
 from src.models.approval import PresidentialApprovalModel
@@ -142,7 +143,163 @@ def _load_polls(poll_type: PollType, votehub_filename: str) -> list[Poll]:
         if added:
             logging.info("%s: +%d polls from %s", votehub_filename, len(added), extra_name)
         polls = polls + added
+
+    polls, collapsed = collapse_variants(polls)
+    for note in collapsed:
+        logging.info("%s: collapsed variant %s", votehub_filename, note)
+
+    if poll_type == PollType.HEAD_TO_HEAD:
+        researched = FALLBACK_DIR / "senate_polls_researched.csv"
+        if researched.exists():
+            try:
+                sheet = VoteHubCsvLoader(poll_type).load(researched)
+            except Exception as exc:  # pragma: no cover - defensive
+                logging.warning("%s load failed: %s", researched.name, exc)
+                sheet = []
+            polls, replaced = merge_researched(polls, sheet)
+            for note in replaced:
+                logging.info("researched sheet: %s", note)
+        polls, excluded = drop_unconfirmed(polls)
+        for note in excluded:
+            logging.info("excluded UNCONFIRMED: %s", note)
+        overrides = FALLBACK_DIR / "poll_overrides.json"
+        if overrides.exists():
+            polls, applied = apply_overrides(polls, json.loads(overrides.read_text())["rules"])
+            for note in applied:
+                logging.info("override: %s", note)
+    AUDIT_LOG.extend(
+        [f"collapsed: {n}" for n in collapsed]
+    )
     return polls
+
+
+# Running log of merge decisions, written to senate_poll_audit.json.
+AUDIT_LOG: list[str] = []
+
+
+def collapse_variants(polls: list[Poll]) -> tuple[list[Poll], list[str]]:
+    """Keep one row per (race, pollster, field dates). Wikipedia tables list
+    alternative cuts of one survey (Quantus MT ×3: 46/44/47); the first listed
+    is the headline figure. Pollster identity is spelling-tolerant
+    (pollsters_match), so 'Emerson College' and 'Emerson College/WPRI-TV' on
+    the same dates are one poll."""
+    kept_by_slot: dict[tuple, list[Poll]] = {}
+    out: list[Poll] = []
+    notes: list[str] = []
+    for p in polls:
+        slot = ((p.subject or "").lower(), p.start_date, p.end_date)
+        if any(pollsters_match(q.pollster, p.pollster) for q in kept_by_slot.get(slot, [])):
+            tops = ", ".join(f"{a.choice} {a.pct:g}" for a in p.answers)
+            notes.append(f"{p.subject} / {p.pollster} {p.start_date}–{p.end_date} ({tops})")
+            continue
+        kept_by_slot.setdefault(slot, []).append(p)
+        out.append(p)
+    return out, notes
+
+
+def merge_researched(
+    base: list[Poll], sheet: list[Poll], window_days: int = 7
+) -> tuple[list[Poll], list[str]]:
+    """The researched sheet is authoritative for its rows: a sheet poll
+    replaces any feed/supplement poll for the same race and pollster with the
+    same field dates, or with an end date within ``window_days`` (supplements
+    record release dates). Everything replaced is logged."""
+    notes: list[str] = []
+    kept: list[Poll] = []
+    sheet_by_race: dict[str, list[Poll]] = {}
+    for sp in sheet:
+        sheet_by_race.setdefault((sp.subject or "").lower(), []).append(sp)
+    for p in base:
+        matches = [
+            sp for sp in sheet_by_race.get((p.subject or "").lower(), [])
+            if pollsters_match(sp.pollster, p.pollster)
+        ]
+        hit = next(
+            (
+                sp for sp in matches
+                if (sp.start_date, sp.end_date) == (p.start_date, p.end_date)
+                or abs((sp.end_date - p.end_date).days) <= window_days
+            ),
+            None,
+        )
+        if hit is not None:
+            notes.append(
+                f"replaced {p.subject} / {p.pollster} (end {p.end_date}, "
+                f"{' '.join(f'{a.pct:g}' for a in p.answers)}) with sheet row "
+                f"{hit.pollster} {hit.start_date}–{hit.end_date}"
+            )
+            continue
+        kept.append(p)
+    AUDIT_LOG.extend(notes)
+    # Sheet rows themselves are unique by key; de-dup defensively.
+    merged, _ = collapse_variants(kept + sheet)
+    return merged, notes
+
+
+def drop_unconfirmed(polls: list[Poll]) -> tuple[list[Poll], list[str]]:
+    out, notes = [], []
+    for p in polls:
+        flags = (p.raw or {}).get("quality_flags", "") if isinstance(p.raw, dict) else ""
+        if "UNCONFIRMED" in flags.upper():
+            notes.append(f"{p.subject} / {p.pollster} {p.start_date}–{p.end_date}: {flags}")
+            continue
+        out.append(p)
+    AUDIT_LOG.extend([f"unconfirmed (stored, excluded): {n}" for n in notes])
+    return out, notes
+
+
+def apply_overrides(polls: list[Poll], rules: list[dict]) -> tuple[list[Poll], list[str]]:
+    """Hand corrections from poll_overrides.json (drop / relabel / set_toplines)."""
+    notes: list[str] = []
+    out = list(polls)
+    for rule in rules:
+        end = date.fromisoformat(rule["end_date"]) if rule.get("end_date") else None
+        tol = int(rule.get("tolerance_days", 0))
+        hits = []
+        for p in out:
+            if (p.subject or "").lower() != rule["subject"].lower():
+                continue
+            if not pollsters_match(p.pollster, rule["pollster"]):
+                continue
+            if end is not None and abs((p.end_date - end).days) > tol:
+                continue
+            if rule["action"] == "drop" and rule.get("dem_pct") is not None:
+                # Topline-specific drop (e.g. one cut of a survey).
+                vals = sorted(a.pct for a in p.answers)
+                if vals != sorted([float(rule["dem_pct"]), float(rule["rep_pct"])]):
+                    continue
+            hits.append(p)
+        if not hits:
+            notes.append(f"{rule['id']}: no matching poll (no-op)")
+            continue
+        for p in hits:
+            if rule["action"] == "drop":
+                out.remove(p)
+                notes.append(f"{rule['id']}: dropped {p.pollster} {p.end_date} — {rule['reason']}")
+            elif rule["action"] == "relabel":
+                old_name = p.pollster
+                p.pollster = rule["pollster_new"]
+                if rule.get("dem_pct") is not None:
+                    _set_toplines(p, float(rule["dem_pct"]), float(rule["rep_pct"]))
+                notes.append(
+                    f"{rule['id']}: relabeled {old_name} → {p.pollster} — {rule['reason']}"
+                )
+            elif rule["action"] == "set_toplines":
+                before = " ".join(f"{a.choice} {a.pct:g}" for a in p.answers)
+                _set_toplines(p, float(rule["dem_pct"]), float(rule["rep_pct"]))
+                notes.append(
+                    f"{rule['id']}: toplines {before} → D {rule['dem_pct']} R {rule['rep_pct']}"
+                )
+    AUDIT_LOG.extend([f"override {n}" for n in notes])
+    return out, notes
+
+
+def _set_toplines(p: Poll, dem_pct: float, rep_pct: float) -> None:
+    for a in p.answers:
+        if a.party == "Republican":
+            a.pct = rep_pct
+        elif a.party in ("Democrat", "Independent"):
+            a.pct = dem_pct
 
 
 def merge_supplement(base: list[Poll], extra: list[Poll]) -> list[Poll]:
@@ -472,7 +629,7 @@ def _find_candidate_pct(candidates: dict[str, float], target: str | None) -> flo
     if not target:
         return None
     for name, pct in candidates.items():
-        if target.lower() in name.lower() or name.lower() in target.lower():
+        if names_match(name, target):
             return pct
     return None
 
@@ -512,10 +669,7 @@ def _resolve_nominee(
 
 
 def _name_matches(label: str | None, configured: str | None) -> bool:
-    if not label or not configured:
-        return False
-    a, b = label.lower().strip(), configured.lower().strip()
-    return a in b or b in a
+    return names_match(label, configured)
 
 
 def audit_stale_matchups(polls: list[Poll], cycle: dict) -> tuple[list[Poll], list[dict]]:
@@ -559,7 +713,12 @@ def _senate_payload(polls: list[Poll]) -> dict:
     polls, stale = audit_stale_matchups(polls, cycle)
     _write(
         "senate_poll_audit.json",
-        {"as_of": date.today().isoformat(), "stale_matchup": stale, "num_valid": len(polls)},
+        {
+            "as_of": date.today().isoformat(),
+            "stale_matchup": stale,
+            "merge_log": list(AUDIT_LOG),
+            "num_valid": len(polls),
+        },
     )
     if stale:
         logging.warning("senate: %d polls excluded as stale_matchup", len(stale))
@@ -760,22 +919,44 @@ def _senate_forecast_payload(
             return p20 + national_swing
         return w_recent * p24 + (1.0 - w_recent) * p20 + national_swing
 
+    def _market_challenger_prob(per_source: dict, challenger_party: str) -> dict[str, float]:
+        """Market P(challenger wins). For a Democratic challenger that is the
+        'Democrat' outcome. For an independent, markets rarely list an
+        'Independent' leg, so use the residual 1 − P(R) − P(D) when it is
+        material, else the Democrat leg."""
+        out: dict[str, float] = {}
+        for source, outcomes in per_source.items():
+            if challenger_party == "I":
+                ind = outcomes.get("Independent")
+                if ind is None and "Republican" in outcomes:
+                    resid = 1.0 - outcomes["Republican"] - outcomes.get("Democrat", 0.0)
+                    ind = round(resid, 4) if resid > 0.01 else outcomes.get("Democrat")
+                if ind is not None:
+                    out[source] = ind
+            elif "Democrat" in outcomes:
+                out[source] = outcomes["Democrat"]
+        return out
+
     def _build_inputs(apply_vibes: bool) -> list[RaceInput]:
         out: list[RaceInput] = []
         for entry in cycle["competitive_races"]:
             rr = races_by_state.get(entry["state"], {})
             per_source = odds_for_race(market_odds, entry["race"])
-            market_dem_prob = {
-                source: outcomes["Democrat"]
-                for source, outcomes in per_source.items()
-                if "Democrat" in outcomes
-            }
+            market_dem_prob = _market_challenger_prob(
+                per_source, entry.get("challenger_party", "D")
+            )
             poll_margin = rr.get("dem_margin")
             fund = _fundamentals_margin(entry)
             n = rr.get("num_polls", 0)
+            # A race flagged market_only_when_unpolled (Montana's three-way,
+            # where the feed polls a matchup without the independent) runs on
+            # the market price alone until real polls arrive — never on the
+            # two-party fundamentals prior.
+            if poll_margin is None and entry.get("market_only_when_unpolled") and market_dem_prob:
+                margin = None
             # Blend polls with fundamentals; fundamentals weight = k/(k+n) so it
             # anchors thin-poll races and fades as polls accumulate.
-            if poll_margin is None:
+            elif poll_margin is None:
                 margin = fund
             elif fund is None:
                 margin = poll_margin
@@ -867,10 +1048,18 @@ def _senate_forecast_payload(
         race_dict["market_urls"] = urls_for_race(market_odds, race_dict["race"])
         e = meta.get(race_dict["state"], {})
         race_dict["held_by"] = e.get("held_by")
-        race_dict["seat_status"] = e.get("seat_status")
+        status = e.get("seat_status") or ""
+        race_dict["seat_status"] = status
+        # "incumbent X LOST renomination" is an open seat for display purposes.
+        race_dict["open_seat"] = status.startswith("open") or "LOST renomination" in status
         race_dict["format_note"] = e.get("format_note")
         race_dict["third_candidate"] = e.get("third_candidate")
         race_dict["other_notable"] = e.get("other_notable")
+        badge = e.get("badge")
+        # A market-only race shows its badge only while it is still unpolled.
+        if badge and e.get("market_only_when_unpolled") and race_dict.get("num_polls", 0) > 0:
+            badge = None
+        race_dict["badge"] = badge
     payload["market_control_urls"] = urls_for_race(market_odds, SENATE_CONTROL_RACE)
     payload["maturity"] = "nowcast"
     payload["label"] = (

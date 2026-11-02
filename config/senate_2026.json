@@ -343,19 +343,21 @@
   {
    "state": "Montana",
    "race": "Montana Senate 2026",
-   "dem_candidate": "Alani Bankhead",
+   "dem_candidate": "Seth Bodnar",
    "rep_candidate": "Kurt Alme",
    "abbr": "MT",
    "pres_2024": -19.9,
    "pres_2020": -16.3,
    "held_by": "R",
-   "_note": "Three-way race: Bankhead (D), Alme (R) and Seth Bodnar (I, Tester-backed, top fundraiser). The two-party model tracks Bankhead v Alme; Bodnar is listed but not modelled, so the Montana margin understates the anti-Alme vote.",
-   "challenger_party": "D",
+   "_note": "Three-way race: Alme (R), Seth Bodnar (I, Tester-backed) and Bankhead (D). The independent is modelled as the challenger. While the feed carries no Alme-v-Bodnar polling, the race runs on the Polymarket/Kalshi price for Bodnar (1 − P(R) − P(D)) rather than the fundamentals prior, and is badged.",
+   "challenger_party": "I",
    "seat_status": "open (Daines withdrew at filing deadline)",
    "race_type": "regular",
    "format_note": "three-way D/R/I race",
    "other_notable": "Seth Bodnar (I; former Univ. of Montana president; Tester-backed; top fundraiser); Kyle Austin (L)",
-   "third_candidate": "Seth Bodnar (I)"
+   "third_candidate": "Alani Bankhead (D)",
+   "market_only_when_unpolled": true,
+   "badge": "three-way race; polls exclude Bodnar"
   },
   {
    "state": "Nebraska",

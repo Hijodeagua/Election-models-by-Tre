@@ -138,9 +138,12 @@ export interface RaceForecast {
   // challenger column: the margin/probability then describe the independent.
   challenger_party?: 'D' | 'I';
   seat_status?: string | null;
+  open_seat?: boolean;
   format_note?: string | null;
   third_candidate?: string | null;
   other_notable?: string | null;
+  // Display caveat, e.g. "three-way race; polls exclude Bodnar".
+  badge?: string | null;
 }
 
 export interface PollsterEmpirical {

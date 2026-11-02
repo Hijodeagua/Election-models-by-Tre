@@ -126,7 +126,13 @@ export default function SenateForecastPage() {
             <div className="mt-0.5 text-xs text-cocoa-400" title={raceNote(race)}>
               {race.dem_candidate} ({race.challenger_party === 'I' ? 'I' : 'D'}) v. {race.rep_candidate} (R)
               {race.third_candidate && <> · {race.third_candidate}</>}
+              {race.open_seat && <> · open</>}
             </div>
+            {race.badge && (
+              <div className="mt-1 inline-flex rounded-full border border-peach-border bg-peach-wash px-2 py-0.5 text-[10px] font-semibold text-peach">
+                {race.badge}
+              </div>
+            )}
             <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
               <MobileDatum label="Polling margin" value={formatRaceMargin(race.margin)} />
               <MobileDatum label="P(D), polls" value={formatProbability(race.dem_win_prob_polls)} />
@@ -172,10 +178,16 @@ export default function SenateForecastPage() {
                     )}{' '}
                     v. {race.rep_candidate} (R)
                     {race.third_candidate && <> · {race.third_candidate}</>}
-                    {(race.format_note || race.seat_status?.startsWith('open')) && (
+                    {race.open_seat && <span className="ml-1 text-cocoa-400">· open</span>}
+                    {(race.format_note || race.open_seat) && (
                       <span className="ml-1 text-cocoa-300" aria-label="race note">ⓘ</span>
                     )}
                   </span>
+                  {race.badge && (
+                    <span className="ml-2 inline-flex rounded-full border border-peach-border bg-peach-wash px-2 py-0.5 text-[10px] font-semibold text-peach">
+                      {race.badge}
+                    </span>
+                  )}
                 </td>
                 <td className="px-4 py-3 text-right text-cocoa-700">
                   {race.margin != null
@@ -393,12 +405,17 @@ function MobileDatum({
 }
 
 function raceNote(race: RaceForecastLike): string | undefined {
-  const parts = [race.seat_status, race.format_note, race.other_notable].filter(Boolean);
+  const status =
+    race.open_seat && race.seat_status && !race.seat_status.startsWith('open')
+      ? `open seat (${race.seat_status})`
+      : race.seat_status;
+  const parts = [status, race.format_note, race.other_notable].filter(Boolean);
   return parts.length ? parts.join(' · ') : undefined;
 }
 
 type RaceForecastLike = {
   seat_status?: string | null;
+  open_seat?: boolean;
   format_note?: string | null;
   other_notable?: string | null;
 };

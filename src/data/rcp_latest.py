@@ -27,6 +27,7 @@ from datetime import date, datetime
 from bs4 import BeautifulSoup
 
 from src.data.base import Poll, PollAnswer, PollType
+from src.data.names import normalize_name
 
 logger = logging.getLogger(__name__)
 
@@ -54,19 +55,14 @@ _MONTHS = {
 }
 
 
-def _last_name(name: str) -> str:
-    parts = re.sub(r"[^\w\s'-]", "", name).split()
-    return parts[-1].lower() if parts else ""
-
-
 def _name_matches(rcp_label: str, configured: str | None) -> bool:
     """RCP labels use surnames ("Graham Nordone", "J. Sullivan"); match on the
-    configured candidate's last name appearing in the label."""
-    if not configured:
+    configured candidate's last name appearing in the label, accent- and
+    punctuation-insensitively."""
+    toks = normalize_name(configured)
+    if not toks:
         return False
-    label = rcp_label.lower()
-    last = _last_name(configured)
-    return bool(last) and re.search(rf"\b{re.escape(last)}\b", label) is not None
+    return toks[-1] in normalize_name(rcp_label)
 
 
 def parse_latest_polls_text(

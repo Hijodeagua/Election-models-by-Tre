@@ -1,38 +1,37 @@
 {
   "as_of": "2026-11-02",
   "num_simulations": 50000,
-  "dem_control_prob": 0.629,
-  "mean_dem_seats": 51.24,
+  "dem_control_prob": 0.6438,
+  "mean_dem_seats": 51.33,
   "median_dem_seats": 51.0,
   "seat_distribution": {
     "37": 2,
     "38": 4,
     "39": 8,
     "40": 12,
-    "41": 17,
-    "42": 43,
-    "43": 82,
-    "44": 184,
-    "45": 443,
-    "46": 958,
-    "47": 1794,
-    "48": 3348,
-    "49": 4845,
-    "50": 6811,
-    "51": 8087,
-    "52": 7893,
-    "53": 6446,
-    "54": 4394,
-    "55": 2476,
-    "56": 1254,
-    "57": 535,
-    "58": 229,
-    "59": 74,
-    "60": 40,
-    "61": 8,
+    "41": 19,
+    "42": 42,
+    "43": 81,
+    "44": 185,
+    "45": 424,
+    "46": 928,
+    "47": 1734,
+    "48": 3208,
+    "49": 4671,
+    "50": 6492,
+    "51": 7898,
+    "52": 7885,
+    "53": 6710,
+    "54": 4717,
+    "55": 2778,
+    "56": 1301,
+    "57": 538,
+    "58": 246,
+    "59": 63,
+    "60": 32,
+    "61": 11,
     "62": 6,
-    "63": 5,
-    "64": 2
+    "63": 5
   },
   "races": [
     {
@@ -57,9 +56,11 @@
       },
       "held_by": "D",
       "seat_status": "incumbent Jon Ossoff",
+      "open_seat": false,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "Al Bartell (I) and Allen Buckley (L)"
+      "other_notable": "Al Bartell (I) and Allen Buckley (L)",
+      "badge": null
     },
     {
       "state": "Michigan",
@@ -83,9 +84,11 @@
       },
       "held_by": "D",
       "seat_status": "open (Peters retiring)",
+      "open_seat": true,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": null
+      "other_notable": null,
+      "badge": null
     },
     {
       "state": "North Carolina",
@@ -109,9 +112,11 @@
       },
       "held_by": "R",
       "seat_status": "open (Tillis retiring)",
+      "open_seat": true,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "Shannon Bray (L)"
+      "other_notable": "Shannon Bray (L)",
+      "badge": null
     },
     {
       "state": "Maine",
@@ -135,9 +140,11 @@
       },
       "held_by": "R",
       "seat_status": "incumbent Susan Collins",
+      "open_seat": false,
       "format_note": "ranked-choice general",
       "third_candidate": null,
-      "other_notable": "Phillip Rench (I)"
+      "other_notable": "Phillip Rench (I)",
+      "badge": null
     },
     {
       "state": "New Hampshire",
@@ -161,9 +168,11 @@
       },
       "held_by": "D",
       "seat_status": "open (Shaheen retiring)",
+      "open_seat": true,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "Edmond LaPlante (Constitution)"
+      "other_notable": "Edmond LaPlante (Constitution)",
+      "badge": null
     },
     {
       "state": "Ohio",
@@ -187,9 +196,11 @@
       },
       "held_by": "R",
       "seat_status": "appointed Jon Husted",
+      "open_seat": false,
       "format_note": "special election",
       "third_candidate": null,
-      "other_notable": "Greg Levy (I) and William Redpath (L)"
+      "other_notable": "Greg Levy (I) and William Redpath (L)",
+      "badge": null
     },
     {
       "state": "Texas",
@@ -213,9 +224,11 @@
       },
       "held_by": "R",
       "seat_status": "incumbent John Cornyn LOST renomination (May 26 runoff)",
+      "open_seat": true,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "Ted Brown (L)"
+      "other_notable": "Ted Brown (L)",
+      "badge": null
     },
     {
       "state": "Iowa",
@@ -239,31 +252,35 @@
       },
       "held_by": "R",
       "seat_status": "open (Ernst retiring)",
+      "open_seat": true,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "Thomas Laehn (L)"
+      "other_notable": "Thomas Laehn (L)",
+      "badge": null
     },
     {
       "state": "Alaska",
       "race": "Alaska Senate 2026",
       "dem_candidate": "Mary Peltola",
       "rep_candidate": "Dan Sullivan",
-      "margin": 0.247,
-      "num_polls": 2,
-      "dem_win_prob_polls": 0.4182,
-      "dem_win_prob_blended": 0.4182,
+      "margin": 1.045,
+      "num_polls": 9,
+      "dem_win_prob_polls": 0.4837,
+      "dem_win_prob_blended": 0.4837,
       "market_dem_prob": {},
-      "dem_win_prob_sim": 0.4201,
-      "median_margin": -0.99,
-      "margin_p10": -7.67,
-      "margin_p90": 5.72,
+      "dem_win_prob_sim": 0.4852,
+      "median_margin": -0.19,
+      "margin_p10": -6.87,
+      "margin_p90": 6.51,
       "challenger_party": "D",
       "market_urls": {},
       "held_by": "R",
       "seat_status": "incumbent Dan Sullivan",
+      "open_seat": false,
       "format_note": "ranked-choice general with four candidates",
       "third_candidate": null,
-      "other_notable": "Daniel J. Sullivan Jr. (unrelated) and Gerald Heikes (R) also on RCV ballot"
+      "other_notable": "Daniel J. Sullivan Jr. (unrelated) and Gerald Heikes (R) also on RCV ballot",
+      "badge": null
     },
     {
       "state": "Alabama",
@@ -287,9 +304,11 @@
       },
       "held_by": "R",
       "seat_status": "open (Tuberville running for governor)",
+      "open_seat": true,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "Craig Jelks (I)"
+      "other_notable": "Craig Jelks (I)",
+      "badge": null
     },
     {
       "state": "Arkansas",
@@ -313,9 +332,11 @@
       },
       "held_by": "R",
       "seat_status": "incumbent Tom Cotton",
+      "open_seat": false,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "Jeff Wadlin (L)"
+      "other_notable": "Jeff Wadlin (L)",
+      "badge": null
     },
     {
       "state": "Colorado",
@@ -339,9 +360,11 @@
       },
       "held_by": "D",
       "seat_status": "incumbent John Hickenlooper",
+      "open_seat": false,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "Bob Chew (Forward) plus 3 minor"
+      "other_notable": "Bob Chew (Forward) plus 3 minor",
+      "badge": null
     },
     {
       "state": "Delaware",
@@ -365,87 +388,95 @@
       },
       "held_by": "D",
       "seat_status": "incumbent Chris Coons",
+      "open_seat": false,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": null
+      "other_notable": null,
+      "badge": null
     },
     {
       "state": "Florida",
       "race": "Florida Senate 2026",
       "dem_candidate": "Angie Nixon",
       "rep_candidate": "Ashley Moody",
-      "margin": -2.992,
-      "num_polls": 4,
-      "dem_win_prob_polls": 0.1985,
-      "dem_win_prob_blended": 0.1727,
+      "margin": -4.569,
+      "num_polls": 12,
+      "dem_win_prob_polls": 0.1299,
+      "dem_win_prob_blended": 0.1212,
       "market_dem_prob": {
         "polymarket": 0.095
       },
-      "dem_win_prob_sim": 0.1743,
-      "median_margin": -4.75,
-      "margin_p10": -11.57,
-      "margin_p90": 2.01,
+      "dem_win_prob_sim": 0.1219,
+      "median_margin": -6.05,
+      "margin_p10": -12.87,
+      "margin_p90": 0.71,
       "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/florida-senate-election-winner"
       },
       "held_by": "R",
       "seat_status": "appointed Ashley Moody",
+      "open_seat": false,
       "format_note": "special election",
       "third_candidate": null,
-      "other_notable": "Neil Gillespie (I)"
+      "other_notable": "Neil Gillespie (I)",
+      "badge": null
     },
     {
       "state": "Idaho",
       "race": "Idaho Senate 2026",
       "dem_candidate": "Todd Achilles",
       "rep_candidate": "Jim Risch",
-      "margin": -23.647,
-      "num_polls": 0,
-      "dem_win_prob_polls": 0.0014,
-      "dem_win_prob_blended": 0.0012,
+      "margin": -13.14,
+      "num_polls": 8,
+      "dem_win_prob_polls": 0.0128,
+      "dem_win_prob_blended": 0.0187,
       "market_dem_prob": {
-        "polymarket": 0.0005
+        "polymarket": 0.0365
       },
-      "dem_win_prob_sim": 0.0013,
-      "median_margin": -25.92,
-      "margin_p10": -32.58,
-      "margin_p90": -19.22,
+      "dem_win_prob_sim": 0.0184,
+      "median_margin": -12.87,
+      "margin_p10": -19.53,
+      "margin_p90": -6.18,
       "challenger_party": "I",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/idaho-senate-election-winner"
       },
       "held_by": "R",
       "seat_status": "incumbent Jim Risch",
+      "open_seat": false,
       "format_note": "no Democrat on ballot",
       "third_candidate": null,
-      "other_notable": "Todd Achilles (I) is main challenger; Natalie Fleming (I); Matt Loesby (L)"
+      "other_notable": "Todd Achilles (I) is main challenger; Natalie Fleming (I); Matt Loesby (L)",
+      "badge": null
     },
     {
       "state": "Illinois",
       "race": "Illinois Senate 2026",
       "dem_candidate": "Juliana Stratton",
       "rep_candidate": "Don Tracy",
-      "margin": 18.514,
+      "margin": 18.414,
       "num_polls": 3,
-      "dem_win_prob_polls": 0.9935,
-      "dem_win_prob_blended": 0.9934,
+      "dem_win_prob_polls": 0.9934,
+      "dem_win_prob_blended": 0.9933,
       "market_dem_prob": {
         "polymarket": 0.993
       },
-      "dem_win_prob_sim": 0.9933,
-      "median_margin": 17.18,
-      "margin_p10": 10.42,
-      "margin_p90": 23.92,
+      "dem_win_prob_sim": 0.9932,
+      "median_margin": 17.11,
+      "margin_p10": 10.34,
+      "margin_p90": 23.85,
       "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/illinois-senate-election-winner"
       },
       "held_by": "D",
       "seat_status": "open (Durbin retiring)",
+      "open_seat": true,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "Whitfield Harrington Jr. (American Center)"
+      "other_notable": "Whitfield Harrington Jr. (American Center)",
+      "badge": null
     },
     {
       "state": "Kansas",
@@ -469,9 +500,11 @@
       },
       "held_by": "R",
       "seat_status": "incumbent Roger Marshall",
+      "open_seat": false,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "David C. Graham (L)"
+      "other_notable": "David C. Graham (L)",
+      "badge": null
     },
     {
       "state": "Kentucky",
@@ -495,9 +528,11 @@
       },
       "held_by": "R",
       "seat_status": "open (McConnell retiring)",
+      "open_seat": true,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": null
+      "other_notable": null,
+      "badge": null
     },
     {
       "state": "Louisiana",
@@ -521,9 +556,11 @@
       },
       "held_by": "R",
       "seat_status": "incumbent Bill Cassidy LOST renomination (3rd in May 16 closed primary)",
+      "open_seat": true,
       "format_note": "first closed-party-primary cycle; Nov 3 general is plurality with no December Senate runoff",
       "third_candidate": null,
-      "other_notable": null
+      "other_notable": null,
+      "badge": null
     },
     {
       "state": "Massachusetts",
@@ -547,9 +584,11 @@
       },
       "held_by": "D",
       "seat_status": "incumbent Ed Markey",
+      "open_seat": false,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "Shiva Ayyadurai (I)"
+      "other_notable": "Shiva Ayyadurai (I)",
+      "badge": null
     },
     {
       "state": "Minnesota",
@@ -573,9 +612,11 @@
       },
       "held_by": "D",
       "seat_status": "open (Tina Smith retiring)",
+      "open_seat": true,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "Marisa Simonetti (I) and Rebecca Whiting (L)"
+      "other_notable": "Marisa Simonetti (I) and Rebecca Whiting (L)",
+      "badge": null
     },
     {
       "state": "Mississippi",
@@ -599,35 +640,39 @@
       },
       "held_by": "R",
       "seat_status": "incumbent Cindy Hyde-Smith",
+      "open_seat": false,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "Ty Pinkins (I; 2024 D nominee; polling about 6%)"
+      "other_notable": "Ty Pinkins (I; 2024 D nominee; polling about 6%)",
+      "badge": null
     },
     {
       "state": "Montana",
       "race": "Montana Senate 2026",
-      "dem_candidate": "Alani Bankhead",
+      "dem_candidate": "Seth Bodnar",
       "rep_candidate": "Kurt Alme",
-      "margin": -22.596,
-      "num_polls": 18,
-      "dem_win_prob_polls": 0.0017,
-      "dem_win_prob_blended": 0.0015,
+      "margin": null,
+      "num_polls": 0,
+      "dem_win_prob_polls": null,
+      "dem_win_prob_blended": 0.094,
       "market_dem_prob": {
-        "polymarket": 0.001
+        "polymarket": 0.094
       },
-      "dem_win_prob_sim": 0.0016,
-      "median_margin": -24.43,
-      "margin_p10": -31.22,
-      "margin_p90": -17.73,
-      "challenger_party": "D",
+      "dem_win_prob_sim": 0.0937,
+      "median_margin": -6.95,
+      "margin_p10": -13.74,
+      "margin_p90": -0.25,
+      "challenger_party": "I",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/montana-senate-election-winner"
       },
       "held_by": "R",
       "seat_status": "open (Daines withdrew at filing deadline)",
+      "open_seat": true,
       "format_note": "three-way D/R/I race",
-      "third_candidate": "Seth Bodnar (I)",
-      "other_notable": "Seth Bodnar (I; former Univ. of Montana president; Tester-backed; top fundraiser); Kyle Austin (L)"
+      "third_candidate": "Alani Bankhead (D)",
+      "other_notable": "Seth Bodnar (I; former Univ. of Montana president; Tester-backed; top fundraiser); Kyle Austin (L)",
+      "badge": "three-way race; polls exclude Bodnar"
     },
     {
       "state": "Nebraska",
@@ -647,9 +692,11 @@
       "market_urls": {},
       "held_by": "R",
       "seat_status": "incumbent Pete Ricketts",
+      "open_seat": false,
       "format_note": "no Democrat on ballot; effectively Osborn (I) v Ricketts (R)",
       "third_candidate": null,
-      "other_notable": "Dan Osborn (nonpartisan; Democratic-endorsed; main challenger); minor: Mike Marvin; Chuck Conboy; Robin Richards"
+      "other_notable": "Dan Osborn (nonpartisan; Democratic-endorsed; main challenger); minor: Mike Marvin; Chuck Conboy; Robin Richards",
+      "badge": null
     },
     {
       "state": "New Jersey",
@@ -673,9 +720,11 @@
       },
       "held_by": "D",
       "seat_status": "incumbent Cory Booker",
+      "open_seat": false,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "Veronica Fernandez (slogan line) and Joanne Kuniansky (SWP)"
+      "other_notable": "Veronica Fernandez (slogan line) and Joanne Kuniansky (SWP)",
+      "badge": null
     },
     {
       "state": "New Mexico",
@@ -699,9 +748,11 @@
       },
       "held_by": "D",
       "seat_status": "incumbent Ben Ray Lujan",
+      "open_seat": false,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "Rhett Trappman (L) and Bob Perls (Forward) (ballot status unconfirmed)"
+      "other_notable": "Rhett Trappman (L) and Bob Perls (Forward) (ballot status unconfirmed)",
+      "badge": null
     },
     {
       "state": "Oklahoma",
@@ -725,9 +776,11 @@
       },
       "held_by": "R",
       "seat_status": "open (Mullin resigned Mar 23 for DHS; appointee Alan Armstrong barred from running)",
+      "open_seat": true,
       "format_note": "not a separate special",
       "third_candidate": null,
-      "other_notable": "Sevier White (L); Ron Meinhardt (I); Curtis Stinnett (I)"
+      "other_notable": "Sevier White (L); Ron Meinhardt (I); Curtis Stinnett (I)",
+      "badge": null
     },
     {
       "state": "Oregon",
@@ -751,87 +804,95 @@
       },
       "held_by": "D",
       "seat_status": "incumbent Jeff Merkley",
+      "open_seat": false,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "Gary Lyndon Dye (L) and Chris Henry (Progressive/Pacific Green)"
+      "other_notable": "Gary Lyndon Dye (L) and Chris Henry (Progressive/Pacific Green)",
+      "badge": null
     },
     {
       "state": "Rhode Island",
       "race": "Rhode Island Senate 2026",
       "dem_candidate": "Jack Reed",
       "rep_candidate": "Raymond McKay",
-      "margin": 27.201,
-      "num_polls": 6,
-      "dem_win_prob_polls": 0.9988,
-      "dem_win_prob_blended": 0.9969,
+      "margin": 26.462,
+      "num_polls": 10,
+      "dem_win_prob_polls": 0.9987,
+      "dem_win_prob_blended": 0.9967,
       "market_dem_prob": {
         "polymarket": 0.991
       },
-      "dem_win_prob_sim": 0.9969,
-      "median_margin": 20.67,
-      "margin_p10": 13.87,
-      "margin_p90": 27.41,
+      "dem_win_prob_sim": 0.9968,
+      "median_margin": 20.48,
+      "margin_p10": 13.68,
+      "margin_p90": 27.22,
       "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/rhode-island-senate-election-winner"
       },
       "held_by": "D",
       "seat_status": "incumbent Jack Reed",
+      "open_seat": false,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "Michael Bahry (I)"
+      "other_notable": "Michael Bahry (I)",
+      "badge": null
     },
     {
       "state": "South Carolina",
       "race": "South Carolina Senate 2026",
       "dem_candidate": "Annie Andrews",
       "rep_candidate": "Darline Graham",
-      "margin": -3.811,
-      "num_polls": 3,
-      "dem_win_prob_polls": 0.1598,
-      "dem_win_prob_blended": 0.1836,
+      "margin": -1.83,
+      "num_polls": 9,
+      "dem_win_prob_polls": 0.2658,
+      "dem_win_prob_blended": 0.2631,
       "market_dem_prob": {
         "polymarket": 0.255
       },
-      "dem_win_prob_sim": 0.1835,
-      "median_margin": -4.56,
-      "margin_p10": -11.32,
-      "margin_p90": 2.2,
+      "dem_win_prob_sim": 0.2625,
+      "median_margin": -3.14,
+      "margin_p10": -9.9,
+      "margin_p90": 3.62,
       "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/south-carolina-senate-election-winner"
       },
       "held_by": "R",
       "seat_status": "appointed Darline Graham (Lindsey Graham died Jul 11 2026; sworn in Jul 14; won Aug 25 special GOP runoff 52.5 over Ralph Norman)",
+      "open_seat": false,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "Kasie Whitener (L) and Mark Hackett (Constitution)"
+      "other_notable": "Kasie Whitener (L) and Mark Hackett (Constitution)",
+      "badge": null
     },
     {
       "state": "South Dakota",
       "race": "South Dakota Senate 2026",
       "dem_candidate": "Brian Bengs",
       "rep_candidate": "Mike Rounds",
-      "margin": -17.022,
-      "num_polls": 0,
-      "dem_win_prob_polls": 0.0052,
-      "dem_win_prob_blended": 0.004,
+      "margin": -12.607,
+      "num_polls": 6,
+      "dem_win_prob_polls": 0.0146,
+      "dem_win_prob_blended": 0.0234,
       "market_dem_prob": {
-        "polymarket": 0.0005
+        "polymarket": 0.05
       },
-      "dem_win_prob_sim": 0.0044,
-      "median_margin": -19.46,
-      "margin_p10": -26.23,
-      "margin_p90": -12.69,
+      "dem_win_prob_sim": 0.0243,
+      "median_margin": -12.0,
+      "margin_p10": -18.77,
+      "margin_p90": -5.23,
       "challenger_party": "I",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/south-dakota-senate-election-winner"
       },
       "held_by": "R",
       "seat_status": "incumbent Mike Rounds",
+      "open_seat": false,
       "format_note": "no Democrat on ballot; two-way I v R",
       "third_candidate": null,
-      "other_notable": "Brian Bengs (I; 2022 D nominee; sole challenger)"
+      "other_notable": "Brian Bengs (I; 2022 D nominee; sole challenger)",
+      "badge": null
     },
     {
       "state": "Tennessee",
@@ -855,31 +916,35 @@
       },
       "held_by": "R",
       "seat_status": "incumbent Bill Hagerty",
+      "open_seat": false,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "eight independents incl. Tharon Chandler and Andrew Gerena"
+      "other_notable": "eight independents incl. Tharon Chandler and Andrew Gerena",
+      "badge": null
     },
     {
       "state": "Virginia",
       "race": "Virginia Senate 2026",
       "dem_candidate": "Mark Warner",
       "rep_candidate": "Bert Mizusawa",
-      "margin": 18.582,
+      "margin": 18.502,
       "num_polls": 2,
-      "dem_win_prob_polls": 0.9936,
-      "dem_win_prob_blended": 0.9936,
+      "dem_win_prob_polls": 0.9935,
+      "dem_win_prob_blended": 0.9935,
       "market_dem_prob": {},
-      "dem_win_prob_sim": 0.9934,
-      "median_margin": 17.36,
-      "margin_p10": 10.52,
-      "margin_p90": 24.11,
+      "dem_win_prob_sim": 0.9933,
+      "median_margin": 17.28,
+      "margin_p10": 10.44,
+      "margin_p90": 24.03,
       "challenger_party": "D",
       "market_urls": {},
       "held_by": "D",
       "seat_status": "incumbent Mark Warner",
+      "open_seat": false,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": null
+      "other_notable": null,
+      "badge": null
     },
     {
       "state": "West Virginia",
@@ -903,9 +968,11 @@
       },
       "held_by": "R",
       "seat_status": "incumbent Shelley Moore Capito",
+      "open_seat": false,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": "S. Marshall Wilson (Constitution)"
+      "other_notable": "S. Marshall Wilson (Constitution)",
+      "badge": null
     },
     {
       "state": "Wyoming",
@@ -929,9 +996,11 @@
       },
       "held_by": "R",
       "seat_status": "open (Lummis retiring)",
+      "open_seat": true,
       "format_note": null,
       "third_candidate": null,
-      "other_notable": null
+      "other_notable": null,
+      "badge": null
     }
   ],
   "dem_safe_seats": 34,
@@ -945,9 +1014,10 @@
   "market_control_dem_prob": {
     "polymarket": 0.715
   },
-  "mean_ind_seats": 0.23,
+  "mean_ind_seats": 0.36,
   "ind_races": [
     "Idaho",
+    "Montana",
     "Nebraska",
     "South Dakota"
   ],
@@ -958,8 +1028,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.629,
-  "mean_dem_seats_with_vibes": 51.24,
+  "dem_control_prob_with_vibes": 0.6438,
+  "mean_dem_seats_with_vibes": 51.33,
   "national_environment": {
     "national_swing": 11.428,
     "available": true,

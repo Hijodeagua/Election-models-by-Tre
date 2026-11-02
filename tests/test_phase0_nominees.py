@@ -24,7 +24,8 @@ def test_no_superseded_nominee_remains_in_config():
     assert by["SC"]["dem_candidate"] == "Annie Andrews"
     assert by["SC"]["rep_candidate"] == "Darline Graham"
     assert (by["LA"]["dem_candidate"], by["LA"]["rep_candidate"]) == ("Jamie Davis", "Julia Letlow")
-    assert by["MT"]["third_candidate"] == "Seth Bodnar (I)"
+    assert by["MT"]["dem_candidate"] == "Seth Bodnar" and by["MT"]["challenger_party"] == "I"
+    assert by["MT"]["third_candidate"] == "Alani Bankhead (D)"
     for ab in ("NE", "SD", "ID"):
         assert by[ab]["challenger_party"] == "I"
 
