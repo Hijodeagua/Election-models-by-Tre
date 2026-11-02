@@ -14,6 +14,7 @@ A Python-based election modeling and forecasting system that ingests polling dat
 - **Prediction-market integration** — Polymarket and Kalshi implied odds per race and for chamber control (offline CSV fallback)
 - **Model comparison** — our approval average side-by-side with raw VoteHub averages and 50+1 (when available)
 - **Web tracker** — deployable Next.js front end (`web/`) that reads static JSON exported from the Python pipeline
+- **Scorecard** — after polls close, `scripts/fetch_results.py` pulls called results from the Wikipedia race articles and `scripts/score_forecast.py` scores the frozen pre-election forecast, picks and Polymarket against them (calls right, Brier, margin error, chamber call) into `/scorecard`; runs every six hours via `score_results.yml`
 - **Tre's Picks map** — `/predictions` on the web tracker: a US map of hand-made Senate calls (`web/content/predictions.json`), each state with a win-margin distribution and vitals (presidential lean, recent Senate results, fundamentals prior, BLS unemployment when reachable) exported by `scripts/export_state_features.py`
 - **Streamlit dashboard** — local exploration UI (skeleton)
 

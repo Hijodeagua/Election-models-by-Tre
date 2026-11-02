@@ -1,0 +1,837 @@
+{
+ "generated": "2026-11-02T00:11:05+00:00",
+ "snapshot": {
+  "ref": "2e936be4d740a6769e23f3438bd80a30d85f4c08",
+  "committed_at": "2026-11-02T00:02:47+00:00",
+  "frozen_at": "2026-11-03T23:00:00Z",
+  "mode": "git",
+  "note": "provisional — freeze time not reached, snapshot not persisted"
+ },
+ "status": "awaiting_results",
+ "num_races": 35,
+ "num_called": 0,
+ "picks_made": 0,
+ "model": {
+  "n": 0,
+  "accuracy": null,
+  "brier": null,
+  "log_loss": null,
+  "margins": {
+   "n": 0,
+   "mae": null,
+   "bias": null,
+   "rmse": null
+  },
+  "polls_only": {
+   "n": 0,
+   "accuracy": null,
+   "brier": null,
+   "log_loss": null
+  },
+  "poll_average_margins": {
+   "n": 0,
+   "mae": null,
+   "bias": null,
+   "rmse": null
+  },
+  "calibration": []
+ },
+ "picks": {
+  "n": 0,
+  "accuracy": null,
+  "brier": null,
+  "log_loss": null,
+  "margins": {
+   "n": 0,
+   "mae": null,
+   "bias": null,
+   "rmse": null
+  }
+ },
+ "market": {
+  "n": 0,
+  "accuracy": null,
+  "brier": null,
+  "log_loss": null
+ },
+ "chamber": {
+  "predicted_dem_control_prob": 0.6009,
+  "predicted_mean_dem_seats": 51.03,
+  "dem_seats_so_far": 34,
+  "races_outstanding": 35,
+  "final": false,
+  "dem_control_actual": null
+ },
+ "races": [
+  {
+   "state": "Georgia",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.9374,
+    "dem_win_prob_polls": 0.9237,
+    "median_margin": 8.39,
+    "poll_margin": 9.0,
+    "num_polls": 22,
+    "call": "D"
+   },
+   "market": {
+    "polymarket_dem_prob": 0.9785
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": true
+   },
+   "result": null
+  },
+  {
+   "state": "Michigan",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.9097,
+    "dem_win_prob_polls": 0.9412,
+    "median_margin": 7.11,
+    "poll_margin": null,
+    "num_polls": 61,
+    "call": "D"
+   },
+   "market": {
+    "polymarket_dem_prob": 0.815
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": true
+   },
+   "result": null
+  },
+  {
+   "state": "North Carolina",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.9542,
+    "dem_win_prob_polls": 0.9452,
+    "median_margin": 9.45,
+    "poll_margin": 10.3,
+    "num_polls": 48,
+    "call": "D"
+   },
+   "market": {
+    "polymarket_dem_prob": 0.9765
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": true
+   },
+   "result": null
+  },
+  {
+   "state": "Maine",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.749,
+    "dem_win_prob_polls": 0.6864,
+    "median_margin": 3.33,
+    "poll_margin": 2.2,
+    "num_polls": 30,
+    "call": "D"
+   },
+   "market": {
+    "polymarket_dem_prob": 0.93
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": true
+   },
+   "result": null
+  },
+  {
+   "state": "New Hampshire",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.971,
+    "dem_win_prob_polls": 0.9816,
+    "median_margin": 11.42,
+    "poll_margin": null,
+    "num_polls": 30,
+    "call": "D"
+   },
+   "market": {
+    "polymarket_dem_prob": 0.945
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": true
+   },
+   "result": null
+  },
+  {
+   "state": "Ohio",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.6595,
+    "dem_win_prob_polls": 0.6331,
+    "median_margin": 2.0,
+    "poll_margin": 3.1,
+    "num_polls": 43,
+    "call": "D"
+   },
+   "market": {
+    "polymarket_dem_prob": 0.735
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": true
+   },
+   "result": null
+  },
+  {
+   "state": "Texas",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.4621,
+    "dem_win_prob_polls": 0.6061,
+    "median_margin": -0.45,
+    "poll_margin": 2.7,
+    "num_polls": 74,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": 0.0325
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": true
+   },
+   "result": null
+  },
+  {
+   "state": "Iowa",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.3785,
+    "dem_win_prob_polls": 0.3664,
+    "median_margin": -1.48,
+    "poll_margin": -0.3,
+    "num_polls": 36,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": 0.415
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": true
+   },
+   "result": null
+  },
+  {
+   "state": "Alaska",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.3716,
+    "dem_win_prob_polls": 0.3717,
+    "median_margin": -1.58,
+    "poll_margin": 5.0,
+    "num_polls": 1,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": true
+   },
+   "result": null
+  },
+  {
+   "state": "Alabama",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.0036,
+    "dem_win_prob_polls": 0.0034,
+    "median_margin": -20.36,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": false
+   },
+   "result": null
+  },
+  {
+   "state": "Arkansas",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.0027,
+    "dem_win_prob_polls": 0.003,
+    "median_margin": -20.86,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": false
+   },
+   "result": null
+  },
+  {
+   "state": "Colorado",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.9968,
+    "dem_win_prob_polls": 0.9968,
+    "median_margin": 20.63,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "D"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": false
+   },
+   "result": null
+  },
+  {
+   "state": "Delaware",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.9984,
+    "dem_win_prob_polls": 0.9985,
+    "median_margin": 24.76,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "D"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": false
+   },
+   "result": null
+  },
+  {
+   "state": "Florida",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.3668,
+    "dem_win_prob_polls": 0.3635,
+    "median_margin": -1.68,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": true
+   },
+   "result": null
+  },
+  {
+   "state": "Idaho",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.0012,
+    "dem_win_prob_polls": 0.0012,
+    "median_margin": -26.09,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": false
+   },
+   "result": null
+  },
+  {
+   "state": "Illinois",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.9974,
+    "dem_win_prob_polls": 0.9973,
+    "median_margin": 21.48,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "D"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": false
+   },
+   "result": null
+  },
+  {
+   "state": "Kansas",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.0989,
+    "dem_win_prob_polls": 0.0989,
+    "median_margin": -6.77,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": true
+   },
+   "result": null
+  },
+  {
+   "state": "Kentucky",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.0034,
+    "dem_win_prob_polls": 0.0033,
+    "median_margin": -20.47,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": false
+   },
+   "result": null
+  },
+  {
+   "state": "Louisiana",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.0233,
+    "dem_win_prob_polls": 0.0225,
+    "median_margin": -12.16,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": true
+   },
+   "result": null
+  },
+  {
+   "state": "Massachusetts",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.9997,
+    "dem_win_prob_polls": 0.9997,
+    "median_margin": 36.31,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "D"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": false
+   },
+   "result": null
+  },
+  {
+   "state": "Minnesota",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.9857,
+    "dem_win_prob_polls": 0.9859,
+    "median_margin": 14.0,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "D"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": true
+   },
+   "result": null
+  },
+  {
+   "state": "Mississippi",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.0208,
+    "dem_win_prob_polls": 0.0216,
+    "median_margin": -12.28,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": true
+   },
+   "result": null
+  },
+  {
+   "state": "Montana",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.0406,
+    "dem_win_prob_polls": 0.0401,
+    "median_margin": -10.0,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": true
+   },
+   "result": null
+  },
+  {
+   "state": "Nebraska",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.0302,
+    "dem_win_prob_polls": 0.0287,
+    "median_margin": -11.2,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": true
+   },
+   "result": null
+  },
+  {
+   "state": "New Jersey",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.9939,
+    "dem_win_prob_polls": 0.9937,
+    "median_margin": 17.42,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "D"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": false
+   },
+   "result": null
+  },
+  {
+   "state": "New Mexico",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.9916,
+    "dem_win_prob_polls": 0.9917,
+    "median_margin": 16.22,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "D"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": false
+   },
+   "result": null
+  },
+  {
+   "state": "Oklahoma",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.0013,
+    "dem_win_prob_polls": 0.0014,
+    "median_margin": -25.01,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": false
+   },
+   "result": null
+  },
+  {
+   "state": "Oregon",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.9983,
+    "dem_win_prob_polls": 0.9983,
+    "median_margin": 23.8,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "D"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": false
+   },
+   "result": null
+  },
+  {
+   "state": "Rhode Island",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.9986,
+    "dem_win_prob_polls": 0.9985,
+    "median_margin": 24.55,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "D"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": false
+   },
+   "result": null
+  },
+  {
+   "state": "South Carolina",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.0842,
+    "dem_win_prob_polls": 0.0841,
+    "median_margin": -7.39,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": true
+   },
+   "result": null
+  },
+  {
+   "state": "South Dakota",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.0044,
+    "dem_win_prob_polls": 0.004,
+    "median_margin": -19.46,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": false
+   },
+   "result": null
+  },
+  {
+   "state": "Tennessee",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.0042,
+    "dem_win_prob_polls": 0.0044,
+    "median_margin": -19.07,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": false
+   },
+   "result": null
+  },
+  {
+   "state": "Virginia",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.991,
+    "dem_win_prob_polls": 0.9911,
+    "median_margin": 15.88,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "D"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": false
+   },
+   "result": null
+  },
+  {
+   "state": "West Virginia",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.0005,
+    "dem_win_prob_polls": 0.0004,
+    "median_margin": -32.17,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": false
+   },
+   "result": null
+  },
+  {
+   "state": "Wyoming",
+   "called": false,
+   "model": {
+    "dem_win_prob": 0.0002,
+    "dem_win_prob_polls": 0.0002,
+    "median_margin": -36.54,
+    "poll_margin": null,
+    "num_polls": 0,
+    "call": "R"
+   },
+   "market": {
+    "polymarket_dem_prob": null
+   },
+   "pick": {
+    "party": null,
+    "margin": null,
+    "dem_margin": null,
+    "on_board": false
+   },
+   "result": null
+  }
+ ]
+}

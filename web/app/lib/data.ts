@@ -277,6 +277,78 @@ export interface StateFeaturesData {
   states: Record<string, StateFeatures>;
 }
 
+// Post-election scorecard, written by scripts/score_forecast.py.
+export interface ScoreProb {
+  n: number;
+  accuracy: number | null;
+  brier: number | null;
+  log_loss: number | null;
+}
+
+export interface ScoreMargin {
+  n: number;
+  mae: number | null;
+  bias: number | null;
+  rmse: number | null;
+}
+
+export interface ScorecardRace {
+  state: string;
+  called: boolean;
+  model: {
+    dem_win_prob: number | null;
+    dem_win_prob_polls: number | null;
+    median_margin: number | null;
+    poll_margin: number | null;
+    num_polls: number | null;
+    call: 'D' | 'R' | null;
+    correct?: boolean;
+    margin_error?: number;
+  };
+  market: { polymarket_dem_prob: number | null; correct?: boolean };
+  pick: {
+    party: string | null;
+    margin: number | null;
+    dem_margin: number | null;
+    on_board: boolean;
+    correct?: boolean;
+    margin_error?: number;
+  };
+  result: {
+    winner: string | null;
+    winner_party: string | null;
+    dem_won: boolean;
+    margin: number | null;
+    source: string | null;
+  } | null;
+}
+
+export interface Scorecard {
+  generated: string;
+  snapshot: { ref: string | null; committed_at: string | null; frozen_at: string; mode: string; note?: string };
+  status: 'final' | 'partial' | 'awaiting_results';
+  num_races: number;
+  num_called: number;
+  picks_made: number;
+  model: ScoreProb & {
+    margins: ScoreMargin;
+    polls_only: ScoreProb;
+    poll_average_margins: ScoreMargin;
+    calibration: { bin: string; n: number; predicted: number; actual: number }[];
+  };
+  picks: ScoreProb & { margins: ScoreMargin };
+  market: ScoreProb;
+  chamber: {
+    predicted_dem_control_prob: number | null;
+    predicted_mean_dem_seats: number | null;
+    dem_seats_so_far: number;
+    races_outstanding: number;
+    final: boolean;
+    dem_control_actual: boolean | null;
+  };
+  races: ScorecardRace[];
+}
+
 export interface Meta {
   last_updated: string;
   data_tier: string;
@@ -339,4 +411,8 @@ export function getMeta(): Meta {
 
 export function getStateFeatures(): StateFeaturesData | null {
   return read<StateFeaturesData | null>('state_features.json', null);
+}
+
+export function getScorecard(): Scorecard | null {
+  return read<Scorecard | null>('scorecard.json', null);
 }
