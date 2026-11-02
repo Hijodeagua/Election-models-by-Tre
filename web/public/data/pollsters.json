@@ -1875,7 +1875,7 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 51,
+      "num_polls": 52,
       "polls": [
         {
           "pollster": "YouGov",
@@ -1891,6 +1891,22 @@
           "dem_pct": 55.0,
           "rep_pct": 44.0,
           "margin": 11.0,
+          "partisan": false
+        },
+        {
+          "pollster": "East Carolina University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-26",
+          "end_date": "2026-10-29",
+          "sample_size": 1041,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 54.0,
+          "rep_pct": 45.0,
+          "margin": 9.0,
           "partisan": false
         },
         {
