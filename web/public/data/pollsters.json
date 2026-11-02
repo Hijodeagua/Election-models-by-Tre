@@ -690,8 +690,24 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 62,
+      "num_polls": 63,
       "polls": [
+        {
+          "pollster": "New York Times/Siena University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-23",
+          "end_date": "2026-11-01",
+          "sample_size": 1011,
+          "population": "lv",
+          "dem_candidate": "Haley Stevens",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": null,
+          "rep_pct": 42.0,
+          "margin": null,
+          "partisan": false
+        },
         {
           "pollster": "Rasmussen Reports (R)",
           "rated": false,
@@ -2698,8 +2714,24 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 31,
+      "num_polls": 32,
       "polls": [
+        {
+          "pollster": "New York Times/Siena University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-27",
+          "end_date": "2026-11-01",
+          "sample_size": 714,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 51.0,
+          "rep_pct": 45.0,
+          "margin": 6.0,
+          "partisan": false
+        },
         {
           "pollster": "YouGov",
           "rated": true,
@@ -4498,8 +4530,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 75,
+      "num_polls": 76,
       "polls": [
+        {
+          "pollster": "New York Times/Siena University",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-23",
+          "end_date": "2026-11-01",
+          "sample_size": 1215,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 50.0,
+          "rep_pct": 43.0,
+          "margin": 7.0,
+          "partisan": false
+        },
         {
           "pollster": "Kreate Strategies",
           "rated": false,
