@@ -266,7 +266,7 @@ export default function PredictionsBoard({
                   tabIndex={0}
                   role="button"
                   aria-label={`${r.state}: ${
-                    r.pick ? `${PARTY_LABEL[r.pick]} ${fmtWinnerMargin(r.pick, r.margin)}` : 'no pick yet'
+                    r.pick ? `${PARTY_LABEL[r.pick]} ${fmtWinnerMargin(r.pick, r.margin)}` : 'no guess yet'
                   }`}
                   // Focus fires before click, so a click must select (not
                   // toggle) or the pointer path would immediately deselect.
