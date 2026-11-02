@@ -2,7 +2,8 @@ import Link from 'next/link';
 import LastUpdated from '@/app/components/LastUpdated';
 import DataFreshnessBanner from '@/app/components/DataFreshnessBanner';
 import SenateRaceCard from '@/app/components/SenateRaceCard';
-import { EmptyState, PageHead } from '@/app/components/ui';
+import RaceDumbbellChart from '@/app/components/RaceDumbbellChart';
+import { EmptyState, PageHead, Panel } from '@/app/components/ui';
 import { getSenate } from '@/app/lib/data';
 
 export default function SenatePage() {
@@ -34,6 +35,17 @@ export default function SenatePage() {
         }
       />
       <DataFreshnessBanner feed="senate" />
+
+      {keyRaces.length > 0 && (
+        <Panel title="If the election were held today — polling averages in the closest races" className="mb-5">
+          <RaceDumbbellChart races={keyRaces} />
+          <p className="mt-1 text-xs text-cocoa-400">
+            Dots are each candidate&rsquo;s weighted polling average; the bands are the
+            average&rsquo;s confidence interval, which narrows as more polls arrive. Races with at
+            least three polls, closest dozen shown.
+          </p>
+        </Panel>
+      )}
 
       {keyRaces.length > 0 ? (
         <div className="grid gap-4 sm:grid-cols-2">

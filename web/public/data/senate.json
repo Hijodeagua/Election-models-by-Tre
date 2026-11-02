@@ -10,6 +10,16 @@
       "margin": 14.1,
       "num_polls": 5,
       "rating": null,
+      "candidate_ci": {
+        "Barry Moore": [
+          48.8,
+          54.0
+        ],
+        "Everett Wess": [
+          34.6,
+          38.6
+        ]
+      },
       "dem_candidate": "Everett Wess",
       "rep_candidate": "Barry Moore",
       "dem_margin": -14.1,
@@ -170,6 +180,7 @@
       "margin": 2.0,
       "num_polls": 2,
       "rating": null,
+      "candidate_ci": null,
       "dem_candidate": "Mary Peltola",
       "rep_candidate": "Dan Sullivan",
       "dem_margin": 2.0,
@@ -323,6 +334,16 @@
       "margin": 9.5,
       "num_polls": 6,
       "rating": null,
+      "candidate_ci": {
+        "Tom Cotton": [
+          49.0,
+          50.0
+        ],
+        "Hallie Shoffner": [
+          39.1,
+          41.3
+        ]
+      },
       "dem_candidate": "Hallie Shoffner",
       "rep_candidate": "Tom Cotton",
       "dem_margin": -9.5,
@@ -483,6 +504,7 @@
       "margin": 14.0,
       "num_polls": 1,
       "rating": null,
+      "candidate_ci": null,
       "dem_candidate": "John Hickenlooper",
       "rep_candidate": "Mark Baisley",
       "dem_margin": 14.0,
@@ -643,6 +665,7 @@
       "margin": 5.8,
       "num_polls": 4,
       "rating": null,
+      "candidate_ci": null,
       "dem_candidate": "Angie Nixon",
       "rep_candidate": "Ashley Moody",
       "dem_margin": -5.8,
@@ -803,6 +826,16 @@
       "margin": 9.0,
       "num_polls": 22,
       "rating": null,
+      "candidate_ci": {
+        "Jon Ossoff": [
+          50.5,
+          52.6
+        ],
+        "Mike Collins": [
+          41.5,
+          43.5
+        ]
+      },
       "dem_candidate": "Jon Ossoff",
       "rep_candidate": "Mike Collins",
       "dem_margin": 9.0,
@@ -963,16 +996,17 @@
       "margin": 30.4,
       "num_polls": 2,
       "rating": null,
-      "dem_candidate": "David Roth",
+      "candidate_ci": null,
+      "dem_candidate": "Todd Achilles",
       "rep_candidate": "Jim Risch",
-      "dem_margin": -30.4,
-      "dem_win_prob": 0.0,
+      "dem_margin": null,
+      "dem_win_prob": null,
       "vibes": {
         "available": false,
         "adjustment": 0.0,
         "dem_effect": 0.0,
         "rep_effect": 0.0,
-        "adjusted_dem_margin": -30.4
+        "adjusted_dem_margin": null
       },
       "market_odds": {
         "polymarket": {
@@ -984,83 +1018,83 @@
         "polymarket": "https://polymarket.com/event/idaho-senate-election-winner"
       },
       "forecast": {
-        "dem_win_prob": 0.001,
-        "median_margin": -28.33,
-        "margin_p10": -34.99,
-        "margin_p90": -21.63,
+        "dem_win_prob": 0.0013,
+        "median_margin": -25.92,
+        "margin_p10": -32.58,
+        "margin_p90": -19.22,
         "num_simulations": 50000,
         "margin_hist": [
           {
             "mid": -29.0,
-            "pct": 0.52758
+            "pct": 0.33218
           },
           {
             "mid": -27.0,
-            "pct": 0.15626
+            "pct": 0.16068
           },
           {
             "mid": -25.0,
-            "pct": 0.12424
+            "pct": 0.16054
           },
           {
             "mid": -23.0,
-            "pct": 0.08092
+            "pct": 0.13272
           },
           {
             "mid": -21.0,
-            "pct": 0.04666
+            "pct": 0.08908
           },
           {
             "mid": -19.0,
-            "pct": 0.02716
+            "pct": 0.05256
           },
           {
             "mid": -17.0,
-            "pct": 0.01572
+            "pct": 0.03078
           },
           {
             "mid": -15.0,
-            "pct": 0.00832
+            "pct": 0.01724
           },
           {
             "mid": -13.0,
-            "pct": 0.00524
+            "pct": 0.00958
           },
           {
             "mid": -11.0,
-            "pct": 0.0027
+            "pct": 0.00592
           },
           {
             "mid": -9.0,
-            "pct": 0.00178
+            "pct": 0.00306
           },
           {
             "mid": -7.0,
-            "pct": 0.00106
+            "pct": 0.0019
           },
           {
             "mid": -5.0,
-            "pct": 0.00082
+            "pct": 0.00126
           },
           {
             "mid": -3.0,
-            "pct": 0.00036
+            "pct": 0.00086
           },
           {
             "mid": -1.0,
-            "pct": 0.0002
+            "pct": 0.00034
           },
           {
             "mid": 1.0,
-            "pct": 0.00016
+            "pct": 0.00032
           },
           {
             "mid": 3.0,
-            "pct": 0.0002
+            "pct": 0.0001
           },
           {
             "mid": 5.0,
-            "pct": 0.00014
+            "pct": 0.00022
           },
           {
             "mid": 7.0,
@@ -1068,35 +1102,35 @@
           },
           {
             "mid": 9.0,
-            "pct": 0.00012
+            "pct": 0.00018
           },
           {
             "mid": 11.0,
-            "pct": 6e-05
+            "pct": 0.0001
           },
           {
             "mid": 13.0,
-            "pct": 2e-05
+            "pct": 6e-05
           },
           {
             "mid": 15.0,
-            "pct": 0.0
-          },
-          {
-            "mid": 17.0,
             "pct": 4e-05
           },
           {
-            "mid": 19.0,
+            "mid": 17.0,
             "pct": 0.0
+          },
+          {
+            "mid": 19.0,
+            "pct": 2e-05
           },
           {
             "mid": 21.0,
-            "pct": 0.0
+            "pct": 2e-05
           },
           {
             "mid": 23.0,
-            "pct": 2e-05
+            "pct": 0.0
           },
           {
             "mid": 25.0,
@@ -1104,7 +1138,7 @@
           },
           {
             "mid": 27.0,
-            "pct": 0.0
+            "pct": 2e-05
           },
           {
             "mid": 29.0,
@@ -1123,6 +1157,7 @@
       "margin": 13.1,
       "num_polls": 3,
       "rating": null,
+      "candidate_ci": null,
       "dem_candidate": "Juliana Stratton",
       "rep_candidate": "Don Tracy",
       "dem_margin": 13.1,
@@ -1283,6 +1318,16 @@
       "margin": 0.1,
       "num_polls": 38,
       "rating": null,
+      "candidate_ci": {
+        "Josh Turek": [
+          45.8,
+          47.6
+        ],
+        "Ashley Hinson": [
+          46.0,
+          47.3
+        ]
+      },
       "dem_candidate": "Josh Turek",
       "rep_candidate": "Ashley Hinson",
       "dem_margin": 0.1,
@@ -1443,6 +1488,16 @@
       "margin": 2.8,
       "num_polls": 22,
       "rating": null,
+      "candidate_ci": {
+        "Adam Hamilton": [
+          48.3,
+          49.8
+        ],
+        "Roger Marshall": [
+          45.5,
+          47.0
+        ]
+      },
       "dem_candidate": "Adam Hamilton",
       "rep_candidate": "Roger Marshall",
       "dem_margin": 2.8,
@@ -1603,6 +1658,7 @@
       "margin": 9.0,
       "num_polls": 2,
       "rating": null,
+      "candidate_ci": null,
       "dem_candidate": "Charles Booker",
       "rep_candidate": "Andy Barr",
       "dem_margin": -9.0,
@@ -1763,6 +1819,7 @@
       "margin": 0.5,
       "num_polls": 3,
       "rating": null,
+      "candidate_ci": null,
       "dem_candidate": "Jamie Davis",
       "rep_candidate": "Julia Letlow",
       "dem_margin": -0.5,
@@ -1923,6 +1980,16 @@
       "margin": 2.9,
       "num_polls": 33,
       "rating": null,
+      "candidate_ci": {
+        "Troy Jackson": [
+          48.8,
+          50.0
+        ],
+        "Susan Collins": [
+          46.2,
+          47.0
+        ]
+      },
       "dem_candidate": "Troy Jackson",
       "rep_candidate": "Susan Collins",
       "dem_margin": 2.9,
@@ -2083,6 +2150,16 @@
       "margin": 27.8,
       "num_polls": 14,
       "rating": null,
+      "candidate_ci": {
+        "Ed Markey": [
+          54.4,
+          57.8
+        ],
+        "John Deaton": [
+          26.8,
+          30.9
+        ]
+      },
       "dem_candidate": "Ed Markey",
       "rep_candidate": "John Deaton",
       "dem_margin": 27.8,
@@ -2243,6 +2320,16 @@
       "margin": 4.0,
       "num_polls": 64,
       "rating": null,
+      "candidate_ci": {
+        "Abdul El-Sayed": [
+          48.5,
+          49.4
+        ],
+        "Mike Rogers": [
+          44.5,
+          45.4
+        ]
+      },
       "dem_candidate": "Abdul El-Sayed",
       "rep_candidate": "Mike Rogers",
       "dem_margin": 4.0,
@@ -2403,6 +2490,16 @@
       "margin": 5.9,
       "num_polls": 24,
       "rating": null,
+      "candidate_ci": {
+        "Peggy Flanagan": [
+          47.6,
+          49.5
+        ],
+        "Michele Tafoya": [
+          41.9,
+          43.4
+        ]
+      },
       "dem_candidate": "Peggy Flanagan",
       "rep_candidate": "Michele Tafoya",
       "dem_margin": 5.9,
@@ -2563,6 +2660,7 @@
       "margin": 3.1,
       "num_polls": 4,
       "rating": null,
+      "candidate_ci": null,
       "dem_candidate": "Scott Colom",
       "rep_candidate": "Cindy Hyde-Smith",
       "dem_margin": -3.1,
@@ -2723,6 +2821,16 @@
       "margin": 25.1,
       "num_polls": 18,
       "rating": null,
+      "candidate_ci": {
+        "Kurt Alme": [
+          38.3,
+          43.3
+        ],
+        "Alani Bankhead": [
+          13.2,
+          18.6
+        ]
+      },
       "dem_candidate": "Seth Bodnar",
       "rep_candidate": "Kurt Alme",
       "dem_margin": null,
@@ -2883,6 +2991,16 @@
       "margin": 1.6,
       "num_polls": 21,
       "rating": null,
+      "candidate_ci": {
+        "Dan Osborn": [
+          44.9,
+          47.0
+        ],
+        "Pete Ricketts": [
+          46.8,
+          48.2
+        ]
+      },
       "dem_candidate": "Dan Osborn",
       "rep_candidate": "Pete Ricketts",
       "dem_margin": -1.6,
@@ -3036,6 +3154,16 @@
       "margin": 6.4,
       "num_polls": 31,
       "rating": null,
+      "candidate_ci": {
+        "Chris Pappas": [
+          48.5,
+          49.6
+        ],
+        "John E. Sununu": [
+          42.0,
+          43.4
+        ]
+      },
       "dem_candidate": "Chris Pappas",
       "rep_candidate": "John E. Sununu",
       "dem_margin": 6.4,
@@ -3196,6 +3324,7 @@
       "margin": 16.6,
       "num_polls": 3,
       "rating": null,
+      "candidate_ci": null,
       "dem_candidate": "Ben Ray Luj\u00e1n",
       "rep_candidate": "Larry Marker",
       "dem_margin": 16.6,
@@ -3356,6 +3485,16 @@
       "margin": 10.0,
       "num_polls": 51,
       "rating": null,
+      "candidate_ci": {
+        "Roy Cooper": [
+          50.8,
+          53.0
+        ],
+        "Michael Whatley": [
+          41.1,
+          42.6
+        ]
+      },
       "dem_candidate": "Roy Cooper",
       "rep_candidate": "Michael Whatley",
       "dem_margin": 10.0,
@@ -3516,6 +3655,16 @@
       "margin": 2.7,
       "num_polls": 48,
       "rating": null,
+      "candidate_ci": {
+        "Sherrod Brown": [
+          47.8,
+          48.8
+        ],
+        "Jon Husted": [
+          45.0,
+          46.2
+        ]
+      },
       "dem_candidate": "Sherrod Brown",
       "rep_candidate": "Jon Husted",
       "dem_margin": 2.7,
@@ -3676,6 +3825,7 @@
       "margin": 24.0,
       "num_polls": 1,
       "rating": null,
+      "candidate_ci": null,
       "dem_candidate": "N'Kiyla Jasmine Thomas",
       "rep_candidate": "Kevin Hern",
       "dem_margin": -24.0,
@@ -3836,6 +3986,16 @@
       "margin": 27.3,
       "num_polls": 6,
       "rating": null,
+      "candidate_ci": {
+        "Jack Reed": [
+          53.8,
+          57.9
+        ],
+        "Raymond McKay": [
+          26.3,
+          32.3
+        ]
+      },
       "dem_candidate": "Jack Reed",
       "rep_candidate": "Raymond McKay",
       "dem_margin": 27.3,
@@ -3996,6 +4156,7 @@
       "margin": 2.7,
       "num_polls": 4,
       "rating": null,
+      "candidate_ci": null,
       "dem_candidate": "Annie Andrews",
       "rep_candidate": "Darline Graham",
       "dem_margin": -2.7,
@@ -4156,16 +4317,17 @@
       "margin": 25.0,
       "num_polls": 1,
       "rating": null,
-      "dem_candidate": "Julian Beaudion",
+      "candidate_ci": null,
+      "dem_candidate": "Brian Bengs",
       "rep_candidate": "Mike Rounds",
-      "dem_margin": -25.0,
-      "dem_win_prob": 0.0,
+      "dem_margin": null,
+      "dem_win_prob": null,
       "vibes": {
         "available": false,
         "adjustment": 0.0,
         "dem_effect": 0.0,
         "rep_effect": 0.0,
-        "adjusted_dem_margin": -25.0
+        "adjusted_dem_margin": null
       },
       "market_odds": {
         "polymarket": {
@@ -4177,127 +4339,127 @@
         "polymarket": "https://polymarket.com/event/south-dakota-senate-election-winner"
       },
       "forecast": {
-        "dem_win_prob": 0.0028,
-        "median_margin": -21.46,
-        "margin_p10": -28.23,
-        "margin_p90": -14.69,
+        "dem_win_prob": 0.0044,
+        "median_margin": -19.46,
+        "margin_p10": -26.23,
+        "margin_p90": -12.69,
         "num_simulations": 50000,
         "margin_hist": [
           {
             "mid": -29.0,
-            "pct": 0.10622
+            "pct": 0.06122
           },
           {
             "mid": -27.0,
-            "pct": 0.07668
+            "pct": 0.04516
           },
           {
             "mid": -25.0,
-            "pct": 0.11784
+            "pct": 0.07674
           },
           {
             "mid": -23.0,
-            "pct": 0.15396
+            "pct": 0.11808
           },
           {
             "mid": -21.0,
-            "pct": 0.16332
+            "pct": 0.15386
           },
           {
             "mid": -19.0,
-            "pct": 0.13788
+            "pct": 0.16342
           },
           {
             "mid": -17.0,
-            "pct": 0.09854
+            "pct": 0.13776
           },
           {
             "mid": -15.0,
-            "pct": 0.0631
+            "pct": 0.09844
           },
           {
             "mid": -13.0,
-            "pct": 0.03454
+            "pct": 0.06294
           },
           {
             "mid": -11.0,
-            "pct": 0.02008
+            "pct": 0.03456
           },
           {
             "mid": -9.0,
-            "pct": 0.0112
+            "pct": 0.02002
           },
           {
             "mid": -7.0,
-            "pct": 0.00656
+            "pct": 0.01118
           },
           {
             "mid": -5.0,
-            "pct": 0.00364
+            "pct": 0.00656
           },
           {
             "mid": -3.0,
-            "pct": 0.00206
+            "pct": 0.00362
           },
           {
             "mid": -1.0,
-            "pct": 0.00162
+            "pct": 0.00206
           },
           {
             "mid": 1.0,
-            "pct": 0.00072
+            "pct": 0.00162
           },
           {
             "mid": 3.0,
-            "pct": 0.00056
+            "pct": 0.00074
           },
           {
             "mid": 5.0,
-            "pct": 0.00036
+            "pct": 0.00054
           },
           {
             "mid": 7.0,
-            "pct": 0.00028
+            "pct": 0.00036
           },
           {
             "mid": 9.0,
-            "pct": 0.0003
+            "pct": 0.00028
           },
           {
             "mid": 11.0,
-            "pct": 0.00014
+            "pct": 0.0003
           },
           {
             "mid": 13.0,
-            "pct": 0.00012
+            "pct": 0.00014
           },
           {
             "mid": 15.0,
-            "pct": 8e-05
+            "pct": 0.00012
           },
           {
             "mid": 17.0,
-            "pct": 0.0
+            "pct": 8e-05
           },
           {
             "mid": 19.0,
-            "pct": 4e-05
+            "pct": 0.0
           },
           {
             "mid": 21.0,
-            "pct": 6e-05
-          },
-          {
-            "mid": 23.0,
-            "pct": 0.0
-          },
-          {
-            "mid": 25.0,
             "pct": 4e-05
           },
           {
-            "mid": 27.0,
+            "mid": 23.0,
+            "pct": 6e-05
+          },
+          {
+            "mid": 25.0,
             "pct": 0.0
+          },
+          {
+            "mid": 27.0,
+            "pct": 4e-05
           },
           {
             "mid": 29.0,
@@ -4316,6 +4478,7 @@
       "margin": 20.0,
       "num_polls": 1,
       "rating": null,
+      "candidate_ci": null,
       "dem_candidate": "Marquita Bradshaw",
       "rep_candidate": "Bill Hagerty",
       "dem_margin": -20.0,
@@ -4476,6 +4639,16 @@
       "margin": 2.8,
       "num_polls": 79,
       "rating": null,
+      "candidate_ci": {
+        "James Talarico": [
+          48.5,
+          49.3
+        ],
+        "Ken Paxton": [
+          45.7,
+          46.6
+        ]
+      },
       "dem_candidate": "James Talarico",
       "rep_candidate": "Ken Paxton",
       "dem_margin": 2.8,
@@ -4636,6 +4809,7 @@
       "margin": 19.0,
       "num_polls": 2,
       "rating": null,
+      "candidate_ci": null,
       "dem_candidate": "Mark Warner",
       "rep_candidate": "Bert Mizusawa",
       "dem_margin": 19.0,

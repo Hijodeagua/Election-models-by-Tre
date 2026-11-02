@@ -173,13 +173,13 @@
   {
    "state": "Idaho",
    "race": "Idaho Senate 2026",
-   "dem_candidate": "David Roth",
+   "dem_candidate": "Todd Achilles",
    "rep_candidate": "Jim Risch",
    "abbr": "ID",
    "pres_2024": -36.5,
    "pres_2020": -30.8,
    "held_by": "R",
-   "_note": "Todd Achilles runs as an independent alongside Democrat David Roth; the model tracks the D-R margin."
+   "_note": "Three-way: Risch (R), Todd Achilles (independent) and David Roth (D). Wikipedia's general-election tables poll Risch vs Achilles, so the independent takes the challenger column like Osborn in Nebraska."
   },
   {
    "state": "Illinois",
@@ -342,13 +342,13 @@
   {
    "state": "South Dakota",
    "race": "South Dakota Senate 2026",
-   "dem_candidate": "Julian Beaudion",
+   "dem_candidate": "Brian Bengs",
    "rep_candidate": "Mike Rounds",
    "abbr": "SD",
    "pres_2024": -29.2,
    "pres_2020": -26.2,
    "held_by": "R",
-   "_note": "Brian Bengs runs as an independent alongside Democrat Julian Beaudion; the model tracks the D-R margin."
+   "_note": "Three-way: Rounds (R), Brian Bengs (independent) and Julian Beaudion (D). Wikipedia's general-election tables poll Rounds vs Bengs, so the independent takes the challenger column like Osborn in Nebraska."
   },
   {
    "state": "Tennessee",

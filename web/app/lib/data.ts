@@ -80,6 +80,8 @@ export interface SenateRaceSnapshot {
   margin: number | null;
   num_polls: number;
   rating: string | null;
+  // Per-candidate (low, high) band of the weighted average.
+  candidate_ci?: Record<string, [number, number] | null> | null;
   dem_candidate?: string;
   rep_candidate?: string;
   dem_margin?: number | null;

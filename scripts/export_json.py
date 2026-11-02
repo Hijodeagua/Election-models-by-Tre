@@ -46,6 +46,7 @@ from scripts.run_models import (
 )
 from src.data.base import Poll, PollType
 from src.data.csv_source import CsvFallbackSource
+from src.data.dedupe import merge_new_polls
 from src.data.fiftyplusone import FiftyPlusOneApprovalCsvLoader
 from src.data.markets import (
     SENATE_CONTROL_RACE,
@@ -122,44 +123,31 @@ def _load_polls(poll_type: PollType, votehub_filename: str) -> list[Poll]:
         polls, _meta = source.load(poll_type)
     polls = _drop_aggregates(polls)
 
-    supp_path = FALLBACK_DIR / votehub_filename.replace(".csv", "_supplement.csv")
-    if supp_path.exists():
+    # Extra feeds in the same columns: the hand-curated supplement and the
+    # RealClearPolling latest-polls scrape (scripts/refresh_data.py).
+    kind = votehub_filename.replace("votehub_", "").replace(".csv", "")
+    for extra_name in (
+        votehub_filename.replace(".csv", "_supplement.csv"),
+        f"rcp_latest_{kind}.csv",
+    ):
+        extra_path = FALLBACK_DIR / extra_name
+        if not extra_path.exists():
+            continue
         try:
-            extra = _drop_aggregates(VoteHubCsvLoader(poll_type).load(supp_path))
+            extra = _drop_aggregates(VoteHubCsvLoader(poll_type).load(extra_path))
         except Exception as exc:  # pragma: no cover - defensive
-            logging.warning("%s load failed: %s", supp_path.name, exc)
-            extra = []
+            logging.warning("%s load failed: %s", extra_name, exc)
+            continue
         added = merge_supplement(polls, extra)
         if added:
-            logging.info("%s: +%d supplementary polls", votehub_filename, len(added))
+            logging.info("%s: +%d polls from %s", votehub_filename, len(added), extra_name)
         polls = polls + added
     return polls
 
 
-def _poll_fingerprint(poll: Poll) -> tuple:
-    """Identity that survives pollster-name spelling differences between
-    sources ("Siena/NYT" vs "NY Times/Siena"): race, field end date and the
-    rounded toplines in rank order."""
-    tops = tuple(sorted((round(a.pct) for a in poll.answers), reverse=True))
-    return ((poll.subject or "").lower(), poll.end_date, tops)
-
-
 def merge_supplement(base: list[Poll], extra: list[Poll]) -> list[Poll]:
-    """Supplementary polls not already present in ``base`` (by fingerprint,
-    tolerating a one-day difference in the recorded end date)."""
-    seen: set[tuple] = set()
-    for p in base:
-        subj, end, tops = _poll_fingerprint(p)
-        for delta in (-1, 0, 1):
-            seen.add((subj, end + timedelta(days=delta), tops))
-    out: list[Poll] = []
-    for p in extra:
-        fp = _poll_fingerprint(p)
-        if fp in seen:
-            continue
-        seen.add(fp)
-        out.append(p)
-    return out
+    """Kept as the export's name for the shared de-duplicating merge."""
+    return merge_new_polls(base, extra)
 
 
 def _drop_aggregates(polls: list[Poll]) -> list[Poll]:
