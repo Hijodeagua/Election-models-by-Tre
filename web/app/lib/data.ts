@@ -80,6 +80,8 @@ export interface SenateRaceSnapshot {
   margin: number | null;
   num_polls: number;
   rating: string | null;
+  // Per-candidate (low, high) band of the weighted average.
+  candidate_ci?: Record<string, [number, number] | null> | null;
   dem_candidate?: string;
   rep_candidate?: string;
   dem_margin?: number | null;
@@ -130,6 +132,35 @@ export interface RaceForecast {
   margin_p10?: number | null;
   margin_p90?: number | null;
   market_urls?: Record<string, string>;
+  // Party defending the seat (from config), for flip markers.
+  held_by?: 'D' | 'R' | null;
+  // "I" where no Democrat is on the ballot and an independent occupies the
+  // challenger column: the margin/probability then describe the independent.
+  challenger_party?: 'D' | 'I';
+  seat_status?: string | null;
+  open_seat?: boolean;
+  format_note?: string | null;
+  third_candidate?: string | null;
+  other_notable?: string | null;
+  // Display caveat, e.g. "three-way race; polls exclude Bodnar".
+  badge?: string | null;
+  // Rater/market consensus for the 22 researched races (snapshot Nov 1–2).
+  treatment?: 'CONSENSUS_SAFE' | 'POLLED_PARTISAN_ONLY' | 'POLLED' | null;
+  consensus_pick?: string | null;
+  model_margin_secondary?: number | null;
+  consensus?: {
+    treatment: string | null;
+    pick: string | null;
+    suggested_p_dem: number | null;
+    cook: string | null;
+    sabato: string | null;
+    inside_elections: string | null;
+    ddhq_p_dem: number | null;
+    kalshi_p_dem: number | null;
+    polymarket_p_dem: number | null;
+    snapshot: string;
+    note: string | null;
+  } | null;
 }
 
 export interface PollsterEmpirical {
@@ -207,6 +238,8 @@ export interface SenateForecastData {
   national_environment?: NationalEnvironment;
   market_control_dem_prob: Record<string, number>;
   market_control_urls?: Record<string, string>;
+  mean_ind_seats?: number;
+  ind_races?: string[];
   maturity: string;
   label: string;
 }

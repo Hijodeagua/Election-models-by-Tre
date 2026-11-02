@@ -139,6 +139,18 @@ class VoteHubCsvLoader:
         prev_end_month: int | None = None
 
         for row in rows:
+            # Explicit ISO field dates (researched sheets) beat the ambiguous
+            # "Oct. 1-3" range and need no year inference.
+            fs, fe = (row.get("Field Start") or "").strip(), (row.get("Field End") or "").strip()
+            if fe:
+                try:
+                    end = date.fromisoformat(fe)
+                    start = date.fromisoformat(fs) if fs else end
+                except ValueError:
+                    continue
+                parsed_rows.append((start, end, row))
+                continue
+
             date_range = row.get("Date Range", "").strip()
             if not date_range:
                 continue
@@ -190,9 +202,24 @@ class VoteHubCsvLoader:
                 leading_choice = _normalize_approval_choice(leading_choice)
                 trailing_choice = _normalize_approval_choice(trailing_choice)
 
-            answers = [PollAnswer(choice=leading_choice, pct=leading_pct)]
+            # Party tags ride in "Leading/Trailing Party" when a Result name is
+            # present (Senate head-to-head round-trip). Without a Result name
+            # those columns *are* the choice (generic ballot), so no tag.
+            lead_party = (
+                (row.get("Leading Party") or "").strip() or None
+                if (row.get("Leading Result") or "").strip()
+                else None
+            )
+            trail_party = (
+                (row.get("Trailing Party") or "").strip() or None
+                if (row.get("Trailing Result") or "").strip()
+                else None
+            )
+            answers = [PollAnswer(choice=leading_choice, pct=leading_pct, party=lead_party)]
             if trailing_choice and trailing_pct is not None:
-                answers.append(PollAnswer(choice=trailing_choice, pct=trailing_pct))
+                answers.append(
+                    PollAnswer(choice=trailing_choice, pct=trailing_pct, party=trail_party)
+                )
 
             sample_raw = row.get("Sample Size", "").strip()
             try:
@@ -237,7 +264,11 @@ class VoteHubCsvLoader:
                 answers=answers,
                 sponsors=sponsors,
                 partisan=False,
-                raw={"grade": grade},
+                raw={
+                    "grade": grade,
+                    "quality_flags": (row.get("Quality Flags") or "").strip(),
+                    "sponsor_partisan": (row.get("Sponsor Partisan") or "").strip(),
+                },
             ))
 
         # Canonical dedup rule: collapse multi-population releases of the same

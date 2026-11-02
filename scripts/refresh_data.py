@@ -46,6 +46,11 @@ _VH_COLUMNS = [
     "Date Range", "Grade", "Pollster", "Subject", "Sponsor", "Sample Size",
     "Sample Type", "Population", "Weight",
     "Leading Result", "Leading %", "Trailing Result", "Trailing %", "Spread",
+    # Party tags for head-to-head answers (Senate round-trip). Appended last so
+    # older readers keyed by position are unaffected; VoteHubCsvLoader reads
+    # them only when a Result name is present, so generic-ballot files that use
+    # "Leading Party" as the choice itself still load unchanged.
+    "Leading Party", "Trailing Party",
 ]
 # Note: "Subject" was added (Fix 4). VoteHubCsvLoader falls back to a default
 # subject when the column is absent, so existing committed CSVs without it
@@ -90,6 +95,8 @@ def _polls_to_votehub_csv(polls: list[Poll]) -> str:
             trailing.choice if trailing else "",
             f"{trailing.pct:.0f}%" if trailing and trailing.pct is not None else "",
             spread,
+            (leading.party or "") if leading else "",
+            (trailing.party or "") if trailing else "",
         ])
     return buf.getvalue()
 
@@ -216,6 +223,10 @@ def _refresh_markets(dry_run: bool = False) -> None:
         pm = polymarket.fetch_markets(
             f"{state} Senate 2026", race=race,
             required_tokens=(state.lower(), "senate"),
+            excluded_tokens=_MARKET_TITLE_EXCLUSIONS.get(state, ()),
+            independent_candidate=(
+                entry.get("dem_candidate") if entry.get("challenger_party") == "I" else None
+            ),
         )
         ks = (
             kalshi.fetch_race_odds(
@@ -249,6 +260,16 @@ def _refresh_markets(dry_run: bool = False) -> None:
         else:
             logger.warning("  no market data fetched — keeping existing market_odds.csv")
 
+
+
+# State names that contain another state's name: a substring match on
+# "virginia" also hits "West Virginia Senate Election Winner" (which is how
+# Virginia briefly carried West Virginia's 1% Dem odds), and "kansas" hits
+# Arkansas. Titles with these tokens are skipped for the shorter-named state.
+_MARKET_TITLE_EXCLUSIONS: dict[str, tuple[str, ...]] = {
+    "Virginia": ("west virginia",),
+    "Kansas": ("arkansas",),
+}
 
 
 def _refresh_wikipedia_senate(dry_run: bool = False) -> None:
@@ -292,6 +313,47 @@ def _refresh_wikipedia_senate(dry_run: bool = False) -> None:
         )
 
 
+def _refresh_rcp_latest(dry_run: bool = False) -> None:
+    """Sweep RealClearPolling's latest-polls page for Senate and generic-ballot
+    polls → data/fallback/rcp_latest_{senate,generic_ballot}.csv.
+
+    export_json merges these with the primary feeds, dropping anything whose
+    fingerprint (race, date ±1, toplines) is already present, so a poll that
+    Wikipedia also lists is counted once. Best-effort: RCP's WAF sometimes
+    403s, in which case the previous CSVs stay in place.
+    """
+    from src.data.rcp_latest import LATEST_POLLS_URL, parse_latest_polls_html
+    from src.models.senate_simulation import load_cycle_config
+
+    logger.info("=== RealClearPolling latest polls ===")
+    if dry_run:
+        logger.info("  (dry run — would fetch %s)", LATEST_POLLS_URL)
+        return
+    cycle = load_cycle_config()
+    try:
+        with RCPClient(cache_dir=settings.raw_data_dir) as client:
+            html = client._fetch_page(LATEST_POLLS_URL)  # noqa: SLF001 — same package
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("  latest-polls fetch failed (%s) — keeping previous rcp_latest CSVs", exc)
+        return
+    polls = parse_latest_polls_html(html, cycle["competitive_races"])
+    senate = [p for p in polls if p.poll_type == PollType.HEAD_TO_HEAD]
+    generic = [p for p in polls if p.poll_type == PollType.GENERIC_BALLOT]
+    if not polls:
+        logger.warning("  no polls parsed from latest-polls page — layout may have changed")
+        return
+    (FALLBACK_DIR / "rcp_latest_senate.csv").write_text(
+        _polls_to_votehub_csv(senate), encoding="utf-8"
+    )
+    (FALLBACK_DIR / "rcp_latest_generic_ballot.csv").write_text(
+        _polls_to_votehub_csv(generic), encoding="utf-8"
+    )
+    logger.info(
+        "  → rcp_latest_senate.csv (%d polls, %d races), rcp_latest_generic_ballot.csv (%d)",
+        len(senate), len({p.subject for p in senate}), len(generic),
+    )
+
+
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 def main() -> None:
@@ -320,6 +382,7 @@ def main() -> None:
         _refresh_wikipedia_senate(dry_run=args.dry_run)
     if args.source in ("all", "rcp"):
         _refresh_rcp(dry_run=args.dry_run)
+        _refresh_rcp_latest(dry_run=args.dry_run)
     if args.source in ("all", "markets"):
         _refresh_markets(dry_run=args.dry_run)
 

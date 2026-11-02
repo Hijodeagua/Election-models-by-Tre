@@ -1,0 +1,76 @@
+{
+  "_readme": "Hand corrections applied by export_json after all poll feeds are merged, in order. Each rule matches on race (subject), a spelling-tolerant pollster key, and optionally field end date (±tolerance_days). Actions: drop, relabel (new pollster name), set_toplines (dem/rep pct). Source: senate_polls_excluded.csv (Nov 2, 2026). Every applied rule is logged; rules that match nothing are logged as no-ops.",
+  "rules": [
+    {
+      "id": "ms-wedgewood",
+      "subject": "Mississippi Senate 2026",
+      "pollster": "Wedgewood Polls",
+      "action": "drop",
+      "reason": "fabricated; retracted by Newsweek"
+    },
+    {
+      "id": "sc-ppp-oct",
+      "subject": "South Carolina Senate 2026",
+      "pollster": "Public Policy Polling",
+      "end_date": "2026-10-29",
+      "tolerance_days": 10,
+      "action": "drop",
+      "reason": "no such poll; R+2.7 is RealClearPolling's SC average"
+    },
+    {
+      "id": "ms-impact-oct",
+      "subject": "Mississippi Senate 2026",
+      "pollster": "Impact Research",
+      "end_date": "2026-10-22",
+      "tolerance_days": 3,
+      "action": "relabel",
+      "pollster_new": "Change Research (D, The 365 Project)",
+      "dem_pct": 40,
+      "rep_pct": 43,
+      "reason": "mislabeled; it is the Change Research / 365 Project poll, 43-40"
+    },
+    {
+      "id": "la-hart-tie",
+      "subject": "Louisiana Senate 2026",
+      "pollster": "Hart Research Associates",
+      "end_date": "2026-10-29",
+      "tolerance_days": 2,
+      "action": "set_toplines",
+      "dem_pct": 45,
+      "rep_pct": 45,
+      "reason": "published result is a 45-45 tie"
+    },
+    {
+      "id": "nj-stimsight",
+      "subject": "New Jersey Senate 2026",
+      "pollster": "StimSight Research",
+      "action": "drop",
+      "reason": "NJ-07 district sample only"
+    },
+    {
+      "id": "va-cnu",
+      "subject": "Virginia Senate 2026",
+      "pollster": "Christopher Newport University",
+      "action": "drop",
+      "reason": "VA-02 district sample only"
+    },
+    {
+      "id": "tn-targoz-lv",
+      "subject": "Tennessee Senate 2026",
+      "pollster": "Targoz Market Research",
+      "end_date": "2026-08-26",
+      "tolerance_days": 2,
+      "dem_pct": 33,
+      "rep_pct": 58,
+      "action": "drop",
+      "reason": "LV cut of the same survey; count the 51-31 RV cut once"
+    },
+    {
+      "id": "co-pollstergraph",
+      "subject": "Colorado Senate 2026",
+      "pollster": "Pollstergraph",
+      "action": "drop",
+      "reason": "aggregator renormalization of the Sep 30 Lake Research poll, not a poll"
+    }
+  ]
+}

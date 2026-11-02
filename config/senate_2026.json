@@ -1,5 +1,5 @@
 {
- "_comment": "2026 Senate cycle configuration for the control simulation. Every seat on the 2026 ballot is simulated: the 33 Class II seats plus the Ohio and Florida specials (35 races). dem_safe_seats / rep_safe_seats are therefore the holdovers only: Democrats (with the two independents who caucus with them) hold 47 seats of which 13 are up, so dem_safe = 34; Republicans hold 53 of which 22 are up, so rep_safe = 31. dem_majority_threshold is 51 because the sitting VP (R) breaks 50-50 ties. Fundamentals: each race carries the state's Dem-minus-Rep presidential margin in 2024 and 2020; the fundamentals prior blends them (pres_weight_recent on 2024), adds the national swing, and is blended into the polling margin with weight blend_k/(blend_k+num_polls), so a race with no polls runs on the prior alone and the prior fades as polls accumulate. A null dem_candidate / rep_candidate means the nominee was not settled when this was written: the Wikipedia scraper then tracks that party's most-polled candidate and the export uses the resolved name. held_by is the party defending the seat (used for safe-seat arithmetic and the predictions board). wikipedia overrides the default article title (Ohio and Florida are special elections).",
+ "_comment": "2026 Senate cycle configuration for the control simulation. Every seat on the 2026 ballot is simulated: the 33 Class II seats plus the Ohio and Florida specials (35 races). dem_safe_seats / rep_safe_seats are therefore the holdovers only: Democrats (with the two independents who caucus with them) hold 47 seats of which 13 are up, so dem_safe = 34; Republicans hold 53 of which 22 are up, so rep_safe = 31. dem_majority_threshold is 51 because the sitting VP (R) breaks 50-50 ties. Fundamentals: each race carries the state's Dem-minus-Rep presidential margin in 2024 and 2020; the fundamentals prior blends them (pres_weight_recent on 2024), adds the national swing, and is blended into the polling margin with weight blend_k/(blend_k+num_polls), so a race with no polls runs on the prior alone and the prior fades as polls accumulate. A null dem_candidate / rep_candidate means the nominee was not settled when this was written: the Wikipedia scraper then tracks that party's most-polled candidate and the export uses the resolved name. held_by is the party defending the seat (used for safe-seat arithmetic and the predictions board). wikipedia overrides the default article title (Ohio and Florida are special elections). Nominees were set 2026-11-02 from senate_2026_nominees_all_35.csv (source of truth). challenger_party is 'I' where no Democrat is on the ballot (NE, SD, ID): the independent occupies the challenger column and the simulation counts those wins as independent seats, not Democratic ones.",
  "cycle": 2026,
  "dem_safe_seats": 34,
  "rep_safe_seats": 31,
@@ -32,17 +32,24 @@
    "abbr": "GA",
    "pres_2024": -2.2,
    "pres_2020": 0.2,
-   "held_by": "D"
+   "held_by": "D",
+   "challenger_party": "D",
+   "seat_status": "incumbent Jon Ossoff",
+   "race_type": "regular",
+   "other_notable": "Al Bartell (I) and Allen Buckley (L)"
   },
   {
    "state": "Michigan",
    "race": "Michigan Senate 2026",
-   "dem_candidate": "Haley Stevens",
+   "dem_candidate": "Abdul El-Sayed",
    "rep_candidate": "Mike Rogers",
    "abbr": "MI",
    "pres_2024": -1.4,
    "pres_2020": 2.8,
-   "held_by": "D"
+   "held_by": "D",
+   "challenger_party": "D",
+   "seat_status": "open (Peters retiring)",
+   "race_type": "regular"
   },
   {
    "state": "North Carolina",
@@ -52,7 +59,11 @@
    "abbr": "NC",
    "pres_2024": -3.3,
    "pres_2020": -1.3,
-   "held_by": "R"
+   "held_by": "R",
+   "challenger_party": "D",
+   "seat_status": "open (Tillis retiring)",
+   "race_type": "regular",
+   "other_notable": "Shannon Bray (L)"
   },
   {
    "state": "Maine",
@@ -62,17 +73,26 @@
    "abbr": "ME",
    "pres_2024": 6.9,
    "pres_2020": 9.1,
-   "held_by": "R"
+   "held_by": "R",
+   "challenger_party": "D",
+   "seat_status": "incumbent Susan Collins",
+   "race_type": "regular",
+   "format_note": "ranked-choice general",
+   "other_notable": "Phillip Rench (I)"
   },
   {
    "state": "New Hampshire",
    "race": "New Hampshire Senate 2026",
    "dem_candidate": "Chris Pappas",
-   "rep_candidate": "Scott Brown",
+   "rep_candidate": "John E. Sununu",
    "abbr": "NH",
    "pres_2024": 2.8,
    "pres_2020": 7.4,
-   "held_by": "D"
+   "held_by": "D",
+   "challenger_party": "D",
+   "seat_status": "open (Shaheen retiring)",
+   "race_type": "regular",
+   "other_notable": "Edmond LaPlante (Constitution)"
   },
   {
    "state": "Ohio",
@@ -83,7 +103,12 @@
    "pres_2024": -11.2,
    "pres_2020": -8.0,
    "wikipedia": "2026 United States Senate special election in Ohio",
-   "held_by": "R"
+   "held_by": "R",
+   "challenger_party": "D",
+   "seat_status": "appointed Jon Husted",
+   "race_type": "SPECIAL (Vance seat; term to Jan 2029)",
+   "format_note": "special election",
+   "other_notable": "Greg Levy (I) and William Redpath (L)"
   },
   {
    "state": "Texas",
@@ -93,7 +118,12 @@
    "abbr": "TX",
    "pres_2024": -13.6,
    "pres_2020": -5.6,
-   "held_by": "R"
+   "held_by": "R",
+   "challenger_party": "D",
+   "seat_status": "incumbent John Cornyn LOST renomination (May 26 runoff)",
+   "race_type": "regular",
+   "other_notable": "Ted Brown (L)",
+   "_note": "Cornyn lost renomination in the May 26 runoff; open seat."
   },
   {
    "state": "Iowa",
@@ -103,7 +133,11 @@
    "abbr": "IA",
    "pres_2024": -13.2,
    "pres_2020": -8.2,
-   "held_by": "R"
+   "held_by": "R",
+   "challenger_party": "D",
+   "seat_status": "open (Ernst retiring)",
+   "race_type": "regular",
+   "other_notable": "Thomas Laehn (L)"
   },
   {
    "state": "Alaska",
@@ -113,135 +147,184 @@
    "abbr": "AK",
    "pres_2024": -13.1,
    "pres_2020": -10.1,
-   "held_by": "R"
+   "held_by": "R",
+   "challenger_party": "D",
+   "seat_status": "incumbent Dan Sullivan",
+   "race_type": "regular",
+   "format_note": "ranked-choice general with four candidates",
+   "other_notable": "Daniel J. Sullivan Jr. (unrelated) and Gerald Heikes (R) also on RCV ballot"
   },
   {
    "state": "Alabama",
    "race": "Alabama Senate 2026",
-   "dem_candidate": null,
-   "rep_candidate": null,
+   "dem_candidate": "Everett Wess",
+   "rep_candidate": "Barry Moore",
    "abbr": "AL",
    "pres_2024": -30.6,
    "pres_2020": -25.5,
    "held_by": "R",
-   "_note": "Open seat (Tuberville running for governor); nominees auto-picked from polling."
+   "challenger_party": "D",
+   "seat_status": "open (Tuberville running for governor)",
+   "race_type": "regular",
+   "other_notable": "Craig Jelks (I)"
   },
   {
    "state": "Arkansas",
    "race": "Arkansas Senate 2026",
-   "dem_candidate": null,
+   "dem_candidate": "Hallie Shoffner",
    "rep_candidate": "Tom Cotton",
    "abbr": "AR",
    "pres_2024": -30.6,
    "pres_2020": -27.6,
-   "held_by": "R"
+   "held_by": "R",
+   "challenger_party": "D",
+   "seat_status": "incumbent Tom Cotton",
+   "race_type": "regular",
+   "other_notable": "Jeff Wadlin (L)"
   },
   {
    "state": "Colorado",
    "race": "Colorado Senate 2026",
    "dem_candidate": "John Hickenlooper",
-   "rep_candidate": null,
+   "rep_candidate": "Mark Baisley",
    "abbr": "CO",
    "pres_2024": 11.0,
    "pres_2020": 13.5,
-   "held_by": "D"
+   "held_by": "D",
+   "challenger_party": "D",
+   "seat_status": "incumbent John Hickenlooper",
+   "race_type": "regular",
+   "other_notable": "Bob Chew (Forward) plus 3 minor"
   },
   {
    "state": "Delaware",
    "race": "Delaware Senate 2026",
    "dem_candidate": "Chris Coons",
-   "rep_candidate": null,
+   "rep_candidate": "Michael Katz",
    "abbr": "DE",
    "pres_2024": 14.7,
    "pres_2020": 19.0,
-   "held_by": "D"
+   "held_by": "D",
+   "challenger_party": "D",
+   "seat_status": "incumbent Chris Coons",
+   "race_type": "regular"
   },
   {
    "state": "Florida",
    "race": "Florida Senate 2026",
-   "dem_candidate": null,
+   "dem_candidate": "Angie Nixon",
    "rep_candidate": "Ashley Moody",
    "abbr": "FL",
    "pres_2024": -13.1,
    "pres_2020": -3.4,
    "held_by": "R",
    "wikipedia": "2026 United States Senate special election in Florida",
-   "_note": "Special election for the remainder of Marco Rubio's term."
+   "challenger_party": "D",
+   "seat_status": "appointed Ashley Moody",
+   "race_type": "SPECIAL (Rubio seat; term to Jan 2029)",
+   "format_note": "special election",
+   "other_notable": "Neil Gillespie (I)"
   },
   {
    "state": "Idaho",
    "race": "Idaho Senate 2026",
-   "dem_candidate": null,
+   "dem_candidate": "Todd Achilles",
    "rep_candidate": "Jim Risch",
    "abbr": "ID",
    "pres_2024": -36.5,
    "pres_2020": -30.8,
-   "held_by": "R"
+   "held_by": "R",
+   "_note": "No Democrat on the ballot (Roth withdrew Jul 28): Todd Achilles (independent) is the main challenger. His wins are counted as an independent seat.",
+   "challenger_party": "I",
+   "no_democrat_on_ballot": true,
+   "seat_status": "incumbent Jim Risch",
+   "race_type": "regular",
+   "format_note": "no Democrat on ballot",
+   "other_notable": "Todd Achilles (I) is main challenger; Natalie Fleming (I); Matt Loesby (L)"
   },
   {
    "state": "Illinois",
    "race": "Illinois Senate 2026",
-   "dem_candidate": null,
-   "rep_candidate": null,
+   "dem_candidate": "Juliana Stratton",
+   "rep_candidate": "Don Tracy",
    "abbr": "IL",
    "pres_2024": 11.0,
    "pres_2020": 17.0,
    "held_by": "D",
-   "_note": "Open seat (Durbin retiring); nominees auto-picked from polling."
+   "challenger_party": "D",
+   "seat_status": "open (Durbin retiring)",
+   "race_type": "regular",
+   "other_notable": "Whitfield Harrington Jr. (American Center)"
   },
   {
    "state": "Kansas",
    "race": "Kansas Senate 2026",
-   "dem_candidate": null,
+   "dem_candidate": "Adam Hamilton",
    "rep_candidate": "Roger Marshall",
    "abbr": "KS",
    "pres_2024": -16.1,
    "pres_2020": -14.8,
-   "held_by": "R"
+   "held_by": "R",
+   "challenger_party": "D",
+   "seat_status": "incumbent Roger Marshall",
+   "race_type": "regular",
+   "other_notable": "David C. Graham (L)"
   },
   {
    "state": "Kentucky",
    "race": "Kentucky Senate 2026",
-   "dem_candidate": null,
-   "rep_candidate": null,
+   "dem_candidate": "Charles Booker",
+   "rep_candidate": "Andy Barr",
    "abbr": "KY",
    "pres_2024": -30.6,
    "pres_2020": -25.9,
    "held_by": "R",
-   "_note": "Open seat (McConnell retiring); nominees auto-picked from polling."
+   "challenger_party": "D",
+   "seat_status": "open (McConnell retiring)",
+   "race_type": "regular"
   },
   {
    "state": "Louisiana",
    "race": "Louisiana Senate 2026",
-   "dem_candidate": null,
-   "rep_candidate": null,
+   "dem_candidate": "Jamie Davis",
+   "rep_candidate": "Julia Letlow",
    "abbr": "LA",
    "pres_2024": -22.0,
    "pres_2020": -18.6,
    "held_by": "R",
-   "_note": "Cassidy faced a closed party primary; nominees auto-picked from polling."
+   "_note": "Cassidy lost renomination in the May 16 closed primary; open seat. Plurality general on Nov 3, no December runoff.",
+   "challenger_party": "D",
+   "seat_status": "incumbent Bill Cassidy LOST renomination (3rd in May 16 closed primary)",
+   "race_type": "regular",
+   "format_note": "first closed-party-primary cycle; Nov 3 general is plurality with no December Senate runoff"
   },
   {
    "state": "Massachusetts",
    "race": "Massachusetts Senate 2026",
    "dem_candidate": "Ed Markey",
-   "rep_candidate": null,
+   "rep_candidate": "John Deaton",
    "abbr": "MA",
    "pres_2024": 25.3,
    "pres_2020": 33.5,
    "held_by": "D",
-   "_note": "Markey has a September primary; name is a placeholder until then."
+   "challenger_party": "D",
+   "seat_status": "incumbent Ed Markey",
+   "race_type": "regular",
+   "other_notable": "Shiva Ayyadurai (I)"
   },
   {
    "state": "Minnesota",
    "race": "Minnesota Senate 2026",
-   "dem_candidate": null,
-   "rep_candidate": null,
+   "dem_candidate": "Peggy Flanagan",
+   "rep_candidate": "Michele Tafoya",
    "abbr": "MN",
    "pres_2024": 4.3,
    "pres_2020": 7.1,
    "held_by": "D",
-   "_note": "Open seat (Smith retiring); nominees auto-picked from polling."
+   "challenger_party": "D",
+   "seat_status": "open (Tina Smith retiring)",
+   "race_type": "regular",
+   "other_notable": "Marisa Simonetti (I) and Rebecca Whiting (L)"
   },
   {
    "state": "Mississippi",
@@ -251,17 +334,30 @@
    "abbr": "MS",
    "pres_2024": -22.9,
    "pres_2020": -16.5,
-   "held_by": "R"
+   "held_by": "R",
+   "challenger_party": "D",
+   "seat_status": "incumbent Cindy Hyde-Smith",
+   "race_type": "regular",
+   "other_notable": "Ty Pinkins (I; 2024 D nominee; polling about 6%)"
   },
   {
    "state": "Montana",
    "race": "Montana Senate 2026",
-   "dem_candidate": null,
-   "rep_candidate": "Steve Daines",
+   "dem_candidate": "Seth Bodnar",
+   "rep_candidate": "Kurt Alme",
    "abbr": "MT",
    "pres_2024": -19.9,
    "pres_2020": -16.3,
-   "held_by": "R"
+   "held_by": "R",
+   "_note": "Three-way race: Alme (R), Seth Bodnar (I, Tester-backed) and Bankhead (D). The independent is modelled as the challenger. While the feed carries no Alme-v-Bodnar polling, the race runs on the Polymarket/Kalshi price for Bodnar (1 − P(R) − P(D)) rather than the fundamentals prior, and is badged.",
+   "challenger_party": "I",
+   "seat_status": "open (Daines withdrew at filing deadline)",
+   "race_type": "regular",
+   "format_note": "three-way D/R/I race",
+   "other_notable": "Seth Bodnar (I; former Univ. of Montana president; Tester-backed; top fundraiser); Kyle Austin (L)",
+   "third_candidate": "Alani Bankhead (D)",
+   "market_only_when_unpolled": true,
+   "badge": "three-way race; polls exclude Bodnar"
   },
   {
    "state": "Nebraska",
@@ -272,118 +368,171 @@
    "pres_2024": -20.6,
    "pres_2020": -19.1,
    "held_by": "R",
-   "_note": "Osborn is an independent with no Democratic nominee of note; he occupies the Dem column so the race has a two-way margin. A win is counted as a Dem seat for control, which overstates certainty about whom he would caucus with."
+   "_note": "No Democrat on the ballot: Dan Osborn (independent, Democratic-endorsed) is the challenger and occupies the challenger column. His wins are counted as an independent seat, not a Democratic one.",
+   "challenger_party": "I",
+   "no_democrat_on_ballot": true,
+   "seat_status": "incumbent Pete Ricketts",
+   "race_type": "regular",
+   "format_note": "no Democrat on ballot; effectively Osborn (I) v Ricketts (R)",
+   "other_notable": "Dan Osborn (nonpartisan; Democratic-endorsed; main challenger); minor: Mike Marvin; Chuck Conboy; Robin Richards"
   },
   {
    "state": "New Jersey",
    "race": "New Jersey Senate 2026",
    "dem_candidate": "Cory Booker",
-   "rep_candidate": null,
+   "rep_candidate": "Justin Murphy",
    "abbr": "NJ",
    "pres_2024": 5.9,
    "pres_2020": 15.9,
-   "held_by": "D"
+   "held_by": "D",
+   "challenger_party": "D",
+   "seat_status": "incumbent Cory Booker",
+   "race_type": "regular",
+   "other_notable": "Veronica Fernandez (slogan line) and Joanne Kuniansky (SWP)"
   },
   {
    "state": "New Mexico",
    "race": "New Mexico Senate 2026",
    "dem_candidate": "Ben Ray Luján",
-   "rep_candidate": null,
+   "rep_candidate": "Larry Marker",
    "abbr": "NM",
    "pres_2024": 6.0,
    "pres_2020": 10.8,
-   "held_by": "D"
+   "held_by": "D",
+   "challenger_party": "D",
+   "seat_status": "incumbent Ben Ray Lujan",
+   "race_type": "regular",
+   "other_notable": "Rhett Trappman (L) and Bob Perls (Forward) (ballot status unconfirmed)"
   },
   {
    "state": "Oklahoma",
    "race": "Oklahoma Senate 2026",
-   "dem_candidate": null,
-   "rep_candidate": "Markwayne Mullin",
+   "dem_candidate": "N'Kiyla Jasmine Thomas",
+   "rep_candidate": "Kevin Hern",
    "abbr": "OK",
    "pres_2024": -34.3,
    "pres_2020": -33.1,
-   "held_by": "R"
+   "held_by": "R",
+   "_note": "Regular election; the winner also fills the remainder of Mullin's term and can be seated on certification. Appointee Alan Armstrong was barred from running.",
+   "challenger_party": "D",
+   "seat_status": "open (Mullin resigned Mar 23 for DHS; appointee Alan Armstrong barred from running)",
+   "race_type": "regular (winner also fills remainder of Mullin term; can be seated on certification)",
+   "format_note": "not a separate special",
+   "other_notable": "Sevier White (L); Ron Meinhardt (I); Curtis Stinnett (I)"
   },
   {
    "state": "Oregon",
    "race": "Oregon Senate 2026",
    "dem_candidate": "Jeff Merkley",
-   "rep_candidate": null,
+   "rep_candidate": "David Brock Smith",
    "abbr": "OR",
    "pres_2024": 14.4,
    "pres_2020": 16.1,
-   "held_by": "D"
+   "held_by": "D",
+   "challenger_party": "D",
+   "seat_status": "incumbent Jeff Merkley",
+   "race_type": "regular",
+   "other_notable": "Gary Lyndon Dye (L) and Chris Henry (Progressive/Pacific Green)"
   },
   {
    "state": "Rhode Island",
    "race": "Rhode Island Senate 2026",
    "dem_candidate": "Jack Reed",
-   "rep_candidate": null,
+   "rep_candidate": "Raymond McKay",
    "abbr": "RI",
    "pres_2024": 13.9,
    "pres_2020": 20.6,
-   "held_by": "D"
+   "held_by": "D",
+   "challenger_party": "D",
+   "seat_status": "incumbent Jack Reed",
+   "race_type": "regular",
+   "other_notable": "Michael Bahry (I)"
   },
   {
    "state": "South Carolina",
    "race": "South Carolina Senate 2026",
    "dem_candidate": "Annie Andrews",
-   "rep_candidate": "Lindsey Graham",
+   "rep_candidate": "Darline Graham",
    "abbr": "SC",
    "pres_2024": -17.9,
    "pres_2020": -11.7,
-   "held_by": "R"
+   "held_by": "R",
+   "_note": "Darline Graham was appointed after Lindsey Graham's death (Jul 11, 2026) and won the Aug 25 GOP runoff; some sources list her as Darline Graham Nordone.",
+   "challenger_party": "D",
+   "seat_status": "appointed Darline Graham (Lindsey Graham died Jul 11 2026; sworn in Jul 14; won Aug 25 special GOP runoff 52.5 over Ralph Norman)",
+   "race_type": "regular (full six-year term)",
+   "other_notable": "Kasie Whitener (L) and Mark Hackett (Constitution)"
   },
   {
    "state": "South Dakota",
    "race": "South Dakota Senate 2026",
-   "dem_candidate": null,
+   "dem_candidate": "Brian Bengs",
    "rep_candidate": "Mike Rounds",
    "abbr": "SD",
    "pres_2024": -29.2,
    "pres_2020": -26.2,
-   "held_by": "R"
+   "held_by": "R",
+   "_note": "No Democrat on the ballot (Beaudion withdrew Aug 4): Brian Bengs (independent) is the challenger. His wins are counted as an independent seat.",
+   "challenger_party": "I",
+   "no_democrat_on_ballot": true,
+   "seat_status": "incumbent Mike Rounds",
+   "race_type": "regular",
+   "format_note": "no Democrat on ballot; two-way I v R",
+   "other_notable": "Brian Bengs (I; 2022 D nominee; sole challenger)"
   },
   {
    "state": "Tennessee",
    "race": "Tennessee Senate 2026",
-   "dem_candidate": null,
+   "dem_candidate": "Marquita Bradshaw",
    "rep_candidate": "Bill Hagerty",
    "abbr": "TN",
    "pres_2024": -29.7,
    "pres_2020": -23.2,
-   "held_by": "R"
+   "held_by": "R",
+   "challenger_party": "D",
+   "seat_status": "incumbent Bill Hagerty",
+   "race_type": "regular",
+   "other_notable": "eight independents incl. Tharon Chandler and Andrew Gerena"
   },
   {
    "state": "Virginia",
    "race": "Virginia Senate 2026",
    "dem_candidate": "Mark Warner",
-   "rep_candidate": null,
+   "rep_candidate": "Bert Mizusawa",
    "abbr": "VA",
    "pres_2024": 5.8,
    "pres_2020": 10.1,
-   "held_by": "D"
+   "held_by": "D",
+   "challenger_party": "D",
+   "seat_status": "incumbent Mark Warner",
+   "race_type": "regular"
   },
   {
    "state": "West Virginia",
    "race": "West Virginia Senate 2026",
-   "dem_candidate": null,
+   "dem_candidate": "Rachel Fetty Anderson",
    "rep_candidate": "Shelley Moore Capito",
    "abbr": "WV",
    "pres_2024": -41.9,
    "pres_2020": -38.9,
-   "held_by": "R"
+   "held_by": "R",
+   "challenger_party": "D",
+   "seat_status": "incumbent Shelley Moore Capito",
+   "race_type": "regular",
+   "other_notable": "S. Marshall Wilson (Constitution)"
   },
   {
    "state": "Wyoming",
    "race": "Wyoming Senate 2026",
-   "dem_candidate": null,
-   "rep_candidate": null,
+   "dem_candidate": "James W. Byrd",
+   "rep_candidate": "Harriet Hageman",
    "abbr": "WY",
    "pres_2024": -46.2,
    "pres_2020": -43.4,
    "held_by": "R",
-   "_note": "Open seat (Lummis retiring); nominees auto-picked from polling."
+   "challenger_party": "D",
+   "seat_status": "open (Lummis retiring)",
+   "race_type": "regular"
   }
  ]
 }

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import LastUpdated from '@/app/components/LastUpdated';
 import SeatDistributionChart from '@/app/components/SeatDistributionChart';
+import SeatRankChart from '@/app/components/SeatRankChart';
 import { EmptyState, PageHead, Panel, StatCard } from '@/app/components/ui';
 import { getSenateForecast, type NationalEnvironment } from '@/app/lib/data';
 
@@ -62,6 +63,14 @@ export default function SenateForecastPage() {
         </div>
       </Panel>
 
+      <Panel title="Competitive seats that determine Senate control" className="mt-4">
+        <SeatRankChart
+          races={forecast.races}
+          demHoldovers={forecast.dem_safe_seats}
+          threshold={forecast.dem_majority_threshold}
+        />
+      </Panel>
+
       {forecast.national_environment?.available && (
         <NationalEnvironmentPanel env={forecast.national_environment} />
       )}
@@ -75,6 +84,14 @@ export default function SenateForecastPage() {
           Baseline: {forecast.dem_safe_seats} safe D seats + {forecast.rep_safe_seats} safe R
           seats; {forecast.races.length} competitive races simulated. Democrats need{' '}
           {forecast.dem_majority_threshold} seats for control.
+          {forecast.ind_races && forecast.ind_races.length > 0 && (
+            <>
+              {' '}
+              Independents challenging in {forecast.ind_races.join(', ')} are tallied
+              separately ({(forecast.mean_ind_seats ?? 0).toFixed(2)} expected seats) and are not
+              counted toward Democratic control.
+            </>
+          )}
         </p>
       </Panel>
 
@@ -106,9 +123,16 @@ export default function SenateForecastPage() {
         {forecast.races.map((race) => (
           <div key={race.state} className="rounded-xl border border-cream-300 bg-white p-4">
             <div className="font-medium text-cocoa-700">{race.state}</div>
-            <div className="mt-0.5 text-xs text-cocoa-400">
-              {race.dem_candidate} (D) v. {race.rep_candidate} (R)
+            <div className="mt-0.5 text-xs text-cocoa-400" title={raceNote(race)}>
+              {race.dem_candidate} ({race.challenger_party === 'I' ? 'I' : 'D'}) v. {race.rep_candidate} (R)
+              {race.third_candidate && <> · {race.third_candidate}</>}
+              {race.open_seat && <> · open</>}
             </div>
+            {race.badge && (
+              <div className="mt-1 inline-flex rounded-full border border-peach-border bg-peach-wash px-2 py-0.5 text-[10px] font-semibold text-peach">
+                {race.badge}
+              </div>
+            )}
             <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
               <MobileDatum label="Polling margin" value={formatRaceMargin(race.margin)} />
               <MobileDatum label="P(D), polls" value={formatProbability(race.dem_win_prob_polls)} />
@@ -120,9 +144,15 @@ export default function SenateForecastPage() {
               />
               <MobileDatum
                 label="Kalshi"
-                value={formatProbability(race.market_dem_prob.kalshi)}
+                value={formatProbability(race.market_dem_prob.kalshi ?? race.consensus?.kalshi_p_dem)}
                 href={race.market_urls?.kalshi}
               />
+              {race.consensus && (
+                <MobileDatum
+                  label="Ratings"
+                  value={`${shortRating(race.consensus.cook)} · ${shortRating(race.consensus.sabato)} · ${shortRating(race.consensus.inside_elections)}`}
+                />
+              )}
             </dl>
           </div>
         ))}
@@ -134,10 +164,11 @@ export default function SenateForecastPage() {
             <tr className="border-b border-cream-300 text-left text-xs uppercase tracking-wide text-cocoa-400">
               <th className="px-4 py-3">Race</th>
               <th className="px-4 py-3 text-right">Polling margin</th>
-              <th className="px-4 py-3 text-right">P(D) polls only</th>
+              <th className="px-4 py-3 text-right">P(D) polls only*</th>
               <th className="px-4 py-3 text-right">P(D) blended</th>
               <th className="px-4 py-3 text-right">Polymarket</th>
               <th className="px-4 py-3 text-right">Kalshi</th>
+              <th className="px-4 py-3">Ratings</th>
             </tr>
           </thead>
           <tbody>
@@ -145,27 +176,71 @@ export default function SenateForecastPage() {
               <tr key={race.state} className="border-b border-cream-100 last:border-0">
                 <td className="px-4 py-3 font-medium text-cocoa-700">
                   {race.state}
-                  <span className="ml-2 text-xs font-normal text-cocoa-400">
-                    {race.dem_candidate} (D) v. {race.rep_candidate} (R)
+                  <span className="ml-2 text-xs font-normal text-cocoa-400" title={raceNote(race)}>
+                    {race.dem_candidate}{' '}
+                    {race.challenger_party === 'I' ? (
+                      <span className="font-semibold text-stamp">(I)</span>
+                    ) : (
+                      '(D)'
+                    )}{' '}
+                    v. {race.rep_candidate} (R)
+                    {race.third_candidate && <> · {race.third_candidate}</>}
+                    {race.open_seat && <span className="ml-1 text-cocoa-400">· open</span>}
+                    {(race.format_note || race.open_seat) && (
+                      <span className="ml-1 text-cocoa-300" aria-label="race note">ⓘ</span>
+                    )}
                   </span>
+                  {race.badge && (
+                    <span className="ml-2 inline-flex rounded-full border border-peach-border bg-peach-wash px-2 py-0.5 text-[10px] font-semibold text-peach">
+                      {race.badge}
+                    </span>
+                  )}
                 </td>
                 <td className="px-4 py-3 text-right text-cocoa-700">
-                  {race.margin != null
-                    ? `${race.margin > 0 ? 'D' : 'R'} +${Math.abs(race.margin).toFixed(1)}`
-                    : '—'}
+                  {race.margin != null ? (
+                    `${race.margin > 0 ? 'D' : 'R'} +${Math.abs(race.margin).toFixed(1)}`
+                  ) : race.treatment === 'CONSENSUS_SAFE' ? (
+                    <span className="text-cocoa-400" title={`model margin kept aside: ${formatRaceMargin(race.model_margin_secondary ?? null)}`}>
+                      consensus
+                    </span>
+                  ) : (
+                    '—'
+                  )}
                 </td>
                 <Prob value={race.dem_win_prob_polls} />
                 <Prob value={race.dem_win_prob_blended} bold />
                 <Prob
-                  value={race.market_dem_prob.polymarket ?? null}
+                  value={race.market_dem_prob.polymarket ?? race.consensus?.polymarket_p_dem ?? null}
                   href={race.market_urls?.polymarket}
+                  snapshot={race.market_dem_prob.polymarket == null && race.consensus?.polymarket_p_dem != null}
                 />
-                <Prob value={race.market_dem_prob.kalshi ?? null} href={race.market_urls?.kalshi} />
+                <Prob
+                  value={race.market_dem_prob.kalshi ?? race.consensus?.kalshi_p_dem ?? null}
+                  href={race.market_urls?.kalshi}
+                  snapshot={race.market_dem_prob.kalshi == null && race.consensus?.kalshi_p_dem != null}
+                />
+                <td className="px-4 py-3 text-xs text-cocoa-500">
+                  {race.consensus ? (
+                    <span title={`Cook: ${race.consensus.cook ?? '—'} · Sabato: ${race.consensus.sabato ?? '—'} · Inside Elections: ${race.consensus.inside_elections ?? '—'} · DDHQ P(D) ${race.consensus.ddhq_p_dem != null ? Math.round(race.consensus.ddhq_p_dem * 100) + '%' : '—'}`}>
+                      {shortRating(race.consensus.cook)} · {shortRating(race.consensus.sabato)} · {shortRating(race.consensus.inside_elections)}
+                    </span>
+                  ) : (
+                    <span className="text-cocoa-300">—</span>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      <p className="mt-2 text-xs text-cocoa-400">
+        * For races marked (I) — no Democrat on the ballot — the margin and probabilities
+        describe the independent challenger, not a Democrat. Hover a matchup for format notes
+        (ranked choice, specials, open seats). † Market price from the Nov 1–2 research
+        snapshot where the live feed has no market yet. Ratings are Cook · Sabato · Inside
+        Elections for the 22 researched races; hover for the full text.
+      </p>
 
       <div className="mt-8 rounded-xl border border-cream-300 bg-cream-100 p-5 text-sm text-cocoa-700">
         <h3 className="font-display text-lg text-ink">How the simulation works</h3>
@@ -294,8 +369,18 @@ function ComparisonChip({
   );
 }
 
-function Prob({ value, bold, href }: { value: number | null; bold?: boolean; href?: string }) {
-  const text = value != null ? `${(value * 100).toFixed(0)}%` : '—';
+function Prob({
+  value,
+  bold,
+  href,
+  snapshot = false,
+}: {
+  value: number | null;
+  bold?: boolean;
+  href?: string;
+  snapshot?: boolean;
+}) {
+  const text = value != null ? `${(value * 100).toFixed(0)}%${snapshot ? '†' : ''}` : '—';
   return (
     <td
       className={`px-4 py-3 text-right ${bold ? 'font-semibold text-ink' : 'text-cocoa-500'}`}
@@ -356,4 +441,28 @@ function MobileDatum({
       </dd>
     </div>
   );
+}
+
+function raceNote(race: RaceForecastLike): string | undefined {
+  const status =
+    race.open_seat && race.seat_status && !race.seat_status.startsWith('open')
+      ? `open seat (${race.seat_status})`
+      : race.seat_status;
+  const parts = [status, race.format_note, race.other_notable].filter(Boolean);
+  return parts.length ? parts.join(' · ') : undefined;
+}
+
+type RaceForecastLike = {
+  seat_status?: string | null;
+  open_seat?: boolean;
+  format_note?: string | null;
+  other_notable?: string | null;
+};
+
+function shortRating(r: string | null | undefined): string {
+  if (!r) return '—';
+  const m = r.match(/^(Solid|Safe|Likely|Leans?|Lean|Tilt|Toss[- ]?[Uu]p)\s*([DR])?/);
+  if (!m) return r.split(' (')[0];
+  const word = m[1].replace(/^Leans$/, 'Lean').replace(/Toss[- ]?[Uu]p/, 'Toss-up');
+  return `${word}${m[2] ? ' ' + m[2] : ''}`;
 }

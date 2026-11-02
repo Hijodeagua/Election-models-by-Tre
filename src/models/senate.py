@@ -20,6 +20,8 @@ class SenateRaceSnapshot:
     margin: float | None
     num_polls: int
     rating: str | None = None  # Cook/Sabato rating
+    # Per-candidate (low, high) band from the weighted average's uncertainty.
+    candidate_ci: dict[str, tuple[float, float]] | None = None
 
 
 class SenateModel:
@@ -46,4 +48,5 @@ class SenateModel:
             candidates=result.averages,
             margin=result.margin,
             num_polls=result.num_polls,
+            candidate_ci=result.confidence_interval,
         )
