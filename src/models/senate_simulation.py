@@ -66,6 +66,11 @@ class RaceInput:
     num_polls: int = 0
     # Market-implied P(Dem win) per source, e.g. {"polymarket": 0.47}.
     market_dem_prob: dict[str, float] = field(default_factory=dict)
+    # "D" normally; "I" where no Democrat is on the ballot and an independent
+    # occupies the challenger column (NE, SD, ID in 2026). The margin and win
+    # probability then describe the independent, and a win is tallied as an
+    # independent seat rather than a Democratic one.
+    challenger_party: str = "D"
 
 
 @dataclass
@@ -91,6 +96,7 @@ class RaceForecast:
     # Binned distribution of the simulated Dem−Rep margin: a list of
     # {"mid": bin_center, "pct": fraction_of_sims}. Powers the per-race histogram.
     margin_hist: list[dict] = field(default_factory=list)
+    challenger_party: str = "D"
 
 
 @dataclass
@@ -116,6 +122,10 @@ class SenateControlForecast:
     tail_dof: float | None = None
     # Chamber-control odds straight from the markets, for comparison.
     market_control_dem_prob: dict[str, float] = field(default_factory=dict)
+    # Seats won by independents occupying a challenger column (not counted
+    # toward Democratic control).
+    mean_ind_seats: float = 0.0
+    ind_races: list[str] = field(default_factory=list)
 
 
 def load_cycle_config(path: Path | None = None) -> dict[str, Any]:
@@ -259,6 +269,7 @@ class SenateControlSimulator:
                     dem_win_prob_polls=p_polls,
                     dem_win_prob_blended=round(p_blend, 4) if p_blend is not None else None,
                     market_dem_prob=dict(race.market_dem_prob),
+                    challenger_party=race.challenger_party,
                 )
             )
             if p_blend is not None:
@@ -282,13 +293,21 @@ class SenateControlSimulator:
                 w = rng.chisquare(nu, size=(num_simulations, 1))
                 error = error * np.sqrt(nu / w) * np.sqrt((nu - 2.0) / nu)
             sim_margins = margins[None, :] + error
-            dem_wins = sim_margins > 0.0
+            challenger_wins = sim_margins > 0.0
+            # Only Democratic challengers add to the Democratic seat count; an
+            # independent's win is tallied separately.
+            is_dem = np.array(
+                [forecasts[fi].challenger_party != "I" for fi in margin_to_forecast]
+            )
+            dem_wins = challenger_wins & is_dem[None, :]
+            ind_wins = challenger_wins & ~is_dem[None, :]
             dem_seats = self.dem_safe_seats + dem_wins.sum(axis=1)
+            ind_seats = ind_wins.sum(axis=1)
             # Per-race simulated outcome distribution (median + 80% band + win share).
             race_median = np.median(sim_margins, axis=0)
             race_p10 = np.percentile(sim_margins, 10, axis=0)
             race_p90 = np.percentile(sim_margins, 90, axis=0)
-            race_winshare = dem_wins.mean(axis=0)
+            race_winshare = challenger_wins.mean(axis=0)
             # Histogram bins (clip tails into the end bins so no mass is lost;
             # np.histogram's last bin is closed, so exact-edge clipping is safe).
             edges = MARGIN_HIST_EDGES
@@ -307,6 +326,7 @@ class SenateControlSimulator:
                 ]
         else:
             dem_seats = np.full(num_simulations, self.dem_safe_seats)
+            ind_seats = np.zeros(num_simulations)
 
         dem_control = dem_seats >= self.dem_majority_threshold
         unique_seats, seat_counts = np.unique(dem_seats, return_counts=True)
@@ -328,5 +348,7 @@ class SenateControlSimulator:
             race_sigma=self.race_sigma,
             bias=self.bias,
             tail_dof=self.tail_dof,
+            mean_ind_seats=round(float(ind_seats.mean()), 2),
+            ind_races=[r.state for r in races if r.challenger_party == "I"],
             market_control_dem_prob=market_control_dem_prob or {},
         )

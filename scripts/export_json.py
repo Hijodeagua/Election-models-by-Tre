@@ -511,7 +511,58 @@ def _resolve_nominee(
     return ranked[0] if ranked else configured
 
 
+def _name_matches(label: str | None, configured: str | None) -> bool:
+    if not label or not configured:
+        return False
+    a, b = label.lower().strip(), configured.lower().strip()
+    return a in b or b in a
+
+
+def audit_stale_matchups(polls: list[Poll], cycle: dict) -> tuple[list[Poll], list[dict]]:
+    """Split Senate polls into those that poll the configured matchup and
+    those that don't (a superseded nominee, a primary, a hypothetical).
+
+    Stale polls are never deleted from the feed; they are excluded from the
+    averages and listed in senate_poll_audit.json so the exclusion is visible.
+    """
+    by_race = {e["race"].lower(): e for e in cycle["competitive_races"]}
+    valid: list[Poll] = []
+    stale: list[dict] = []
+    for p in polls:
+        entry = by_race.get((p.subject or "").lower())
+        if entry is None:
+            valid.append(p)  # not a configured race; leave to downstream filters
+            continue
+        names = [a.choice for a in p.answers]
+        ok = any(_name_matches(n, entry.get("dem_candidate")) for n in names) and any(
+            _name_matches(n, entry.get("rep_candidate")) for n in names
+        )
+        if ok:
+            valid.append(p)
+        else:
+            stale.append(
+                {
+                    "state": entry["state"],
+                    "race": p.subject,
+                    "pollster": p.pollster,
+                    "end_date": p.end_date.isoformat(),
+                    "polled": " v ".join(names),
+                    "expected": f"{entry.get('dem_candidate')} v {entry.get('rep_candidate')}",
+                    "flag": "stale_matchup",
+                }
+            )
+    return valid, stale
+
+
 def _senate_payload(polls: list[Poll]) -> dict:
+    cycle = load_cycle_config()
+    polls, stale = audit_stale_matchups(polls, cycle)
+    _write(
+        "senate_poll_audit.json",
+        {"as_of": date.today().isoformat(), "stale_matchup": stale, "num_valid": len(polls)},
+    )
+    if stale:
+        logging.warning("senate: %d polls excluded as stale_matchup", len(stale))
     engine = _build_engine_from_polls(polls) if polls else None
     states = _detect_senate_states(polls) or _US_STATES
     model = SenateModel(engine=engine) if engine else SenateModel()
@@ -519,7 +570,6 @@ def _senate_payload(polls: list[Poll]) -> dict:
     races = [r for r in races if r.num_polls > 0]
     races.sort(key=lambda r: r.state)
 
-    cycle = load_cycle_config()
     config_by_state = {entry["state"]: entry for entry in cycle["competitive_races"]}
     market_odds = MarketOddsCsvSource(FALLBACK_DIR).load()
     vibes_model = VibesAdjustedSenateModel(VibesCsvSource(FALLBACK_DIR).load())
@@ -751,6 +801,7 @@ def _senate_forecast_payload(
                     margin=round(margin, 3) if margin is not None else None,
                     num_polls=n,
                     market_dem_prob=market_dem_prob,
+                    challenger_party=entry.get("challenger_party", "D"),
                 )
             )
         return out
@@ -811,10 +862,15 @@ def _senate_forecast_payload(
     }
     # Market page links so the site can send readers to the source market, and
     # the defending party so the UI can mark flips.
-    held_by = {e["state"]: e.get("held_by") for e in cycle["competitive_races"]}
+    meta = {e["state"]: e for e in cycle["competitive_races"]}
     for race_dict in payload.get("races", []):
         race_dict["market_urls"] = urls_for_race(market_odds, race_dict["race"])
-        race_dict["held_by"] = held_by.get(race_dict["state"])
+        e = meta.get(race_dict["state"], {})
+        race_dict["held_by"] = e.get("held_by")
+        race_dict["seat_status"] = e.get("seat_status")
+        race_dict["format_note"] = e.get("format_note")
+        race_dict["third_candidate"] = e.get("third_candidate")
+        race_dict["other_notable"] = e.get("other_notable")
     payload["market_control_urls"] = urls_for_race(market_odds, SENATE_CONTROL_RACE)
     payload["maturity"] = "nowcast"
     payload["label"] = (

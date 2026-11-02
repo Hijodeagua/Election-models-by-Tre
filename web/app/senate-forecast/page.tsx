@@ -84,6 +84,14 @@ export default function SenateForecastPage() {
           Baseline: {forecast.dem_safe_seats} safe D seats + {forecast.rep_safe_seats} safe R
           seats; {forecast.races.length} competitive races simulated. Democrats need{' '}
           {forecast.dem_majority_threshold} seats for control.
+          {forecast.ind_races && forecast.ind_races.length > 0 && (
+            <>
+              {' '}
+              Independents challenging in {forecast.ind_races.join(', ')} are tallied
+              separately ({(forecast.mean_ind_seats ?? 0).toFixed(2)} expected seats) and are not
+              counted toward Democratic control.
+            </>
+          )}
         </p>
       </Panel>
 
@@ -115,8 +123,9 @@ export default function SenateForecastPage() {
         {forecast.races.map((race) => (
           <div key={race.state} className="rounded-xl border border-cream-300 bg-white p-4">
             <div className="font-medium text-cocoa-700">{race.state}</div>
-            <div className="mt-0.5 text-xs text-cocoa-400">
-              {race.dem_candidate} (D) v. {race.rep_candidate} (R)
+            <div className="mt-0.5 text-xs text-cocoa-400" title={raceNote(race)}>
+              {race.dem_candidate} ({race.challenger_party === 'I' ? 'I' : 'D'}) v. {race.rep_candidate} (R)
+              {race.third_candidate && <> · {race.third_candidate}</>}
             </div>
             <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
               <MobileDatum label="Polling margin" value={formatRaceMargin(race.margin)} />
@@ -143,7 +152,7 @@ export default function SenateForecastPage() {
             <tr className="border-b border-cream-300 text-left text-xs uppercase tracking-wide text-cocoa-400">
               <th className="px-4 py-3">Race</th>
               <th className="px-4 py-3 text-right">Polling margin</th>
-              <th className="px-4 py-3 text-right">P(D) polls only</th>
+              <th className="px-4 py-3 text-right">P(D) polls only*</th>
               <th className="px-4 py-3 text-right">P(D) blended</th>
               <th className="px-4 py-3 text-right">Polymarket</th>
               <th className="px-4 py-3 text-right">Kalshi</th>
@@ -154,8 +163,18 @@ export default function SenateForecastPage() {
               <tr key={race.state} className="border-b border-cream-100 last:border-0">
                 <td className="px-4 py-3 font-medium text-cocoa-700">
                   {race.state}
-                  <span className="ml-2 text-xs font-normal text-cocoa-400">
-                    {race.dem_candidate} (D) v. {race.rep_candidate} (R)
+                  <span className="ml-2 text-xs font-normal text-cocoa-400" title={raceNote(race)}>
+                    {race.dem_candidate}{' '}
+                    {race.challenger_party === 'I' ? (
+                      <span className="font-semibold text-stamp">(I)</span>
+                    ) : (
+                      '(D)'
+                    )}{' '}
+                    v. {race.rep_candidate} (R)
+                    {race.third_candidate && <> · {race.third_candidate}</>}
+                    {(race.format_note || race.seat_status?.startsWith('open')) && (
+                      <span className="ml-1 text-cocoa-300" aria-label="race note">ⓘ</span>
+                    )}
                   </span>
                 </td>
                 <td className="px-4 py-3 text-right text-cocoa-700">
@@ -175,6 +194,12 @@ export default function SenateForecastPage() {
           </tbody>
         </table>
       </div>
+
+      <p className="mt-2 text-xs text-cocoa-400">
+        * For races marked (I) — no Democrat on the ballot — the margin and probabilities
+        describe the independent challenger, not a Democrat. Hover a matchup for format notes
+        (ranked choice, specials, open seats).
+      </p>
 
       <div className="mt-8 rounded-xl border border-cream-300 bg-cream-100 p-5 text-sm text-cocoa-700">
         <h3 className="font-display text-lg text-ink">How the simulation works</h3>
@@ -366,3 +391,14 @@ function MobileDatum({
     </div>
   );
 }
+
+function raceNote(race: RaceForecastLike): string | undefined {
+  const parts = [race.seat_status, race.format_note, race.other_notable].filter(Boolean);
+  return parts.length ? parts.join(' · ') : undefined;
+}
+
+type RaceForecastLike = {
+  seat_status?: string | null;
+  format_note?: string | null;
+  other_notable?: string | null;
+};

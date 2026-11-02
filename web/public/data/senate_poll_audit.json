@@ -1,0 +1,42 @@
+{
+  "as_of": "2026-11-02",
+  "stale_matchup": [
+    {
+      "state": "Idaho",
+      "race": "Idaho Senate 2026",
+      "pollster": "Change Research (I)",
+      "end_date": "2026-07-30",
+      "polled": "Jim Risch v David Roth",
+      "expected": "Todd Achilles v Jim Risch",
+      "flag": "stale_matchup"
+    },
+    {
+      "state": "South Carolina",
+      "race": "South Carolina Senate 2026",
+      "pollster": "Public Policy Polling (D)",
+      "end_date": "2026-07-17",
+      "polled": "Ralph Norman v Annie Andrews",
+      "expected": "Annie Andrews v Darline Graham",
+      "flag": "stale_matchup"
+    },
+    {
+      "state": "Idaho",
+      "race": "Idaho Senate 2026",
+      "pollster": "Peak Insights (R)",
+      "end_date": "2026-06-07",
+      "polled": "Jim Risch v David Roth",
+      "expected": "Todd Achilles v Jim Risch",
+      "flag": "stale_matchup"
+    },
+    {
+      "state": "South Dakota",
+      "race": "South Dakota Senate 2026",
+      "pollster": "Public Policy Polling (D)",
+      "end_date": "2026-05-30",
+      "polled": "Mike Rounds v Julian Beaudion",
+      "expected": "Brian Bengs v Mike Rounds",
+      "flag": "stale_matchup"
+    }
+  ],
+  "num_valid": 511
+}

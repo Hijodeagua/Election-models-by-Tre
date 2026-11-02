@@ -18,6 +18,9 @@ const RATINGS: { key: Rating; label: string; range: string; fill: string; ink: s
   { key: 'safe-r', label: 'Safe R', range: '<1%', fill: '#7f1d1d', ink: '#ffffff', min: -1 },
 ];
 
+// Independents (no Democrat on the ballot) get a neutral fill when favored.
+const IND_FILL = '#4e8c3f';
+
 const ABBR: Record<string, string> = {
   Alabama: 'AL', Alaska: 'AK', Arkansas: 'AR', Colorado: 'CO', Delaware: 'DE', Florida: 'FL',
   Georgia: 'GA', Idaho: 'ID', Illinois: 'IL', Iowa: 'IA', Kansas: 'KS', Kentucky: 'KY',
@@ -47,6 +50,7 @@ export default function SeatRankChart({
       abbr: ABBR[r.state] ?? r.state.slice(0, 2).toUpperCase(),
       p: r.dem_win_prob_sim ?? r.dem_win_prob_blended ?? 0.5,
       heldBy: r.held_by ?? null,
+      challenger: r.challenger_party ?? 'D',
     }))
     .sort((a, b) => b.p - a.p);
   const needed = threshold - demHoldovers; // seats Dems must win from this list
@@ -147,8 +151,9 @@ export default function SeatRankChart({
           {ranked.map((s, i) => {
             const r = rating(s.p);
             const { x, y } = pos(i);
-            const favored = s.p >= 0.5 ? 'D' : 'R';
+            const favored = s.p >= 0.5 ? s.challenger : 'R';
             const flip = s.heldBy != null && s.heldBy !== favored;
+            const indFavored = favored === 'I';
             return (
               <g key={s.state}>
                 <rect
@@ -157,7 +162,7 @@ export default function SeatRankChart({
                   width={tile}
                   height={tile}
                   rx={5}
-                  fill={r.fill}
+                  fill={indFavored ? IND_FILL : r.fill}
                   stroke={flip ? '#2c1810' : '#ffffff'}
                   strokeWidth={flip ? 2.5 : 1}
                 />
@@ -168,12 +173,12 @@ export default function SeatRankChart({
                   dominantBaseline="middle"
                   fontSize="12.5"
                   fontWeight="700"
-                  fill={r.ink}
+                  fill={indFavored ? '#ffffff' : r.ink}
                   fontFamily="var(--font-serif-body), Georgia, serif"
                 >
                   {s.abbr}
                 </text>
-                <title>{`${s.state}: ${Math.round(s.p * 100)}% D${flip ? ' (flip)' : ''}`}</title>
+                <title>{`${s.state}: ${Math.round(s.p * 100)}% ${s.challenger}${flip ? ' (flip)' : ''}`}</title>
               </g>
             );
           })}
@@ -216,8 +221,9 @@ export default function SeatRankChart({
         ))}
       </div>
       <p className="mt-2 text-xs text-cocoa-400">
-        Each box is a seat, shaded by the party our simulation favors and how strongly. A heavy
-        outline marks a seat the model expects to change hands. Hover a box for its probability.
+        Each box is a seat, shaded by the party our simulation favors and how strongly; green
+        marks a seat where an independent challenger is favored. A heavy outline marks a seat the
+        model expects to change hands. Hover a box for its probability.
       </p>
     </div>
   );

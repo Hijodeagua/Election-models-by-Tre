@@ -13,7 +13,7 @@
       "ind_candidate": null,
       "pick": null,
       "margin": null,
-      "note": ""
+      "note": "Ranked-choice general."
     },
     {
       "state": "New Hampshire",
@@ -26,7 +26,7 @@
       "ind_candidate": null,
       "pick": null,
       "margin": null,
-      "note": ""
+      "note": "Open seat (Shaheen retiring)."
     },
     {
       "state": "Ohio",
@@ -39,7 +39,7 @@
       "ind_candidate": null,
       "pick": null,
       "margin": null,
-      "note": "Special election for the remainder of JD Vance's term."
+      "note": "Special election for the remainder of JD Vance's term (to Jan 2029)."
     },
     {
       "state": "North Carolina",
@@ -52,7 +52,7 @@
       "ind_candidate": null,
       "pick": null,
       "margin": null,
-      "note": ""
+      "note": "Open seat (Tillis retiring)."
     },
     {
       "state": "South Carolina",
@@ -65,7 +65,7 @@
       "ind_candidate": null,
       "pick": null,
       "margin": null,
-      "note": "Darline Graham was appointed in 2026 after Lindsey Graham left the seat."
+      "note": "Darline Graham was appointed after Lindsey Graham's death and won the Aug 25 GOP runoff."
     },
     {
       "state": "Georgia",
@@ -91,7 +91,7 @@
       "ind_candidate": null,
       "pick": null,
       "margin": null,
-      "note": "Special election for the remainder of Marco Rubio's term."
+      "note": "Special election for the remainder of Marco Rubio's term (to Jan 2029)."
     },
     {
       "state": "Michigan",
@@ -104,7 +104,7 @@
       "ind_candidate": null,
       "pick": null,
       "margin": null,
-      "note": ""
+      "note": "Open seat (Peters retiring)."
     },
     {
       "state": "Mississippi",
@@ -114,23 +114,23 @@
       "open": false,
       "dem_candidate": "Scott Colom",
       "rep_candidate": "Cindy Hyde-Smith",
-      "ind_candidate": null,
+      "ind_candidate": "Ty Pinkins",
       "pick": null,
       "margin": null,
-      "note": ""
+      "note": "Ty Pinkins (I) also on the ballot, polling about 6%."
     },
     {
       "state": "Louisiana",
       "abbr": "LA",
       "held_by": "R",
       "incumbent": "Bill Cassidy",
-      "open": false,
+      "open": true,
       "dem_candidate": "Jamie Davis",
       "rep_candidate": "Julia Letlow",
       "ind_candidate": null,
       "pick": null,
       "margin": null,
-      "note": "Letlow won the Republican primary over incumbent Cassidy."
+      "note": "First closed-party-primary cycle; Cassidy lost renomination. Nov 3 general is plurality with no December runoff."
     },
     {
       "state": "Iowa",
@@ -143,7 +143,7 @@
       "ind_candidate": null,
       "pick": null,
       "margin": null,
-      "note": ""
+      "note": "Open seat (Ernst retiring)."
     },
     {
       "state": "Minnesota",
@@ -156,7 +156,7 @@
       "ind_candidate": null,
       "pick": null,
       "margin": null,
-      "note": ""
+      "note": "Open seat (Smith retiring)."
     },
     {
       "state": "Texas",
@@ -169,7 +169,7 @@
       "ind_candidate": null,
       "pick": null,
       "margin": null,
-      "note": ""
+      "note": "Open seat: Cornyn lost renomination."
     },
     {
       "state": "Kansas",
@@ -195,7 +195,7 @@
       "ind_candidate": "Dan Osborn",
       "pick": null,
       "margin": null,
-      "note": "Independent Dan Osborn is the main challenger; no Democratic nominee of note."
+      "note": "No Democrat on the ballot; Osborn runs as an independent."
     },
     {
       "state": "Montana",
@@ -208,7 +208,7 @@
       "ind_candidate": "Seth Bodnar",
       "pick": null,
       "margin": null,
-      "note": "Open seat; three-way race. The model tracks Alme (R) vs independent Seth Bodnar, with Democrat Alani Bankhead a distant third in polling."
+      "note": "Three-way race: Bankhead (D), Alme (R), Bodnar (I). Open seat (Daines withdrew)."
     },
     {
       "state": "Alaska",
@@ -221,7 +221,7 @@
       "ind_candidate": null,
       "pick": null,
       "margin": null,
-      "note": ""
+      "note": "Ranked-choice general with four candidates."
     }
   ]
 }

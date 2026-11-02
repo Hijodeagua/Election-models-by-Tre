@@ -134,6 +134,13 @@ export interface RaceForecast {
   market_urls?: Record<string, string>;
   // Party defending the seat (from config), for flip markers.
   held_by?: 'D' | 'R' | null;
+  // "I" where no Democrat is on the ballot and an independent occupies the
+  // challenger column: the margin/probability then describe the independent.
+  challenger_party?: 'D' | 'I';
+  seat_status?: string | null;
+  format_note?: string | null;
+  third_candidate?: string | null;
+  other_notable?: string | null;
 }
 
 export interface PollsterEmpirical {
@@ -211,6 +218,8 @@ export interface SenateForecastData {
   national_environment?: NationalEnvironment;
   market_control_dem_prob: Record<string, number>;
   market_control_urls?: Record<string, string>;
+  mean_ind_seats?: number;
+  ind_races?: string[];
   maturity: string;
   label: string;
 }

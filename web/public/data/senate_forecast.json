@@ -1,40 +1,38 @@
 {
   "as_of": "2026-11-02",
   "num_simulations": 50000,
-  "dem_control_prob": 0.6519,
-  "mean_dem_seats": 51.52,
-  "median_dem_seats": 52.0,
+  "dem_control_prob": 0.629,
+  "mean_dem_seats": 51.24,
+  "median_dem_seats": 51.0,
   "seat_distribution": {
     "37": 2,
     "38": 4,
     "39": 8,
-    "40": 11,
-    "41": 12,
-    "42": 42,
-    "43": 83,
-    "44": 172,
-    "45": 417,
-    "46": 919,
-    "47": 1698,
-    "48": 3138,
-    "49": 4604,
-    "50": 6296,
-    "51": 7577,
-    "52": 7443,
-    "53": 6391,
-    "54": 4530,
-    "55": 2995,
-    "56": 1837,
-    "57": 945,
-    "58": 444,
-    "59": 231,
-    "60": 110,
-    "61": 46,
-    "62": 25,
-    "63": 9,
-    "64": 6,
-    "65": 3,
-    "66": 2
+    "40": 12,
+    "41": 17,
+    "42": 43,
+    "43": 82,
+    "44": 184,
+    "45": 443,
+    "46": 958,
+    "47": 1794,
+    "48": 3348,
+    "49": 4845,
+    "50": 6811,
+    "51": 8087,
+    "52": 7893,
+    "53": 6446,
+    "54": 4394,
+    "55": 2476,
+    "56": 1254,
+    "57": 535,
+    "58": 229,
+    "59": 74,
+    "60": 40,
+    "61": 8,
+    "62": 6,
+    "63": 5,
+    "64": 2
   },
   "races": [
     {
@@ -53,10 +51,15 @@
       "median_margin": 8.37,
       "margin_p10": 1.62,
       "margin_p90": 15.14,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/georgia-senate-election-winner"
       },
-      "held_by": "D"
+      "held_by": "D",
+      "seat_status": "incumbent Jon Ossoff",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "Al Bartell (I) and Allen Buckley (L)"
     },
     {
       "state": "Michigan",
@@ -74,10 +77,15 @@
       "median_margin": 3.12,
       "margin_p10": -3.63,
       "margin_p90": 9.87,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/michigan-senate-election-winner"
       },
-      "held_by": "D"
+      "held_by": "D",
+      "seat_status": "open (Peters retiring)",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": null
     },
     {
       "state": "North Carolina",
@@ -95,10 +103,15 @@
       "median_margin": 9.27,
       "margin_p10": 2.6,
       "margin_p90": 16.06,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/north-carolina-senate-election-winner"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "open (Tillis retiring)",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "Shannon Bray (L)"
     },
     {
       "state": "Maine",
@@ -116,10 +129,15 @@
       "median_margin": 3.87,
       "margin_p10": -2.88,
       "margin_p90": 10.53,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-maine-state-senate-in-2026"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "incumbent Susan Collins",
+      "format_note": "ranked-choice general",
+      "third_candidate": null,
+      "other_notable": "Phillip Rench (I)"
     },
     {
       "state": "New Hampshire",
@@ -137,10 +155,15 @@
       "median_margin": 6.43,
       "margin_p10": -0.36,
       "margin_p90": 13.29,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/new-hampshire-senate-election-winner"
       },
-      "held_by": "D"
+      "held_by": "D",
+      "seat_status": "open (Shaheen retiring)",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "Edmond LaPlante (Constitution)"
     },
     {
       "state": "Ohio",
@@ -158,10 +181,15 @@
       "median_margin": 1.78,
       "margin_p10": -5.1,
       "margin_p90": 8.51,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/ohio-senate-election-winner"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "appointed Jon Husted",
+      "format_note": "special election",
+      "third_candidate": null,
+      "other_notable": "Greg Levy (I) and William Redpath (L)"
     },
     {
       "state": "Texas",
@@ -179,10 +207,15 @@
       "median_margin": -0.34,
       "margin_p10": -7.07,
       "margin_p90": 6.47,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-texas-state-senate-in-2026"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "incumbent John Cornyn LOST renomination (May 26 runoff)",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "Ted Brown (L)"
     },
     {
       "state": "Iowa",
@@ -200,10 +233,15 @@
       "median_margin": -1.1,
       "margin_p10": -7.88,
       "margin_p90": 5.65,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/iowa-senate-election-winner"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "open (Ernst retiring)",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "Thomas Laehn (L)"
     },
     {
       "state": "Alaska",
@@ -219,8 +257,13 @@
       "median_margin": -0.99,
       "margin_p10": -7.67,
       "margin_p90": 5.72,
+      "challenger_party": "D",
       "market_urls": {},
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "incumbent Dan Sullivan",
+      "format_note": "ranked-choice general with four candidates",
+      "third_candidate": null,
+      "other_notable": "Daniel J. Sullivan Jr. (unrelated) and Gerald Heikes (R) also on RCV ballot"
     },
     {
       "state": "Alabama",
@@ -238,10 +281,15 @@
       "median_margin": -16.07,
       "margin_p10": -22.81,
       "margin_p90": -9.29,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/alabama-senate-election-winner-154"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "open (Tuberville running for governor)",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "Craig Jelks (I)"
     },
     {
       "state": "Arkansas",
@@ -259,10 +307,15 @@
       "median_margin": -12.62,
       "margin_p10": -19.3,
       "margin_p90": -5.81,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/arkansas-senate-election-winner"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "incumbent Tom Cotton",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "Jeff Wadlin (L)"
     },
     {
       "state": "Colorado",
@@ -280,10 +333,15 @@
       "median_margin": 18.74,
       "margin_p10": 12.0,
       "margin_p90": 25.55,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/colorado-senate-election-winner"
       },
-      "held_by": "D"
+      "held_by": "D",
+      "seat_status": "incumbent John Hickenlooper",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "Bob Chew (Forward) plus 3 minor"
     },
     {
       "state": "Delaware",
@@ -301,10 +359,15 @@
       "median_margin": 20.48,
       "margin_p10": 13.65,
       "margin_p90": 27.22,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/delaware-senate-election-winner"
       },
-      "held_by": "D"
+      "held_by": "D",
+      "seat_status": "incumbent Chris Coons",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": null
     },
     {
       "state": "Florida",
@@ -322,10 +385,15 @@
       "median_margin": -4.75,
       "margin_p10": -11.57,
       "margin_p90": 2.01,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/florida-senate-election-winner"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "appointed Ashley Moody",
+      "format_note": "special election",
+      "third_candidate": null,
+      "other_notable": "Neil Gillespie (I)"
     },
     {
       "state": "Idaho",
@@ -333,7 +401,7 @@
       "dem_candidate": "Todd Achilles",
       "rep_candidate": "Jim Risch",
       "margin": -23.647,
-      "num_polls": 2,
+      "num_polls": 0,
       "dem_win_prob_polls": 0.0014,
       "dem_win_prob_blended": 0.0012,
       "market_dem_prob": {
@@ -343,10 +411,15 @@
       "median_margin": -25.92,
       "margin_p10": -32.58,
       "margin_p90": -19.22,
+      "challenger_party": "I",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/idaho-senate-election-winner"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "incumbent Jim Risch",
+      "format_note": "no Democrat on ballot",
+      "third_candidate": null,
+      "other_notable": "Todd Achilles (I) is main challenger; Natalie Fleming (I); Matt Loesby (L)"
     },
     {
       "state": "Illinois",
@@ -364,10 +437,15 @@
       "median_margin": 17.18,
       "margin_p10": 10.42,
       "margin_p90": 23.92,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/illinois-senate-election-winner"
       },
-      "held_by": "D"
+      "held_by": "D",
+      "seat_status": "open (Durbin retiring)",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "Whitfield Harrington Jr. (American Center)"
     },
     {
       "state": "Kansas",
@@ -385,10 +463,15 @@
       "median_margin": 0.62,
       "margin_p10": -6.15,
       "margin_p90": 7.35,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/kansas-senate-election-winner"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "incumbent Roger Marshall",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "David C. Graham (L)"
     },
     {
       "state": "Kentucky",
@@ -406,10 +489,15 @@
       "median_margin": -14.47,
       "margin_p10": -21.2,
       "margin_p90": -7.68,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/kentucky-senate-election-winner"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "open (McConnell retiring)",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": null
     },
     {
       "state": "Louisiana",
@@ -427,10 +515,15 @@
       "median_margin": -6.4,
       "margin_p10": -13.11,
       "margin_p90": 0.4,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/louisiana-senate-election-winner"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "incumbent Bill Cassidy LOST renomination (3rd in May 16 closed primary)",
+      "format_note": "first closed-party-primary cycle; Nov 3 general is plurality with no December Senate runoff",
+      "third_candidate": null,
+      "other_notable": null
     },
     {
       "state": "Massachusetts",
@@ -448,10 +541,15 @@
       "median_margin": 23.45,
       "margin_p10": 16.77,
       "margin_p90": 30.3,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/massachusetts-senate-election-winner"
       },
-      "held_by": "D"
+      "held_by": "D",
+      "seat_status": "incumbent Ed Markey",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "Shiva Ayyadurai (I)"
     },
     {
       "state": "Minnesota",
@@ -469,10 +567,15 @@
       "median_margin": 5.91,
       "margin_p10": -0.91,
       "margin_p90": 12.68,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/which-party-will-win-the-minnesota-state-senate-in-2026"
       },
-      "held_by": "D"
+      "held_by": "D",
+      "seat_status": "open (Tina Smith retiring)",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "Marisa Simonetti (I) and Rebecca Whiting (L)"
     },
     {
       "state": "Mississippi",
@@ -490,31 +593,41 @@
       "median_margin": -6.93,
       "margin_p10": -13.7,
       "margin_p90": -0.22,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/mississippi-senate-election-winner"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "incumbent Cindy Hyde-Smith",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "Ty Pinkins (I; 2024 D nominee; polling about 6%)"
     },
     {
       "state": "Montana",
       "race": "Montana Senate 2026",
-      "dem_candidate": "Seth Bodnar",
+      "dem_candidate": "Alani Bankhead",
       "rep_candidate": "Kurt Alme",
-      "margin": -7.572,
+      "margin": -22.596,
       "num_polls": 18,
-      "dem_win_prob_polls": 0.056,
-      "dem_win_prob_blended": 0.0422,
+      "dem_win_prob_polls": 0.0017,
+      "dem_win_prob_blended": 0.0015,
       "market_dem_prob": {
         "polymarket": 0.001
       },
-      "dem_win_prob_sim": 0.0427,
-      "median_margin": -9.81,
-      "margin_p10": -16.6,
-      "margin_p90": -3.1,
+      "dem_win_prob_sim": 0.0016,
+      "median_margin": -24.43,
+      "margin_p10": -31.22,
+      "margin_p90": -17.73,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/montana-senate-election-winner"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "open (Daines withdrew at filing deadline)",
+      "format_note": "three-way D/R/I race",
+      "third_candidate": "Seth Bodnar (I)",
+      "other_notable": "Seth Bodnar (I; former Univ. of Montana president; Tester-backed; top fundraiser); Kyle Austin (L)"
     },
     {
       "state": "Nebraska",
@@ -530,8 +643,13 @@
       "median_margin": -3.7,
       "margin_p10": -10.43,
       "margin_p90": 3.07,
+      "challenger_party": "I",
       "market_urls": {},
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "incumbent Pete Ricketts",
+      "format_note": "no Democrat on ballot; effectively Osborn (I) v Ricketts (R)",
+      "third_candidate": null,
+      "other_notable": "Dan Osborn (nonpartisan; Democratic-endorsed; main challenger); minor: Mike Marvin; Chuck Conboy; Robin Richards"
     },
     {
       "state": "New Jersey",
@@ -549,10 +667,15 @@
       "median_margin": 18.14,
       "margin_p10": 11.37,
       "margin_p90": 24.9,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/new-jersey-senate-election-winner"
       },
-      "held_by": "D"
+      "held_by": "D",
+      "seat_status": "incumbent Cory Booker",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "Veronica Fernandez (slogan line) and Joanne Kuniansky (SWP)"
     },
     {
       "state": "New Mexico",
@@ -570,10 +693,15 @@
       "median_margin": 17.06,
       "margin_p10": 10.29,
       "margin_p90": 23.81,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/new-mexico-senate-election-winner"
       },
-      "held_by": "D"
+      "held_by": "D",
+      "seat_status": "incumbent Ben Ray Lujan",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "Rhett Trappman (L) and Bob Perls (Forward) (ballot status unconfirmed)"
     },
     {
       "state": "Oklahoma",
@@ -591,10 +719,15 @@
       "median_margin": -21.65,
       "margin_p10": -28.39,
       "margin_p90": -14.86,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/oklahoma-senate-election-winner"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "open (Mullin resigned Mar 23 for DHS; appointee Alan Armstrong barred from running)",
+      "format_note": "not a separate special",
+      "third_candidate": null,
+      "other_notable": "Sevier White (L); Ron Meinhardt (I); Curtis Stinnett (I)"
     },
     {
       "state": "Oregon",
@@ -612,10 +745,15 @@
       "median_margin": 19.73,
       "margin_p10": 13.01,
       "margin_p90": 26.5,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/oregon-senate-election-winner"
       },
-      "held_by": "D"
+      "held_by": "D",
+      "seat_status": "incumbent Jeff Merkley",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "Gary Lyndon Dye (L) and Chris Henry (Progressive/Pacific Green)"
     },
     {
       "state": "Rhode Island",
@@ -633,31 +771,41 @@
       "median_margin": 20.67,
       "margin_p10": 13.87,
       "margin_p90": 27.41,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/rhode-island-senate-election-winner"
       },
-      "held_by": "D"
+      "held_by": "D",
+      "seat_status": "incumbent Jack Reed",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "Michael Bahry (I)"
     },
     {
       "state": "South Carolina",
       "race": "South Carolina Senate 2026",
       "dem_candidate": "Annie Andrews",
       "rep_candidate": "Darline Graham",
-      "margin": -3.652,
-      "num_polls": 4,
-      "dem_win_prob_polls": 0.1668,
-      "dem_win_prob_blended": 0.1888,
+      "margin": -3.811,
+      "num_polls": 3,
+      "dem_win_prob_polls": 0.1598,
+      "dem_win_prob_blended": 0.1836,
       "market_dem_prob": {
         "polymarket": 0.255
       },
-      "dem_win_prob_sim": 0.1891,
-      "median_margin": -4.45,
-      "margin_p10": -11.22,
-      "margin_p90": 2.31,
+      "dem_win_prob_sim": 0.1835,
+      "median_margin": -4.56,
+      "margin_p10": -11.32,
+      "margin_p90": 2.2,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/south-carolina-senate-election-winner"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "appointed Darline Graham (Lindsey Graham died Jul 11 2026; sworn in Jul 14; won Aug 25 special GOP runoff 52.5 over Ralph Norman)",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "Kasie Whitener (L) and Mark Hackett (Constitution)"
     },
     {
       "state": "South Dakota",
@@ -665,7 +813,7 @@
       "dem_candidate": "Brian Bengs",
       "rep_candidate": "Mike Rounds",
       "margin": -17.022,
-      "num_polls": 1,
+      "num_polls": 0,
       "dem_win_prob_polls": 0.0052,
       "dem_win_prob_blended": 0.004,
       "market_dem_prob": {
@@ -675,10 +823,15 @@
       "median_margin": -19.46,
       "margin_p10": -26.23,
       "margin_p90": -12.69,
+      "challenger_party": "I",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/south-dakota-senate-election-winner"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "incumbent Mike Rounds",
+      "format_note": "no Democrat on ballot; two-way I v R",
+      "third_candidate": null,
+      "other_notable": "Brian Bengs (I; 2022 D nominee; sole challenger)"
     },
     {
       "state": "Tennessee",
@@ -696,10 +849,15 @@
       "median_margin": -16.24,
       "margin_p10": -23.07,
       "margin_p90": -9.55,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/tennessee-senate-election-winner"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "incumbent Bill Hagerty",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "eight independents incl. Tharon Chandler and Andrew Gerena"
     },
     {
       "state": "Virginia",
@@ -715,8 +873,13 @@
       "median_margin": 17.36,
       "margin_p10": 10.52,
       "margin_p90": 24.11,
+      "challenger_party": "D",
       "market_urls": {},
-      "held_by": "D"
+      "held_by": "D",
+      "seat_status": "incumbent Mark Warner",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": null
     },
     {
       "state": "West Virginia",
@@ -734,15 +897,20 @@
       "median_margin": -20.11,
       "margin_p10": -26.88,
       "margin_p90": -13.3,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/west-virginia-senate-election-winner"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "incumbent Shelley Moore Capito",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": "S. Marshall Wilson (Constitution)"
     },
     {
       "state": "Wyoming",
       "race": "Wyoming Senate 2026",
-      "dem_candidate": "James Byrd",
+      "dem_candidate": "James W. Byrd",
       "rep_candidate": "Harriet Hageman",
       "margin": -34.072,
       "num_polls": 0,
@@ -755,10 +923,15 @@
       "median_margin": -25.24,
       "margin_p10": -31.97,
       "margin_p90": -18.42,
+      "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/wyoming-senate-election-winner"
       },
-      "held_by": "R"
+      "held_by": "R",
+      "seat_status": "open (Lummis retiring)",
+      "format_note": null,
+      "third_candidate": null,
+      "other_notable": null
     }
   ],
   "dem_safe_seats": 34,
@@ -772,6 +945,12 @@
   "market_control_dem_prob": {
     "polymarket": 0.715
   },
+  "mean_ind_seats": 0.23,
+  "ind_races": [
+    "Idaho",
+    "Nebraska",
+    "South Dakota"
+  ],
   "market_control_urls": {
     "polymarket": "https://polymarket.com/event/which-party-will-win-the-senate-in-2026"
   },
@@ -779,8 +958,8 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.6519,
-  "mean_dem_seats_with_vibes": 51.52,
+  "dem_control_prob_with_vibes": 0.629,
+  "mean_dem_seats_with_vibes": 51.24,
   "national_environment": {
     "national_swing": 11.428,
     "available": true,
