@@ -42,7 +42,7 @@ export default function SenatePage() {
           <p className="mt-1 text-xs text-cocoa-400">
             Dots are each candidate&rsquo;s weighted polling average; the bands are the
             average&rsquo;s confidence interval, which narrows as more polls arrive. Races with at
-            least three polls, closest dozen shown.
+            least five polls, closest dozen shown.
           </p>
         </Panel>
       )}
