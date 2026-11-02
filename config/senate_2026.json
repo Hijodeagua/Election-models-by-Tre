@@ -1,5 +1,5 @@
 {
- "_comment": "2026 Senate cycle configuration for the control simulation. Every seat on the 2026 ballot is simulated: the 33 Class II seats plus the Ohio and Florida specials (35 races). dem_safe_seats / rep_safe_seats are therefore the holdovers only: Democrats (with the two independents who caucus with them) hold 47 seats of which 13 are up, so dem_safe = 34; Republicans hold 53 of which 22 are up, so rep_safe = 31. dem_majority_threshold is 51 because the sitting VP (R) breaks 50-50 ties. Fundamentals: each race carries the state's Dem-minus-Rep presidential margin in 2024 and 2020; the fundamentals prior blends them (pres_weight_recent on 2024), adds the national swing, and is blended into the polling margin with weight blend_k/(blend_k+num_polls), so a race with no polls runs on the prior alone and the prior fades as polls accumulate. A null dem_candidate / rep_candidate means the nominee was not settled when this was written: the Wikipedia scraper then tracks that party's most-polled candidate and the export uses the resolved name. held_by is the party defending the seat (used for safe-seat arithmetic and the predictions board). wikipedia overrides the default article title (Ohio and Florida are special elections). Nominees were refreshed 2026-11-02 from the general-election polling tables (and Kalshi tickers where no polls exist).",
+ "_comment": "2026 Senate cycle configuration for the control simulation. Every seat on the 2026 ballot is simulated: the 33 Class II seats plus the Ohio and Florida specials (35 races). dem_safe_seats / rep_safe_seats are therefore the holdovers only: Democrats (with the two independents who caucus with them) hold 47 seats of which 13 are up, so dem_safe = 34; Republicans hold 53 of which 22 are up, so rep_safe = 31. dem_majority_threshold is 51 because the sitting VP (R) breaks 50-50 ties. Fundamentals: each race carries the state's Dem-minus-Rep presidential margin in 2024 and 2020; the fundamentals prior blends them (pres_weight_recent on 2024), adds the national swing, and is blended into the polling margin with weight blend_k/(blend_k+num_polls), so a race with no polls runs on the prior alone and the prior fades as polls accumulate. A null dem_candidate / rep_candidate means the nominee was not settled when this was written: the Wikipedia scraper then tracks that party's most-polled candidate and the export uses the resolved name. held_by is the party defending the seat (used for safe-seat arithmetic and the predictions board). wikipedia overrides the default article title (Ohio and Florida are special elections). Nominees were confirmed 2026-11-02 against the full 2026 slate (general-election polling tables, Kalshi tickers, and a hand check).",
  "cycle": 2026,
  "dem_safe_seats": 34,
  "rep_safe_seats": 31,
@@ -161,14 +161,14 @@
   {
    "state": "Florida",
    "race": "Florida Senate 2026",
-   "dem_candidate": null,
+   "dem_candidate": "Angie Nixon",
    "rep_candidate": "Ashley Moody",
    "abbr": "FL",
    "pres_2024": -13.1,
    "pres_2020": -3.4,
    "held_by": "R",
    "wikipedia": "2026 United States Senate special election in Florida",
-   "_note": "Special election for the remainder of Marco Rubio's term. Democratic nominee not yet confirmed from any feed."
+   "_note": "Special election for the remainder of Marco Rubio's term."
   },
   {
    "state": "Idaho",
@@ -178,7 +178,8 @@
    "abbr": "ID",
    "pres_2024": -36.5,
    "pres_2020": -30.8,
-   "held_by": "R"
+   "held_by": "R",
+   "_note": "Todd Achilles runs as an independent alongside Democrat David Roth; the model tracks the D-R margin."
   },
   {
    "state": "Illinois",
@@ -263,7 +264,7 @@
    "pres_2024": -19.9,
    "pres_2020": -16.3,
    "held_by": "R",
-   "_note": "Open seat: Daines is not on the ballot; Alme is the Republican in the polling tables."
+   "_note": "Open seat (Daines not running). Seth Bodnar runs as an independent alongside Bankhead (D) and Alme (R)."
   },
   {
    "state": "Nebraska",
@@ -305,7 +306,7 @@
    "pres_2024": -34.3,
    "pres_2020": -33.1,
    "held_by": "R",
-   "_note": "Hern, not Mullin, is the Republican on the ballot per the polling tables."
+   "_note": "Appointed incumbent Alan Armstrong (succeeded Mullin, March 2026) is not running; Hern (R) v. Thomas (D)."
   },
   {
    "state": "Oregon",
@@ -331,12 +332,12 @@
    "state": "South Carolina",
    "race": "South Carolina Senate 2026",
    "dem_candidate": "Annie Andrews",
-   "rep_candidate": null,
+   "rep_candidate": "Darline Graham",
    "abbr": "SC",
    "pres_2024": -17.9,
    "pres_2020": -11.7,
    "held_by": "R",
-   "_note": "Graham does not appear in the general-election polling; the one poll shows Ralph Norman (R). Nominee left null until confirmed."
+   "_note": "Darline Graham was appointed in 2026 and is the Republican nominee. Note the general-election polling tables still carry a Ralph Norman matchup; with no Graham column the scraper falls back to that."
   },
   {
    "state": "South Dakota",
@@ -346,7 +347,8 @@
    "abbr": "SD",
    "pres_2024": -29.2,
    "pres_2020": -26.2,
-   "held_by": "R"
+   "held_by": "R",
+   "_note": "Brian Bengs runs as an independent alongside Democrat Julian Beaudion; the model tracks the D-R margin."
   },
   {
    "state": "Tennessee",
