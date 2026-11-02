@@ -201,134 +201,146 @@
         "rep_effect": 0.0,
         "adjusted_dem_margin": 1.7
       },
-      "market_odds": {},
-      "market_urls": {},
+      "market_odds": {
+        "polymarket": {
+          "Democrat": 0.74,
+          "Republican": 0.26
+        },
+        "kalshi": {
+          "Democrat": 0.72,
+          "Republican": 0.28
+        }
+      },
+      "market_urls": {
+        "polymarket": "https://polymarket.com/event/alaska-senate-election-winner",
+        "kalshi": "https://kalshi.com/markets/senateak"
+      },
       "forecast": {
-        "dem_win_prob": 0.4853,
-        "median_margin": -0.19,
-        "margin_p10": -6.87,
-        "margin_p90": 6.52,
+        "dem_win_prob": 0.5453,
+        "median_margin": 0.55,
+        "margin_p10": -6.13,
+        "margin_p90": 7.26,
         "num_simulations": 50000,
         "margin_hist": [
           {
             "mid": -29.0,
-            "pct": 0.00096
+            "pct": 0.00088
           },
           {
             "mid": -27.0,
-            "pct": 0.00038
+            "pct": 0.00034
           },
           {
             "mid": -25.0,
-            "pct": 0.00062
+            "pct": 0.00038
           },
           {
             "mid": -23.0,
-            "pct": 0.0008
+            "pct": 0.00088
           },
           {
             "mid": -21.0,
-            "pct": 0.00106
+            "pct": 0.00078
           },
           {
             "mid": -19.0,
-            "pct": 0.00184
+            "pct": 0.00168
           },
           {
             "mid": -17.0,
-            "pct": 0.00336
+            "pct": 0.00276
           },
           {
             "mid": -15.0,
-            "pct": 0.00596
+            "pct": 0.00444
           },
           {
             "mid": -13.0,
-            "pct": 0.0103
+            "pct": 0.00896
           },
           {
             "mid": -11.0,
-            "pct": 0.01708
+            "pct": 0.01376
           },
           {
             "mid": -9.0,
-            "pct": 0.03124
+            "pct": 0.02442
           },
           {
             "mid": -7.0,
-            "pct": 0.05478
+            "pct": 0.04458
           },
           {
             "mid": -5.0,
-            "pct": 0.092
+            "pct": 0.07806
           },
           {
             "mid": -3.0,
-            "pct": 0.1332
+            "pct": 0.11668
           },
           {
             "mid": -1.0,
-            "pct": 0.16116
+            "pct": 0.15606
           },
           {
             "mid": 1.0,
-            "pct": 0.159
+            "pct": 0.16276
           },
           {
             "mid": 3.0,
-            "pct": 0.12406
+            "pct": 0.13868
           },
           {
             "mid": 5.0,
-            "pct": 0.08622
+            "pct": 0.09988
           },
           {
             "mid": 7.0,
-            "pct": 0.0501
+            "pct": 0.06238
           },
           {
             "mid": 9.0,
-            "pct": 0.02676
+            "pct": 0.03418
           },
           {
             "mid": 11.0,
-            "pct": 0.01576
+            "pct": 0.01894
           },
           {
             "mid": 13.0,
-            "pct": 0.00874
+            "pct": 0.01132
           },
           {
             "mid": 15.0,
-            "pct": 0.00544
+            "pct": 0.00634
           },
           {
             "mid": 17.0,
-            "pct": 0.00336
+            "pct": 0.00396
           },
           {
             "mid": 19.0,
-            "pct": 0.00194
+            "pct": 0.0024
           },
           {
             "mid": 21.0,
-            "pct": 0.001
+            "pct": 0.00142
           },
           {
             "mid": 23.0,
-            "pct": 0.0009
+            "pct": 0.00082
           },
           {
             "mid": 25.0,
-            "pct": 0.0006
+            "pct": 0.00062
           },
           {
             "mid": 27.0,
-            "pct": 0.00044
+            "pct": 0.00058
           },
           {
             "mid": 29.0,
-            "pct": 0.00094
+            "pct": 0.00106
           }
         ]
       }

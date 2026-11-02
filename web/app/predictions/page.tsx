@@ -1,11 +1,28 @@
 import Link from 'next/link';
 import LastUpdated from '@/app/components/LastUpdated';
 import PredictionsBoard from '@/app/components/PredictionsBoard';
+import PublicGuesses, { type GuessRace } from '@/app/components/PublicGuesses';
 import { EmptyState, PageHead } from '@/app/components/ui';
+import { allowedPicksFor, modelGuess } from '@/app/lib/guesses-shared';
 import { getPredictions, getPredictionViews } from '@/app/lib/predictions';
+import type { PredictionRaceView } from '@/app/lib/predictions-shared';
+
+function toGuessRaces(races: PredictionRaceView[]): GuessRace[] {
+  const allowed = allowedPicksFor(races);
+  return races.map((r) => ({
+    abbr: r.abbr,
+    state: r.state,
+    dem_candidate: r.dem_candidate,
+    rep_candidate: r.rep_candidate,
+    ind_candidate: r.ind_candidate,
+    allowed: allowed[r.abbr],
+    hijodeagua: r.pick ? { pick: r.pick, margin: r.margin } : null,
+    model: modelGuess(r),
+  }));
+}
 
 export const metadata = {
-  title: "Hijodeagua's Guesses — Election Oracle",
+  title: "Hijodeagua's Guesses | Election Oracle",
   description:
     'A map of the 2026 Senate races with hand-made calls and margins, side by side with the polling model.',
 };
@@ -32,7 +49,10 @@ export default function PredictionsPage() {
       />
 
       {races.length > 0 ? (
-        <PredictionsBoard races={races} asOf={as_of} />
+        <>
+          <PredictionsBoard races={races} asOf={as_of} />
+          <PublicGuesses races={toGuessRaces(races)} />
+        </>
       ) : (
         <EmptyState>No picks yet — add races to web/content/predictions.json.</EmptyState>
       )}

@@ -69,7 +69,12 @@ def test_independents_are_tallied_separately(races):
     by, data = races
     assert set(data["ind_races"]) == {"Idaho", "Montana", "Nebraska", "South Dakota"}
     assert data["mean_ind_seats"] >= 0
-    assert by["Montana"]["badge"] == "three-way race; polls exclude Bodnar"
+    # The three-way badge is shown only while the feed has no Alme-v-Bodnar
+    # polls (market_only_when_unpolled); once Bodnar is polled it clears.
+    if by["Montana"].get("num_polls", 0) == 0:
+        assert by["Montana"]["badge"] == "three-way race; polls exclude Bodnar"
+    else:
+        assert by["Montana"]["badge"] is None
     assert by["Montana"]["open_seat"] is True
 
 
