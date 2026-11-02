@@ -34,6 +34,8 @@ jobs:
       ip: ${{ steps.p.outputs.ip }}
       used: ${{ steps.p.outputs.used }}
       configured: ${{ steps.p.outputs.configured }}
+      direct_configured: ${{ steps.p.outputs.direct_configured }}
+      api: ${{ steps.p.outputs.api }}
     steps:
       - id: p
         name: Probe
@@ -46,14 +48,21 @@ jobs:
           echo "public ip (this runner): $ip"
           for origin in "$HUB" "$DIRECT"; do
             url="$origin/election/api/guesses"
-            code=$(curl -s -m 20 -D h.txt -o b.json -w '%{http_code}' "$url" || echo 000)
-            keys=$(grep -i '^x-guesses-client-keys:' h.txt | cut -d' ' -f2- | tr -d '\r')
+            first=$(curl -s -m 20 -o /dev/null -w '%{http_code} %{redirect_url}' "$url" || echo "000 -")
+            res=$(curl -sL --max-redirs 5 -m 20 -D h.txt -o b.json -w '%{http_code} %{url_effective}' "$url" || echo "000 $url")
+            code=${res%% *}; final=${res#* }
+            keys=$(grep -i '^x-guesses-client-keys:' h.txt | tail -1 | cut -d' ' -f2- | tr -d '\r')
             conf=$(python3 -c 'import json;print(json.load(open("b.json")).get("configured"))' 2>/dev/null || echo "?")
             n=$(python3 -c 'import json;print(len(json.load(open("b.json")).get("entries",[])))' 2>/dev/null || echo "?")
-            echo "GET $url -> $code configured=$conf entries=$n keys=$keys"
+            seen=$(python3 -c 'import json;print(",".join(json.load(open("b.json")).get("storage_env_seen") or []) or "-")' 2>/dev/null || echo "?")
+            echo "GET $url -> first hop: $first"
+            echo "   final $code $final configured=$conf entries=$n storage_env_seen=$seen keys=$keys"
             if [ "$origin" = "$HUB" ]; then
               echo "configured=$conf" >> "$GITHUB_OUTPUT"
+              echo "api=$final" >> "$GITHUB_OUTPUT"
               echo "used=$(echo "$keys" | sed -n 's/.*used=\([^;]*\).*/\1/p')" >> "$GITHUB_OUTPUT"
+            else
+              echo "direct_configured=$conf" >> "$GITHUB_OUTPUT"
             fi
           done
           echo "ip=$ip" >> "$GITHUB_OUTPUT"
@@ -64,6 +73,8 @@ jobs:
       ip: ${{ steps.p.outputs.ip }}
       used: ${{ steps.p.outputs.used }}
       configured: ${{ steps.p.outputs.configured }}
+      direct_configured: ${{ steps.p.outputs.direct_configured }}
+      api: ${{ steps.p.outputs.api }}
     steps:
       - id: p
         name: Probe
@@ -76,14 +87,21 @@ jobs:
           echo "public ip (this runner): $ip"
           for origin in "$HUB" "$DIRECT"; do
             url="$origin/election/api/guesses"
-            code=$(curl -s -m 20 -D h.txt -o b.json -w '%{http_code}' "$url" || echo 000)
-            keys=$(grep -i '^x-guesses-client-keys:' h.txt | cut -d' ' -f2- | tr -d '\r')
+            first=$(curl -s -m 20 -o /dev/null -w '%{http_code} %{redirect_url}' "$url" || echo "000 -")
+            res=$(curl -sL --max-redirs 5 -m 20 -D h.txt -o b.json -w '%{http_code} %{url_effective}' "$url" || echo "000 $url")
+            code=${res%% *}; final=${res#* }
+            keys=$(grep -i '^x-guesses-client-keys:' h.txt | tail -1 | cut -d' ' -f2- | tr -d '\r')
             conf=$(python3 -c 'import json;print(json.load(open("b.json")).get("configured"))' 2>/dev/null || echo "?")
             n=$(python3 -c 'import json;print(len(json.load(open("b.json")).get("entries",[])))' 2>/dev/null || echo "?")
-            echo "GET $url -> $code configured=$conf entries=$n keys=$keys"
+            seen=$(python3 -c 'import json;print(",".join(json.load(open("b.json")).get("storage_env_seen") or []) or "-")' 2>/dev/null || echo "?")
+            echo "GET $url -> first hop: $first"
+            echo "   final $code $final configured=$conf entries=$n storage_env_seen=$seen keys=$keys"
             if [ "$origin" = "$HUB" ]; then
               echo "configured=$conf" >> "$GITHUB_OUTPUT"
+              echo "api=$final" >> "$GITHUB_OUTPUT"
               echo "used=$(echo "$keys" | sed -n 's/.*used=\([^;]*\).*/\1/p')" >> "$GITHUB_OUTPUT"
+            else
+              echo "direct_configured=$conf" >> "$GITHUB_OUTPUT"
             fi
           done
           echo "ip=$ip" >> "$GITHUB_OUTPUT"
@@ -94,6 +112,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       distinct: ${{ steps.v.outputs.distinct }}
+      api: ${{ needs.probe-a.outputs.api }}
     steps:
       - id: v
         name: Compare buckets
@@ -104,12 +123,15 @@ jobs:
           USED_B: ${{ needs.probe-b.outputs.used }}
           CONF_A: ${{ needs.probe-a.outputs.configured }}
           CONF_B: ${{ needs.probe-b.outputs.configured }}
+          DIRECT_A: ${{ needs.probe-a.outputs.direct_configured }}
         run: |
-          echo "configured via hub: A=$CONF_A B=$CONF_B"
+          echo "configured via hub: A=$CONF_A B=$CONF_B; direct: $DIRECT_A"
           echo "public IPs differ: $([ "$IP_A" != "$IP_B" ] && echo yes || echo no)"
           echo "rate-limit key A=$USED_A B=$USED_B"
           if [ "$IP_A" = "$IP_B" ]; then
             echo "VERDICT: inconclusive (both runners share a public IP)"; echo "distinct=false" >> "$GITHUB_OUTPUT"
+          elif [ -z "$USED_A" ] || [ -z "$USED_B" ]; then
+            echo "VERDICT: inconclusive (no x-guesses-client-keys header via the hub)"; echo "distinct=false" >> "$GITHUB_OUTPUT"
           elif [ -n "$USED_A" ] && [ "$USED_A" = "$USED_B" ]; then
             echo "VERDICT: SHARED bucket - different networks map to one rate-limit key"; echo "distinct=false" >> "$GITHUB_OUTPUT"
           else
@@ -127,12 +149,12 @@ jobs:
       - id: b
         name: Eleven invalid POSTs from one network
         env:
-          HUB: ${{ inputs.hub }}
+          API: ${{ needs.verdict.outputs.api }}
         run: |
           ip=$(curl -s -m 10 https://api.ipify.org || echo unknown); echo "ip=$ip" >> "$GITHUB_OUTPUT"
           codes=""
           for i in $(seq 1 11); do
-            c=$(curl -s -m 20 -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' -d '{}' "$HUB/election/api/guesses")
+            c=$(curl -s -m 20 -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' -d '{}' "$API")
             codes="$codes $c"
           done
           echo "status codes:$codes"
@@ -140,16 +162,16 @@ jobs:
           [ "$last" = "429" ] || { echo "::error::11th write was $last, expected 429"; exit 1; }
 
   check:
-    needs: burn
+    needs: [verdict, burn]
     runs-on: ubuntu-latest
     steps:
       - name: One invalid POST from a second network
         env:
-          HUB: ${{ inputs.hub }}
+          API: ${{ needs.verdict.outputs.api }}
           BURN_IP: ${{ needs.burn.outputs.ip }}
         run: |
           ip=$(curl -s -m 10 https://api.ipify.org || echo unknown)
-          c=$(curl -s -m 20 -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' -d '{}' "$HUB/election/api/guesses")
+          c=$(curl -s -m 20 -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' -d '{}' "$API")
           echo "second network differs from burner: $([ "$ip" != "$BURN_IP" ] && echo yes || echo no); status=$c"
           if [ "$ip" = "$BURN_IP" ]; then echo "inconclusive: same public IP"; exit 0; fi
           [ "$c" = "400" ] || { echo "::error::second network got $c - buckets are shared"; exit 1; }
