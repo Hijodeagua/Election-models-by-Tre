@@ -259,6 +259,10 @@ def main() -> int:
     cycle_cfg = json.loads(CYCLE_CFG.read_text())
     senate = read_json(WEB_DATA / "senate.json", {"races": []})
     forecast = read_json(WEB_DATA / "senate_forecast.json", {})
+    # Simulated races without polls have no senate.json card; their
+    # histograms live in the side file export_json.py writes.
+    side_hists = read_json(WEB_DATA / "senate_race_distributions.json", {}).get("races", {})
+    forecast_by_state = {r["state"]: r for r in forecast.get("races", [])}
 
     env = forecast.get("national_environment") or {}
     swing = float(env.get("national_swing") or 0.0) * float(env.get("senate_responsiveness") or 1.0)
@@ -292,6 +296,7 @@ def main() -> int:
 
         m = model.get(name)
         fc = (m or {}).get("forecast") or {}
+        sim = forecast_by_state.get(name)
         if m and fc.get("margin_hist"):
             dist = {
                 "source": "simulation",
@@ -301,6 +306,19 @@ def main() -> int:
                 "p10": fc.get("margin_p10"),
                 "p90": fc.get("margin_p90"),
                 "num_simulations": fc.get("num_simulations"),
+            }
+        elif sim and side_hists.get(name):
+            # Simulated on fundamentals alone (no polls yet), but still the
+            # real Monte Carlo run with correlated error, bias and markets.
+            dist = {
+                "source": "simulation",
+                "hist": side_hists[name],
+                "dem_win_prob": sim.get("dem_win_prob_sim"),
+                "median": sim.get("median_margin"),
+                "p10": sim.get("margin_p10"),
+                "p90": sim.get("margin_p90"),
+                "num_simulations": forecast.get("num_simulations"),
+                "num_polls": sim.get("num_polls", 0),
             }
         elif prior is not None:
             hist, p_dem = prior_distribution(prior, total_sigma, dof)

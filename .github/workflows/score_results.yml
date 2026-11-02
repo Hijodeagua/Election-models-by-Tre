@@ -1,0 +1,71 @@
+name: Score results
+
+# After the election: pull called results from the Wikipedia race articles,
+# score the frozen pre-election forecast and picks against them, and publish
+# web/public/data/scorecard.json. Runs every six hours through the canvass
+# window, and on demand.
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: score-results
+  cancel-in-progress: false
+
+jobs:
+  score:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Only run during the results window (Nov 4 – Dec 5, 2026)
+        id: window
+        run: |
+          today=$(date -u +%Y-%m-%d)
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || { [ "$today" \> "2026-11-03" ] && [ "$today" \< "2026-12-06" ]; }; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Outside the results window ($today) — skipping."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout repository (full history for the pre-election snapshot)
+        if: steps.window.outputs.run == 'true'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        if: steps.window.outputs.run == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        if: steps.window.outputs.run == 'true'
+        run: pip install httpx lxml pandas numpy pydantic pydantic-settings python-dotenv
+
+      - name: Fetch called results
+        if: steps.window.outputs.run == 'true'
+        continue-on-error: true
+        run: python scripts/fetch_results.py
+
+      - name: Score the forecast and picks
+        if: steps.window.outputs.run == 'true'
+        run: python scripts/score_forecast.py
+
+      - name: Commit scorecard
+        if: steps.window.outputs.run == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/results data/forecast_snapshots web/public/data/scorecard.json || true
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Scorecard: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          else
+            echo "No changes to commit."
+          fi

@@ -184,6 +184,20 @@ class TestCycleConfig:
         for entry in cfg["competitive_races"]:
             assert {"state", "race", "dem_candidate", "rep_candidate"} <= set(entry)
 
+    def test_every_2026_seat_is_simulated(self):
+        # 33 Class II seats plus the Ohio and Florida specials, each tagged
+        # with the party defending it; safe seats are then the holdovers only.
+        cfg = load_cycle_config()
+        races = cfg["competitive_races"]
+        assert len(races) == 35
+        assert len({e["state"] for e in races}) == 35
+        held = [e["held_by"] for e in races]
+        assert set(held) <= {"D", "R"}
+        assert cfg["dem_safe_seats"] == 47 - held.count("D")
+        assert cfg["rep_safe_seats"] == 53 - held.count("R")
+        for e in races:
+            assert e["pres_2024"] is not None and e["pres_2020"] is not None
+
 
 # ── Student-t fat tails (audit item 8) ────────────────────────────────
 
