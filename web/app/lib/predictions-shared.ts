@@ -61,3 +61,25 @@ export function marginBucket(margin: number | null): MarginBucket {
   if (margin < 8) return 'likely';
   return 'safe';
 }
+
+export const PREDICTIONS_README =
+  "Tre's hand-made 2026 Senate picks. This file is the published source of truth for /predictions. `pick` is \"D\", \"R\", \"I\" or null; `margin` is the winner's margin in points (always positive), or null. Edit on the page in Edit mode, then paste the exported JSON back here and commit.";
+
+const RACE_KEYS: (keyof PredictionRace)[] = [
+  'state', 'abbr', 'held_by', 'incumbent', 'open',
+  'dem_candidate', 'rep_candidate', 'ind_candidate', 'pick', 'margin', 'note',
+];
+
+// The JSON Edit mode exports for web/content/predictions.json: only the
+// hand-edited fields, in file order. Model numbers and state features are
+// page-time joins and must not leak into the committed file.
+export function toPredictionsFile(
+  races: PredictionRace[],
+  asOf: string,
+): { _readme: string; as_of: string; races: PredictionRace[] } {
+  return {
+    _readme: PREDICTIONS_README,
+    as_of: asOf,
+    races: races.map((r) => Object.fromEntries(RACE_KEYS.map((k) => [k, r[k]])) as unknown as PredictionRace),
+  };
+}
