@@ -195,7 +195,7 @@ export default function PredictionsBoard({
           label="Still to call"
           value={String(uncalled)}
           tone="peach"
-          sub={uncalled === 0 ? 'every race has a pick' : 'hatched on the map'}
+          sub={uncalled === 0 ? 'every race has a guess' : 'hatched on the map'}
         />
       </div>
 
@@ -212,7 +212,7 @@ export default function PredictionsBoard({
                 : 'border-cream-300 bg-cream-50 text-cocoa-700 hover:border-peach hover:text-peach'
             }`}
           >
-            {editing ? 'Done editing' : 'Edit picks'}
+            {editing ? 'Done editing' : 'Edit guesses'}
           </button>
         </div>
 
@@ -364,7 +364,7 @@ export default function PredictionsBoard({
                     )}
                   </>
                 ) : (
-                  <span className="text-cocoa-400">No pick yet</span>
+                  <span className="text-cocoa-400">No guess yet</span>
                 )}
               </div>
               <TooltipFacts race={hov} />
@@ -385,7 +385,7 @@ export default function PredictionsBoard({
           <RaceDetail race={sel} editing={editing} onChange={(patch) => update(sel.abbr, patch)} />
         ) : (
           <p className="text-sm text-cocoa-500">
-            Pick a state on the map or a row in the table below to see the matchup, the pick
+            Choose a state on the map or a row in the table below to see the matchup, the guess
             and how it compares to the model.
           </p>
         )}
@@ -399,7 +399,7 @@ export default function PredictionsBoard({
               <th className="px-4 py-3">State</th>
               <th className="px-4 py-3">Held by</th>
               <th className="px-4 py-3">Matchup</th>
-              <th className="px-4 py-3 text-right">My pick</th>
+              <th className="px-4 py-3 text-right">Hijodeagua&rsquo;s guesses</th>
               <th className="px-4 py-3 text-right">Model</th>
               <th className="px-4 py-3 text-right" title="Your Dem−Rep margin minus the model's median">
                 Δ vs model
@@ -601,7 +601,7 @@ function RaceDetail({
         </p>
 
         <div className="mt-4 text-[11px] font-bold uppercase tracking-[0.1em] text-cocoa-400">
-          My pick
+          Hijodeagua&rsquo;s guess
         </div>
         {editing ? (
           <div className="mt-1.5 flex flex-wrap items-center gap-2">
@@ -670,7 +670,7 @@ function RaceDetail({
                 )}
               </>
             ) : (
-              <span className="text-cocoa-400">Not called yet. Turn on Edit picks to call it.</span>
+              <span className="text-cocoa-400">No guess yet. Turn on Edit guesses to make one.</span>
             )}
           </p>
         )}
@@ -690,7 +690,7 @@ function RaceDetail({
             <dd className="text-right font-medium text-cocoa-700">
               {m.dem_win_prob != null ? fmtProb(m.dem_win_prob) : '—'}
             </dd>
-            <dt className="text-cocoa-400">My margin</dt>
+            <dt className="text-cocoa-400">Guessed margin</dt>
             <dd className="text-right font-medium text-cocoa-700">
               {race.pick === 'I' ? `I+${race.margin?.toFixed(1) ?? '?'}` : fmtMargin(mine)}
             </dd>
@@ -968,7 +968,7 @@ function Legend() {
       <span className="flex items-center gap-1">
         {sw(FILL.I.likely)} <span className="font-semibold text-stamp">I</span>
       </span>
-      <span className="flex items-center gap-1">{sw(FILL_NO_PICK, true)} no pick yet</span>
+      <span className="flex items-center gap-1">{sw(FILL_NO_PICK, true)} no guess yet</span>
       <span className="flex items-center gap-1">{sw(FILL_NOT_RACE)} no race</span>
     </div>
   );
