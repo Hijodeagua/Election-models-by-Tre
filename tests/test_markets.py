@@ -366,3 +366,29 @@ class TestJsonList:
         assert _json_list("not json") == []
         assert _json_list(None) == []
         assert _json_list('{"a": 1}') == []
+
+
+def test_carry_forward_seed_odds_keeps_seeds_only_for_unfetched_races():
+    from src.data.markets import carry_forward_seed_odds
+
+    live = [
+        _odds(race="Texas Senate 2026", outcome="Democrat", probability=0.75),
+        _odds(race="Virginia Senate 2026", outcome="Democrat", probability=0.99),
+    ]
+    existing = [
+        # Alaska: no live row → seeded rows survive
+        _odds(race="Alaska Senate 2026", outcome="Democrat", probability=0.74, is_seed=True),
+        _odds(race="Alaska Senate 2026", outcome="Republican", probability=0.26, is_seed=True),
+        # Virginia: live row present → stale seed is replaced
+        _odds(race="Virginia Senate 2026", outcome="Democrat", probability=0.90, is_seed=True),
+        # Georgia: stale un-seeded row → dropped
+        _odds(race="Georgia Senate 2026", outcome="Democrat", probability=0.50, is_seed=False),
+    ]
+    merged = carry_forward_seed_odds(live, existing)
+    by_race = {}
+    for o in merged:
+        by_race.setdefault(o.race, []).append(o)
+    assert set(by_race) == {"Texas Senate 2026", "Virginia Senate 2026", "Alaska Senate 2026"}
+    assert [o.probability for o in by_race["Virginia Senate 2026"]] == [0.99]
+    assert sorted(o.probability for o in by_race["Alaska Senate 2026"]) == [0.26, 0.74]
+    assert all(o.is_seed for o in by_race["Alaska Senate 2026"])

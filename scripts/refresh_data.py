@@ -198,14 +198,18 @@ def _refresh_markets(dry_run: bool = False) -> None:
     """Fetch Polymarket + Kalshi odds for the configured Senate races.
 
     Best-effort: only overwrites market_odds.csv when at least one source
-    returns data, so the committed snapshot survives network failures.
+    returns data, so the committed snapshot survives network failures. Seeded
+    rows (``is_seed=true``) for races the live fetch returned nothing for are
+    carried forward from the previous file instead of being dropped.
     """
     logger.info("=== Prediction markets (Polymarket / Kalshi) ===")
     from src.data.markets import (
         SENATE_CONTROL_RACE,
         KalshiClient,
         MarketOdds,
+        MarketOddsCsvSource,
         PolymarketClient,
+        carry_forward_seed_odds,
         write_market_odds_csv,
     )
     from src.models.senate_simulation import load_cycle_config
@@ -255,6 +259,8 @@ def _refresh_markets(dry_run: bool = False) -> None:
     if not dry_run:
         if collected:
             dest = FALLBACK_DIR / "market_odds.csv"
+            existing = MarketOddsCsvSource(FALLBACK_DIR).load()
+            collected = carry_forward_seed_odds(collected, existing)
             write_market_odds_csv(collected, dest)
             logger.info("  → %s (%d rows)", dest.name, len(collected))
         else:

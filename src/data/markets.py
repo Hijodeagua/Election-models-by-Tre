@@ -101,6 +101,31 @@ class MarketOddsCsvSource:
         return odds
 
 
+def carry_forward_seed_odds(
+    live: list[MarketOdds], existing: list[MarketOdds]
+) -> list[MarketOdds]:
+    """Keep hand-seeded rows for races the live fetch returned nothing for.
+
+    ``refresh_data.py`` rewrites ``market_odds.csv`` from scratch on every run,
+    which silently dropped the seeded Alaska Polymarket/Kalshi prices the first
+    time the live fetch found no Alaska winner market (Polymarket lists none;
+    Kalshi's has no prices). A race with any live row uses only the live rows;
+    a race with none keeps its ``is_seed=true`` rows from the previous file.
+    Un-seeded stale rows are never carried forward.
+    """
+    live_races = {o.race for o in live}
+    kept = [
+        o for o in existing
+        if o.is_seed and o.race not in live_races
+    ]
+    if kept:
+        logger.info(
+            "carrying forward %d seeded market rows for %s",
+            len(kept), sorted({o.race for o in kept}),
+        )
+    return [*live, *kept]
+
+
 def write_market_odds_csv(odds: list[MarketOdds], path: Path) -> None:
     """Serialise odds to the fallback CSV format (used by refresh_data.py)."""
     buf = io.StringIO()
