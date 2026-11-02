@@ -1,5 +1,5 @@
 {
- "_comment": "2026 Senate cycle configuration for the control simulation. Every seat on the 2026 ballot is simulated: the 33 Class II seats plus the Ohio and Florida specials (35 races). dem_safe_seats / rep_safe_seats are therefore the holdovers only: Democrats (with the two independents who caucus with them) hold 47 seats of which 13 are up, so dem_safe = 34; Republicans hold 53 of which 22 are up, so rep_safe = 31. dem_majority_threshold is 51 because the sitting VP (R) breaks 50-50 ties. Fundamentals: each race carries the state's Dem-minus-Rep presidential margin in 2024 and 2020; the fundamentals prior blends them (pres_weight_recent on 2024), adds the national swing, and is blended into the polling margin with weight blend_k/(blend_k+num_polls), so a race with no polls runs on the prior alone and the prior fades as polls accumulate. A null dem_candidate / rep_candidate means the nominee was not settled when this was written: the Wikipedia scraper then tracks that party's most-polled candidate and the export uses the resolved name. held_by is the party defending the seat (used for safe-seat arithmetic and the predictions board). wikipedia overrides the default article title (Ohio and Florida are special elections).",
+ "_comment": "2026 Senate cycle configuration for the control simulation. Every seat on the 2026 ballot is simulated: the 33 Class II seats plus the Ohio and Florida specials (35 races). dem_safe_seats / rep_safe_seats are therefore the holdovers only: Democrats (with the two independents who caucus with them) hold 47 seats of which 13 are up, so dem_safe = 34; Republicans hold 53 of which 22 are up, so rep_safe = 31. dem_majority_threshold is 51 because the sitting VP (R) breaks 50-50 ties. Fundamentals: each race carries the state's Dem-minus-Rep presidential margin in 2024 and 2020; the fundamentals prior blends them (pres_weight_recent on 2024), adds the national swing, and is blended into the polling margin with weight blend_k/(blend_k+num_polls), so a race with no polls runs on the prior alone and the prior fades as polls accumulate. A null dem_candidate / rep_candidate means the nominee was not settled when this was written: the Wikipedia scraper then tracks that party's most-polled candidate and the export uses the resolved name. held_by is the party defending the seat (used for safe-seat arithmetic and the predictions board). wikipedia overrides the default article title (Ohio and Florida are special elections). Nominees were refreshed 2026-11-02 from the general-election polling tables (and Kalshi tickers where no polls exist).",
  "cycle": 2026,
  "dem_safe_seats": 34,
  "rep_safe_seats": 31,
@@ -37,12 +37,13 @@
   {
    "state": "Michigan",
    "race": "Michigan Senate 2026",
-   "dem_candidate": "Haley Stevens",
+   "dem_candidate": "Abdul El-Sayed",
    "rep_candidate": "Mike Rogers",
    "abbr": "MI",
    "pres_2024": -1.4,
    "pres_2020": 2.8,
-   "held_by": "D"
+   "held_by": "D",
+   "_note": "Open seat (Peters retiring). El-Sayed is the Democrat in every general-election poll since the August primary."
   },
   {
    "state": "North Carolina",
@@ -68,11 +69,12 @@
    "state": "New Hampshire",
    "race": "New Hampshire Senate 2026",
    "dem_candidate": "Chris Pappas",
-   "rep_candidate": "Scott Brown",
+   "rep_candidate": "John E. Sununu",
    "abbr": "NH",
    "pres_2024": 2.8,
    "pres_2020": 7.4,
-   "held_by": "D"
+   "held_by": "D",
+   "_note": "Open seat (Shaheen retiring). Sununu, not Scott Brown, is the Republican nominee."
   },
   {
    "state": "Ohio",
@@ -118,18 +120,18 @@
   {
    "state": "Alabama",
    "race": "Alabama Senate 2026",
-   "dem_candidate": null,
-   "rep_candidate": null,
+   "dem_candidate": "Everett Wess",
+   "rep_candidate": "Barry Moore",
    "abbr": "AL",
    "pres_2024": -30.6,
    "pres_2020": -25.5,
    "held_by": "R",
-   "_note": "Open seat (Tuberville running for governor); nominees auto-picked from polling."
+   "_note": "Open seat (Tuberville running for governor)."
   },
   {
    "state": "Arkansas",
    "race": "Arkansas Senate 2026",
-   "dem_candidate": null,
+   "dem_candidate": "Hallie Shoffner",
    "rep_candidate": "Tom Cotton",
    "abbr": "AR",
    "pres_2024": -30.6,
@@ -140,7 +142,7 @@
    "state": "Colorado",
    "race": "Colorado Senate 2026",
    "dem_candidate": "John Hickenlooper",
-   "rep_candidate": null,
+   "rep_candidate": "Mark Baisley",
    "abbr": "CO",
    "pres_2024": 11.0,
    "pres_2020": 13.5,
@@ -150,7 +152,7 @@
    "state": "Delaware",
    "race": "Delaware Senate 2026",
    "dem_candidate": "Chris Coons",
-   "rep_candidate": null,
+   "rep_candidate": "Michael Katz",
    "abbr": "DE",
    "pres_2024": 14.7,
    "pres_2020": 19.0,
@@ -166,12 +168,12 @@
    "pres_2020": -3.4,
    "held_by": "R",
    "wikipedia": "2026 United States Senate special election in Florida",
-   "_note": "Special election for the remainder of Marco Rubio's term."
+   "_note": "Special election for the remainder of Marco Rubio's term. Democratic nominee not yet confirmed from any feed."
   },
   {
    "state": "Idaho",
    "race": "Idaho Senate 2026",
-   "dem_candidate": null,
+   "dem_candidate": "David Roth",
    "rep_candidate": "Jim Risch",
    "abbr": "ID",
    "pres_2024": -36.5,
@@ -181,18 +183,18 @@
   {
    "state": "Illinois",
    "race": "Illinois Senate 2026",
-   "dem_candidate": null,
-   "rep_candidate": null,
+   "dem_candidate": "Juliana Stratton",
+   "rep_candidate": "Don Tracy",
    "abbr": "IL",
    "pres_2024": 11.0,
    "pres_2020": 17.0,
    "held_by": "D",
-   "_note": "Open seat (Durbin retiring); nominees auto-picked from polling."
+   "_note": "Open seat (Durbin retiring)."
   },
   {
    "state": "Kansas",
    "race": "Kansas Senate 2026",
-   "dem_candidate": null,
+   "dem_candidate": "Adam Hamilton",
    "rep_candidate": "Roger Marshall",
    "abbr": "KS",
    "pres_2024": -16.1,
@@ -202,46 +204,45 @@
   {
    "state": "Kentucky",
    "race": "Kentucky Senate 2026",
-   "dem_candidate": null,
-   "rep_candidate": null,
+   "dem_candidate": "Charles Booker",
+   "rep_candidate": "Andy Barr",
    "abbr": "KY",
    "pres_2024": -30.6,
    "pres_2020": -25.9,
    "held_by": "R",
-   "_note": "Open seat (McConnell retiring); nominees auto-picked from polling."
+   "_note": "Open seat (McConnell retiring)."
   },
   {
    "state": "Louisiana",
    "race": "Louisiana Senate 2026",
-   "dem_candidate": null,
-   "rep_candidate": null,
+   "dem_candidate": "Jamie Davis",
+   "rep_candidate": "Julia Letlow",
    "abbr": "LA",
    "pres_2024": -22.0,
    "pres_2020": -18.6,
    "held_by": "R",
-   "_note": "Cassidy faced a closed party primary; nominees auto-picked from polling."
+   "_note": "Letlow won the closed Republican primary over incumbent Cassidy, per the general-election polling tables."
   },
   {
    "state": "Massachusetts",
    "race": "Massachusetts Senate 2026",
    "dem_candidate": "Ed Markey",
-   "rep_candidate": null,
+   "rep_candidate": "John Deaton",
    "abbr": "MA",
    "pres_2024": 25.3,
    "pres_2020": 33.5,
-   "held_by": "D",
-   "_note": "Markey has a September primary; name is a placeholder until then."
+   "held_by": "D"
   },
   {
    "state": "Minnesota",
    "race": "Minnesota Senate 2026",
-   "dem_candidate": null,
-   "rep_candidate": null,
+   "dem_candidate": "Peggy Flanagan",
+   "rep_candidate": "Michele Tafoya",
    "abbr": "MN",
    "pres_2024": 4.3,
    "pres_2020": 7.1,
    "held_by": "D",
-   "_note": "Open seat (Smith retiring); nominees auto-picked from polling."
+   "_note": "Open seat (Smith retiring)."
   },
   {
    "state": "Mississippi",
@@ -256,12 +257,13 @@
   {
    "state": "Montana",
    "race": "Montana Senate 2026",
-   "dem_candidate": null,
-   "rep_candidate": "Steve Daines",
+   "dem_candidate": "Alani Bankhead",
+   "rep_candidate": "Kurt Alme",
    "abbr": "MT",
    "pres_2024": -19.9,
    "pres_2020": -16.3,
-   "held_by": "R"
+   "held_by": "R",
+   "_note": "Open seat: Daines is not on the ballot; Alme is the Republican in the polling tables."
   },
   {
    "state": "Nebraska",
@@ -278,7 +280,7 @@
    "state": "New Jersey",
    "race": "New Jersey Senate 2026",
    "dem_candidate": "Cory Booker",
-   "rep_candidate": null,
+   "rep_candidate": "Justin Murphy",
    "abbr": "NJ",
    "pres_2024": 5.9,
    "pres_2020": 15.9,
@@ -288,7 +290,7 @@
    "state": "New Mexico",
    "race": "New Mexico Senate 2026",
    "dem_candidate": "Ben Ray Luján",
-   "rep_candidate": null,
+   "rep_candidate": "Larry Marker",
    "abbr": "NM",
    "pres_2024": 6.0,
    "pres_2020": 10.8,
@@ -297,18 +299,19 @@
   {
    "state": "Oklahoma",
    "race": "Oklahoma Senate 2026",
-   "dem_candidate": null,
-   "rep_candidate": "Markwayne Mullin",
+   "dem_candidate": "N'Kiyla Jasmine Thomas",
+   "rep_candidate": "Kevin Hern",
    "abbr": "OK",
    "pres_2024": -34.3,
    "pres_2020": -33.1,
-   "held_by": "R"
+   "held_by": "R",
+   "_note": "Hern, not Mullin, is the Republican on the ballot per the polling tables."
   },
   {
    "state": "Oregon",
    "race": "Oregon Senate 2026",
    "dem_candidate": "Jeff Merkley",
-   "rep_candidate": null,
+   "rep_candidate": "David Brock Smith",
    "abbr": "OR",
    "pres_2024": 14.4,
    "pres_2020": 16.1,
@@ -318,7 +321,7 @@
    "state": "Rhode Island",
    "race": "Rhode Island Senate 2026",
    "dem_candidate": "Jack Reed",
-   "rep_candidate": null,
+   "rep_candidate": "Raymond McKay",
    "abbr": "RI",
    "pres_2024": 13.9,
    "pres_2020": 20.6,
@@ -328,16 +331,17 @@
    "state": "South Carolina",
    "race": "South Carolina Senate 2026",
    "dem_candidate": "Annie Andrews",
-   "rep_candidate": "Lindsey Graham",
+   "rep_candidate": null,
    "abbr": "SC",
    "pres_2024": -17.9,
    "pres_2020": -11.7,
-   "held_by": "R"
+   "held_by": "R",
+   "_note": "Graham does not appear in the general-election polling; the one poll shows Ralph Norman (R). Nominee left null until confirmed."
   },
   {
    "state": "South Dakota",
    "race": "South Dakota Senate 2026",
-   "dem_candidate": null,
+   "dem_candidate": "Julian Beaudion",
    "rep_candidate": "Mike Rounds",
    "abbr": "SD",
    "pres_2024": -29.2,
@@ -347,7 +351,7 @@
   {
    "state": "Tennessee",
    "race": "Tennessee Senate 2026",
-   "dem_candidate": null,
+   "dem_candidate": "Marquita Bradshaw",
    "rep_candidate": "Bill Hagerty",
    "abbr": "TN",
    "pres_2024": -29.7,
@@ -358,7 +362,7 @@
    "state": "Virginia",
    "race": "Virginia Senate 2026",
    "dem_candidate": "Mark Warner",
-   "rep_candidate": null,
+   "rep_candidate": "Bert Mizusawa",
    "abbr": "VA",
    "pres_2024": 5.8,
    "pres_2020": 10.1,
@@ -367,7 +371,7 @@
   {
    "state": "West Virginia",
    "race": "West Virginia Senate 2026",
-   "dem_candidate": null,
+   "dem_candidate": "Rachel Fetty Anderson",
    "rep_candidate": "Shelley Moore Capito",
    "abbr": "WV",
    "pres_2024": -41.9,
@@ -377,13 +381,13 @@
   {
    "state": "Wyoming",
    "race": "Wyoming Senate 2026",
-   "dem_candidate": null,
-   "rep_candidate": null,
+   "dem_candidate": "James Byrd",
+   "rep_candidate": "Harriet Hageman",
    "abbr": "WY",
    "pres_2024": -46.2,
    "pres_2020": -43.4,
    "held_by": "R",
-   "_note": "Open seat (Lummis retiring); nominees auto-picked from polling."
+   "_note": "Open seat (Lummis retiring)."
   }
  ]
 }
