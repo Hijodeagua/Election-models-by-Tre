@@ -12,12 +12,44 @@ import {
 } from '@/app/lib/guesses-store';
 import { getPredictions } from '@/app/lib/predictions';
 
-// Vercel's Upstash integration exposes the REST pair under either prefix,
-// depending on how it was added to the project. Accept both.
+type Env = Record<string, string | undefined>;
+
+const REST_PAIRS: [string, string][] = [
+  ['UPSTASH_REDIS_REST_URL', 'UPSTASH_REDIS_REST_TOKEN'],
+  ['KV_REST_API_URL', 'KV_REST_API_TOKEN'],
+];
+
+// Vercel's Upstash integration exposes the REST pair as UPSTASH_REDIS_REST_*
+// or KV_REST_API_*, optionally behind a custom prefix chosen when the store
+// is connected (e.g. STORAGE_KV_REST_API_URL). Exact names win; otherwise the
+// first prefixed pair (alphabetically) whose URL and TOKEN share a prefix.
+// Read-only tokens are never used: they cannot write guesses.
+export function findUpstashEnv(env: Env = process.env): { url: string; token: string; source: string } | null {
+  for (const [u, t] of REST_PAIRS) {
+    if (env[u] && env[t]) return { url: env[u]!, token: env[t]!, source: u };
+  }
+  for (const name of Object.keys(env).sort()) {
+    for (const [u, t] of REST_PAIRS) {
+      if (!name.endsWith(u) || name === u) continue;
+      const prefix = name.slice(0, -u.length);
+      const token = env[prefix + t];
+      if (env[name] && token) return { url: env[name]!, token, source: name };
+    }
+  }
+  return null;
+}
+
+// Names (never values) of env vars that look storage-related, so an
+// unconfigured deployment can say what it does see.
+export function storageEnvNames(env: Env = process.env): string[] {
+  return Object.keys(env)
+    .filter((n) => /UPSTASH|REDIS|(^|_)KV(_|$)/i.test(n))
+    .sort();
+}
+
 function envPair(): { url: string; token: string } | null {
-  const url = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
-  return url && token ? { url, token } : null;
+  const found = findUpstashEnv();
+  return found ? { url: found.url, token: found.token } : null;
 }
 
 class UpstashAdapter implements RedisLike {
@@ -106,8 +138,7 @@ export function checkAdmin(req: Request): AdminCheck {
 // so a probe from two networks can tell whether the hub proxy collapses them
 // into one rate-limit bucket without exposing anyone's IP.
 export function clientKeyDiagnostics(req: Request): string {
-  const secret =
-    process.env.ADMIN_TOKEN ?? process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN ?? 'local';
+  const secret = process.env.ADMIN_TOKEN ?? findUpstashEnv()?.token ?? 'local';
   const h = (v: string | null | undefined) =>
     v ? createHmac('sha256', secret).update(v).digest('hex').slice(0, 10) : '-';
   const xff = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim();

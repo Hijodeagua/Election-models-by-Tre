@@ -38,6 +38,8 @@ export interface GuessEntry {
 
 export interface GuessesPayload {
   configured: boolean;
+  // Only when unconfigured: storage-looking env var NAMES the server sees.
+  storage_env_seen?: string[];
   lock_at: string;
   locked: boolean;
   entries: GuessEntry[];

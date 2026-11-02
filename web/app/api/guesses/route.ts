@@ -9,6 +9,7 @@ import {
   clientKeyDiagnostics,
   getGuessStore,
   json,
+  storageEnvNames,
   readJson,
 } from '@/app/lib/guesses-server';
 
@@ -24,6 +25,7 @@ export async function GET(req: Request): Promise<Response> {
       lock_at: LOCK_AT_ISO,
       locked: isLocked(),
       entries: [],
+      storage_env_seen: storageEnvNames(),
     };
     return json(empty, 200, diag);
   }

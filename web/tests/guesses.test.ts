@@ -13,7 +13,7 @@ import {
   type AllowedPicks,
 } from '@/app/lib/guesses-shared';
 import { MemoryRedis, createGuessStore, type GuessStore } from '@/app/lib/guesses-store';
-import { setGuessStoreForTests } from '@/app/lib/guesses-server';
+import { findUpstashEnv, setGuessStoreForTests, storageEnvNames } from '@/app/lib/guesses-server';
 import { GET, POST } from '@/app/api/guesses/route';
 import { DELETE, PUT } from '@/app/api/guesses/[id]/route';
 
@@ -381,5 +381,43 @@ describe('HTTP handlers', () => {
     nowMs = LOCK_AT_MS + 1;
     const res = await POST(jsonReq('POST', GOOD));
     expect(res.status).toBe(423);
+  });
+});
+
+describe('storage env lookup', () => {
+  it('prefers the exact names', () => {
+    const env = {
+      UPSTASH_REDIS_REST_URL: 'https://a', UPSTASH_REDIS_REST_TOKEN: 'ta',
+      KV_REST_API_URL: 'https://b', KV_REST_API_TOKEN: 'tb',
+    };
+    expect(findUpstashEnv(env)).toEqual({ url: 'https://a', token: 'ta', source: 'UPSTASH_REDIS_REST_URL' });
+    expect(findUpstashEnv({ KV_REST_API_URL: 'https://b', KV_REST_API_TOKEN: 'tb' })?.url).toBe('https://b');
+  });
+
+  it('accepts a custom prefix and never a read-only token', () => {
+    const env = {
+      STORAGE_KV_REST_API_URL: 'https://p',
+      STORAGE_KV_REST_API_READ_ONLY_TOKEN: 'ro',
+      STORAGE_KV_REST_API_TOKEN: 'rw',
+      STORAGE_REDIS_URL: 'rediss://x',
+    };
+    expect(findUpstashEnv(env)).toEqual({ url: 'https://p', token: 'rw', source: 'STORAGE_KV_REST_API_URL' });
+    expect(findUpstashEnv({ STORAGE_KV_REST_API_URL: 'https://p', STORAGE_KV_REST_API_READ_ONLY_TOKEN: 'ro' })).toBeNull();
+    expect(findUpstashEnv({ REDIS_URL: 'rediss://x' })).toBeNull();
+  });
+
+  it('lists storage-looking names without values', () => {
+    const names = storageEnvNames({ STORAGE_KV_URL: 's3cret', REDIS_URL: 'x', PATH: '/bin', KVETCH: 'no', NEXT_PUBLIC_X: 'y' });
+    expect(names).toEqual(['REDIS_URL', 'STORAGE_KV_URL']);
+  });
+
+  it('GET reports the names it sees when storage is unconfigured', async () => {
+    setGuessStoreForTests(null);
+    const body = (await (await GET(new Request('http://localhost/election/api/guesses'))).json()) as {
+      configured: boolean;
+      storage_env_seen: string[];
+    };
+    expect(body.configured).toBe(false);
+    expect(Array.isArray(body.storage_env_seen)).toBe(true);
   });
 });
