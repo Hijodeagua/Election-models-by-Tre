@@ -13,7 +13,7 @@ import {
   senateTotal,
   stateFill,
 } from '@/app/lib/predictions-map';
-import { marginBucket } from '@/app/lib/predictions-shared';
+import { PREDICTIONS_README, marginBucket, toPredictionsFile } from '@/app/lib/predictions-shared';
 
 function race(p: Partial<PredictionRaceView> & { abbr: string; state: string }): PredictionRaceView {
   return {
@@ -193,5 +193,25 @@ describe('safe holds and the Senate total', () => {
     expect(buildShareText(races, '2026-11-02').split('\n')[1]).toBe(
       'Senate after these guesses: 45 D, 41 R, 1 I, 1 still to call',
     );
+  });
+});
+
+describe('predictions.json export', () => {
+  it('keeps only the hand-edited fields, so model data and features never reach the file', () => {
+    const file = toPredictionsFile(RACES, '2026-11-02');
+    expect(file._readme).toBe(PREDICTIONS_README);
+    expect(file.as_of).toBe('2026-11-02');
+    expect(Object.keys(file.races[0])).toEqual([
+      'state', 'abbr', 'held_by', 'incumbent', 'open',
+      'dem_candidate', 'rep_candidate', 'ind_candidate', 'pick', 'margin', 'note',
+    ]);
+    expect(JSON.stringify(file)).not.toMatch(/"features"|"model"|"distribution"/);
+    expect(file.races[0]).toMatchObject({ abbr: 'ME', pick: 'R', margin: 2 });
+  });
+
+  it('matches the committed file shape exactly', () => {
+    const committed = JSON.parse(readFileSync(new URL('../content/predictions.json', import.meta.url), 'utf-8'));
+    const roundTrip = toPredictionsFile(committed.races, committed.as_of);
+    expect(roundTrip).toEqual(committed);
   });
 });

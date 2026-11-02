@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Party, PredictionRaceView } from '@/app/lib/predictions-shared';
-import { marginBucket, toDemMargin } from '@/app/lib/predictions-shared';
+import { marginBucket, toDemMargin, toPredictionsFile } from '@/app/lib/predictions-shared';
 import { US_MAP_VIEWBOX, US_STATES, US_STATE_BORDERS } from '@/app/lib/us-states-paths';
 import { fmtMargin, fmtProb } from '@/app/lib/format';
 import { Panel, StatCard } from '@/app/components/ui';
@@ -103,13 +103,7 @@ export default function PredictionsBoard({
 
   const exportJson = useMemo(() => {
     const today = new Date().toISOString().slice(0, 10);
-    const file = {
-      _readme:
-        "Tre's hand-made 2026 Senate picks. This file is the published source of truth for /predictions. `pick` is \"D\", \"R\", \"I\" or null; `margin` is the winner's margin in points (always positive), or null. Edit on the page in Edit mode, then paste the exported JSON back here and commit.",
-      as_of: hasOverrides ? today : asOf,
-      races: effective.map(({ model: _model, ...race }) => race),
-    };
-    return JSON.stringify(file, null, 2);
+    return JSON.stringify(toPredictionsFile(effective, hasOverrides ? today : asOf), null, 2);
   }, [effective, asOf, hasOverrides]);
 
   async function copyJson() {
