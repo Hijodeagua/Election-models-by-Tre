@@ -130,6 +130,8 @@ export interface RaceForecast {
   margin_p10?: number | null;
   margin_p90?: number | null;
   market_urls?: Record<string, string>;
+  // Party defending the seat (from config), for flip markers.
+  held_by?: 'D' | 'R' | null;
 }
 
 export interface PollsterEmpirical {

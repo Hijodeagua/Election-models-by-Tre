@@ -105,18 +105,61 @@ class _JSONEncoder(json.JSONEncoder):
 def _load_polls(poll_type: PollType, votehub_filename: str) -> list[Poll]:
     """Prefer the full VoteHub CSV export (hundreds of polls, refreshed daily
     by the cron); fall back to the small hand-curated smoke-test CSV only when
-    the export is missing or unreadable. Offline-safe either way."""
+    the export is missing or unreadable. Offline-safe either way.
+
+    A hand-curated ``<name>_supplement.csv`` beside the feed (same columns) is
+    merged in for polls the automated sources miss; rows whose fingerprint
+    already appears in the feed are dropped so nothing is double-counted."""
     vh_path = FALLBACK_DIR / votehub_filename
+    polls: list[Poll] = []
     if vh_path.exists():
         try:
             polls = VoteHubCsvLoader(poll_type).load(vh_path)
-            if polls:
-                return _drop_aggregates(polls)
         except Exception as exc:  # pragma: no cover - defensive
             logging.warning("%s load failed: %s", votehub_filename, exc)
-    source = CsvFallbackSource(FALLBACK_DIR)
-    polls, _meta = source.load(poll_type)
-    return _drop_aggregates(polls)
+    if not polls:
+        source = CsvFallbackSource(FALLBACK_DIR)
+        polls, _meta = source.load(poll_type)
+    polls = _drop_aggregates(polls)
+
+    supp_path = FALLBACK_DIR / votehub_filename.replace(".csv", "_supplement.csv")
+    if supp_path.exists():
+        try:
+            extra = _drop_aggregates(VoteHubCsvLoader(poll_type).load(supp_path))
+        except Exception as exc:  # pragma: no cover - defensive
+            logging.warning("%s load failed: %s", supp_path.name, exc)
+            extra = []
+        added = merge_supplement(polls, extra)
+        if added:
+            logging.info("%s: +%d supplementary polls", votehub_filename, len(added))
+        polls = polls + added
+    return polls
+
+
+def _poll_fingerprint(poll: Poll) -> tuple:
+    """Identity that survives pollster-name spelling differences between
+    sources ("Siena/NYT" vs "NY Times/Siena"): race, field end date and the
+    rounded toplines in rank order."""
+    tops = tuple(sorted((round(a.pct) for a in poll.answers), reverse=True))
+    return ((poll.subject or "").lower(), poll.end_date, tops)
+
+
+def merge_supplement(base: list[Poll], extra: list[Poll]) -> list[Poll]:
+    """Supplementary polls not already present in ``base`` (by fingerprint,
+    tolerating a one-day difference in the recorded end date)."""
+    seen: set[tuple] = set()
+    for p in base:
+        subj, end, tops = _poll_fingerprint(p)
+        for delta in (-1, 0, 1):
+            seen.add((subj, end + timedelta(days=delta), tops))
+    out: list[Poll] = []
+    for p in extra:
+        fp = _poll_fingerprint(p)
+        if fp in seen:
+            continue
+        seen.add(fp)
+        out.append(p)
+    return out
 
 
 def _drop_aggregates(polls: list[Poll]) -> list[Poll]:
@@ -778,9 +821,12 @@ def _senate_forecast_payload(
     payload["seat_distribution"] = {
         str(k): v for k, v in forecast.seat_distribution.items()
     }
-    # Market page links so the site can send readers to the source market.
+    # Market page links so the site can send readers to the source market, and
+    # the defending party so the UI can mark flips.
+    held_by = {e["state"]: e.get("held_by") for e in cycle["competitive_races"]}
     for race_dict in payload.get("races", []):
         race_dict["market_urls"] = urls_for_race(market_odds, race_dict["race"])
+        race_dict["held_by"] = held_by.get(race_dict["state"])
     payload["market_control_urls"] = urls_for_race(market_odds, SENATE_CONTROL_RACE)
     payload["maturity"] = "nowcast"
     payload["label"] = (

@@ -258,13 +258,13 @@
   {
    "state": "Montana",
    "race": "Montana Senate 2026",
-   "dem_candidate": "Alani Bankhead",
+   "dem_candidate": "Seth Bodnar",
    "rep_candidate": "Kurt Alme",
    "abbr": "MT",
    "pres_2024": -19.9,
    "pres_2020": -16.3,
    "held_by": "R",
-   "_note": "Open seat (Daines not running). Seth Bodnar runs as an independent alongside Bankhead (D) and Alme (R)."
+   "_note": "Open seat (Daines not running). Three-way race: Alme (R), Bodnar (independent) and Bankhead (D). The polling tables show Alme 38-47 vs Bankhead 10-25, i.e. Bodnar holds the anti-Alme vote, so like Nebraska the independent occupies the Dem column and the model tracks Alme vs Bodnar. A Bodnar win is counted as a Dem seat for control, which overstates certainty about whom he would caucus with."
   },
   {
    "state": "Nebraska",

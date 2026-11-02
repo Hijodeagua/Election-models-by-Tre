@@ -19,3 +19,12 @@ fixtures.
 Pipelines prefer the large live-source exports and only fall back to the
 hand-curated fixtures when those are missing (see `_load_polls` in
 `scripts/export_json.py`).
+
+## Supplements (`*_supplement.csv`)
+
+Hand-curated polls the automated feeds missed, in the same columns as the
+matching `votehub_*.csv`. `scripts/export_json.py` merges them in and drops
+any row whose fingerprint (race, end date ±1 day, rounded toplines) already
+appears in the feed, so adding a poll the scraper later picks up does not
+double-count it. Dates entered from a release list use the release day as
+both start and end. The refresh cron never overwrites these files.

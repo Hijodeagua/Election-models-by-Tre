@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import LastUpdated from '@/app/components/LastUpdated';
 import SeatDistributionChart from '@/app/components/SeatDistributionChart';
+import SeatRankChart from '@/app/components/SeatRankChart';
 import { EmptyState, PageHead, Panel, StatCard } from '@/app/components/ui';
 import { getSenateForecast, type NationalEnvironment } from '@/app/lib/data';
 
@@ -60,6 +61,14 @@ export default function SenateForecastPage() {
           <div className="bg-dem" style={{ width: `${demPct}%` }} />
           <div className="bg-rep" style={{ width: `${repPct}%` }} />
         </div>
+      </Panel>
+
+      <Panel title="Competitive seats that determine Senate control" className="mt-4">
+        <SeatRankChart
+          races={forecast.races}
+          demHoldovers={forecast.dem_safe_seats}
+          threshold={forecast.dem_majority_threshold}
+        />
       </Panel>
 
       {forecast.national_environment?.available && (
