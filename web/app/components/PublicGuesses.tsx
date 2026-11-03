@@ -16,6 +16,7 @@ import {
   type GuessEntry,
   type GuessMap,
   type GuessesPayload,
+  type MarketCall,
   type RaceGuess,
 } from '@/app/lib/guesses-shared';
 import { Panel } from '@/app/components/ui';
@@ -30,6 +31,8 @@ export interface GuessRace {
   // Hijodeagua's published guess and the model's call, in the same shape.
   hijodeagua: RaceGuess | null;
   model: RaceGuess | null;
+  // Prediction markets' favourite and its win probability.
+  market: MarketCall | null;
 }
 
 const TOKEN_KEY = 'election-oracle:guess-token:v1';
@@ -399,6 +402,9 @@ function ComparisonTable({
           <tr className="border-b border-cream-300 text-left text-xs uppercase tracking-wide text-cocoa-400">
             <th className="sticky left-0 z-10 bg-white px-3 py-3">Race</th>
             <th className="px-3 py-3 text-right">Model</th>
+            <th className="px-3 py-3 text-right" title="Polymarket / Kalshi favourite and win chance">
+              Markets
+            </th>
             <th className="px-3 py-3 text-right">Hijodeagua</th>
             {entries.map((e) => (
               <th key={e.id} className="max-w-[9rem] truncate px-3 py-3 text-right normal-case" title={e.name}>
@@ -421,6 +427,15 @@ function ComparisonTable({
                   <span className="text-cocoa-300">—</span>
                 )}
               </td>
+              <td className="whitespace-nowrap px-3 py-2 text-right">
+                {r.market ? (
+                  <span className={`font-semibold ${PARTY_TEXT[r.market.pick]}`}>
+                    {r.market.pick} {Math.round(r.market.prob * 100)}%
+                  </span>
+                ) : (
+                  <span className="text-cocoa-300">—</span>
+                )}
+              </td>
               <GuessCell guess={r.hijodeagua} model={r.model} />
               {entries.map((e) => (
                 <GuessCell key={e.id} guess={e.guesses[r.abbr] ?? null} model={r.model} />
@@ -432,6 +447,9 @@ function ComparisonTable({
           <tr className="border-t border-cream-300 text-xs text-cocoa-500">
             <td className="sticky left-0 z-10 bg-white px-3 py-2">Differs from model</td>
             <td className="px-3 py-2 text-right text-cocoa-300">—</td>
+            <td className="px-3 py-2 text-right font-semibold">
+              {races.filter((r) => r.market && r.model && r.market.pick !== r.model.pick).length}
+            </td>
             <td className="px-3 py-2 text-right font-semibold">{hijoCount}</td>
             {entries.map((e) => (
               <td key={e.id} className="px-3 py-2 text-right font-semibold">
@@ -446,8 +464,9 @@ function ComparisonTable({
         <p className="px-3 py-2 text-xs text-cocoa-400">No public guesses yet — be the first.</p>
       )}
       <p className="border-t border-cream-100 px-3 py-2 text-[11px] text-cocoa-400">
-        Model = the simulation&rsquo;s median winner and margin. Shaded cells with ≠ call a
-        different winner than the model. Scoring against results comes after election day.
+        Model = the simulation&rsquo;s median winner and margin. Markets = the Polymarket /
+        Kalshi favourite and its win chance, refreshed with the site data. Shaded cells with ≠
+        call a different winner than the model. Scoring against results comes after election day.
       </p>
     </div>
   );

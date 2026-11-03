@@ -138,6 +138,10 @@ export function validateSubmission(body: unknown, allowed: AllowedPicks): Valida
 // What the model calls the race, in the same pick/margin shape as a guess.
 // The simulation's positive side is whoever the config lists as the
 // "Democratic" candidate, which for Nebraska and Montana is the independent.
+export function positiveSide(race: Pick<PredictionRaceView, 'model' | 'ind_candidate'>): Party {
+  return race.ind_candidate && race.model?.dem_candidate === race.ind_candidate ? 'I' : 'D';
+}
+
 export function modelGuess(
   race: Pick<PredictionRaceView, 'model' | 'ind_candidate'>,
 ): RaceGuess | null {
@@ -145,10 +149,30 @@ export function modelGuess(
   if (med == null) return null;
   const rounded = Math.round(med * 10) / 10;
   if (rounded === 0) return null;
-  const positiveSide: Party =
-    race.ind_candidate && race.model?.dem_candidate === race.ind_candidate ? 'I' : 'D';
-  return { pick: rounded > 0 ? positiveSide : 'R', margin: Math.abs(rounded) };
+  return { pick: rounded > 0 ? positiveSide(race) : 'R', margin: Math.abs(rounded) };
 }
+
+// The prediction markets' favourite: the average of the Polymarket / Kalshi
+// prices for the non-Republican side (the "consensus" stand-in used for
+// unpolled safe races is not a market and is ignored).
+export interface MarketCall {
+  pick: Party;
+  prob: number; // favourite's win probability, 0.5–1
+}
+
+export function marketCall(
+  probs: Record<string, number> | null | undefined,
+  side: Party,
+): MarketCall | null {
+  const vals = Object.entries(probs ?? {})
+    .filter(([k, v]) => k !== 'consensus' && typeof v === 'number' && Number.isFinite(v))
+    .map(([, v]) => v);
+  if (vals.length === 0) return null;
+  const p = vals.reduce((a, b) => a + b, 0) / vals.length;
+  return p >= 0.5 ? { pick: side, prob: p } : { pick: 'R', prob: 1 - p };
+}
+
+export const ADD_GUESSES_URL = 'https://whosyurgoat.app/election/predictions#public-guesses';
 
 export function guessesDisagree(a: RaceGuess | null, b: RaceGuess | null): boolean {
   if (!a || !b) return false;
