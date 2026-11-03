@@ -7473,8 +7473,24 @@
     {
       "state": "Arkansas",
       "abbr": "AR",
-      "num_polls": 6,
+      "num_polls": 7,
       "polls": [
+        {
+          "pollster": "GrayHouse (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-27",
+          "end_date": "2026-10-28",
+          "sample_size": 509,
+          "population": "lv",
+          "dem_candidate": "Hallie Shoffner",
+          "rep_candidate": "Tom Cotton",
+          "dem_pct": 39.0,
+          "rep_pct": 55.0,
+          "margin": -16.0,
+          "partisan": false
+        },
         {
           "pollster": "Hendrix College",
           "rated": false,
@@ -8625,8 +8641,24 @@
     {
       "state": "Louisiana",
       "abbr": "LA",
-      "num_polls": 3,
+      "num_polls": 4,
       "polls": [
+        {
+          "pollster": "Lincoln Park Strategies (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-29",
+          "end_date": "2026-10-31",
+          "sample_size": null,
+          "population": "lv",
+          "dem_candidate": "Jamie Davis",
+          "rep_candidate": "Julia Letlow",
+          "dem_pct": 47.0,
+          "rep_pct": 47.0,
+          "margin": 0.0,
+          "partisan": false
+        },
         {
           "pollster": "Hart Research Associates",
           "rated": false,
@@ -9820,8 +9852,24 @@
     {
       "state": "Nebraska",
       "abbr": "NE",
-      "num_polls": 21,
+      "num_polls": 22,
       "polls": [
+        {
+          "pollster": "GrayHouse (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-29",
+          "end_date": "2026-11-01",
+          "sample_size": 534,
+          "population": "lv",
+          "dem_candidate": "Dan Osborn",
+          "rep_candidate": "Pete Ricketts",
+          "dem_pct": 44.0,
+          "rep_pct": 50.0,
+          "margin": -6.0,
+          "partisan": false
+        },
         {
           "pollster": "YouGov",
           "rated": true,
@@ -10962,8 +11010,24 @@
     {
       "state": "Tennessee",
       "abbr": "TN",
-      "num_polls": 1,
+      "num_polls": 2,
       "polls": [
+        {
+          "pollster": "Targoz Market Research",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-24",
+          "end_date": "2026-11-02",
+          "sample_size": 718,
+          "population": "lv",
+          "dem_candidate": "Marquita Bradshaw",
+          "rep_candidate": "Bill Hagerty",
+          "dem_pct": 37.0,
+          "rep_pct": 57.0,
+          "margin": -20.0,
+          "partisan": false
+        },
         {
           "pollster": "Targoz Market Research",
           "rated": false,
