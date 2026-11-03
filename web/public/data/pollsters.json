@@ -233,8 +233,40 @@
     {
       "state": "Georgia",
       "abbr": "GA",
-      "num_polls": 22,
+      "num_polls": 24,
       "polls": [
+        {
+          "pollster": "Research Co.",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-31",
+          "end_date": "2026-11-02",
+          "sample_size": 450,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 52.0,
+          "rep_pct": 42.0,
+          "margin": 10.0,
+          "partisan": false
+        },
+        {
+          "pollster": "InsiderAdvantage (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-31",
+          "end_date": "2026-11-02",
+          "sample_size": 2500,
+          "population": "lv",
+          "dem_candidate": "Jon Ossoff",
+          "rep_candidate": "Mike Collins",
+          "dem_pct": 53.0,
+          "rep_pct": 46.0,
+          "margin": 7.0,
+          "partisan": false
+        },
         {
           "pollster": "Echelon Insights (R)",
           "rated": false,
@@ -284,7 +316,7 @@
           "partisan": false
         },
         {
-          "pollster": "University of Georgia School of Public and International Affairs",
+          "pollster": "University of Georgia",
           "rated": false,
           "grade": null,
           "quality": null,
@@ -690,8 +722,56 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 66,
+      "num_polls": 70,
       "polls": [
+        {
+          "pollster": "John Zogby Strategies",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-31",
+          "end_date": "2026-11-02",
+          "sample_size": 1001,
+          "population": "lv",
+          "dem_candidate": "Abdul El-Sayed",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": 51.0,
+          "rep_pct": 49.0,
+          "margin": 2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Emerson College",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.468,
+          "start_date": "2026-10-31",
+          "end_date": "2026-11-01",
+          "sample_size": 500,
+          "population": "lv",
+          "dem_candidate": "Abdul El-Sayed",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": 51.0,
+          "rep_pct": 45.0,
+          "margin": 6.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Concord Public Opinion Partners (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-31",
+          "end_date": "2026-11-01",
+          "sample_size": 510,
+          "population": "lv",
+          "dem_candidate": "Abdul El-Sayed",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": 51.0,
+          "rep_pct": 41.0,
+          "margin": 10.0,
+          "partisan": false
+        },
         {
           "pollster": "Research Co.",
           "rated": false,
@@ -706,6 +786,22 @@
           "dem_pct": 48.0,
           "rep_pct": 46.0,
           "margin": 2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "AtlasIntel",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-28",
+          "end_date": "2026-11-01",
+          "sample_size": 1316,
+          "population": "lv",
+          "dem_candidate": "Abdul El-Sayed",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": 54.0,
+          "rep_pct": 46.0,
+          "margin": 8.0,
           "partisan": false
         },
         {
@@ -1875,8 +1971,24 @@
     {
       "state": "North Carolina",
       "abbr": "NC",
-      "num_polls": 52,
+      "num_polls": 53,
       "polls": [
+        {
+          "pollster": "AtlasIntel",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-28",
+          "end_date": "2026-11-01",
+          "sample_size": 1459,
+          "population": "lv",
+          "dem_candidate": "Roy Cooper",
+          "rep_candidate": "Michael Whatley",
+          "dem_pct": 56.0,
+          "rep_pct": 42.0,
+          "margin": 14.0,
+          "partisan": false
+        },
         {
           "pollster": "YouGov",
           "rated": true,
@@ -2794,8 +2906,72 @@
     {
       "state": "Maine",
       "abbr": "ME",
-      "num_polls": 35,
+      "num_polls": 39,
       "polls": [
+        {
+          "pollster": "Rasmussen Reports (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-27",
+          "end_date": "2026-11-02",
+          "sample_size": 896,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 49.0,
+          "rep_pct": 46.0,
+          "margin": 3.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Emerson College",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.468,
+          "start_date": "2026-10-31",
+          "end_date": "2026-11-01",
+          "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 49.0,
+          "rep_pct": 51.0,
+          "margin": -2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "AtlasIntel",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-28",
+          "end_date": "2026-11-01",
+          "sample_size": 967,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 53.0,
+          "rep_pct": 44.0,
+          "margin": 9.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Survey 160",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-27",
+          "end_date": "2026-11-01",
+          "sample_size": 1323,
+          "population": "lv",
+          "dem_candidate": "Troy Jackson",
+          "rep_candidate": "Susan Collins",
+          "dem_pct": 50.0,
+          "rep_pct": 47.0,
+          "margin": 3.0,
+          "partisan": false
+        },
         {
           "pollster": "New York Times/Siena University",
           "rated": false,
@@ -3362,8 +3538,24 @@
     {
       "state": "New Hampshire",
       "abbr": "NH",
-      "num_polls": 32,
+      "num_polls": 35,
       "polls": [
+        {
+          "pollster": "AtlasIntel",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-28",
+          "end_date": "2026-11-01",
+          "sample_size": 1057,
+          "population": "lv",
+          "dem_candidate": "Chris Pappas",
+          "rep_candidate": "John E. Sununu",
+          "dem_pct": 52.0,
+          "rep_pct": 44.0,
+          "margin": 8.0,
+          "partisan": false
+        },
         {
           "pollster": "University of New Hampshire",
           "rated": false,
@@ -3378,6 +3570,22 @@
           "dem_pct": 54.0,
           "rep_pct": 42.0,
           "margin": 12.0,
+          "partisan": false
+        },
+        {
+          "pollster": "National Public Affairs (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-25",
+          "end_date": "2026-10-29",
+          "sample_size": 800,
+          "population": "lv",
+          "dem_candidate": "Chris Pappas",
+          "rep_candidate": "John E. Sununu",
+          "dem_pct": 51.0,
+          "rep_pct": 45.0,
+          "margin": 6.0,
           "partisan": false
         },
         {
@@ -3425,6 +3633,22 @@
           "rep_candidate": "John E. Sununu",
           "dem_pct": 50.0,
           "rep_pct": 43.0,
+          "margin": 7.0,
+          "partisan": false
+        },
+        {
+          "pollster": "UMass Lowell/YouGov",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-02",
+          "end_date": "2026-10-19",
+          "sample_size": 600,
+          "population": "lv",
+          "dem_candidate": "Chris Pappas",
+          "rep_candidate": "John E. Sununu",
+          "dem_pct": 48.0,
+          "rep_pct": 41.0,
           "margin": 7.0,
           "partisan": false
         },
@@ -3919,8 +4143,24 @@
     {
       "state": "Ohio",
       "abbr": "OH",
-      "num_polls": 52,
+      "num_polls": 56,
       "polls": [
+        {
+          "pollster": "Emerson College",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.468,
+          "start_date": "2026-10-31",
+          "end_date": "2026-11-01",
+          "sample_size": 930,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 46.0,
+          "rep_pct": 48.0,
+          "margin": -2.0,
+          "partisan": false
+        },
         {
           "pollster": "Trafalgar Group (R)",
           "rated": true,
@@ -3951,6 +4191,38 @@
           "dem_pct": 45.0,
           "rep_pct": 44.0,
           "margin": 1.0,
+          "partisan": false
+        },
+        {
+          "pollster": "AtlasIntel",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-28",
+          "end_date": "2026-11-01",
+          "sample_size": 1801,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 51.0,
+          "rep_pct": 44.0,
+          "margin": 7.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Survey 160",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-27",
+          "end_date": "2026-11-01",
+          "sample_size": 1122,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 50.0,
+          "rep_pct": 46.0,
+          "margin": 4.0,
           "partisan": false
         },
         {
@@ -3999,6 +4271,22 @@
           "dem_pct": 49.0,
           "rep_pct": 47.0,
           "margin": 2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Rasmussen Reports (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-27",
+          "end_date": "2026-10-31",
+          "sample_size": 1119,
+          "population": "lv",
+          "dem_candidate": "Sherrod Brown",
+          "rep_candidate": "Jon Husted",
+          "dem_pct": 46.0,
+          "rep_pct": 46.0,
+          "margin": 0.0,
           "partisan": false
         },
         {
@@ -4802,8 +5090,24 @@
     {
       "state": "Texas",
       "abbr": "TX",
-      "num_polls": 82,
+      "num_polls": 84,
       "polls": [
+        {
+          "pollster": "Research Co.",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-31",
+          "end_date": "2026-11-02",
+          "sample_size": 450,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 49.0,
+          "rep_pct": 46.0,
+          "margin": 3.0,
+          "partisan": false
+        },
         {
           "pollster": "Trafalgar Group (R)",
           "rated": true,
@@ -4821,6 +5125,22 @@
           "partisan": false
         },
         {
+          "pollster": "Emerson College",
+          "rated": true,
+          "grade": "B+",
+          "quality": 1.468,
+          "start_date": "2026-10-31",
+          "end_date": "2026-11-01",
+          "sample_size": 500,
+          "population": "lv",
+          "dem_candidate": "James Talarico",
+          "rep_candidate": "Ken Paxton",
+          "dem_pct": 50.0,
+          "rep_pct": 48.0,
+          "margin": 2.0,
+          "partisan": false
+        },
+        {
           "pollster": "AtlasIntel",
           "rated": false,
           "grade": null,
@@ -4828,7 +5148,7 @@
           "start_date": "2026-10-28",
           "end_date": "2026-11-01",
           "sample_size": 1678,
-          "population": "a",
+          "population": "lv",
           "dem_candidate": "James Talarico",
           "rep_candidate": "Ken Paxton",
           "dem_pct": 51.0,
@@ -6189,8 +6509,24 @@
     {
       "state": "Iowa",
       "abbr": "IA",
-      "num_polls": 39,
+      "num_polls": 42,
       "polls": [
+        {
+          "pollster": "AtlasIntel",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-28",
+          "end_date": "2026-11-01",
+          "sample_size": 1219,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 51.0,
+          "rep_pct": 46.0,
+          "margin": 5.0,
+          "partisan": false
+        },
         {
           "pollster": "New York Times/Siena University",
           "rated": false,
@@ -6221,6 +6557,38 @@
           "dem_pct": 50.0,
           "rep_pct": 49.0,
           "margin": 1.0,
+          "partisan": false
+        },
+        {
+          "pollster": "GrayHouse (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-28",
+          "end_date": "2026-10-31",
+          "sample_size": 601,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 46.0,
+          "rep_pct": 48.0,
+          "margin": -2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Rasmussen Reports (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-27",
+          "end_date": "2026-10-31",
+          "sample_size": 901,
+          "population": "lv",
+          "dem_candidate": "Josh Turek",
+          "rep_candidate": "Ashley Hinson",
+          "dem_pct": 46.0,
+          "rep_pct": 47.0,
+          "margin": -1.0,
           "partisan": false
         },
         {
@@ -7209,8 +7577,24 @@
     {
       "state": "Colorado",
       "abbr": "CO",
-      "num_polls": 2,
+      "num_polls": 3,
       "polls": [
+        {
+          "pollster": "Research Co.",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-31",
+          "end_date": "2026-11-02",
+          "sample_size": 450,
+          "population": "lv",
+          "dem_candidate": "John Hickenlooper",
+          "rep_candidate": "Mark Baisley",
+          "dem_pct": 57.0,
+          "rep_pct": 35.0,
+          "margin": 22.0,
+          "partisan": false
+        },
         {
           "pollster": "CU Boulder/YouGov",
           "rated": false,
@@ -7714,8 +8098,24 @@
     {
       "state": "Illinois",
       "abbr": "IL",
-      "num_polls": 3,
+      "num_polls": 4,
       "polls": [
+        {
+          "pollster": "Research Co.",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-31",
+          "end_date": "2026-11-02",
+          "sample_size": 450,
+          "population": "lv",
+          "dem_candidate": "Juliana Stratton",
+          "rep_candidate": "Don Tracy",
+          "dem_pct": 53.0,
+          "rep_pct": 41.0,
+          "margin": 12.0,
+          "partisan": false
+        },
         {
           "pollster": "ActiVote",
           "rated": false,
@@ -7777,8 +8177,40 @@
     {
       "state": "Kansas",
       "abbr": "KS",
-      "num_polls": 23,
+      "num_polls": 25,
       "polls": [
+        {
+          "pollster": "AtlasIntel",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-28",
+          "end_date": "2026-11-01",
+          "sample_size": 2038,
+          "population": "lv",
+          "dem_candidate": "Adam Hamilton",
+          "rep_candidate": "Roger Marshall",
+          "dem_pct": 52.0,
+          "rep_pct": 45.0,
+          "margin": 7.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Survey 160",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-27",
+          "end_date": "2026-11-01",
+          "sample_size": 1267,
+          "population": "lv",
+          "dem_candidate": "Adam Hamilton",
+          "rep_candidate": "Roger Marshall",
+          "dem_pct": 50.0,
+          "rep_pct": 44.0,
+          "margin": 6.0,
+          "partisan": false
+        },
         {
           "pollster": "New York Times/Siena University",
           "rated": false,
@@ -8249,7 +8681,7 @@
     {
       "state": "Massachusetts",
       "abbr": "MA",
-      "num_polls": 15,
+      "num_polls": 16,
       "polls": [
         {
           "pollster": "University of New Hampshire",
@@ -8297,6 +8729,22 @@
           "dem_pct": 60.0,
           "rep_pct": 32.0,
           "margin": 28.0,
+          "partisan": false
+        },
+        {
+          "pollster": "UMass Lowell",
+          "rated": true,
+          "grade": "A",
+          "quality": 1.858,
+          "start_date": "2026-10-07",
+          "end_date": "2026-10-18",
+          "sample_size": 850,
+          "population": "lv",
+          "dem_candidate": "Ed Markey",
+          "rep_candidate": "John Deaton",
+          "dem_pct": 55.0,
+          "rep_pct": 26.0,
+          "margin": 29.0,
           "partisan": false
         },
         {
@@ -8504,7 +8952,7 @@
     {
       "state": "Minnesota",
       "abbr": "MN",
-      "num_polls": 26,
+      "num_polls": 28,
       "polls": [
         {
           "pollster": "Research Co.",
@@ -8520,6 +8968,38 @@
           "dem_pct": 48.0,
           "rep_pct": 43.0,
           "margin": 5.0,
+          "partisan": false
+        },
+        {
+          "pollster": "AtlasIntel",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-28",
+          "end_date": "2026-11-01",
+          "sample_size": 2133,
+          "population": "lv",
+          "dem_candidate": "Peggy Flanagan",
+          "rep_candidate": "Michele Tafoya",
+          "dem_pct": 48.0,
+          "rep_pct": 46.0,
+          "margin": 2.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Survey 160",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-27",
+          "end_date": "2026-11-01",
+          "sample_size": 1365,
+          "population": "lv",
+          "dem_candidate": "Peggy Flanagan",
+          "rep_candidate": "Michele Tafoya",
+          "dem_pct": 52.0,
+          "rep_pct": 43.0,
+          "margin": 9.0,
           "partisan": false
         },
         {
@@ -8757,8 +9237,8 @@
           "population": "lv",
           "dem_candidate": "Peggy Flanagan",
           "rep_candidate": "Michele Tafoya",
-          "dem_pct": 40.0,
-          "rep_pct": 38.0,
+          "dem_pct": 46.0,
+          "rep_pct": 44.0,
           "margin": 2.0,
           "partisan": false
         },
@@ -9729,8 +10209,24 @@
     {
       "state": "New Mexico",
       "abbr": "NM",
-      "num_polls": 3,
+      "num_polls": 4,
       "polls": [
+        {
+          "pollster": "Research Co.",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-31",
+          "end_date": "2026-11-02",
+          "sample_size": 450,
+          "population": "lv",
+          "dem_candidate": "Ben Ray Luj\u00e1n",
+          "rep_candidate": "Larry Marker",
+          "dem_pct": 56.0,
+          "rep_pct": 37.0,
+          "margin": 19.0,
+          "partisan": false
+        },
         {
           "pollster": "Research & Polling Inc.",
           "rated": false,
