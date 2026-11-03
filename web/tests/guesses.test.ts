@@ -7,6 +7,7 @@ import {
   allowedPicksFor,
   isLocked,
   isReservedName,
+  marketCall,
   modelGuess,
   normalizeName,
   validateSubmission,
@@ -419,5 +420,21 @@ describe('storage env lookup', () => {
     };
     expect(body.configured).toBe(false);
     expect(Array.isArray(body.storage_env_seen)).toBe(true);
+  });
+});
+
+describe('market favourite', () => {
+  it('averages the market prices and names the favourite', () => {
+    expect(marketCall({ polymarket: 0.74, kalshi: 0.72 }, 'D')).toEqual({ pick: 'D', prob: 0.73 });
+    expect(marketCall({ polymarket: 0.145 }, 'D')).toEqual({ pick: 'R', prob: 0.855 });
+    expect(marketCall({ polymarket: 0.6 }, 'I')).toEqual({ pick: 'I', prob: 0.6 });
+    expect(marketCall({ polymarket: 0.285 }, 'I')?.pick).toBe('R');
+  });
+
+  it('ignores the consensus stand-in and missing data', () => {
+    expect(marketCall({ consensus: 0.99 }, 'D')).toBeNull();
+    expect(marketCall({}, 'D')).toBeNull();
+    expect(marketCall(null, 'D')).toBeNull();
+    expect(marketCall({ polymarket: 0.8, consensus: 0.1 }, 'D')).toEqual({ pick: 'D', prob: 0.8 });
   });
 });

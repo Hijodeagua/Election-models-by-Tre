@@ -3,12 +3,14 @@ import LastUpdated from '@/app/components/LastUpdated';
 import PredictionsBoard from '@/app/components/PredictionsBoard';
 import PublicGuesses, { type GuessRace } from '@/app/components/PublicGuesses';
 import { EmptyState, PageHead } from '@/app/components/ui';
-import { allowedPicksFor, modelGuess } from '@/app/lib/guesses-shared';
+import { allowedPicksFor, marketCall, modelGuess, positiveSide } from '@/app/lib/guesses-shared';
+import { getSenateForecast } from '@/app/lib/data';
 import { getPredictions, getPredictionViews } from '@/app/lib/predictions';
 import type { PredictionRaceView } from '@/app/lib/predictions-shared';
 
 function toGuessRaces(races: PredictionRaceView[]): GuessRace[] {
   const allowed = allowedPicksFor(races);
+  const markets = new Map((getSenateForecast()?.races ?? []).map((f) => [f.state, f.market_dem_prob]));
   return races.map((r) => ({
     abbr: r.abbr,
     state: r.state,
@@ -18,6 +20,7 @@ function toGuessRaces(races: PredictionRaceView[]): GuessRace[] {
     allowed: allowed[r.abbr],
     hijodeagua: r.pick ? { pick: r.pick, margin: r.margin } : null,
     model: modelGuess(r),
+    market: marketCall(markets.get(r.state), positiveSide(r)),
   }));
 }
 

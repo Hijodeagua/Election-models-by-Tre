@@ -119,7 +119,8 @@ describe('share images', () => {
     expect(t.split('\n')[0]).toBe("Hijodeagua's 2026 Senate guesses (as of Nov 2, 2026)");
     expect(t).toContain('ME  R+2.0');
     expect(t).toContain('AK  —');
-    expect(t.trim().endsWith('https://whosyurgoat.app/election/predictions')).toBe(true);
+    expect(t).toContain('https://whosyurgoat.app/election/predictions\n');
+    expect(t.trim().endsWith('Add your own guesses: https://whosyurgoat.app/election/predictions#public-guesses')).toBe(true);
   });
 });
 

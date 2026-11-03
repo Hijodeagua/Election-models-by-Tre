@@ -4,6 +4,7 @@
 // The SVG builders are pure so tests can check them without a DOM.
 
 import { fmtMargin, fmtProb } from '@/app/lib/format';
+import { ADD_GUESSES_URL } from '@/app/lib/guesses-shared';
 import {
   FILL,
   FILL_NOT_RACE,
@@ -364,6 +365,7 @@ export function buildShareText(races: PredictionRaceView[], asOf: string): strin
     ...races.map((r) => `${r.abbr}  ${r.pick ? fmtWinnerMargin(r.pick, r.margin) : '—'}`),
     '',
     `https://${SHARE_URL}`,
+    `Add your own guesses: ${ADD_GUESSES_URL}`,
   ];
   return lines.join('\n');
 }
