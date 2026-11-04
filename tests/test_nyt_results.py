@@ -15,12 +15,14 @@ def _cand(nyt_id: str, first: str, last: str, party: str, incumbent: bool = Fals
 
 
 def _race(state, postal, cands, votes, *, called=None, call_status="too_early",
-          gained=None, eevp=0.0, race_type="G", uncontested=False, updated="2026-11-04T02:21:02Z"):
+          gained=None, eevp=0.0, race_type="G", type_label=None, uncontested=False,
+          updated="2026-11-04T02:21:02Z"):
     total = sum(votes.values())
     return {
         "nyt_id": f"{postal}-G-S-2026-11-03",
         "office": "U.S. Senate",
         "race_type_id": race_type,
+        "type": type_label or {"G": "General", "P": "Primary", "R": "Runoff"}.get(race_type),
         "uncontested": uncontested,
         "race_call_status": call_status,
         "rating": "likely-dem",
@@ -71,14 +73,15 @@ NEBRASKA = _race(
     called="osborn-d", call_status="called", gained=True, eevp=88.0,
 )
 PRIMARY = _race("Georgia", "GA", [_cand("x", "Some", "One", "DEM")], {"x": 10}, race_type="P")
-# The 2026 specials (Florida, Ohio) come through as race type "S".
+# The 2026 specials (Florida, Ohio) come through as race type "W", "Special General".
 FLORIDA_SPECIAL = _race(
     "Florida", "FL",
     [_cand("moody-a", "Ashley", "Moody", "REP", True), _cand("dem-x", "Some", "Democrat", "DEM")],
     {"moody-a": 3_000_000, "dem-x": 2_400_000},
-    called="moody-a", call_status="called", gained=False, eevp=99.0, race_type="S",
+    called="moody-a", call_status="called", gained=False, eevp=99.0,
+    race_type="W", type_label="Special General",
 )
-FLORIDA_SPECIAL["nyt_id"] = "FL-S-S-2026-11-03"
+FLORIDA_SPECIAL["nyt_id"] = "FL-S_W-S-2026-11-03"
 
 
 def test_called_race():
@@ -128,7 +131,14 @@ def test_special_election_is_a_general():
     assert fl.winner == "Ashley Moody" and fl.winner_party == "R" and fl.gained is False
     runoff = dict(GEORGIA)
     runoff["race_type_id"] = "R"
+    runoff["type"] = "Runoff"
     assert parse_race(runoff) is None
+    # An unknown type id still counts when the label says it is a general.
+    odd = dict(FLORIDA_SPECIAL)
+    odd["race_type_id"] = "X"
+    assert parse_race(odd) is not None
+    odd["type"] = "Special Primary"
+    assert parse_race(odd) is None
 
 
 def test_won_without_a_call_status_is_not_a_call():
