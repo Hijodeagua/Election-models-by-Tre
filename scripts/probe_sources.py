@@ -282,11 +282,75 @@ def probe_results_feeds() -> None:
             print(f"  [ERR] {url}: {exc}")
 
 
+def probe_nyt_senate_shape() -> None:
+    """Dump the shape of the NYT/AP Senate feed: one race in depth, then a
+    one-line status for every race."""
+    url = "https://static01.nyt.com/elections-assets/pages/data/2026-11-03/results-senate.json"
+    print(f"=== NYT Senate feed shape: {url} ===")
+    try:
+        resp = httpx.get(url, timeout=30, follow_redirects=True,
+                         headers={"User-Agent": BROWSER_UA})
+        data = resp.json()
+    except Exception as exc:
+        print(f"  [ERR] {exc}")
+        return
+    races = data.get("races") or []
+    meta = data.get("resultsMeta")
+    print(f"  resultsMeta: {json.dumps(meta)[:600]}")
+    print(f"  partyControlData: {json.dumps(data.get('partyControlData'))[:600]}")
+
+    def trunc(v, n=700):
+        t = json.dumps(v, default=str)
+        return t if len(t) <= n else t[:n] + " …"
+
+    # One race in depth: prefer Georgia, else the first.
+    pick = next((r for r in races if "georgia" in json.dumps(r.get("seat", "")).lower()
+                 or "georgia" in str(r.get("url", "")).lower()), races[0] if races else None)
+    if pick:
+        print("  --- one race, field by field ---")
+        for k, v in pick.items():
+            if k in ("reporting_units",):
+                units = v if isinstance(v, list) else []
+                first = trunc(units[0], 900) if units else None
+                print(f"    {k}: list[{len(units)}]; first: {first}")
+            elif k == "top_reporting_unit":
+                print(f"    {k}: keys={list(v)[:40] if isinstance(v, dict) else type(v).__name__}")
+                if isinstance(v, dict):
+                    for kk in ("name", "state_id", "state_name", "precincts_reporting",
+                               "precincts_total", "precincts_reporting_pct", "eevp",
+                               "eevp_source", "eevp_value", "total_votes", "total_expected_vote",
+                               "votes", "candidates", "leader_margin_value",
+                               "leader_party_id", "leader_margin_name_display",
+                               "last_updated", "updated_at"):
+                        if kk in v:
+                            print(f"      {kk}: {trunc(v[kk], 900)}")
+            elif k == "rounds":
+                print(f"    {k}: {trunc(v, 1200)}")
+            else:
+                print(f"    {k}: {trunc(v)}")
+    print("  --- every race, one line ---")
+    for r in races:
+        tru = r.get("top_reporting_unit") or {}
+        cands = tru.get("candidates") or []
+        lead = ""
+        if cands:
+            try:
+                top = sorted(cands, key=lambda c: -(c.get("votes") or c.get("vote") or 0))[0]
+                lead = f"lead={top.get('nyt_id') or top.get('candidate_id')}:{top.get('votes')}"
+            except Exception:
+                lead = f"cands={len(cands)}"
+        print(
+            f"    {str(r.get('seat') or '')[:22]:<22} call={r.get('race_call_status')!s:<12} "
+            f"outcome={trunc(r.get('outcome'), 160)} pct_rep={tru.get('precincts_reporting_pct')} "
+            f"eevp={tru.get('eevp')} {lead} updated={r.get('updated_at')}"
+        )
+
+
 def main() -> None:
     import os
 
     if os.environ.get("PROBE_ONLY") == "results":
-        probe_results_feeds()
+        probe_nyt_senate_shape()
         return
     probe_votehub()
     probe_votehub_freshness()
