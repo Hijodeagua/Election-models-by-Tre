@@ -29,6 +29,10 @@ from src.data.wikipedia_senate import _UA
 
 logger = logging.getLogger(__name__)
 
+# Feed race types that decide a seat: the regular general and the special
+# election for a vacancy. Primaries ("P") and runoffs ("R") are not results.
+GENERAL_RACE_TYPES = frozenset({"G", "S"})
+
 ELECTION_DATE = "2026-11-03"
 NYT_SENATE_FEED = (
     "https://static01.nyt.com/elections-assets/pages/data/{date}/results-senate.json"
@@ -142,8 +146,13 @@ def _votes_total(cand: dict) -> int:
 
 
 def parse_race(race: dict) -> RaceStatus | None:
-    """Reduce one feed race to a RaceStatus (None if it is not a general)."""
-    if (race.get("race_type_id") or "G") != "G":
+    """Reduce one feed race to a RaceStatus (None if it is not a general).
+
+    Regular generals are race type ``G``; the special elections that fill a
+    vacated seat (Florida and Ohio in 2026) are type ``S`` and are generals
+    too. Primaries (``P``) and runoffs (``R``) are skipped.
+    """
+    if (race.get("race_type_id") or "G") not in GENERAL_RACE_TYPES:
         return None
     tru = race.get("top_reporting_unit") or {}
     state = tru.get("name") or race.get("seat") or ""
