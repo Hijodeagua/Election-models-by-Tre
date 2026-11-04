@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-04T14:13:39+00:00",
+ "generated": "2026-11-04T15:08:58+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -94,7 +94,7 @@
    "state": "Florida",
    "winner": "Ashley Moody",
    "winner_party": "R",
-   "margin": -2.89,
+   "margin": -2.88,
    "pre_election_prob": 0.8763,
    "upset": false,
    "flip": false,
@@ -126,7 +126,7 @@
    "flip": false,
    "called_at": "2026-11-04T06:32:18.267871+00:00",
    "first_seen": "2026-11-04T07:11:02+00:00",
-   "eevp": 96.5,
+   "eevp": 96.66,
    "source": "ap-via-nyt"
   },
   {
@@ -152,7 +152,7 @@
    "flip": true,
    "called_at": "2026-11-04T04:34:00.016+00:00",
    "first_seen": "2026-11-04T05:08:26+00:00",
-   "eevp": 98.1,
+   "eevp": 98.7,
    "source": "ap-via-nyt"
   },
   {
@@ -211,13 +211,13 @@
    "state": "Massachusetts",
    "winner": "Edward Markey",
    "winner_party": "D",
-   "margin": 31.82,
+   "margin": 31.19,
    "pre_election_prob": 0.9975,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:01:32.549465+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 82.66,
+   "eevp": 86.46,
    "source": "ap-via-nyt"
   },
   {
@@ -269,7 +269,7 @@
    "flip": false,
    "called_at": "2026-11-04T08:27:49.521501+00:00",
    "first_seen": "2026-11-04T09:08:31+00:00",
-   "eevp": 90.71,
+   "eevp": 91.01,
    "source": "ap-via-nyt"
   },
   {
@@ -282,20 +282,20 @@
    "flip": false,
    "called_at": "2026-11-04T01:21:28.872+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 90.08,
+   "eevp": 90.47,
    "source": "ap-via-nyt"
   },
   {
    "state": "New Jersey",
    "winner": "Cory Booker",
    "winner_party": "D",
-   "margin": 27.24,
+   "margin": 26.77,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:00:55.717106+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 92.34,
+   "eevp": 94.09,
    "source": "ap-via-nyt"
   },
   {
@@ -341,13 +341,13 @@
    "state": "Oklahoma",
    "winner": "Kevin Hern",
    "winner_party": "R",
-   "margin": -18.01,
+   "margin": -18.03,
    "pre_election_prob": 0.9893,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T02:36:16.920144+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 98.34,
+   "eevp": 98.79,
    "source": "ap-via-nyt"
   },
   {
@@ -419,26 +419,26 @@
    "state": "Texas",
    "winner": "James Talarico",
    "winner_party": "D",
-   "margin": 12.37,
+   "margin": 12.07,
    "pre_election_prob": 0.6568,
    "upset": false,
    "flip": true,
    "called_at": "2026-11-04T04:03:36.106156+00:00",
    "first_seen": "2026-11-04T04:15:25+00:00",
-   "eevp": 96.35,
+   "eevp": 97.37,
    "source": "ap-via-nyt"
   },
   {
    "state": "Virginia",
    "winner": "Mark Warner",
    "winner_party": "D",
-   "margin": 22.41,
+   "margin": 22.38,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T00:00:31.573829+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 96.77,
+   "eevp": 96.81,
    "source": "ap-via-nyt"
   },
   {
