@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-04T18:29:58+00:00",
+ "generated": "2026-11-04T19:09:32+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -74,7 +74,7 @@
    "flip": false,
    "called_at": "2026-11-04T02:01:00.700309+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 77.29,
+   "eevp": 77.21,
    "source": "ap-via-nyt"
   },
   {
@@ -113,7 +113,7 @@
    "flip": false,
    "called_at": "2026-11-04T00:56:37.784+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 98.7,
+   "eevp": 99.0,
    "source": "ap-via-nyt"
   },
   {
@@ -126,20 +126,20 @@
    "flip": false,
    "called_at": "2026-11-04T06:32:18.267871+00:00",
    "first_seen": "2026-11-04T07:11:02+00:00",
-   "eevp": 98.85,
+   "eevp": 96.05,
    "source": "ap-via-nyt"
   },
   {
    "state": "Illinois",
    "winner": "Juliana Stratton",
    "winner_party": "D",
-   "margin": 23.48,
+   "margin": 23.54,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:01:05.343166+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 92.53,
+   "eevp": 92.63,
    "source": "ap-via-nyt"
   },
   {
@@ -198,26 +198,26 @@
    "state": "Maine",
    "winner": "Troy Jackson",
    "winner_party": "D",
-   "margin": 7.37,
+   "margin": 7.33,
    "pre_election_prob": 0.7435,
    "upset": false,
    "flip": true,
    "called_at": "2026-11-04T05:54:45.648+00:00",
    "first_seen": "2026-11-04T06:08:57+00:00",
-   "eevp": 92.0,
+   "eevp": 92.1,
    "source": "ap-via-nyt"
   },
   {
    "state": "Massachusetts",
    "winner": "Edward Markey",
    "winner_party": "D",
-   "margin": 31.12,
+   "margin": 31.03,
    "pre_election_prob": 0.9975,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:01:32.549465+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 94.65,
+   "eevp": 94.94,
    "source": "ap-via-nyt"
   },
   {
@@ -230,7 +230,7 @@
    "flip": false,
    "called_at": "2026-11-04T07:27:28.334631+00:00",
    "first_seen": "2026-11-04T08:10:20+00:00",
-   "eevp": 97.02,
+   "eevp": 97.36,
    "source": "ap-via-nyt"
   },
   {
@@ -269,20 +269,20 @@
    "flip": false,
    "called_at": "2026-11-04T08:27:49.521501+00:00",
    "first_seen": "2026-11-04T09:08:31+00:00",
-   "eevp": 91.01,
+   "eevp": 91.39,
    "source": "ap-via-nyt"
   },
   {
    "state": "New Hampshire",
    "winner": "Chris Pappas",
    "winner_party": "D",
-   "margin": 14.04,
+   "margin": 14.03,
    "pre_election_prob": 0.9178,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:21:28.872+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 91.82,
+   "eevp": 92.01,
    "source": "ap-via-nyt"
   },
   {
@@ -425,20 +425,20 @@
    "flip": true,
    "called_at": "2026-11-04T04:03:36.106156+00:00",
    "first_seen": "2026-11-04T04:15:25+00:00",
-   "eevp": 97.97,
+   "eevp": 99.0,
    "source": "ap-via-nyt"
   },
   {
    "state": "Virginia",
    "winner": "Mark Warner",
    "winner_party": "D",
-   "margin": 22.4,
+   "margin": 22.39,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T00:00:31.573829+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 97.0,
+   "eevp": 96.99,
    "source": "ap-via-nyt"
   },
   {
@@ -495,7 +495,7 @@
    "live_prob": 0.1167,
    "live_median_margin": -4.71,
    "status": "reporting",
-   "eevp": 95.61,
+   "eevp": 95.59,
    "leader": "Scott Colom",
    "leader_party": "D",
    "leader_margin": 0.01,
