@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-04T08:10:55+00:00",
+ "generated": "2026-11-04T09:09:00+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -9,30 +9,30 @@
  },
  "status": "partial",
  "num_races": 35,
- "num_called": 32,
+ "num_called": 33,
  "picks_made": 17,
  "model": {
-  "n": 32,
-  "accuracy": 0.938,
-  "brier": 0.0443,
-  "log_loss": 0.1528,
+  "n": 33,
+  "accuracy": 0.939,
+  "brier": 0.0445,
+  "log_loss": 0.1561,
   "margins": {
    "n": 30,
-   "mae": 7.37,
+   "mae": 7.4,
    "bias": 4.09,
-   "rmse": 9.07
+   "rmse": 9.13
   },
   "polls_only": {
-   "n": 22,
-   "accuracy": 0.909,
-   "brier": 0.0683,
-   "log_loss": 0.2258
+   "n": 23,
+   "accuracy": 0.913,
+   "brier": 0.0672,
+   "log_loss": 0.2261
   },
   "poll_average_margins": {
    "n": 25,
-   "mae": 6.06,
-   "bias": 3.56,
-   "rmse": 7.91
+   "mae": 6.11,
+   "bias": 3.57,
+   "rmse": 7.98
   },
   "calibration": [
    {
@@ -43,9 +43,9 @@
    },
    {
     "bin": "20-40%",
-    "n": 1,
-    "predicted": 0.273,
-    "actual": 1.0
+    "n": 2,
+    "predicted": 0.252,
+    "actual": 0.5
    },
    {
     "bin": "40-60%",
@@ -68,28 +68,28 @@
   ]
  },
  "picks": {
-  "n": 14,
-  "accuracy": 0.857,
-  "brier": 0.1429,
-  "log_loss": 1.3158,
+  "n": 15,
+  "accuracy": 0.867,
+  "brier": 0.1333,
+  "log_loss": 1.2281,
   "margins": {
    "n": 14,
-   "mae": 6.48,
+   "mae": 6.56,
    "bias": 2.64,
-   "rmse": 9.03
+   "rmse": 9.14
   }
  },
  "market": {
-  "n": 22,
-  "accuracy": 0.955,
-  "brier": 0.0549,
-  "log_loss": 0.1947
+  "n": 23,
+  "accuracy": 0.957,
+  "brier": 0.0563,
+  "log_loss": 0.2014
  },
  "chamber": {
   "predicted_dem_control_prob": 0.705,
   "predicted_mean_dem_seats": 51.72,
   "dem_seats_so_far": 54,
-  "races_outstanding": 3,
+  "races_outstanding": 2,
   "final": false,
   "dem_control_actual": null
  },
@@ -138,7 +138,7 @@
     "num_polls": 70,
     "call": "D",
     "correct": true,
-    "margin_error": 1.98
+    "margin_error": 2.69
    },
    "market": {
     "polymarket_dem_prob": 0.785,
@@ -150,13 +150,13 @@
     "dem_margin": 2.5,
     "on_board": true,
     "correct": true,
-    "margin_error": 3.25
+    "margin_error": 3.96
    },
    "result": {
     "winner": "Abdul El-Sayed",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 5.75,
+    "margin": 6.46,
     "source": "ap-via-nyt"
    }
   },
@@ -204,7 +204,7 @@
     "num_polls": 39,
     "call": "D",
     "correct": true,
-    "margin_error": 4.63
+    "margin_error": 4.43
    },
    "market": {
     "polymarket_dem_prob": 0.695,
@@ -216,13 +216,13 @@
     "dem_margin": -2,
     "on_board": true,
     "correct": false,
-    "margin_error": 9.87
+    "margin_error": 9.67
    },
    "result": {
     "winner": "Troy Jackson",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 7.87,
+    "margin": 7.67,
     "source": "ap-via-nyt"
    }
   },
@@ -237,7 +237,7 @@
     "num_polls": 35,
     "call": "D",
     "correct": true,
-    "margin_error": 6.65
+    "margin_error": 6.77
    },
    "market": {
     "polymarket_dem_prob": 0.955,
@@ -249,13 +249,13 @@
     "dem_margin": 9.5,
     "on_board": true,
     "correct": true,
-    "margin_error": 4.63
+    "margin_error": 4.75
    },
    "result": {
     "winner": "Chris Pappas",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 14.13,
+    "margin": 14.25,
     "source": "ap-via-nyt"
    }
   },
@@ -303,7 +303,7 @@
     "num_polls": 84,
     "call": "D",
     "correct": true,
-    "margin_error": 10.05
+    "margin_error": 10.06
    },
    "market": {
     "polymarket_dem_prob": 0.725,
@@ -315,13 +315,13 @@
     "dem_margin": 5,
     "on_board": true,
     "correct": true,
-    "margin_error": 6.99
+    "margin_error": 7.0
    },
    "result": {
     "winner": "James Talarico",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 11.99,
+    "margin": 12.0,
     "source": "ap-via-nyt"
    }
   },
@@ -453,7 +453,7 @@
     "num_polls": 3,
     "call": "D",
     "correct": true,
-    "margin_error": 9.52
+    "margin_error": 9.55
    },
    "market": {
     "polymarket_dem_prob": null
@@ -468,7 +468,7 @@
     "winner": "John Hickenlooper",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 24.93,
+    "margin": 24.96,
     "source": "ap-via-nyt"
    }
   },
@@ -483,7 +483,7 @@
     "num_polls": 0,
     "call": "D",
     "correct": true,
-    "margin_error": 11.73
+    "margin_error": 11.75
    },
    "market": {
     "polymarket_dem_prob": null
@@ -498,7 +498,7 @@
     "winner": "Chris Coons",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 27.12,
+    "margin": 27.14,
     "source": "ap-via-nyt"
    }
   },
@@ -703,7 +703,7 @@
     "num_polls": 16,
     "call": "D",
     "correct": true,
-    "margin_error": 10.32
+    "margin_error": 10.61
    },
    "market": {
     "polymarket_dem_prob": 0.9925,
@@ -719,7 +719,7 @@
     "winner": "Edward Markey",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 31.83,
+    "margin": 32.12,
     "source": "ap-via-nyt"
    }
   },
@@ -734,7 +734,7 @@
     "num_polls": 28,
     "call": "D",
     "correct": true,
-    "margin_error": 4.6
+    "margin_error": 4.57
    },
    "market": {
     "polymarket_dem_prob": 0.915,
@@ -746,13 +746,13 @@
     "dem_margin": 10,
     "on_board": true,
     "correct": true,
-    "margin_error": 0.19
+    "margin_error": 0.16
    },
    "result": {
     "winner": "Peggy Flanagan",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 10.19,
+    "margin": 10.16,
     "source": "ap-via-nyt"
    }
   },
@@ -789,7 +789,7 @@
     "num_polls": 18,
     "call": "R",
     "correct": true,
-    "margin_error": -26.41
+    "margin_error": -26.89
    },
    "market": {
     "polymarket_dem_prob": 0.0705,
@@ -801,37 +801,46 @@
     "dem_margin": -9,
     "on_board": true,
     "correct": true,
-    "margin_error": -26.91
+    "margin_error": -27.39
    },
    "result": {
     "winner": "Kurt Alme",
     "winner_party": "R",
     "dem_won": false,
-    "margin": -35.91,
+    "margin": -36.39,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Nebraska",
-   "called": false,
+   "called": true,
    "model": {
     "dem_win_prob": 0.2306,
     "dem_win_prob_polls": 0.2071,
     "median_margin": -3.64,
     "poll_margin": -2.0,
     "num_polls": 22,
-    "call": "R"
+    "call": "R",
+    "correct": true
    },
    "market": {
-    "polymarket_dem_prob": 0.295
+    "polymarket_dem_prob": 0.295,
+    "correct": true
    },
    "pick": {
     "party": "R",
     "margin": 2,
     "dem_margin": -2,
-    "on_board": true
+    "on_board": true,
+    "correct": true
    },
-   "result": null
+   "result": {
+    "winner": "Pete Ricketts",
+    "winner_party": "R",
+    "dem_won": false,
+    "margin": null,
+    "source": "ap-via-nyt"
+   }
   },
   {
    "state": "New Jersey",
@@ -874,7 +883,7 @@
     "num_polls": 4,
     "call": "D",
     "correct": true,
-    "margin_error": 8.99
+    "margin_error": 8.97
    },
    "market": {
     "polymarket_dem_prob": 0.995,
@@ -890,7 +899,7 @@
     "winner": "Ben Luján",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 26.32,
+    "margin": 26.3,
     "source": "ap-via-nyt"
    }
   },
@@ -935,7 +944,7 @@
     "num_polls": 0,
     "call": "D",
     "correct": true,
-    "margin_error": 1.18
+    "margin_error": 0.9
    },
    "market": {
     "polymarket_dem_prob": null
@@ -950,7 +959,7 @@
     "winner": "Jeff Merkley",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 16.56,
+    "margin": 16.28,
     "source": "ap-via-nyt"
    }
   },
@@ -1089,7 +1098,7 @@
     "num_polls": 2,
     "call": "D",
     "correct": true,
-    "margin_error": 6.87
+    "margin_error": 6.77
    },
    "market": {
     "polymarket_dem_prob": null
@@ -1104,7 +1113,7 @@
     "winner": "Mark Warner",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 22.28,
+    "margin": 22.18,
     "source": "ap-via-nyt"
    }
   },
