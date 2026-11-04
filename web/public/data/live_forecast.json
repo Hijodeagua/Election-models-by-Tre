@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-04T11:14:03+00:00",
+ "generated": "2026-11-04T12:09:14+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -126,7 +126,7 @@
    "flip": false,
    "called_at": "2026-11-04T06:32:18.267871+00:00",
    "first_seen": "2026-11-04T07:11:02+00:00",
-   "eevp": 95.2,
+   "eevp": 95.3,
    "source": "ap-via-nyt"
   },
   {
@@ -224,13 +224,13 @@
    "state": "Michigan",
    "winner": "Abdul El-Sayed",
    "winner_party": "D",
-   "margin": 6.76,
+   "margin": 6.88,
    "pre_election_prob": 0.7758,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T07:27:28.334631+00:00",
    "first_seen": "2026-11-04T08:10:20+00:00",
-   "eevp": 95.86,
+   "eevp": 96.07,
    "source": "ap-via-nyt"
   },
   {
@@ -315,7 +315,7 @@
    "state": "North Carolina",
    "winner": "Roy Cooper",
    "winner_party": "D",
-   "margin": 19.61,
+   "margin": 19.63,
    "pre_election_prob": 0.9566,
    "upset": false,
    "flip": true,
@@ -419,13 +419,13 @@
    "state": "Texas",
    "winner": "James Talarico",
    "winner_party": "D",
-   "margin": 12.01,
+   "margin": 12.04,
    "pre_election_prob": 0.6568,
    "upset": false,
    "flip": true,
    "called_at": "2026-11-04T04:03:36.106156+00:00",
    "first_seen": "2026-11-04T04:15:25+00:00",
-   "eevp": 94.24,
+   "eevp": 94.27,
    "source": "ap-via-nyt"
   },
   {
