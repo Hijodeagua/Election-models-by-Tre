@@ -4,6 +4,7 @@
 import type { LiveForecast } from '@/app/lib/data';
 import { fmtMargin, fmtProb } from '@/app/lib/format';
 import { Panel, StatCard } from '@/app/components/ui';
+import LiveResultsMap from '@/app/components/LiveResultsMap';
 
 const PARTY_TEXT: Record<string, string> = { D: 'text-dem', R: 'text-rep', I: 'text-stamp' };
 const PARTY_NAME: Record<string, string> = { D: 'Democrat', R: 'Republican', I: 'Independent' };
@@ -49,7 +50,10 @@ export default function LiveForecastPanel({ live }: { live: LiveForecast }) {
           </h3>
         </div>
         <div className="text-[11.5px] text-cocoa-400">
-          {live.num_called} of {live.num_races} called · updated {fmtStamp(live.generated)} · reruns hourly
+          {live.num_called} of {live.num_races} called
+          {live.reporting ? ` · ${live.reporting} reporting` : ''} · updated {fmtStamp(live.generated)} ·
+          reruns every 15 min ·{' '}
+          {live.results_source === 'ap-via-nyt' ? 'calls by The Associated Press' : 'calls via Wikipedia'}
         </div>
       </div>
 
@@ -92,13 +96,17 @@ export default function LiveForecastPanel({ live }: { live: LiveForecast }) {
         />
       </div>
 
+      <Panel className="mt-4" title="Results map">
+        <LiveResultsMap called={live.called} remaining={live.remaining} />
+      </Panel>
+
       {live.history.length >= 2 && (
         <Panel title="P(Democratic control) through the night" className="mt-4">
           <History points={live.history} />
         </Panel>
       )}
 
-      <div className="mt-4 grid gap-4 lg:grid-cols-2">
+      <div className="mt-4 grid min-w-0 gap-4 lg:grid-cols-2 [&>*]:min-w-0">
         <Panel title={`Called (${live.called.length})`}>
           {live.called.length === 0 ? (
             <p className="text-sm text-cocoa-500">
@@ -116,6 +124,14 @@ export default function LiveForecastPanel({ live }: { live: LiveForecast }) {
                     </span>
                     {c.margin != null && (
                       <span className="ml-1 text-xs text-cocoa-400">{fmtMargin(c.margin)}</span>
+                    )}
+                    {c.flip && (
+                      <span className="ml-1.5 rounded bg-cream-200 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-cocoa-700">
+                        flip
+                      </span>
+                    )}
+                    {c.eevp != null && (
+                      <span className="ml-1.5 text-[11px] text-cocoa-400">{Math.round(c.eevp)}% in</span>
                     )}
                   </div>
                   <div className="whitespace-nowrap text-right text-xs text-cocoa-400">
@@ -142,10 +158,12 @@ export default function LiveForecastPanel({ live }: { live: LiveForecast }) {
           {live.remaining.length === 0 ? (
             <p className="text-sm text-cocoa-500">Every race has been called.</p>
           ) : (
+            <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="text-left text-[11px] uppercase tracking-wide text-cocoa-400">
                   <th className="py-1 pr-2">Race</th>
+                  <th className="py-1 pr-2">Counting</th>
                   <th className="py-1 pr-2 text-right">Before</th>
                   <th className="py-1 pr-2 text-right">Now</th>
                   <th className="py-1 text-right">Shift</th>
@@ -163,6 +181,20 @@ export default function LiveForecastPanel({ live }: { live: LiveForecast }) {
                       <td className="py-1.5 pr-2">
                         <span className="font-medium text-cocoa-700">{r.state}</span>
                         <span className="ml-1 text-xs text-cocoa-400">P({side})</span>
+                      </td>
+                      <td className="whitespace-nowrap py-1.5 pr-2 text-xs text-cocoa-500">
+                        {r.status === 'reporting' && r.eevp != null ? (
+                          <>
+                            {Math.round(r.eevp)}% in
+                            {r.leader && r.leader_margin != null && (
+                              <span className={`ml-1 ${PARTY_TEXT[r.leader_party ?? ''] ?? ''}`}>
+                                {r.leader.split(' ').slice(-1)[0]} +{r.leader_margin.toFixed(1)}
+                              </span>
+                            )}
+                          </>
+                        ) : (
+                          <span className="text-cocoa-300">no results yet</span>
+                        )}
                       </td>
                       <td className="py-1.5 pr-2 text-right text-cocoa-500">
                         {r.pre_election_prob != null ? fmtProb(r.pre_election_prob) : '—'}
@@ -182,13 +214,16 @@ export default function LiveForecastPanel({ live }: { live: LiveForecast }) {
                 })}
               </tbody>
             </table>
+            </div>
           )}
         </Panel>
       </div>
 
       <p className="mt-2 text-[11px] text-cocoa-400">
-        How it works: the pre-election simulation is rerun keeping only the draws that agree with
-        every call so far, so a surprise in one state shifts the odds in the states still counting.
+        How it works: race calls and counts come from The Associated Press (via the New York
+        Times results feed). Only calls move the forecast: the pre-election simulation is rerun
+        keeping only the draws that agree with every call so far, so a surprise in one state
+        shifts the odds in the states still counting. Partial counts are shown but not modelled.
         {live.live.condition_mode === 'forced' &&
           ' Too few draws agreed with the calls tonight, so called races were fixed instead; the other races keep their pre-election odds.'}
         {live.live.kept_simulations != null &&

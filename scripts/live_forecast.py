@@ -65,10 +65,17 @@ def load_snapshot(snapshot_dir: Path) -> tuple[dict, dict]:
     return _read_json(LIVE_FORECAST_FALLBACK), {"mode": "live-fallback", "ref": None}
 
 
+def load_status(results_path: Path) -> dict[str, dict]:
+    """Per-race reporting status (AP via NYT) written by fetch_results.py."""
+    if not results_path.exists():
+        return {}
+    return _read_json(results_path).get("status") or {}
+
+
 def load_results(results_path: Path, manual_path: Path) -> dict[str, dict]:
-    """Called results by state: scraped file, with manual entries overriding."""
+    """Called results by state: fetched file, with manual entries overriding."""
     out: dict[str, dict] = {}
-    for path, source in ((results_path, "wikipedia"), (manual_path, "manual")):
+    for path, source in ((results_path, "fetched"), (manual_path, "manual")):
         if not path.exists():
             continue
         for state, res in (_read_json(path).get("results") or {}).items():
@@ -189,7 +196,9 @@ def build_live_forecast(
     num_simulations: int = NUM_SIMULATIONS,
     seed: int = SEED,
     retracted: list[str] | None = None,
+    status: dict[str, dict] | None = None,
 ) -> dict:
+    status = status or {}
     inputs = build_inputs(snapshot)
     conditions = conditions_from_results(snapshot, results)
     sim = simulator_from_snapshot(snapshot)
@@ -211,6 +220,10 @@ def build_live_forecast(
         if party in seats:
             seats[party] += 1
         pre = _winner_pre_prob(fr, party)
+        st = status.get(state) or {}
+        gained = res.get("gained")
+        if gained is None:
+            gained = bool(fr.get("held_by")) and party != fr.get("held_by")
         called.append(
             {
                 "state": state,
@@ -219,7 +232,10 @@ def build_live_forecast(
                 "margin": res.get("margin"),
                 "pre_election_prob": pre,
                 "upset": pre is not None and pre < 0.5,
+                "flip": bool(gained),
+                "called_at": res.get("called_at") or first_seen.get(state),
                 "first_seen": first_seen.get(state),
+                "eevp": st.get("eevp", res.get("eevp")),
                 "source": res.get("source"),
             }
         )
@@ -232,6 +248,7 @@ def build_live_forecast(
         lv = live_by_state.get(state)
         pre_p = fr.get("dem_win_prob_sim")
         live_p = lv.dem_win_prob_sim if lv is not None else None
+        st = status.get(state) or {}
         remaining.append(
             {
                 "state": state,
@@ -242,16 +259,30 @@ def build_live_forecast(
                 "pre_election_prob": pre_p,
                 "live_prob": live_p,
                 "live_median_margin": lv.median_margin if lv is not None else None,
+                "status": st.get("status") or "no_results",
+                "eevp": st.get("eevp"),
+                "leader": st.get("leader"),
+                "leader_party": st.get("leader_party"),
+                "leader_margin": st.get("leader_margin"),
+                "count_margin": st.get("margin"),
             }
         )
     remaining.sort(key=lambda r: abs((r["live_prob"] if r["live_prob"] is not None else 0.5) - 0.5))
 
     cutoff = now - NEW_CALL_WINDOW
-    new_calls = [
-        c["state"]
-        for c in call_log
-        if datetime.fromisoformat(c["first_seen"]) > cutoff and c["state"] in results
-    ]
+    new_calls = []
+    for c in called:
+        stamp = c.get("called_at") or c.get("first_seen")
+        if not stamp:
+            continue
+        try:
+            when = datetime.fromisoformat(stamp.replace("Z", "+00:00"))
+        except ValueError:
+            continue
+        if when.tzinfo is None:
+            when = when.replace(tzinfo=UTC)
+        if when > cutoff:
+            new_calls.append(c["state"])
 
     history = list((previous or {}).get("history") or [])
     if retracted:
@@ -281,6 +312,9 @@ def build_live_forecast(
         "num_called": len(called),
         "new_calls": new_calls,
         "retracted": retracted or [],
+        "results_source": next((c.get("source") for c in called if c.get("source")), None)
+        or ("ap-via-nyt" if status else None),
+        "reporting": sum(1 for r in remaining if r["status"] == "reporting"),
         "seats_so_far": seats,
         "dem_majority_threshold": int(snapshot.get("dem_majority_threshold") or 51),
         "pre_election": {
@@ -320,11 +354,12 @@ def main(argv: list[str] | None = None) -> int:
         now = now.replace(tzinfo=UTC)
     snapshot, meta = load_snapshot(args.snapshot_dir)
     results = load_results(args.results, args.manual)
+    status = load_status(args.results)
     call_log, retracted = update_call_log(results, now, args.call_log)
     previous = _read_json(args.out) if args.out.exists() else None
     payload = build_live_forecast(
         snapshot, meta, results, call_log, now, previous,
-        num_simulations=args.num_simulations, retracted=retracted,
+        num_simulations=args.num_simulations, retracted=retracted, status=status,
     )
     if retracted:
         print(f"retracted calls (no longer in results): {', '.join(retracted)}")

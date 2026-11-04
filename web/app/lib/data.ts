@@ -453,9 +453,14 @@ export interface LiveForecastCall {
   margin: number | null;
   pre_election_prob: number | null;
   upset: boolean;
+  flip?: boolean;
+  called_at?: string | null;
   first_seen: string | null;
+  eevp?: number | null;
   source: string | null;
 }
+
+export type RaceReportingStatus = 'called' | 'reporting' | 'no_results' | 'uncontested' | string;
 
 export interface LiveForecastRemaining {
   state: string;
@@ -466,6 +471,12 @@ export interface LiveForecastRemaining {
   pre_election_prob: number | null;
   live_prob: number | null;
   live_median_margin: number | null;
+  status?: RaceReportingStatus;
+  eevp?: number | null;
+  leader?: string | null;
+  leader_party?: string | null;
+  leader_margin?: number | null;
+  count_margin?: number | null;
 }
 
 // Election-night rerun of the frozen forecast, conditioned on called races
@@ -476,6 +487,9 @@ export interface LiveForecast {
   num_races: number;
   num_called: number;
   new_calls: string[];
+  retracted?: string[];
+  results_source?: string | null;
+  reporting?: number;
   seats_so_far: { D: number; R: number; I: number };
   dem_majority_threshold: number;
   pre_election: { dem_control_prob: number | null; mean_dem_seats: number | null; mean_ind_seats: number | null };
