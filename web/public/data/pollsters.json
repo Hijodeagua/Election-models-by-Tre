@@ -722,7 +722,7 @@
     {
       "state": "Michigan",
       "abbr": "MI",
-      "num_polls": 70,
+      "num_polls": 71,
       "polls": [
         {
           "pollster": "John Zogby Strategies",
@@ -754,6 +754,22 @@
           "dem_pct": 51.0,
           "rep_pct": 45.0,
           "margin": 6.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Trafalgar Group (R)",
+          "rated": true,
+          "grade": "C+",
+          "quality": 1.048,
+          "start_date": "2026-10-31",
+          "end_date": "2026-11-01",
+          "sample_size": 1087,
+          "population": "lv",
+          "dem_candidate": "Abdul El-Sayed",
+          "rep_candidate": "Mike Rogers",
+          "dem_pct": 47.0,
+          "rep_pct": 46.0,
+          "margin": 1.0,
           "partisan": false
         },
         {
@@ -7593,8 +7609,24 @@
     {
       "state": "Colorado",
       "abbr": "CO",
-      "num_polls": 3,
+      "num_polls": 4,
       "polls": [
+        {
+          "pollster": "Keating Research (D)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-11-01",
+          "end_date": "2026-11-02",
+          "sample_size": 400,
+          "population": "lv",
+          "dem_candidate": "John Hickenlooper",
+          "rep_candidate": "Mark Baisley",
+          "dem_pct": 58.0,
+          "rep_pct": 37.0,
+          "margin": 21.0,
+          "partisan": false
+        },
         {
           "pollster": "Research Co.",
           "rated": false,
@@ -7978,7 +8010,7 @@
     {
       "state": "Idaho",
       "abbr": "ID",
-      "num_polls": 8,
+      "num_polls": 9,
       "polls": [
         {
           "pollster": "VoteNexus Research",
@@ -7994,6 +8026,22 @@
           "dem_pct": 43.0,
           "rep_pct": 49.0,
           "margin": -6.0,
+          "partisan": false
+        },
+        {
+          "pollster": "Peak Insights (R)",
+          "rated": false,
+          "grade": null,
+          "quality": null,
+          "start_date": "2026-10-13",
+          "end_date": "2026-10-15",
+          "sample_size": 500,
+          "population": "lv",
+          "dem_candidate": "Todd Achilles",
+          "rep_candidate": "Jim Risch",
+          "dem_pct": 27.0,
+          "rep_pct": 54.0,
+          "margin": -27.0,
           "partisan": false
         },
         {
