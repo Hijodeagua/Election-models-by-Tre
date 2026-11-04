@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-04T13:11:13+00:00",
+ "generated": "2026-11-04T14:13:39+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -211,13 +211,13 @@
    "state": "Massachusetts",
    "winner": "Edward Markey",
    "winner_party": "D",
-   "margin": 32.12,
+   "margin": 31.82,
    "pre_election_prob": 0.9975,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:01:32.549465+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 80.87,
+   "eevp": 82.66,
    "source": "ap-via-nyt"
   },
   {
@@ -347,7 +347,7 @@
    "flip": false,
    "called_at": "2026-11-04T02:36:16.920144+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 98.2,
+   "eevp": 98.34,
    "source": "ap-via-nyt"
   },
   {
@@ -419,26 +419,26 @@
    "state": "Texas",
    "winner": "James Talarico",
    "winner_party": "D",
-   "margin": 12.34,
+   "margin": 12.37,
    "pre_election_prob": 0.6568,
    "upset": false,
    "flip": true,
    "called_at": "2026-11-04T04:03:36.106156+00:00",
    "first_seen": "2026-11-04T04:15:25+00:00",
-   "eevp": 96.22,
+   "eevp": 96.35,
    "source": "ap-via-nyt"
   },
   {
    "state": "Virginia",
    "winner": "Mark Warner",
    "winner_party": "D",
-   "margin": 22.18,
+   "margin": 22.41,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T00:00:31.573829+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 97.26,
+   "eevp": 96.77,
    "source": "ap-via-nyt"
   },
   {
@@ -479,11 +479,11 @@
    "live_prob": 0.7395,
    "live_median_margin": 2.4,
    "status": "reporting",
-   "eevp": 72.41,
-   "leader": "Dan Sullivan",
-   "leader_party": "R",
-   "leader_margin": 0.81,
-   "count_margin": -0.81
+   "eevp": 74.29,
+   "leader": "Mary Peltola",
+   "leader_party": "D",
+   "leader_margin": 0.3,
+   "count_margin": 0.3
   },
   {
    "state": "Mississippi",
