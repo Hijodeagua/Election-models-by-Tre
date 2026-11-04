@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-04T02:58:07+00:00",
+ "generated": "2026-11-04T03:14:40+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -9,36 +9,12 @@
  "num_races": 35,
  "num_called": 15,
  "new_calls": [
-  "Colorado",
   "Kentucky",
-  "New Mexico",
-  "Oklahoma",
-  "Wyoming"
+  "Oklahoma"
  ],
- "retracted": [
-  "Alabama",
-  "Alaska",
-  "Arkansas",
-  "Florida",
-  "Idaho",
-  "Iowa",
-  "Kansas",
-  "Louisiana",
-  "Maine",
-  "Michigan",
-  "Minnesota",
-  "Mississippi",
-  "Montana",
-  "Nebraska",
-  "Ohio",
-  "Oregon",
-  "South Carolina",
-  "South Dakota",
-  "Tennessee",
-  "Texas"
- ],
+ "retracted": [],
  "results_source": "ap-via-nyt",
- "reporting": 14,
+ "reporting": 15,
  "seats_so_far": {
   "D": 45,
   "R": 35,
@@ -83,195 +59,195 @@
    "state": "Colorado",
    "winner": "John Hickenlooper",
    "winner_party": "D",
-   "margin": 25.93,
+   "margin": 26.7,
    "pre_election_prob": 0.9894,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T02:01:00.700309+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 63.83,
+   "eevp": 72.9,
    "source": "ap-via-nyt"
   },
   {
    "state": "Delaware",
    "winner": "Chris Coons",
    "winner_party": "D",
-   "margin": 29.0,
+   "margin": 28.44,
    "pre_election_prob": 0.9899,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:00:39.789097+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 81.73,
+   "eevp": 91.53,
    "source": "ap-via-nyt"
   },
   {
    "state": "Georgia",
    "winner": "Jon Ossoff",
    "winner_party": "D",
-   "margin": 17.94,
+   "margin": 17.72,
    "pre_election_prob": 0.9291,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T00:56:37.784+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 80.09,
+   "eevp": 82.4,
    "source": "ap-via-nyt"
   },
   {
    "state": "Illinois",
    "winner": "Juliana Stratton",
    "winner_party": "D",
-   "margin": 26.11,
+   "margin": 26.03,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:01:05.343166+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 43.2,
+   "eevp": 53.3,
    "source": "ap-via-nyt"
   },
   {
    "state": "Kentucky",
    "winner": "Andy Barr",
    "winner_party": "R",
-   "margin": -11.59,
+   "margin": -11.71,
    "pre_election_prob": 0.9897,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T02:16:11.684864+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 89.73,
+   "eevp": 96.68,
    "source": "ap-via-nyt"
   },
   {
    "state": "Massachusetts",
    "winner": "Edward Markey",
    "winner_party": "D",
-   "margin": 41.61,
+   "margin": 39.3,
    "pre_election_prob": 0.9975,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:01:32.549465+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 13.97,
+   "eevp": 19.92,
    "source": "ap-via-nyt"
   },
   {
    "state": "New Hampshire",
    "winner": "Chris Pappas",
    "winner_party": "D",
-   "margin": 16.76,
+   "margin": 15.75,
    "pre_election_prob": 0.9178,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:21:28.872+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 49.02,
+   "eevp": 56.05,
    "source": "ap-via-nyt"
   },
   {
    "state": "New Jersey",
    "winner": "Cory Booker",
    "winner_party": "D",
-   "margin": 29.47,
+   "margin": 29.03,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:00:55.717106+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 71.57,
+   "eevp": 77.47,
    "source": "ap-via-nyt"
   },
   {
    "state": "New Mexico",
    "winner": "Ben Luján",
    "winner_party": "D",
-   "margin": 28.04,
+   "margin": 24.4,
    "pre_election_prob": 0.9936,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T02:01:00.155199+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 24.15,
+   "eevp": 27.72,
    "source": "ap-via-nyt"
   },
   {
    "state": "North Carolina",
    "winner": "Roy Cooper",
    "winner_party": "D",
-   "margin": 19.64,
+   "margin": 18.87,
    "pre_election_prob": 0.9566,
    "upset": false,
    "flip": true,
    "called_at": "2026-11-04T01:24:35.542+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 90.32,
+   "eevp": 94.63,
    "source": "ap-via-nyt"
   },
   {
    "state": "Oklahoma",
    "winner": "Kevin Hern",
    "winner_party": "R",
-   "margin": -23.39,
+   "margin": -21.24,
    "pre_election_prob": 0.9893,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T02:36:16.920144+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 66.74,
+   "eevp": 72.93,
    "source": "ap-via-nyt"
   },
   {
    "state": "Rhode Island",
    "winner": "Jack Reed",
    "winner_party": "D",
-   "margin": 36.91,
+   "margin": 37.2,
    "pre_election_prob": 0.9967,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:01:41.345451+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 84.87,
+   "eevp": 93.83,
    "source": "ap-via-nyt"
   },
   {
    "state": "Virginia",
    "winner": "Mark Warner",
    "winner_party": "D",
-   "margin": 18.65,
+   "margin": 18.78,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T00:00:31.573829+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 79.58,
+   "eevp": 81.77,
    "source": "ap-via-nyt"
   },
   {
    "state": "West Virginia",
    "winner": "Shelley Capito",
    "winner_party": "R",
-   "margin": -19.84,
+   "margin": -20.29,
    "pre_election_prob": 0.9888,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:52:26.920779+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 84.24,
+   "eevp": 89.32,
    "source": "ap-via-nyt"
   },
   {
    "state": "Wyoming",
    "winner": "Harriet Hageman",
    "winner_party": "R",
-   "margin": 16.5,
+   "margin": -4.5,
    "pre_election_prob": 0.9895,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T02:00:30.98294+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 4.25,
+   "eevp": 8.62,
    "source": "ap-via-nyt"
   }
  ],
@@ -286,11 +262,11 @@
    "live_prob": 0.4609,
    "live_median_margin": -0.43,
    "status": "reporting",
-   "eevp": 27.52,
+   "eevp": 33.71,
    "leader": "Josh Turek",
    "leader_party": "D",
-   "leader_margin": 18.69,
-   "count_margin": 18.69
+   "leader_margin": 12.24,
+   "count_margin": 12.24
   },
   {
    "state": "Alaska",
@@ -318,11 +294,11 @@
    "live_prob": 0.6581,
    "live_median_margin": 1.82,
    "status": "reporting",
-   "eevp": 57.74,
+   "eevp": 69.05,
    "leader": "Adam Hamilton",
    "leader_party": "D",
-   "leader_margin": 17.36,
-   "count_margin": 17.36
+   "leader_margin": 13.76,
+   "count_margin": 13.76
   },
   {
    "state": "Ohio",
@@ -350,11 +326,11 @@
    "live_prob": 0.6904,
    "live_median_margin": 2.21,
    "status": "reporting",
-   "eevp": 54.97,
+   "eevp": 56.47,
    "leader": "James Talarico",
    "leader_party": "D",
-   "leader_margin": 19.53,
-   "count_margin": 19.53
+   "leader_margin": 18.23,
+   "count_margin": 18.23
   },
   {
    "state": "South Carolina",
@@ -366,11 +342,11 @@
    "live_prob": 0.2797,
    "live_median_margin": -2.67,
    "status": "reporting",
-   "eevp": 86.26,
+   "eevp": 87.05,
    "leader": "Annie Andrews",
    "leader_party": "D",
-   "leader_margin": 4.19,
-   "count_margin": 4.19
+   "leader_margin": 4.12,
+   "count_margin": 4.12
   },
   {
    "state": "Nebraska",
@@ -382,10 +358,10 @@
    "live_prob": 0.2305,
    "live_median_margin": -3.38,
    "status": "reporting",
-   "eevp": 36.59,
+   "eevp": 36.83,
    "leader": "Dan Osborn",
    "leader_party": "I",
-   "leader_margin": 12.36,
+   "leader_margin": 11.87,
    "count_margin": null
   },
   {
@@ -398,11 +374,11 @@
    "live_prob": 0.7803,
    "live_median_margin": 3.47,
    "status": "reporting",
-   "eevp": 14.92,
+   "eevp": 17.97,
    "leader": "Troy Jackson",
    "leader_party": "D",
-   "leader_margin": 3.41,
-   "count_margin": 3.41
+   "leader_margin": 0.13,
+   "count_margin": 0.13
   },
   {
    "state": "Michigan",
@@ -414,11 +390,11 @@
    "live_prob": 0.8155,
    "live_median_margin": 4.04,
    "status": "reporting",
-   "eevp": 18.69,
+   "eevp": 20.45,
    "leader": "Abdul El-Sayed",
    "leader_party": "D",
-   "leader_margin": 9.75,
-   "count_margin": 9.75
+   "leader_margin": 9.26,
+   "count_margin": 9.26
   },
   {
    "state": "Louisiana",
@@ -430,11 +406,11 @@
    "live_prob": 0.1184,
    "live_median_margin": -5.63,
    "status": "reporting",
-   "eevp": 31.85,
+   "eevp": 47.24,
    "leader": "Julia Letlow",
    "leader_party": "R",
-   "leader_margin": 6.96,
-   "count_margin": -6.96
+   "leader_margin": 10.56,
+   "count_margin": -10.56
   },
   {
    "state": "Florida",
@@ -462,11 +438,11 @@
    "live_prob": 0.8983,
    "live_median_margin": 5.83,
    "status": "reporting",
-   "eevp": 2.26,
+   "eevp": 3.08,
    "leader": "Michele Tafoya",
    "leader_party": "R",
-   "leader_margin": 15.1,
-   "count_margin": -15.1
+   "leader_margin": 16.28,
+   "count_margin": -16.28
   },
   {
    "state": "Mississippi",
@@ -478,11 +454,11 @@
    "live_prob": 0.0955,
    "live_median_margin": -6.37,
    "status": "reporting",
-   "eevp": 48.38,
+   "eevp": 63.93,
    "leader": "Cindy Hyde-Smith",
    "leader_party": "R",
-   "leader_margin": 4.52,
-   "count_margin": -4.52
+   "leader_margin": 5.22,
+   "count_margin": -5.22
   },
   {
    "state": "Montana",
@@ -493,12 +469,12 @@
    "pre_election_prob": 0.0467,
    "live_prob": 0.0373,
    "live_median_margin": -9.24,
-   "status": "no_results",
-   "eevp": 0.0,
-   "leader": null,
-   "leader_party": null,
-   "leader_margin": null,
-   "count_margin": null
+   "status": "reporting",
+   "eevp": 1.59,
+   "leader": "Kurt Alme",
+   "leader_party": "R",
+   "leader_margin": 23.08,
+   "count_margin": -43.75
   },
   {
    "state": "South Dakota",
@@ -510,10 +486,10 @@
    "live_prob": 0.02,
    "live_median_margin": -11.15,
    "status": "reporting",
-   "eevp": 11.75,
+   "eevp": 17.06,
    "leader": "Mike Rounds",
    "leader_party": "R",
-   "leader_margin": 27.14,
+   "leader_margin": 27.6,
    "count_margin": null
   },
   {
@@ -542,11 +518,11 @@
    "live_prob": 0.0098,
    "live_median_margin": -13.23,
    "status": "reporting",
-   "eevp": 69.15,
+   "eevp": 74.42,
    "leader": "Tom Cotton",
    "leader_party": "R",
-   "leader_margin": 7.61,
-   "count_margin": -7.61
+   "leader_margin": 9.38,
+   "count_margin": -9.38
   },
   {
    "state": "Alabama",
@@ -558,11 +534,11 @@
    "live_prob": 0.0059,
    "live_median_margin": -14.9,
    "status": "reporting",
-   "eevp": 35.55,
+   "eevp": 50.05,
    "leader": "Barry Moore",
    "leader_party": "R",
-   "leader_margin": 25.28,
-   "count_margin": -25.28
+   "leader_margin": 19.4,
+   "count_margin": -19.4
   },
   {
    "state": "Tennessee",
@@ -574,11 +550,11 @@
    "live_prob": 0.0055,
    "live_median_margin": -15.13,
    "status": "reporting",
-   "eevp": 66.67,
+   "eevp": 72.42,
    "leader": "Bill Hagerty",
    "leader_party": "R",
-   "leader_margin": 9.97,
-   "count_margin": -9.97
+   "leader_margin": 11.54,
+   "count_margin": -11.54
   },
   {
    "state": "Oregon",
