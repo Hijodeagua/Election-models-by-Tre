@@ -131,6 +131,13 @@ class SenateControlForecast:
     # toward Democratic control).
     mean_ind_seats: float = 0.0
     ind_races: list[str] = field(default_factory=list)
+    # Election-night conditioning (see ``simulate(conditions=...)``): the races
+    # whose outcome was fixed, how many draws survived the conditioning, and
+    # whether the result came from resampling consistent draws or from forcing
+    # the called outcomes when too few draws agreed.
+    conditioned_races: list[str] = field(default_factory=list)
+    kept_simulations: int | None = None
+    condition_mode: str | None = None
 
 
 def load_cycle_config(path: Path | None = None) -> dict[str, Any]:
@@ -251,8 +258,19 @@ class SenateControlSimulator:
         seed: int | None = None,
         as_of: date | None = None,
         market_control_dem_prob: dict[str, float] | None = None,
+        conditions: dict[str, bool] | None = None,
+        min_consistent: int = 500,
     ) -> SenateControlForecast:
-        """Run the Monte Carlo simulation and aggregate seat outcomes."""
+        """Run the Monte Carlo simulation and aggregate seat outcomes.
+
+        ``conditions`` maps a race's state to whether its challenger (the
+        Democrat, or the independent in an "I" race) won, for races that have
+        been called. The simulation is then conditioned on those outcomes:
+        draws that disagree with any call are discarded, so the shared
+        national error, and with it every uncalled race, updates toward what
+        the calls imply. If fewer than ``min_consistent`` draws agree (a run of
+        upsets), the called outcomes are forced instead and all draws kept.
+        """
         if num_simulations < 1:
             raise ValueError("num_simulations must be >= 1")
         rng = np.random.default_rng(seed)
@@ -289,6 +307,8 @@ class SenateControlSimulator:
                 margin_to_forecast.append(len(forecasts) - 1)
 
         margins = np.array(effective_margins)
+        kept_simulations: int | None = None
+        condition_mode: str | None = None
         if margins.size > 0:
             national = rng.normal(0.0, self.national_sigma, size=(num_simulations, 1))
             idiosyncratic = rng.normal(
@@ -306,6 +326,25 @@ class SenateControlSimulator:
                 error = error * np.sqrt(nu / w) * np.sqrt((nu - 2.0) / nu)
             sim_margins = margins[None, :] + error
             challenger_wins = sim_margins > 0.0
+            if conditions:
+                col_of = {forecasts[fi].state: j for j, fi in enumerate(margin_to_forecast)}
+                cols = [(col_of[s], bool(w)) for s, w in conditions.items() if s in col_of]
+                if cols:
+                    mask = np.ones(sim_margins.shape[0], dtype=bool)
+                    for j, won in cols:
+                        mask &= challenger_wins[:, j] == won
+                    kept_simulations = int(mask.sum())
+                    if kept_simulations >= min_consistent:
+                        sim_margins = sim_margins[mask]
+                        condition_mode = "resample"
+                    else:
+                        sim_margins = sim_margins.copy()
+                        for j, won in cols:
+                            mag = np.maximum(np.abs(sim_margins[:, j]), 0.01)
+                            sim_margins[:, j] = mag if won else -mag
+                        condition_mode = "forced"
+                    challenger_wins = sim_margins > 0.0
+            n_sims = sim_margins.shape[0]
             # Only Democratic challengers add to the Democratic seat count; an
             # independent's win is tallied separately.
             is_dem = np.array(
@@ -333,12 +372,24 @@ class SenateControlSimulator:
                 clipped = np.clip(sim_margins[:, j], edges[0], edges[-1])
                 counts, _ = np.histogram(clipped, bins=edges)
                 fc.margin_hist = [
-                    {"mid": round(float(m), 1), "pct": round(float(c) / num_simulations, 5)}
+                    {"mid": round(float(m), 1), "pct": round(float(c) / n_sims, 5)}
                     for m, c in zip(mids, counts, strict=True)
                 ]
         else:
             dem_seats = np.full(num_simulations, self.dem_safe_seats)
             ind_seats = np.zeros(num_simulations)
+        # Called races the simulation never modelled (no probability at all):
+        # count their seats directly.
+        if conditions:
+            modelled = {forecasts[fi].state for fi in margin_to_forecast}
+            party_of = {f.state: f.challenger_party for f in forecasts}
+            for state, won in conditions.items():
+                if state in modelled or not won:
+                    continue
+                if party_of.get(state, "D") == "I":
+                    ind_seats = ind_seats + 1
+                else:
+                    dem_seats = dem_seats + 1
 
         dem_control = dem_seats >= self.dem_majority_threshold
         unique_seats, seat_counts = np.unique(dem_seats, return_counts=True)
@@ -363,4 +414,7 @@ class SenateControlSimulator:
             mean_ind_seats=round(float(ind_seats.mean()), 2),
             ind_races=[r.state for r in races if r.challenger_party == "I"],
             market_control_dem_prob=market_control_dem_prob or {},
+            conditioned_races=sorted(conditions) if conditions else [],
+            kept_simulations=kept_simulations,
+            condition_mode=condition_mode,
         )
