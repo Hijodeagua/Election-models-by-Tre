@@ -71,6 +71,14 @@ NEBRASKA = _race(
     called="osborn-d", call_status="called", gained=True, eevp=88.0,
 )
 PRIMARY = _race("Georgia", "GA", [_cand("x", "Some", "One", "DEM")], {"x": 10}, race_type="P")
+# The 2026 specials (Florida, Ohio) come through as race type "S".
+FLORIDA_SPECIAL = _race(
+    "Florida", "FL",
+    [_cand("moody-a", "Ashley", "Moody", "REP", True), _cand("dem-x", "Some", "Democrat", "DEM")],
+    {"moody-a": 3_000_000, "dem-x": 2_400_000},
+    called="moody-a", call_status="called", gained=False, eevp=99.0, race_type="S",
+)
+FLORIDA_SPECIAL["nyt_id"] = "FL-S-S-2026-11-03"
 
 
 def test_called_race():
@@ -109,9 +117,18 @@ def test_independent_flip_and_feed_summary():
     ne = parse_race(NEBRASKA)
     assert ne is not None and ne.winner == "Dan Osborn" and ne.winner_party == "I"
     assert ne.gained is True and ne.status == "called"
-    feed = parse_feed({"races": [GEORGIA, TEXAS, ALASKA, NEBRASKA, PRIMARY]})
-    assert set(feed) == {"Georgia", "Texas", "Alaska", "Nebraska"}  # primary skipped
-    assert summarize(feed) == "2 called, 1 reporting, 4 races"
+    feed = parse_feed({"races": [GEORGIA, TEXAS, ALASKA, NEBRASKA, PRIMARY, FLORIDA_SPECIAL]})
+    assert set(feed) == {"Georgia", "Texas", "Alaska", "Nebraska", "Florida"}  # primary skipped
+    assert summarize(feed) == "3 called, 1 reporting, 5 races"
+
+
+def test_special_election_is_a_general():
+    fl = parse_race(FLORIDA_SPECIAL)
+    assert fl is not None and fl.status == "called" and fl.called is True
+    assert fl.winner == "Ashley Moody" and fl.winner_party == "R" and fl.gained is False
+    runoff = dict(GEORGIA)
+    runoff["race_type_id"] = "R"
+    assert parse_race(runoff) is None
 
 
 def test_won_without_a_call_status_is_not_a_call():
