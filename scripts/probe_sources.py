@@ -328,6 +328,16 @@ def probe_nyt_senate_shape() -> None:
                 print(f"    {k}: {trunc(v, 1200)}")
             else:
                 print(f"    {k}: {trunc(v)}")
+    for r in races:
+        if (r.get("race_type_id") or "G") != "G":
+            tru = r.get("top_reporting_unit") or {}
+            print(f"  --- non-general race {r.get('nyt_id')!r} ---")
+            for k in ("race_type_id", "type", "seat", "seat_number", "seat_description",
+                      "office", "uncontested", "race_call_status", "updated_at"):
+                print(f"    {k}: {trunc(r.get(k))}")
+            print(f"    top_reporting_unit.name: {tru.get('name')!r} "
+                  f"state_postal={tru.get('state_postal')!r} eevp={tru.get('eevp')}")
+            print(f"    outcome: {trunc(r.get('outcome'), 300)}")
     print("  --- every race, one line ---")
     for r in races:
         tru = r.get("top_reporting_unit") or {}
@@ -340,7 +350,8 @@ def probe_nyt_senate_shape() -> None:
             except Exception:
                 lead = f"cands={len(cands)}"
         print(
-            f"    {str(r.get('seat') or '')[:22]:<22} call={r.get('race_call_status')!s:<12} "
+            f"    {str(r.get('nyt_id') or '')[:20]:<20} type={r.get('race_type_id')!s:<2} "
+            f"{str(tru.get('name') or '')[:16]:<16} call={r.get('race_call_status')!s:<12} "
             f"outcome={trunc(r.get('outcome'), 160)} pct_rep={tru.get('precincts_reporting_pct')} "
             f"eevp={tru.get('eevp')} {lead} updated={r.get('updated_at')}"
         )
