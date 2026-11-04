@@ -446,6 +446,58 @@ export function getStateFeatures(): StateFeaturesData | null {
   return read<StateFeaturesData | null>('state_features.json', null);
 }
 
+export interface LiveForecastCall {
+  state: string;
+  winner: string | null;
+  winner_party: 'D' | 'R' | 'I' | string;
+  margin: number | null;
+  pre_election_prob: number | null;
+  upset: boolean;
+  first_seen: string | null;
+  source: string | null;
+}
+
+export interface LiveForecastRemaining {
+  state: string;
+  dem_candidate: string | null;
+  rep_candidate: string | null;
+  challenger_party: 'D' | 'I' | string;
+  held_by: string | null;
+  pre_election_prob: number | null;
+  live_prob: number | null;
+  live_median_margin: number | null;
+}
+
+// Election-night rerun of the frozen forecast, conditioned on called races
+// (scripts/live_forecast.py, hourly).
+export interface LiveForecast {
+  generated: string;
+  snapshot: { ref: string | null; committed_at: string | null; frozen_at: string | null; mode: string | null };
+  num_races: number;
+  num_called: number;
+  new_calls: string[];
+  seats_so_far: { D: number; R: number; I: number };
+  dem_majority_threshold: number;
+  pre_election: { dem_control_prob: number | null; mean_dem_seats: number | null; mean_ind_seats: number | null };
+  live: {
+    dem_control_prob: number;
+    mean_dem_seats: number;
+    median_dem_seats: number;
+    mean_ind_seats: number;
+    seat_distribution: Record<string, number>;
+    num_simulations: number;
+    kept_simulations: number | null;
+    condition_mode: 'resample' | 'forced' | null;
+  };
+  called: LiveForecastCall[];
+  remaining: LiveForecastRemaining[];
+  history: { at: string; dem_control_prob: number; mean_dem_seats: number; num_called: number }[];
+}
+
+export function getLiveForecast(): LiveForecast | null {
+  return read<LiveForecast | null>('live_forecast.json', null);
+}
+
 export function getScorecard(): Scorecard | null {
   return read<Scorecard | null>('scorecard.json', null);
 }

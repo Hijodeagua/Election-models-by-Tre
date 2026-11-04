@@ -1,0 +1,71 @@
+name: Live forecast
+
+# Election night and the days after: every hour, pull the races that have
+# been called, rerun the frozen pre-election simulation conditioned on those
+# calls, and publish web/public/data/live_forecast.json. Shares the
+# score-results concurrency group so the two never push over each other.
+
+on:
+  schedule:
+    - cron: "7 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: score-results
+  cancel-in-progress: false
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Only run hourly during the calling window (Nov 4 – Nov 14, 2026)
+        id: window
+        run: |
+          today=$(date -u +%Y-%m-%d)
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || { [ "$today" \> "2026-11-03" ] && [ "$today" \< "2026-11-15" ]; }; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Outside the calling window ($today) — skipping."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout repository
+        if: steps.window.outputs.run == 'true'
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        if: steps.window.outputs.run == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        if: steps.window.outputs.run == 'true'
+        run: pip install httpx lxml pandas numpy scipy pydantic pydantic-settings python-dotenv
+
+      - name: Fetch called results
+        if: steps.window.outputs.run == 'true'
+        continue-on-error: true
+        run: python scripts/fetch_results.py
+
+      - name: Rerun the forecast conditioned on the calls
+        if: steps.window.outputs.run == 'true'
+        run: python scripts/live_forecast.py
+
+      - name: Commit live forecast
+        if: steps.window.outputs.run == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/results web/public/data/live_forecast.json || true
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Live forecast: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            # Another workflow may have pushed meanwhile; replay on top of it.
+            git pull --rebase origin main
+            git push
+          else
+            echo "No changes to commit."
+          fi

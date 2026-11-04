@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import LastUpdated from '@/app/components/LastUpdated';
+import LiveForecastPanel from '@/app/components/LiveForecastPanel';
 import { EmptyState, PageHead, Panel, StatCard } from '@/app/components/ui';
-import { getScorecard, type ScoreMargin, type ScoreProb, type ScorecardRace } from '@/app/lib/data';
+import { getLiveForecast, getScorecard, type ScoreMargin, type ScoreProb, type ScorecardRace } from '@/app/lib/data';
 import { fmtMargin, fmtProb } from '@/app/lib/format';
 
 export const metadata = {
-  title: 'Scorecard — Election Oracle',
+  title: 'Scorecard | Election Oracle',
   description:
     'How the model and the picks did against the actual 2026 Senate results, scored on the pre-election snapshot.',
 };
@@ -14,11 +15,13 @@ const PARTY_TEXT: Record<string, string> = { D: 'text-dem', R: 'text-rep', I: 't
 
 export default function ScorecardPage() {
   const card = getScorecard();
+  const live = getLiveForecast();
 
   if (!card || card.status === 'awaiting_results') {
     return (
       <div>
         <Head />
+        {live && <LiveForecastPanel live={live} />}
         <EmptyState>
           No results called yet. Polls begin closing at 6pm ET on November 3; results are pulled
           every six hours after that and scored against the forecast as it stood before the first
@@ -40,6 +43,7 @@ export default function ScorecardPage() {
   return (
     <div>
       <Head />
+      {live && <LiveForecastPanel live={live} />}
 
       <div className="mb-4 rounded-lg bg-cream-200 px-3.5 py-2 text-[11.5px] text-cocoa-500">
         {card.status === 'final' ? 'Final.' : `${card.num_called} of ${card.num_races} races called.`}{' '}
