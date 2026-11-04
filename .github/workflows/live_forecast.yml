@@ -1,13 +1,13 @@
 name: Live forecast
 
-# Election night and the days after: every hour, pull the races that have
-# been called, rerun the frozen pre-election simulation conditioned on those
+# Election night and the days after: every 15 minutes, pull the AP race calls
+# and live counts, rerun the frozen pre-election simulation conditioned on the
 # calls, and publish web/public/data/live_forecast.json. Shares the
 # score-results concurrency group so the two never push over each other.
 
 on:
   schedule:
-    - cron: "7 * * * *"
+    - cron: "*/15 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -21,7 +21,7 @@ jobs:
   live:
     runs-on: ubuntu-latest
     steps:
-      - name: Only run hourly during the calling window (Nov 4 – Nov 14, 2026)
+      - name: Only run during the calling window (Nov 4 – Nov 14, 2026)
         id: window
         run: |
           today=$(date -u +%Y-%m-%d)

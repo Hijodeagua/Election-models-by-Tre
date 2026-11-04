@@ -236,3 +236,60 @@ def test_winner_pre_prob_sides():
 
 def test_now_defaults_to_utc():
     assert datetime.now(UTC).tzinfo is UTC
+
+
+def test_retracted_calls_are_dropped_from_the_log_and_history(paths):
+    paths["results"].write_text(json.dumps({"results": {
+        "Georgia": {"winner": "Dee", "winner_party": "D", "margin": 8.0},
+        "Maine": {"winner": "Wrong Person", "winner_party": "D", "margin": 9.0},
+    }}))
+    out = _run(paths, "2026-11-04T01:00:00+00:00")
+    assert out["num_called"] == 2 and len(out["history"]) == 1
+    # The source withdraws Maine (e.g. a mis-parse fixed upstream).
+    paths["results"].write_text(json.dumps({"results": {
+        "Georgia": {"winner": "Dee", "winner_party": "D", "margin": 8.0},
+    }}))
+    out2 = _run(paths, "2026-11-04T02:00:00+00:00")
+    assert out2["retracted"] == ["Maine"]
+    assert out2["num_called"] == 1
+    assert {c["state"] for c in out2["called"]} == {"Georgia"}
+    log = json.loads(paths["log"].read_text())["calls"]
+    assert [c["state"] for c in log] == ["Georgia"]
+    # The point computed with the bogus call is gone; the new one is kept.
+    assert [h["num_called"] for h in out2["history"]] == [1]
+
+
+def test_status_feed_fields_flow_through(paths):
+    # AP-style results file: called races plus a status block for every race.
+    paths["results"].write_text(json.dumps({
+        "source": "ap-via-nyt",
+        "results": {
+            "Georgia": {"winner": "Dee", "winner_party": "D", "margin": 19.2,
+                        "source": "ap-via-nyt", "called_at": "2026-11-04T00:56:37+00:00",
+                        "gained": False, "eevp": 75.0},
+            "Nebraska": {"winner": "Dee", "winner_party": "I", "margin": None,
+                         "source": "ap-via-nyt", "called_at": "2026-11-04T01:40:00+00:00",
+                         "gained": True, "eevp": 88.0},
+        },
+        "status": {
+            "Georgia": {"status": "called", "eevp": 75.0},
+            "Nebraska": {"status": "called", "eevp": 88.0},
+            "Texas": {"status": "reporting", "eevp": 42.0, "leader": "Rhea", "leader_party": "R",
+                      "leader_margin": 2.6, "margin": -2.6},
+            "Iowa": {"status": "no_results", "eevp": 0.0},
+        },
+    }))
+    out = _run(paths, "2026-11-04T02:10:00+00:00")
+    by = {c["state"]: c for c in out["called"]}
+    assert by["Georgia"]["flip"] is False
+    assert by["Georgia"]["called_at"].startswith("2026-11-04T00:56")
+    assert by["Nebraska"]["flip"] is True and by["Nebraska"]["eevp"] == 88.0
+    # New calls use the AP call time: Nebraska (01:40) is inside the hour, Georgia (00:56) is not.
+    assert out["new_calls"] == ["Nebraska"]
+    assert out["results_source"] == "ap-via-nyt"
+    rem = {r["state"]: r for r in out["remaining"]}
+    assert rem["Texas"]["status"] == "reporting" and rem["Texas"]["eevp"] == 42.0
+    assert rem["Texas"]["leader"] == "Rhea" and rem["Texas"]["leader_margin"] == 2.6
+    assert rem["Iowa"]["status"] == "no_results"
+    assert rem["Maine"]["status"] == "no_results"  # not in the status block at all
+    assert out["reporting"] == 1

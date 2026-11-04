@@ -209,7 +209,149 @@ def probe_polymarket_missing_races() -> None:
             print(f"  [ERR] {query}: {exc}")
 
 
+def probe_results_feeds() -> None:
+    """Election-night results feeds: where do the AP calls and % reporting
+    live, and what shape are they? Discovers the NYT election-assets JSON
+    paths from the results page, then probes the likely 2026 endpoints."""
+    import re
+
+    print("=== Election results feeds (AP via NYT, DDHQ) ===")
+    pages = [
+        "https://www.nytimes.com/interactive/2026/11/03/us/elections/results-senate.html",
+        "https://www.nytimes.com/interactive/2026/11/03/us/elections/results-georgia-senate.html",
+        "https://www.nytimes.com/interactive/2026/11/03/us/elections/results-texas-senate.html",
+    ]
+    found: set[str] = set()
+    for url in pages:
+        try:
+            resp = httpx.get(url, timeout=25, follow_redirects=True,
+                             headers={"User-Agent": BROWSER_UA})
+            urls = set(re.findall(r"https?://[^\s\"'<>\\]+", resp.text))
+            hits = sorted(u for u in urls if "elections-assets" in u or u.endswith(".json"))
+            print(f"  page [{resp.status_code}] {url} — {len(resp.text)} chars, "
+                  f"{len(hits)} asset/json urls")
+            for u in hits[:40]:
+                print(f"      {u}")
+            found.update(hits)
+            # Inline JSON paths (relative) are common too.
+            rel = sorted(set(re.findall(r"[\w./-]*elections-assets[\w./-]*\.json", resp.text)))
+            for u in rel[:20]:
+                print(f"      (rel) {u}")
+        except Exception as exc:
+            print(f"  [ERR] {url}: {exc}")
+
+    candidates = [
+        "https://static01.nyt.com/elections-assets/pages/data/2026-11-03/results-senate.json",
+        "https://static01.nyt.com/elections-assets/pages/data/2026-11-03/results-georgia-senate.json",
+        "https://static01.nyt.com/elections-assets/pages/data/2026-11-03/results-texas-senate.json",
+        "https://static01.nyt.com/elections-assets/2026/data/api/2026-11-03/national-map-page/national/senate.json",
+        "https://static01.nyt.com/elections-assets/2026/data/api/2026-11-03/race-page/georgia/senate.json",
+        "https://static01.nyt.com/elections-assets/2026/data/api/2026-11-03/votes-remaining-page/national/senate.json",
+        "https://interactives.ap.org/election-results/data-live/2026-11-03/results/national/summary.json",
+        "https://results.decisiondeskhq.com/api/v2/elections/2026/general/senate",
+    ]
+    for u in sorted(found):
+        if u.endswith(".json") and u not in candidates and ("senate" in u or "national" in u):
+            candidates.append(u)
+    for url in candidates:
+        try:
+            resp = httpx.get(url, timeout=25, follow_redirects=True,
+                             headers={"User-Agent": BROWSER_UA})
+            ctype = resp.headers.get("content-type", "")
+            line = f"  [{resp.status_code}] {url} ({ctype}, {len(resp.content)} bytes)"
+            print(line)
+            if resp.status_code == 200 and "json" in ctype:
+                data = resp.json()
+                if isinstance(data, dict):
+                    print(f"      keys: {list(data)[:15]}")
+                    races = data.get("races") or (data.get("data") or {}).get("races")
+                    if isinstance(races, list) and races:
+                        r0 = races[0]
+                        print(f"      races: {len(races)}; race keys: {list(r0)[:40]}")
+                        for k in ("state_id", "state_name", "race_id", "office", "called",
+                                  "winner", "result", "leader_party_id", "precincts_reporting_pct",
+                                  "eevp", "percent_reporting", "report", "candidates"):
+                            if k in r0:
+                                v = r0[k]
+                                print(f"        {k}: {json.dumps(v)[:300]}")
+                else:
+                    print(f"      top-level: {type(data).__name__} len {len(data)}")
+            else:
+                print(f"      {resp.text[:200]!r}")
+        except Exception as exc:
+            print(f"  [ERR] {url}: {exc}")
+
+
+def probe_nyt_senate_shape() -> None:
+    """Dump the shape of the NYT/AP Senate feed: one race in depth, then a
+    one-line status for every race."""
+    url = "https://static01.nyt.com/elections-assets/pages/data/2026-11-03/results-senate.json"
+    print(f"=== NYT Senate feed shape: {url} ===")
+    try:
+        resp = httpx.get(url, timeout=30, follow_redirects=True,
+                         headers={"User-Agent": BROWSER_UA})
+        data = resp.json()
+    except Exception as exc:
+        print(f"  [ERR] {exc}")
+        return
+    races = data.get("races") or []
+    meta = data.get("resultsMeta")
+    print(f"  resultsMeta: {json.dumps(meta)[:600]}")
+    print(f"  partyControlData: {json.dumps(data.get('partyControlData'))[:600]}")
+
+    def trunc(v, n=700):
+        t = json.dumps(v, default=str)
+        return t if len(t) <= n else t[:n] + " …"
+
+    # One race in depth: prefer Georgia, else the first.
+    pick = next((r for r in races if "georgia" in json.dumps(r.get("seat", "")).lower()
+                 or "georgia" in str(r.get("url", "")).lower()), races[0] if races else None)
+    if pick:
+        print("  --- one race, field by field ---")
+        for k, v in pick.items():
+            if k in ("reporting_units",):
+                units = v if isinstance(v, list) else []
+                first = trunc(units[0], 900) if units else None
+                print(f"    {k}: list[{len(units)}]; first: {first}")
+            elif k == "top_reporting_unit":
+                print(f"    {k}: keys={list(v)[:40] if isinstance(v, dict) else type(v).__name__}")
+                if isinstance(v, dict):
+                    for kk in ("name", "state_id", "state_name", "precincts_reporting",
+                               "precincts_total", "precincts_reporting_pct", "eevp",
+                               "eevp_source", "eevp_value", "total_votes", "total_expected_vote",
+                               "votes", "candidates", "leader_margin_value",
+                               "leader_party_id", "leader_margin_name_display",
+                               "last_updated", "updated_at"):
+                        if kk in v:
+                            print(f"      {kk}: {trunc(v[kk], 900)}")
+            elif k == "rounds":
+                print(f"    {k}: {trunc(v, 1200)}")
+            else:
+                print(f"    {k}: {trunc(v)}")
+    print("  --- every race, one line ---")
+    for r in races:
+        tru = r.get("top_reporting_unit") or {}
+        cands = tru.get("candidates") or []
+        lead = ""
+        if cands:
+            try:
+                top = sorted(cands, key=lambda c: -(c.get("votes") or c.get("vote") or 0))[0]
+                lead = f"lead={top.get('nyt_id') or top.get('candidate_id')}:{top.get('votes')}"
+            except Exception:
+                lead = f"cands={len(cands)}"
+        print(
+            f"    {str(r.get('seat') or '')[:22]:<22} call={r.get('race_call_status')!s:<12} "
+            f"outcome={trunc(r.get('outcome'), 160)} pct_rep={tru.get('precincts_reporting_pct')} "
+            f"eevp={tru.get('eevp')} {lead} updated={r.get('updated_at')}"
+        )
+
+
 def main() -> None:
+    import os
+
+    if os.environ.get("PROBE_ONLY") == "results":
+        probe_nyt_senate_shape()
+        return
     probe_votehub()
     probe_votehub_freshness()
     probe_kalshi()

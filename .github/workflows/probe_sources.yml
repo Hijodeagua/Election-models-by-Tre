@@ -6,9 +6,13 @@ name: Probe data sources
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "claude/**"]
     paths: ["scripts/probe_sources.py", ".github/workflows/probe_sources.yml"]
   workflow_dispatch:
+    inputs:
+      only:
+        description: "Probe only one group (e.g. results)"
+        default: ""
 
 permissions:
   contents: read
@@ -25,3 +29,5 @@ jobs:
           pip install httpx pandas lxml beautifulsoup4 tenacity pydantic \
             pydantic-settings python-dotenv numpy
       - run: python scripts/probe_sources.py
+        env:
+          PROBE_ONLY: ${{ inputs.only || (startsWith(github.ref_name, 'claude/') && 'results' || '') }}

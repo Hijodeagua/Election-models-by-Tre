@@ -36,6 +36,80 @@ EMPTY_TABLE = """
 """
 
 
+# The real 2026 article layout: the primary's table sits under its own
+# "Results" sub-heading, so the nearest heading alone says nothing.
+PRIMARY_WITH_RESULTS_SUBHEADING = """
+<div class="mw-heading mw-heading3"><h3>Democratic primary</h3></div>
+<p>Candidates…</p>
+<div class="mw-heading mw-heading4"><h4>Results</h4></div>
+<table class="wikitable"><tr><th colspan=2>Party</th><th>Candidate</th><th>Votes</th><th>%</th></tr>
+<tr><td></td><td>Democratic</td><td>Graham Platner</td><td>156,000</td><td>72.1</td></tr>
+<tr><td></td><td>Democratic</td><td>Janet Mills</td><td>60,402</td><td>27.9</td></tr>
+<tr><td colspan=3>Total votes</td><td>216,402</td><td>100.0</td></tr></table>
+"""
+TOP_FOUR_PRIMARY = """
+<div class="mw-heading mw-heading3"><h3>Top-four primary</h3></div>
+<div class="mw-heading mw-heading4"><h4>Results</h4></div>
+<table class="wikitable"><tr><th colspan=2>Party</th><th>Candidate</th><th>Votes</th><th>%</th></tr>
+<tr><td></td><td>Democratic</td><td>Mary Peltola</td><td>82,000</td><td>49.5</td></tr>
+<tr><td></td><td>Republican</td><td>Dan S. Sullivan (incumbent)</td>
+<td>68,700</td><td>41.4</td></tr>
+<tr><td></td><td>Republican</td><td>Someone Else</td><td>15,304</td><td>9.1</td></tr></table>
+"""
+SINGLE_PARTY_UNDER_GENERAL = """
+<h3>General election</h3>
+<table class="wikitable"><tr><th colspan=2>Party</th><th>Candidate</th><th>Votes</th><th>%</th></tr>
+<tr><td></td><td>Republican</td><td>Bill Hagerty (incumbent)</td>
+<td>629,195</td><td>100.0</td></tr></table>
+"""
+
+
+def _infobox(after: str) -> str:
+    return f"""
+<table class="infobox"><tbody>
+<tr><th>U.S. senator before election</th><th>Elected U.S. Senator</th></tr>
+<tr><td>Jon Ossoff<br>Democratic</td><td>{after}</td></tr>
+</tbody></table>
+"""
+
+
+def test_parser_rejects_primary_tables_under_a_results_subheading():
+    assert parse_results_tables(PRIMARY_WITH_RESULTS_SUBHEADING, "Maine") is None
+    assert parse_results_tables(TOP_FOUR_PRIMARY, "Alaska") is None
+    assert parse_results_tables(SINGLE_PARTY_UNDER_GENERAL, "Tennessee") is None
+    # The general table still wins when it is there too.
+    res = parse_results_tables(PRIMARY_WITH_RESULTS_SUBHEADING + GENERAL_TABLE, "Testland")
+    assert res is not None and res.winner == "Jane Dem"
+
+
+def test_parser_respects_the_infobox_call():
+    # Elected cell still TBD: counting may be under way, but not called.
+    assert parse_results_tables(_infobox("TBD") + GENERAL_TABLE, "Testland") is None
+    assert parse_results_tables(_infobox("") + GENERAL_TABLE, "Testland") is None
+    # Infobox names the table's winner: called.
+    res = parse_results_tables(_infobox("Jane Dem<br>Democratic") + GENERAL_TABLE, "Testland")
+    assert res is not None and res.winner == "Jane Dem" and "infobox-confirmed" in res.note
+    # Infobox disagrees with the table: skip rather than guess.
+    wrong = _infobox("John Rep<br>Republican") + GENERAL_TABLE
+    assert parse_results_tables(wrong, "Testland") is None
+    # No infobox cell at all: the two-party general table is accepted.
+    assert parse_results_tables(GENERAL_TABLE, "Testland") is not None
+
+
+def test_fetch_nominee_gate():
+    from scripts.fetch_results import winner_is_a_nominee
+
+    entry = {"dem_candidate": "Troy Jackson", "rep_candidate": "Susan Collins"}
+    assert winner_is_a_nominee("Susan Collins (incumbent)", entry)
+    assert winner_is_a_nominee("Troy Jackson", entry)
+    assert not winner_is_a_nominee("Graham Platner", entry)
+    assert not winner_is_a_nominee(None, entry)
+    sc = {"dem_candidate": "Annie Andrews", "rep_candidate": "Darline Graham"}
+    assert not winner_is_a_nominee("Lindsey Graham (incumbent)", sc)
+    ak = {"dem_candidate": "Mary Peltola", "rep_candidate": "Dan Sullivan"}
+    assert winner_is_a_nominee("Dan S. Sullivan (incumbent)", ak)
+
+
 def test_parser_prefers_general_election_over_primary():
     res = parse_results_tables(PRIMARY_TABLE + GENERAL_TABLE, "Testland")
     assert res is not None

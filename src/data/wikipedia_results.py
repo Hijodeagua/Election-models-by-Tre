@@ -23,6 +23,7 @@ from typing import Any
 import httpx
 from lxml import html as lxml_html
 
+from src.data.names import names_match
 from src.data.wikipedia_senate import _UA, WIKIPEDIA_API, article_title_for_state
 
 logger = logging.getLogger(__name__)
@@ -30,6 +31,25 @@ logger = logging.getLogger(__name__)
 # A results table has to carry at least this many votes to count as real;
 # pre-election articles sometimes hold an empty election box.
 MIN_TOTAL_VOTES = 10_000
+
+# Any heading above a table (its whole chain: h4 → h3 → h2) containing one of
+# these marks a table that is NOT the general election. Race articles put the
+# primary results under "Democratic primary → Results", so the nearest heading
+# alone ("Results") is not enough to tell them apart.
+NON_GENERAL_HEADING_TOKENS = (
+    "primary", "primaries", "convention", "caucus", "nomination", "blanket",
+    "top-four", "top four", "jungle", "poll", "endorsement", "fundrais",
+    "prediction", "debate", "forum",
+)
+
+# Infobox values that mean "winner not yet known".
+_INFOBOX_PENDING = {
+    "", "tbd", "tba", "pending", "to be determined", "undetermined", "n/a", "—", "-",
+}
+_PARTY_WORDS = re.compile(
+    r"\b(democratic|democrat|republican|independent|libertarian|green|party|dfl|npa)\b",
+    re.IGNORECASE,
+)
 
 _PARTY_CODES = (
     ("democratic", "D"),
@@ -81,22 +101,77 @@ def _to_pct(text: str) -> float | None:
     return float(m.group()) if m else None
 
 
-def _heading_before(table) -> str:
-    """Text of the nearest preceding h2/h3/h4, lower-cased ('' if none)."""
+_HEADING_TAGS = ("h2", "h3", "h4", "h5")
+
+
+def _preceding_headings(table):
+    """Yield (level, text) for every heading before ``table``, nearest first."""
     node = table
     while node is not None:
         prev = node.getprevious()
         while prev is not None:
             tag = prev.tag if isinstance(prev.tag, str) else ""
-            if tag in ("h2", "h3", "h4"):
-                return _clean(prev.text_content()).lower()
-            # Headings are often wrapped in a <div class="mw-heading">.
-            found = prev.xpath(".//h2|.//h3|.//h4") if tag == "div" else []
-            if found:
-                return _clean(found[-1].text_content()).lower()
+            if tag in _HEADING_TAGS:
+                yield int(tag[1]), _clean(prev.text_content()).lower()
+            elif tag == "div":
+                # Headings are often wrapped in a <div class="mw-heading">.
+                for h in reversed(prev.xpath(".//h2|.//h3|.//h4|.//h5")):
+                    yield int(h.tag[1]), _clean(h.text_content()).lower()
             prev = prev.getprevious()
         node = node.getparent()
-    return ""
+
+
+def _heading_chain(table) -> list[str]:
+    """The section chain a table sits in, nearest first: e.g.
+    ["results", "democratic primary", "background"]. Each entry is the nearest
+    preceding heading of a strictly higher level than the one before it."""
+    chain: list[str] = []
+    level = 99
+    for lvl, text in _preceding_headings(table):
+        if lvl < level:
+            chain.append(text)
+            level = lvl
+            if lvl <= 2:
+                break
+    return chain
+
+
+def _heading_before(table) -> str:
+    """Text of the nearest preceding heading, lower-cased ('' if none)."""
+    chain = _heading_chain(table)
+    return chain[0] if chain else ""
+
+
+def infobox_winner(doc) -> str | None:
+    """The winner named in the article infobox, if it has an "after
+    election" / "elected" cell.
+
+    Returns the name when filled, ``""`` when the cell exists but is still
+    TBD (the race is not called), and ``None`` when no such cell exists.
+    """
+    for box in doc.xpath("//table[contains(@class,'infobox')]"):
+        rows = box.xpath(".//tr")
+        for i, tr in enumerate(rows):
+            ths = tr.xpath("./th")
+            for j, th in enumerate(ths):
+                label = _clean(th.text_content()).lower()
+                if "before" in label:
+                    continue
+                keys = ("after election", "elected", "senator-elect", "winner")
+                if not any(k in label for k in keys):
+                    continue
+                # Two-column infobox: labels on one row, values on the next.
+                value_cells = tr.xpath("./td")
+                if not value_cells and i + 1 < len(rows):
+                    value_cells = rows[i + 1].xpath("./td")
+                if not value_cells:
+                    return ""
+                cell = value_cells[j] if j < len(value_cells) else value_cells[-1]
+                # itertext keeps a gap between "Name" and "Party" split by <br>.
+                text = _PARTY_WORDS.sub(" ", _clean(" ".join(cell.itertext())))
+                text = re.sub(r"\s+", " ", text).strip(" ,;:")
+                return "" if text.lower() in _INFOBOX_PENDING else text
+    return None
 
 
 def _table_rows(table) -> list[list[str]]:
@@ -121,20 +196,29 @@ def parse_results_tables(page_html: str, state: str) -> RaceResult | None:
     if not page_html:
         return None
     doc = lxml_html.fromstring(page_html)
+    called = infobox_winner(doc)
+    if called == "":
+        # The infobox has an "elected" cell that is still blank: results may
+        # be trickling into a table, but nobody has called the race.
+        logger.info("  %s: infobox winner still TBD — not called", state)
+        return None
     candidates: list[tuple[int, RaceResult]] = []
     for table in doc.xpath("//table"):
+        if "infobox" in (table.get("class") or ""):
+            continue
         rows = _table_rows(table)
         if len(rows) < 2:
             continue
         header = [h.lower() for h in rows[0]]
         if not any("candidate" in h for h in header) or not any("votes" in h for h in header):
             continue
-        heading = _heading_before(table)
-        if any(k in heading for k in ("primary", "poll", "endorsement", "fundrais", "predictions")):
+        chain = _heading_chain(table)
+        if any(k in h for h in chain for k in NON_GENERAL_HEADING_TOKENS):
             continue
         parsed = _parse_election_box(rows, state)
         if parsed is None:
             continue
+        heading = chain[0] if chain else ""
         # Prefer tables under a results-style heading; score 2 for an explicit
         # general-election/results heading, 1 otherwise.
         score = 2 if ("general" in heading or "result" in heading) else 1
@@ -142,7 +226,16 @@ def parse_results_tables(page_html: str, state: str) -> RaceResult | None:
     if not candidates:
         return None
     candidates.sort(key=lambda t: (t[0], t[1].total_votes), reverse=True)
-    return candidates[0][1]
+    best = candidates[0][1]
+    if called and not names_match(best.winner, called):
+        logger.warning(
+            "  %s: results table winner %r disagrees with infobox winner %r — skipping",
+            state, best.winner, called,
+        )
+        return None
+    if called:
+        best.note = (best.note + " infobox-confirmed").strip()
+    return best
 
 
 def _parse_election_box(rows: list[list[str]], state: str) -> RaceResult | None:
@@ -191,6 +284,12 @@ def _parse_election_box(rows: list[list[str]], state: str) -> RaceResult | None:
         for n, p, v, pct in entries
     ]
     entries.sort(key=lambda e: e[2], reverse=True)
+    # A general election has candidates from more than one party. A table with
+    # a single party (or one candidate at 100%) is a primary, whatever its
+    # heading says.
+    parties = {p for _, p, _, _ in entries if p in ("D", "R", "I")}
+    if len(parties) < 2 or entries[0][3] is not None and entries[0][3] >= 100.0:
+        return None
     winner_name, winner_party, _, _ = entries[0]
     dem = next((e for e in entries if e[1] == "D"), None)
     rep = next((e for e in entries if e[1] == "R"), None)
