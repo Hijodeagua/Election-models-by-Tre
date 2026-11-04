@@ -65,6 +65,8 @@ jobs:
           git add data/results data/forecast_snapshots web/public/data/scorecard.json || true
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Scorecard: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            # The 15-minute live-forecast job may have pushed meanwhile; replay on top of it.
+            git pull --rebase origin main
             git push
           else
             echo "No changes to commit."
