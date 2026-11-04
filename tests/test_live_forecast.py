@@ -236,3 +236,24 @@ def test_winner_pre_prob_sides():
 
 def test_now_defaults_to_utc():
     assert datetime.now(UTC).tzinfo is UTC
+
+
+def test_retracted_calls_are_dropped_from_the_log_and_history(paths):
+    paths["results"].write_text(json.dumps({"results": {
+        "Georgia": {"winner": "Dee", "winner_party": "D", "margin": 8.0},
+        "Maine": {"winner": "Wrong Person", "winner_party": "D", "margin": 9.0},
+    }}))
+    out = _run(paths, "2026-11-04T01:00:00+00:00")
+    assert out["num_called"] == 2 and len(out["history"]) == 1
+    # The source withdraws Maine (e.g. a mis-parse fixed upstream).
+    paths["results"].write_text(json.dumps({"results": {
+        "Georgia": {"winner": "Dee", "winner_party": "D", "margin": 8.0},
+    }}))
+    out2 = _run(paths, "2026-11-04T02:00:00+00:00")
+    assert out2["retracted"] == ["Maine"]
+    assert out2["num_called"] == 1
+    assert {c["state"] for c in out2["called"]} == {"Georgia"}
+    log = json.loads(paths["log"].read_text())["calls"]
+    assert [c["state"] for c in log] == ["Georgia"]
+    # The point computed with the bogus call is gone; the new one is kept.
+    assert [h["num_called"] for h in out2["history"]] == [1]

@@ -120,11 +120,19 @@ def conditions_from_results(snapshot: dict, results: dict[str, dict]) -> dict[st
 
 def update_call_log(
     results: dict[str, dict], now: datetime, log_path: Path
-) -> list[dict]:
-    """Record when each call was first seen; returns the full log."""
+) -> tuple[list[dict], list[str]]:
+    """Record when each call was first seen; returns (log, retracted states).
+
+    A state that was logged but is no longer in the results (the source
+    withdrew the call, or an earlier run mis-parsed the page) is dropped from
+    the log so it is not shown as called.
+    """
     log: list[dict] = []
     if log_path.exists():
         log = _read_json(log_path).get("calls") or []
+    retracted = sorted(c["state"] for c in log if c["state"] not in results)
+    if retracted:
+        log = [c for c in log if c["state"] in results]
     seen = {c["state"] for c in log}
     for state, res in sorted(results.items()):
         if state in seen:
@@ -140,7 +148,7 @@ def update_call_log(
         )
     log_path.parent.mkdir(parents=True, exist_ok=True)
     log_path.write_text(json.dumps({"calls": log}, indent=1) + "\n", encoding="utf-8")
-    return log
+    return log, retracted
 
 
 def simulator_from_snapshot(snapshot: dict) -> SenateControlSimulator:
@@ -180,6 +188,7 @@ def build_live_forecast(
     previous: dict | None,
     num_simulations: int = NUM_SIMULATIONS,
     seed: int = SEED,
+    retracted: list[str] | None = None,
 ) -> dict:
     inputs = build_inputs(snapshot)
     conditions = conditions_from_results(snapshot, results)
@@ -245,6 +254,10 @@ def build_live_forecast(
     ]
 
     history = list((previous or {}).get("history") or [])
+    if retracted:
+        # Earlier points were computed with calls that have since gone away:
+        # drop the ones that counted more calls than exist now.
+        history = [h for h in history if (h.get("num_called") or 0) <= len(called)]
     point = {
         "at": now.isoformat(timespec="seconds"),
         "dem_control_prob": live.dem_control_prob,
@@ -267,6 +280,7 @@ def build_live_forecast(
         "num_races": len(snapshot["races"]),
         "num_called": len(called),
         "new_calls": new_calls,
+        "retracted": retracted or [],
         "seats_so_far": seats,
         "dem_majority_threshold": int(snapshot.get("dem_majority_threshold") or 51),
         "pre_election": {
@@ -306,11 +320,14 @@ def main(argv: list[str] | None = None) -> int:
         now = now.replace(tzinfo=UTC)
     snapshot, meta = load_snapshot(args.snapshot_dir)
     results = load_results(args.results, args.manual)
-    call_log = update_call_log(results, now, args.call_log)
+    call_log, retracted = update_call_log(results, now, args.call_log)
     previous = _read_json(args.out) if args.out.exists() else None
     payload = build_live_forecast(
-        snapshot, meta, results, call_log, now, previous, num_simulations=args.num_simulations
+        snapshot, meta, results, call_log, now, previous,
+        num_simulations=args.num_simulations, retracted=retracted,
     )
+    if retracted:
+        print(f"retracted calls (no longer in results): {', '.join(retracted)}")
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(payload, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 

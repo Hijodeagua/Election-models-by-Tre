@@ -23,6 +23,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from src.data.names import names_match  # noqa: E402
 from src.data.wikipedia_results import WikipediaResultsSource  # noqa: E402
 from src.models.senate_simulation import load_cycle_config  # noqa: E402
 
@@ -32,6 +33,18 @@ MANUAL = ROOT / "data" / "results" / "senate_2026_manual.json"
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 logger = logging.getLogger("fetch_results")
+
+
+def nominees_for(entry: dict) -> list[str]:
+    """The configured general-election candidates for a race."""
+    names = [entry.get("dem_candidate"), entry.get("rep_candidate"), entry.get("third_candidate")]
+    return [n for n in names if n]
+
+
+def winner_is_a_nominee(winner: str | None, entry: dict) -> bool:
+    """Guard against a primary table or a stale page: the winner has to be one
+    of the race's configured general-election candidates."""
+    return any(names_match(winner, n) for n in nominees_for(entry))
 
 
 def main() -> int:
@@ -51,6 +64,12 @@ def main() -> int:
             res = src.fetch_result(state, entry.get("wikipedia"))
             if res is None:
                 logger.info("  %s: no result yet", state)
+                continue
+            if not winner_is_a_nominee(res.winner, entry):
+                logger.warning(
+                    "  %s: parsed winner %r is not a configured nominee (%s) — skipping",
+                    state, res.winner, ", ".join(nominees_for(entry)),
+                )
                 continue
             results[state] = res.to_dict()
             logger.info(
