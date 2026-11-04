@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-04T12:09:14+00:00",
+ "generated": "2026-11-04T13:11:13+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -126,7 +126,7 @@
    "flip": false,
    "called_at": "2026-11-04T06:32:18.267871+00:00",
    "first_seen": "2026-11-04T07:11:02+00:00",
-   "eevp": 95.3,
+   "eevp": 96.5,
    "source": "ap-via-nyt"
   },
   {
@@ -224,13 +224,13 @@
    "state": "Michigan",
    "winner": "Abdul El-Sayed",
    "winner_party": "D",
-   "margin": 6.88,
+   "margin": 7.04,
    "pre_election_prob": 0.7758,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T07:27:28.334631+00:00",
    "first_seen": "2026-11-04T08:10:20+00:00",
-   "eevp": 96.07,
+   "eevp": 96.59,
    "source": "ap-via-nyt"
   },
   {
@@ -341,13 +341,13 @@
    "state": "Oklahoma",
    "winner": "Kevin Hern",
    "winner_party": "R",
-   "margin": -18.07,
+   "margin": -18.01,
    "pre_election_prob": 0.9893,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T02:36:16.920144+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 97.92,
+   "eevp": 98.2,
    "source": "ap-via-nyt"
   },
   {
@@ -419,13 +419,13 @@
    "state": "Texas",
    "winner": "James Talarico",
    "winner_party": "D",
-   "margin": 12.04,
+   "margin": 12.34,
    "pre_election_prob": 0.6568,
    "upset": false,
    "flip": true,
    "called_at": "2026-11-04T04:03:36.106156+00:00",
    "first_seen": "2026-11-04T04:15:25+00:00",
-   "eevp": 94.27,
+   "eevp": 96.22,
    "source": "ap-via-nyt"
   },
   {
