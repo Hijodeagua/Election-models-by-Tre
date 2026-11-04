@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-04T19:09:32+00:00",
+ "generated": "2026-11-04T20:10:02+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -107,7 +107,7 @@
    "state": "Georgia",
    "winner": "Jon Ossoff",
    "winner_party": "D",
-   "margin": 18.0,
+   "margin": 18.06,
    "pre_election_prob": 0.9291,
    "upset": false,
    "flip": false,
@@ -126,7 +126,7 @@
    "flip": false,
    "called_at": "2026-11-04T06:32:18.267871+00:00",
    "first_seen": "2026-11-04T07:11:02+00:00",
-   "eevp": 96.05,
+   "eevp": 98.94,
    "source": "ap-via-nyt"
   },
   {
@@ -198,26 +198,26 @@
    "state": "Maine",
    "winner": "Troy Jackson",
    "winner_party": "D",
-   "margin": 7.33,
+   "margin": 7.17,
    "pre_election_prob": 0.7435,
    "upset": false,
    "flip": true,
    "called_at": "2026-11-04T05:54:45.648+00:00",
    "first_seen": "2026-11-04T06:08:57+00:00",
-   "eevp": 92.1,
+   "eevp": 93.3,
    "source": "ap-via-nyt"
   },
   {
    "state": "Massachusetts",
    "winner": "Edward Markey",
    "winner_party": "D",
-   "margin": 31.03,
+   "margin": 30.98,
    "pre_election_prob": 0.9975,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:01:32.549465+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 94.94,
+   "eevp": 95.3,
    "source": "ap-via-nyt"
   },
   {
@@ -250,13 +250,13 @@
    "state": "Montana",
    "winner": "Kurt Alme",
    "winner_party": "R",
-   "margin": -36.78,
+   "margin": -36.77,
    "pre_election_prob": 0.9533,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T07:54:31.103519+00:00",
    "first_seen": "2026-11-04T08:10:20+00:00",
-   "eevp": 91.18,
+   "eevp": 92.11,
    "source": "ap-via-nyt"
   },
   {
@@ -269,33 +269,33 @@
    "flip": false,
    "called_at": "2026-11-04T08:27:49.521501+00:00",
    "first_seen": "2026-11-04T09:08:31+00:00",
-   "eevp": 91.39,
+   "eevp": 92.29,
    "source": "ap-via-nyt"
   },
   {
    "state": "New Hampshire",
    "winner": "Chris Pappas",
    "winner_party": "D",
-   "margin": 14.03,
+   "margin": 13.96,
    "pre_election_prob": 0.9178,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:21:28.872+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 92.01,
+   "eevp": 93.01,
    "source": "ap-via-nyt"
   },
   {
    "state": "New Jersey",
    "winner": "Cory Booker",
    "winner_party": "D",
-   "margin": 26.76,
+   "margin": 26.77,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:00:55.717106+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 94.11,
+   "eevp": 94.19,
    "source": "ap-via-nyt"
   },
   {
@@ -334,14 +334,14 @@
    "flip": true,
    "called_at": "2026-11-04T04:10:16.711833+00:00",
    "first_seen": "2026-11-04T04:15:25+00:00",
-   "eevp": 98.0,
+   "eevp": 98.01,
    "source": "ap-via-nyt"
   },
   {
    "state": "Oklahoma",
    "winner": "Kevin Hern",
    "winner_party": "R",
-   "margin": -18.09,
+   "margin": -17.92,
    "pre_election_prob": 0.9893,
    "upset": false,
    "flip": false,
@@ -451,7 +451,7 @@
    "flip": false,
    "called_at": "2026-11-04T01:52:26.920779+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 96.28,
+   "eevp": 98.91,
    "source": "ap-via-nyt"
   },
   {
