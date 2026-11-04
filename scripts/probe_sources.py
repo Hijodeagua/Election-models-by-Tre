@@ -209,7 +209,85 @@ def probe_polymarket_missing_races() -> None:
             print(f"  [ERR] {query}: {exc}")
 
 
+def probe_results_feeds() -> None:
+    """Election-night results feeds: where do the AP calls and % reporting
+    live, and what shape are they? Discovers the NYT election-assets JSON
+    paths from the results page, then probes the likely 2026 endpoints."""
+    import re
+
+    print("=== Election results feeds (AP via NYT, DDHQ) ===")
+    pages = [
+        "https://www.nytimes.com/interactive/2026/11/03/us/elections/results-senate.html",
+        "https://www.nytimes.com/interactive/2026/11/03/us/elections/results-georgia-senate.html",
+        "https://www.nytimes.com/interactive/2026/11/03/us/elections/results-texas-senate.html",
+    ]
+    found: set[str] = set()
+    for url in pages:
+        try:
+            resp = httpx.get(url, timeout=25, follow_redirects=True,
+                             headers={"User-Agent": BROWSER_UA})
+            urls = set(re.findall(r"https?://[^\s\"'<>\\]+", resp.text))
+            hits = sorted(u for u in urls if "elections-assets" in u or u.endswith(".json"))
+            print(f"  page [{resp.status_code}] {url} — {len(resp.text)} chars, "
+                  f"{len(hits)} asset/json urls")
+            for u in hits[:40]:
+                print(f"      {u}")
+            found.update(hits)
+            # Inline JSON paths (relative) are common too.
+            rel = sorted(set(re.findall(r"[\w./-]*elections-assets[\w./-]*\.json", resp.text)))
+            for u in rel[:20]:
+                print(f"      (rel) {u}")
+        except Exception as exc:
+            print(f"  [ERR] {url}: {exc}")
+
+    candidates = [
+        "https://static01.nyt.com/elections-assets/pages/data/2026-11-03/results-senate.json",
+        "https://static01.nyt.com/elections-assets/pages/data/2026-11-03/results-georgia-senate.json",
+        "https://static01.nyt.com/elections-assets/pages/data/2026-11-03/results-texas-senate.json",
+        "https://static01.nyt.com/elections-assets/2026/data/api/2026-11-03/national-map-page/national/senate.json",
+        "https://static01.nyt.com/elections-assets/2026/data/api/2026-11-03/race-page/georgia/senate.json",
+        "https://static01.nyt.com/elections-assets/2026/data/api/2026-11-03/votes-remaining-page/national/senate.json",
+        "https://interactives.ap.org/election-results/data-live/2026-11-03/results/national/summary.json",
+        "https://results.decisiondeskhq.com/api/v2/elections/2026/general/senate",
+    ]
+    for u in sorted(found):
+        if u.endswith(".json") and u not in candidates and ("senate" in u or "national" in u):
+            candidates.append(u)
+    for url in candidates:
+        try:
+            resp = httpx.get(url, timeout=25, follow_redirects=True,
+                             headers={"User-Agent": BROWSER_UA})
+            ctype = resp.headers.get("content-type", "")
+            line = f"  [{resp.status_code}] {url} ({ctype}, {len(resp.content)} bytes)"
+            print(line)
+            if resp.status_code == 200 and "json" in ctype:
+                data = resp.json()
+                if isinstance(data, dict):
+                    print(f"      keys: {list(data)[:15]}")
+                    races = data.get("races") or (data.get("data") or {}).get("races")
+                    if isinstance(races, list) and races:
+                        r0 = races[0]
+                        print(f"      races: {len(races)}; race keys: {list(r0)[:40]}")
+                        for k in ("state_id", "state_name", "race_id", "office", "called",
+                                  "winner", "result", "leader_party_id", "precincts_reporting_pct",
+                                  "eevp", "percent_reporting", "report", "candidates"):
+                            if k in r0:
+                                v = r0[k]
+                                print(f"        {k}: {json.dumps(v)[:300]}")
+                else:
+                    print(f"      top-level: {type(data).__name__} len {len(data)}")
+            else:
+                print(f"      {resp.text[:200]!r}")
+        except Exception as exc:
+            print(f"  [ERR] {url}: {exc}")
+
+
 def main() -> None:
+    import os
+
+    if os.environ.get("PROBE_ONLY") == "results":
+        probe_results_feeds()
+        return
     probe_votehub()
     probe_votehub_freshness()
     probe_kalshi()
