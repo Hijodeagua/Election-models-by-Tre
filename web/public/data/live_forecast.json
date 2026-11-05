@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-04T23:53:54+00:00",
+ "generated": "2026-11-05T00:08:59+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -68,13 +68,13 @@
    "state": "Colorado",
    "winner": "John Hickenlooper",
    "winner_party": "D",
-   "margin": 24.08,
+   "margin": 24.5,
    "pre_election_prob": 0.9894,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T02:01:00.700309+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 79.43,
+   "eevp": 81.32,
    "source": "ap-via-nyt"
   },
   {
@@ -159,13 +159,13 @@
    "state": "Kansas",
    "winner": "Adam Hamilton",
    "winner_party": "D",
-   "margin": 4.95,
+   "margin": 5.0,
    "pre_election_prob": 0.6248,
    "upset": false,
    "flip": true,
    "called_at": "2026-11-04T04:25:43.421+00:00",
    "first_seen": "2026-11-04T05:08:26+00:00",
-   "eevp": 98.65,
+   "eevp": 98.77,
    "source": "ap-via-nyt"
   },
   {
@@ -269,7 +269,7 @@
    "flip": false,
    "called_at": "2026-11-04T08:27:49.521501+00:00",
    "first_seen": "2026-11-04T09:08:31+00:00",
-   "eevp": 92.34,
+   "eevp": 92.39,
    "source": "ap-via-nyt"
   },
   {
@@ -354,13 +354,13 @@
    "state": "Oregon",
    "winner": "Jeff Merkley",
    "winner_party": "D",
-   "margin": 16.04,
+   "margin": 16.27,
    "pre_election_prob": 0.9894,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T04:00:33.099353+00:00",
    "first_seen": "2026-11-04T04:15:25+00:00",
-   "eevp": 75.27,
+   "eevp": 76.23,
    "source": "ap-via-nyt"
   },
   {
