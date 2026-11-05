@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-05T01:09:18+00:00",
+ "generated": "2026-11-05T02:08:32+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -68,13 +68,13 @@
    "state": "Colorado",
    "winner": "John Hickenlooper",
    "winner_party": "D",
-   "margin": 24.33,
+   "margin": 24.34,
    "pre_election_prob": 0.9894,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T02:01:00.700309+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 83.18,
+   "eevp": 83.93,
    "source": "ap-via-nyt"
   },
   {
@@ -152,7 +152,7 @@
    "flip": true,
    "called_at": "2026-11-04T04:34:00.016+00:00",
    "first_seen": "2026-11-04T05:08:26+00:00",
-   "eevp": 98.7,
+   "eevp": 99.0,
    "source": "ap-via-nyt"
   },
   {
@@ -256,7 +256,7 @@
    "flip": false,
    "called_at": "2026-11-04T07:54:31.103519+00:00",
    "first_seen": "2026-11-04T08:10:20+00:00",
-   "eevp": 94.63,
+   "eevp": 94.97,
    "source": "ap-via-nyt"
   },
   {
@@ -354,13 +354,13 @@
    "state": "Oregon",
    "winner": "Jeff Merkley",
    "winner_party": "D",
-   "margin": 16.86,
+   "margin": 16.64,
    "pre_election_prob": 0.9894,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T04:00:33.099353+00:00",
    "first_seen": "2026-11-04T04:15:25+00:00",
-   "eevp": 77.68,
+   "eevp": 78.48,
    "source": "ap-via-nyt"
   },
   {
@@ -479,7 +479,7 @@
    "live_prob": 0.7395,
    "live_median_margin": 2.4,
    "status": "reporting",
-   "eevp": 74.38,
+   "eevp": 75.49,
    "leader": "Mary Peltola",
    "leader_party": "D",
    "leader_margin": 0.29,
