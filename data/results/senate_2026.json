@@ -1,6 +1,6 @@
 {
  "cycle": 2026,
- "fetched_at": "2026-11-05T03:09:09+00:00",
+ "fetched_at": "2026-11-05T04:09:13+00:00",
  "source": "ap-via-nyt",
  "num_results": 33,
  "results": {
@@ -178,7 +178,7 @@
    "note": "called by ap at 2026-11-04T02:01:00.700309+00:00",
    "called_at": "2026-11-04T02:01:00.700309+00:00",
    "gained": false,
-   "eevp": 83.89
+   "eevp": 87.07
   },
   "Delaware": {
    "state": "Delaware",
@@ -852,8 +852,8 @@
    "winner": "John Hickenlooper",
    "winner_party": "D",
    "gained": false,
-   "eevp": 83.89,
-   "precincts_reporting": 3548,
+   "eevp": 87.07,
+   "precincts_reporting": 3683,
    "precincts_total": 4230,
    "total_votes": 2364850,
    "leader": "John Hickenlooper",
@@ -864,7 +864,7 @@
    "dem_pct": 59.93,
    "rep_pct": 35.73,
    "margin": 24.2,
-   "updated_at": "2026-11-05T02:31:05.224Z",
+   "updated_at": "2026-11-05T03:28:33.025Z",
    "rating": "solid-dem",
    "source": "ap-via-nyt"
   },
@@ -1170,7 +1170,7 @@
    "dem_pct": 12.05,
    "rep_pct": 48.58,
    "margin": -36.53,
-   "updated_at": "2026-11-05T01:32:52.616Z",
+   "updated_at": "2026-11-05T03:21:13.869Z",
    "rating": "solid-rep",
    "source": "ap-via-nyt"
   },
