@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-05T06:56:30+00:00",
+ "generated": "2026-11-05T20:02:19+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -18,7 +18,7 @@
   "log_loss": 0.1561,
   "margins": {
    "n": 30,
-   "mae": 7.38,
+   "mae": 7.37,
    "bias": 4.06,
    "rmse": 9.1
   },
@@ -30,8 +30,8 @@
   },
   "poll_average_margins": {
    "n": 25,
-   "mae": 6.11,
-   "bias": 3.55,
+   "mae": 6.1,
+   "bias": 3.54,
    "rmse": 7.99
   },
   "calibration": [
@@ -74,7 +74,7 @@
   "log_loss": 1.2281,
   "margins": {
    "n": 14,
-   "mae": 6.61,
+   "mae": 6.6,
    "bias": 2.67,
    "rmse": 9.14
   }
@@ -237,7 +237,7 @@
     "num_polls": 35,
     "call": "D",
     "correct": true,
-    "margin_error": 6.32
+    "margin_error": 6.31
    },
    "market": {
     "polymarket_dem_prob": 0.955,
@@ -249,13 +249,13 @@
     "dem_margin": 9.5,
     "on_board": true,
     "correct": true,
-    "margin_error": 4.3
+    "margin_error": 4.29
    },
    "result": {
     "winner": "Chris Pappas",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 13.8,
+    "margin": 13.79,
     "source": "ap-via-nyt"
    }
   },
@@ -453,7 +453,7 @@
     "num_polls": 3,
     "call": "D",
     "correct": true,
-    "margin_error": 8.79
+    "margin_error": 8.58
    },
    "market": {
     "polymarket_dem_prob": null
@@ -468,7 +468,7 @@
     "winner": "John Hickenlooper",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 24.2,
+    "margin": 23.99,
     "source": "ap-via-nyt"
    }
   },
