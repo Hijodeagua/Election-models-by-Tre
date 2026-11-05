@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-05T00:08:59+00:00",
+ "generated": "2026-11-05T01:09:18+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -68,13 +68,13 @@
    "state": "Colorado",
    "winner": "John Hickenlooper",
    "winner_party": "D",
-   "margin": 24.5,
+   "margin": 24.33,
    "pre_election_prob": 0.9894,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T02:01:00.700309+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 81.32,
+   "eevp": 83.18,
    "source": "ap-via-nyt"
   },
   {
@@ -133,13 +133,13 @@
    "state": "Illinois",
    "winner": "Juliana Stratton",
    "winner_party": "D",
-   "margin": 23.46,
+   "margin": 23.26,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:01:05.343166+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 92.95,
+   "eevp": 93.17,
    "source": "ap-via-nyt"
   },
   {
@@ -165,7 +165,7 @@
    "flip": true,
    "called_at": "2026-11-04T04:25:43.421+00:00",
    "first_seen": "2026-11-04T05:08:26+00:00",
-   "eevp": 98.77,
+   "eevp": 98.78,
    "source": "ap-via-nyt"
   },
   {
@@ -269,7 +269,7 @@
    "flip": false,
    "called_at": "2026-11-04T08:27:49.521501+00:00",
    "first_seen": "2026-11-04T09:08:31+00:00",
-   "eevp": 92.39,
+   "eevp": 94.1,
    "source": "ap-via-nyt"
   },
   {
@@ -354,26 +354,26 @@
    "state": "Oregon",
    "winner": "Jeff Merkley",
    "winner_party": "D",
-   "margin": 16.27,
+   "margin": 16.86,
    "pre_election_prob": 0.9894,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T04:00:33.099353+00:00",
    "first_seen": "2026-11-04T04:15:25+00:00",
-   "eevp": 76.23,
+   "eevp": 77.68,
    "source": "ap-via-nyt"
   },
   {
    "state": "Rhode Island",
    "winner": "Jack Reed",
    "winner_party": "D",
-   "margin": 37.24,
+   "margin": 37.48,
    "pre_election_prob": 0.9967,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:01:41.345451+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 97.4,
+   "eevp": 98.03,
    "source": "ap-via-nyt"
   },
   {
@@ -479,11 +479,11 @@
    "live_prob": 0.7395,
    "live_median_margin": 2.4,
    "status": "reporting",
-   "eevp": 74.29,
+   "eevp": 74.38,
    "leader": "Mary Peltola",
    "leader_party": "D",
-   "leader_margin": 0.3,
-   "count_margin": 0.3
+   "leader_margin": 0.29,
+   "count_margin": 0.29
   },
   {
    "state": "Mississippi",
