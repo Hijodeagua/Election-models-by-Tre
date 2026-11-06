@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-06T06:56:03+00:00",
+ "generated": "2026-11-06T19:28:51+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -18,9 +18,9 @@
   "log_loss": 0.1561,
   "margins": {
    "n": 30,
-   "mae": 7.45,
+   "mae": 7.46,
    "bias": 4.17,
-   "rmse": 9.13
+   "rmse": 9.14
   },
   "polls_only": {
    "n": 23,
@@ -30,9 +30,9 @@
   },
   "poll_average_margins": {
    "n": 25,
-   "mae": 6.13,
-   "bias": 3.6,
-   "rmse": 7.98
+   "mae": 6.14,
+   "bias": 3.61,
+   "rmse": 7.99
   },
   "calibration": [
    {
@@ -105,7 +105,7 @@
     "num_polls": 24,
     "call": "D",
     "correct": true,
-    "margin_error": 10.07
+    "margin_error": 10.09
    },
    "market": {
     "polymarket_dem_prob": 0.968,
@@ -117,13 +117,13 @@
     "dem_margin": 14,
     "on_board": true,
     "correct": true,
-    "margin_error": 4.04
+    "margin_error": 4.06
    },
    "result": {
     "winner": "Jon Ossoff",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 18.04,
+    "margin": 18.06,
     "source": "ap-via-nyt"
    }
   },
@@ -453,7 +453,7 @@
     "num_polls": 3,
     "call": "D",
     "correct": true,
-    "margin_error": 9.47
+    "margin_error": 9.57
    },
    "market": {
     "polymarket_dem_prob": null
@@ -468,7 +468,7 @@
     "winner": "John Hickenlooper",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 24.88,
+    "margin": 24.98,
     "source": "ap-via-nyt"
    }
   },
@@ -853,7 +853,7 @@
     "num_polls": 0,
     "call": "D",
     "correct": true,
-    "margin_error": 11.63
+    "margin_error": 11.71
    },
    "market": {
     "polymarket_dem_prob": null
@@ -868,7 +868,7 @@
     "winner": "Cory Booker",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 27.06,
+    "margin": 27.14,
     "source": "ap-via-nyt"
    }
   },
@@ -944,7 +944,7 @@
     "num_polls": 0,
     "call": "D",
     "correct": true,
-    "margin_error": 2.54
+    "margin_error": 2.46
    },
    "market": {
     "polymarket_dem_prob": null
@@ -959,7 +959,7 @@
     "winner": "Jeff Merkley",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 17.92,
+    "margin": 17.84,
     "source": "ap-via-nyt"
    }
   },
@@ -1098,7 +1098,7 @@
     "num_polls": 2,
     "call": "D",
     "correct": true,
-    "margin_error": 7.18
+    "margin_error": 7.19
    },
    "market": {
     "polymarket_dem_prob": null
@@ -1113,7 +1113,7 @@
     "winner": "Mark Warner",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 22.59,
+    "margin": 22.6,
     "source": "ap-via-nyt"
    }
   },
