@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-11-06",
+  "as_of": "2026-11-07",
   "num_simulations": 50000,
-  "dem_control_prob": 0.6495,
+  "dem_control_prob": 0.6493,
   "mean_dem_seats": 51.45,
   "median_dem_seats": 52.0,
   "seat_distribution": {
@@ -11,21 +11,21 @@
     "41": 29,
     "42": 62,
     "43": 120,
-    "44": 225,
+    "44": 226,
     "45": 486,
     "46": 1005,
-    "47": 1927,
-    "48": 3095,
-    "49": 4493,
-    "50": 6048,
-    "51": 7123,
-    "52": 7275,
-    "53": 6591,
-    "54": 5136,
-    "55": 3303,
-    "56": 1770,
-    "57": 757,
-    "58": 320,
+    "47": 1932,
+    "48": 3091,
+    "49": 4518,
+    "50": 6032,
+    "51": 7142,
+    "52": 7256,
+    "53": 6594,
+    "54": 5123,
+    "55": 3305,
+    "56": 1765,
+    "57": 758,
+    "58": 321,
     "59": 113,
     "60": 50,
     "61": 22,
@@ -68,14 +68,14 @@
       "margin": 4.762,
       "num_polls": 71,
       "dem_win_prob_polls": 0.7619,
-      "dem_win_prob_blended": 0.5746,
+      "dem_win_prob_blended": 0.5748,
       "market_dem_prob": {
-        "polymarket": 0.013
+        "polymarket": 0.0135
       },
-      "dem_win_prob_sim": 0.5727,
+      "dem_win_prob_sim": 0.5729,
       "median_margin": 0.91,
       "margin_p10": -5.84,
-      "margin_p90": 7.65,
+      "margin_p90": 7.66,
       "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/michigan-senate-election-macomb-county-winner"
@@ -572,14 +572,14 @@
       "margin": 2.826,
       "num_polls": 25,
       "dem_win_prob_polls": 0.6284,
-      "dem_win_prob_blended": 0.5776,
+      "dem_win_prob_blended": 0.5738,
       "market_dem_prob": {
-        "polymarket": 0.425
+        "polymarket": 0.41
       },
-      "dem_win_prob_sim": 0.5775,
-      "median_margin": 0.96,
-      "margin_p10": -5.81,
-      "margin_p90": 7.7,
+      "dem_win_prob_sim": 0.5736,
+      "median_margin": 0.91,
+      "margin_p10": -5.86,
+      "margin_p90": 7.65,
       "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/kansas-senate-election-leavenworth-county-winner"
@@ -734,14 +734,14 @@
       "margin": -6.049,
       "num_polls": 4,
       "dem_win_prob_polls": 0.0859,
-      "dem_win_prob_blended": 0.2108,
+      "dem_win_prob_blended": 0.2124,
       "market_dem_prob": {
-        "polymarket": 0.9805
+        "polymarket": 0.9935
       },
-      "dem_win_prob_sim": 0.2114,
-      "median_margin": -3.97,
-      "margin_p10": -10.73,
-      "margin_p90": 2.74,
+      "dem_win_prob_sim": 0.2131,
+      "median_margin": -3.94,
+      "margin_p10": -10.7,
+      "margin_p90": 2.77,
       "challenger_party": "D",
       "market_urls": {
         "polymarket": "https://polymarket.com/event/mississippi-senate-election-winner"
@@ -1295,7 +1295,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.6495,
+  "dem_control_prob_with_vibes": 0.6493,
   "mean_dem_seats_with_vibes": 51.45,
   "national_environment": {
     "national_swing": 11.32,
