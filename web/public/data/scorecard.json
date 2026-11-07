@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-07T06:07:08+00:00",
+ "generated": "2026-11-07T13:12:16+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -944,7 +944,7 @@
     "num_polls": 0,
     "call": "D",
     "correct": true,
-    "margin_error": 4.1
+    "margin_error": 4.05
    },
    "market": {
     "polymarket_dem_prob": null
@@ -959,7 +959,7 @@
     "winner": "Jeff Merkley",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 19.48,
+    "margin": 19.43,
     "source": "ap-via-nyt"
    }
   },
