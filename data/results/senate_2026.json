@@ -1,6 +1,6 @@
 {
  "cycle": 2026,
- "fetched_at": "2026-11-07T18:49:23+00:00",
+ "fetched_at": "2026-11-07T22:31:50+00:00",
  "source": "ap-via-nyt",
  "num_results": 33,
  "results": {
@@ -258,7 +258,7 @@
    "note": "called by ap at 2026-11-04T04:25:43.421+00:00",
    "called_at": "2026-11-04T04:25:43.421+00:00",
    "gained": true,
-   "eevp": 98.88
+   "eevp": 98.87
   },
   "Kentucky": {
    "state": "Kentucky",
@@ -726,7 +726,7 @@
    "dem_pct": 55.09,
    "rep_pct": 42.99,
    "margin": 12.1,
-   "updated_at": "2026-11-06T22:51:54.452Z",
+   "updated_at": "2026-11-07T20:22:23.947Z",
    "rating": "tossup",
    "source": "ap-via-nyt"
   },
@@ -976,7 +976,7 @@
    "dem_pct": 61.35,
    "rep_pct": 37.07,
    "margin": 24.28,
-   "updated_at": "2026-11-07T18:45:18.470Z",
+   "updated_at": "2026-11-07T19:30:31.670Z",
    "rating": "solid-dem",
    "source": "ap-via-nyt"
   },
@@ -992,7 +992,7 @@
    "winner": "Adam Hamilton",
    "winner_party": "D",
    "gained": true,
-   "eevp": 98.88,
+   "eevp": 98.87,
    "precincts_reporting": 4117,
    "precincts_total": 4168,
    "total_votes": 1099896,
@@ -1004,7 +1004,7 @@
    "dem_pct": 51.02,
    "rep_pct": 45.96,
    "margin": 5.06,
-   "updated_at": "2026-11-07T17:58:00.943Z",
+   "updated_at": "2026-11-07T20:12:23.186Z",
    "rating": "tossup",
    "source": "ap-via-nyt"
   },
@@ -1032,7 +1032,7 @@
    "dem_pct": 42.91,
    "rep_pct": 55.0,
    "margin": -12.09,
-   "updated_at": "2026-11-07T18:36:23.364Z",
+   "updated_at": "2026-11-07T22:04:10.718Z",
    "rating": "solid-rep",
    "source": "ap-via-nyt"
   },
