@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-06T21:30:18+00:00",
+ "generated": "2026-11-07T01:08:18+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -68,13 +68,13 @@
    "state": "Colorado",
    "winner": "John Hickenlooper",
    "winner_party": "D",
-   "margin": 25.03,
+   "margin": 25.27,
    "pre_election_prob": 0.9894,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T02:01:00.700309+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 96.38,
+   "eevp": 97.4,
    "source": "ap-via-nyt"
   },
   {
@@ -107,7 +107,7 @@
    "state": "Georgia",
    "winner": "Jon Ossoff",
    "winner_party": "D",
-   "margin": 18.06,
+   "margin": 18.04,
    "pre_election_prob": 0.9291,
    "upset": false,
    "flip": false,
@@ -133,13 +133,13 @@
    "state": "Illinois",
    "winner": "Juliana Stratton",
    "winner_party": "D",
-   "margin": 23.71,
+   "margin": 24.28,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:01:05.343166+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 94.71,
+   "eevp": 95.79,
    "source": "ap-via-nyt"
   },
   {
@@ -159,13 +159,13 @@
    "state": "Kansas",
    "winner": "Adam Hamilton",
    "winner_party": "D",
-   "margin": 5.0,
+   "margin": 5.06,
    "pre_election_prob": 0.6248,
    "upset": false,
    "flip": true,
    "called_at": "2026-11-04T04:25:43.421+00:00",
    "first_seen": "2026-11-04T05:08:26+00:00",
-   "eevp": 98.71,
+   "eevp": 98.88,
    "source": "ap-via-nyt"
   },
   {
@@ -217,7 +217,7 @@
    "flip": false,
    "called_at": "2026-11-04T01:01:32.549465+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 99.0,
+   "eevp": 98.99,
    "source": "ap-via-nyt"
   },
   {
@@ -256,7 +256,7 @@
    "flip": false,
    "called_at": "2026-11-04T07:54:31.103519+00:00",
    "first_seen": "2026-11-04T08:10:20+00:00",
-   "eevp": 97.52,
+   "eevp": 97.65,
    "source": "ap-via-nyt"
   },
   {
@@ -269,7 +269,7 @@
    "flip": false,
    "called_at": "2026-11-04T08:27:49.521501+00:00",
    "first_seen": "2026-11-04T09:08:31+00:00",
-   "eevp": 96.44,
+   "eevp": 97.12,
    "source": "ap-via-nyt"
   },
   {
@@ -295,7 +295,7 @@
    "flip": false,
    "called_at": "2026-11-04T01:00:55.717106+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 95.95,
+   "eevp": 96.36,
    "source": "ap-via-nyt"
   },
   {
@@ -354,13 +354,13 @@
    "state": "Oregon",
    "winner": "Jeff Merkley",
    "winner_party": "D",
-   "margin": 17.84,
+   "margin": 19.48,
    "pre_election_prob": 0.9894,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T04:00:33.099353+00:00",
    "first_seen": "2026-11-04T04:15:25+00:00",
-   "eevp": 82.35,
+   "eevp": 88.31,
    "source": "ap-via-nyt"
   },
   {
@@ -432,13 +432,13 @@
    "state": "Virginia",
    "winner": "Mark Warner",
    "winner_party": "D",
-   "margin": 22.65,
+   "margin": 22.66,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T00:00:31.573829+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 97.74,
+   "eevp": 97.77,
    "source": "ap-via-nyt"
   },
   {
@@ -495,11 +495,11 @@
    "live_prob": 0.1167,
    "live_median_margin": -4.71,
    "status": "reporting",
-   "eevp": 96.9,
+   "eevp": 96.92,
    "leader": "Scott Colom",
    "leader_party": "D",
-   "leader_margin": 0.26,
-   "count_margin": 0.26
+   "leader_margin": 0.27,
+   "count_margin": 0.27
   }
  ],
  "history": [
