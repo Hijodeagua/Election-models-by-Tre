@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-07T13:12:16+00:00",
+ "generated": "2026-11-07T21:56:23+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -453,7 +453,7 @@
     "num_polls": 3,
     "call": "D",
     "correct": true,
-    "margin_error": 9.86
+    "margin_error": 9.96
    },
    "market": {
     "polymarket_dem_prob": null
@@ -468,7 +468,7 @@
     "winner": "John Hickenlooper",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 25.27,
+    "margin": 25.37,
     "source": "ap-via-nyt"
    }
   },
