@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-07T21:56:23+00:00",
+ "generated": "2026-11-08T06:12:31+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -19,8 +19,8 @@
   "margins": {
    "n": 30,
    "mae": 7.55,
-   "bias": 4.26,
-   "rmse": 9.19
+   "bias": 4.27,
+   "rmse": 9.2
   },
   "polls_only": {
    "n": 23,
@@ -30,9 +30,9 @@
   },
   "poll_average_margins": {
    "n": 25,
-   "mae": 6.18,
-   "bias": 3.65,
-   "rmse": 8.03
+   "mae": 6.19,
+   "bias": 3.66,
+   "rmse": 8.04
   },
   "calibration": [
    {
@@ -453,7 +453,7 @@
     "num_polls": 3,
     "call": "D",
     "correct": true,
-    "margin_error": 9.96
+    "margin_error": 10.0
    },
    "market": {
     "polymarket_dem_prob": null
@@ -468,7 +468,7 @@
     "winner": "John Hickenlooper",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 25.37,
+    "margin": 25.41,
     "source": "ap-via-nyt"
    }
   },
@@ -576,7 +576,7 @@
     "num_polls": 4,
     "call": "D",
     "correct": true,
-    "margin_error": 8.77
+    "margin_error": 8.79
    },
    "market": {
     "polymarket_dem_prob": 0.9865,
@@ -592,7 +592,7 @@
     "winner": "Juliana Stratton",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 24.28,
+    "margin": 24.3,
     "source": "ap-via-nyt"
    }
   },
