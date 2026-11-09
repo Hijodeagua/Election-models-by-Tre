@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-08T22:13:26+00:00",
+ "generated": "2026-11-09T06:45:50+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -18,7 +18,7 @@
   "log_loss": 0.1561,
   "margins": {
    "n": 30,
-   "mae": 7.55,
+   "mae": 7.56,
    "bias": 4.27,
    "rmse": 9.2
   },
@@ -74,9 +74,9 @@
   "log_loss": 1.2281,
   "margins": {
    "n": 14,
-   "mae": 6.54,
-   "bias": 2.66,
-   "rmse": 9.02
+   "mae": 6.55,
+   "bias": 2.67,
+   "rmse": 9.03
   }
  },
  "market": {
@@ -336,7 +336,7 @@
     "num_polls": 42,
     "call": "R",
     "correct": false,
-    "margin_error": 4.8
+    "margin_error": 4.88
    },
    "market": {
     "polymarket_dem_prob": 0.515,
@@ -348,13 +348,13 @@
     "dem_margin": -2.5,
     "on_board": true,
     "correct": false,
-    "margin_error": 6.61
+    "margin_error": 6.69
    },
    "result": {
     "winner": "Josh Turek",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 4.11,
+    "margin": 4.19,
     "source": "ap-via-nyt"
    }
   },
