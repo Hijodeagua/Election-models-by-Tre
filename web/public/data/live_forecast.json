@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-09T21:34:35+00:00",
+ "generated": "2026-11-10T03:49:27+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -68,13 +68,13 @@
    "state": "Colorado",
    "winner": "John Hickenlooper",
    "winner_party": "D",
-   "margin": 25.41,
+   "margin": 25.42,
    "pre_election_prob": 0.9894,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T02:01:00.700309+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 97.83,
+   "eevp": 98.05,
    "source": "ap-via-nyt"
   },
   {
@@ -139,7 +139,7 @@
    "flip": false,
    "called_at": "2026-11-04T01:01:05.343166+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 95.99,
+   "eevp": 96.04,
    "source": "ap-via-nyt"
   },
   {
@@ -198,7 +198,7 @@
    "state": "Maine",
    "winner": "Troy Jackson",
    "winner_party": "D",
-   "margin": 6.25,
+   "margin": 6.2,
    "pre_election_prob": 0.7435,
    "upset": false,
    "flip": true,
@@ -250,13 +250,13 @@
    "state": "Montana",
    "winner": "Kurt Alme",
    "winner_party": "R",
-   "margin": -36.17,
+   "margin": -36.06,
    "pre_election_prob": 0.9533,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T07:54:31.103519+00:00",
    "first_seen": "2026-11-04T08:10:20+00:00",
-   "eevp": 97.65,
+   "eevp": 98.04,
    "source": "ap-via-nyt"
   },
   {
@@ -289,13 +289,13 @@
    "state": "New Jersey",
    "winner": "Cory Booker",
    "winner_party": "D",
-   "margin": 27.31,
+   "margin": 27.32,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:00:55.717106+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 96.47,
+   "eevp": 96.49,
    "source": "ap-via-nyt"
   },
   {
@@ -354,13 +354,13 @@
    "state": "Oregon",
    "winner": "Jeff Merkley",
    "winner_party": "D",
-   "margin": 19.5,
+   "margin": 19.46,
    "pre_election_prob": 0.9894,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T04:00:33.099353+00:00",
    "first_seen": "2026-11-04T04:15:25+00:00",
-   "eevp": 92.45,
+   "eevp": 92.61,
    "source": "ap-via-nyt"
   },
   {
@@ -445,7 +445,7 @@
    "state": "West Virginia",
    "winner": "Shelley Capito",
    "winner_party": "R",
-   "margin": -20.37,
+   "margin": -20.35,
    "pre_election_prob": 0.9888,
    "upset": false,
    "flip": false,
@@ -479,11 +479,11 @@
    "live_prob": 0.7395,
    "live_median_margin": 2.4,
    "status": "reporting",
-   "eevp": 74.09,
+   "eevp": 75.92,
    "leader": "Mary Peltola",
    "leader_party": "D",
-   "leader_margin": 0.29,
-   "count_margin": 0.29
+   "leader_margin": 1.15,
+   "count_margin": 1.15
   },
   {
    "state": "Mississippi",
