@@ -1,6 +1,6 @@
 {
  "cycle": 2026,
- "fetched_at": "2026-11-10T03:49:26+00:00",
+ "fetched_at": "2026-11-10T12:17:00+00:00",
  "source": "ap-via-nyt",
  "num_results": 33,
  "results": {
@@ -125,7 +125,7 @@
    "dem_pct": 50.55,
    "rep_pct": 46.36,
    "margin": 4.19,
-   "total_votes": 1362100,
+   "total_votes": 1362101,
    "source": "ap-via-nyt",
    "note": "called by nyt at 2026-11-04T04:34:00.016+00:00",
    "called_at": "2026-11-04T04:34:00.016+00:00",
@@ -745,7 +745,7 @@
    "eevp": 99.0,
    "precincts_reporting": 1656,
    "precincts_total": 1656,
-   "total_votes": 1362100,
+   "total_votes": 1362101,
    "leader": "Josh Turek",
    "leader_party": "D",
    "leader_margin": 4.19,
@@ -754,7 +754,7 @@
    "dem_pct": 50.55,
    "rep_pct": 46.36,
    "margin": 4.19,
-   "updated_at": "2026-11-10T00:07:34.853Z",
+   "updated_at": "2026-11-10T05:34:06.716Z",
    "rating": "tossup",
    "source": "ap-via-nyt"
   },
@@ -780,7 +780,7 @@
    "dem_pct": 48.63,
    "rep_pct": 47.48,
    "margin": 1.15,
-   "updated_at": "2026-11-10T01:48:13.279Z",
+   "updated_at": "2026-11-10T05:39:10.323Z",
    "rating": "tossup",
    "source": "ap-via-nyt"
   },
@@ -1060,7 +1060,7 @@
    "dem_pct": 49.12,
    "rep_pct": 50.88,
    "margin": -1.76,
-   "updated_at": "2026-11-09T18:31:39.797Z",
+   "updated_at": "2026-11-10T11:02:38.991Z",
    "rating": "solid-rep",
    "source": "ap-via-nyt"
   },
