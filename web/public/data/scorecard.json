@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-11T06:36:46+00:00",
+ "generated": "2026-11-11T19:40:38+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -32,7 +32,7 @@
    "n": 25,
    "mae": 6.21,
    "bias": 3.7,
-   "rmse": 8.03
+   "rmse": 8.04
   },
   "calibration": [
    {
@@ -171,7 +171,7 @@
     "num_polls": 53,
     "call": "D",
     "correct": true,
-    "margin_error": 10.01
+    "margin_error": 10.04
    },
    "market": {
     "polymarket_dem_prob": 0.98,
@@ -183,13 +183,13 @@
     "dem_margin": 10.5,
     "on_board": true,
     "correct": true,
-    "margin_error": 9.18
+    "margin_error": 9.21
    },
    "result": {
     "winner": "Roy Cooper",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 19.68,
+    "margin": 19.71,
     "source": "ap-via-nyt"
    }
   },
