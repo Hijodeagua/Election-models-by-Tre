@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-11T00:28:52+00:00",
+ "generated": "2026-11-11T06:59:39+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -74,7 +74,7 @@
    "flip": false,
    "called_at": "2026-11-04T02:01:00.700309+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 98.07,
+   "eevp": 98.09,
    "source": "ap-via-nyt"
   },
   {
@@ -315,7 +315,7 @@
    "state": "North Carolina",
    "winner": "Roy Cooper",
    "winner_party": "D",
-   "margin": 19.68,
+   "margin": 19.7,
    "pre_election_prob": 0.9566,
    "upset": false,
    "flip": true,
@@ -479,11 +479,11 @@
    "live_prob": 0.7395,
    "live_median_margin": 2.4,
    "status": "reporting",
-   "eevp": 75.88,
+   "eevp": 84.32,
    "leader": "Mary Peltola",
    "leader_party": "D",
-   "leader_margin": 1.15,
-   "count_margin": 1.15
+   "leader_margin": 1.75,
+   "count_margin": 1.75
   },
   {
    "state": "Mississippi",
@@ -495,11 +495,11 @@
    "live_prob": 0.1167,
    "live_median_margin": -4.71,
    "status": "reporting",
-   "eevp": 97.39,
+   "eevp": 97.81,
    "leader": "Scott Colom",
    "leader_party": "D",
-   "leader_margin": 0.28,
-   "count_margin": 0.28
+   "leader_margin": 0.32,
+   "count_margin": 0.32
   }
  ],
  "history": [
