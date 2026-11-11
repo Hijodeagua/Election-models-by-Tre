@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-10T19:55:43+00:00",
+ "generated": "2026-11-11T00:28:52+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -74,20 +74,20 @@
    "flip": false,
    "called_at": "2026-11-04T02:01:00.700309+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 98.05,
+   "eevp": 98.07,
    "source": "ap-via-nyt"
   },
   {
    "state": "Delaware",
    "winner": "Chris Coons",
    "winner_party": "D",
-   "margin": 27.16,
+   "margin": 27.05,
    "pre_election_prob": 0.9899,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:00:39.789097+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 99.0,
+   "eevp": 100.0,
    "source": "ap-via-nyt"
   },
   {
@@ -133,13 +133,13 @@
    "state": "Illinois",
    "winner": "Juliana Stratton",
    "winner_party": "D",
-   "margin": 24.27,
+   "margin": 24.64,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:01:05.343166+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 96.1,
+   "eevp": 96.96,
    "source": "ap-via-nyt"
   },
   {
@@ -159,13 +159,13 @@
    "state": "Kansas",
    "winner": "Adam Hamilton",
    "winner_party": "D",
-   "margin": 5.06,
+   "margin": 5.04,
    "pre_election_prob": 0.6248,
    "upset": false,
    "flip": true,
    "called_at": "2026-11-04T04:25:43.421+00:00",
    "first_seen": "2026-11-04T05:08:26+00:00",
-   "eevp": 98.52,
+   "eevp": 98.53,
    "source": "ap-via-nyt"
   },
   {
@@ -211,7 +211,7 @@
    "state": "Massachusetts",
    "winner": "Edward Markey",
    "winner_party": "D",
-   "margin": 31.25,
+   "margin": 31.27,
    "pre_election_prob": 0.9975,
    "upset": false,
    "flip": false,
@@ -269,7 +269,7 @@
    "flip": false,
    "called_at": "2026-11-04T08:27:49.521501+00:00",
    "first_seen": "2026-11-04T09:08:31+00:00",
-   "eevp": 97.13,
+   "eevp": 97.15,
    "source": "ap-via-nyt"
   },
   {
@@ -289,13 +289,13 @@
    "state": "New Jersey",
    "winner": "Cory Booker",
    "winner_party": "D",
-   "margin": 27.34,
+   "margin": 27.4,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:00:55.717106+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 96.89,
+   "eevp": 97.03,
    "source": "ap-via-nyt"
   },
   {
@@ -315,7 +315,7 @@
    "state": "North Carolina",
    "winner": "Roy Cooper",
    "winner_party": "D",
-   "margin": 19.62,
+   "margin": 19.68,
    "pre_election_prob": 0.9566,
    "upset": false,
    "flip": true,
@@ -367,13 +367,13 @@
    "state": "Rhode Island",
    "winner": "Jack Reed",
    "winner_party": "D",
-   "margin": 37.51,
+   "margin": 37.52,
    "pre_election_prob": 0.9967,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:01:41.345451+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 98.34,
+   "eevp": 98.38,
    "source": "ap-via-nyt"
   },
   {
@@ -432,13 +432,13 @@
    "state": "Virginia",
    "winner": "Mark Warner",
    "winner_party": "D",
-   "margin": 22.93,
+   "margin": 22.99,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T00:00:31.573829+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 98.44,
+   "eevp": 98.99,
    "source": "ap-via-nyt"
   },
   {
@@ -458,13 +458,13 @@
    "state": "Wyoming",
    "winner": "Harriet Hageman",
    "winner_party": "R",
-   "margin": -30.48,
+   "margin": -30.31,
    "pre_election_prob": 0.9895,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T02:00:30.98294+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 96.95,
+   "eevp": 100.0,
    "source": "ap-via-nyt"
   }
  ],
@@ -495,11 +495,11 @@
    "live_prob": 0.1167,
    "live_median_margin": -4.71,
    "status": "reporting",
-   "eevp": 97.37,
+   "eevp": 97.39,
    "leader": "Scott Colom",
    "leader_party": "D",
-   "leader_margin": 0.27,
-   "count_margin": 0.27
+   "leader_margin": 0.28,
+   "count_margin": 0.28
   }
  ],
  "history": [
