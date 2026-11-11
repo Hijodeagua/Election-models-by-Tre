@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-11T15:04:32+00:00",
+ "generated": "2026-11-11T21:58:48+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -139,7 +139,7 @@
    "flip": false,
    "called_at": "2026-11-04T01:01:05.343166+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 96.96,
+   "eevp": 96.79,
    "source": "ap-via-nyt"
   },
   {
@@ -165,7 +165,7 @@
    "flip": true,
    "called_at": "2026-11-04T04:25:43.421+00:00",
    "first_seen": "2026-11-04T05:08:26+00:00",
-   "eevp": 98.53,
+   "eevp": 98.58,
    "source": "ap-via-nyt"
   },
   {
@@ -269,7 +269,7 @@
    "flip": false,
    "called_at": "2026-11-04T08:27:49.521501+00:00",
    "first_seen": "2026-11-04T09:08:31+00:00",
-   "eevp": 97.15,
+   "eevp": 97.51,
    "source": "ap-via-nyt"
   },
   {
@@ -289,13 +289,13 @@
    "state": "New Jersey",
    "winner": "Cory Booker",
    "winner_party": "D",
-   "margin": 27.4,
+   "margin": 27.46,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:00:55.717106+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 97.03,
+   "eevp": 97.54,
    "source": "ap-via-nyt"
   },
   {
@@ -315,7 +315,7 @@
    "state": "North Carolina",
    "winner": "Roy Cooper",
    "winner_party": "D",
-   "margin": 19.71,
+   "margin": 19.7,
    "pre_election_prob": 0.9566,
    "upset": false,
    "flip": true,
@@ -341,13 +341,13 @@
    "state": "Oklahoma",
    "winner": "Kevin Hern",
    "winner_party": "R",
-   "margin": -17.92,
+   "margin": -17.91,
    "pre_election_prob": 0.9893,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T02:36:16.920144+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 99.0,
+   "eevp": 100.0,
    "source": "ap-via-nyt"
   },
   {
@@ -386,7 +386,7 @@
    "flip": true,
    "called_at": "2026-11-04T03:11:15.702+00:00",
    "first_seen": "2026-11-04T04:15:25+00:00",
-   "eevp": 99.0,
+   "eevp": 100.0,
    "source": "ap-via-nyt"
   },
   {
@@ -432,13 +432,13 @@
    "state": "Virginia",
    "winner": "Mark Warner",
    "winner_party": "D",
-   "margin": 22.99,
+   "margin": 22.97,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T00:00:31.573829+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 98.99,
+   "eevp": 99.0,
    "source": "ap-via-nyt"
   },
   {
@@ -495,11 +495,11 @@
    "live_prob": 0.1167,
    "live_median_margin": -4.71,
    "status": "reporting",
-   "eevp": 97.82,
+   "eevp": 98.63,
    "leader": "Scott Colom",
    "leader_party": "D",
-   "leader_margin": 0.32,
-   "count_margin": 0.32
+   "leader_margin": 0.48,
+   "count_margin": 0.48
   }
  ],
  "history": [
