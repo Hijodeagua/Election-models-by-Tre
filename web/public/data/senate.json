@@ -2,7 +2,7 @@
   "races": [
     {
       "state": "Alabama",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Barry Moore": 51.0,
         "Everett Wess": 36.9
@@ -165,7 +165,7 @@
     },
     {
       "state": "Alaska",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Mary Peltola": 49.2,
         "Dan Sullivan": 47.5
@@ -340,7 +340,7 @@
     },
     {
       "state": "Arkansas",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Tom Cotton": 52.5,
         "Hallie Shoffner": 39.6
@@ -503,7 +503,7 @@
     },
     {
       "state": "Colorado",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "John Hickenlooper": 57.3,
         "Mark Baisley": 36.9
@@ -657,7 +657,7 @@
     },
     {
       "state": "Florida",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Ashley Moody": 48.9,
         "Angie Nixon": 43.0
@@ -820,7 +820,7 @@
     },
     {
       "state": "Georgia",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Jon Ossoff": 52.1,
         "Mike Collins": 43.6
@@ -983,7 +983,7 @@
     },
     {
       "state": "Idaho",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Jim Risch": 49.8,
         "Todd Achilles": 35.4
@@ -1146,7 +1146,7 @@
     },
     {
       "state": "Illinois",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Juliana Stratton": 54.3,
         "Don Tracy": 41.8
@@ -1300,7 +1300,7 @@
     },
     {
       "state": "Iowa",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Josh Turek": 47.1,
         "Ashley Hinson": 46.8
@@ -1463,7 +1463,7 @@
     },
     {
       "state": "Kansas",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Adam Hamilton": 49.5,
         "Roger Marshall": 45.8
@@ -1626,7 +1626,7 @@
     },
     {
       "state": "Kentucky",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Andy Barr": 49.0,
         "Charles Booker": 40.0
@@ -1780,7 +1780,7 @@
     },
     {
       "state": "Louisiana",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Jamie Davis": 46.1,
         "Julia Letlow": 46.3
@@ -1934,7 +1934,7 @@
     },
     {
       "state": "Maine",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Troy Jackson": 50.1,
         "Susan Collins": 46.5
@@ -2097,7 +2097,7 @@
     },
     {
       "state": "Massachusetts",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Ed Markey": 55.0,
         "John Deaton": 29.0
@@ -2260,7 +2260,7 @@
     },
     {
       "state": "Michigan",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Abdul El-Sayed": 49.6,
         "Mike Rogers": 45.1
@@ -2291,18 +2291,18 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.0605,
-          "Republican": 0.97
+          "Democrat": 0.039,
+          "Republican": 0.966
         }
       },
       "market_urls": {
         "polymarket": "https://polymarket.com/event/michigan-senate-election-macomb-county-winner"
       },
       "forecast": {
-        "dem_win_prob": 0.5849,
-        "median_margin": 1.05,
-        "margin_p10": -5.7,
-        "margin_p90": 7.8,
+        "dem_win_prob": 0.5787,
+        "median_margin": 0.99,
+        "margin_p10": -5.76,
+        "margin_p90": 7.74,
         "num_simulations": 50000,
         "margin_hist": [
           {
@@ -2311,107 +2311,107 @@
           },
           {
             "mid": -27.0,
-            "pct": 0.00034
+            "pct": 0.00036
           },
           {
             "mid": -25.0,
-            "pct": 0.00056
+            "pct": 0.0006
           },
           {
             "mid": -23.0,
-            "pct": 0.00064
+            "pct": 0.00062
           },
           {
             "mid": -21.0,
-            "pct": 0.0007
+            "pct": 0.00072
           },
           {
             "mid": -19.0,
-            "pct": 0.00162
+            "pct": 0.00166
           },
           {
             "mid": -17.0,
-            "pct": 0.00256
+            "pct": 0.00252
           },
           {
             "mid": -15.0,
-            "pct": 0.00408
+            "pct": 0.00412
           },
           {
             "mid": -13.0,
-            "pct": 0.00756
+            "pct": 0.00772
           },
           {
             "mid": -11.0,
-            "pct": 0.01254
+            "pct": 0.01294
           },
           {
             "mid": -9.0,
-            "pct": 0.0223
+            "pct": 0.02278
           },
           {
             "mid": -7.0,
-            "pct": 0.03842
+            "pct": 0.0389
           },
           {
             "mid": -5.0,
-            "pct": 0.06772
+            "pct": 0.06868
           },
           {
             "mid": -3.0,
-            "pct": 0.10596
+            "pct": 0.1083
           },
           {
             "mid": -1.0,
-            "pct": 0.14956
+            "pct": 0.15086
           },
           {
             "mid": 1.0,
-            "pct": 0.16402
+            "pct": 0.16324
           },
           {
             "mid": 3.0,
-            "pct": 0.14592
+            "pct": 0.14504
           },
           {
             "mid": 5.0,
-            "pct": 0.10926
+            "pct": 0.1074
           },
           {
             "mid": 7.0,
-            "pct": 0.07062
+            "pct": 0.06958
           },
           {
             "mid": 9.0,
-            "pct": 0.03924
+            "pct": 0.03868
           },
           {
             "mid": 11.0,
-            "pct": 0.02408
+            "pct": 0.02358
           },
           {
             "mid": 13.0,
-            "pct": 0.01284
+            "pct": 0.01256
           },
           {
             "mid": 15.0,
-            "pct": 0.0071
+            "pct": 0.00702
           },
           {
             "mid": 17.0,
-            "pct": 0.00448
+            "pct": 0.00432
           },
           {
             "mid": 19.0,
-            "pct": 0.00298
+            "pct": 0.00296
           },
           {
             "mid": 21.0,
-            "pct": 0.00146
+            "pct": 0.00142
           },
           {
             "mid": 23.0,
-            "pct": 0.0009
+            "pct": 0.00088
           },
           {
             "mid": 25.0,
@@ -2430,7 +2430,7 @@
     },
     {
       "state": "Minnesota",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Peggy Flanagan": 48.9,
         "Michele Tafoya": 43.6
@@ -2593,7 +2593,7 @@
     },
     {
       "state": "Mississippi",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Cindy Hyde-Smith": 43.0,
         "Scott Colom": 39.9
@@ -2615,18 +2615,18 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.988,
-          "Republican": 0.0095
+          "Democrat": 0.9905,
+          "Republican": 0.01
         }
       },
       "market_urls": {
         "polymarket": "https://polymarket.com/event/mississippi-senate-election-winner"
       },
       "forecast": {
-        "dem_win_prob": 0.2124,
-        "median_margin": -3.95,
+        "dem_win_prob": 0.2127,
+        "median_margin": -3.94,
         "margin_p10": -10.71,
-        "margin_p90": 2.76,
+        "margin_p90": 2.77,
         "num_simulations": 50000,
         "margin_hist": [
           {
@@ -2651,55 +2651,55 @@
           },
           {
             "mid": -19.0,
-            "pct": 0.00552
+            "pct": 0.0055
           },
           {
             "mid": -17.0,
-            "pct": 0.009
+            "pct": 0.00898
           },
           {
             "mid": -15.0,
-            "pct": 0.01702
+            "pct": 0.01698
           },
           {
             "mid": -13.0,
-            "pct": 0.02898
+            "pct": 0.02892
           },
           {
             "mid": -11.0,
-            "pct": 0.05342
+            "pct": 0.05344
           },
           {
             "mid": -9.0,
-            "pct": 0.08782
+            "pct": 0.08754
           },
           {
             "mid": -7.0,
-            "pct": 0.12758
+            "pct": 0.12772
           },
           {
             "mid": -5.0,
-            "pct": 0.15786
+            "pct": 0.15756
           },
           {
             "mid": -3.0,
-            "pct": 0.16284
+            "pct": 0.16282
           },
           {
             "mid": -1.0,
-            "pct": 0.12932
+            "pct": 0.12956
           },
           {
             "mid": 1.0,
-            "pct": 0.0879
+            "pct": 0.08808
           },
           {
             "mid": 3.0,
-            "pct": 0.05434
+            "pct": 0.05438
           },
           {
             "mid": 5.0,
-            "pct": 0.031
+            "pct": 0.03106
           },
           {
             "mid": 7.0,
@@ -2707,11 +2707,11 @@
           },
           {
             "mid": 9.0,
-            "pct": 0.0084
+            "pct": 0.00844
           },
           {
             "mid": 11.0,
-            "pct": 0.00558
+            "pct": 0.0056
           },
           {
             "mid": 13.0,
@@ -2719,11 +2719,11 @@
           },
           {
             "mid": 15.0,
-            "pct": 0.002
+            "pct": 0.00198
           },
           {
             "mid": 17.0,
-            "pct": 0.00126
+            "pct": 0.00128
           },
           {
             "mid": 19.0,
@@ -2754,7 +2754,7 @@
     },
     {
       "state": "Montana",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Seth Bodnar": 31.6,
         "Kurt Alme": 40.8
@@ -2917,7 +2917,7 @@
     },
     {
       "state": "Nebraska",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Pete Ricketts": 47.8,
         "Dan Osborn": 45.8
@@ -3080,7 +3080,7 @@
     },
     {
       "state": "New Hampshire",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Chris Pappas": 50.5,
         "John E. Sununu": 42.9
@@ -3243,7 +3243,7 @@
     },
     {
       "state": "New Mexico",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Ben Ray Luj\u00e1n": 54.9,
         "Larry Marker": 36.9
@@ -3397,7 +3397,7 @@
     },
     {
       "state": "North Carolina",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Roy Cooper": 52.7,
         "Michael Whatley": 42.3
@@ -3560,7 +3560,7 @@
     },
     {
       "state": "Ohio",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Jon Husted": 45.5,
         "Sherrod Brown": 48.1
@@ -3723,7 +3723,7 @@
     },
     {
       "state": "Oklahoma",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Kevin Hern": 49.0,
         "N'Kiyla Jasmine Thomas": 25.0
@@ -3877,7 +3877,7 @@
     },
     {
       "state": "Rhode Island",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Jack Reed": 59.3,
         "Raymond McKay": 30.7
@@ -4040,7 +4040,7 @@
     },
     {
       "state": "South Carolina",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Annie Andrews": 45.6,
         "Darline Graham": 46.4
@@ -4203,7 +4203,7 @@
     },
     {
       "state": "South Dakota",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Mike Rounds": 50.8,
         "Brian Bengs": 40.1
@@ -4366,7 +4366,7 @@
     },
     {
       "state": "Tennessee",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Bill Hagerty": 56.8,
         "Marquita Bradshaw": 36.8
@@ -4520,7 +4520,7 @@
     },
     {
       "state": "Texas",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "James Talarico": 49.1,
         "Ken Paxton": 46.1
@@ -4683,7 +4683,7 @@
     },
     {
       "state": "Virginia",
-      "as_of": "2026-11-10",
+      "as_of": "2026-11-11",
       "candidates": {
         "Mark Warner": 51.3,
         "Bert Mizusawa": 32.5
