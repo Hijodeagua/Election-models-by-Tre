@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-11T19:40:38+00:00",
+ "generated": "2026-11-12T07:20:17+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -9,37 +9,37 @@
  },
  "status": "partial",
  "num_races": 35,
- "num_called": 33,
+ "num_called": 34,
  "picks_made": 17,
  "model": {
-  "n": 33,
-  "accuracy": 0.939,
-  "brier": 0.0445,
-  "log_loss": 0.1561,
+  "n": 34,
+  "accuracy": 0.912,
+  "brier": 0.0669,
+  "log_loss": 0.2185,
   "margins": {
-   "n": 30,
+   "n": 31,
    "mae": 7.56,
-   "bias": 4.31,
-   "rmse": 9.19
+   "bias": 4.41,
+   "rmse": 9.14
   },
   "polls_only": {
-   "n": 23,
-   "accuracy": 0.913,
-   "brier": 0.0672,
-   "log_loss": 0.2261
+   "n": 24,
+   "accuracy": 0.875,
+   "brier": 0.0992,
+   "log_loss": 0.3189
   },
   "poll_average_margins": {
-   "n": 25,
-   "mae": 6.21,
-   "bias": 3.7,
-   "rmse": 8.04
+   "n": 26,
+   "mae": 6.12,
+   "bias": 3.71,
+   "rmse": 7.93
   },
   "calibration": [
    {
     "bin": "0-20%",
-    "n": 12,
-    "predicted": 0.036,
-    "actual": 0.0
+    "n": 13,
+    "predicted": 0.041,
+    "actual": 0.077
    },
    {
     "bin": "20-40%",
@@ -68,28 +68,28 @@
   ]
  },
  "picks": {
-  "n": 15,
-  "accuracy": 0.867,
-  "brier": 0.1333,
-  "log_loss": 1.2281,
+  "n": 16,
+  "accuracy": 0.812,
+  "brier": 0.1875,
+  "log_loss": 1.727,
   "margins": {
-   "n": 14,
-   "mae": 6.53,
-   "bias": 2.69,
-   "rmse": 8.97
+   "n": 15,
+   "mae": 6.36,
+   "bias": 2.77,
+   "rmse": 8.73
   }
  },
  "market": {
-  "n": 23,
-  "accuracy": 0.957,
-  "brier": 0.0563,
-  "log_loss": 0.2014
+  "n": 24,
+  "accuracy": 0.917,
+  "brier": 0.0866,
+  "log_loss": 0.2832
  },
  "chamber": {
   "predicted_dem_control_prob": 0.705,
   "predicted_mean_dem_seats": 51.72,
-  "dem_seats_so_far": 54,
-  "races_outstanding": 2,
+  "dem_seats_so_far": 55,
+  "races_outstanding": 1,
   "final": false,
   "dem_control_actual": null
  },
@@ -171,7 +171,7 @@
     "num_polls": 53,
     "call": "D",
     "correct": true,
-    "margin_error": 10.04
+    "margin_error": 10.03
    },
    "market": {
     "polymarket_dem_prob": 0.98,
@@ -183,13 +183,13 @@
     "dem_margin": 10.5,
     "on_board": true,
     "correct": true,
-    "margin_error": 9.21
+    "margin_error": 9.2
    },
    "result": {
     "winner": "Roy Cooper",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 19.71,
+    "margin": 19.7,
     "source": "ap-via-nyt"
    }
   },
@@ -576,7 +576,7 @@
     "num_polls": 4,
     "call": "D",
     "correct": true,
-    "margin_error": 9.13
+    "margin_error": 9.41
    },
    "market": {
     "polymarket_dem_prob": 0.9865,
@@ -592,7 +592,7 @@
     "winner": "Juliana Stratton",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 24.64,
+    "margin": 24.92,
     "source": "ap-via-nyt"
    }
   },
@@ -758,25 +758,36 @@
   },
   {
    "state": "Mississippi",
-   "called": false,
+   "called": true,
    "model": {
     "dem_win_prob": 0.1026,
     "dem_win_prob_polls": 0.0859,
     "median_margin": -6.62,
     "poll_margin": -3.1,
     "num_polls": 4,
-    "call": "R"
+    "call": "R",
+    "correct": false,
+    "margin_error": 7.1
    },
    "market": {
-    "polymarket_dem_prob": 0.115
+    "polymarket_dem_prob": 0.115,
+    "correct": false
    },
    "pick": {
     "party": "R",
     "margin": 3.5,
     "dem_margin": -3.5,
-    "on_board": true
+    "on_board": true,
+    "correct": false,
+    "margin_error": 3.98
    },
-   "result": null
+   "result": {
+    "winner": "Scott Colom",
+    "winner_party": "D",
+    "dem_won": true,
+    "margin": 0.48,
+    "source": "ap-via-nyt"
+   }
   },
   {
    "state": "Montana",
@@ -853,7 +864,7 @@
     "num_polls": 0,
     "call": "D",
     "correct": true,
-    "margin_error": 11.97
+    "margin_error": 12.03
    },
    "market": {
     "polymarket_dem_prob": null
@@ -868,7 +879,7 @@
     "winner": "Cory Booker",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 27.4,
+    "margin": 27.46,
     "source": "ap-via-nyt"
    }
   },
@@ -914,7 +925,7 @@
     "num_polls": 1,
     "call": "R",
     "correct": true,
-    "margin_error": -2.53
+    "margin_error": -2.52
    },
    "market": {
     "polymarket_dem_prob": null
@@ -929,7 +940,7 @@
     "winner": "Kevin Hern",
     "winner_party": "R",
     "dem_won": false,
-    "margin": -17.92,
+    "margin": -17.91,
     "source": "ap-via-nyt"
    }
   },
@@ -1098,7 +1109,7 @@
     "num_polls": 2,
     "call": "D",
     "correct": true,
-    "margin_error": 7.58
+    "margin_error": 7.56
    },
    "market": {
     "polymarket_dem_prob": null
@@ -1113,7 +1124,7 @@
     "winner": "Mark Warner",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 22.99,
+    "margin": 22.97,
     "source": "ap-via-nyt"
    }
   },
