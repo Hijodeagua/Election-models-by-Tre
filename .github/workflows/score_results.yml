@@ -46,7 +46,7 @@ jobs:
 
       - name: Install dependencies
         if: steps.window.outputs.run == 'true'
-        run: pip install httpx lxml pandas numpy pydantic pydantic-settings python-dotenv
+        run: pip install httpx lxml pandas numpy scipy pydantic pydantic-settings python-dotenv
 
       - name: Fetch called results
         if: steps.window.outputs.run == 'true'
