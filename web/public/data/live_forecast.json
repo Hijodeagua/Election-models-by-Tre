@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-12T02:49:49+00:00",
+ "generated": "2026-11-12T10:44:19+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -491,11 +491,11 @@
    "live_prob": 0.5435,
    "live_median_margin": 0.53,
    "status": "reporting",
-   "eevp": 84.32,
+   "eevp": 86.2,
    "leader": "Mary Peltola",
    "leader_party": "D",
-   "leader_margin": 1.75,
-   "count_margin": 1.75
+   "leader_margin": 1.6,
+   "count_margin": 1.6
   }
  ],
  "history": [
