@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-12T10:44:19+00:00",
+ "generated": "2026-11-12T18:38:04+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -132,13 +132,13 @@
    "state": "Illinois",
    "winner": "Juliana Stratton",
    "winner_party": "D",
-   "margin": 24.92,
+   "margin": 25.12,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:01:05.343166+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 97.24,
+   "eevp": 97.7,
    "source": "ap-via-nyt"
   },
   {
@@ -164,7 +164,7 @@
    "flip": true,
    "called_at": "2026-11-04T04:25:43.421+00:00",
    "first_seen": "2026-11-04T05:08:26+00:00",
-   "eevp": 98.58,
+   "eevp": 98.52,
    "source": "ap-via-nyt"
   },
   {
@@ -249,13 +249,13 @@
    "state": "Mississippi",
    "winner": "Scott Colom",
    "winner_party": "D",
-   "margin": 0.48,
+   "margin": 0.58,
    "pre_election_prob": 0.1026,
    "upset": true,
    "flip": true,
    "called_at": "2026-11-11T22:59:11.867589+00:00",
    "first_seen": "2026-11-12T02:49:49+00:00",
-   "eevp": 98.73,
+   "eevp": 98.96,
    "source": "ap-via-nyt"
   },
   {
@@ -281,7 +281,7 @@
    "flip": false,
    "called_at": "2026-11-04T08:27:49.521501+00:00",
    "first_seen": "2026-11-04T09:08:31+00:00",
-   "eevp": 97.51,
+   "eevp": 97.62,
    "source": "ap-via-nyt"
   },
   {
