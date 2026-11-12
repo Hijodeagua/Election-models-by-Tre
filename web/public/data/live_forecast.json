@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-11T21:58:48+00:00",
+ "generated": "2026-11-12T02:49:49+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -7,13 +7,13 @@
   "mode": "git"
  },
  "num_races": 35,
- "num_called": 33,
+ "num_called": 34,
  "new_calls": [],
  "retracted": [],
  "results_source": "ap-via-nyt",
- "reporting": 2,
+ "reporting": 1,
  "seats_so_far": {
-  "D": 54,
+  "D": 55,
   "R": 44,
   "I": 0
  },
@@ -25,17 +25,16 @@
  },
  "live": {
   "dem_control_prob": 1.0,
-  "mean_dem_seats": 54.86,
-  "median_dem_seats": 55.0,
+  "mean_dem_seats": 55.54,
+  "median_dem_seats": 56.0,
   "mean_ind_seats": 0.0,
   "seat_distribution": {
-   "54": 859,
-   "55": 2427,
-   "56": 338
+   "55": 91298,
+   "56": 108702
   },
   "num_simulations": 200000,
-  "kept_simulations": 3624,
-  "condition_mode": "resample"
+  "kept_simulations": 423,
+  "condition_mode": "forced"
  },
  "called": [
   {
@@ -133,13 +132,13 @@
    "state": "Illinois",
    "winner": "Juliana Stratton",
    "winner_party": "D",
-   "margin": 24.64,
+   "margin": 24.92,
    "pre_election_prob": 0.9902,
    "upset": false,
    "flip": false,
    "called_at": "2026-11-04T01:01:05.343166+00:00",
    "first_seen": "2026-11-04T01:49:50+00:00",
-   "eevp": 96.79,
+   "eevp": 97.24,
    "source": "ap-via-nyt"
   },
   {
@@ -244,6 +243,19 @@
    "called_at": "2026-11-04T05:07:29.58275+00:00",
    "first_seen": "2026-11-04T05:08:26+00:00",
    "eevp": 98.85,
+   "source": "ap-via-nyt"
+  },
+  {
+   "state": "Mississippi",
+   "winner": "Scott Colom",
+   "winner_party": "D",
+   "margin": 0.48,
+   "pre_election_prob": 0.1026,
+   "upset": true,
+   "flip": true,
+   "called_at": "2026-11-11T22:59:11.867589+00:00",
+   "first_seen": "2026-11-12T02:49:49+00:00",
+   "eevp": 98.73,
    "source": "ap-via-nyt"
   },
   {
@@ -476,30 +488,14 @@
    "challenger_party": "D",
    "held_by": "R",
    "pre_election_prob": 0.5436,
-   "live_prob": 0.7395,
-   "live_median_margin": 2.4,
+   "live_prob": 0.5435,
+   "live_median_margin": 0.53,
    "status": "reporting",
    "eevp": 84.32,
    "leader": "Mary Peltola",
    "leader_party": "D",
    "leader_margin": 1.75,
    "count_margin": 1.75
-  },
-  {
-   "state": "Mississippi",
-   "dem_candidate": "Scott Colom",
-   "rep_candidate": "Cindy Hyde-Smith",
-   "challenger_party": "D",
-   "held_by": "R",
-   "pre_election_prob": 0.1026,
-   "live_prob": 0.1167,
-   "live_median_margin": -4.71,
-   "status": "reporting",
-   "eevp": 98.63,
-   "leader": "Scott Colom",
-   "leader_party": "D",
-   "leader_margin": 0.48,
-   "count_margin": 0.48
   }
  ],
  "history": [
@@ -556,6 +552,12 @@
    "dem_control_prob": 1.0,
    "mean_dem_seats": 54.86,
    "num_called": 33
+  },
+  {
+   "at": "2026-11-12T02:49:49+00:00",
+   "dem_control_prob": 1.0,
+   "mean_dem_seats": 55.54,
+   "num_called": 34
   }
  ]
 }
