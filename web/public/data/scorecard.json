@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-13T06:53:23+00:00",
+ "generated": "2026-11-13T19:49:08+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -18,7 +18,7 @@
   "log_loss": 0.2185,
   "margins": {
    "n": 31,
-   "mae": 7.58,
+   "mae": 7.59,
    "bias": 4.44,
    "rmse": 9.17
   },
@@ -767,7 +767,7 @@
     "num_polls": 4,
     "call": "R",
     "correct": false,
-    "margin_error": 7.23
+    "margin_error": 7.3
    },
    "market": {
     "polymarket_dem_prob": 0.115,
@@ -779,13 +779,13 @@
     "dem_margin": -3.5,
     "on_board": true,
     "correct": false,
-    "margin_error": 4.11
+    "margin_error": 4.18
    },
    "result": {
     "winner": "Scott Colom",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 0.61,
+    "margin": 0.68,
     "source": "ap-via-nyt"
    }
   },
