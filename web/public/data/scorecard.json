@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-13T19:49:08+00:00",
+ "generated": "2026-11-14T06:35:45+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -18,9 +18,9 @@
   "log_loss": 0.2185,
   "margins": {
    "n": 31,
-   "mae": 7.59,
-   "bias": 4.44,
-   "rmse": 9.17
+   "mae": 7.6,
+   "bias": 4.45,
+   "rmse": 9.18
   },
   "polls_only": {
    "n": 24,
@@ -30,9 +30,9 @@
   },
   "poll_average_margins": {
    "n": 26,
-   "mae": 6.15,
-   "bias": 3.74,
-   "rmse": 7.96
+   "mae": 6.16,
+   "bias": 3.75,
+   "rmse": 7.97
   },
   "calibration": [
    {
@@ -74,9 +74,9 @@
   "log_loss": 1.727,
   "margins": {
    "n": 15,
-   "mae": 6.37,
-   "bias": 2.78,
-   "rmse": 8.73
+   "mae": 6.38,
+   "bias": 2.79,
+   "rmse": 8.74
   }
  },
  "market": {
@@ -270,7 +270,7 @@
     "num_polls": 56,
     "call": "D",
     "correct": true,
-    "margin_error": 3.17
+    "margin_error": 3.16
    },
    "market": {
     "polymarket_dem_prob": 0.725,
@@ -282,13 +282,13 @@
     "dem_margin": 3.5,
     "on_board": true,
     "correct": true,
-    "margin_error": 1.35
+    "margin_error": 1.34
    },
    "result": {
     "winner": "Sherrod Brown",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 4.85,
+    "margin": 4.84,
     "source": "ap-via-nyt"
    }
   },
@@ -336,7 +336,7 @@
     "num_polls": 42,
     "call": "R",
     "correct": false,
-    "margin_error": 4.88
+    "margin_error": 4.9
    },
    "market": {
     "polymarket_dem_prob": 0.515,
@@ -348,13 +348,13 @@
     "dem_margin": -2.5,
     "on_board": true,
     "correct": false,
-    "margin_error": 6.69
+    "margin_error": 6.71
    },
    "result": {
     "winner": "Josh Turek",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 4.19,
+    "margin": 4.21,
     "source": "ap-via-nyt"
    }
   },
@@ -453,7 +453,7 @@
     "num_polls": 3,
     "call": "D",
     "correct": true,
-    "margin_error": 10.01
+    "margin_error": 10.11
    },
    "market": {
     "polymarket_dem_prob": null
@@ -468,7 +468,7 @@
     "winner": "John Hickenlooper",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 25.42,
+    "margin": 25.52,
     "source": "ap-via-nyt"
    }
   },
@@ -576,7 +576,7 @@
     "num_polls": 4,
     "call": "D",
     "correct": true,
-    "margin_error": 9.81
+    "margin_error": 9.9
    },
    "market": {
     "polymarket_dem_prob": 0.9865,
@@ -592,7 +592,7 @@
     "winner": "Juliana Stratton",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 25.32,
+    "margin": 25.41,
     "source": "ap-via-nyt"
    }
   },
@@ -767,7 +767,7 @@
     "num_polls": 4,
     "call": "R",
     "correct": false,
-    "margin_error": 7.3
+    "margin_error": 7.4
    },
    "market": {
     "polymarket_dem_prob": 0.115,
@@ -779,13 +779,13 @@
     "dem_margin": -3.5,
     "on_board": true,
     "correct": false,
-    "margin_error": 4.18
+    "margin_error": 4.28
    },
    "result": {
     "winner": "Scott Colom",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 0.68,
+    "margin": 0.78,
     "source": "ap-via-nyt"
    }
   },
@@ -864,7 +864,7 @@
     "num_polls": 0,
     "call": "D",
     "correct": true,
-    "margin_error": 12.14
+    "margin_error": 12.21
    },
    "market": {
     "polymarket_dem_prob": null
@@ -879,7 +879,7 @@
     "winner": "Cory Booker",
     "winner_party": "D",
     "dem_won": true,
-    "margin": 27.57,
+    "margin": 27.64,
     "source": "ap-via-nyt"
    }
   },
