@@ -1,6 +1,6 @@
 {
  "cycle": 2026,
- "fetched_at": "2026-11-14T07:37:23+00:00",
+ "fetched_at": "2026-11-14T14:32:33+00:00",
  "source": "ap-via-nyt",
  "num_results": 34,
  "results": {
@@ -285,7 +285,7 @@
    "dem_pct": 49.12,
    "rep_pct": 50.88,
    "margin": -1.76,
-   "total_votes": 1466246,
+   "total_votes": 1466997,
    "source": "ap-via-nyt",
    "note": "called by ap at 2026-11-04T05:31:52.721742+00:00",
    "called_at": "2026-11-04T05:31:52.721742+00:00",
@@ -1067,7 +1067,7 @@
    "eevp": 99.0,
    "precincts_reporting": 3722,
    "precincts_total": 3722,
-   "total_votes": 1466246,
+   "total_votes": 1466997,
    "leader": "Julia Letlow",
    "leader_party": "R",
    "leader_margin": 1.76,
@@ -1076,7 +1076,7 @@
    "dem_pct": 49.12,
    "rep_pct": 50.88,
    "margin": -1.76,
-   "updated_at": "2026-11-11T17:23:26.978Z",
+   "updated_at": "2026-11-14T11:02:37.723Z",
    "rating": "solid-rep",
    "source": "ap-via-nyt"
   },
