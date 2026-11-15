@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-11-14",
+  "as_of": "2026-11-15",
   "num_simulations": 50000,
-  "dem_control_prob": 0.6525,
+  "dem_control_prob": 0.6526,
   "mean_dem_seats": 51.42,
   "median_dem_seats": 52.0,
   "seat_distribution": {
@@ -16,12 +16,12 @@
     "46": 976,
     "47": 1871,
     "48": 3067,
-    "49": 4411,
+    "49": 4407,
     "50": 6095,
-    "51": 7290,
-    "52": 7649,
-    "53": 6839,
-    "54": 5176,
+    "51": 7293,
+    "52": 7642,
+    "53": 6846,
+    "54": 5177,
     "55": 3120,
     "56": 1492,
     "57": 609,
@@ -68,12 +68,12 @@
       "margin": 4.665,
       "num_polls": 72,
       "dem_win_prob_polls": 0.756,
-      "dem_win_prob_blended": 0.5855,
+      "dem_win_prob_blended": 0.5858,
       "market_dem_prob": {
-        "polymarket": 0.074
+        "polymarket": 0.075
       },
-      "dem_win_prob_sim": 0.5837,
-      "median_margin": 1.04,
+      "dem_win_prob_sim": 0.5841,
+      "median_margin": 1.05,
       "margin_p10": -5.71,
       "margin_p90": 7.79,
       "challenger_party": "D",
@@ -1287,7 +1287,7 @@
   "label": "Where the race stands today \u2014 current polling averages blended with prediction-market odds. A work in progress from Policy y Peaches.",
   "fundamentals_weight_recent": 0.75,
   "fundamentals_blend_k": 3.0,
-  "dem_control_prob_with_vibes": 0.6525,
+  "dem_control_prob_with_vibes": 0.6526,
   "mean_dem_seats_with_vibes": 51.42,
   "national_environment": {
     "national_swing": 11.368,
