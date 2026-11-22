@@ -1494,18 +1494,18 @@
       },
       "market_odds": {
         "polymarket": {
-          "Democrat": 0.375,
-          "Republican": 0.57
+          "Democrat": 0.355,
+          "Republican": 0.575
         }
       },
       "market_urls": {
         "polymarket": "https://polymarket.com/event/kansas-senate-election-leavenworth-county-winner"
       },
       "forecast": {
-        "dem_win_prob": 0.5647,
-        "median_margin": 0.81,
-        "margin_p10": -5.96,
-        "margin_p90": 7.54,
+        "dem_win_prob": 0.5596,
+        "median_margin": 0.75,
+        "margin_p10": -6.02,
+        "margin_p90": 7.48,
         "num_simulations": 50000,
         "margin_hist": [
           {
@@ -1514,23 +1514,23 @@
           },
           {
             "mid": -27.0,
-            "pct": 0.00032
+            "pct": 0.00034
           },
           {
             "mid": -25.0,
-            "pct": 0.00052
+            "pct": 0.0005
           },
           {
             "mid": -23.0,
-            "pct": 0.00062
+            "pct": 0.00064
           },
           {
             "mid": -21.0,
-            "pct": 0.0009
+            "pct": 0.00092
           },
           {
             "mid": -19.0,
-            "pct": 0.00162
+            "pct": 0.0017
           },
           {
             "mid": -17.0,
@@ -1538,87 +1538,87 @@
           },
           {
             "mid": -15.0,
-            "pct": 0.00396
+            "pct": 0.00402
           },
           {
             "mid": -13.0,
-            "pct": 0.00728
+            "pct": 0.00748
           },
           {
             "mid": -11.0,
-            "pct": 0.0131
+            "pct": 0.01324
           },
           {
             "mid": -9.0,
-            "pct": 0.0249
+            "pct": 0.0252
           },
           {
             "mid": -7.0,
-            "pct": 0.04266
+            "pct": 0.04358
           },
           {
             "mid": -5.0,
-            "pct": 0.07188
+            "pct": 0.07306
           },
           {
             "mid": -3.0,
-            "pct": 0.11322
+            "pct": 0.11426
           },
           {
             "mid": -1.0,
-            "pct": 0.15118
+            "pct": 0.15224
           },
           {
             "mid": 1.0,
-            "pct": 0.16452
+            "pct": 0.16416
           },
           {
             "mid": 3.0,
-            "pct": 0.14286
+            "pct": 0.14168
           },
           {
             "mid": 5.0,
-            "pct": 0.10464
+            "pct": 0.10354
           },
           {
             "mid": 7.0,
-            "pct": 0.06402
+            "pct": 0.06314
           },
           {
             "mid": 9.0,
-            "pct": 0.0375
+            "pct": 0.03686
           },
           {
             "mid": 11.0,
-            "pct": 0.02118
+            "pct": 0.02072
           },
           {
             "mid": 13.0,
-            "pct": 0.0125
+            "pct": 0.01228
           },
           {
             "mid": 15.0,
-            "pct": 0.00686
+            "pct": 0.00688
           },
           {
             "mid": 17.0,
-            "pct": 0.00396
+            "pct": 0.0038
           },
           {
             "mid": 19.0,
-            "pct": 0.00244
+            "pct": 0.00246
           },
           {
             "mid": 21.0,
-            "pct": 0.0012
+            "pct": 0.00118
           },
           {
             "mid": 23.0,
-            "pct": 0.00092
+            "pct": 0.0009
           },
           {
             "mid": 25.0,
-            "pct": 0.0006
+            "pct": 0.00058
           },
           {
             "mid": 27.0,
