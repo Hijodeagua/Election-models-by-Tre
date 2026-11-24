@@ -15,6 +15,7 @@ A Python-based election modeling and forecasting system that ingests polling dat
 - **Model comparison** — our approval average side-by-side with raw VoteHub averages and 50+1 (when available)
 - **Web tracker** — deployable Next.js front end (`web/`) that reads static JSON exported from the Python pipeline
 - **Scorecard** — after polls close, `scripts/fetch_results.py` pulls called results from the Wikipedia race articles and `scripts/score_forecast.py` scores the frozen pre-election forecast, picks and Polymarket against them (calls right, Brier, margin error, chamber call) into `/scorecard`; runs every six hours via `score_results.yml`
+- **Grades** — once results are in, the Senate Forecast, Senate and Generic Ballot pages switch to the frozen pre-election numbers graded against the results, and `scripts/grade_forecast.py` adds letter grades to `scorecard.json`: a report card for our simulation, every forecaster on the races it covered (markets, DDHQ, Cook, Sabato, Inside Elections, Tre's picks), and every pollster's final-three-weeks polls. The national House result used for the generic-ballot grade is hand-entered in `data/results/house_2026.json`
 - **Tre's Picks map** — `/predictions` on the web tracker: a US map of hand-made Senate calls (`web/content/predictions.json`), each state with a win-margin distribution and vitals (presidential lean, recent Senate results, fundamentals prior, BLS unemployment when reachable) exported by `scripts/export_state_features.py`
 - **Streamlit dashboard** — local exploration UI (skeleton)
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import type { SenateRaceSnapshot } from '@/app/lib/data';
+import type { ScorecardRace, SenateRaceSnapshot } from '@/app/lib/data';
 import SenateRaceChart from '@/app/components/SenateRaceChart';
 import { fmtMargin, fmtProb } from '@/app/lib/format';
 
@@ -11,7 +11,7 @@ const MARKET_LABELS: Record<string, string> = {
 };
 
 // "Our forecast has X winning over Y in N% of simulations, median margin Z."
-function ForecastSummary({ race }: { race: SenateRaceSnapshot }) {
+function ForecastSummary({ race, past = false }: { race: SenateRaceSnapshot; past?: boolean }) {
   const fc = race.forecast;
   if (!fc || fc.dem_win_prob == null) return null;
   const demProb = fc.dem_win_prob;
@@ -25,7 +25,7 @@ function ForecastSummary({ race }: { race: SenateRaceSnapshot }) {
     med == null || Math.abs(med) < 0.05 ? 'text-ink' : med > 0 ? 'text-dem' : 'text-rep';
   return (
     <p className="mt-2 text-sm text-cocoa-700">
-      Our forecast has{' '}
+      Our {past ? 'final forecast had' : 'forecast has'}{' '}
       <strong className={winnerSide === 'D' ? 'text-dem' : 'text-rep'}>{winner}</strong>{' '}
       winning over <strong>{loser}</strong> in{' '}
       <strong>{fmtProb(demWins ? demProb : 1 - demProb)}</strong> of simulations, with a
@@ -40,9 +40,85 @@ function ForecastSummary({ race }: { race: SenateRaceSnapshot }) {
   );
 }
 
+function partyClass(party: string | null | undefined): string {
+  return party === 'D' ? 'text-dem' : party === 'R' ? 'text-rep' : 'text-stamp';
+}
+
+// "D +10.1": how far, and toward whom, the result landed from a forecast.
+function missText(err: number): string {
+  const r = Number(err.toFixed(1));
+  if (r === 0) return 'on the nose';
+  return `${Math.abs(r).toFixed(1)} pts too ${r > 0 ? 'Republican' : 'Democratic'}`;
+}
+
+// Post-election strip: the result, and how the forecast and the polling
+// average each did against it.
+function ResultStrip({ scored }: { scored: ScorecardRace }) {
+  const res = scored.result;
+  if (!res) return null;
+  const ind = scored.race?.challenger_party === 'I';
+  const m = (v: number | null | undefined) => {
+    const t = fmtMargin(v);
+    return ind ? t.replace(/^D/, 'I') : t;
+  };
+  const ok = scored.model.correct;
+  const pollErr =
+    res.margin != null && scored.model.poll_margin != null
+      ? res.margin - scored.model.poll_margin
+      : null;
+  return (
+    <div
+      className={`mt-3 rounded-lg border px-3 py-2.5 text-sm ${
+        ok === false ? 'border-rep-border bg-rep-wash' : 'border-[#cfe2c6] bg-stamp-wash'
+      }`}
+    >
+      <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+        <div className="text-cocoa-700">
+          <span className="text-[11px] font-bold uppercase tracking-wide text-cocoa-400">
+            Result{' '}
+          </span>
+          <strong className={partyClass(res.winner_party)}>{res.winner ?? res.winner_party}</strong>{' '}
+          won{res.margin != null && <> by <strong>{m(res.margin).replace(/^[DRI]\+/, '')}</strong></>}
+          {res.flipped && <span className="ml-1.5 text-[11px] font-semibold text-peach">flip</span>}
+        </div>
+        {ok != null && (
+          <div className={`text-xs font-bold ${ok ? 'text-stamp' : 'text-rep'}`}>
+            {ok ? '✓ called it' : '✗ missed it'}
+          </div>
+        )}
+      </div>
+      <div className="mt-1 text-xs leading-relaxed text-cocoa-500">
+        {scored.model.margin_error != null && (
+          <>
+            Forecast {m(scored.model.median_margin)}:{' '}
+            <strong className="text-cocoa-700">{missText(scored.model.margin_error)}</strong>
+            {scored.model.in_80_band != null && (
+              <> ({scored.model.in_80_band ? 'inside' : 'outside'} the 80% range)</>
+            )}
+            .{' '}
+          </>
+        )}
+        {pollErr != null && (
+          <>
+            Polling average {m(scored.model.poll_margin)}:{' '}
+            <strong className="text-cocoa-700">{missText(pollErr)}</strong>.
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // One competitive race: candidate averages, a base-model vs vibes-adjusted
-// margin toggle, and prediction-market odds chips for comparison.
-export default function SenateRaceCard({ race }: { race: SenateRaceSnapshot }) {
+// margin toggle, and prediction-market odds chips for comparison. After the
+// election, pass the scorecard row as `scored` to set it against the result.
+export default function SenateRaceCard({
+  race,
+  scored,
+}: {
+  race: SenateRaceSnapshot;
+  scored?: ScorecardRace;
+}) {
   const [showVibes, setShowVibes] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const ranked = Object.entries(race.candidates).sort((a, b) => b[1] - a[1]);
@@ -63,7 +139,7 @@ export default function SenateRaceCard({ race }: { race: SenateRaceSnapshot }) {
         aria-expanded={expanded}
         className="flex w-full items-start justify-between gap-2 rounded-lg text-left transition-colors hover:bg-cream-50"
       >
-        <div>
+        <div className="min-w-0">
           <h3 className="flex items-center gap-1.5 font-display text-lg text-ink">
             {race.state}
             <svg
@@ -79,7 +155,7 @@ export default function SenateRaceCard({ race }: { race: SenateRaceSnapshot }) {
           </h3>
           <p className="mt-1 text-sm text-cocoa-700">
             {ranked.slice(0, 3).map(([name, pct]) => (
-              <span key={name} className="mr-3 whitespace-nowrap">
+              <span key={name} className="mr-3 inline-block">
                 {name}: <strong>{pct.toFixed(1)}%</strong>
               </span>
             ))}
@@ -88,7 +164,7 @@ export default function SenateRaceCard({ race }: { race: SenateRaceSnapshot }) {
             {expanded ? 'Hide chart' : 'Click to chart this race'}
           </span>
         </div>
-        <div className="text-right">
+        <div className="shrink-0 text-right">
           {winProb != null ? (
             <>
               <div
@@ -122,7 +198,9 @@ export default function SenateRaceCard({ race }: { race: SenateRaceSnapshot }) {
         </div>
       </button>
 
-      <ForecastSummary race={race} />
+      {scored?.result && <ResultStrip scored={scored} />}
+
+      <ForecastSummary race={race} past={Boolean(scored?.result)} />
 
       {expanded && (
         <div className="mt-3 border-t border-cream-100 pt-3">

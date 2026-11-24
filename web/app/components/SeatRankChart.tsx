@@ -39,11 +39,17 @@ export default function SeatRankChart({
   races,
   demHoldovers,
   threshold,
+  outcomes,
 }: {
   races: RaceForecast[];
   demHoldovers: number;
   threshold: number;
+  // Post-election: who won each seat and whether the forecast had it right.
+  // When present the chart marks the misses instead of teasing the outcome.
+  outcomes?: Record<string, { winnerParty: string | null; correct: boolean | null }>;
 }) {
+  const graded = outcomes != null && Object.keys(outcomes).length > 0;
+  const missed = graded ? races.filter((r) => outcomes![r.state]?.correct === false).length : 0;
   const ranked = races
     .map((r) => ({
       state: r.state,
@@ -105,8 +111,17 @@ export default function SeatRankChart({
   return (
     <div>
       <p className="mb-2 text-xs text-cocoa-500">
-        The {ranked.length} races, ranked from most to least Democratic. With {demHoldovers}{' '}
-        Democratic seats not up, Democrats need the {needed} most Democratic for {threshold}.
+        The {ranked.length} races, ranked from most to least Democratic{graded ? ' as forecast' : ''}.
+        With {demHoldovers} Democratic seats not up, Democrats {graded ? 'needed' : 'need'} the{' '}
+        {needed} most Democratic for {threshold}.
+        {graded && (
+          <>
+            {' '}
+            <strong className="text-cocoa-700">
+              {missed === 0 ? 'Every seat went the way it was shaded.' : `${missed} seat${missed === 1 ? '' : 's'} went the other way (marked ✗).`}
+            </strong>
+          </>
+        )}
       </p>
       <div className="overflow-x-auto">
         <svg
@@ -178,7 +193,28 @@ export default function SeatRankChart({
                 >
                   {s.abbr}
                 </text>
-                <title>{`${s.state}: ${Math.round(s.p * 100)}% ${s.challenger}${flip ? ' (flip)' : ''}`}</title>
+                {outcomes?.[s.state]?.correct === false && (
+                  <g>
+                    <circle cx={x + tile - 5} cy={y + 5} r={8.5} fill="#ffffff" stroke="#2c1810" strokeWidth="1.5" />
+                    <text
+                      x={x + tile - 5}
+                      y={y + 5.5}
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      fontSize="11"
+                      fontWeight="700"
+                      fill="#c1533d"
+                    >
+                      ✗
+                    </text>
+                  </g>
+                )}
+                <title>
+                  {`${s.state}: ${Math.round(s.p * 100)}% ${s.challenger}${flip ? ' (flip)' : ''}` +
+                    (outcomes?.[s.state]
+                      ? ` — ${outcomes[s.state].winnerParty ?? '?'} won${outcomes[s.state].correct === false ? ' (missed)' : ''}`
+                      : '')}
+                </title>
               </g>
             );
           })}
@@ -223,7 +259,8 @@ export default function SeatRankChart({
       <p className="mt-2 text-xs text-cocoa-400">
         Each box is a seat, shaded by the party our simulation favors and how strongly; green
         marks a seat where an independent challenger is favored. A heavy outline marks a seat the
-        model expects to change hands. Hover a box for its probability.
+        model {graded ? 'expected' : 'expects'} to change hands.
+        {graded ? ' Hover a box for its probability and who won.' : ' Hover a box for its probability.'}
       </p>
     </div>
   );

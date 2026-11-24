@@ -3,7 +3,19 @@ import LastUpdated from '@/app/components/LastUpdated';
 import SeatDistributionChart from '@/app/components/SeatDistributionChart';
 import SeatRankChart from '@/app/components/SeatRankChart';
 import { EmptyState, PageHead, Panel, StatCard } from '@/app/components/ui';
-import { getSenateForecast, type NationalEnvironment } from '@/app/lib/data';
+import {
+  getFinalSenateForecast,
+  getGradedScorecard,
+  getSenateForecast,
+  type NationalEnvironment,
+} from '@/app/lib/data';
+import GradedForecast from './GradedForecast';
+
+export const metadata = {
+  title: 'Senate Forecast | Election Oracle',
+  description:
+    'The final pre-election Senate forecast, graded race by race against the 2026 results.',
+};
 
 const MARKET_LABELS: Record<string, string> = {
   polymarket: 'Polymarket',
@@ -11,6 +23,11 @@ const MARKET_LABELS: Record<string, string> = {
 };
 
 export default function SenateForecastPage() {
+  // Once results exist, the page is the frozen forecast graded against them.
+  const card = getGradedScorecard();
+  const frozen = card ? getFinalSenateForecast() : null;
+  if (card && frozen) return <GradedForecast card={card} forecast={frozen} />;
+
   const forecast = getSenateForecast();
 
   if (!forecast) {

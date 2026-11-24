@@ -1,6 +1,12 @@
 import Link from 'next/link';
 import LastUpdated from '@/app/components/LastUpdated';
 import LiveForecastPanel from '@/app/components/LiveForecastPanel';
+import {
+  ForecasterGradesPanel,
+  GradingRubric,
+  PollsterGradesPanel,
+  ReportCardPanel,
+} from '@/app/components/Grades';
 import { EmptyState, PageHead, Panel, StatCard } from '@/app/components/ui';
 import { getLiveForecast, getScorecard, type ScoreMargin, type ScoreProb, type ScorecardRace } from '@/app/lib/data';
 import { fmtMargin, fmtProb } from '@/app/lib/format';
@@ -84,6 +90,31 @@ export default function ScorecardPage() {
         />
       </div>
 
+      {card.report_card && <ReportCardPanel card={card.report_card} className="mt-4" />}
+
+      {card.forecasters && card.forecasters.length > 0 && (
+        <div id="grades" className="scroll-mt-28">
+          <ForecasterGradesPanel
+            forecasters={card.forecasters}
+            numRaces={card.num_races}
+            className="mt-4"
+          />
+        </div>
+      )}
+
+      {card.pollster_grades && (
+        <PollsterGradesPanel
+          grades={card.pollster_grades}
+          limit={10}
+          className="mt-4"
+          moreHref={
+            <Link href="/pollsters" className="text-peach underline">
+              See every pollster&rsquo;s grade
+            </Link>
+          }
+        />
+      )}
+
       <Panel title="Head to head" className="mt-4">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -150,6 +181,7 @@ export default function ScorecardPage() {
         </table>
       </div>
 
+      {card.report_card && <GradingRubric card={card.report_card} />}
       <WhatIsScored picksMade={card.picks_made} numRaces={card.num_races} />
       <LastUpdated />
     </div>
@@ -279,9 +311,10 @@ function WhatIsScored({ picksMade, numRaces }: { picksMade: number; numRaces: nu
           {picksMade === 0 ? 'picks have to be committed before then to count' : `the ${picksMade} picks on file at that moment are the ones scored`}.
         </li>
         <li>
-          <strong>The results.</strong> Pulled from each race&rsquo;s Wikipedia article once a
-          results table with real vote counts appears, with a hand-correction file for anything the
-          scraper gets wrong. Only called races are scored, so early numbers move.
+          <strong>The results.</strong> Associated Press calls and vote counts, with the Wikipedia
+          race articles as a backup and a hand-correction file for anything either gets wrong. Only
+          called races are scored. Where an independent was the challenger, the margin is the
+          Republican&rsquo;s lead over the runner-up rather than over the Democrat.
         </li>
         <li>
           <strong>The yardsticks.</strong> Calls right, Brier score and log-loss for probabilities;

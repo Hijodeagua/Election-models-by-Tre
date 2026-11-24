@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-24T10:00:24+00:00",
+ "generated": "2026-11-24T19:24:53+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -17,10 +17,10 @@
   "brier": 0.071,
   "log_loss": 0.2296,
   "margins": {
-   "n": 32,
-   "mae": 7.51,
-   "bias": 4.46,
-   "rmse": 9.09
+   "n": 35,
+   "mae": 6.8,
+   "bias": 4.15,
+   "rmse": 7.88
   },
   "polls_only": {
    "n": 25,
@@ -29,10 +29,10 @@
    "log_loss": 0.3354
   },
   "poll_average_margins": {
-   "n": 27,
-   "mae": 6.06,
-   "bias": 3.73,
-   "rmse": 7.86
+   "n": 30,
+   "mae": 5.53,
+   "bias": 3.29,
+   "rmse": 6.49
   },
   "calibration": [
    {
@@ -65,7 +65,13 @@
     "predicted": 0.968,
     "actual": 1.0
    }
-  ]
+  ],
+  "band_coverage": {
+   "n": 35,
+   "inside": 19,
+   "share": 0.543
+  },
+  "poll_average_grade": "B-"
  },
  "picks": {
   "n": 17,
@@ -73,10 +79,10 @@
   "brier": 0.1765,
   "log_loss": 1.6254,
   "margins": {
-   "n": 16,
-   "mae": 6.18,
-   "bias": 2.82,
-   "rmse": 8.5
+   "n": 17,
+   "mae": 4.54,
+   "bias": 3.93,
+   "rmse": 5.13
   }
  },
  "market": {
@@ -91,21 +97,46 @@
   "dem_seats_so_far": 56,
   "races_outstanding": 0,
   "final": true,
-  "dem_control_actual": true
+  "dem_control_actual": true,
+  "seat_percentile": {
+   "share_at_or_above": 0.0576,
+   "share_exact": 0.0336,
+   "percentile": 0.9592
+  }
  },
  "races": [
   {
    "state": "Georgia",
    "called": true,
+   "race": {
+    "dem_candidate": "Jon Ossoff",
+    "rep_candidate": "Mike Collins",
+    "challenger_party": "D",
+    "held_by": "D",
+    "open_seat": false,
+    "treatment": null
+   },
+   "others": {
+    "polymarket": 0.968,
+    "kalshi": null,
+    "ddhq": null,
+    "cook": null,
+    "sabato": null,
+    "inside_elections": null,
+    "ratings": {}
+   },
    "model": {
     "dem_win_prob": 0.9291,
     "dem_win_prob_polls": 0.9166,
     "median_margin": 7.97,
+    "margin_p10": 1.21,
+    "margin_p90": 14.73,
     "poll_margin": 8.5,
     "num_polls": 24,
     "call": "D",
     "correct": true,
-    "margin_error": 10.09
+    "margin_error": 10.09,
+    "in_80_band": false
    },
    "market": {
     "polymarket_dem_prob": 0.968,
@@ -124,21 +155,45 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 18.06,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 59.03,
+    "rep_pct": 40.97,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Michigan",
    "called": true,
+   "race": {
+    "dem_candidate": "Abdul El-Sayed",
+    "rep_candidate": "Mike Rogers",
+    "challenger_party": "D",
+    "held_by": "D",
+    "open_seat": true,
+    "treatment": null
+   },
+   "others": {
+    "polymarket": 0.785,
+    "kalshi": null,
+    "ddhq": null,
+    "cook": null,
+    "sabato": null,
+    "inside_elections": null,
+    "ratings": {}
+   },
    "model": {
     "dem_win_prob": 0.7758,
     "dem_win_prob_polls": 0.7733,
     "median_margin": 3.77,
+    "margin_p10": -2.98,
+    "margin_p90": 10.52,
     "poll_margin": 4.7,
     "num_polls": 70,
     "call": "D",
     "correct": true,
-    "margin_error": 3.31
+    "margin_error": 3.31,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": 0.785,
@@ -157,21 +212,45 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 7.08,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 52.54,
+    "rep_pct": 45.46,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "North Carolina",
    "called": true,
+   "race": {
+    "dem_candidate": "Roy Cooper",
+    "rep_candidate": "Michael Whatley",
+    "challenger_party": "D",
+    "held_by": "R",
+    "open_seat": true,
+    "treatment": null
+   },
+   "others": {
+    "polymarket": 0.98,
+    "kalshi": null,
+    "ddhq": null,
+    "cook": null,
+    "sabato": null,
+    "inside_elections": null,
+    "ratings": {}
+   },
    "model": {
     "dem_win_prob": 0.9566,
     "dem_win_prob_polls": 0.9477,
     "median_margin": 9.67,
+    "margin_p10": 3.0,
+    "margin_p90": 16.46,
     "poll_margin": 10.4,
     "num_polls": 53,
     "call": "D",
     "correct": true,
-    "margin_error": 10.03
+    "margin_error": 10.03,
+    "in_80_band": false
    },
    "market": {
     "polymarket_dem_prob": 0.98,
@@ -190,21 +269,45 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 19.7,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 58.75,
+    "rep_pct": 39.05,
+    "flipped": true,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Maine",
    "called": true,
+   "race": {
+    "dem_candidate": "Troy Jackson",
+    "rep_candidate": "Susan Collins",
+    "challenger_party": "D",
+    "held_by": "R",
+    "open_seat": false,
+    "treatment": null
+   },
+   "others": {
+    "polymarket": 0.695,
+    "kalshi": null,
+    "ddhq": null,
+    "cook": null,
+    "sabato": null,
+    "inside_elections": null,
+    "ratings": {}
+   },
    "model": {
     "dem_win_prob": 0.7435,
     "dem_win_prob_polls": 0.7572,
     "median_margin": 3.24,
+    "margin_p10": -3.51,
+    "margin_p90": 9.9,
     "poll_margin": 3.6,
     "num_polls": 39,
     "call": "D",
     "correct": true,
-    "margin_error": 2.96
+    "margin_error": 2.96,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": 0.695,
@@ -223,21 +326,45 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 6.2,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 53.07,
+    "rep_pct": 46.87,
+    "flipped": true,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "New Hampshire",
    "called": true,
+   "race": {
+    "dem_candidate": "Chris Pappas",
+    "rep_candidate": "John E. Sununu",
+    "challenger_party": "D",
+    "held_by": "D",
+    "open_seat": true,
+    "treatment": null
+   },
+   "others": {
+    "polymarket": 0.955,
+    "kalshi": null,
+    "ddhq": null,
+    "cook": null,
+    "sabato": null,
+    "inside_elections": null,
+    "ratings": {}
+   },
    "model": {
     "dem_win_prob": 0.9178,
     "dem_win_prob_polls": 0.9058,
     "median_margin": 7.48,
+    "margin_p10": 0.69,
+    "margin_p90": 14.34,
     "poll_margin": 7.6,
     "num_polls": 35,
     "call": "D",
     "correct": true,
-    "margin_error": 6.28
+    "margin_error": 6.28,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": 0.955,
@@ -256,21 +383,45 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 13.76,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 55.93,
+    "rep_pct": 42.17,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Ohio",
    "called": true,
+   "race": {
+    "dem_candidate": "Sherrod Brown",
+    "rep_candidate": "Jon Husted",
+    "challenger_party": "D",
+    "held_by": "R",
+    "open_seat": false,
+    "treatment": null
+   },
+   "others": {
+    "polymarket": 0.725,
+    "kalshi": null,
+    "ddhq": null,
+    "cook": null,
+    "sabato": null,
+    "inside_elections": null,
+    "ratings": {}
+   },
    "model": {
     "dem_win_prob": 0.6354,
     "dem_win_prob_polls": 0.604,
     "median_margin": 1.68,
+    "margin_p10": -5.2,
+    "margin_p90": 8.41,
     "poll_margin": 2.6,
     "num_polls": 56,
     "call": "D",
     "correct": true,
-    "margin_error": 3.14
+    "margin_error": 3.14,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": 0.725,
@@ -289,21 +440,45 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 4.82,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 50.0,
+    "rep_pct": 45.18,
+    "flipped": true,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Texas",
    "called": true,
+   "race": {
+    "dem_candidate": "James Talarico",
+    "rep_candidate": "Ken Paxton",
+    "challenger_party": "D",
+    "held_by": "R",
+    "open_seat": true,
+    "treatment": null
+   },
+   "others": {
+    "polymarket": 0.725,
+    "kalshi": null,
+    "ddhq": null,
+    "cook": null,
+    "sabato": null,
+    "inside_elections": null,
+    "ratings": {}
+   },
    "model": {
     "dem_win_prob": 0.6568,
     "dem_win_prob_polls": 0.6331,
     "median_margin": 1.94,
+    "margin_p10": -4.78,
+    "margin_p90": 8.76,
     "poll_margin": 3.0,
     "num_polls": 84,
     "call": "D",
     "correct": true,
-    "margin_error": 10.16
+    "margin_error": 10.16,
+    "in_80_band": false
    },
    "market": {
     "polymarket_dem_prob": 0.725,
@@ -322,21 +497,45 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 12.1,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 55.09,
+    "rep_pct": 42.99,
+    "flipped": true,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Iowa",
    "called": true,
+   "race": {
+    "dem_candidate": "Josh Turek",
+    "rep_candidate": "Ashley Hinson",
+    "challenger_party": "D",
+    "held_by": "R",
+    "open_seat": true,
+    "treatment": null
+   },
+   "others": {
+    "polymarket": 0.515,
+    "kalshi": null,
+    "ddhq": null,
+    "cook": null,
+    "sabato": null,
+    "inside_elections": null,
+    "ratings": {}
+   },
    "model": {
     "dem_win_prob": 0.443,
     "dem_win_prob_polls": 0.4175,
     "median_margin": -0.69,
+    "margin_p10": -7.47,
+    "margin_p90": 6.06,
     "poll_margin": 0.3,
     "num_polls": 42,
     "call": "R",
     "correct": false,
-    "margin_error": 4.9
+    "margin_error": 4.9,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": 0.515,
@@ -355,21 +554,49 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 4.21,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 50.56,
+    "rep_pct": 46.35,
+    "flipped": true,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Alaska",
    "called": true,
+   "race": {
+    "dem_candidate": "Mary Peltola",
+    "rep_candidate": "Dan Sullivan",
+    "challenger_party": "D",
+    "held_by": "R",
+    "open_seat": false,
+    "treatment": "POLLED"
+   },
+   "others": {
+    "polymarket": 0.74,
+    "kalshi": 0.72,
+    "ddhq": 0.605,
+    "cook": 0.5,
+    "sabato": 0.75,
+    "inside_elections": 0.5,
+    "ratings": {
+     "cook": "Toss Up (10/30)",
+     "sabato": "Leans D (10/6, reaffirmed 10/27)",
+     "inside_elections": "Toss-up (IE page)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.5436,
     "dem_win_prob_polls": 0.4814,
     "median_margin": 0.53,
+    "margin_p10": -6.15,
+    "margin_p90": 7.24,
     "poll_margin": 1.7,
     "num_polls": 9,
     "call": "D",
     "correct": true,
-    "margin_error": 3.79
+    "margin_error": 3.79,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": 0.74,
@@ -388,21 +615,49 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 4.32,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 50.12,
+    "rep_pct": 45.8,
+    "flipped": true,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Alabama",
    "called": true,
+   "race": {
+    "dem_candidate": "Everett Wess",
+    "rep_candidate": "Barry Moore",
+    "challenger_party": "D",
+    "held_by": "R",
+    "open_seat": true,
+    "treatment": "POLLED"
+   },
+   "others": {
+    "polymarket": 0.0205,
+    "kalshi": 0.031,
+    "ddhq": 0.05,
+    "cook": 0.02,
+    "sabato": 0.02,
+    "inside_elections": 0.02,
+    "ratings": {
+     "cook": "Solid R (10/30)",
+     "sabato": "Safe R (via Wikipedia)",
+     "inside_elections": "Solid R (IE page)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.011,
     "dem_win_prob_polls": 0.0072,
     "median_margin": -15.2,
+    "margin_p10": -21.95,
+    "margin_p90": -8.43,
     "poll_margin": -14.1,
     "num_polls": 5,
     "call": "R",
     "correct": true,
-    "margin_error": 5.78
+    "margin_error": 5.78,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": 0.0205,
@@ -419,21 +674,49 @@
     "winner_party": "R",
     "dem_won": false,
     "margin": -9.42,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 45.29,
+    "rep_pct": 54.71,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Arkansas",
    "called": true,
+   "race": {
+    "dem_candidate": "Hallie Shoffner",
+    "rep_candidate": "Tom Cotton",
+    "challenger_party": "D",
+    "held_by": "R",
+    "open_seat": false,
+    "treatment": "POLLED"
+   },
+   "others": {
+    "polymarket": 0.0365,
+    "kalshi": 0.05,
+    "ddhq": 0.04,
+    "cook": 0.02,
+    "sabato": 0.02,
+    "inside_elections": 0.02,
+    "ratings": {
+     "cook": "Solid R (10/30)",
+     "sabato": "Safe R (via 270toWin Oct 27)",
+     "inside_elections": "Solid R (IE page)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.0161,
     "dem_win_prob_polls": 0.009,
     "median_margin": -13.5,
+    "margin_p10": -20.19,
+    "margin_p90": -6.7,
     "poll_margin": -12.9,
     "num_polls": 7,
     "call": "R",
     "correct": true,
-    "margin_error": 1.65
+    "margin_error": 1.65,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": 0.0365,
@@ -450,21 +733,49 @@
     "winner_party": "R",
     "dem_won": false,
     "margin": -11.85,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 42.41,
+    "rep_pct": 54.26,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Colorado",
    "called": true,
+   "race": {
+    "dem_candidate": "John Hickenlooper",
+    "rep_candidate": "Mark Baisley",
+    "challenger_party": "D",
+    "held_by": "D",
+    "open_seat": false,
+    "treatment": "CONSENSUS_SAFE"
+   },
+   "others": {
+    "polymarket": 0.996,
+    "kalshi": 0.989,
+    "ddhq": 0.97,
+    "cook": 0.98,
+    "sabato": 0.98,
+    "inside_elections": 0.98,
+    "ratings": {
+     "cook": "Solid D (10/30)",
+     "sabato": "Safe D (3/4, stale)",
+     "inside_elections": "Solid D (IE page)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.9894,
     "dem_win_prob_polls": null,
     "median_margin": 15.41,
+    "margin_p10": 8.67,
+    "margin_p90": 22.23,
     "poll_margin": 20.0,
     "num_polls": 3,
     "call": "D",
     "correct": true,
-    "margin_error": 10.11
+    "margin_error": 10.11,
+    "in_80_band": false
    },
    "market": {
     "polymarket_dem_prob": null
@@ -480,21 +791,49 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 25.52,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 60.5,
+    "rep_pct": 34.98,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Delaware",
    "called": true,
+   "race": {
+    "dem_candidate": "Chris Coons",
+    "rep_candidate": "Michael Katz",
+    "challenger_party": "D",
+    "held_by": "D",
+    "open_seat": false,
+    "treatment": "CONSENSUS_SAFE"
+   },
+   "others": {
+    "polymarket": 0.988,
+    "kalshi": 0.99,
+    "ddhq": 0.99,
+    "cook": 0.98,
+    "sabato": 0.98,
+    "inside_elections": 0.98,
+    "ratings": {
+     "cook": "Solid D (10/30)",
+     "sabato": "Safe D (10/29, via Wikipedia)",
+     "inside_elections": "Solid D (10/29, via Wikipedia)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.9899,
     "dem_win_prob_polls": null,
     "median_margin": 15.39,
+    "margin_p10": 8.55,
+    "margin_p90": 22.12,
     "poll_margin": null,
     "num_polls": 0,
     "call": "D",
     "correct": true,
-    "margin_error": 11.66
+    "margin_error": 11.66,
+    "in_80_band": false
    },
    "market": {
     "polymarket_dem_prob": null
@@ -510,21 +849,49 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 27.05,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 63.35,
+    "rep_pct": 36.3,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Florida",
    "called": true,
+   "race": {
+    "dem_candidate": "Angie Nixon",
+    "rep_candidate": "Ashley Moody",
+    "challenger_party": "D",
+    "held_by": "R",
+    "open_seat": false,
+    "treatment": "POLLED"
+   },
+   "others": {
+    "polymarket": 0.105,
+    "kalshi": 0.12,
+    "ddhq": 0.245,
+    "cook": 0.1,
+    "sabato": 0.1,
+    "inside_elections": 0.1,
+    "ratings": {
+     "cook": "Likely R (10/30, from Solid R)",
+     "sabato": "Likely R (10/27, from Safe R)",
+     "inside_elections": "Likely R (IE page)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.1237,
     "dem_win_prob_polls": 0.1291,
     "median_margin": -5.99,
+    "margin_p10": -12.81,
+    "margin_p90": 0.77,
     "poll_margin": -5.9,
     "num_polls": 12,
     "call": "R",
     "correct": true,
-    "margin_error": 3.13
+    "margin_error": 3.13,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": 0.105,
@@ -543,20 +910,49 @@
     "winner_party": "R",
     "dem_won": false,
     "margin": -2.86,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 48.0,
+    "rep_pct": 50.86,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Idaho",
    "called": true,
+   "race": {
+    "dem_candidate": "Todd Achilles",
+    "rep_candidate": "Jim Risch",
+    "challenger_party": "I",
+    "held_by": "R",
+    "open_seat": false,
+    "treatment": "POLLED_PARTISAN_ONLY"
+   },
+   "others": {
+    "polymarket": 0.0295,
+    "kalshi": 0.05,
+    "ddhq": 0.02,
+    "cook": 0.02,
+    "sabato": 0.02,
+    "inside_elections": 0.02,
+    "ratings": {
+     "cook": "Solid R (10/30)",
+     "sabato": "Safe R (via Wikipedia)",
+     "inside_elections": "Solid R (IE page)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.0267,
     "dem_win_prob_polls": 0.0127,
     "median_margin": -11.55,
+    "margin_p10": -18.21,
+    "margin_p90": -4.86,
     "poll_margin": -9.2,
     "num_polls": 8,
     "call": "R",
-    "correct": true
+    "correct": true,
+    "margin_error": -11.38,
+    "in_80_band": false
    },
    "market": {
     "polymarket_dem_prob": 0.0295,
@@ -572,22 +968,50 @@
     "winner": "Jim Risch",
     "winner_party": "R",
     "dem_won": false,
-    "margin": null,
+    "margin": -22.93,
+    "margin_basis": "challenger_minus_rep",
+    "dem_pct": null,
+    "rep_pct": 56.5,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Illinois",
    "called": true,
+   "race": {
+    "dem_candidate": "Juliana Stratton",
+    "rep_candidate": "Don Tracy",
+    "challenger_party": "D",
+    "held_by": "D",
+    "open_seat": true,
+    "treatment": "POLLED"
+   },
+   "others": {
+    "polymarket": 0.9865,
+    "kalshi": 0.976,
+    "ddhq": 0.96,
+    "cook": 0.98,
+    "sabato": 0.98,
+    "inside_elections": 0.98,
+    "ratings": {
+     "cook": "Solid D (10/30)",
+     "sabato": "Safe D (via Wikipedia)",
+     "inside_elections": "Solid D (IE page)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.9902,
     "dem_win_prob_polls": 0.9916,
     "median_margin": 15.51,
+    "margin_p10": 8.75,
+    "margin_p90": 22.26,
     "poll_margin": 12.5,
     "num_polls": 4,
     "call": "D",
     "correct": true,
-    "margin_error": 10.22
+    "margin_error": 10.22,
+    "in_80_band": false
    },
    "market": {
     "polymarket_dem_prob": 0.9865,
@@ -604,21 +1028,45 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 25.73,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 62.07,
+    "rep_pct": 36.34,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Kansas",
    "called": true,
+   "race": {
+    "dem_candidate": "Adam Hamilton",
+    "rep_candidate": "Roger Marshall",
+    "challenger_party": "D",
+    "held_by": "R",
+    "open_seat": false,
+    "treatment": null
+   },
+   "others": {
+    "polymarket": 0.615,
+    "kalshi": null,
+    "ddhq": null,
+    "cook": null,
+    "sabato": null,
+    "inside_elections": null,
+    "ratings": {}
+   },
    "model": {
     "dem_win_prob": 0.6248,
     "dem_win_prob_polls": 0.6284,
     "median_margin": 1.56,
+    "margin_p10": -5.21,
+    "margin_p90": 8.29,
     "poll_margin": 3.7,
     "num_polls": 25,
     "call": "D",
     "correct": true,
-    "margin_error": 3.83
+    "margin_error": 3.83,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": 0.615,
@@ -637,21 +1085,49 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 5.39,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 51.18,
+    "rep_pct": 45.79,
+    "flipped": true,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Kentucky",
    "called": true,
+   "race": {
+    "dem_candidate": "Charles Booker",
+    "rep_candidate": "Andy Barr",
+    "challenger_party": "D",
+    "held_by": "R",
+    "open_seat": true,
+    "treatment": "CONSENSUS_SAFE"
+   },
+   "others": {
+    "polymarket": 0.018,
+    "kalshi": 0.047,
+    "ddhq": 0.05,
+    "cook": 0.02,
+    "sabato": 0.02,
+    "inside_elections": 0.02,
+    "ratings": {
+     "cook": "Solid R (10/30)",
+     "sabato": "Safe R (9/22)",
+     "inside_elections": "Solid R (IE page)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.0103,
     "dem_win_prob_polls": null,
     "median_margin": -15.42,
+    "margin_p10": -22.14,
+    "margin_p90": -8.62,
     "poll_margin": -9.0,
     "num_polls": 2,
     "call": "R",
     "correct": true,
-    "margin_error": 3.33
+    "margin_error": 3.33,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": null
@@ -667,21 +1143,49 @@
     "winner_party": "R",
     "dem_won": false,
     "margin": -12.09,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 42.91,
+    "rep_pct": 55.0,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Louisiana",
    "called": true,
+   "race": {
+    "dem_candidate": "Jamie Davis",
+    "rep_candidate": "Julia Letlow",
+    "challenger_party": "D",
+    "held_by": "R",
+    "open_seat": true,
+    "treatment": "POLLED_PARTISAN_ONLY"
+   },
+   "others": {
+    "polymarket": 0.135,
+    "kalshi": 0.11,
+    "ddhq": 0.135,
+    "cook": 0.02,
+    "sabato": 0.1,
+    "inside_elections": 0.1,
+    "ratings": {
+     "cook": "Solid R (10/30)",
+     "sabato": "Likely R (10/29, from Safe R)",
+     "inside_elections": "Likely R (10/29, from Solid R)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.1279,
     "dem_win_prob_polls": 0.1388,
     "median_margin": -5.9,
+    "margin_p10": -12.61,
+    "margin_p90": 0.9,
     "poll_margin": -0.2,
     "num_polls": 4,
     "call": "R",
     "correct": true,
-    "margin_error": 4.14
+    "margin_error": 4.14,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": 0.135,
@@ -700,21 +1204,45 @@
     "winner_party": "R",
     "dem_won": false,
     "margin": -1.76,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 49.12,
+    "rep_pct": 50.88,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Massachusetts",
    "called": true,
+   "race": {
+    "dem_candidate": "Ed Markey",
+    "rep_candidate": "John Deaton",
+    "challenger_party": "D",
+    "held_by": "D",
+    "open_seat": false,
+    "treatment": null
+   },
+   "others": {
+    "polymarket": 0.9925,
+    "kalshi": null,
+    "ddhq": null,
+    "cook": null,
+    "sabato": null,
+    "inside_elections": null,
+    "ratings": {}
+   },
    "model": {
     "dem_win_prob": 0.9975,
     "dem_win_prob_polls": 0.999,
     "median_margin": 21.51,
+    "margin_p10": 14.83,
+    "margin_p90": 28.36,
     "poll_margin": 26.0,
     "num_polls": 16,
     "call": "D",
     "correct": true,
-    "margin_error": 9.76
+    "margin_error": 9.76,
+    "in_80_band": false
    },
    "market": {
     "polymarket_dem_prob": 0.9925,
@@ -731,21 +1259,45 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 31.27,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 63.4,
+    "rep_pct": 32.13,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Minnesota",
    "called": true,
+   "race": {
+    "dem_candidate": "Peggy Flanagan",
+    "rep_candidate": "Michele Tafoya",
+    "challenger_party": "D",
+    "held_by": "D",
+    "open_seat": true,
+    "treatment": null
+   },
+   "others": {
+    "polymarket": 0.915,
+    "kalshi": null,
+    "ddhq": null,
+    "cook": null,
+    "sabato": null,
+    "inside_elections": null,
+    "ratings": {}
+   },
    "model": {
     "dem_win_prob": 0.8585,
     "dem_win_prob_polls": 0.8433,
     "median_margin": 5.59,
+    "margin_p10": -1.23,
+    "margin_p90": 12.36,
     "poll_margin": 5.3,
     "num_polls": 28,
     "call": "D",
     "correct": true,
-    "margin_error": 4.56
+    "margin_error": 4.56,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": 0.915,
@@ -764,21 +1316,49 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 10.15,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 53.71,
+    "rep_pct": 43.56,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Mississippi",
    "called": true,
+   "race": {
+    "dem_candidate": "Scott Colom",
+    "rep_candidate": "Cindy Hyde-Smith",
+    "challenger_party": "D",
+    "held_by": "R",
+    "open_seat": false,
+    "treatment": "POLLED_PARTISAN_ONLY"
+   },
+   "others": {
+    "polymarket": 0.115,
+    "kalshi": 0.12,
+    "ddhq": 0.095,
+    "cook": 0.1,
+    "sabato": 0.1,
+    "inside_elections": 0.1,
+    "ratings": {
+     "cook": "Likely R (10/20, from Solid R)",
+     "sabato": "Likely R (10/14, from Safe R)",
+     "inside_elections": "Likely R (10/29, from Solid R)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.1026,
     "dem_win_prob_polls": 0.0859,
     "median_margin": -6.62,
+    "margin_p10": -13.39,
+    "margin_p90": 0.09,
     "poll_margin": -3.1,
     "num_polls": 4,
     "call": "R",
     "correct": false,
-    "margin_error": 7.44
+    "margin_error": 7.44,
+    "in_80_band": false
    },
    "market": {
     "polymarket_dem_prob": 0.115,
@@ -797,21 +1377,45 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 0.82,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 49.36,
+    "rep_pct": 48.54,
+    "flipped": true,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Montana",
    "called": true,
+   "race": {
+    "dem_candidate": "Seth Bodnar",
+    "rep_candidate": "Kurt Alme",
+    "challenger_party": "I",
+    "held_by": "R",
+    "open_seat": true,
+    "treatment": null
+   },
+   "others": {
+    "polymarket": 0.0705,
+    "kalshi": null,
+    "ddhq": null,
+    "cook": null,
+    "sabato": null,
+    "inside_elections": null,
+    "ratings": {}
+   },
    "model": {
     "dem_win_prob": 0.0467,
     "dem_win_prob_polls": 0.0378,
     "median_margin": -9.5,
+    "margin_p10": -16.29,
+    "margin_p90": -2.79,
     "poll_margin": -9.2,
     "num_polls": 18,
     "call": "R",
     "correct": true,
-    "margin_error": -26.4
+    "margin_error": -0.92,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": 0.0705,
@@ -823,27 +1427,52 @@
     "dem_margin": -9,
     "on_board": true,
     "correct": true,
-    "margin_error": -26.9
+    "margin_error": -1.42
    },
    "result": {
     "winner": "Kurt Alme",
     "winner_party": "R",
     "dem_won": false,
-    "margin": -35.9,
+    "margin": -10.42,
+    "margin_basis": "challenger_minus_rep",
+    "dem_pct": 12.26,
+    "rep_pct": 48.16,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Nebraska",
    "called": true,
+   "race": {
+    "dem_candidate": "Dan Osborn",
+    "rep_candidate": "Pete Ricketts",
+    "challenger_party": "I",
+    "held_by": "R",
+    "open_seat": false,
+    "treatment": null
+   },
+   "others": {
+    "polymarket": 0.295,
+    "kalshi": null,
+    "ddhq": null,
+    "cook": null,
+    "sabato": null,
+    "inside_elections": null,
+    "ratings": {}
+   },
    "model": {
     "dem_win_prob": 0.2306,
     "dem_win_prob_polls": 0.2071,
     "median_margin": -3.64,
+    "margin_p10": -10.36,
+    "margin_p90": 3.13,
     "poll_margin": -2.0,
     "num_polls": 22,
     "call": "R",
-    "correct": true
+    "correct": true,
+    "margin_error": -2.06,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": 0.295,
@@ -854,28 +1483,57 @@
     "margin": 2,
     "dem_margin": -2,
     "on_board": true,
-    "correct": true
+    "correct": true,
+    "margin_error": -3.7
    },
    "result": {
     "winner": "Pete Ricketts",
     "winner_party": "R",
     "dem_won": false,
-    "margin": null,
+    "margin": -5.7,
+    "margin_basis": "challenger_minus_rep",
+    "dem_pct": null,
+    "rep_pct": 49.85,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "New Jersey",
    "called": true,
+   "race": {
+    "dem_candidate": "Cory Booker",
+    "rep_candidate": "Justin Murphy",
+    "challenger_party": "D",
+    "held_by": "D",
+    "open_seat": false,
+    "treatment": "CONSENSUS_SAFE"
+   },
+   "others": {
+    "polymarket": 0.991,
+    "kalshi": 0.979,
+    "ddhq": 0.96,
+    "cook": 0.98,
+    "sabato": 0.98,
+    "inside_elections": 0.98,
+    "ratings": {
+     "cook": "Solid D (10/30)",
+     "sabato": "Safe D (Sep, via Wikipedia)",
+     "inside_elections": "Solid D (IE page)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.9902,
     "dem_win_prob_polls": null,
     "median_margin": 15.43,
+    "margin_p10": 8.66,
+    "margin_p90": 22.19,
     "poll_margin": null,
     "num_polls": 0,
     "call": "D",
     "correct": true,
-    "margin_error": 12.48
+    "margin_error": 12.48,
+    "in_80_band": false
    },
    "market": {
     "polymarket_dem_prob": null
@@ -891,21 +1549,49 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 27.91,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 62.64,
+    "rep_pct": 34.73,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "New Mexico",
    "called": true,
+   "race": {
+    "dem_candidate": "Ben Ray Luján",
+    "rep_candidate": "Larry Marker",
+    "challenger_party": "D",
+    "held_by": "D",
+    "open_seat": false,
+    "treatment": "POLLED"
+   },
+   "others": {
+    "polymarket": 0.995,
+    "kalshi": 0.986,
+    "ddhq": 0.96,
+    "cook": 0.98,
+    "sabato": 0.98,
+    "inside_elections": 0.98,
+    "ratings": {
+     "cook": "Solid D (10/30)",
+     "sabato": "Safe D (10/29)",
+     "inside_elections": "Solid D (10/29)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.9936,
     "dem_win_prob_polls": 0.9931,
     "median_margin": 17.33,
+    "margin_p10": 10.55,
+    "margin_p90": 24.08,
     "poll_margin": 18.0,
     "num_polls": 4,
     "call": "D",
     "correct": true,
-    "margin_error": 9.19
+    "margin_error": 9.19,
+    "in_80_band": false
    },
    "market": {
     "polymarket_dem_prob": 0.995,
@@ -922,21 +1608,49 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 26.52,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 63.26,
+    "rep_pct": 36.74,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Oklahoma",
    "called": true,
+   "race": {
+    "dem_candidate": "N'Kiyla Jasmine Thomas",
+    "rep_candidate": "Kevin Hern",
+    "challenger_party": "D",
+    "held_by": "R",
+    "open_seat": true,
+    "treatment": "CONSENSUS_SAFE"
+   },
+   "others": {
+    "polymarket": 0.009,
+    "kalshi": 0.03,
+    "ddhq": 0.01,
+    "cook": 0.02,
+    "sabato": 0.02,
+    "inside_elections": 0.02,
+    "ratings": {
+     "cook": "Solid R (10/30)",
+     "sabato": "Safe R (via PoliAgg)",
+     "inside_elections": "Solid R (last change 4/23)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.0107,
     "dem_win_prob_polls": null,
     "median_margin": -15.39,
+    "margin_p10": -22.12,
+    "margin_p90": -8.59,
     "poll_margin": -24.0,
     "num_polls": 1,
     "call": "R",
     "correct": true,
-    "margin_error": -2.52
+    "margin_error": -2.52,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": null
@@ -952,21 +1666,49 @@
     "winner_party": "R",
     "dem_won": false,
     "margin": -17.91,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 39.29,
+    "rep_pct": 57.2,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Oregon",
    "called": true,
+   "race": {
+    "dem_candidate": "Jeff Merkley",
+    "rep_candidate": "David Brock Smith",
+    "challenger_party": "D",
+    "held_by": "D",
+    "open_seat": false,
+    "treatment": "CONSENSUS_SAFE"
+   },
+   "others": {
+    "polymarket": 0.989,
+    "kalshi": 0.992,
+    "ddhq": 0.99,
+    "cook": 0.98,
+    "sabato": 0.98,
+    "inside_elections": 0.98,
+    "ratings": {
+     "cook": "Solid D (10/30)",
+     "sabato": "Safe D (stale, via 270toWin Oct 27)",
+     "inside_elections": "Solid D (via 270toWin Oct 15)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.9894,
     "dem_win_prob_polls": null,
     "median_margin": 15.38,
+    "margin_p10": 8.66,
+    "margin_p90": 22.14,
     "poll_margin": null,
     "num_polls": 0,
     "call": "D",
     "correct": true,
-    "margin_error": 3.9
+    "margin_error": 3.9,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": null
@@ -982,21 +1724,49 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 19.28,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 58.0,
+    "rep_pct": 38.72,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Rhode Island",
    "called": true,
+   "race": {
+    "dem_candidate": "Jack Reed",
+    "rep_candidate": "Raymond McKay",
+    "challenger_party": "D",
+    "held_by": "D",
+    "open_seat": false,
+    "treatment": "POLLED"
+   },
+   "others": {
+    "polymarket": 0.9895,
+    "kalshi": 0.996,
+    "ddhq": 0.99,
+    "cook": 0.98,
+    "sabato": 0.98,
+    "inside_elections": 0.98,
+    "ratings": {
+     "cook": "Solid D (10/30)",
+     "sabato": "Safe D (via 270toWin Oct 27)",
+     "inside_elections": "Solid D (via 270toWin)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.9967,
     "dem_win_prob_polls": 0.999,
     "median_margin": 20.31,
+    "margin_p10": 13.52,
+    "margin_p90": 27.05,
     "poll_margin": 28.6,
     "num_polls": 11,
     "call": "D",
     "correct": true,
-    "margin_error": 17.21
+    "margin_error": 17.21,
+    "in_80_band": false
    },
    "market": {
     "polymarket_dem_prob": 0.9895,
@@ -1013,21 +1783,49 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 37.52,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 66.78,
+    "rep_pct": 29.26,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "South Carolina",
    "called": true,
+   "race": {
+    "dem_candidate": "Annie Andrews",
+    "rep_candidate": "Darline Graham",
+    "challenger_party": "D",
+    "held_by": "R",
+    "open_seat": false,
+    "treatment": "POLLED"
+   },
+   "others": {
+    "polymarket": 0.305,
+    "kalshi": 0.28,
+    "ddhq": 0.38,
+    "cook": 0.25,
+    "sabato": 0.25,
+    "inside_elections": 0.4,
+    "ratings": {
+     "cook": "Lean R (10/30)",
+     "sabato": "Leans R (10/27, from Likely R)",
+     "inside_elections": "Tilt R (10/29, from Lean R)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.273,
     "dem_win_prob_polls": 0.2641,
     "median_margin": -2.97,
+    "margin_p10": -9.73,
+    "margin_p90": 3.79,
     "poll_margin": -0.8,
     "num_polls": 9,
     "call": "R",
     "correct": false,
-    "margin_error": 7.47
+    "margin_error": 7.47,
+    "in_80_band": false
    },
    "market": {
     "polymarket_dem_prob": 0.305,
@@ -1046,20 +1844,49 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 4.5,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 51.14,
+    "rep_pct": 46.64,
+    "flipped": true,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "South Dakota",
    "called": true,
+   "race": {
+    "dem_candidate": "Brian Bengs",
+    "rep_candidate": "Mike Rounds",
+    "challenger_party": "I",
+    "held_by": "R",
+    "open_seat": false,
+    "treatment": "POLLED"
+   },
+   "others": {
+    "polymarket": 0.0545,
+    "kalshi": 0.06,
+    "ddhq": 0.05,
+    "cook": 0.02,
+    "sabato": 0.02,
+    "inside_elections": 0.02,
+    "ratings": {
+     "cook": "Solid R (10/30)",
+     "sabato": "Safe R (via Wikipedia)",
+     "inside_elections": "Solid R (10/29)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.0281,
     "dem_win_prob_polls": 0.0183,
     "median_margin": -11.42,
+    "margin_p10": -18.19,
+    "margin_p90": -4.65,
     "poll_margin": -10.7,
     "num_polls": 16,
     "call": "R",
-    "correct": true
+    "correct": true,
+    "margin_error": -9.58,
+    "in_80_band": false
    },
    "market": {
     "polymarket_dem_prob": 0.0545,
@@ -1075,22 +1902,50 @@
     "winner": "Mike Rounds",
     "winner_party": "R",
     "dem_won": false,
-    "margin": null,
+    "margin": -21.0,
+    "margin_basis": "challenger_minus_rep",
+    "dem_pct": null,
+    "rep_pct": 60.5,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Tennessee",
    "called": true,
+   "race": {
+    "dem_candidate": "Marquita Bradshaw",
+    "rep_candidate": "Bill Hagerty",
+    "challenger_party": "D",
+    "held_by": "R",
+    "open_seat": false,
+    "treatment": "CONSENSUS_SAFE"
+   },
+   "others": {
+    "polymarket": 0.021,
+    "kalshi": 0.038,
+    "ddhq": 0.03,
+    "cook": 0.02,
+    "sabato": 0.02,
+    "inside_elections": 0.02,
+    "ratings": {
+     "cook": "Solid R (10/30)",
+     "sabato": "Safe R (10/29)",
+     "inside_elections": "Solid R (10/29)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.0096,
     "dem_win_prob_polls": null,
     "median_margin": -15.37,
+    "margin_p10": -22.2,
+    "margin_p90": -8.68,
     "poll_margin": -20.0,
     "num_polls": 2,
     "call": "R",
     "correct": true,
-    "margin_error": 3.2
+    "margin_error": 3.2,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": null
@@ -1106,21 +1961,49 @@
     "winner_party": "R",
     "dem_won": false,
     "margin": -12.17,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 42.91,
+    "rep_pct": 55.08,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Virginia",
    "called": true,
+   "race": {
+    "dem_candidate": "Mark Warner",
+    "rep_candidate": "Bert Mizusawa",
+    "challenger_party": "D",
+    "held_by": "D",
+    "open_seat": false,
+    "treatment": "CONSENSUS_SAFE"
+   },
+   "others": {
+    "polymarket": 0.99,
+    "kalshi": 0.99,
+    "ddhq": 0.96,
+    "cook": 0.98,
+    "sabato": 0.98,
+    "inside_elections": 0.98,
+    "ratings": {
+     "cook": "Solid D (10/30)",
+     "sabato": "Safe D (via PoliAgg)",
+     "inside_elections": "Solid D (via PoliAgg)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.9902,
     "dem_win_prob_polls": null,
     "median_margin": 15.41,
+    "margin_p10": 8.57,
+    "margin_p90": 22.16,
     "poll_margin": 18.8,
     "num_polls": 2,
     "call": "D",
     "correct": true,
-    "margin_error": 7.8
+    "margin_error": 7.8,
+    "in_80_band": false
    },
    "market": {
     "polymarket_dem_prob": null
@@ -1136,21 +2019,49 @@
     "winner_party": "D",
     "dem_won": true,
     "margin": 23.21,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 61.47,
+    "rep_pct": 38.26,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "West Virginia",
    "called": true,
+   "race": {
+    "dem_candidate": "Rachel Fetty Anderson",
+    "rep_candidate": "Shelley Moore Capito",
+    "challenger_party": "D",
+    "held_by": "R",
+    "open_seat": false,
+    "treatment": "CONSENSUS_SAFE"
+   },
+   "others": {
+    "polymarket": 0.017,
+    "kalshi": 0.011,
+    "ddhq": 0.005,
+    "cook": 0.02,
+    "sabato": 0.02,
+    "inside_elections": 0.02,
+    "ratings": {
+     "cook": "Solid R (10/30)",
+     "sabato": "Safe R (via PoliAgg Oct 14-27)",
+     "inside_elections": "Solid R (via PoliAgg)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.0112,
     "dem_win_prob_polls": null,
     "median_margin": -15.39,
+    "margin_p10": -22.16,
+    "margin_p90": -8.58,
     "poll_margin": null,
     "num_polls": 0,
     "call": "R",
     "correct": true,
-    "margin_error": -4.96
+    "margin_error": -4.96,
+    "in_80_band": true
    },
    "market": {
     "polymarket_dem_prob": null
@@ -1166,21 +2077,49 @@
     "winner_party": "R",
     "dem_won": false,
     "margin": -20.35,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 37.95,
+    "rep_pct": 58.3,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   },
   {
    "state": "Wyoming",
    "called": true,
+   "race": {
+    "dem_candidate": "James W. Byrd",
+    "rep_candidate": "Harriet Hageman",
+    "challenger_party": "D",
+    "held_by": "R",
+    "open_seat": true,
+    "treatment": "CONSENSUS_SAFE"
+   },
+   "others": {
+    "polymarket": 0.008,
+    "kalshi": 0.016,
+    "ddhq": 0.005,
+    "cook": 0.02,
+    "sabato": 0.02,
+    "inside_elections": 0.02,
+    "ratings": {
+     "cook": "Solid R (10/30)",
+     "sabato": "Safe R (via PoliAgg)",
+     "inside_elections": "Solid R (via PoliAgg)"
+    }
+   },
    "model": {
     "dem_win_prob": 0.0105,
     "dem_win_prob_polls": null,
     "median_margin": -15.41,
+    "margin_p10": -22.14,
+    "margin_p90": -8.59,
     "poll_margin": null,
     "num_polls": 0,
     "call": "R",
     "correct": true,
-    "margin_error": -14.9
+    "margin_error": -14.9,
+    "in_80_band": false
    },
    "market": {
     "polymarket_dem_prob": null
@@ -1196,8 +2135,2202 @@
     "winner_party": "R",
     "dem_won": false,
     "margin": -30.31,
+    "margin_basis": "dem_minus_rep",
+    "dem_pct": 34.57,
+    "rep_pct": 64.88,
+    "flipped": false,
     "source": "ap-via-nyt"
    }
   }
- ]
+ ],
+ "report_card": {
+  "overall": "B",
+  "subjects": [
+   {
+    "key": "calls",
+    "label": "Winner calls",
+    "grade": "B+",
+    "value": "32/35",
+    "detail": "races where the side we had above 50% won"
+   },
+   {
+    "key": "probabilities",
+    "label": "Probabilities",
+    "grade": "A-",
+    "value": "0.071",
+    "detail": "Brier score; 0 is perfect, 0.25 is a coin flip"
+   },
+   {
+    "key": "margins",
+    "label": "Margins",
+    "grade": "C+",
+    "value": "6.8 pts",
+    "detail": "average miss on the median margin"
+   },
+   {
+    "key": "chamber",
+    "label": "Chamber call",
+    "grade": "C+",
+    "value": "56 D seats",
+    "detail": "we had D control at 71% and 51.7 seats on average"
+   }
+  ],
+  "rubrics": {
+   "brier": [
+    {
+     "max": 0.05,
+     "grade": "A"
+    },
+    {
+     "max": 0.075,
+     "grade": "A-"
+    },
+    {
+     "max": 0.1,
+     "grade": "B+"
+    },
+    {
+     "max": 0.125,
+     "grade": "B"
+    },
+    {
+     "max": 0.15,
+     "grade": "B-"
+    },
+    {
+     "max": 0.18,
+     "grade": "C+"
+    },
+    {
+     "max": 0.22,
+     "grade": "C"
+    },
+    {
+     "max": 0.25,
+     "grade": "D"
+    }
+   ],
+   "margin_points": [
+    {
+     "max": 2.5,
+     "grade": "A"
+    },
+    {
+     "max": 3.5,
+     "grade": "A-"
+    },
+    {
+     "max": 4.5,
+     "grade": "B+"
+    },
+    {
+     "max": 5.5,
+     "grade": "B"
+    },
+    {
+     "max": 6.5,
+     "grade": "B-"
+    },
+    {
+     "max": 7.5,
+     "grade": "C+"
+    },
+    {
+     "max": 9.0,
+     "grade": "C"
+    },
+    {
+     "max": 11.0,
+     "grade": "D"
+    }
+   ],
+   "calls_missed_share": [
+    {
+     "max": 0.03,
+     "grade": "A"
+    },
+    {
+     "max": 0.06,
+     "grade": "A-"
+    },
+    {
+     "max": 0.09,
+     "grade": "B+"
+    },
+    {
+     "max": 0.12,
+     "grade": "B"
+    },
+    {
+     "max": 0.15,
+     "grade": "B-"
+    },
+    {
+     "max": 0.2,
+     "grade": "C+"
+    },
+    {
+     "max": 0.25,
+     "grade": "C"
+    },
+    {
+     "max": 0.35,
+     "grade": "D"
+    }
+   ],
+   "rating_probabilities": {
+    "solid": 0.98,
+    "likely": 0.9,
+    "lean": 0.75,
+    "tilt": 0.6,
+    "tossup": 0.5
+   }
+  }
+ },
+ "forecasters": [
+  {
+   "key": "polymarket",
+   "label": "Polymarket",
+   "kind": "market",
+   "n": 35,
+   "calls_made": 35,
+   "calls_right": 33,
+   "misses": [
+    "Mississippi",
+    "South Carolina"
+   ],
+   "brier": 0.0614,
+   "log_loss": 0.2062,
+   "model_brier_same_races": 0.071,
+   "margin_n": 0,
+   "margin_mae": null,
+   "margin_bias": null,
+   "grade": "A-",
+   "note": "Price on the Democrat, last look before the polls closed."
+  },
+  {
+   "key": "kalshi",
+   "label": "Kalshi",
+   "kind": "market",
+   "n": 22,
+   "calls_made": 22,
+   "calls_right": 20,
+   "misses": [
+    "Mississippi",
+    "South Carolina"
+   ],
+   "brier": 0.0643,
+   "log_loss": 0.2004,
+   "model_brier_same_races": 0.0717,
+   "margin_n": 0,
+   "margin_mae": null,
+   "margin_bias": null,
+   "grade": "A-",
+   "note": "Price on the Democrat, Nov 1–2 research snapshot."
+  },
+  {
+   "key": "inside_elections",
+   "label": "Inside Elections",
+   "kind": "rater",
+   "n": 22,
+   "calls_made": 21,
+   "calls_right": 19,
+   "misses": [
+    "Mississippi",
+    "South Carolina"
+   ],
+   "brier": 0.0658,
+   "log_loss": 0.203,
+   "model_brier_same_races": 0.0717,
+   "margin_n": 0,
+   "margin_mae": null,
+   "margin_bias": null,
+   "grade": "A-",
+   "note": "Rating read as a probability; toss-ups are not a call."
+  },
+  {
+   "key": "ddhq",
+   "label": "Decision Desk HQ",
+   "kind": "forecaster",
+   "n": 22,
+   "calls_made": 22,
+   "calls_right": 20,
+   "misses": [
+    "Mississippi",
+    "South Carolina"
+   ],
+   "brier": 0.0662,
+   "log_loss": 0.2154,
+   "model_brier_same_races": 0.0717,
+   "margin_n": 0,
+   "margin_mae": null,
+   "margin_bias": null,
+   "grade": "A-",
+   "note": "Published win probability, Nov 1–2 research snapshot."
+  },
+  {
+   "key": "sabato",
+   "label": "Sabato's Crystal Ball",
+   "kind": "rater",
+   "n": 22,
+   "calls_made": 22,
+   "calls_right": 20,
+   "misses": [
+    "Mississippi",
+    "South Carolina"
+   ],
+   "brier": 0.0664,
+   "log_loss": 0.2059,
+   "model_brier_same_races": 0.0717,
+   "margin_n": 0,
+   "margin_mae": null,
+   "margin_bias": null,
+   "grade": "A-",
+   "note": "Rating read as a probability; toss-ups are not a call."
+  },
+  {
+   "key": "model",
+   "label": "Our simulation",
+   "kind": "model",
+   "n": 35,
+   "calls_made": 35,
+   "calls_right": 32,
+   "misses": [
+    "Iowa",
+    "Mississippi",
+    "South Carolina"
+   ],
+   "brier": 0.071,
+   "log_loss": 0.2296,
+   "model_brier_same_races": 0.071,
+   "margin_n": 35,
+   "margin_mae": 6.8,
+   "margin_bias": 4.15,
+   "grade": "A-",
+   "note": "Polls, fundamentals and a 25% market blend, 50,000 simulations."
+  },
+  {
+   "key": "cook",
+   "label": "Cook Political Report",
+   "kind": "rater",
+   "n": 22,
+   "calls_made": 21,
+   "calls_right": 19,
+   "misses": [
+    "Mississippi",
+    "South Carolina"
+   ],
+   "brier": 0.0745,
+   "log_loss": 0.2205,
+   "model_brier_same_races": 0.0717,
+   "margin_n": 0,
+   "margin_mae": null,
+   "margin_bias": null,
+   "grade": "A-",
+   "note": "Rating read as a probability; toss-ups are not a call."
+  },
+  {
+   "key": "polls_only",
+   "label": "Our polls-only number",
+   "kind": "model",
+   "n": 25,
+   "calls_made": 25,
+   "calls_right": 21,
+   "misses": [
+    "Alaska",
+    "Iowa",
+    "Mississippi",
+    "South Carolina"
+   ],
+   "brier": 0.106,
+   "log_loss": 0.3354,
+   "model_brier_same_races": 0.0993,
+   "margin_n": 30,
+   "margin_mae": 5.53,
+   "margin_bias": 3.29,
+   "grade": "B",
+   "note": "The polling average alone, where a race had polls."
+  },
+  {
+   "key": "picks",
+   "label": "Tre's picks",
+   "kind": "picks",
+   "n": 17,
+   "calls_made": 17,
+   "calls_right": 14,
+   "misses": [
+    "Iowa",
+    "Maine",
+    "Mississippi"
+   ],
+   "brier": 0.1765,
+   "log_loss": 1.6254,
+   "model_brier_same_races": 0.1459,
+   "margin_n": 17,
+   "margin_mae": 4.54,
+   "margin_bias": 3.93,
+   "grade": "C+",
+   "note": "Hand calls, scored as 100% confidence in the side picked."
+  }
+ ],
+ "pollster_grades": {
+  "window": {
+   "start": "2026-10-13",
+   "end": "2026-11-03"
+  },
+  "min_polls_for_grade": 3,
+  "field": {
+   "n_polls": 181,
+   "n_pollsters": 74,
+   "n_graded": 21,
+   "n_races": 23,
+   "mae": 5.2,
+   "bias": 4.73
+  },
+  "pollsters": [
+   {
+    "pollster": "Survey 160",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 4,
+    "n_races": 4,
+    "states": [
+     "Kansas",
+     "Maine",
+     "Minnesota",
+     "Ohio"
+    ],
+    "mae": 1.45,
+    "bias": 1.14,
+    "vs_field": -2.21,
+    "leaders_right": 4,
+    "leaders_called": 4,
+    "worst": {
+     "state": "Maine",
+     "poll_margin": 3.0,
+     "actual_margin": 6.2,
+     "error": 3.2
+    },
+    "grade": "A"
+   },
+   {
+    "pollster": "SSRS",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 4,
+    "n_races": 4,
+    "states": [
+     "Kansas",
+     "Maine",
+     "Michigan",
+     "Texas"
+    ],
+    "mae": 2.44,
+    "bias": 2.44,
+    "vs_field": -2.19,
+    "leaders_right": 4,
+    "leaders_called": 4,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 6.0,
+     "actual_margin": 12.1,
+     "error": 6.1
+    },
+    "grade": "A"
+   },
+   {
+    "pollster": "Echelon Insights",
+    "partisan_tag": "R",
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 4,
+    "n_races": 4,
+    "states": [
+     "Georgia",
+     "Iowa",
+     "Maine",
+     "Ohio"
+    ],
+    "mae": 2.72,
+    "bias": 2.32,
+    "vs_field": -2.11,
+    "leaders_right": 3,
+    "leaders_called": 3,
+    "worst": {
+     "state": "Ohio",
+     "poll_margin": 0.0,
+     "actual_margin": 4.82,
+     "error": 4.82
+    },
+    "grade": "A-"
+   },
+   {
+    "pollster": "New York Times/Siena University",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": "A-",
+    "n_polls": 10,
+    "n_races": 10,
+    "states": [
+     "Alaska",
+     "Florida",
+     "Iowa",
+     "Kansas",
+     "Maine",
+     "Michigan",
+     "Minnesota",
+     "Ohio",
+     "South Carolina",
+     "Texas"
+    ],
+    "mae": 2.75,
+    "bias": 1.16,
+    "vs_field": -1.47,
+    "leaders_right": 9,
+    "leaders_called": 10,
+    "worst": {
+     "state": "South Carolina",
+     "poll_margin": -0.7,
+     "actual_margin": 4.5,
+     "error": 5.2
+    },
+    "grade": "A-"
+   },
+   {
+    "pollster": "Marist University",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 3,
+    "n_races": 3,
+    "states": [
+     "Maine",
+     "Michigan",
+     "Ohio"
+    ],
+    "mae": 3.37,
+    "bias": 3.37,
+    "vs_field": 0.34,
+    "leaders_right": 3,
+    "leaders_called": 3,
+    "worst": {
+     "state": "Michigan",
+     "poll_margin": 2.0,
+     "actual_margin": 7.08,
+     "error": 5.08
+    },
+    "grade": "A-"
+   },
+   {
+    "pollster": "Data for Progress",
+    "partisan_tag": "D",
+    "partisan": false,
+    "prior_grade": "B",
+    "n_polls": 4,
+    "n_races": 4,
+    "states": [
+     "Alaska",
+     "Maine",
+     "Michigan",
+     "Texas"
+    ],
+    "mae": 3.42,
+    "bias": 3.42,
+    "vs_field": -1.12,
+    "leaders_right": 4,
+    "leaders_called": 4,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 4.0,
+     "actual_margin": 12.1,
+     "error": 8.1
+    },
+    "grade": "A-"
+   },
+   {
+    "pollster": "GS Strategy Group/ New River Strategies",
+    "partisan_tag": "R",
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 3,
+    "n_races": 3,
+    "states": [
+     "Iowa",
+     "Ohio",
+     "Texas"
+    ],
+    "mae": 3.5,
+    "bias": 2.71,
+    "vs_field": -1.85,
+    "leaders_right": 3,
+    "leaders_called": 3,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 5.0,
+     "actual_margin": 12.1,
+     "error": 7.1
+    },
+    "grade": "A-"
+   },
+   {
+    "pollster": "UMass Lowell",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": "A",
+    "n_polls": 3,
+    "n_races": 2,
+    "states": [
+     "Massachusetts",
+     "New Hampshire"
+    ],
+    "mae": 3.77,
+    "bias": 3.77,
+    "vs_field": -1.31,
+    "leaders_right": 3,
+    "leaders_called": 3,
+    "worst": {
+     "state": "New Hampshire",
+     "poll_margin": 7.0,
+     "actual_margin": 13.76,
+     "error": 6.76
+    },
+    "grade": "B+"
+   },
+   {
+    "pollster": "AtlasIntel",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 9,
+    "n_races": 9,
+    "states": [
+     "Iowa",
+     "Kansas",
+     "Maine",
+     "Michigan",
+     "Minnesota",
+     "New Hampshire",
+     "North Carolina",
+     "Ohio",
+     "Texas"
+    ],
+    "mae": 3.78,
+    "bias": 1.93,
+    "vs_field": -1.34,
+    "leaders_right": 9,
+    "leaders_called": 9,
+    "worst": {
+     "state": "Minnesota",
+     "poll_margin": 2.0,
+     "actual_margin": 10.15,
+     "error": 8.15
+    },
+    "grade": "B+"
+   },
+   {
+    "pollster": "HarrisX",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": "B",
+    "n_polls": 3,
+    "n_races": 3,
+    "states": [
+     "Michigan",
+     "Ohio",
+     "Texas"
+    ],
+    "mae": 4.33,
+    "bias": 4.33,
+    "vs_field": -0.56,
+    "leaders_right": 3,
+    "leaders_called": 3,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 6.0,
+     "actual_margin": 12.1,
+     "error": 6.1
+    },
+    "grade": "B+"
+   },
+   {
+    "pollster": "YouGov",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": "B+",
+    "n_polls": 7,
+    "n_races": 7,
+    "states": [
+     "Iowa",
+     "Kansas",
+     "Maine",
+     "Michigan",
+     "North Carolina",
+     "Ohio",
+     "Texas"
+    ],
+    "mae": 4.5,
+    "bias": 4.5,
+    "vs_field": -0.42,
+    "leaders_right": 7,
+    "leaders_called": 7,
+    "worst": {
+     "state": "North Carolina",
+     "poll_margin": 11.0,
+     "actual_margin": 19.7,
+     "error": 8.7
+    },
+    "grade": "B+"
+   },
+   {
+    "pollster": "University of New Hampshire",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 4,
+    "n_races": 4,
+    "states": [
+     "Maine",
+     "Massachusetts",
+     "New Hampshire",
+     "Rhode Island"
+    ],
+    "mae": 5.34,
+    "bias": 3.94,
+    "vs_field": 0.2,
+    "leaders_right": 4,
+    "leaders_called": 4,
+    "worst": {
+     "state": "Massachusetts",
+     "poll_margin": 21.0,
+     "actual_margin": 31.27,
+     "error": 10.27
+    },
+    "grade": "B"
+   },
+   {
+    "pollster": "RedBox Research",
+    "partisan_tag": "D",
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 4,
+    "n_races": 4,
+    "states": [
+     "Kansas",
+     "Michigan",
+     "North Carolina",
+     "Ohio"
+    ],
+    "mae": 5.75,
+    "bias": 5.75,
+    "vs_field": 1.31,
+    "leaders_right": 3,
+    "leaders_called": 4,
+    "worst": {
+     "state": "North Carolina",
+     "poll_margin": 7.0,
+     "actual_margin": 19.7,
+     "error": 12.7
+    },
+    "grade": "B-"
+   },
+   {
+    "pollster": "Rasmussen Reports",
+    "partisan_tag": "R",
+    "partisan": false,
+    "prior_grade": "B-",
+    "n_polls": 10,
+    "n_races": 8,
+    "states": [
+     "Alaska",
+     "Iowa",
+     "Maine",
+     "Michigan",
+     "Minnesota",
+     "New Hampshire",
+     "Ohio",
+     "Texas"
+    ],
+    "mae": 5.95,
+    "bias": 5.95,
+    "vs_field": 1.69,
+    "leaders_right": 5,
+    "leaders_called": 8,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 0.0,
+     "actual_margin": 12.1,
+     "error": 12.1
+    },
+    "grade": "B-"
+   },
+   {
+    "pollster": "Beacon Research/ Shaw & Co. Research",
+    "partisan_tag": "D",
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 3,
+    "n_races": 3,
+    "states": [
+     "Maine",
+     "Ohio",
+     "Texas"
+    ],
+    "mae": 6.16,
+    "bias": 6.04,
+    "vs_field": 1.19,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 0.0,
+     "actual_margin": 12.1,
+     "error": 12.1
+    },
+    "grade": "B-"
+   },
+   {
+    "pollster": "InsiderAdvantage",
+    "partisan_tag": "R",
+    "partisan": false,
+    "prior_grade": "B-",
+    "n_polls": 10,
+    "n_races": 9,
+    "states": [
+     "Florida",
+     "Georgia",
+     "Iowa",
+     "Kansas",
+     "Maine",
+     "Michigan",
+     "Minnesota",
+     "Ohio",
+     "Texas"
+    ],
+    "mae": 6.2,
+    "bias": 6.2,
+    "vs_field": 1.65,
+    "leaders_right": 7,
+    "leaders_called": 10,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": -1.0,
+     "actual_margin": 12.1,
+     "error": 13.1
+    },
+    "grade": "B-"
+   },
+   {
+    "pollster": "Emerson College",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": "B+",
+    "n_polls": 6,
+    "n_races": 5,
+    "states": [
+     "Kansas",
+     "Maine",
+     "Michigan",
+     "Ohio",
+     "Texas"
+    ],
+    "mae": 6.61,
+    "bias": 6.61,
+    "vs_field": 1.59,
+    "leaders_right": 4,
+    "leaders_called": 6,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 1.0,
+     "actual_margin": 12.1,
+     "error": 11.1
+    },
+    "grade": "C+"
+   },
+   {
+    "pollster": "Trafalgar Group",
+    "partisan_tag": "R",
+    "partisan": false,
+    "prior_grade": "C+",
+    "n_polls": 7,
+    "n_races": 7,
+    "states": [
+     "Iowa",
+     "Maine",
+     "Michigan",
+     "Minnesota",
+     "Ohio",
+     "South Carolina",
+     "Texas"
+    ],
+    "mae": 6.87,
+    "bias": 6.87,
+    "vs_field": 2.1,
+    "leaders_right": 3,
+    "leaders_called": 5,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 0.0,
+     "actual_margin": 12.1,
+     "error": 12.1
+    },
+    "grade": "C+"
+   },
+   {
+    "pollster": "Research Co.",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 8,
+    "n_races": 8,
+    "states": [
+     "Colorado",
+     "Georgia",
+     "Illinois",
+     "Michigan",
+     "Minnesota",
+     "New Mexico",
+     "Ohio",
+     "Texas"
+    ],
+    "mae": 7.0,
+    "bias": 7.0,
+    "vs_field": 0.24,
+    "leaders_right": 8,
+    "leaders_called": 8,
+    "worst": {
+     "state": "Illinois",
+     "poll_margin": 12.0,
+     "actual_margin": 25.73,
+     "error": 13.73
+    },
+    "grade": "C+"
+   },
+   {
+    "pollster": "ActiVote",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 10,
+    "n_races": 6,
+    "states": [
+     "Florida",
+     "Georgia",
+     "Illinois",
+     "North Carolina",
+     "Ohio",
+     "Texas"
+    ],
+    "mae": 7.66,
+    "bias": 7.66,
+    "vs_field": -0.09,
+    "leaders_right": 9,
+    "leaders_called": 9,
+    "worst": {
+     "state": "Illinois",
+     "poll_margin": 11.2,
+     "actual_margin": 25.73,
+     "error": 14.53
+    },
+    "grade": "C"
+   },
+   {
+    "pollster": "Quantus Insights",
+    "partisan_tag": "R",
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 3,
+    "n_races": 3,
+    "states": [
+     "Georgia",
+     "North Carolina",
+     "Texas"
+    ],
+    "mae": 11.95,
+    "bias": 11.95,
+    "vs_field": 3.07,
+    "leaders_right": 2,
+    "leaders_called": 3,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": -1.0,
+     "actual_margin": 12.1,
+     "error": 13.1
+    },
+    "grade": "F"
+   },
+   {
+    "pollster": "Mitchell Research & Communications",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Michigan"
+    ],
+    "mae": 0.08,
+    "bias": 0.08,
+    "vs_field": -3.02,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Michigan",
+     "poll_margin": 7.0,
+     "actual_margin": 7.08,
+     "error": 0.08
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Patinkin Research Strategies",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "South Carolina"
+    ],
+    "mae": 0.5,
+    "bias": -0.5,
+    "vs_field": -4.94,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "South Carolina",
+     "poll_margin": 5.0,
+     "actual_margin": 4.5,
+     "error": -0.5
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Michigan State University/Verasight",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Michigan"
+    ],
+    "mae": 0.92,
+    "bias": -0.92,
+    "vs_field": -2.18,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Michigan",
+     "poll_margin": 8.0,
+     "actual_margin": 7.08,
+     "error": -0.92
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Glengariff Group",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Michigan"
+    ],
+    "mae": 1.08,
+    "bias": 1.08,
+    "vs_field": -2.02,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Michigan",
+     "poll_margin": 6.0,
+     "actual_margin": 7.08,
+     "error": 1.08
+    },
+    "grade": null
+   },
+   {
+    "pollster": "University of North Florida",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Florida"
+    ],
+    "mae": 1.14,
+    "bias": 1.14,
+    "vs_field": -1.72,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Florida",
+     "poll_margin": -4.0,
+     "actual_margin": -2.86,
+     "error": 1.14
+    },
+    "grade": null
+   },
+   {
+    "pollster": "St. Pete Polls",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Florida"
+    ],
+    "mae": 1.14,
+    "bias": 1.14,
+    "vs_field": -1.72,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Florida",
+     "poll_margin": -4.0,
+     "actual_margin": -2.86,
+     "error": 1.14
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Stetson University",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Florida"
+    ],
+    "mae": 1.14,
+    "bias": 1.14,
+    "vs_field": -1.72,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Florida",
+     "poll_margin": -4.0,
+     "actual_margin": -2.86,
+     "error": 1.14
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Chism Strategies / Blueprint Polling",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Alabama"
+    ],
+    "mae": 1.42,
+    "bias": -1.42,
+    "vs_field": -4.77,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Alabama",
+     "poll_margin": -8.0,
+     "actual_margin": -9.42,
+     "error": -1.42
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Hart Research Associates",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Louisiana"
+    ],
+    "mae": 1.76,
+    "bias": -1.76,
+    "vs_field": 0.0,
+    "leaders_right": 0,
+    "leaders_called": 0,
+    "worst": {
+     "state": "Louisiana",
+     "poll_margin": 0.0,
+     "actual_margin": -1.76,
+     "error": -1.76
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Lincoln Park Strategies",
+    "partisan_tag": "D",
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Louisiana"
+    ],
+    "mae": 1.76,
+    "bias": -1.76,
+    "vs_field": 0.0,
+    "leaders_right": 0,
+    "leaders_called": 0,
+    "worst": {
+     "state": "Louisiana",
+     "poll_margin": 0.0,
+     "actual_margin": -1.76,
+     "error": -1.76
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Concord Public Opinion Partners",
+    "partisan_tag": "D",
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 2,
+    "n_races": 2,
+    "states": [
+     "Michigan",
+     "Ohio"
+    ],
+    "mae": 1.87,
+    "bias": -1.05,
+    "vs_field": -1.0,
+    "leaders_right": 2,
+    "leaders_called": 2,
+    "worst": {
+     "state": "Michigan",
+     "poll_margin": 10.0,
+     "actual_margin": 7.08,
+     "error": -2.92
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Upswing Research",
+    "partisan_tag": "D",
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Michigan"
+    ],
+    "mae": 2.08,
+    "bias": 2.08,
+    "vs_field": -1.02,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Michigan",
+     "poll_margin": 5.0,
+     "actual_margin": 7.08,
+     "error": 2.08
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Alaska Survey Research",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 2,
+    "n_races": 1,
+    "states": [
+     "Alaska"
+    ],
+    "mae": 2.32,
+    "bias": 2.32,
+    "vs_field": -0.5,
+    "leaders_right": 2,
+    "leaders_called": 2,
+    "worst": {
+     "state": "Alaska",
+     "poll_margin": 2.0,
+     "actual_margin": 4.32,
+     "error": 2.32
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Suffolk University",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": "A-",
+    "n_polls": 2,
+    "n_races": 2,
+    "states": [
+     "Massachusetts",
+     "Ohio"
+    ],
+    "mae": 2.54,
+    "bias": 2.54,
+    "vs_field": -1.04,
+    "leaders_right": 2,
+    "leaders_called": 2,
+    "worst": {
+     "state": "Massachusetts",
+     "poll_margin": 28.0,
+     "actual_margin": 31.27,
+     "error": 3.27
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Hendrix College",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Arkansas"
+    ],
+    "mae": 2.85,
+    "bias": -2.85,
+    "vs_field": -0.65,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Arkansas",
+     "poll_margin": -9.0,
+     "actual_margin": -11.85,
+     "error": -2.85
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Political Matrix / The Listener Group",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Florida"
+    ],
+    "mae": 3.14,
+    "bias": 3.14,
+    "vs_field": 0.28,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Florida",
+     "poll_margin": -6.0,
+     "actual_margin": -2.86,
+     "error": 3.14
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Big Data Poll",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Florida"
+    ],
+    "mae": 3.14,
+    "bias": 3.14,
+    "vs_field": 0.28,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Florida",
+     "poll_margin": -6.0,
+     "actual_margin": -2.86,
+     "error": 3.14
+    },
+    "grade": null
+   },
+   {
+    "pollster": "KSTP/SurveyUSA",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Minnesota"
+    ],
+    "mae": 3.15,
+    "bias": 3.15,
+    "vs_field": -2.3,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Minnesota",
+     "poll_margin": 7.0,
+     "actual_margin": 10.15,
+     "error": 3.15
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Public Policy Polling",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Alaska"
+    ],
+    "mae": 3.32,
+    "bias": 3.32,
+    "vs_field": 0.5,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Alaska",
+     "poll_margin": 1.0,
+     "actual_margin": 4.32,
+     "error": 3.32
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Impact Research",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "South Carolina"
+    ],
+    "mae": 3.5,
+    "bias": 3.5,
+    "vs_field": -1.94,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "South Carolina",
+     "poll_margin": 1.0,
+     "actual_margin": 4.5,
+     "error": 3.5
+    },
+    "grade": null
+   },
+   {
+    "pollster": "The Washington Post/SSPG",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Kansas"
+    ],
+    "mae": 3.61,
+    "bias": -3.61,
+    "vs_field": 0.43,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Kansas",
+     "poll_margin": 9.0,
+     "actual_margin": 5.39,
+     "error": -3.61
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Change Research",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Mississippi"
+    ],
+    "mae": 3.82,
+    "bias": 3.82,
+    "vs_field": 0.0,
+    "leaders_right": 0,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Mississippi",
+     "poll_margin": -3.0,
+     "actual_margin": 0.82,
+     "error": 3.82
+    },
+    "grade": null
+   },
+   {
+    "pollster": "YouGov Blue",
+    "partisan_tag": "D",
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Texas"
+    ],
+    "mae": 4.1,
+    "bias": 4.1,
+    "vs_field": -4.83,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 8.0,
+     "actual_margin": 12.1,
+     "error": 4.1
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Keating Research",
+    "partisan_tag": "D",
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Colorado"
+    ],
+    "mae": 4.52,
+    "bias": 4.52,
+    "vs_field": -0.67,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Colorado",
+     "poll_margin": 21.0,
+     "actual_margin": 25.52,
+     "error": 4.52
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Washington Post",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Kansas"
+    ],
+    "mae": 4.61,
+    "bias": -4.61,
+    "vs_field": 1.43,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Kansas",
+     "poll_margin": 10.0,
+     "actual_margin": 5.39,
+     "error": -4.61
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Verasight/VoteHub",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 2,
+    "n_races": 2,
+    "states": [
+     "Ohio",
+     "Texas"
+    ],
+    "mae": 4.96,
+    "bias": 4.96,
+    "vs_field": -0.83,
+    "leaders_right": 2,
+    "leaders_called": 2,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 3.0,
+     "actual_margin": 12.1,
+     "error": 9.1
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Michigan State University/YouGov",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Michigan"
+    ],
+    "mae": 5.08,
+    "bias": 5.08,
+    "vs_field": 1.98,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Michigan",
+     "poll_margin": 2.0,
+     "actual_margin": 7.08,
+     "error": 5.08
+    },
+    "grade": null
+   },
+   {
+    "pollster": "John Zogby Strategies",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Michigan"
+    ],
+    "mae": 5.08,
+    "bias": 5.08,
+    "vs_field": 1.98,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Michigan",
+     "poll_margin": 2.0,
+     "actual_margin": 7.08,
+     "error": 5.08
+    },
+    "grade": null
+   },
+   {
+    "pollster": "GrayHouse",
+    "partisan_tag": "R",
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 2,
+    "n_races": 2,
+    "states": [
+     "Arkansas",
+     "Iowa"
+    ],
+    "mae": 5.18,
+    "bias": 5.18,
+    "vs_field": 1.21,
+    "leaders_right": 1,
+    "leaders_called": 2,
+    "worst": {
+     "state": "Iowa",
+     "poll_margin": -2.0,
+     "actual_margin": 4.21,
+     "error": 6.21
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Cygnal",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Alabama"
+    ],
+    "mae": 5.58,
+    "bias": 5.58,
+    "vs_field": -0.61,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Alabama",
+     "poll_margin": -15.0,
+     "actual_margin": -9.42,
+     "error": 5.58
+    },
+    "grade": null
+   },
+   {
+    "pollster": "High Point University/YouGov",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "North Carolina"
+    ],
+    "mae": 5.7,
+    "bias": 5.7,
+    "vs_field": -3.12,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "North Carolina",
+     "poll_margin": 14.0,
+     "actual_margin": 19.7,
+     "error": 5.7
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Victory Insights",
+    "partisan_tag": "R",
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Minnesota"
+    ],
+    "mae": 6.15,
+    "bias": 6.15,
+    "vs_field": 0.7,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Minnesota",
+     "poll_margin": 4.0,
+     "actual_margin": 10.15,
+     "error": 6.15
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Univision/YouGov",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 2,
+    "n_races": 2,
+    "states": [
+     "Florida",
+     "Texas"
+    ],
+    "mae": 6.62,
+    "bias": 6.62,
+    "vs_field": 0.72,
+    "leaders_right": 2,
+    "leaders_called": 2,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 5.0,
+     "actual_margin": 12.1,
+     "error": 7.1
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Targoz Market Research",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 2,
+    "n_races": 2,
+    "states": [
+     "South Carolina",
+     "Tennessee"
+    ],
+    "mae": 6.67,
+    "bias": 6.67,
+    "vs_field": 0.03,
+    "leaders_right": 1,
+    "leaders_called": 2,
+    "worst": {
+     "state": "Tennessee",
+     "poll_margin": -20.0,
+     "actual_margin": -12.17,
+     "error": 7.83
+    },
+    "grade": null
+   },
+   {
+    "pollster": "co/efficient",
+    "partisan_tag": "R",
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 2,
+    "n_races": 1,
+    "states": [
+     "Iowa"
+    ],
+    "mae": 6.71,
+    "bias": 6.71,
+    "vs_field": 2.27,
+    "leaders_right": 0,
+    "leaders_called": 2,
+    "worst": {
+     "state": "Iowa",
+     "poll_margin": -3.0,
+     "actual_margin": 4.21,
+     "error": 7.21
+    },
+    "grade": null
+   },
+   {
+    "pollster": "UMass Lowell/YouGov",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "New Hampshire"
+    ],
+    "mae": 6.76,
+    "bias": 6.76,
+    "vs_field": 0.57,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "New Hampshire",
+     "poll_margin": 7.0,
+     "actual_margin": 13.76,
+     "error": 6.76
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Saint Anselm College",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "New Hampshire"
+    ],
+    "mae": 6.76,
+    "bias": 6.76,
+    "vs_field": 0.57,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "New Hampshire",
+     "poll_margin": 7.0,
+     "actual_margin": 13.76,
+     "error": 6.76
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Pollfinity Research",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Texas"
+    ],
+    "mae": 7.1,
+    "bias": 7.1,
+    "vs_field": -1.83,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 5.0,
+     "actual_margin": 12.1,
+     "error": 7.1
+    },
+    "grade": null
+   },
+   {
+    "pollster": "The Citadel Poll",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "South Carolina"
+    ],
+    "mae": 7.5,
+    "bias": 7.5,
+    "vs_field": 2.06,
+    "leaders_right": 0,
+    "leaders_called": 1,
+    "worst": {
+     "state": "South Carolina",
+     "poll_margin": -3.0,
+     "actual_margin": 4.5,
+     "error": 7.5
+    },
+    "grade": null
+   },
+   {
+    "pollster": "CU Boulder/YouGov",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Colorado"
+    ],
+    "mae": 7.52,
+    "bias": 7.52,
+    "vs_field": 2.33,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Colorado",
+     "poll_margin": 18.0,
+     "actual_margin": 25.52,
+     "error": 7.52
+    },
+    "grade": null
+   },
+   {
+    "pollster": "National Public Affairs",
+    "partisan_tag": "R",
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "New Hampshire"
+    ],
+    "mae": 7.76,
+    "bias": 7.76,
+    "vs_field": 1.57,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "New Hampshire",
+     "poll_margin": 6.0,
+     "actual_margin": 13.76,
+     "error": 7.76
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Cor Strategies",
+    "partisan_tag": "R",
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Texas"
+    ],
+    "mae": 8.1,
+    "bias": 8.1,
+    "vs_field": -0.83,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 4.0,
+     "actual_margin": 12.1,
+     "error": 8.1
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Texas Public Opinion Research",
+    "partisan_tag": "D",
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Texas"
+    ],
+    "mae": 8.1,
+    "bias": 8.1,
+    "vs_field": -0.83,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 4.0,
+     "actual_margin": 12.1,
+     "error": 8.1
+    },
+    "grade": null
+   },
+   {
+    "pollster": "A2 Insights",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Texas"
+    ],
+    "mae": 9.1,
+    "bias": 9.1,
+    "vs_field": 0.17,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 3.0,
+     "actual_margin": 12.1,
+     "error": 9.1
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Kreate Strategies",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Texas"
+    ],
+    "mae": 9.1,
+    "bias": 9.1,
+    "vs_field": 0.17,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 3.0,
+     "actual_margin": 12.1,
+     "error": 9.1
+    },
+    "grade": null
+   },
+   {
+    "pollster": "East Carolina University",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 2,
+    "n_races": 2,
+    "states": [
+     "North Carolina",
+     "South Carolina"
+    ],
+    "mae": 9.55,
+    "bias": 9.55,
+    "vs_field": 2.42,
+    "leaders_right": 1,
+    "leaders_called": 2,
+    "worst": {
+     "state": "North Carolina",
+     "poll_margin": 9.0,
+     "actual_margin": 19.7,
+     "error": 10.7
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Harper Polling",
+    "partisan_tag": "R",
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "North Carolina"
+    ],
+    "mae": 9.7,
+    "bias": 9.7,
+    "vs_field": 0.88,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "North Carolina",
+     "poll_margin": 10.0,
+     "actual_margin": 19.7,
+     "error": 9.7
+    },
+    "grade": null
+   },
+   {
+    "pollster": "University of Georgia",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Georgia"
+    ],
+    "mae": 10.06,
+    "bias": 10.06,
+    "vs_field": 1.17,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Georgia",
+     "poll_margin": 8.0,
+     "actual_margin": 18.06,
+     "error": 10.06
+    },
+    "grade": null
+   },
+   {
+    "pollster": "University of Houston",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Texas"
+    ],
+    "mae": 10.1,
+    "bias": 10.1,
+    "vs_field": 1.17,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 2.0,
+     "actual_margin": 12.1,
+     "error": 10.1
+    },
+    "grade": null
+   },
+   {
+    "pollster": "CBS News/YouGov",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": "B+",
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Texas"
+    ],
+    "mae": 10.1,
+    "bias": 10.1,
+    "vs_field": 1.17,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 2.0,
+     "actual_margin": 12.1,
+     "error": 10.1
+    },
+    "grade": null
+   },
+   {
+    "pollster": "Texas Southern University",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Texas"
+    ],
+    "mae": 10.1,
+    "bias": 10.1,
+    "vs_field": 1.17,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 2.0,
+     "actual_margin": 12.1,
+     "error": 10.1
+    },
+    "grade": null
+   },
+   {
+    "pollster": "TSU/YouGov",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Texas"
+    ],
+    "mae": 10.1,
+    "bias": 10.1,
+    "vs_field": 1.17,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Texas",
+     "poll_margin": 2.0,
+     "actual_margin": 12.1,
+     "error": 10.1
+    },
+    "grade": null
+   },
+   {
+    "pollster": "The Alabama Poll",
+    "partisan_tag": null,
+    "partisan": false,
+    "prior_grade": null,
+    "n_polls": 1,
+    "n_races": 1,
+    "states": [
+     "Alabama"
+    ],
+    "mae": 11.58,
+    "bias": 11.58,
+    "vs_field": 5.39,
+    "leaders_right": 1,
+    "leaders_called": 1,
+    "worst": {
+     "state": "Alabama",
+     "poll_margin": -21.0,
+     "actual_margin": -9.42,
+     "error": 11.58
+    },
+    "grade": null
+   }
+  ]
+ },
+ "generic_ballot": {
+  "available": true,
+  "forecast": {
+   "as_of": "2026-11-03",
+   "dem_pct": 51.5,
+   "rep_pct": 42.4,
+   "margin": 9.1,
+   "dem_seats": 240,
+   "dem_seats_lo": 229,
+   "dem_seats_hi": 251,
+   "num_polls": 410
+  },
+  "result": {
+   "status": "provisional",
+   "as_of": "2026-11-24",
+   "dem_seats": 259,
+   "rep_seats": 173,
+   "uncalled_seats": 3,
+   "national_margin": 14.0,
+   "margin_note": "Press reports put the Democratic national House vote lead at about 14 points; raw vote totals still differ between sources and are not final.",
+   "sources": [
+    {
+     "label": "NBC News House results",
+     "url": "https://www.nbcnews.com/politics/2026-elections/house-results"
+    },
+    {
+     "label": "Cook Political Report, 2026 House results by the numbers",
+     "url": "https://www.cookpolitical.com/analysis/house/house-overview/2026-house-election-results-numbers"
+    },
+    {
+     "label": "Wikipedia, 2026 U.S. House elections",
+     "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections"
+    }
+   ],
+   "margin_error": 4.9,
+   "seats_error": 19,
+   "seats_in_range": false,
+   "winner_right": true
+  },
+  "grades": {
+   "margin": "B",
+   "seats": "D",
+   "overall": "C"
+  }
+ }
 }
