@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-24T19:24:53+00:00",
+ "generated": "2026-11-24T22:31:53+00:00",
  "snapshot": {
   "ref": "49de11cf0a8e3cd479b3af3a5d558fb00bde328f",
   "committed_at": "2026-11-03T17:38:52Z",
@@ -2935,8 +2935,8 @@
      "Ohio",
      "Texas"
     ],
-    "mae": 6.61,
-    "bias": 6.61,
+    "mae": 6.62,
+    "bias": 6.62,
     "vs_field": 1.59,
     "leaders_right": 4,
     "leaders_called": 6,
@@ -3766,7 +3766,7 @@
     ],
     "mae": 5.7,
     "bias": 5.7,
-    "vs_field": -3.12,
+    "vs_field": -3.13,
     "leaders_right": 1,
     "leaders_called": 1,
     "worst": {
@@ -4137,7 +4137,7 @@
     ],
     "mae": 9.7,
     "bias": 9.7,
-    "vs_field": 0.88,
+    "vs_field": 0.87,
     "leaders_right": 1,
     "leaders_called": 1,
     "worst": {
