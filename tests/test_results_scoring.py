@@ -195,3 +195,112 @@ def test_scorecard_awaiting_results_is_clean():
     assert card["status"] == "awaiting_results"
     assert card["model"]["brier"] is None and card["picks"]["n"] == 0
     assert card["picks_made"] == 2
+
+
+# --------------------------------------------------------------------------
+# Grades (scripts/grade_forecast.py)
+# --------------------------------------------------------------------------
+def test_letters_follow_the_rubrics():
+    from scripts.grade_forecast import (
+        BRIER_RUBRIC,
+        MARGIN_RUBRIC,
+        gpa_letter,
+        letter,
+        rating_to_prob,
+    )
+
+    assert letter(0.05, BRIER_RUBRIC) == "A" and letter(0.071, BRIER_RUBRIC) == "A-"
+    assert letter(0.3, BRIER_RUBRIC) == "F" and letter(None, BRIER_RUBRIC) is None
+    assert letter(6.8, MARGIN_RUBRIC) == "C+"
+    assert gpa_letter(["A", "C"]) == "B" and gpa_letter([None]) is None
+    assert rating_to_prob("Leans D (10/6, reaffirmed 10/27)") == 0.75
+    assert rating_to_prob("Solid R (10/30)") == pytest.approx(0.02)
+    assert rating_to_prob("Safe D (3/4, stale)") == 0.98
+    assert rating_to_prob("Toss Up (10/30)") == 0.5 and rating_to_prob("Toss-up (IE page)") == 0.5
+    assert rating_to_prob("Tilt R (10/29, from Lean R)") == pytest.approx(0.40)
+    assert rating_to_prob(None) is None and rating_to_prob("no rating") is None
+
+
+def test_forecaster_grades_cover_only_their_own_races():
+    snap = _snapshot()
+    snap["senate_forecast"]["races"][0]["consensus"] = {
+        "cook": "Toss Up (10/30)", "sabato": "Leans R", "ddhq_p_dem": 0.8, "kalshi_p_dem": 0.9,
+    }
+    results = {
+        "A": {"winner": "x", "winner_party": "D", "margin": 9.0},
+        "B": {"winner": "y", "winner_party": "R", "margin": -5.0},
+    }
+    card = build_scorecard(snap, {"mode": "test"}, results)
+    by = {f["key"]: f for f in card["forecasters"]}
+    assert by["model"]["n"] == 2 and by["model"]["calls_right"] == 2
+    # A toss-up is scored on Brier but is not a call.
+    assert by["cook"]["n"] == 1 and by["cook"]["calls_made"] == 0 and by["cook"]["brier"] == 0.25
+    assert by["sabato"]["misses"] == ["A"] and by["sabato"]["grade"] == "F"
+    assert by["kalshi"]["brier"] == pytest.approx(0.01) and by["kalshi"]["grade"] == "A"
+    # Same-race comparison: the model's Brier on race A alone.
+    assert by["ddhq"]["model_brier_same_races"] == pytest.approx(0.01)
+    assert by["picks"]["calls_right"] == 1 and by["picks"]["calls_made"] == 2
+    assert card["report_card"]["subjects"][0]["value"] == "2/2"
+    assert card["model"]["band_coverage"]["n"] == 0
+
+
+def test_independent_challenger_margin_uses_the_runner_up_gap():
+    snap = _snapshot()
+    snap["senate_forecast"]["races"][1].update(
+        {"challenger_party": "I", "margin_p10": -9.0, "margin_p90": 2.0}
+    )
+    results = {"B": {"winner": "y", "winner_party": "R", "margin": -35.0, "dem_pct": 12.0}}
+    status = {"B": {"leader_margin": 6.0}}
+    card = build_scorecard(snap, {"mode": "test"}, results, status=status)
+    row = next(r for r in card["races"] if r["state"] == "B")
+    assert row["result"]["margin"] == -6.0
+    assert row["result"]["margin_basis"] == "challenger_minus_rep"
+    assert row["model"]["margin_error"] == pytest.approx(-3.0) and row["model"]["in_80_band"]
+
+
+def _poll(pollster, end, dem, rep, **kw):
+    return {"pollster": pollster, "start_date": end, "end_date": end, "dem_pct": dem,
+            "rep_pct": rep, "margin": dem - rep, "partisan": False, "grade": None, **kw}
+
+
+def test_pollster_grades_window_dedupe_and_bias_sign():
+    from scripts.grade_forecast import grade_pollsters
+
+    states = [
+        {"state": "A", "polls": [
+            _poll("Siena/NYT", "2026-10-30", 50, 46),
+            _poll("New York Times/Siena University", "2026-11-01", 50, 46),  # same poll again
+            _poll("Acme (R)", "2026-10-20", 44, 48),
+            _poll("Acme", "2026-10-25", 45, 47),
+            _poll("Acme", "2026-11-01", 46, 46),
+            _poll("Old Poll Co", "2026-09-01", 60, 30),  # outside the window
+        ]},
+        {"state": "B", "polls": [_poll("Siena/NYT", "2026-10-28", 40, 50)]},
+        {"state": "Ind", "polls": [_poll("Acme", "2026-10-28", 40, 50)]},
+    ]
+    out = grade_pollsters(states, {"A": 6.0, "B": -8.0, "Ind": -3.0}, skip_states={"Ind"})
+    by = {r["pollster"]: r for r in out["pollsters"]}
+    assert "Acme" in by and len(by) == 2
+    acme = by["Acme"]
+    assert acme["n_polls"] == 3 and acme["partisan_tag"] == "R"
+    # actual − poll: Democrats beat every Acme poll, so the bias is positive.
+    assert acme["bias"] == pytest.approx((10 + 8 + 6) / 3) and acme["mae"] == acme["bias"]
+    assert acme["grade"] == "C" and acme["leaders_called"] == 2 and acme["leaders_right"] == 0
+    siena = next(r for r in out["pollsters"] if r is not acme)
+    assert siena["n_polls"] == 2 and siena["grade"] is None  # too few polls for a letter
+    assert out["field"]["n_polls"] == 5 and out["field"]["n_races"] == 2
+
+
+def test_generic_ballot_grade():
+    from scripts.grade_forecast import grade_generic_ballot
+
+    avg = {"as_of": "2026-11-03", "dem_pct": 51.5, "rep_pct": 42.4, "margin": 9.1,
+           "estimated_dem_seats": 240, "estimated_dem_seats_lo": 229,
+           "estimated_dem_seats_hi": 251, "num_polls": 410}
+    assert grade_generic_ballot(None, None)["available"] is False
+    assert grade_generic_ballot(avg, None)["result"] is None
+    out = grade_generic_ballot(avg, {"dem_seats": 259, "rep_seats": 173, "national_margin": 14.0})
+    assert out["result"]["margin_error"] == pytest.approx(4.9)
+    assert out["result"]["seats_error"] == 19 and out["result"]["seats_in_range"] is False
+    assert out["result"]["winner_right"] is True
+    assert out["grades"]["margin"] == "B" and out["grades"]["seats"] == "D"

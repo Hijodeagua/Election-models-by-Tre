@@ -325,13 +325,140 @@ export interface ScoreMargin {
   rmse: number | null;
 }
 
+// Letter grades, written by scripts/grade_forecast.py. The rubrics are fixed
+// thresholds and ship in the payload so the page can print them.
+export interface ReportCardSubject {
+  key: 'calls' | 'probabilities' | 'margins' | 'chamber' | string;
+  label: string;
+  grade: string | null;
+  value: string | null;
+  detail: string;
+}
+
+export interface GradeRubricStep {
+  max: number;
+  grade: string;
+}
+
+export interface ReportCard {
+  overall: string | null;
+  subjects: ReportCardSubject[];
+  rubrics: {
+    brier: GradeRubricStep[];
+    margin_points: GradeRubricStep[];
+    calls_missed_share: GradeRubricStep[];
+    rating_probabilities: Record<string, number>;
+  };
+}
+
+export interface ForecasterGrade {
+  key: string;
+  label: string;
+  kind: 'model' | 'market' | 'forecaster' | 'rater' | 'picks' | string;
+  n: number;
+  calls_made: number;
+  calls_right: number;
+  misses: string[];
+  brier: number | null;
+  log_loss: number | null;
+  model_brier_same_races: number | null;
+  margin_n: number;
+  margin_mae: number | null;
+  margin_bias: number | null;
+  grade: string | null;
+  note: string | null;
+}
+
+export interface PollsterGrade {
+  pollster: string;
+  partisan_tag: string | null;
+  partisan: boolean;
+  prior_grade: string | null;
+  n_polls: number;
+  n_races: number;
+  states: string[];
+  mae: number;
+  // actual − poll on the Dem−Rep margin: positive = understated Democrats.
+  bias: number;
+  // Average miss minus the average miss of every final poll in the same races.
+  vs_field: number;
+  leaders_right: number;
+  leaders_called: number;
+  worst: { state: string; poll_margin: number; actual_margin: number; error: number };
+  grade: string | null;
+}
+
+export interface PollsterGrades {
+  window: { start: string; end: string };
+  min_polls_for_grade: number;
+  field: {
+    n_polls: number;
+    n_pollsters: number;
+    n_graded: number;
+    n_races: number;
+    mae: number | null;
+    bias: number | null;
+  };
+  pollsters: PollsterGrade[];
+}
+
+export interface GenericBallotGrade {
+  available: boolean;
+  forecast: {
+    as_of: string | null;
+    dem_pct: number | null;
+    rep_pct: number | null;
+    margin: number | null;
+    dem_seats: number | null;
+    dem_seats_lo: number | null;
+    dem_seats_hi: number | null;
+    num_polls: number | null;
+  } | null;
+  result: {
+    status: 'provisional' | 'final' | string;
+    as_of: string | null;
+    dem_seats: number | null;
+    rep_seats: number | null;
+    uncalled_seats: number | null;
+    national_margin: number | null;
+    margin_note: string | null;
+    sources: { label: string; url: string }[];
+    margin_error: number | null;
+    seats_error: number | null;
+    seats_in_range: boolean | null;
+    winner_right: boolean | null;
+  } | null;
+  grades: { margin?: string | null; seats?: string | null; overall?: string | null };
+}
+
 export interface ScorecardRace {
   state: string;
   called: boolean;
+  race?: {
+    dem_candidate: string | null;
+    rep_candidate: string | null;
+    challenger_party: 'D' | 'I' | string;
+    held_by: 'D' | 'R' | null;
+    open_seat: boolean;
+    treatment: string | null;
+  };
+  // What everyone else had on the race, as P(D); raters' text under `ratings`.
+  others?: {
+    polymarket: number | null;
+    kalshi: number | null;
+    ddhq: number | null;
+    cook: number | null;
+    sabato: number | null;
+    inside_elections: number | null;
+    ratings: Record<string, string>;
+  };
   model: {
     dem_win_prob: number | null;
     dem_win_prob_polls: number | null;
     median_margin: number | null;
+    margin_p10?: number | null;
+    margin_p90?: number | null;
+    in_80_band?: boolean;
     poll_margin: number | null;
     num_polls: number | null;
     call: 'D' | 'R' | null;
@@ -352,6 +479,12 @@ export interface ScorecardRace {
     winner_party: string | null;
     dem_won: boolean;
     margin: number | null;
+    // "challenger_minus_rep" where an independent is the challenger: the
+    // margin is then the Republican's lead over the runner-up, not D − R.
+    margin_basis?: 'dem_minus_rep' | 'challenger_minus_rep' | null;
+    dem_pct?: number | null;
+    rep_pct?: number | null;
+    flipped?: boolean;
     source: string | null;
   } | null;
 }
@@ -368,6 +501,8 @@ export interface Scorecard {
     polls_only: ScoreProb;
     poll_average_margins: ScoreMargin;
     calibration: { bin: string; n: number; predicted: number; actual: number }[];
+    band_coverage?: { n: number; inside: number; share: number | null };
+    poll_average_grade?: string | null;
   };
   picks: ScoreProb & { margins: ScoreMargin };
   market: ScoreProb;
@@ -378,8 +513,13 @@ export interface Scorecard {
     races_outstanding: number;
     final: boolean;
     dem_control_actual: boolean | null;
+    seat_percentile?: { share_at_or_above: number; share_exact: number; percentile: number } | null;
   };
   races: ScorecardRace[];
+  report_card?: ReportCard;
+  forecasters?: ForecasterGrade[];
+  pollster_grades?: PollsterGrades | null;
+  generic_ballot?: GenericBallotGrade;
 }
 
 export interface Meta {
@@ -514,4 +654,22 @@ export function getLiveForecast(): LiveForecast | null {
 
 export function getScorecard(): Scorecard | null {
   return read<Scorecard | null>('scorecard.json', null);
+}
+
+// The scorecard once at least one race has been called — the forecast pages
+// switch from "where things stand" to "how it held up" on this.
+export function getGradedScorecard(): Scorecard | null {
+  const card = getScorecard();
+  return card && card.status !== 'awaiting_results' ? card : null;
+}
+
+// The forecast as frozen before the first polls closed (score_forecast.py
+// republishes the snapshot). Falls back to the live file before the freeze.
+export function getFinalSenateForecast(): SenateForecastData | null {
+  return read<SenateForecastData | null>('final_senate_forecast.json', null) ?? getSenateForecast();
+}
+
+export function getFinalSenate(): SenateData {
+  const frozen = read<SenateData | null>('final_senate.json', null);
+  return frozen && frozen.races?.length ? frozen : getSenate();
 }

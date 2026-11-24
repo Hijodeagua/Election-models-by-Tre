@@ -1,0 +1,15 @@
+{
+ "_readme": "National House result used to grade the generic-ballot tracker. Hand-entered; update when the Clerk of the House publishes official statistics, then set status to \"final\". national_margin is Dem − Rep in points.",
+ "status": "provisional",
+ "as_of": "2026-11-24",
+ "dem_seats": 259,
+ "rep_seats": 173,
+ "uncalled_seats": 3,
+ "national_margin": 14.0,
+ "margin_note": "Press reports put the Democratic national House vote lead at about 14 points; raw vote totals still differ between sources and are not final.",
+ "sources": [
+  {"label": "NBC News House results", "url": "https://www.nbcnews.com/politics/2026-elections/house-results"},
+  {"label": "Cook Political Report, 2026 House results by the numbers", "url": "https://www.cookpolitical.com/analysis/house/house-overview/2026-house-election-results-numbers"},
+  {"label": "Wikipedia, 2026 U.S. House elections", "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections"}
+ ]
+}

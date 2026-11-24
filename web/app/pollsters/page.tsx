@@ -1,39 +1,14 @@
 import LastUpdated from '@/app/components/LastUpdated';
 import { EmptyState, PageHead, Panel } from '@/app/components/ui';
+import { GradeBadge, PollsterGradesPanel } from '@/app/components/Grades';
 import {
+  getGradedScorecard,
   getPollsters,
   type NationalPollsterGrade,
   type StatePoll,
   type StatePolls,
 } from '@/app/lib/data';
 import { fmtMargin } from '@/app/lib/format';
-
-const GRADE_TONE: Record<string, string> = {
-  A: 'bg-stamp-wash text-stamp border-[#cfe2c6]',
-  'A-': 'bg-stamp-wash text-stamp border-[#cfe2c6]',
-  'B+': 'bg-dem-wash text-dem border-dem-border',
-  B: 'bg-dem-wash text-dem border-dem-border',
-  'B-': 'bg-cream-100 text-cocoa-700 border-cream-300',
-  'C+': 'bg-peach-wash text-peach border-peach-border',
-  C: 'bg-rep-wash text-rep border-rep-border',
-  'C-': 'bg-rep-wash text-rep border-rep-border',
-};
-
-function GradeBadge({ grade }: { grade: string | null }) {
-  if (!grade) {
-    return (
-      <span className="inline-flex items-center rounded-full border border-dashed border-cocoa-300 bg-white px-2 py-0.5 text-[11px] font-semibold text-cocoa-400">
-        unrated
-      </span>
-    );
-  }
-  const tone = GRADE_TONE[grade] ?? 'bg-cream-100 text-cocoa-700 border-cream-300';
-  return (
-    <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-bold ${tone}`}>
-      {grade}
-    </span>
-  );
-}
 
 // Mean error is actual − poll: negative = the pollster overstated Democrats.
 function leanText(meanError: number): string {
@@ -50,22 +25,44 @@ function fmtDate(iso: string): string {
 export default function PollstersPage() {
   const data = getPollsters();
   const statesWithPolls = data.states.filter((s) => s.num_polls > 0);
+  // After the election: every pollster's final polls against the results.
+  const card = getGradedScorecard();
+  const grades = card?.pollster_grades ?? null;
+  const actual: Record<string, number> = Object.fromEntries(
+    (card?.races ?? [])
+      .filter((r) => r.result?.margin != null && r.race?.challenger_party !== 'I')
+      .map((r) => [r.state, r.result!.margin!]),
+  );
 
   return (
     <div>
       <PageHead
         kicker="Pollster Grades"
-        title="Who's polling these races — and how good are they?"
+        title={
+          grades
+            ? 'Who polled these races, and who got them right?'
+            : "Who's polling these races — and how good are they?"
+        }
         sub={
-          <>
-            Every poll behind the 2026 Senate battlegrounds, with each
-            pollster&rsquo;s grade. Grades blend Silver Bulletin&rsquo;s
-            pollster-error ratings (the national grade) with our own
-            historical actual-minus-poll track record. Lower error and smaller
-            house effects earn higher grades.
-          </>
+          grades ? (
+            <>
+              Every pollster&rsquo;s final polls of the 2026 Senate races, graded against the
+              results. Below that, every poll by state with its miss, and the grades the model
+              weighted each pollster by going in.
+            </>
+          ) : (
+            <>
+              Every poll behind the 2026 Senate battlegrounds, with each
+              pollster&rsquo;s grade. Grades blend Silver Bulletin&rsquo;s
+              pollster-error ratings (the national grade) with our own
+              historical actual-minus-poll track record. Lower error and smaller
+              house effects earn higher grades.
+            </>
+          )
         }
       />
+
+      {grades && <PollsterGradesPanel grades={grades} className="mt-2" />}
 
       {/* ── Polls by state ─────────────────────────────────────────────── */}
       <h2 className="mt-6 font-display text-xl text-ink">Polls by state</h2>
@@ -74,14 +71,17 @@ export default function PollstersPage() {
       ) : (
         <div className="mt-3 space-y-4">
           {statesWithPolls.map((state) => (
-            <StatePollPanel key={state.state} state={state} />
+            <StatePollPanel key={state.state} state={state} actual={actual[state.state]} />
           ))}
         </div>
       )}
 
       {/* ── National grades ────────────────────────────────────────────── */}
-      <h2 className="mt-8 font-display text-xl text-ink">National pollster grades</h2>
+      <h2 className="mt-8 font-display text-xl text-ink">
+        {grades ? 'The grades going in' : 'National pollster grades'}
+      </h2>
       <p className="mt-1 text-sm text-cocoa-500">
+        {grades && 'What the model weighted each pollster by before the election. '}
         The rated pollster pool, best to worst. &ldquo;SB error&rdquo; is the
         Silver Bulletin absolute-error estimate (points; lower is better).
         &ldquo;Our track record&rdquo; is the mean actual-minus-poll error
@@ -94,7 +94,7 @@ export default function PollstersPage() {
         <h3 className="font-display text-lg text-ink">How to read the grades</h3>
         <ul className="mt-2 list-disc space-y-1 pl-5">
           <li>
-            <strong>National grade</strong> comes from Silver Bulletin&rsquo;s
+            <strong>{grades ? 'The going-in grade' : 'National grade'}</strong> comes from Silver Bulletin&rsquo;s
             pollster-error ratings, mapped to an A–C scale. Unrated feeds
             (aggregators, one-off shops) show as <em>unrated</em> and fall back
             to a {data.unknown_default_grade ?? 'B'} prior in the model.
@@ -120,9 +120,14 @@ export default function PollstersPage() {
   );
 }
 
-function StatePollPanel({ state }: { state: StatePolls }) {
+function StatePollPanel({ state, actual }: { state: StatePolls; actual?: number }) {
   return (
-    <Panel title={`${state.state} · ${state.num_polls} poll${state.num_polls === 1 ? '' : 's'}`}>
+    <Panel
+      title={
+        `${state.state} · ${state.num_polls} poll${state.num_polls === 1 ? '' : 's'}` +
+        (actual != null ? ` · result ${fmtMargin(actual)}` : '')
+      }
+    >
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
@@ -134,11 +139,12 @@ function StatePollPanel({ state }: { state: StatePolls }) {
               <th className="px-2 py-2 text-right">D</th>
               <th className="px-2 py-2 text-right">R</th>
               <th className="px-2 py-2 text-right">Margin</th>
+              {actual != null && <th className="px-2 py-2 text-right">Miss</th>}
             </tr>
           </thead>
           <tbody>
             {state.polls.map((poll, i) => (
-              <PollRow key={`${poll.pollster}-${poll.end_date}-${i}`} poll={poll} />
+              <PollRow key={`${poll.pollster}-${poll.end_date}-${i}`} poll={poll} actual={actual} />
             ))}
           </tbody>
         </table>
@@ -167,7 +173,8 @@ function StatePollPanel({ state }: { state: StatePolls }) {
   );
 }
 
-function PollRow({ poll }: { poll: StatePoll }) {
+function PollRow({ poll, actual }: { poll: StatePoll; actual?: number }) {
+  const miss = actual != null && poll.margin != null ? actual - poll.margin : null;
   return (
     <tr className="border-b border-cream-100 last:border-0">
       <td className="px-2 py-2 font-medium text-cocoa-700">
@@ -199,6 +206,23 @@ function PollRow({ poll }: { poll: StatePoll }) {
       >
         {fmtMargin(poll.margin)}
       </td>
+      {actual != null && (
+        <td
+          className={`px-2 py-2 text-right ${
+            miss == null
+              ? 'text-cocoa-300'
+              : Math.abs(miss) >= 8
+                ? 'font-semibold text-peach'
+                : 'text-cocoa-500'
+          }`}
+        >
+          {miss == null
+            ? '—'
+            : Number(miss.toFixed(1)) === 0
+              ? '0.0'
+              : `${miss > 0 ? 'D' : 'R'} +${Math.abs(miss).toFixed(1)}`}
+        </td>
+      )}
     </tr>
   );
 }
